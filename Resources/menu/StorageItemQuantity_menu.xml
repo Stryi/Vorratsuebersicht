@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/StorageItemQuantity_Edit"
+        android:icon="@drawable/ic_mode_edit_white_24dp"
+        android:title="Positionen bearbeiten"
+        android:showAsAction="always" />
+  <item android:id="@+id/StorageItemQuantity_EditPicture"
+        android:icon="@drawable/ic_add_a_photo_white_24dp"
+        android:title="Bild anzeigen"
+        android:showAsAction="never" />
+  <item android:id="@+id/StorageItemQuantity_Cancel"
+        android:icon="@drawable/ic_close_white_24dp"
+        android:title="Abbrechen"
+        android:showAsAction="always" />
+  <item android:id="@+id/StorageItemQuantity_Save"
+        android:icon="@drawable/ic_check_white_24dp"
+        android:title="Speichern"
+        android:showAsAction="always" />
+</menu>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/ArticleDetails_Cancel"
+        android:icon="@drawable/ic_close_white_24dp"
+        android:title="Abbrechen"
+        android:showAsAction="always" />
+	<item android:id="@+id/ArticleDetails_Save"
+        android:icon="@drawable/ic_check_white_24dp"
+        android:title="Speichern"
+        android:showAsAction="always" />
+	<item android:id="@+id/ArticleDetails_Delete"
+        android:icon="@drawable/ic_delete_white_24dp"
+        android:title="Artikel löschen"
+        android:showAsAction="always" />
+  <item android:id="@+id/ArticleDetails_MakeAPhoto"
+        android:icon="@drawable/ic_photo_camera_white_24dp"
+        android:title="Bild erstellen" />
+  <item android:id="@+id/ArticleDetails_SelectAPicture"
+        android:icon="@drawable/ic_photo_camera_white_24dp"
+        android:title="Bild auswählen" />
+  <item android:id="@+id/ArticleDetails_ScanEAN"
+        android:icon="@drawable/ic_insert_photo_white_24dp"
+        android:title="EAN Scannen" />
+</menu>

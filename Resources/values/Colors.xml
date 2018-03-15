@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item name="Text_Error" type="color">#FFFF0000</item>
+  <item name="Text_Warning" type="color">#ffff00</item>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="ArticlesWithExpiryDate">{0} Artikel nach dem Ablaufdatum</string>
+	<string name="ArticlesNearExpiryDate">{0} Artikel demnächst verbrauchen</string>
+  <string-array name="ArticleCatagories">
+    <item>Lebensmittel</item>
+    <item>Trinken</item>     
+    <item>Hygiene</item>     
+    <item>Medikamente</item>
+    <item>Sonstiges</item>    
+  </string-array>
+</resources>
