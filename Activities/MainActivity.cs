@@ -177,6 +177,9 @@ namespace VorratsUebersicht
                 })).Start();
             };
 
+            Button buttonLicenses = FindViewById<Button>(Resource.Id.MainButton_Licenses);
+            buttonLicenses.Click += delegate { StartActivity(new Intent(this, typeof(Licenses))); };
+
             this.ShowInfoAufTestversion();
         }
 

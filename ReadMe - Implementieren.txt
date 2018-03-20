@@ -2,26 +2,23 @@
 Projekt: Vorratsübersicht
 --------------------------------------------------------------------------------
 
-Anhand vom Beispiel:
+Implementiert anhand vom Beispiel:
 
 https://developer.xamarin.com/guides/xamarin-forms/working-with/databases/
 
-NuGet Packages
-SQLite-net-pcl  by Frank A. Krueger
-SQLitePCL.bundle_green by Eric Sink
-SQLitePCL.plugin.sqlite3.android
-SQLitePCL.raw
+NuGet Packages:
+
+- FastAndroidCamera by James Athey
+- SQLite-net-pcl  by Frank A. Krueger
+- SQLitePCLRaw.bundle_green by Eric Sink
+- SQLitePCLRaw.core by Eric Sink, et al
+- SQLitePCLRaw.lib.e_sqlite3.android by Eric Sink, D. Richard Hipp, et al
+- SQLitePCLRaw.provider.e_sqlite3.android by Eric Sink, et al
+- ZXing.Net.Mobile by Redth
 
 
-Package Manager Console:
-PM> Install-Package Xamarin.Android.Support.v4 -Version 23.3.0 
-
-Barcode Lesen:
-
-https://components.xamarin.com/gettingstarted/zxing.net.mobile
-
-
-Icons:
+Icons der Anwendung:
+====================
 
 https://material.io/icons
 
@@ -35,9 +32,6 @@ Anwendungssymbol:
 
 Vü
 https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=text&foreground.text.text=V%C3%BC%20%20&foreground.text.font=Acme&foreground.space.trim=1&foreground.space.pad=0.3&foreColor=rgba(96%2C%20125%2C%20139%2C%200)&backColor=rgb(68%2C%20138%2C%20255)&crop=1&backgroundShape=square&effects=elevate&name=ic_launcher
-
-Leerer:
-https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=text&foreground.text.text=&foreground.text.font=Acme&foreground.space.trim=1&foreground.space.pad=0.3&foreColor=rgba(96%2C%20125%2C%20139%2C%200)&backColor=rgb(68%2C%20138%2C%20255)&crop=1&backgroundShape=square&effects=none&name=ic_launcher_empty
 
 
 Probleme:

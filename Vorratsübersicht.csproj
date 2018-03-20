@@ -107,6 +107,7 @@
     <Compile Include="Activities\ArticleDetailsActivity.cs" />
     <Compile Include="Activities\ArticleImageActivity.cs" />
     <Compile Include="Activities\ArticleListActivity.cs" />
+    <Compile Include="Activities\Licenses.cs" />
     <Compile Include="Activities\SubCategoryActivity.cs" />
     <Compile Include="Database\Results\StringResult.cs" />
     <Compile Include="Database\Results\table_info.cs" />
@@ -146,6 +147,9 @@
     <AndroidResource Include="Resources\layout\StorageItemListView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\Licenses.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <None Include="Resources\raw\ResetDevice.cmd" />
     <AndroidResource Include="Resources\layout\StorageItemQuantity.axml">
       <SubType>Designer</SubType>
@@ -181,7 +185,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ReadMe - Develop.txt" />
+    <AndroidAsset Include="Licenses.txt" />
+    <None Include="ReadMe - Develop.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe - Database.txt" />

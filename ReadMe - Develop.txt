@@ -1,7 +1,7 @@
 ﻿------------------------------------------------------------------------
 Projektname: Vorratsübersicht - Mindesthaltbarkeitsdatum der Vorräte überwachen.
 
-Version     : 1.22 Release 5
+Version     : 1.23 Release 5
 Datum       : 15.03.2018
 
 Kontakt     :
