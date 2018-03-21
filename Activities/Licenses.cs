@@ -4,6 +4,8 @@ using System.IO;
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using Android.Webkit;
+using Android.Graphics;
 
 namespace VorratsUebersicht
 {
@@ -16,15 +18,8 @@ namespace VorratsUebersicht
 
             this.SetContentView(Resource.Layout.Licenses);
 
-            string text = string.Empty;
-
-            using (var br = new StreamReader(Application.Context.Assets.Open("Licenses.txt")))
-            {
-                text += br.ReadToEnd();
-            }
-
-            TextView textView = FindViewById<TextView>(Resource.Id.Licenses_Text);
-            textView.Text = text;
+            WebView textView = FindViewById<WebView>(Resource.Id.Licenses_Text);
+            textView.LoadUrl("file:///android_asset/Licenses.html");
         }
     }
 }

@@ -7,7 +7,7 @@
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarStyle="outsideInset"
         android:scrollbars="vertical">
-  <TextView
+  <WebView
       android:id="@+id/Licenses_Text"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
