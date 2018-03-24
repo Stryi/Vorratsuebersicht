@@ -3,14 +3,13 @@ using System.Linq;
 using System.IO;
 using System.Collections.Generic;
 using Android.App;
+using Android.Content.Res;
 
 namespace VorratsUebersicht
 {
-	using SQLite;
-	using System.Diagnostics;
+    using SQLite;
 
-	//[Activity()]
-	public class Android_Database
+    public class Android_Database
     {
         // http://err2solution.com/2016/05/sqlite-with-xamarin-forms-step-by-step-guide/
 
@@ -52,15 +51,15 @@ namespace VorratsUebersicht
 			return null;
 		}
 
-        public string GetDatabaseInfoText()
+        public string GetDatabaseInfoText(string format)
         {
             string databaseName = new Android_Database().GetDatabasePath();
             if (databaseName == null)
                 return string.Empty;
 
             FileInfo fileInfo = new FileInfo(databaseName);
-            
-            string info = string.Format("Datenbank: {0}\r\nGröße: {1} ({2:n0} Bytes)", databaseName, Tools.ToFuzzyByteString(fileInfo.Length), fileInfo.Length);
+
+            string info = string.Format(format, databaseName, Tools.ToFuzzyByteString(fileInfo.Length), fileInfo.Length);
 
             return info;
         }

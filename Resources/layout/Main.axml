@@ -3,20 +3,20 @@
     android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="5dp">
+    android:paddingLeft="5dp"
+    android:background="@color/Application_Background">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        android:paddingLeft="5dp"
-        android:background="#FF000000">
+        android:paddingLeft="5dp">
         <TextView
             android:id="@+id/Main_Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="Demnächst zu verbrauchen:"
+            android:text="@string/Main_DemnaechstZuVerbrauchen"
             android:visibility="gone" />
         <TextView
             android:id="@+id/Main_Text1"
@@ -25,7 +25,7 @@
             android:paddingLeft="10dp"
             android:textSize="16sp"
             android:textColor="@color/Text_Error"
-            android:text="@string/ArticlesNearExpiryDate"
+            android:text="@string/Main_ArticlesNearExpiryDate"
             android:visibility="gone" />
         <TextView
             android:id="@+id/Main_Text2"
@@ -34,20 +34,20 @@
             android:paddingLeft="10dp"
             android:textSize="16sp"
             android:textColor="@color/Text_Warning"
-            android:text="@string/ArticlesWithExpiryDate"
+            android:text="@string/Main_ArticlesWithExpiryDate"
             android:visibility="gone" />
-      <Button
+        <Button
             android:id="@+id/MainButton_Kategorie"
-            android:text="Bestand nach Kategorie"
+            android:text="@string/Main_Button_BestandNachKategorie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_storage_white_48dp"
             android:gravity="left|center_vertical"
             android:enabled="false"
             android:drawablePadding="20dp" />
-      <Button
+        <Button
             android:id="@+id/MainButton_Lagerbestand"
-            android:text="Lagerbestand"
+            android:text="@string/Main_Button_Lagerbestand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_assignment_white_48dp"
@@ -56,7 +56,7 @@
             android:drawablePadding="20dp" />
         <Button
             android:id="@+id/MainButton_Artikeldaten"
-            android:text="Artikelangaben"
+            android:text="@string/Main_Button_Artikelangaben"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_local_offer_white_48dp"
@@ -65,32 +65,32 @@
             android:drawablePadding="20dp" />
         <Button
             android:id="@+id/MainButton_Barcode"
-            android:text="Artikel scannen"
+            android:text="@string/Main_Button_ArtikelScannen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/Barcode"
             android:gravity="left|center_vertical"
             android:enabled="false"
             android:drawablePadding="20dp" />
-      <Button
+        <Button
             android:id="@+id/MainButton_ShoppingList"
-            android:text="Einkaufsliste (geplant)"
+            android:text="@string/Main_Einkaufsliste"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_shopping_cart_white_48dp"
             android:gravity="left|center_vertical"
             android:enabled="false"
             android:drawablePadding="20dp" />
-      <TextView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
-            android:text="Optionen:" />
+            android:text="@string/Main_Optionen" />
         <Switch
             android:id="@+id/MainButton_SwitchToTestDB"
-            android:text="Test Datenbank"
+            android:text="@string/Main_TestDatenbank"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
@@ -99,10 +99,10 @@
             android:id="@+id/MainButton_DatabasePath"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Datenbank: ----" />
+            android:text="@string/Main_Datenbank" />
         <Button
             android:id="@+id/MainButton_RestoreSampleDb"
-            android:text="Test Datenbank zurücksetzen"
+            android:text="@string/Main_TestDatenbankZuruecksetzen"
             android:textSize="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
             android:drawablePadding="10dp" />
         <Button
             android:id="@+id/MainButton_RestoreDb0"
-            android:text="Test Datenbank leeren"
+            android:text="@string/Main_TestDatenbankLeeren"
             android:textSize="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
             android:drawablePadding="10dp" />
         <Button
             android:id="@+id/MainButton_Compress"
-            android:text="Datenbank komprimieren"
+            android:text="@string/Main_DatenbankKomprimieren"
             android:textSize="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
             android:drawablePadding="10dp" />
         <Button
             android:id="@+id/MainButton_Backup"
-            android:text="Backup erstellen (geplant)"
+            android:text="@string/Main_BackupErstellen"
             android:textSize="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -135,20 +135,20 @@
             android:drawablePadding="10dp" />
         <Button
             android:id="@+id/MainButton_Restore"
-            android:text="Backup zurückspielen (geplant)"
+            android:text="@string/Main_BackupZurueckspielen"
             android:textSize="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
             android:enabled="false"
             android:drawablePadding="10dp" />
-      <Button
+        <Button
             android:id="@+id/MainButton_Licenses"
-            android:text="Open-Source-Lizenzen"
+            android:text="@string/Main_OpenSourceLizenzen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp" />
-      <TextView
+        <TextView
             android:id="@+id/MainButton_Version"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

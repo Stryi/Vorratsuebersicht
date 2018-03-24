@@ -3,7 +3,8 @@
     android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="5dp">
+    android:paddingLeft="5dp"
+    android:background="@color/Application_Background">  
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -41,49 +42,47 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Artikelname:" />
+            android:text="@string/ArticleDetails_ArticleName" />
         <EditText
             android:id="@+id/ArticleDetails_Name"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="Artikelname" />
+            android:layout_height="wrap_content" />
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Hersteller:" />
+            android:text="@string/ArticleDetails_Manufacturer" />
         <EditText
             android:id="@+id/ArticleDetails_Manufacturer"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="Hersteller" />
+            android:layout_height="wrap_content" />
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Kategorie:" />
+            android:text="@string/ArticleDetails_Category" />
         <Spinner
             android:id="@+id/ArticleDetails_Category"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="Essen, Trinken, Hygiene Artikel, Gesundheit, Schutz" />
+            android:hint="@string/ArticleDetails_Category_Hint" />
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Unterkategorie:" />
+            android:text="@string/ArticleDetails_SubCategory" />
         <MultiAutoCompleteTextView
             android:id="@+id/ArticleDetails_SubCategory"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="Abhängig der Kategorie, z.B. Honig bei Kategorie Essen." />
+            android:hint="@string/ArticleDetails_SubCategory_Hint" />
         <Switch
             android:id="@+id/ArticleDetails_DurableInfinity"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:checked="true"
-            android:text="Unendlich Haltbar" />
+            android:text="@string/ArticleDetails_EnduringlyDurable" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -91,7 +90,7 @@
                 android:id="@+id/ArticleDetails_WarnInDaysLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Warnen in Tagen vor Ablauf:" />
+                android:text="@string/ArticleDetails_WarningInDays" />
             <EditText
                 android:id="@+id/ArticleDetails_WarnInDays"
                 android:layout_width="fill_parent"
@@ -104,12 +103,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Inhalt / Größe:" />
+                android:text="@string/ArticleDetails_Size" />
             <EditText
                 android:id="@+id/ArticleDetails_Size"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="Inhalt"
                 android:digits="0123456789.,"
                 android:inputType="numberDecimal" />
         </LinearLayout>
@@ -119,12 +117,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Einheit:" />
+                android:text="@string/ArticleDetails_Unit" />
             <EditText
                 android:id="@+id/ArticleDetails_Unit"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="g, l, kg, stk" />
+                android:hint="@string/ArticleDetails_Unit_Hint" />
         </LinearLayout>
 
 			<LinearLayout
@@ -133,7 +131,7 @@
 				<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="Kalorien:" />
+						android:text="@string/ArticleDetails_Calories" />
 				<EditText
 						android:id="@+id/ArticleDetails_Calorie"
 						android:layout_width="fill_parent"
@@ -147,24 +145,22 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EAN Code:" />
+                android:text="@string/ArticleDetails_EANCode" />
             <EditText
                 android:id="@+id/ArticleDetails_EANCode"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="EAN Code"
                 android:inputType="number" />
         </LinearLayout>
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Notizen:" />
+            android:text="@string/ArticleDetails_Notes" />
         <EditText
             android:id="@+id/ArticleDetails_Notes"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="Notizen" />
+            android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/ArticleDetails_ArticleId"
             android:layout_width="fill_parent"

@@ -1,6 +1,6 @@
 ﻿
 using System;
-using System.Collections.Generic;
+using System.Threading;
 using System.Diagnostics;
 
 using Android.App;
@@ -9,8 +9,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using System.IO;
-using System.Threading;
 using Android.Content.PM;
 using Android.Content.Res;
 
@@ -26,7 +24,9 @@ namespace VorratsUebersicht
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            
+
+            var lan = Resources.Configuration.Locale;
+
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
@@ -46,22 +46,11 @@ namespace VorratsUebersicht
             ZXing.Mobile.MobileBarcodeScanner.Initialize (Application);
 
             this.ShowApplicationVersion();
-            /*
-            string content;
-            AssetManager assets = this.Assets;
-            using (StreamReader sr = new StreamReader(assets.Open("ReadMe - Release Notes.txt")))
-            {
-                content = sr.ReadToEnd();
-            }
 
-            string releaseNotes = content;
-            */
-            //Android_Database.UseTestDatabase = System.Diagnostics.Debugger.IsAttached;
-
-            //Java.IO.File file =   Environment.GetExternalStoragePublicDirectory("Test");
+            string dbInfoFormat = Resources.GetString(Resource.String.Main_Datenbank);
 
             TextView databasePath = FindViewById<TextView>(Resource.Id.MainButton_DatabasePath);
-			databasePath.Text = new Android_Database().GetDatabaseInfoText();
+			databasePath.Text = new Android_Database().GetDatabaseInfoText(dbInfoFormat);
 
 			this.ShowInfoText();
 
@@ -77,13 +66,12 @@ namespace VorratsUebersicht
 
                 if (categories.Length == 0)
                 {
-                    string text = "Keine Kategorien vorhanden.";
-                    Toast.MakeText (this, text, ToastLength.Long).Show();
+                    Toast.MakeText(this, Resource.String.NoArticleCatagories, ToastLength.Long).Show();
                     return;
                 }
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.SetTitle("Auswahl Kategorie...");
+                builder.SetTitle(Resource.String.ArticleCatagoriesSelect);
                 builder.SetItems(categories, (sender, args) =>
                 {
                     string kategorie = categories[args.Which];
@@ -240,8 +228,10 @@ namespace VorratsUebersicht
 
         private void ShowDatabaseInfo()
         {
-			TextView databasePath = FindViewById<TextView>(Resource.Id.MainButton_DatabasePath);
-			databasePath.Text = new Android_Database().GetDatabaseInfoText();
+            string dbInfoFormat = Resources.GetString(Resource.String.Main_Datenbank);
+
+            TextView databasePath = FindViewById<TextView>(Resource.Id.MainButton_DatabasePath);
+			databasePath.Text = new Android_Database().GetDatabaseInfoText(dbInfoFormat);
         }
 
         /// <summary>
@@ -255,7 +245,7 @@ namespace VorratsUebersicht
             TextView text = FindViewById<TextView>(Resource.Id.Main_Text1);
             if (abgelaufen > 0)
             {
-				string value = Resources.GetString(Resource.String.ArticlesWithExpiryDate);
+				string value = Resources.GetString(Resource.String.Main_ArticlesWithExpiryDate);
                 text.Text = string.Format(value, abgelaufen);
                 text.Visibility = ViewStates.Visible;
             }
@@ -268,7 +258,7 @@ namespace VorratsUebersicht
             text = FindViewById<TextView>(Resource.Id.Main_Text2);
             if (kurzDavor > 0)
             {
-				string value = Resources.GetString(Resource.String.ArticlesNearExpiryDate);
+				string value = Resources.GetString(Resource.String.Main_ArticlesNearExpiryDate);
                 text.Text = string.Format(value, kurzDavor);
                 text.Visibility = ViewStates.Visible;
             }

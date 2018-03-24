@@ -40,9 +40,11 @@ Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
 
-Version 1.25 (CodeVersion 7)
+
+Version 1.24 (CodeVersion 7)
 ==================================
 
+C014 - Teilweise englische Übersetzung
 C013 - Open-Source-Lizencen werden jetzt als HTML angezeigt.
 
 Version 1.23 (CodeVersion 6)

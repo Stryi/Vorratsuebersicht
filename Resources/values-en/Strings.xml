@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  
+  <!-- Hauptmaske -->
+  <string name="Main_DemnaechstZuVerbrauchen">Consume soon:</string>
+  <string name="Main_ArticlesWithExpiryDate">{0} Article after the expiration date</string>
+  <string name="Main_ArticlesNearExpiryDate">{0} Articles to soon consume</string>
+  <string name="Main_Button_BestandNachKategorie">Stock by category</string>
+  <string name="Main_Button_Lagerbestand">Current stock</string>
+  <string name="Main_Button_Artikelangaben">Article list</string>
+  <string name="Main_Button_ArtikelScannen">Scan article</string>
+  <string name="Main_Einkaufsliste">Shopping list (planned)</string>
+  <string name="Main_Optionen">Options:</string>
+  <string name="Main_TestDatenbank">Test database</string>
+  <string name="Main_Datenbank">Database: {0}\r\nSize: {1} ({2:n0} Bytes)</string>
+  <string name="Main_TestDatenbankZuruecksetzen">Reset test database</string>
+  <string name="Main_TestDatenbankLeeren">Empty test database</string>
+  <string name="Main_DatenbankKomprimieren">Compact database</string>
+  <string name="Main_BackupErstellen">Create backup (planned)</string>
+  <string name="Main_BackupZurueckspielen">Restore backup (planned)</string>
+  <string name="Main_OpenSourceLizenzen">Open-source licenses</string>
+
+  <!-- Artikeldetails -->
+  <string name="ArticleDetails_ArticleName">Article name:</string>
+  <string name="ArticleDetails_Manufacturer">Manufacturer:</string>
+  <string name="ArticleDetails_Category">Category:</string>
+  <string name="ArticleDetails_Category_Hint">Food, Drink, Hygiene Articles, Health, Protection</string>
+  <string name="ArticleDetails_SubCategory">Subategory:</string>
+  <string name="ArticleDetails_SubCategory_Hint">Depending on the category, e.g. Honey in the food category.</string>
+  <string name="ArticleDetails_EnduringlyDurable">Enduringly durable</string>
+  <string name="ArticleDetails_WarningInDays">Warn in days before expiration:</string>
+  <string name="ArticleDetails_Size">Content / size:</string>
+  <string name="ArticleDetails_Unit">Unit:</string>
+  <string name="ArticleDetails_Unit_Hint">g, l, kg, pcs</string>
+  <string name="ArticleDetails_Calories">Calories:</string>
+  <string name="ArticleDetails_EANCode">EAN code:</string>
+  <string name="ArticleDetails_Notes">Notes:</string>
+
+  <string name="ArticleCatagoriesSelect">Select category...</string>
+  <string name="NoArticleCatagories">No categories available.</string>
+
+  <string-array name="ArticleCatagories">
+    <item>foods</item>
+    <item>Drink</item>
+    <item>hygiene</item>
+    <item>Medikament</item>
+    <item>Others</item>
+  </string-array>
+</resources>
+
