@@ -1,6 +1,5 @@
 ﻿
 using System;
-using System.Threading;
 using System.Diagnostics;
 
 using Android.App;
@@ -9,7 +8,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using Android.Content.PM;
 using Android.Content.Res;
 
 namespace VorratsUebersicht
@@ -20,7 +18,8 @@ namespace VorratsUebersicht
     {
         public static readonly int SelectBackupFileId = 1000;
         public static readonly int EditStorageItemQuantityId = 1001;
-		
+        public static readonly int OptionsId = 1002;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -44,13 +43,6 @@ namespace VorratsUebersicht
 
             // Somewhere in your app, call the initialization code:
             ZXing.Mobile.MobileBarcodeScanner.Initialize (Application);
-
-            this.ShowApplicationVersion();
-
-            string dbInfoFormat = Resources.GetString(Resource.String.Main_Datenbank);
-
-            TextView databasePath = FindViewById<TextView>(Resource.Id.MainButton_DatabasePath);
-			databasePath.Text = new Android_Database().GetDatabaseInfoText(dbInfoFormat);
 
 			this.ShowInfoText();
 
@@ -108,76 +100,26 @@ namespace VorratsUebersicht
             buttonBarcode.Enabled = true;
             buttonBarcode.Click += ButtonBarcode_Click;
 
-
-			Android.Widget.Switch buttonTestDB = FindViewById<Android.Widget.Switch>(Resource.Id.MainButton_SwitchToTestDB);
-			buttonTestDB.Click += ButtonTestDB_Click;
-			buttonTestDB.Checked = Android_Database.UseTestDatabase;
-
-
-            Button buttonBackup = FindViewById<Button>(Resource.Id.MainButton_Backup);
-			buttonBackup.Click += delegate
-            {
-                //new Android_Database().CopyDatabaseToSDCard(false, "NewName");
-            };
-
-			Button buttonRestoreSampleDb = FindViewById<Button>(Resource.Id.MainButton_RestoreSampleDb);
-            buttonRestoreSampleDb.Click += delegate 
-            {
-                var progressDialog = ProgressDialog.Show(this, "Bitte warten...", "Test Datenbank wird zurückgesetzt...", true);
-                new Thread(new ThreadStart(delegate             
-                {
-    	            new Android_Database().RestoreDatabase_Test_Sample(true);
-
-                    // Sich neu connecten;
-                    Android_Database.SQLiteConnection = null;
-
-                    RunOnUiThread(() => this.ShowDatabaseInfo());
-				    RunOnUiThread(() => this.ShowInfoText());
-
-                    RunOnUiThread(() => progressDialog.Hide());
-
-                })).Start();
-            };
-
-			Button buttonRestoreDb0 = FindViewById<Button>(Resource.Id.MainButton_RestoreDb0);
-            buttonRestoreDb0.Click += delegate 
-            {
-    	        new Android_Database().RestoreDatabase_Test_Db0(true);
-
-                // Sich neu connecten;
-                Android_Database.SQLiteConnection = null;
-
-                this.ShowDatabaseInfo();
-				this.ShowInfoText();
-            };
-
-			Button buttonCompress = FindViewById<Button>(Resource.Id.MainButton_Compress);
-            buttonCompress.Click += delegate 
-            {
-                var progressDialog = ProgressDialog.Show(this, "Bitte warten...", "Datenbank wird komprimiert...", true);
-                new Thread(new ThreadStart(delegate             
-                {
-                    new Android_Database().CompressDatabase();
-
-                    RunOnUiThread(() => this.ShowDatabaseInfo());
-                    RunOnUiThread(() => progressDialog.Hide());
-
-                })).Start();
-            };
-
-            Button buttonLicenses = FindViewById<Button>(Resource.Id.MainButton_Licenses);
-            buttonLicenses.Click += delegate { StartActivity(new Intent(this, typeof(Licenses))); };
-
             this.ShowInfoAufTestversion();
         }
 
-        private void ShowApplicationVersion()
+        public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            Context context = this.ApplicationContext;
-            PackageInfo info = context.PackageManager.GetPackageInfo(context.PackageName, 0);
+            MenuInflater.Inflate(Resource.Menu.Main_menu, menu);
+            return base.OnCreateOptionsMenu(menu);
+        }
 
-            TextView versionInfo = FindViewById<TextView>(Resource.Id.MainButton_Version);
-            versionInfo.Text = string.Format("Version {0}", info.VersionName);
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.Main_Menu_Options:
+                    StartActivityForResult(new Intent(this, typeof(Settings)), OptionsId);
+
+                    return true;
+            }
+
+            return false;
         }
 
         private void ArticlesNearExpiryDate_Click(object sender, EventArgs e)
@@ -207,32 +149,6 @@ namespace VorratsUebersicht
             prefEditor.Commit();
         }
 
-        private void ButtonTestDB_Click(object sender, System.EventArgs e)
-		{
-			Android_Database.UseTestDatabase = !Android_Database.UseTestDatabase;
-
-			if (!new Android_Database().IsCurrentDatabaseExists())
-			{
-				Android_Database.UseTestDatabase = !Android_Database.UseTestDatabase;
-			}
-
-			Android.Widget.Switch buttonTestDB = FindViewById<Android.Widget.Switch>(Resource.Id.MainButton_SwitchToTestDB);
-			buttonTestDB.Checked = Android_Database.UseTestDatabase;
-
-            // Sich neu connecten;
-            Android_Database.SQLiteConnection = null;
-
-            this.ShowDatabaseInfo();
-			this.ShowInfoText();
-		}
-
-        private void ShowDatabaseInfo()
-        {
-            string dbInfoFormat = Resources.GetString(Resource.String.Main_Datenbank);
-
-            TextView databasePath = FindViewById<TextView>(Resource.Id.MainButton_DatabasePath);
-			databasePath.Text = new Android_Database().GetDatabaseInfoText(dbInfoFormat);
-        }
 
         /// <summary>
         /// Information über abgelaufene Lagerpositionen und die Positionen, bei denen das Ablaufdatum
@@ -291,10 +207,20 @@ namespace VorratsUebersicht
 			if (requestCode == EditStorageItemQuantityId)
 			{
 				this.ShowInfoText();
-			}			
-		}
+			}
 
-		private async void ButtonBarcode_Click(object sender, System.EventArgs e)
+            if (requestCode == OptionsId)
+            {
+                // Sich neu connecten;
+                Android_Database.SQLiteConnection = null;
+
+                //this.ShowDatabaseInfo();
+                this.ShowInfoText();
+            }
+
+        }
+
+        private async void ButtonBarcode_Click(object sender, System.EventArgs e)
         {
             string eanCode;
             

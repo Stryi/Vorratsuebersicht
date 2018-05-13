@@ -52,7 +52,7 @@ namespace VorratsUebersicht
 					if (!string.IsNullOrEmpty(info)) info += ", ";
 					info += string.Format("Kalorien: {0:n0}", this.Article.Calorie);
 				}
-				if (this.Article.WarnInDays != 0)
+				if (this.Article.DurableInfinity == false && this.Article.WarnInDays != 0)
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
 					info += string.Format("Warnen: {0} Tage(n) vor Ablauf", this.Article.WarnInDays);

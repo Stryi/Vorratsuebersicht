@@ -289,7 +289,6 @@ namespace VorratsUebersicht
         private bool SaveArticle()
         {
             string size = FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text;
-            size = size.Replace(",", ".");
 
             this.article.Name            = FindViewById<EditText>(Resource.Id.ArticleDetails_Name).Text;
             this.article.Manufacturer    = FindViewById<EditText>(Resource.Id.ArticleDetails_Manufacturer).Text;

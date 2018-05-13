@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="5dp"
-    android:background="@color/Application_Background">  
+    android:background="@color/Application_Background">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -17,19 +17,19 @@
             android:layout_height="wrap_content"
             android:background="#FF222222"
             android:orientation="horizontal" >
-          <ImageView
-              android:id="@+id/ArticleDetails_Image"
-              android:layout_width="72dp"
-              android:layout_height="72dp"
-              android:background="#FF444444"
-              android:src="@drawable/ic_photo_camera_white_24dp"/>
-          <ImageView
-              android:id="@+id/ArticleDetails_Image2"
-              android:layout_width="72dp"
-              android:layout_height="72dp"
-              android:background="#FF444444"
-              android:src="@drawable/ic_photo_white_24dp" />
-          <TextView
+            <ImageView
+                android:id="@+id/ArticleDetails_Image"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="#FF444444"
+                android:src="@drawable/ic_photo_camera_white_24dp"/>
+            <ImageView
+                android:id="@+id/ArticleDetails_Image2"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="#FF444444"
+                android:src="@drawable/ic_photo_white_24dp" />
+            <TextView
                 android:id="@+id/ArticleDetails_ImageText"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -108,8 +108,7 @@
                 android:id="@+id/ArticleDetails_Size"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:digits="0123456789.,"
-                android:inputType="numberDecimal" />
+                android:inputType="number|numberDecimal" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -124,22 +123,20 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/ArticleDetails_Unit_Hint" />
         </LinearLayout>
-
-			<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content">
-				<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:text="@string/ArticleDetails_Calories" />
-				<EditText
-						android:id="@+id/ArticleDetails_Calorie"
-						android:layout_width="fill_parent"
-						android:layout_height="wrap_content"
-						android:inputType="number" />
-			</LinearLayout>
-
-			<LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ArticleDetails_Calories" />
+            <EditText
+                android:id="@+id/ArticleDetails_Calorie"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView

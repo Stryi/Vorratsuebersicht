@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="de.stryi.Vorratsuebersicht" android:versionCode="7" android:versionName="1.24" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="de.stryi.Vorratsuebersicht" android:versionCode="8" android:versionName="1.25" android:installLocation="auto">
   <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="16" />
   <uses-permission android:name="android.permission.CAMERA" />
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
