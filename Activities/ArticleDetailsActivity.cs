@@ -382,7 +382,7 @@ namespace VorratsUebersicht
             FindViewById<Switch>  (Resource.Id.ArticleDetails_DurableInfinity).Checked = article.DurableInfinity;
             FindViewById<EditText>(Resource.Id.ArticleDetails_WarnInDays).Text         = article.WarnInDays.ToString();
 			FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie).Text            = article.Calorie.ToString();
-            FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text               = article.Size.ToString();
+            FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text               = article.Size.ToString(CultureInfo.InvariantCulture);
             FindViewById<EditText>(Resource.Id.ArticleDetails_Unit).Text               = article.Unit;
             FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text            = article.EANCode;
             FindViewById<EditText>(Resource.Id.ArticleDetails_Notes).Text              = article.Notes;
