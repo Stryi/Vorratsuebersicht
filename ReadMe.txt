@@ -40,6 +40,11 @@ Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
 
+Version 1.31 (CodeVersion 10)
+==================================
+
+C015 - Eingabe von "Inhalt / Größe" vor Absturz abgesichert (richtig).
+
 Version 1.30 (CodeVersion 9)
 ==================================
 

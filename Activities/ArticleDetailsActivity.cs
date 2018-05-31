@@ -154,7 +154,11 @@ namespace VorratsUebersicht
 
                 case Resource.Id.ArticleDetails_Save:
                     this.isChanged = true;
-                    this.SaveArticle();
+
+                    if (!this.SaveArticle())
+                    {
+                        return false;
+                    }
 
                     this.OnBackPressed();
                     return true;
@@ -288,7 +292,44 @@ namespace VorratsUebersicht
 
         private bool SaveArticle()
         {
-            string size = FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text;
+            string sizeText = FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text;
+            sizeText = "jaldksj";
+
+            decimal size = 0;
+            try
+            {
+                if (!string.IsNullOrEmpty(sizeText))
+                {
+                    size = Convert.ToDecimal(sizeText, CultureInfo.InvariantCulture);
+                }
+            }
+            catch(Exception ex)
+            {
+                string fehlerText = "Fehler beim Konvertieren von '{0}' in eine Kommazahl.";
+                fehlerText = string.Format(fehlerText, sizeText);
+
+                string text = fehlerText + "\n\nSoll eine E-Mail mit dem Fehler an den Entwickler geschickt werden?";
+                var message = new AlertDialog.Builder(this);
+                message.SetMessage(text);
+                message.SetPositiveButton("Ja", (s, e) => 
+                    {
+                        fehlerText += "\n";
+                        fehlerText += "\nCurrentCulture: " + CultureInfo.CurrentCulture.DisplayName;
+                        fehlerText += "\nCurrentUICulture: " + CultureInfo.CurrentUICulture.DisplayName;
+
+                        var emailIntent = new Intent(Android.Content.Intent.ActionSend);
+                        emailIntent.PutExtra(Android.Content.Intent.ExtraEmail, new[] { "cstryi@freenet.de" });
+                        emailIntent.PutExtra(Android.Content.Intent.ExtraSubject, "Fehlerbericht");
+                        emailIntent.SetType("text/plain");
+                        emailIntent.PutExtra(Android.Content.Intent.ExtraText, fehlerText);
+                        StartActivity(Intent.CreateChooser(emailIntent, "Send e-mail"));
+                    });
+                message.SetNegativeButton("Nein", (s, e) => { });
+                message.Create().Show();
+
+                size = 0;
+                return false;
+            }
 
             this.article.Name            = FindViewById<EditText>(Resource.Id.ArticleDetails_Name).Text;
             this.article.Manufacturer    = FindViewById<EditText>(Resource.Id.ArticleDetails_Manufacturer).Text;
@@ -296,7 +337,7 @@ namespace VorratsUebersicht
             this.article.SubCategory     = FindViewById<EditText>(Resource.Id.ArticleDetails_SubCategory).Text;
             this.article.DurableInfinity = FindViewById<Switch>(Resource.Id.ArticleDetails_DurableInfinity).Checked;
             this.article.WarnInDays      = Convert.ToInt32(FindViewById<EditText>(Resource.Id.ArticleDetails_WarnInDays).Text);
-            this.article.Size            = Convert.ToDecimal(size, CultureInfo.InvariantCulture);
+            this.article.Size            = size;
             this.article.Calorie         = Convert.ToInt32(FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie).Text);
             this.article.Unit            = FindViewById<EditText>(Resource.Id.ArticleDetails_Unit).Text;
             this.article.EANCode         = FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text;

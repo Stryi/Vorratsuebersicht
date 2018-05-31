@@ -1,4 +1,8 @@
-﻿
+﻿Fehler beim Nummerisch korrigieren
+Farben "freundlicher".
+Vorschläge für Unterkategorien prüfen
+Selbst definierte Kategorien
+
 
 Artikel "Unendlich haltbar: Ja"
 - Keine Anzeige "Warnen {0} Tage(n) vor Ablauf" (im Artikelstand)
