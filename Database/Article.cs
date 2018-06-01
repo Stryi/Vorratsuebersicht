@@ -13,10 +13,10 @@ namespace VorratsUebersicht
         public string Category {get; set;}
         public string SubCategory {get; set;}
         public bool DurableInfinity {get; set;}
-        public int WarnInDays {get; set;}
-        public decimal Size {get; set; }
+        public int? WarnInDays {get; set;}
+        public decimal? Size {get; set; }
         public string Unit {get; set;}
-		public int    Calorie {get; set;}
+		public int?   Calorie {get; set;}
         public string Notes {get; set;}
         public string EANCode {get; set;}
         public byte[] Image {get; set;}

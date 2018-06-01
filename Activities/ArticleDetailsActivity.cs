@@ -292,37 +292,52 @@ namespace VorratsUebersicht
 
         private bool SaveArticle()
         {
-            string sizeText = FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text;
-            sizeText = "jaldksj";
+            string warnInDaysText = FindViewById<EditText>(Resource.Id.ArticleDetails_WarnInDays).Text;
+            string sizeText    = FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text;
+            string calorieText = FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie).Text;
 
-            decimal size = 0;
+            int?     warnInDays = null;
+            int?     calorie = null;
+            decimal? size = null;
             try
             {
+                if (!string.IsNullOrEmpty(warnInDaysText))
+                {
+                    warnInDays = Convert.ToInt32(warnInDaysText, CultureInfo.InvariantCulture);
+                }
                 if (!string.IsNullOrEmpty(sizeText))
                 {
                     size = Convert.ToDecimal(sizeText, CultureInfo.InvariantCulture);
                 }
+                if (!string.IsNullOrEmpty(calorieText))
+                {
+                    calorie = Convert.ToInt32(calorieText, CultureInfo.InvariantCulture);
+                }
             }
             catch(Exception ex)
             {
-                string fehlerText = "Fehler beim Konvertieren von '{0}' in eine Kommazahl.";
-                fehlerText = string.Format(fehlerText, sizeText);
+                string fehlerText = "Fehler beim Konvertieren von '{0}', '{1}' oder '{2}' in eine Zahl.";
+                fehlerText = string.Format(fehlerText, warnInDaysText, sizeText, calorieText);
 
                 string text = fehlerText + "\n\nSoll eine E-Mail mit dem Fehler an den Entwickler geschickt werden?";
+                text += "\n\n(Ihre E-Mail Adresse wird dem Entwickler angezeigt)?";
+
                 var message = new AlertDialog.Builder(this);
                 message.SetMessage(text);
                 message.SetPositiveButton("Ja", (s, e) => 
                     {
                         fehlerText += "\n";
+                        fehlerText += "\nMessage: " + ex.Message;
+                        fehlerText += "\nStackTrace: " + ex.StackTrace;
                         fehlerText += "\nCurrentCulture: " + CultureInfo.CurrentCulture.DisplayName;
                         fehlerText += "\nCurrentUICulture: " + CultureInfo.CurrentUICulture.DisplayName;
 
-                        var emailIntent = new Intent(Android.Content.Intent.ActionSend);
+                        var emailIntent = new Intent(Intent.ActionSend);
                         emailIntent.PutExtra(Android.Content.Intent.ExtraEmail, new[] { "cstryi@freenet.de" });
-                        emailIntent.PutExtra(Android.Content.Intent.ExtraSubject, "Fehlerbericht");
-                        emailIntent.SetType("text/plain");
+                        emailIntent.PutExtra(Android.Content.Intent.ExtraSubject, "Fehlerbericht: Vorratsübersicht");
+                        emailIntent.SetType("message/rfc822");
                         emailIntent.PutExtra(Android.Content.Intent.ExtraText, fehlerText);
-                        StartActivity(Intent.CreateChooser(emailIntent, "Send e-mail"));
+                        StartActivity(Intent.CreateChooser(emailIntent, "E-Mail an Entwickler senden mit..."));
                     });
                 message.SetNegativeButton("Nein", (s, e) => { });
                 message.Create().Show();
@@ -336,9 +351,9 @@ namespace VorratsUebersicht
             this.article.Category        = this.catalogListener.Value;
             this.article.SubCategory     = FindViewById<EditText>(Resource.Id.ArticleDetails_SubCategory).Text;
             this.article.DurableInfinity = FindViewById<Switch>(Resource.Id.ArticleDetails_DurableInfinity).Checked;
-            this.article.WarnInDays      = Convert.ToInt32(FindViewById<EditText>(Resource.Id.ArticleDetails_WarnInDays).Text);
+            this.article.WarnInDays      = warnInDays;
             this.article.Size            = size;
-            this.article.Calorie         = Convert.ToInt32(FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie).Text);
+            this.article.Calorie         = calorie;
             this.article.Unit            = FindViewById<EditText>(Resource.Id.ArticleDetails_Unit).Text;
             this.article.EANCode         = FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text;
             this.article.Notes           = FindViewById<EditText>(Resource.Id.ArticleDetails_Notes).Text;
@@ -421,9 +436,11 @@ namespace VorratsUebersicht
             FindViewById<EditText>(Resource.Id.ArticleDetails_Manufacturer).Text       = article.Manufacturer;
             FindViewById<EditText>(Resource.Id.ArticleDetails_SubCategory).Text        = article.SubCategory;
             FindViewById<Switch>  (Resource.Id.ArticleDetails_DurableInfinity).Checked = article.DurableInfinity;
-            FindViewById<EditText>(Resource.Id.ArticleDetails_WarnInDays).Text         = article.WarnInDays.ToString();
-			FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie).Text            = article.Calorie.ToString();
-            FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text               = article.Size.ToString(CultureInfo.InvariantCulture);
+
+            if (article.WarnInDays.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_WarnInDays).Text = article.WarnInDays.Value.ToString();
+            if (article.Calorie.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie).Text       = article.Calorie.Value.ToString();
+            if (article.Size.HasValue)    FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text          = article.Size.Value.ToString(CultureInfo.InvariantCulture);
+            
             FindViewById<EditText>(Resource.Id.ArticleDetails_Unit).Text               = article.Unit;
             FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text            = article.EANCode;
             FindViewById<EditText>(Resource.Id.ArticleDetails_Notes).Text              = article.Notes;

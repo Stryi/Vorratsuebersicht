@@ -43,7 +43,7 @@ Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 Version 1.31 (CodeVersion 10)
 ==================================
 
-C015 - Eingabe von "Inhalt / Größe" vor Absturz abgesichert (richtig).
+C016 - Eingabe von Zahlen vor Absturz abgesichert.
 
 Version 1.30 (CodeVersion 9)
 ==================================

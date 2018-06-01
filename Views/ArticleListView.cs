@@ -42,20 +42,20 @@ namespace VorratsUebersicht
 					info += string.Format("Hersteller: {0}", this.Article.Manufacturer);
 				}
 
-				if (this.Article.Size != 0)
+				if (this.Article.Size.HasValue)
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
-					info += string.Format("Menge: {0} {1}", this.Article.Size, this.Article.Unit);
+					info += string.Format("Menge: {0} {1}", this.Article.Size.Value, this.Article.Unit);
 				}
-				if (this.Article.Calorie != 0)
+				if (this.Article.Calorie.HasValue)
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
-					info += string.Format("Kalorien: {0:n0}", this.Article.Calorie);
+					info += string.Format("Kalorien: {0:n0}", this.Article.Calorie.Value);
 				}
-				if (this.Article.DurableInfinity == false && this.Article.WarnInDays != 0)
+				if (this.Article.DurableInfinity == false && this.Article.WarnInDays.HasValue)
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
-					info += string.Format("Warnen: {0} Tage(n) vor Ablauf", this.Article.WarnInDays);
+					info += string.Format("Warnen: {0} Tage(n) vor Ablauf", this.Article.WarnInDays.Value);
 				}
 
 				if (!string.IsNullOrEmpty(this.Article.Category))
