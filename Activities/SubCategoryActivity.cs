@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
+using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 
@@ -21,6 +18,11 @@ namespace VorratsUebersicht
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            // ActionBar Hintergrund Farbe setzen
+            var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
+            backgroundPaint.SetBounds(0, 0, 60, 60);
+            ActionBar.SetBackgroundDrawable(backgroundPaint);
 
             this.category = Intent.GetStringExtra ("Category") ?? string.Empty;
 

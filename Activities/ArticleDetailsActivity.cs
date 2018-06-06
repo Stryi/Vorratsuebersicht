@@ -16,6 +16,7 @@ using Android.Content.PM;
 using MatrixGuide;
 using static Android.Widget.AdapterView;
 using System.Threading;
+using Android.Support.V4.Content;
 
 public static class App {
     public static Java.IO.File _file;
@@ -53,6 +54,11 @@ namespace VorratsUebersicht
 
             this.SetContentView(Resource.Layout.ArticleDetails);
 
+            // ActionBar Hintergrund Farbe setzen
+            var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
+            backgroundPaint.SetBounds(0, 0, 10, 10);
+            ActionBar.SetBackgroundDrawable(backgroundPaint);
+
             string text      = Intent.GetStringExtra ("Name") ?? string.Empty;
             this.articleId   = Intent.GetIntExtra    ("ArticleId", 0);
             string eanCode   = Intent.GetStringExtra ("EANCode") ?? string.Empty;
@@ -83,7 +89,7 @@ namespace VorratsUebersicht
             Spinner categorySpinner = (Spinner)FindViewById<Spinner>(Resource.Id.ArticleDetails_Category);
             categorySpinner.Adapter = categoryAdapter;
             categorySpinner.OnItemSelectedListener = this.catalogListener;
-
+            
             this.SubCategories = new List<string>();
 
             var subCategory = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_SubCategory);
@@ -269,9 +275,21 @@ namespace VorratsUebersicht
 
         private void CreateDirectoryForPictures()
         {
-            App._dir = new Java.IO.File(
-                Android.OS.Environment.GetExternalStoragePublicDirectory(
-                    Android.OS.Environment.DirectoryPictures), "Vorräte Bilder");
+            var pictureFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures);
+            bool folderExists = pictureFolder.Exists();
+
+            if (folderExists)
+            {
+                App._dir = new Java.IO.File(pictureFolder, "Vorräte Bilder");
+                if (!App._dir.Exists())
+                {
+                    App._dir.Mkdirs();
+                }
+                return;
+            }
+
+            string internalPicturePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures);
+            App._dir = new Java.IO.File(internalPicturePath, "Vorräte Bilder");
             if (!App._dir.Exists())
             {
                 App._dir.Mkdirs();

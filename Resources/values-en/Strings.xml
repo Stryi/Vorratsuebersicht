@@ -1,6 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-  
+
+  <!-- Applikations Name-->
+  <string name="App_Name">Vorratsübersicht</string>
+  <string name="App_Yes">Yes</string>
+  <string name="App_No">No</string>
+  <string name="App_Ok">OK</string>
+
+  <!-- Meldungen beim Starten -->
+  <string name="Start_TestDbQuestion">You start the application for the first time.\n\nShould a test database be activated to get to know the application?\n\nYou can deactivate these under options.</string>
+  <string name="Start_TestVersionInfo">This is a test version. Please do not used productively.</string>
+
   <!-- Hauptmaske -->
   <string name="Main_DemnaechstZuVerbrauchen">Consume soon:</string>
   <string name="Main_ArticlesWithExpiryDate">{0} Article after the expiration date</string>
@@ -10,6 +20,8 @@
   <string name="Main_Button_Artikelangaben">Article list</string>
   <string name="Main_Button_ArtikelScannen">Scan article</string>
   <string name="Main_Einkaufsliste">Shopping list (planned)</string>
+
+  <!-- Maske Optionen -->
   <string name="Main_Optionen">Options:</string>
   <string name="Main_TestDatenbank">Test database</string>
   <string name="Main_Datenbank">Database: {0}\r\nSize: {1} ({2:n0} Bytes)</string>
@@ -40,9 +52,9 @@
   <string name="NoArticleCatagories">No categories available.</string>
 
   <string-array name="ArticleCatagories">
-    <item>foods</item>
+    <item>Foods</item>
     <item>Drink</item>
-    <item>hygiene</item>
+    <item>Hygiene</item>
     <item>Medikament</item>
     <item>Others</item>
   </string-array>

@@ -166,7 +166,7 @@ namespace VorratsUebersicht
             return stringList;
         }
 
-        internal static IList<Article> GetArticleList(string category, string subCategory)
+        internal static IList<Article> GetArticleListNoImages(string category, string subCategory)
         {
             IList<Article> result = new Article[0];
 
@@ -177,7 +177,7 @@ namespace VorratsUebersicht
             IList<object> parameter = new List<object>();
 
             string cmd = string.Empty;
-            cmd += "SELECT *";
+            cmd += "SELECT ArticleId, Name, Manufacturer, Category, SubCategory, DurableInfinity, WarnInDays, Size, Unit, Calorie, Notes, EANCode";
 			cmd += " FROM Article";
 
             if (!string.IsNullOrEmpty(category))

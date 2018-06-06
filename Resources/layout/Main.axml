@@ -2,27 +2,31 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:paddingLeft="5dp"
-    android:background="@color/Application_Background">
+    android:background="@drawable/Background">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        android:paddingLeft="5dp">
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp">
         <TextView
             android:id="@+id/Main_Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
             android:textSize="20sp"
+            android:textColor="@color/Text_Color"
             android:text="@string/Main_DemnaechstZuVerbrauchen"
+            android:tooltipText="@android:string/no"
             android:visibility="gone" />
         <TextView
             android:id="@+id/Main_Text1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
+            android:paddingLeft="5dp"
             android:textSize="16sp"
             android:textColor="@color/Text_Error"
             android:text="@string/Main_ArticlesNearExpiryDate"
@@ -31,7 +35,7 @@
             android:id="@+id/Main_Text2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
+            android:paddingLeft="5dp"
             android:textSize="16sp"
             android:textColor="@color/Text_Warning"
             android:text="@string/Main_ArticlesWithExpiryDate"

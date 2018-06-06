@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="#FF222222"
+    android:background="@color/Application_Background"
     android:padding="0dp">
     <TextView
         android:id="@+id/StorageItemQuantityList_Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#FFFFFFFF"
+        android:textColor="@color/Text_Color"
         android:textSize="18dip"
         android:layout_alignParentLeft="true"
         android:text="Überschrift" />

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="5dp"
+    android:background="@color/Application_Background">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:paddingLeft="5dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:textColor="@color/Text_Color"
+            android:text="@string/Main_Optionen" />
+        <Switch
+            android:id="@+id/MainButton_SwitchToTestDB"
+            android:text="@string/Main_TestDatenbank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:drawablePadding="20dp" />
+        <TextView
+            android:id="@+id/MainButton_DatabasePath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Text_Color"
+            android:text="@string/Main_Datenbank" />
+        <Button
+            android:id="@+id/MainButton_RestoreSampleDb"
+            android:text="@string/Main_TestDatenbankZuruecksetzen"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:drawablePadding="10dp" />
+        <Button
+            android:id="@+id/MainButton_RestoreDb0"
+            android:text="@string/Main_TestDatenbankLeeren"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:drawablePadding="10dp" />
+        <Button
+            android:id="@+id/MainButton_Compress"
+            android:text="@string/Main_DatenbankKomprimieren"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:drawablePadding="10dp" />
+        <Button
+            android:id="@+id/MainButton_Backup"
+            android:text="@string/Main_BackupErstellen"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:enabled="false"
+            android:drawablePadding="10dp" />
+        <Button
+            android:id="@+id/MainButton_Restore"
+            android:text="@string/Main_BackupZurueckspielen"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:enabled="false"
+            android:drawablePadding="10dp" />
+        <Button
+            android:id="@+id/MainButton_Licenses"
+            android:text="@string/Main_OpenSourceLizenzen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/MainButton_Version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Text_Color"
+            android:textSize="15sp" />
+    </LinearLayout>
+</ScrollView>

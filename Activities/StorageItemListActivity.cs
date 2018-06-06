@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
@@ -9,12 +7,10 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using System.Diagnostics;
-using Android.Graphics;
+using Android.Support.V4.Content;
 
 namespace VorratsUebersicht
 {
-    //[Activity(Label = "Lagerbestand", Icon = "@drawable/ic_assignment_white_48dp", MainLauncher = true)]
     [Activity(Label = "Lagerbestand", Icon = "@drawable/ic_assignment_white_48dp")]
     public class StorageItemListActivity : Activity
     {
@@ -36,6 +32,11 @@ namespace VorratsUebersicht
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.StorageItemList);
+
+            // ActionBar Hintergrund Farbe setzen
+            var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
+            backgroundPaint.SetBounds(0, 0, 10, 10);
+            ActionBar.SetBackgroundDrawable(backgroundPaint);
 
             ListView listView = FindViewById<ListView>(Resource.Id.MyListView);
 

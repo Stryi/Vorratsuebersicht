@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 
@@ -39,6 +38,11 @@ namespace VorratsUebersicht
 
             SetContentView(Resource.Layout.ArticleList);
 
+            // ActionBar Hintergrund Farbe setzen
+            var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
+            backgroundPaint.SetBounds(0, 0, 10, 10);
+            ActionBar.SetBackgroundDrawable(backgroundPaint);
+
             ShowArticleList();
 
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
@@ -68,7 +72,7 @@ namespace VorratsUebersicht
         {
             this.liste = new List<ArticleListView>();
 
-            var articleList = Database.GetArticleList(this.category, this.subCategory);
+            var articleList = Database.GetArticleListNoImages(this.category, this.subCategory);
 
             foreach(Article article in articleList)
             {

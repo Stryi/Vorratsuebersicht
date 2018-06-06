@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  
+
+  <!-- Applikations Name-->
+  <string name="App_Name">Vorratsübersicht</string>
+  <string name="App_Yes">Ja</string>
+  <string name="App_No">Nein</string>
+  <string name="App_Ok">OK</string>
+
+  <!-- Meldungen beim Starten -->
+  <string name="Start_TestDbQuestion">Sie starten die Anwendung zum ersten Mal.\n\nSoll eine Testdatenbank zum Kennenlernen der Anwendung aktiviert werden?\n\nDiese können Sie dann unter Optionen wieder deaktivieren.</string>
+  <string name="Start_TestVersionInfo">Das ist eine Testversion. Bitte diese nicht produktiv einsetzen.</string>
+
   <!-- Hauptmaske -->
   <string name="Main_DemnaechstZuVerbrauchen">Demnächst zu verbrauchen:</string>
   <string name="Main_ArticlesWithExpiryDate">{0} Artikel nach dem Ablaufdatum</string>
@@ -10,6 +20,8 @@
   <string name="Main_Button_Artikelangaben">Artikelangaben</string>
   <string name="Main_Button_ArtikelScannen">Artikel scannen</string>
   <string name="Main_Einkaufsliste">Einkaufsliste (geplant)</string>
+  
+  <!-- Maske Optionen -->
   <string name="Main_Optionen">Optionen:</string>
   <string name="Main_TestDatenbank">Test Datenbank</string>
   <string name="Main_Datenbank">Datenbank: {0}\r\nGröße: {1} ({2:n0} Bytes)</string>

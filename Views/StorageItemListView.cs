@@ -82,7 +82,7 @@ namespace VorratsUebersicht
             {
                 switch(this.StorageItem.WarningLevel)
                 {
-                    case 1: return Color.Yellow;
+                    case 1: return Color.Blue;
                     case 2: return Color.Red;
                 }
                 return Color.Black;

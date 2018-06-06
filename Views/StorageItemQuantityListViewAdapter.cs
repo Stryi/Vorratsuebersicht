@@ -69,10 +69,11 @@ namespace VorratsUebersicht
             view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Text).Text = item.Heading;
             view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Details).Text = item.SubHeading;
 
+            // TODO: Die Farbe aus der Resource oder auch inzwischen aus de Konfiguration auslesen.
             if (item.WarningLevel > 0)
                 view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Details).SetTextColor(item.WarningColor);
             else
-                view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Details).SetTextColor(Color.White);
+                view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Details).SetTextColor(Color.Black);
 
             if (this.actionButtonsVisible)
             {

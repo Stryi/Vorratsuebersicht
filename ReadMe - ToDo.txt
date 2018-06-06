@@ -1,7 +1,15 @@
-﻿Fehler beim Nummerisch korrigieren
-Farben "freundlicher".
-Vorschläge für Unterkategorien prüfen
+﻿
+Prio 1
+======
+
+
+Prio 2
+======
+Liste Nach Kategorie mit [Keine Kategorie] anzeigen.
+Komprimierung/Verkleinerung der Bilder nicht immer effizient
+Vorschläge für Unterkategorien prüfen, warum es nicht funktioniert
 Selbst definierte Kategorien
+
 
 
 Artikel "Unendlich haltbar: Ja"

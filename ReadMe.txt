@@ -40,6 +40,14 @@ Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
 
+
+Version 1.40 (CodeVersion 13)
+==================================
+
+C019 - Performance beim Laden der Listen verbessert.
+C018 - Problem mit Bild erstellen und fehlender SD Karte behoben.
+C017 - Farbschema überarbeitet
+
 Version 1.31 (CodeVersion 10)
 ==================================
 

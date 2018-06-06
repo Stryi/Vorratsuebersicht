@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="Text_Error"   type="color">#FFFF0000</color>
-  <color name="Text_Warning" type="color">#ffff00</color>
-  
-  <color name="Application_Background">#FF000000</color>
+  <color name="Text_Error"   type="color">#FF0000</color>
+  <color name="Text_Warning" type="color">#0000FF</color>
+  <color name="Text_Color"   type="color">#000000</color>
+  <color name="Text_Color2"  type="color">#444444</color>
 
+  <color name="Application_Background" >#FFFFFF</color>
+  <color name="Application_Background2">#DDDDDD</color>
+
+  <color name="Application_ActionBar_Background" >#186300</color>
+  <color name="Application_ActionBar_TextColor"  >#FFFFFF</color>
 </resources>

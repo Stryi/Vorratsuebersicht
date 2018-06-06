@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/Application_Background">
     <TextView
         android:id="@+id/ArticleDetailHeader"
         android:width="40dp"
@@ -10,25 +11,26 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:textColor="#FFFFFFFF"
+        android:textColor="@color/Text_Color"
         android:textSize="20dip"
         android:text="Überschrift" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="#FF000088">
+        android:background="@color/Application_Background2">
         <ImageView
             android:id="@+id/StorageItemQuantity_Image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="#FF444444" />
+            android:background="@color/Application_Background2" />
         <TextView
             android:id="@+id/ArticleDetailList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:background="#FF333333"
+            android:textColor="@color/Text_Color"
+            android:background="@color/Application_Background2"
             android:text="Liste" />
     </LinearLayout>
     <ImageButton

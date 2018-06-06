@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
@@ -10,8 +8,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Graphics;
-using Android.Provider;
-using Android.Content.PM;
+using Android.Support.V4.Content;
 
 namespace VorratsUebersicht
 {
@@ -36,6 +33,11 @@ namespace VorratsUebersicht
 
             // Create your application here
             SetContentView(Resource.Layout.StorageItemQuantity);
+
+            // ActionBar Hintergrund Farbe setzen
+            var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
+            backgroundPaint.SetBounds(0, 0, 10, 10);
+            ActionBar.SetBackgroundDrawable(backgroundPaint);
 
             this.text       = Intent.GetStringExtra ("Heading") ?? string.Empty;
             this.articleId  = Intent.GetIntExtra    ("ArticleId", 0);

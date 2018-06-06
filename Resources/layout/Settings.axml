@@ -3,8 +3,7 @@
     android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="5dp"
-    android:background="@color/Application_Background">
+    android:paddingLeft="5dp">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

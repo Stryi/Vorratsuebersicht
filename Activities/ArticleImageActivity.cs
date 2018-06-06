@@ -1,24 +1,16 @@
 using System;
-using System.IO;
-using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using Android.Graphics;
-using Android.Provider;
-using MatrixGuide;
+using Android.Support.V4.Content;
 
 namespace VorratsUebersicht
 {
     [Activity(Label = "ArticleImageActivity")]
     //[Activity(Label = "ArticleImageActivity", MainLauncher = true)]
-    
     public class ArticleImageActivity : Activity
     {
         int articleId;
@@ -32,6 +24,11 @@ namespace VorratsUebersicht
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.ArticleImage);
+
+            // ActionBar Hintergrund Farbe setzen
+            var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
+            backgroundPaint.SetBounds(0, 0, 10, 10);
+            ActionBar.SetBackgroundDrawable(backgroundPaint);
 
             string text    = Intent.GetStringExtra ("Heading") ?? string.Empty;
             this.articleId = Intent.GetIntExtra    ("ArticleId", 0);

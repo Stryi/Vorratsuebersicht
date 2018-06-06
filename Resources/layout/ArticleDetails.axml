@@ -2,9 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="5dp"
-    android:background="@color/Application_Background">
+    android:layout_height="fill_parent"
+    android:paddingLeft="5dp">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -15,19 +14,17 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#FF222222"
-            android:orientation="horizontal" >
+            android:background="@color/Application_Background2"
+            android:orientation="horizontal">
             <ImageView
                 android:id="@+id/ArticleDetails_Image"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:background="#FF444444"
-                android:src="@drawable/ic_photo_camera_white_24dp"/>
+                android:src="@drawable/ic_photo_camera_white_24dp" />
             <ImageView
                 android:id="@+id/ArticleDetails_Image2"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:background="#FF444444"
                 android:src="@drawable/ic_photo_white_24dp" />
             <TextView
                 android:id="@+id/ArticleDetails_ImageText"
@@ -46,7 +43,8 @@
         <EditText
             android:id="@+id/ArticleDetails_Name"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Artikelname" />
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -55,7 +53,8 @@
         <EditText
             android:id="@+id/ArticleDetails_Manufacturer"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Hersteller" />
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -162,7 +161,7 @@
             android:id="@+id/ArticleDetails_ArticleId"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#44FFFF00"
+            android:textColor="@color/Text_Color"
             android:layout_margin="10dp" />
     </LinearLayout>
 </ScrollView>

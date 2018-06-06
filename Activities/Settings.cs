@@ -6,6 +6,7 @@ using Android.Content;
 using Android.OS;
 using Android.Content.PM;
 using Android.Widget;
+using Android.Support.V4.Content;
 
 namespace VorratsUebersicht
 {
@@ -17,6 +18,11 @@ namespace VorratsUebersicht
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.Settings);
+
+            // ActionBar Hintergrund Farbe setzen
+            var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
+            backgroundPaint.SetBounds(0, 0, 10, 10);
+            ActionBar.SetBackgroundDrawable(backgroundPaint);
 
             string dbInfoFormat = Resources.GetString(Resource.String.Main_Datenbank);
 

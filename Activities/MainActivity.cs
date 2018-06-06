@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Diagnostics;
 
 using Android.App;
@@ -9,11 +8,11 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Content.Res;
+using Android.Support.V4.Content;
 
 namespace VorratsUebersicht
 {
     [Activity(Label = "Vorratsübersicht", Icon = "@drawable/ic_launcher")]
-    //[Activity(Label = "Vorratsübersicht", Icon = "@drawable/ic_launcher", MainLauncher = true)]
     public class MainActivity : Activity
     {
         public static readonly int SelectBackupFileId = 1000;
@@ -29,8 +28,15 @@ namespace VorratsUebersicht
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
+            // ActionBar Hintergrund Farbe setzen
+            var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
+            backgroundPaint.SetBounds(0, 0, 10, 10);
+            ActionBar.SetBackgroundDrawable(backgroundPaint);
+
             // Datenbanken erstellen
             new Android_Database().RestoreSampleDatabaseFromResources();
+
+            this.ShowInfoAufTestdatenbank();
 
             string databaseName = new Android_Database().GetDatabasePath();
             if (databaseName == null)
@@ -139,8 +145,10 @@ namespace VorratsUebersicht
             if (!lastRunDay.Equals(today))
             {
                 var message = new AlertDialog.Builder(this);
-                message.SetMessage("Das ist eine Testversion. Diese darf nicht produktiv eingesetzt werden.");
-                message.SetPositiveButton("OK", (s, e) => { });
+                message.SetMessage(Resource.String.Start_TestVersionInfo);
+                message.SetTitle(Resource.String.App_Name);
+                message.SetIcon(Resource.Drawable.ic_launcher);
+                message.SetPositiveButton(Resource.String.App_Ok, (s, e) => { });
                 message.Create().Show();
             }
 
@@ -149,6 +157,32 @@ namespace VorratsUebersicht
             prefEditor.Commit();
         }
 
+        
+        private void ShowInfoAufTestdatenbank()
+        {
+            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
+            bool firstRun = prefs.GetBoolean("FirstRun", true);
+
+            if (firstRun)
+            {
+                var message = new AlertDialog.Builder(this);
+                message.SetMessage(Resource.String.Start_TestDbQuestion);
+                message.SetTitle(Resource.String.App_Name);
+                message.SetIcon(Resource.Drawable.ic_launcher);
+                message.SetPositiveButton(Resource.String.App_Yes, (s, e) => 
+                    { 
+                        Android_Database.UseTestDatabase = true;
+                        Android_Database.SQLiteConnection = null;   // Sich neu connecten;
+                        this.ShowInfoText();
+                    });
+                message.SetNegativeButton(Resource.String.App_No, (s, e) => { });
+                message.Create().Show();
+            }
+
+            var prefEditor = prefs.Edit();
+            prefEditor.PutBoolean("FirstRun", false);
+            prefEditor.Commit();
+        }
 
         /// <summary>
         /// Information über abgelaufene Lagerpositionen und die Positionen, bei denen das Ablaufdatum
