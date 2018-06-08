@@ -13,7 +13,6 @@ using Android.Support.V4.Content;
 namespace VorratsUebersicht
 {
     [Activity(Label = "Artikelbestand", Icon = "@drawable/ic_assignment_white_48dp")]
-    //[Activity(Label = "Artikelbestand", Icon = "@drawable/ic_assignment_white_48dp", MainLauncher = true)]
     public class StorageItemQuantityActivity : Activity
     {
         public static List<StorageItemQuantityListView> liste = null;
@@ -57,6 +56,9 @@ namespace VorratsUebersicht
             ImageView image = FindViewById<ImageView>(Resource.Id.StorageItemQuantity_Image);
             image.Click += delegate 
             {
+                if (StorageItemQuantityActivity.article.ImageLarge == null)
+                   return;
+
                 var articleImage = new Intent (this, typeof(ArticleImageActivity));
                 articleImage.PutExtra("Heading", text);
                 articleImage.PutExtra("ArticleId", articleId);
@@ -66,7 +68,6 @@ namespace VorratsUebersicht
             ImageButton addRemove = FindViewById<ImageButton>(Resource.Id.StorageItemQuantity_AddArticle);
             addRemove.Click += delegate 
             {
-
                 StorageItemQuantityResult storageItemQuantity = new StorageItemQuantityResult();
 				storageItemQuantity.ArticleId    = this.articleId;
                 storageItemQuantity.Quantity     = 1;
@@ -121,9 +122,11 @@ namespace VorratsUebersicht
             menu.FindItem(Resource.Id.StorageItemQuantity_Cancel).SetVisible(this.isEditMode);
             menu.FindItem(Resource.Id.StorageItemQuantity_Save).SetVisible(this.isEditMode);
 
+            if (StorageItemQuantityActivity.article.ImageLarge == null)
+                menu.FindItem(Resource.Id.StorageItemQuantity_EditPicture).SetVisible(false);
+
             return true;
         }
-
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {

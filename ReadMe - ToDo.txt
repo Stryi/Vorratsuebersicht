@@ -2,6 +2,13 @@
 Prio 1
 ======
 
+- Default Sprache auf Englich setzen
+- Artikel Liste auf Englische Resourcen setzen
+- Unterkategorie Control auf PopUp umstellen
+- Nach dem Auswahl vom Bild wird noch das alte angezeigt (Vollbild)
+- Bild entfernen programmieren
+- Kategorie erfassen
+- Anzeige "Nach Kategorie" auch mit [alls] anzeigen
 
 Prio 2
 ======

@@ -127,11 +127,6 @@ namespace VorratsUebersicht
             };
         }
 
-        private void DurableInfinity_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.ArticleDetails_menu, menu);
