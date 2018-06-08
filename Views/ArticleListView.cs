@@ -15,8 +15,6 @@ namespace VorratsUebersicht
 {
     public class ArticleListView : ListItemViewBase
     {
-        private bool imageSelected = false;
-
         public ArticleListView(Article article)
         {
             this.Article = article;
@@ -77,35 +75,38 @@ namespace VorratsUebersicht
         }
 
         Bitmap bitmp;
+        bool noImage = false;
+
         public override Bitmap Image
         {
             get
             {
-                byte[] image = null;
+                if (this.bitmp != null)         // Image bereits erstellt
+                    return this.bitmp;
 
-                //if (!this.imageSelected)
-                {
-                    image = Database.GetArticleImage(this.Id, false).Image;
-                    this.imageSelected = true;
-                }
-
-                if (image == null)
+                if (this.noImage)               // Kein Image definiert
                     return null;
 
-                if (this.bitmp == null)
+                byte[] image = Database.GetArticleImage(this.Id, false).Image;
+                if (image == null)
                 {
-                    Bitmap unScaledBitmap = BitmapFactory.DecodeByteArray (image, 0, image.Length);
-
-                    this.bitmp = unScaledBitmap;
-                    System.Diagnostics.Trace.WriteLine(this.Article.Name);
+                    this.noImage = true;
+                    return null;
                 }
+
+                Bitmap unScaledBitmap = BitmapFactory.DecodeByteArray (image, 0, image.Length);
+
+                this.bitmp = unScaledBitmap;
+                System.Diagnostics.Trace.WriteLine(this.Article.Name);
 
                 return this.bitmp;
             }
+            /*
             set
             {
                 this.bitmp = value;
             }
+            */
         }
 
     }

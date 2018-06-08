@@ -291,7 +291,7 @@ namespace VorratsUebersicht
             return result[0].Quantity;
         }
 
-        internal static IList<StorageItemQuantityResult> GetStorageItemQuantityList(string category, string subCategory, string eanCode, bool showEmptyArticles)
+        internal static IList<StorageItemQuantityResult> GetStorageItemQuantityListNoImage(string category, string subCategory, string eanCode, bool showEmptyArticles)
         {
             var result = new List<StorageItemQuantityResult>();
 
@@ -300,7 +300,7 @@ namespace VorratsUebersicht
                 return result;
 
             string cmd = string.Empty;
-            cmd += "SELECT ArticleId, Name, Image, WarnInDays, Size, Unit, DurableInfinity,";
+            cmd += "SELECT ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity,";
 			cmd += " (SELECT SUM(Quantity) FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId) AS Quantity,";
 			cmd += " (SELECT BestBefore FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId ORDER BY BestBefore ASC LIMIT 1) AS BestBefore";
 			cmd += " FROM Article";

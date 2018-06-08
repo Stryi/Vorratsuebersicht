@@ -14,6 +14,7 @@ namespace VorratsUebersicht
     {
         string category;
         string[] items;
+        string noSubCategory_ItemEntry;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -26,18 +27,31 @@ namespace VorratsUebersicht
 
             this.category = Intent.GetStringExtra ("Category") ?? string.Empty;
 
+            this.noSubCategory_ItemEntry = Resources.GetString(Resource.String.NoSubCategory_ItemEntry);
+
             this.items = Database.GetSubcategoriesOf(this.category);
+
+            for(int i = 0; i < this.items.Length; i++)
+            {
+                if (string.IsNullOrEmpty(this.items[i]))
+                {
+                    this.items[i] = noSubCategory_ItemEntry;
+                }
+            }
 
             this.Title = this.category;
 
             this.ListAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, items);
-
-            //this.ListView.TextFilterEnabled = true;
         }
 
         protected override void OnListItemClick(ListView listView, View view, int position, long id)
         {
             string subCategory = ((TextView)view).Text;
+
+            if (subCategory == noSubCategory_ItemEntry)
+            {
+                subCategory = string.Empty;
+            }
 
             var storageitemList = new Intent (this, typeof(StorageItemListActivity));
             storageitemList.PutExtra("Category",    this.category);

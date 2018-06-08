@@ -91,21 +91,30 @@ namespace VorratsUebersicht
         }
 
         Bitmap bitmp;
+        bool noImage = false;
+
         public override Bitmap Image
         {
             get
             {
-                if (this.StorageItem.Image == null)
+                if (this.bitmp != null)         // Image bereits erstellt
+                    return this.bitmp;
+
+                if (this.noImage)               // Kein Image definiert
                     return null;
 
-                if (this.bitmp == null)
+                byte[] image = Database.GetArticleImage(this.Id, false).Image;
+                if (image == null)
                 {
-                    Bitmap unScaledBitmap = BitmapFactory.DecodeByteArray (this.StorageItem.Image, 0,this.StorageItem.Image.Length);
-
-                    this.bitmp = unScaledBitmap;
-                    //this.bitmp = Bitmap.CreateScaledBitmap(unScaledBitmap, 45, 45, true);
+                    this.noImage = true;
+                    return null;
                 }
-                
+
+                Bitmap unScaledBitmap = BitmapFactory.DecodeByteArray (image, 0, image.Length);
+
+                this.bitmp = unScaledBitmap;
+                System.Diagnostics.Trace.WriteLine(this.StorageItem.Name);
+
                 return this.bitmp;
             }
         }

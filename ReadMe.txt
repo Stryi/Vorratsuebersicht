@@ -40,6 +40,10 @@ Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
 
+Version 1.41 (CodeVersion 14)
+==================================
+
+C020 - Performance beim Laden der Listen weiter verbessert.
 
 Version 1.40 (CodeVersion 13)
 ==================================

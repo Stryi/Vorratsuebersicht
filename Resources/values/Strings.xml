@@ -50,7 +50,8 @@
 
   <string name="ArticleCatagoriesSelect">Auswahl Kategorie...</string>
   <string name="NoArticleCatagories">Keine Kategorien vorhanden.</string>
-  
+  <string name="NoSubCategory_ItemEntry">[Keine Unterkategorie]</string>
+
   <string-array name="ArticleCatagories">
     <item>Lebensmittel</item>
     <item>Trinken</item>     

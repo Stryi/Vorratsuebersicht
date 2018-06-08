@@ -76,8 +76,6 @@ namespace VorratsUebersicht
 
             foreach(Article article in articleList)
             {
-                //article.Image      = null;
-                //article.ImageLarge = null;
                 liste.Add(new ArticleListView(article));
             }
 

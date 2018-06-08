@@ -33,6 +33,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:textColor="@color/Text_Color2"
                 android:layout_toRightOf="@+id/ArticleDetails_Image" />
         </LinearLayout>
         <TextView

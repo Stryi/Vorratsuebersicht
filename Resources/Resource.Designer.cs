@@ -611,6 +611,9 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f050026
 			public const int NoArticleCatagories = 2131034150;
 			
+			// aapt resource value: 0x7f050027
+			public const int NoSubCategory_ItemEntry = 2131034151;
+			
 			// aapt resource value: 0x7f050004
 			public const int Start_TestDbQuestion = 2131034116;
 			

@@ -146,7 +146,7 @@ namespace VorratsUebersicht
         {
             this.liste = new List<StorageItemListView>();
 
-            var storageItemQuantityList = Database.GetStorageItemQuantityList(this.category, this.subCategory, this.eanCode, this.showEmptyArticles);
+            var storageItemQuantityList = Database.GetStorageItemQuantityListNoImage(this.category, this.subCategory, this.eanCode, this.showEmptyArticles);
             foreach(StorageItemQuantityResult storegeItem in storageItemQuantityList)
             {
                 bool isWarning = false;

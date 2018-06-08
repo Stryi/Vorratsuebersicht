@@ -27,8 +27,8 @@ namespace VorratsUebersicht
         public int WarnInDays {get; set;}
         public decimal Size {get; set; }
         public string Unit {get; set;}
-        public byte[] Image {get; set;}
-        public byte[] ImageLarge {get; set;}
+        //public byte[] Image {get; set;}
+        //public byte[] ImageLarge {get; set;}
         public int Quantity {get; set;}
         public DateTime? BestBefore {get; set;}
 

@@ -483,10 +483,17 @@ namespace VorratsUebersicht
 
             if (article.Image != null)
             {
-                Bitmap largeBitmap = BitmapFactory.DecodeByteArray (article.ImageLarge,     0, article.ImageLarge.Length);
-                this.imageView.SetImageBitmap(largeBitmap);
+                Bitmap largeBitmap = BitmapFactory.DecodeByteArray(article.ImageLarge, 0, article.ImageLarge.Length);
+                Bitmap smallBitmap = BitmapFactory.DecodeByteArray (article.Image,     0, article.Image.Length);
+                
+                this.imageView.SetImageBitmap(smallBitmap);
                 this.imageView2.Visibility = ViewStates.Gone;
-                string text = string.Format("Bild: {0:n0} X {1:n0} ({2:n0})", largeBitmap.Height, largeBitmap.Width, Tools.ToFuzzyByteString(largeBitmap.ByteCount));
+
+                string text = string.Empty;
+
+                text += string.Format("Thn.: {0:n0} X {1:n0} ({2:n0})", smallBitmap.Height, smallBitmap.Width, Tools.ToFuzzyByteString(smallBitmap.ByteCount));
+                text += "\n";
+                text += string.Format("Bild: {0:n0} X {1:n0} ({2:n0})", largeBitmap.Height, largeBitmap.Width, Tools.ToFuzzyByteString(largeBitmap.ByteCount));
 
                 this.imageTextView.Text = text;
             }
