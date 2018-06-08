@@ -42,6 +42,7 @@ Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 Version 1.42 (CodeVersion 15)
 ==================================
 
+C022 - Default Sprache auf Englich gesetzt.
 C021 - Klick auf ein leeres Bild beim Lagerbestand bringt keine (fast) leere Seite mehr.
 
 Version 1.41 (CodeVersion 14)

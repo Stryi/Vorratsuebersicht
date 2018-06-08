@@ -185,7 +185,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\values-de\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml">
@@ -597,7 +597,7 @@
     <AndroidAsset Include="Licenses.html" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values-en\Strings.xml">
+    <AndroidResource Include="Resources\values\Strings.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

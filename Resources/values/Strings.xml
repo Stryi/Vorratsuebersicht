@@ -1,62 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
   <!-- Applikations Name-->
   <string name="App_Name">Vorratsübersicht</string>
-  <string name="App_Yes">Ja</string>
-  <string name="App_No">Nein</string>
+  <string name="App_Yes">Yes</string>
+  <string name="App_No">No</string>
   <string name="App_Ok">OK</string>
 
   <!-- Meldungen beim Starten -->
-  <string name="Start_TestDbQuestion">Sie starten die Anwendung zum ersten Mal.\n\nSoll eine Testdatenbank zum Kennenlernen der Anwendung aktiviert werden?\n\nDiese können Sie dann unter Optionen wieder deaktivieren.</string>
-  <string name="Start_TestVersionInfo">Das ist eine Testversion. Bitte diese nicht produktiv einsetzen.</string>
+  <string name="Start_TestDbQuestion">You start the application for the first time.\n\nShould a test database be activated to get to know the application?\n\nYou can deactivate these under options.</string>
+  <string name="Start_TestVersionInfo">This is a test version. Please do not used productively.</string>
 
   <!-- Hauptmaske -->
-  <string name="Main_DemnaechstZuVerbrauchen">Demnächst zu verbrauchen:</string>
-  <string name="Main_ArticlesWithExpiryDate">{0} Artikel nach dem Ablaufdatum</string>
-	<string name="Main_ArticlesNearExpiryDate">{0} Artikel demnächst verbrauchen</string>
-  <string name="Main_Button_BestandNachKategorie">Bestand nach Kategorie</string>
-  <string name="Main_Button_Lagerbestand">Lagerbestand</string>
-  <string name="Main_Button_Artikelangaben">Artikelangaben</string>
-  <string name="Main_Button_ArtikelScannen">Artikel scannen</string>
-  <string name="Main_Einkaufsliste">Einkaufsliste (geplant)</string>
-  
+  <string name="Main_DemnaechstZuVerbrauchen">Consume soon:</string>
+  <string name="Main_ArticlesWithExpiryDate">{0} Article after the expiration date</string>
+  <string name="Main_ArticlesNearExpiryDate">{0} Articles to soon consume</string>
+  <string name="Main_Button_BestandNachKategorie">Stock by category</string>
+  <string name="Main_Button_Lagerbestand">Current stock</string>
+  <string name="Main_Button_Artikelangaben">Article list</string>
+  <string name="Main_Button_ArtikelScannen">Scan article</string>
+  <string name="Main_Einkaufsliste">Shopping list (planned)</string>
+
   <!-- Maske Optionen -->
-  <string name="Main_Optionen">Optionen:</string>
-  <string name="Main_TestDatenbank">Test Datenbank</string>
-  <string name="Main_Datenbank">Datenbank: {0}\r\nGröße: {1} ({2:n0} Bytes)</string>
-  <string name="Main_TestDatenbankZuruecksetzen">Test Datenbank zurücksetzen</string>
-  <string name="Main_TestDatenbankLeeren">Test Datenbank leeren</string>
-  <string name="Main_DatenbankKomprimieren">Datenbank komprimieren</string>
-  <string name="Main_BackupErstellen">Backup erstellen (geplant)</string>
-  <string name="Main_BackupZurueckspielen">Backup zurückspielen (geplant)</string>
-  <string name="Main_OpenSourceLizenzen">Open-Source-Lizenzen</string>
+  <string name="Main_Optionen">Options:</string>
+  <string name="Main_TestDatenbank">Test database</string>
+  <string name="Main_Datenbank">Database: {0}\r\nSize: {1} ({2:n0} Bytes)</string>
+  <string name="Main_TestDatenbankZuruecksetzen">Reset test database</string>
+  <string name="Main_TestDatenbankLeeren">Empty test database</string>
+  <string name="Main_DatenbankKomprimieren">Compact database</string>
+  <string name="Main_BackupErstellen">Create backup (planned)</string>
+  <string name="Main_BackupZurueckspielen">Restore backup (planned)</string>
+  <string name="Main_OpenSourceLizenzen">Open-source licenses</string>
 
   <!-- Artikeldetails -->
-  <string name="ArticleDetails_ArticleName">Artikelname:</string>
-  <string name="ArticleDetails_Manufacturer">Hersteller:</string>
-  <string name="ArticleDetails_Category">Kategorie:</string>
-  <string name="ArticleDetails_Category_Hint">Essen, Trinken, Hygieneartikel, Gesundheitsschutz</string>
-  <string name="ArticleDetails_SubCategory">Unterkategorie:</string>
-  <string name="ArticleDetails_SubCategory_Hint">Abhängig der Kategorie, z.B. Honig bei Kategorie Essen.</string>
-  <string name="ArticleDetails_EnduringlyDurable">Unendlich Haltbar</string>
-  <string name="ArticleDetails_WarningInDays">Warnen in Tagen vor Ablauf:</string>
-  <string name="ArticleDetails_Size">Inhalt / Größe:</string>
-  <string name="ArticleDetails_Unit">Einheit:</string>
-  <string name="ArticleDetails_Unit_Hint">g, l, kg, stk</string>
-  <string name="ArticleDetails_Calories">Kalorien:</string>
-  <string name="ArticleDetails_EANCode">EAN Code:</string>
-  <string name="ArticleDetails_Notes">Notizen:</string>
+  <string name="ArticleDetails_ArticleName">Article name:</string>
+  <string name="ArticleDetails_Manufacturer">Manufacturer:</string>
+  <string name="ArticleDetails_Category">Category:</string>
+  <string name="ArticleDetails_Category_Hint">Food, Drink, Hygiene Articles, Health, Protection</string>
+  <string name="ArticleDetails_SubCategory">Subategory:</string>
+  <string name="ArticleDetails_SubCategory_Hint">Depending on the category, e.g. Honey in the food category.</string>
+  <string name="ArticleDetails_EnduringlyDurable">Enduringly durable</string>
+  <string name="ArticleDetails_WarningInDays">Warn in days before expiration:</string>
+  <string name="ArticleDetails_Size">Content / size:</string>
+  <string name="ArticleDetails_Unit">Unit:</string>
+  <string name="ArticleDetails_Unit_Hint">g, l, kg, pcs</string>
+  <string name="ArticleDetails_Calories">Calories:</string>
+  <string name="ArticleDetails_EANCode">EAN code:</string>
+  <string name="ArticleDetails_Notes">Notes:</string>
 
-  <string name="ArticleCatagoriesSelect">Auswahl Kategorie...</string>
-  <string name="NoArticleCatagories">Keine Kategorien vorhanden.</string>
-  <string name="NoSubCategory_ItemEntry">[Keine Unterkategorie]</string>
+  <string name="ArticleCatagoriesSelect">Select category...</string>
+  <string name="NoArticleCatagories">No categories available.</string>
+  <string name="NoSubCategory_ItemEntry">[No subcategory]</string>
 
   <string-array name="ArticleCatagories">
-    <item>Lebensmittel</item>
-    <item>Trinken</item>     
-    <item>Hygiene</item>     
-    <item>Medikamente</item>
-    <item>Sonstiges</item>    
+    <item>Foods</item>
+    <item>Drink</item>
+    <item>Hygiene</item>
+    <item>Medikament</item>
+    <item>Others</item>
   </string-array>
 </resources>
+
