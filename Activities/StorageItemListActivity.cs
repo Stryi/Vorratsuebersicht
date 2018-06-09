@@ -21,7 +21,7 @@ namespace VorratsUebersicht
         private string subCategory;
         private bool   showToConsumerOnly;
         private string eanCode;
-        private bool   showEmptyArticles;
+        private bool   showEmptyStorageArticles;
 
         public static readonly int StorageItemQuantityId = 1000;
         public static readonly int SelectArticleId = 1001;
@@ -43,11 +43,11 @@ namespace VorratsUebersicht
             //listView.ItemClick += ShowArticlePopupMenu;
             listView.ItemClick += OnOpenArticleDetails;
 
-            this.category           = Intent.GetStringExtra ("Category") ?? string.Empty;
-            this.subCategory        = Intent.GetStringExtra ("SubCategory") ?? string.Empty;
-            this.showToConsumerOnly = Intent.GetBooleanExtra("ShowToConsumerOnly", false);
-            this.eanCode            = Intent.GetStringExtra("EANCode") ?? string.Empty;
-            this.showEmptyArticles  = Intent.GetBooleanExtra("ShowEmptyStorageArticles", false); // Auch Artikel ohne Lagerbestand anzeigen
+            this.category                 = Intent.GetStringExtra ("Category") ?? string.Empty;
+            this.subCategory              = Intent.GetStringExtra ("SubCategory") ?? string.Empty;
+            this.showToConsumerOnly       = Intent.GetBooleanExtra("ShowToConsumerOnly", false);
+            this.eanCode                  = Intent.GetStringExtra("EANCode") ?? string.Empty;
+            this.showEmptyStorageArticles = Intent.GetBooleanExtra("ShowEmptyStorageArticles", false); // Auch Artikel ohne Lagerbestand anzeigen
 
             if (!string.IsNullOrEmpty(this.subCategory))
             {
@@ -146,13 +146,17 @@ namespace VorratsUebersicht
         {
             this.liste = new List<StorageItemListView>();
 
-            var storageItemQuantityList = Database.GetStorageItemQuantityListNoImage(this.category, this.subCategory, this.eanCode, this.showEmptyArticles);
+            var storageItemQuantityList = Database.GetStorageItemQuantityListNoImage(this.category, this.subCategory, this.eanCode, this.showEmptyStorageArticles);
             foreach(StorageItemQuantityResult storegeItem in storageItemQuantityList)
             {
-                bool isWarning = false;
+                if (storegeItem.WarningLevel == 0)
+                {
+                    if (this.showToConsumerOnly)
+                        continue;
+                }
 
-				// Mindestens eine Position mit Ablaufdatum überschritten oder nur Warnung für Ablaufdatum.
-				if (storegeItem.WarningLevel > 0)
+                // Mindestens eine Position mit Ablaufdatum überschritten oder nur Warnung für Ablaufdatum.
+                if (storegeItem.WarningLevel > 0)
 				{
 					// Informationen über die Mengen zum Ablaufdatum.
 					var storageItemBestList = Database.GetBestBeforeItemQuantity(storegeItem);
@@ -176,14 +180,6 @@ namespace VorratsUebersicht
 
 			        storegeItem.BestBeforeInfoText    = info;
 			        storegeItem.BestBeforeWarningText = warning;
-
-                    isWarning = true;
-                }
-
-                if (this.showToConsumerOnly)
-                {
-                    if (!isWarning)
-                        continue;
                 }
 
                 liste.Add(new StorageItemListView(storegeItem));

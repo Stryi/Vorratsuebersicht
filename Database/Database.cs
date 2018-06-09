@@ -291,7 +291,7 @@ namespace VorratsUebersicht
             return result[0].Quantity;
         }
 
-        internal static IList<StorageItemQuantityResult> GetStorageItemQuantityListNoImage(string category, string subCategory, string eanCode, bool showEmptyArticles)
+        internal static IList<StorageItemQuantityResult> GetStorageItemQuantityListNoImage(string category, string subCategory, string eanCode, bool showNotInStorageArticles)
         {
             var result = new List<StorageItemQuantityResult>();
 
@@ -308,7 +308,7 @@ namespace VorratsUebersicht
             string filter = string.Empty;
             IList<object> parameter = new List<object>();
 
-            if (!showEmptyArticles)
+            if (!showNotInStorageArticles)
             {
                 if (string.IsNullOrEmpty(filter)) { filter += " WHERE "; } else { filter += " AND "; }
                 filter += "ArticleId IN (SELECT ArticleId FROM StorageItem)";
@@ -340,7 +340,6 @@ namespace VorratsUebersicht
 
             var command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());
             return command.ExecuteQuery<StorageItemQuantityResult>();
-
         }
 
         internal static IList<StorageItemQuantityResult> GetStorageItemQuantityList(int articleId)
