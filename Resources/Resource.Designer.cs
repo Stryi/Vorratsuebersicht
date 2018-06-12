@@ -500,6 +500,9 @@ namespace VorratsUebersicht
 		public partial class String
 		{
 			
+			// aapt resource value: 0x7f050028
+			public const int AnySubCategory_ItemEntry = 2131034152;
+			
 			// aapt resource value: 0x7f050000
 			public const int App_Name = 2131034112;
 			

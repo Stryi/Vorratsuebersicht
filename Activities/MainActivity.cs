@@ -52,56 +52,33 @@ namespace VorratsUebersicht
 
 			this.ShowInfoText();
 
+            // Klick auf den "abgelaufen" Text bringt die Liste der (bald) abgelaufender Artieln.
             FindViewById<TextView>(Resource.Id.Main_Text).Click  += ArticlesNearExpiryDate_Click;
             FindViewById<TextView>(Resource.Id.Main_Text1).Click += ArticlesNearExpiryDate_Click;
             FindViewById<TextView>(Resource.Id.Main_Text2).Click += ArticlesNearExpiryDate_Click;
 
+            // Auswahl nach Kategorien
             Button buttonKategorie = FindViewById<Button>(Resource.Id.MainButton_Kategorie);
             buttonKategorie.Enabled = true;
-            buttonKategorie.Click += delegate 
-            {
-                string[] categories = Database.GetCategories();
+            buttonKategorie.Click += delegate { this.ShowCategoriesSelection();};
 
-                if (categories.Length == 0)
-                {
-                    Toast.MakeText(this, Resource.String.NoArticleCatagories, ToastLength.Long).Show();
-                    return;
-                }
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.SetTitle(Resource.String.ArticleCatagoriesSelect);
-                builder.SetItems(categories, (sender, args) =>
-                {
-                    string kategorie = categories[args.Which];
-
-                    var subCategory = new Intent (this, typeof(SubCategoryActivity));
-                    subCategory.PutExtra("Category", kategorie);
-                    StartActivity(subCategory);
-
-
-                });
-                builder.Show();
-            };
-
+            // Lagerbestand
             Button buttonLagerbestand = FindViewById<Button>(Resource.Id.MainButton_Lagerbestand);
             buttonLagerbestand.Enabled = true;
             buttonLagerbestand.Click += delegate { StartActivityForResult (new Intent (this, typeof(StorageItemListActivity)), EditStorageItemQuantityId);};
 
-
+            // Artikeldaten
             Button buttonArticle = FindViewById<Button>(Resource.Id.MainButton_Artikeldaten);
             buttonArticle.Enabled = true;
             buttonArticle.Click += delegate { StartActivity (new Intent (this, typeof(ArticleListActivity)));};
 
-            Button buttonCategories = FindViewById<Button>(Resource.Id.MainButton_Kategorie);
-            // TODO: Irgendwann mal implementieren...
-            //buttonCategories.Enabled = true;
-            //buttonCategories.Click += ...
-
+            // Einkaufsliste
             Button buttonShoppingList = FindViewById<Button>(Resource.Id.MainButton_ShoppingList);
-            // TODO: Irgendwann mal implementieren...
+            // TODO: Irgendwann mal implementieren...            
             //buttonShoppingList.Enabled = true;
             //buttonShoppingList.Click += delegate { StartActivity (new Intent (this, typeof(ShoppingListActivity)));};
 
+            // Barcode scannen
             Button buttonBarcode = FindViewById<Button>(Resource.Id.MainButton_Barcode);
             buttonBarcode.Enabled = true;
             buttonBarcode.Click += ButtonBarcode_Click;
@@ -136,6 +113,29 @@ namespace VorratsUebersicht
 
         }
 
+        private void ShowCategoriesSelection()
+        {
+            string[] categories = Database.GetCategories();
+
+            if (categories.Length == 0)
+            {
+                Toast.MakeText(this, Resource.String.NoArticleCatagories, ToastLength.Long).Show();
+                return;
+            }
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle(Resource.String.ArticleCatagoriesSelect);
+            builder.SetItems(categories, (sender, args) =>
+            {
+                string kategorie = categories[args.Which];
+
+                var subCategory = new Intent(this, typeof(SubCategoryActivity));
+                subCategory.PutExtra("Category", kategorie);
+                StartActivity(subCategory);
+            });
+            builder.Show();
+        }
+
         private void ShowInfoAufTestversion()
         {
             var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
@@ -156,7 +156,6 @@ namespace VorratsUebersicht
             prefEditor.PutString("LastRunDay", today);
             prefEditor.Commit();
         }
-
         
         private void ShowInfoAufTestdatenbank()
         {

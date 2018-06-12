@@ -42,6 +42,8 @@ Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 Version 1.42 (CodeVersion 15)
 ==================================
 
+C025 - Alle oder ohne Unterkategorie
+C024 - Fehler beim Foto Aufnehmen bei Android 7 und 8 wird abgefangen (noch keine Lösung!)
 C023 - "Warnen: X Tage(n) vor Ablauf" Anzeige bei Lagerbestand wird bei "DurableInfinity=True" nicht angezeigt.
 C022 - Default Sprache auf Englich gesetzt.
 C021 - Klick auf ein leeres Bild beim Lagerbestand bringt keine (fast) leere Seite mehr.

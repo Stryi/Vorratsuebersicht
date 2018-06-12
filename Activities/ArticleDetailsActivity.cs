@@ -299,7 +299,14 @@ namespace VorratsUebersicht
 
             intent.PutExtra(MediaStore.ExtraOutput, Android.Net.Uri.FromFile(App._file));
 
-            StartActivityForResult (intent, TakePhotoId);
+            try
+            {
+                StartActivityForResult(intent, TakePhotoId);
+            }
+            catch(Exception ex)
+            {
+                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
+            }
         }
 
 

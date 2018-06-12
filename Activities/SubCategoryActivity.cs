@@ -15,6 +15,7 @@ namespace VorratsUebersicht
         string category;
         string[] items;
         string noSubCategory_ItemEntry;
+        string anySubCategory_ItemEntry;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -27,15 +28,22 @@ namespace VorratsUebersicht
 
             this.category = Intent.GetStringExtra ("Category") ?? string.Empty;
 
-            this.noSubCategory_ItemEntry = Resources.GetString(Resource.String.NoSubCategory_ItemEntry);
+            this.noSubCategory_ItemEntry  = Resources.GetString(Resource.String.NoSubCategory_ItemEntry);
+            this.anySubCategory_ItemEntry = Resources.GetString(Resource.String.AnySubCategory_ItemEntry);
 
-            this.items = Database.GetSubcategoriesOf(this.category);
+            string[] subCategories = Database.GetSubcategoriesOf(this.category);
+            
+            this.items = new string[subCategories.Length +1];
+            
+            this.items[0] = this.anySubCategory_ItemEntry;
 
-            for(int i = 0; i < this.items.Length; i++)
+            for (int i = 1; i <= subCategories.Length; i++)
             {
+                this.items[i] = subCategories[i-1];
+
                 if (string.IsNullOrEmpty(this.items[i]))
                 {
-                    this.items[i] = noSubCategory_ItemEntry;
+                    this.items[i] = this.noSubCategory_ItemEntry;
                 }
             }
 
@@ -48,9 +56,14 @@ namespace VorratsUebersicht
         {
             string subCategory = ((TextView)view).Text;
 
-            if (subCategory == noSubCategory_ItemEntry)
+            if (subCategory == this.noSubCategory_ItemEntry)
             {
                 subCategory = string.Empty;
+            }
+
+            if (subCategory == this.anySubCategory_ItemEntry)
+            {
+                subCategory = null;
             }
 
             var storageitemList = new Intent (this, typeof(StorageItemListActivity));

@@ -11,7 +11,7 @@ using Android.Support.V4.Content;
 
 namespace VorratsUebersicht
 {
-    [Activity(Label = "Lagerbestand", Icon = "@drawable/ic_assignment_white_48dp")]
+    [Activity(Label = "@string/Main_Button_Lagerbestand", Icon = "@drawable/ic_assignment_white_48dp")]
     public class StorageItemListActivity : Activity
     {
         List<StorageItemListView> liste = new List<StorageItemListView>();
