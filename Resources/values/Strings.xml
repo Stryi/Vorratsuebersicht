@@ -19,7 +19,7 @@
   <string name="Main_Button_Lagerbestand">Current stock</string>
   <string name="Main_Button_Artikelangaben">Article list</string>
   <string name="Main_Button_ArtikelScannen">Scan article</string>
-  <string name="Main_Einkaufsliste">Shopping list (planned)</string>
+  <string name="Main_Button_Einkaufsliste">Shopping list (planned)</string>
 
   <!-- Maske Optionen -->
   <string name="Main_Optionen">Options:</string>

@@ -40,11 +40,10 @@ namespace VorratsUebersicht
 
             ListView listView = FindViewById<ListView>(Resource.Id.MyListView);
 
-            //listView.ItemClick += ShowArticlePopupMenu;
             listView.ItemClick += OnOpenArticleDetails;
 
-            this.category                 = Intent.GetStringExtra ("Category") ?? string.Empty;
-            this.subCategory              = Intent.GetStringExtra ("SubCategory") ?? string.Empty;
+            this.category                 = Intent.GetStringExtra ("Category");
+            this.subCategory              = Intent.GetStringExtra ("SubCategory");
             this.showToConsumerOnly       = Intent.GetBooleanExtra("ShowToConsumerOnly", false);
             this.eanCode                  = Intent.GetStringExtra("EANCode") ?? string.Empty;
             this.showEmptyStorageArticles = Intent.GetBooleanExtra("ShowEmptyStorageArticles", false); // Auch Artikel ohne Lagerbestand anzeigen
@@ -52,6 +51,10 @@ namespace VorratsUebersicht
             if (!string.IsNullOrEmpty(this.subCategory))
             {
                 this.Title = string.Format("{0} - {1}", this.Title, this.subCategory);
+            }
+            else if (!string.IsNullOrEmpty(this.category))
+            {
+                this.Title = string.Format("{0} - {1}", this.Title, this.category);
             }
 
             if (!string.IsNullOrEmpty(this.eanCode))

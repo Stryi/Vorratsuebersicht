@@ -42,7 +42,9 @@ Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 Version 1.42 (CodeVersion 15)
 ==================================
 
-C025 - Alle oder ohne Unterkategorie
+C027 - Nach dem EAN-Scann kommt eine Auswahl: Lagerbestand und Artikeldaten 
+C026 - Testdaten korrigiert (Kategorie "Lebensmittel" statt "Essen" und Größe/Einheit)
+C025 - Auswahl "Alle" oder "Ohne" Unterkategorie
 C024 - Fehler beim Foto Aufnehmen bei Android 7 und 8 wird abgefangen (noch keine Lösung!)
 C023 - "Warnen: X Tage(n) vor Ablauf" Anzeige bei Lagerbestand wird bei "DurableInfinity=True" nicht angezeigt.
 C022 - Default Sprache auf Englich gesetzt.

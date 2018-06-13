@@ -25,8 +25,7 @@ public static class App {
 
 namespace VorratsUebersicht
 {
-    //[Activity(Label = "Artikeldaten", Icon = "@drawable/ic_local_offer_white_48dp", MainLauncher = true)]
-    [Activity(Label = "Artikeldaten", Icon = "@drawable/ic_local_offer_white_48dp")]
+    [Activity(Label = "@string/Main_Button_Artikelangaben", Icon = "@drawable/ic_local_offer_white_48dp")]
     public class ArticleDetailsActivity : Activity
     {
         Article article;
@@ -125,6 +124,8 @@ namespace VorratsUebersicht
             {
                 this.SelectAPicture();
             };
+
+            this.Window.SetSoftInputMode(SoftInput.StateHidden);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

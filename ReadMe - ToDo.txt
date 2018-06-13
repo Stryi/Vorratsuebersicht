@@ -3,12 +3,11 @@ Prio 1
 ======
 
 - Absturz bei Photo App ab Android 7
-- Anzeige "Nach Kategorie" auch mit [alls] anzeigen
-
 
 Prio 2
 ======
 
+- "Inhalt/Größe" in der Liste anzeigen
 - Artikel Liste auf Englische Resourcen setzen
 - Unterkategorie Control auf PopUp umstellen
 - Nach dem Auswahl vom Bild wird noch das alte angezeigt (Vollbild)

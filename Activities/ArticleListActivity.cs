@@ -11,8 +11,7 @@ using Android.Widget;
 
 namespace VorratsUebersicht
 {
-    [Activity(Label = "Artikel Liste", Icon = "@drawable/ic_local_offer_white_48dp")]
-    //[Activity(Label = "Artikel Liste", Icon = "@drawable/ic_local_offer_white_48dp", MainLauncher = true)]
+    [Activity(Label = "@string/Main_Button_Artikelangaben", Icon = "@drawable/ic_local_offer_white_48dp")]
     public class ArticleListActivity : Activity
     {
         List<ArticleListView> liste = new List<ArticleListView>();

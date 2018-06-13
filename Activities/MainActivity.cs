@@ -282,14 +282,40 @@ namespace VorratsUebersicht
                 StartActivityForResult(articleDetails, 10);
                 return;
             }
-            if (result.Count == 1)
-            {
+            if (result.Count == 1)          // Artikel eindeutig gefunden
+            {                
                 int artickeId = result[0].ArticleId;
 
-                // Artikel gefunden
-                var articleDetails = new Intent (this, typeof(StorageItemQuantityActivity));
-                articleDetails.PutExtra("ArticleId", artickeId);
-                this.StartActivityForResult(articleDetails, 1000);
+                string[] actions = 
+                    {
+                        Resources.GetString(Resource.String.Main_Button_Lagerbestand),
+                        Resources.GetString(Resource.String.Main_Button_Artikelangaben)
+                        //Resources.GetString(Resource.String.Main_Button_Einkaufsliste)
+                    };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.SetTitle("Aktion wählen...");
+                builder.SetItems(actions, (sender2, args) =>
+                {
+                    switch(args.Which)
+                    {
+                        case 0: // Lagerbestand bearbeiten
+                            var articleDetails = new Intent(this, typeof(StorageItemQuantityActivity));
+                            articleDetails.PutExtra("ArticleId", artickeId);
+                            this.StartActivityForResult(articleDetails, 1000);
+                            break;
+
+                        case 1:
+                            // Artikelstamm bearbeiten
+                            articleDetails = new Intent(this, typeof(ArticleDetailsActivity));
+                            articleDetails.PutExtra("ArticleId", artickeId);
+                            StartActivityForResult(articleDetails, 10);
+                            break;
+                    }
+                    return;
+                });
+                builder.Show();
+
                 return;
             }
 

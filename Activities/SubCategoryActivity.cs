@@ -9,7 +9,7 @@ using Android.Widget;
 
 namespace VorratsUebersicht
 {
-    [Activity(Label = "Kategorie", Icon = "@drawable/ic_storage_white_48dp")]
+    [Activity(Label = "@string/Main_Button_BestandNachKategorie", Icon = "@drawable/ic_storage_white_48dp")]
     public class SubCategoryActivity : ListActivity
     {
         string category;

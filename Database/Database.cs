@@ -314,14 +314,14 @@ namespace VorratsUebersicht
                 filter += "ArticleId IN (SELECT ArticleId FROM StorageItem)";
             }
 
-            if (!string.IsNullOrEmpty(category))
+            if (category != null)
             {
                 if (string.IsNullOrEmpty(filter)) { filter += " WHERE "; } else { filter += " AND "; }
                 filter += "Article.Category = ?";
                 parameter.Add(category);
             }
 
-            if (!string.IsNullOrEmpty(subCategory))
+            if (subCategory != null)
             {
                 if (string.IsNullOrEmpty(filter)) { filter += " WHERE "; } else { filter += " AND "; }
                 filter += "Article.SubCategory = ?";
