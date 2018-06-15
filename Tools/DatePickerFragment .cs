@@ -17,9 +17,6 @@ namespace VorratsUebersicht
 		// Initialize this value to prevent NullReferenceExceptions.
 		Action<DateTime?> DateSelectedHandler = delegate { };
 
-        private bool isCanceled = false;
-
-
 		public static DatePickerFragment NewInstance(Action<DateTime?> onDateSelected)
 		{
 			DatePickerFragment frag = new DatePickerFragment();
@@ -44,25 +41,26 @@ namespace VorratsUebersicht
 
         void OnOkEventHandling(object sender, DialogClickEventArgs e)
         {
+            DatePickerDialog dialog = sender as DatePickerDialog;
+            if (dialog == null)
+                return;
+            int year  = dialog.DatePicker.Year;
+            int month = dialog.DatePicker.Month;
+            int day   = dialog.DatePicker.DayOfMonth;
+
+            // Note: monthOfYear is a value between 0 and 11, not 1 and 12!
+            DateTime selectedDate = new DateTime(year, month + 1, day);
+            DateSelectedHandler(selectedDate);
         }
 
-        
+
         void OnCancelEventHandling(object sender, DialogClickEventArgs e)
         {            
-            this.isCanceled = true;
+            DateSelectedHandler(null);
         }
 
-		public void OnDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-		{
-            if (this.isCanceled)
-            {
-			    DateSelectedHandler(null);
-                return;
-            }
-
-			// Note: monthOfYear is a value between 0 and 11, not 1 and 12!
-			DateTime selectedDate = new DateTime(year, monthOfYear + 1, dayOfMonth);
-			DateSelectedHandler(selectedDate);
-		}
+        public void OnDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+        {
+        }
     }
 }

@@ -78,6 +78,7 @@ namespace VorratsUebersicht
 
                 ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
                 ((StorageItemQuantityListViewAdapter)listView.Adapter).Add(itemView);
+                listView.InvalidateViews();
 
                 if (!this.durableInfinity)
                 {
@@ -220,13 +221,8 @@ namespace VorratsUebersicht
 
                 Database.UpdateStorageItemQuantity(
 					item.StorageItem);
-				/*
-                Database.UpdateStorageItemQuantity(
-                    item.StorageItem.StorageItemId, 
-                    this.articleId,
-                    item.StorageItem.Quantity,
-                    item.StorageItem.QuantityDiff);
-				*/
+
+                item.StorageItem.QuantityDiff = 0;  // Änderung gespeichert.
             }
         }
 

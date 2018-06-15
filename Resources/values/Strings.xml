@@ -17,7 +17,8 @@
   <string name="Main_ArticlesNearExpiryDate">{0} Articles to soon consume</string>
   <string name="Main_Button_BestandNachKategorie">Stock by category</string>
   <string name="Main_Button_Lagerbestand">Current stock</string>
-  <string name="Main_Button_Artikelangaben">Article list</string>
+  <string name="Main_Button_Artikelangaben">Article details</string>
+  <string name="Main_Button_ArtikelListe">Article list</string>
   <string name="Main_Button_ArtikelScannen">Scan article</string>
   <string name="Main_Button_Einkaufsliste">Shopping list (planned)</string>
 

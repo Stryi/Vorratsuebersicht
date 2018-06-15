@@ -42,6 +42,7 @@ Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 Version 1.42 (CodeVersion 15)
 ==================================
 
+C028 - Datums Problem bei einigen Smartphones behoben
 C027 - Nach dem EAN-Scann kommt eine Auswahl: Lagerbestand und Artikeldaten 
 C026 - Testdaten korrigiert (Kategorie "Lebensmittel" statt "Essen" und Größe/Einheit)
 C025 - Auswahl "Alle" oder "Ohne" Unterkategorie

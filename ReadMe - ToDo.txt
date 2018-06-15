@@ -11,15 +11,12 @@ Prio 2
 - Artikel Liste auf Englische Resourcen setzen
 - Unterkategorie Control auf PopUp umstellen
 - Nach dem Auswahl vom Bild wird noch das alte angezeigt (Vollbild)
-- Kategorie erfassen
 
 Bild entfernen programmieren
 Komprimierung/Verkleinerung der Bilder nicht immer effizient
 Vorschläge für Unterkategorien prüfen, warum es nicht funktioniert
 Selbst definierte Kategorien
 Suche nach Artikelnamen (oder Hersteller)
-
-
 
 Artikel "Unendlich haltbar: Ja"
 - Keine Anzeige "Warnen {0} Tage(n) vor Ablauf" (im Artikelstand)
