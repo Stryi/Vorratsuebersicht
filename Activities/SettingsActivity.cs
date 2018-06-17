@@ -11,7 +11,7 @@ using Android.Support.V4.Content;
 namespace VorratsUebersicht
 {
     [Activity(Label = "Settings")]
-    public class Settings : Activity
+    public class SettingsActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -42,6 +42,9 @@ namespace VorratsUebersicht
 
             Button buttonCompressDb = FindViewById<Button>(Resource.Id.SettingsButton_Compress);
             buttonCompressDb.Click += ButtonCompressDb_Click;
+
+            Button buttonDeleteDb = FindViewById<Button>(Resource.Id.SettingsButton_DeleteDatabase);
+            buttonDeleteDb.Click += ButtonDeleteDb_Click;
 
             Button buttonLicenses = FindViewById<Button>(Resource.Id.SettingsButton_Licenses);
             buttonLicenses.Click += delegate { StartActivity(new Intent(this, typeof(Licenses))); };
@@ -91,6 +94,23 @@ namespace VorratsUebersicht
 
             })).Start();
         }
+
+
+        private void ButtonDeleteDb_Click(object sender, EventArgs e)
+        {
+            var message = new AlertDialog.Builder(this);
+            message.SetMessage(Resource.String.Start_DeleteProdDbQuestion);
+            message.SetTitle(Resource.String.App_Name);
+            message.SetIcon(Resource.Drawable.ic_launcher);
+            message.SetPositiveButton(Resource.String.App_Yes, (s, ev) => 
+                { 
+                    new Android_Database().DeleteDatabase();
+                });
+            message.SetNegativeButton(Resource.String.App_No, (s, ev) => { });
+            message.Create().Show();
+
+        }
+
 
         private void ButtonTestDB_Click(object sender, System.EventArgs e)
         {

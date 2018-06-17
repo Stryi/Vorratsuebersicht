@@ -73,6 +73,15 @@ namespace VorratsUebersicht
             databaseConnection.Execute("VACUUM");
         }
 
+        public void DeleteDatabase()
+        {
+            string dbPath = GetDatabasePath();
+
+            File.Delete(dbPath);
+
+			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
+            this.CreateDatabaseIfNotExists(documentsPath,  Android_Database.sqliteFilename_New,  Android_Database.sqliteFilename_Prod, false);
+        }
 
 		public bool IsCurrentDatabaseExists()
 		{

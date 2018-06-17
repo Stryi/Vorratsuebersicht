@@ -112,7 +112,7 @@
     <Compile Include="Activities\ArticleImageActivity.cs" />
     <Compile Include="Activities\ArticleListActivity.cs" />
     <Compile Include="Activities\Licenses.cs" />
-    <Compile Include="Activities\Settings.cs" />
+    <Compile Include="Activities\SettingsActivity.cs" />
     <Compile Include="Activities\SubCategoryActivity.cs" />
     <Compile Include="Database\Results\StringResult.cs" />
     <Compile Include="Database\Results\table_info.cs" />

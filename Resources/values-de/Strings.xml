@@ -10,6 +10,7 @@
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">Sie starten die Anwendung zum ersten Mal.\n\nSoll eine Testdatenbank zum Kennenlernen der Anwendung aktiviert werden?\n\nDiese können Sie dann unter Optionen wieder deaktivieren.</string>
   <string name="Start_TestVersionInfo">Das ist eine Testversion. Bitte diese nicht produktiv einsetzen.</string>
+  <string name="Start_DeleteProdDbQuestion">Soll Ihre PRODUKTIVE Datenbank wirklich GELÖSCHT werden?</string>
 
   <!-- Hauptmaske -->
   <string name="Main_DemnaechstZuVerbrauchen">Demnächst zu verbrauchen:</string>

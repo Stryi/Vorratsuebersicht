@@ -126,7 +126,7 @@ namespace VorratsUebersicht
             switch (item.ItemId)
             {
                 case Resource.Id.Main_Menu_Options:
-                    StartActivityForResult(new Intent(this, typeof(Settings)), OptionsId);
+                    StartActivityForResult(new Intent(this, typeof(SettingsActivity)), OptionsId);
 
                     return true;
             }
