@@ -608,9 +608,6 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f050019
 			public const int Main_OpenSourceLizenzen = 2131034137;
 			
-			// aapt resource value: 0x7f050010
-			public const int Main_Optionen = 2131034128;
-			
 			// aapt resource value: 0x7f050011
 			public const int Main_TestDatenbank = 2131034129;
 			
@@ -625,6 +622,9 @@ namespace VorratsUebersicht
 			
 			// aapt resource value: 0x7f05002a
 			public const int NoSubCategory_ItemEntry = 2131034154;
+			
+			// aapt resource value: 0x7f050010
+			public const int Settings_Title = 2131034128;
 			
 			// aapt resource value: 0x7f050006
 			public const int Start_DeleteProdDbQuestion = 2131034118;

@@ -9,25 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
+        android:paddingTop="10dp"
         android:paddingLeft="5dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:text="@string/Main_Optionen" />
         <Switch
             android:id="@+id/SettingsButton_SwitchToTestDB"
             android:text="@string/Main_TestDatenbank"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
+            android:paddingTop="20dp"
             android:drawablePadding="20dp" />
         <TextView
             android:id="@+id/SettingsButton_DatabasePath"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             android:text="@string/Main_Datenbank" />
         <Button
             android:id="@+id/SettingsButton_RestoreSampleDb"
@@ -84,6 +81,7 @@
             android:text="@string/Main_OpenSourceLizenzen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
             android:textSize="15sp" />
         <TextView
             android:id="@+id/SettingsButton_Version"

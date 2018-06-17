@@ -10,7 +10,7 @@ using Android.Support.V4.Content;
 
 namespace VorratsUebersicht
 {
-    [Activity(Label = "Settings")]
+    [Activity(Label = "@string/Settings_Title")]
     public class SettingsActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)

@@ -24,7 +24,7 @@
   <string name="Main_Button_Einkaufsliste">Shopping list (planned)</string>
 
   <!-- Maske Optionen -->
-  <string name="Main_Optionen">Options:</string>
+  <string name="Settings_Title">Settings</string>
   <string name="Main_TestDatenbank">Test database</string>
   <string name="Main_Datenbank">Database: {0}\r\nSize: {1} ({2:n0} Bytes)</string>
   <string name="Main_TestDatenbankZuruecksetzen">Reset test database</string>
