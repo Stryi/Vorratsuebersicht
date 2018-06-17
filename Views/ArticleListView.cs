@@ -39,35 +39,41 @@ namespace VorratsUebersicht
 				if (!string.IsNullOrEmpty(this.Article.Manufacturer))
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
-					info += string.Format("Hersteller: {0}", this.Article.Manufacturer);
+                    info += MainActivity.Strings_Manufacturer;
+					info += string.Format(" {0}", this.Article.Manufacturer);
 				}
 
 				if (this.Article.Size.HasValue)
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
-					info += string.Format("Menge: {0} {1}", this.Article.Size.Value, this.Article.Unit);
+                    info += MainActivity.Strings_Size;
+					info += string.Format(" {0} {1}", this.Article.Size.Value, this.Article.Unit).TrimEnd();
 				}
 				if (this.Article.Calorie.HasValue)
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
-					info += string.Format("Kalorien: {0:n0}", this.Article.Calorie.Value);
+                    info += MainActivity.Strings_Calories;
+					info += string.Format(" {0:n0}", this.Article.Calorie.Value);
 				}
 				if (this.Article.DurableInfinity == false && this.Article.WarnInDays.HasValue)
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
-					info += string.Format("Warnen: {0} Tage(n) vor Ablauf", this.Article.WarnInDays.Value);
+                    info += MainActivity.Strings_WarnenInTagen;
+					info += string.Format(" {0}", this.Article.WarnInDays.Value);
 				}
 
 				if (!string.IsNullOrEmpty(this.Article.Category))
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
-					info += string.Format("Kategorie: {0}", this.Article.Category);
+					info += MainActivity.Strings_Category;
+				    info += string.Format(" {0}", this.Article.Category);
 				}
 
 				if (!string.IsNullOrEmpty(this.Article.SubCategory))
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
-					info += string.Format("Unterkategorie: {0}", this.Article.SubCategory);
+					info += MainActivity.Strings_SubCategory;
+				    info += string.Format(" {0}", this.Article.SubCategory);
 				}
 
 				return info;

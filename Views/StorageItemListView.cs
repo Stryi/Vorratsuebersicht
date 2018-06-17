@@ -1,15 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.Graphics;
+using Android.Content.Res;
 
 namespace VorratsUebersicht
 {
@@ -34,6 +27,7 @@ namespace VorratsUebersicht
         {
              get { return this.StorageItem.Name; }
         }
+
         public override string SubHeading
         {
             get
@@ -45,7 +39,8 @@ namespace VorratsUebersicht
 				if (this.StorageItem.Size != 0)
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
-					info += string.Format("Größe: {0} {1}", this.StorageItem.Size, this.StorageItem.Unit);
+                    info += MainActivity.Strings_Size;
+					info += string.Format(" {0} {1}", this.StorageItem.Size, this.StorageItem.Unit).TrimEnd();
 				}
 
 				return info;

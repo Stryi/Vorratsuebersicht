@@ -29,6 +29,7 @@
   <string name="Main_TestDatenbankZuruecksetzen">Reset test database</string>
   <string name="Main_TestDatenbankLeeren">Empty test database</string>
   <string name="Main_DatenbankKomprimieren">Compact database</string>
+  <string name="Main_DeleteDatabase">DELETE productive database!!!</string>
   <string name="Main_BackupErstellen">Create backup (planned)</string>
   <string name="Main_BackupZurueckspielen">Restore backup (planned)</string>
   <string name="Main_OpenSourceLizenzen">Open-source licenses</string>

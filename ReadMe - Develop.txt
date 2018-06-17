@@ -1,8 +1,5 @@
-﻿------------------------------------------------------------------------
+------------------------------------------------------------------------
 Projektname: Vorratsübersicht - Mindesthaltbarkeitsdatum der Vorräte überwachen.
-
-Version     : 1.24 Release 7
-Datum       : 21.03.2018
 
 Play Store  : https://play.google.com/store/apps/details?id=de.stryi.Vorratsuebersicht&hl=de
 Beta Test   : https://play.google.com/apps/testing/de.stryi.Vorratsuebersicht

@@ -9,6 +9,7 @@ using Android.Widget;
 using Android.OS;
 using Android.Content.Res;
 using Android.Support.V4.Content;
+using System.Drawing;
 
 namespace VorratsUebersicht
 {
@@ -19,8 +20,24 @@ namespace VorratsUebersicht
         public static readonly int EditStorageItemQuantityId = 1001;
         public static readonly int OptionsId = 1002;
 
+        public static string Strings_Manufacturer;
+        public static string Strings_Size;
+        public static string Strings_WarnenInTagen;
+        public static string Strings_Calories;
+        public static string Strings_Category;
+        public static string Strings_SubCategory;
+        public static string Strings_EANCode;
+
         protected override void OnCreate(Bundle bundle)
         {
+            MainActivity.Strings_Manufacturer  = Resources.GetString(Resource.String.ArticleDetails_Manufacturer);
+            MainActivity.Strings_Size          = Resources.GetString(Resource.String.ArticleDetails_Size);
+            MainActivity.Strings_WarnenInTagen = Resources.GetString(Resource.String.ArticleDetails_WarningInDays);
+            MainActivity.Strings_Calories      = Resources.GetString(Resource.String.ArticleDetails_Calories);
+            MainActivity.Strings_Category      = Resources.GetString(Resource.String.ArticleDetails_Category);
+            MainActivity.Strings_SubCategory   = Resources.GetString(Resource.String.ArticleDetails_SubCategory);
+            MainActivity.Strings_EANCode       = Resources.GetString(Resource.String.ArticleDetails_EANCode);
+
             base.OnCreate(bundle);
 
             var lan = Resources.Configuration.Locale;
@@ -43,6 +60,8 @@ namespace VorratsUebersicht
             {
                 TextView text = FindViewById<TextView>(Resource.Id.Main_Text1);
                 text.Text = "Keine Datenbank gefunden";
+                text.SetTextColor(Android.Graphics.Color.Black);
+                text.SetBackgroundColor(Android.Graphics.Color.White);
                 text.Visibility = ViewStates.Visible;
                 return;
             }
@@ -50,7 +69,16 @@ namespace VorratsUebersicht
             // Somewhere in your app, call the initialization code:
             ZXing.Mobile.MobileBarcodeScanner.Initialize (Application);
 
-			this.ShowInfoText();
+			string error = this.ShowInfoText();
+            if (!string.IsNullOrEmpty(error))
+            {
+                TextView text = FindViewById<TextView>(Resource.Id.Main_Text2);
+                text.Text = "Fehler beim Zugriff auf die Datenbank:\n\n" + error;
+                text.SetTextColor(Android.Graphics.Color.Black);
+                text.SetBackgroundColor(Android.Graphics.Color.White);
+                text.Visibility = ViewStates.Visible;
+                return;
+            }
 
             // Klick auf den "abgelaufen" Text bringt die Liste der (bald) abgelaufender Artieln.
             FindViewById<TextView>(Resource.Id.Main_Text).Click  += ArticlesNearExpiryDate_Click;
@@ -84,6 +112,7 @@ namespace VorratsUebersicht
             buttonBarcode.Click += ButtonBarcode_Click;
 
             this.ShowInfoAufTestversion();
+
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -187,9 +216,19 @@ namespace VorratsUebersicht
         /// Information über abgelaufene Lagerpositionen und die Positionen, bei denen das Ablaufdatum
         /// innerhalb vom Warnungsdatum liegt.
         /// </summary>
-        private void ShowInfoText()
+        private string ShowInfoText()
 		{
-            decimal abgelaufen = Database.GetArticleCount_Abgelaufen();
+            decimal abgelaufen;
+
+            try
+            {
+                abgelaufen = Database.GetArticleCount_Abgelaufen();
+            }
+            catch(Exception ex)
+            {
+                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
+                return ex.Message;
+            }
 
             TextView text = FindViewById<TextView>(Resource.Id.Main_Text1);
             if (abgelaufen > 0)
@@ -203,7 +242,18 @@ namespace VorratsUebersicht
                 text.Visibility = ViewStates.Gone;
 			}
 
-            decimal kurzDavor = Database.GetArticleCount_BaldZuVerbrauchen();
+            decimal kurzDavor;
+
+            try
+            {
+                kurzDavor = Database.GetArticleCount_BaldZuVerbrauchen();
+            }
+            catch(Exception ex)
+            {
+                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
+                return ex.Message;
+            }
+
             text = FindViewById<TextView>(Resource.Id.Main_Text2);
             if (kurzDavor > 0)
             {
@@ -225,6 +275,8 @@ namespace VorratsUebersicht
 			{
                 text.Visibility = ViewStates.Gone;
 			}
+
+            return null;
 		}
 
 		protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)

@@ -81,7 +81,6 @@ namespace VorratsUebersicht
 
             string[] Categories = Resources.GetStringArray(Resource.Array.ArticleCatagories);
 
-
             ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, Categories);
             categoryAdapter.SetDropDownViewResource (Android.Resource.Layout.SimpleSpinnerDropDownItem);
 

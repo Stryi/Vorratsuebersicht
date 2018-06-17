@@ -18,19 +18,19 @@
             android:paddingBottom="20dp"
             android:text="@string/Main_Optionen" />
         <Switch
-            android:id="@+id/MainButton_SwitchToTestDB"
+            android:id="@+id/SettingsButton_SwitchToTestDB"
             android:text="@string/Main_TestDatenbank"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
             android:drawablePadding="20dp" />
         <TextView
-            android:id="@+id/MainButton_DatabasePath"
+            android:id="@+id/SettingsButton_DatabasePath"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Main_Datenbank" />
         <Button
-            android:id="@+id/MainButton_RestoreSampleDb"
+            android:id="@+id/SettingsButton_RestoreSampleDb"
             android:text="@string/Main_TestDatenbankZuruecksetzen"
             android:textSize="15sp"
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
             android:gravity="left|center_vertical"
             android:drawablePadding="10dp" />
         <Button
-            android:id="@+id/MainButton_RestoreDb0"
+            android:id="@+id/SettingsButton_RestoreDb0"
             android:text="@string/Main_TestDatenbankLeeren"
             android:textSize="15sp"
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
             android:gravity="left|center_vertical"
             android:drawablePadding="10dp" />
         <Button
-            android:id="@+id/MainButton_Compress"
+            android:id="@+id/SettingsButton_Compress"
             android:text="@string/Main_DatenbankKomprimieren"
             android:textSize="15sp"
             android:layout_width="match_parent"
@@ -54,7 +54,16 @@
             android:gravity="left|center_vertical"
             android:drawablePadding="10dp" />
         <Button
-            android:id="@+id/MainButton_Backup"
+            android:id="@+id/SettingsButton_DeleteDatabase"
+            android:text="@string/Main_DeleteDatabase"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:enabled="false"
+            android:drawablePadding="10dp" />
+        <Button
+            android:id="@+id/SettingsButton_Backup"
             android:text="@string/Main_BackupErstellen"
             android:textSize="15sp"
             android:layout_width="match_parent"
@@ -63,7 +72,7 @@
             android:enabled="false"
             android:drawablePadding="10dp" />
         <Button
-            android:id="@+id/MainButton_Restore"
+            android:id="@+id/SettingsButton_Restore"
             android:text="@string/Main_BackupZurueckspielen"
             android:textSize="15sp"
             android:layout_width="match_parent"
@@ -72,13 +81,13 @@
             android:enabled="false"
             android:drawablePadding="10dp" />
         <Button
-            android:id="@+id/MainButton_Licenses"
+            android:id="@+id/SettingsButton_Licenses"
             android:text="@string/Main_OpenSourceLizenzen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp" />
         <TextView
-            android:id="@+id/MainButton_Version"
+            android:id="@+id/SettingsButton_Version"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp" />
