@@ -41,6 +41,7 @@ namespace VorratsUebersicht
             var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
             backgroundPaint.SetBounds(0, 0, 10, 10);
             ActionBar.SetBackgroundDrawable(backgroundPaint);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
 
             ShowArticleList();
 
@@ -58,6 +59,10 @@ namespace VorratsUebersicht
         {
             switch (item.ItemId)
             {
+                case Android.Resource.Id.Home:
+                    this.OnBackPressed();
+                    return true;
+
                 case Resource.Id.ArticleList_Add:
                     // Create New Article
                     this.ShowArticleDetails(0, null);

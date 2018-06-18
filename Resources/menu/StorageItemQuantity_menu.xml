@@ -10,10 +10,10 @@
         android:showAsAction="never" />
   <item android:id="@+id/StorageItemQuantity_Cancel"
         android:icon="@drawable/ic_close_white_24dp"
-        android:title="Abbrechen"
+        android:title="@string/App_Cancel"
         android:showAsAction="always" />
   <item android:id="@+id/StorageItemQuantity_Save"
         android:icon="@drawable/ic_check_white_24dp"
-        android:title="Speichern"
+        android:title="@string/App_Save"
         android:showAsAction="always" />
 </menu>

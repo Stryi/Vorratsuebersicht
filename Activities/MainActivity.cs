@@ -9,7 +9,6 @@ using Android.Widget;
 using Android.OS;
 using Android.Content.Res;
 using Android.Support.V4.Content;
-using System.Drawing;
 
 namespace VorratsUebersicht
 {
@@ -27,6 +26,7 @@ namespace VorratsUebersicht
         public static string Strings_Category;
         public static string Strings_SubCategory;
         public static string Strings_EANCode;
+        public static string Strings_Amount;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -37,6 +37,7 @@ namespace VorratsUebersicht
             MainActivity.Strings_Category      = Resources.GetString(Resource.String.ArticleDetails_Category);
             MainActivity.Strings_SubCategory   = Resources.GetString(Resource.String.ArticleDetails_SubCategory);
             MainActivity.Strings_EANCode       = Resources.GetString(Resource.String.ArticleDetails_EANCode);
+            MainActivity.Strings_Amount        = Resources.GetString(Resource.String.ArticleDetails_Amount);
 
             base.OnCreate(bundle);
 

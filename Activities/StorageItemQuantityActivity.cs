@@ -37,6 +37,7 @@ namespace VorratsUebersicht
             var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
             backgroundPaint.SetBounds(0, 0, 10, 10);
             ActionBar.SetBackgroundDrawable(backgroundPaint);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
 
             this.text       = Intent.GetStringExtra ("Heading") ?? string.Empty;
             this.articleId  = Intent.GetIntExtra    ("ArticleId", 0);
@@ -133,6 +134,10 @@ namespace VorratsUebersicht
         {
             switch (item.ItemId)
             {
+                case Android.Resource.Id.Home:
+                    this.OnBackPressed();
+                    return true;
+
                 case Resource.Id.StorageItemQuantity_Edit:
 					this.SetEditMode(true);
 

@@ -6,6 +6,9 @@
   <string name="App_Yes">Ja</string>
   <string name="App_No">Nein</string>
   <string name="App_Ok">OK</string>
+  <string name="App_Cancel">Abbrechen</string>
+  <string name="App_Save">Speichern</string>
+
 
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">Sie starten die Anwendung zum ersten Mal.\n\nSoll eine Testdatenbank zum Kennenlernen der Anwendung aktiviert werden?\n\nDiese können Sie dann unter Optionen wieder deaktivieren.</string>
@@ -35,6 +38,12 @@
   <string name="Main_BackupZurueckspielen">Backup zurückspielen (geplant)</string>
   <string name="Main_OpenSourceLizenzen">Open-Source-Lizenzen</string>
 
+  <!-- Artikeldetails Menü -->
+  <string name="ArticleDetails_Menu_DeleteArticle">Artikel löschen</string>
+  <string name="ArticleDetails_Menu_CreatePicture">Bild erstellen</string>
+  <string name="ArticleDetails_Menu_SelectPicture">Bild auswählen</string>
+  <string name="ArticleDetails_Menu_EAN_Scannen">EAN Scannen</string>
+
   <!-- Artikeldetails -->
   <string name="ArticleDetails_ArticleName">Artikelname:</string>
   <string name="ArticleDetails_Manufacturer">Hersteller:</string>
@@ -50,6 +59,7 @@
   <string name="ArticleDetails_Calories">Kalorien:</string>
   <string name="ArticleDetails_EANCode">EAN Code:</string>
   <string name="ArticleDetails_Notes">Notizen:</string>
+  <string name="ArticleDetails_Amount">Anzahl:</string>
 
   <string name="ArticleCatagoriesSelect">Auswahl Kategorie...</string>
   <string name="NoArticleCatagories">Keine Kategorien vorhanden.</string>

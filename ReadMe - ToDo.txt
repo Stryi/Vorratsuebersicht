@@ -2,19 +2,15 @@
 Prio 1
 ======
 
-- Absturz bei Photo App ab Android 7
-
 Prio 2
 ======
 
-- "Inhalt/Größe" in der Liste anzeigen
 - Artikel Liste auf Englische Resourcen setzen
 - Unterkategorie Control auf PopUp umstellen
 - Nach dem Auswahl vom Bild wird noch das alte angezeigt (Vollbild)
 
 Bild entfernen programmieren
 Komprimierung/Verkleinerung der Bilder nicht immer effizient
-Vorschläge für Unterkategorien prüfen, warum es nicht funktioniert
 Selbst definierte Kategorien
 Suche nach Artikelnamen (oder Hersteller)
 

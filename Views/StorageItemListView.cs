@@ -34,7 +34,8 @@ namespace VorratsUebersicht
 			{
 				string info = string.Empty;
 
-				info = string.Format("Anzahl: {0}", this.StorageItem.Quantity);
+                info += MainActivity.Strings_Amount;
+                info += string.Format(" {0}", this.StorageItem.Quantity);
 
 				if (this.StorageItem.Size != 0)
 				{

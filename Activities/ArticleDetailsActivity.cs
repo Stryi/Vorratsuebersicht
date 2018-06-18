@@ -57,6 +57,7 @@ namespace VorratsUebersicht
             var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
             backgroundPaint.SetBounds(0, 0, 10, 10);
             ActionBar.SetBackgroundDrawable(backgroundPaint);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
 
             string text      = Intent.GetStringExtra ("Name") ?? string.Empty;
             this.articleId   = Intent.GetIntExtra    ("ArticleId", 0);
@@ -149,6 +150,10 @@ namespace VorratsUebersicht
         {
             switch(item.ItemId)
             {
+                case Android.Resource.Id.Home:
+                    this.OnBackPressed();
+                    return true;
+
                 case Resource.Id.ArticleDetails_Delete:
                     this.DeleteArticle();
                     return true;
@@ -475,7 +480,7 @@ namespace VorratsUebersicht
             int position = categoryAdapter.GetPosition(article.Category);
             categorySpinner.SetSelection(position);
 
-            this.SubCategories = Database.GetSubcategoriesOf(article.Category);
+            this.SubCategories = Database.GetSubcategoriesOf();
 
             var subCategory = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_SubCategory);
             var subCategoryAdapter = (ArrayAdapter<String>)(subCategory.Adapter);

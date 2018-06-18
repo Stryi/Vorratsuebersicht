@@ -7,6 +7,7 @@ using Android.OS;
 using Android.Content.PM;
 using Android.Widget;
 using Android.Support.V4.Content;
+using Android.Views;
 
 namespace VorratsUebersicht
 {
@@ -23,6 +24,7 @@ namespace VorratsUebersicht
             var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
             backgroundPaint.SetBounds(0, 0, 10, 10);
             ActionBar.SetBackgroundDrawable(backgroundPaint);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
 
             string dbInfoFormat = Resources.GetString(Resource.String.Main_Datenbank);
 
@@ -47,12 +49,24 @@ namespace VorratsUebersicht
             buttonDeleteDb.Click += ButtonDeleteDb_Click;
 
             Button buttonLicenses = FindViewById<Button>(Resource.Id.SettingsButton_Licenses);
-            buttonLicenses.Click += delegate { StartActivity(new Intent(this, typeof(Licenses))); };
+            buttonLicenses.Click += delegate { StartActivity(new Intent(this, typeof(LicensesActivity))); };
 
             Button buttonBackup = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
             buttonBackup.Click += delegate  { /* new Android_Database().CopyDatabaseToSDCard(false, "NewName"); */ };
 
             this.ShowApplicationVersion();
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    this.OnBackPressed();
+                    return true;
+            }
+
+            return base.OnOptionsItemSelected(item);
         }
 
         private void ButtonRestoreSampleDb_Click(object sender, EventArgs e)

@@ -37,6 +37,7 @@ namespace VorratsUebersicht
             var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
             backgroundPaint.SetBounds(0, 0, 10, 10);
             ActionBar.SetBackgroundDrawable(backgroundPaint);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
 
             ListView listView = FindViewById<ListView>(Resource.Id.MyListView);
 
@@ -75,6 +76,10 @@ namespace VorratsUebersicht
         {
             switch (item.ItemId)
             {
+                case Android.Resource.Id.Home:
+                    this.OnBackPressed();
+                    return true;
+
                 case Resource.Id.StorageItemList_Add:
 
                     // Select Article -> Menge erfassen

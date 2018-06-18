@@ -39,6 +39,19 @@ Die eingesetzte SQLite Datenbank unterstützt diese Sortierung nicht.
 Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
+Version 1.44 (CodeVersion 17)
+==================================
+
+C033 - Auswahl Unterkategorie jetzt unabhängig der Kategorie.
+C032 - Bild erstellen funktioniert jetzt wieder unter Android 6 bis 8.1
+C031 - "Zurück" Pfeil in der Titelleiste
+
+Version 1.43 (CodeVersion 16)
+==================================
+
+C030 - Fehler beim initialen Datenbankzugriff wird jetzt angezeigt
+C029 - Löschen (und Neuerstellung) der Datenbank jetzt im Settings möglich
+
 Version 1.42 (CodeVersion 15)
 ==================================
 
