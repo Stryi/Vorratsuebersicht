@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="de.stryi.Vorratsuebersicht"
+          package="de.stryi.Vorratsuebersicht" 
           android:installLocation="auto" 
-          android:versionCode="17"
+          android:versionCode="19" 
           android:versionName="1.44">
-  <uses-sdk android:minSdkVersion="15" />
-  <uses-permission android:name="android.permission.CAMERA" />
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  <uses-permission android:name="android.permission.FLASHLIGHT" />
-  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-  <application android:label="Vorratsübersicht" android:icon="@drawable/ic_launcher"></application>
+  <uses-sdk />
+  <!-- uses-sdk android:minSdkVersion="15" android:targetSdkVersion="27" / -->
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.FLASHLIGHT" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<application android:label="Vorratsübersicht" android:icon="@drawable/ic_launcher"></application>
 </manifest>

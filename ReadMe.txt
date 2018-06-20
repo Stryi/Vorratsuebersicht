@@ -39,6 +39,12 @@ Die eingesetzte SQLite Datenbank unterstützt diese Sortierung nicht.
 Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
+Version 1.44 (CodeVersion 19)
+==================================
+
+C035 - Kein minSdkVersion mehr (ein versuch)
+C034 - Hinweis, wie man Backup macht.
+
 Version 1.44 (CodeVersion 17)
 ==================================
 

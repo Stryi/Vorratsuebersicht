@@ -50,31 +50,21 @@
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
             android:drawablePadding="10dp" />
-        <Button
+      <Button
+          android:id="@+id/SettingsButton_BackupAndRestore"
+          android:text="@string/Main_BackupAndRestore"
+          android:textSize="15sp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="left|center_vertical"
+          android:drawablePadding="10dp" />
+      <Button
             android:id="@+id/SettingsButton_DeleteDatabase"
             android:text="@string/Main_DeleteDatabase"
             android:textSize="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
-            android:drawablePadding="10dp" />
-        <Button
-            android:id="@+id/SettingsButton_Backup"
-            android:text="@string/Main_BackupErstellen"
-            android:textSize="15sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
-            android:enabled="false"
-            android:drawablePadding="10dp" />
-        <Button
-            android:id="@+id/SettingsButton_Restore"
-            android:text="@string/Main_BackupZurueckspielen"
-            android:textSize="15sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
-            android:enabled="false"
             android:drawablePadding="10dp" />
         <Button
             android:id="@+id/SettingsButton_Licenses"

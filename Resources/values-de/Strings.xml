@@ -34,9 +34,9 @@
   <string name="Main_TestDatenbankLeeren">Test Datenbank leeren</string>
   <string name="Main_DatenbankKomprimieren">Datenbank komprimieren</string>
   <string name="Main_DeleteDatabase">Produktive Datenbank LÖSCHEN!!!</string>
-  <string name="Main_BackupErstellen">Backup erstellen (geplant)</string>
-  <string name="Main_BackupZurueckspielen">Backup zurückspielen (geplant)</string>
+  <string name="Main_BackupAndRestore">Backup erstellen oder zurückspielen</string>
   <string name="Main_OpenSourceLizenzen">Open-Source-Lizenzen</string>
+  <string name="Settings_BackupAndRestoreInfo">Zum Sichern und Wiederherstellen der produktiven Datenbank kopieren Sie die folgende Datei:\n\n{0}</string>
 
   <!-- Artikeldetails Menü -->
   <string name="ArticleDetails_Menu_DeleteArticle">Artikel löschen</string>

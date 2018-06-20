@@ -51,8 +51,21 @@ namespace VorratsUebersicht
             Button buttonLicenses = FindViewById<Button>(Resource.Id.SettingsButton_Licenses);
             buttonLicenses.Click += delegate { StartActivity(new Intent(this, typeof(LicensesActivity))); };
 
-            Button buttonBackup = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
-            buttonBackup.Click += delegate  { /* new Android_Database().CopyDatabaseToSDCard(false, "NewName"); */ };
+            Button buttonBackup = FindViewById<Button>(Resource.Id.SettingsButton_BackupAndRestore);
+            buttonBackup.Click += delegate  
+            {
+                string text = Resources.GetString(Resource.String.Settings_BackupAndRestoreInfo);
+
+                var path = new Android_Database().GetDatabasePath();
+                text = string.Format(text, path);
+
+                var message = new AlertDialog.Builder(this);
+                message.SetMessage(text);
+                message.SetTitle(Resource.String.App_Name);
+                message.SetIcon(Resource.Drawable.ic_launcher);
+                message.SetPositiveButton(Resource.String.App_Ok, (s, e) => { });
+                message.Create().Show();
+            };
 
             this.ShowApplicationVersion();
         }
@@ -150,7 +163,7 @@ namespace VorratsUebersicht
             PackageInfo info = context.PackageManager.GetPackageInfo(context.PackageName, 0);
 
             TextView versionInfo = FindViewById<TextView>(Resource.Id.SettingsButton_Version);
-            versionInfo.Text = string.Format("Version {0}", info.VersionName);
+            versionInfo.Text = string.Format("Version {0}.{1}", info.VersionName, info.VersionCode);
         }
 
         private void ShowDatabaseInfo()
