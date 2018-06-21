@@ -39,7 +39,7 @@ Die eingesetzte SQLite Datenbank unterstützt diese Sortierung nicht.
 Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
-Version 1.44 (CodeVersion 19)
+Version 1.44 (CodeVersion 20)
 ==================================
 minSdkVersion="15" targetSdkVersion="27"
 
