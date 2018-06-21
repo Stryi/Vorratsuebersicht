@@ -39,6 +39,13 @@ Die eingesetzte SQLite Datenbank unterstützt diese Sortierung nicht.
 Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
+Version 1.45 (CodeVersion 21)
+==================================
+minSdkVersion="16" targetSdkVersion="27"
+
+Google Play Version
+
+
 Version 1.44 (CodeVersion 20)
 ==================================
 minSdkVersion="15" targetSdkVersion="27"
