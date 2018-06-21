@@ -15,6 +15,8 @@ Ab November 2018 müssen App-Updates auf Android 8.0 (API-Ebene 26) ausgerichtet
 Tipp: Wir empfehlen dir, die Ziel-API-Ebene deiner App zu ändern. Hier erfährst du, wie du dies tun kannst.
 https://developer.android.com/distribute/best-practices/develop/target-sdk.html
 
+file:///storage exposed beyond app through ClipData.Item.getUri()
+
 Prio 2
 ======
 
