@@ -1,5 +1,4 @@
-﻿
-using Android.App;
+﻿using Android.App;
 using Android.OS;
 
 // Anhand von
@@ -8,7 +7,7 @@ using Android.OS;
 namespace VorratsUebersicht  
 {  
     [Activity(Label="Vorratsübersicht",MainLauncher=true,Theme="@style/Theme.Splash",NoHistory=true,Icon="@drawable/ic_launcher")]  
-    public class SplashScreen : Activity  
+    public class SplashScreenActivity : Activity  
     {  
         protected override void OnCreate(Bundle bundle)  
         {  

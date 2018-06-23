@@ -141,7 +141,7 @@ namespace VorratsUebersicht
             return stringList;
         }
 
-        internal static string[] GetSubcategoriesOf(string category)
+        internal static string[] GetSubcategoriesOf(string category = null)
         {
             SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
 
@@ -149,12 +149,25 @@ namespace VorratsUebersicht
             string cmd = string.Empty;
             cmd += "SELECT DISTINCT SubCategory AS Value";
 			cmd += " FROM Article";
-			cmd += " WHERE Category = ?";
-            cmd += " AND SubCategory IS NOT NULL";
+            cmd += " WHERE SubCategory IS NOT NULL";
+            if (category != null)
+            {
+                cmd += " AND Category = ?";
+            }
             cmd += " AND ArticleId IN (SELECT ArticleId FROM StorageItem)";
 			cmd += " ORDER BY SubCategory";
 
-            var command = databaseConnection.CreateCommand(cmd, new object[] { category });
+            SQLiteCommand command;
+
+            if (category != null)
+            {
+                command = databaseConnection.CreateCommand(cmd, new object[] { category });
+            }
+            else
+            {
+                command = databaseConnection.CreateCommand(cmd, new object[] { });
+            }
+
             IList<StringResult> result = command.ExecuteQuery<StringResult>();
 
             string[] stringList = new string[result.Count];

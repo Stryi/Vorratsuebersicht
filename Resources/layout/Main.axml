@@ -60,7 +60,7 @@
             android:drawablePadding="20dp" />
         <Button
             android:id="@+id/MainButton_Artikeldaten"
-            android:text="@string/Main_Button_Artikelangaben"
+            android:text="@string/Main_Button_ArtikelListe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_local_offer_white_48dp"

@@ -2,24 +2,32 @@
 Prio 1
 ======
 
-- Absturz bei Photo App ab Android 7
+
+Warnungen
+
+Deine App ist derzeit auf API-Ebene 16 ausgerichtet, sollte jedoch eine API-Mindestebene von 26 haben. 
+Hierdurch soll sichergestellt werden, dass deine App den neuesten APIs entspricht, 
+Nutzern eine optimale Leistung bietet und sicher ist.
+
+Ab August 2018 müssen neue Apps auf mindestens Android 8.0 (API-Ebene 26) ausgerichtet sein.
+Ab November 2018 müssen App-Updates auf Android 8.0 (API-Ebene 26) ausgerichtet sein.
+
+Tipp: Wir empfehlen dir, die Ziel-API-Ebene deiner App zu ändern. Hier erfährst du, wie du dies tun kannst.
+https://developer.android.com/distribute/best-practices/develop/target-sdk.html
+
+file:///storage exposed beyond app through ClipData.Item.getUri()
 
 Prio 2
 ======
 
-- "Inhalt/Größe" in der Liste anzeigen
 - Artikel Liste auf Englische Resourcen setzen
 - Unterkategorie Control auf PopUp umstellen
 - Nach dem Auswahl vom Bild wird noch das alte angezeigt (Vollbild)
-- Kategorie erfassen
 
 Bild entfernen programmieren
 Komprimierung/Verkleinerung der Bilder nicht immer effizient
-Vorschläge für Unterkategorien prüfen, warum es nicht funktioniert
 Selbst definierte Kategorien
 Suche nach Artikelnamen (oder Hersteller)
-
-
 
 Artikel "Unendlich haltbar: Ja"
 - Keine Anzeige "Warnen {0} Tage(n) vor Ablauf" (im Artikelstand)
@@ -28,6 +36,72 @@ Artikel "Unendlich haltbar: Ja"
 Für Hinzufügen von Positionen, Artikel oder Bestand ein "Floating Action Button" verwenden
 https://guides.codepath.com/android/floating-action-buttons
 
+Gemeldete Abstürze:
+===================
+
+10 Berichte
+Alle Berichte mit: Samsung Galaxy S7 Edge (hero2lte), 4096MB RAM, Android 7.0
+
+android.runtime.JavaProxyThrowable
+md56c9fe683bd4750f69443fa5376e732f4.MainActivity.n_onCreate
+
+android.runtime.JavaProxyThrowable: at SQLite.SQLiteConnection..ctor (System.String databasePath, SQLite.SQLiteOpenFlags openFlags, System.Boolean storeDateTimeAsTicks) [0x00077] in <d99df9bc3e8e44e69fa595e0813d407b>:0
+at SQLite.SQLiteConnection..ctor (System.String databasePath, System.Boolean storeDateTimeAsTicks) [0x00000] in <d99df9bc3e8e44e69fa595e0813d407b>:0
+at VorratsUebersicht.Android_Database.GetConnection () [0x00044] in <791ae3b0a24b4da0bb5d1adbd637d629>:0
+at VorratsUebersicht.Database.GetArticleCount_Abgelaufen () [0x00006] in <791ae3b0a24b4da0bb5d1adbd637d629>:0
+at VorratsUebersicht.MainActivity.ShowInfoText () [0x00001] in <791ae3b0a24b4da0bb5d1adbd637d629>:0
+at VorratsUebersicht.MainActivity.OnCreate (Android.OS.Bundle bundle) [0x000a8] in <791ae3b0a24b4da0bb5d1adbd637d629>:0
+at Android.App.Activity.n_OnCreate_Landroid_os_Bundle_ (System.IntPtr jnienv, System.IntPtr native__this, System.IntPtr native_savedInstanceState) [0x0000f] in <1f978e077a40491b9118490f4344ce9f>:0
+at (wrapper dynamic-method) System.Object.c6c33e78-4e99-4924-9cc8-34e6129429ac(intptr,intptr,intptr)
+   at md56c9fe683bd4750f69443fa5376e732f4.MainActivity.n_onCreate (Native Method)
+   at md56c9fe683bd4750f69443fa5376e732f4.MainActivity.onCreate (MainActivity.java:32)
+   at android.app.Activity.performCreate (Activity.java:6912)
+   at android.app.Instrumentation.callActivityOnCreate (Instrumentation.java:1126)
+   at android.app.ActivityThread.performLaunchActivity (ActivityThread.java:2877)
+   at android.app.ActivityThread.handleLaunchActivity (ActivityThread.java:2985)
+   at android.app.ActivityThread.-wrap14 (ActivityThread.java)
+   at android.app.ActivityThread$H.handleMessage (ActivityThread.java:1635)
+   at android.os.Handler.dispatchMessage (Handler.java:102)
+   at android.os.Looper.loop (Looper.java:154)
+   at android.app.ActivityThread.main (ActivityThread.java:6692)
+   at java.lang.reflect.Method.invoke (Native Method)
+   at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run (ZygoteInit.java:1468)
+   at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:1358)
+
+
+
+1 Bericht
+
+Huawei MediaPad T2 10.0 pro (HWFDR), 2048MB RAM, Android 5.1
+------------------------------------------------------------
+
+java.lang.NullPointerException
+md56c9fe683bd4750f69443fa5376e732f4.ArticleListActivity.n_onActivit
+
+Exceptions:
+java.lang.RuntimeException: 
+  at android.app.ActivityThread.performResumeActivity (ActivityThread.java:3260)
+  at android.app.ActivityThread.handleResumeActivity (ActivityThread.java:3291)
+  at android.app.ActivityThread.handleLaunchActivity (ActivityThread.java:2540)
+  at android.app.ActivityThread.handleRelaunchActivity (ActivityThread.java:4251)
+  at android.app.ActivityThread.access$1300 (ActivityThread.java:165)
+  at android.app.ActivityThread$H.handleMessage (ActivityThread.java:1397)
+  at android.os.Handler.dispatchMessage (Handler.java:102)
+  at android.os.Looper.loop (Looper.java:135)
+  at android.app.ActivityThread.main (ActivityThread.java:5689)
+  at java.lang.reflect.Method.invoke (Native Method)
+  at java.lang.reflect.Method.invoke (Method.java:372)
+  at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run (ZygoteInit.java:960)
+  at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:755)
+Caused by: java.lang.RuntimeException: 
+  at android.app.ActivityThread.deliverResults (ActivityThread.java:3863)
+  at android.app.ActivityThread.performResumeActivity (ActivityThread.java:3246)
+Caused by: java.lang.NullPointerException: 
+  at android.widget.AbsListView.onRestoreInstanceState (AbsListView.java:1889)
+  at md56c9fe683bd4750f69443fa5376e732f4.ArticleListActivity.n_onActivityResult (Native Method)
+  at md56c9fe683bd4750f69443fa5376e732f4.ArticleListActivity.onActivityResult (ArticleListActivity.java:56)
+  at android.app.Activity.dispatchActivityResult (Activity.java:6320)
+  at android.app.ActivityThread.deliverResults (ActivityThread.java:3859)
 
 Navigation Bar
 http://www.c-sharpcorner.com/article/xamarin-android-create-left-drawer-layout/

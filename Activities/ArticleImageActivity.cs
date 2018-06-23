@@ -6,11 +6,11 @@ using Android.OS;
 using Android.Widget;
 using Android.Graphics;
 using Android.Support.V4.Content;
+using Android.Views;
 
 namespace VorratsUebersicht
 {
     [Activity(Label = "ArticleImageActivity")]
-    //[Activity(Label = "ArticleImageActivity", MainLauncher = true)]
     public class ArticleImageActivity : Activity
     {
         int articleId;
@@ -29,6 +29,7 @@ namespace VorratsUebersicht
             var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
             backgroundPaint.SetBounds(0, 0, 10, 10);
             ActionBar.SetBackgroundDrawable(backgroundPaint);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
 
             string text    = Intent.GetStringExtra ("Heading") ?? string.Empty;
             this.articleId = Intent.GetIntExtra    ("ArticleId", 0);
@@ -41,6 +42,18 @@ namespace VorratsUebersicht
             ActionBar.SetIcon(Resource.Drawable.ic_photo_camera_white_24dp);
 
             this.ShowPictureFromDatabase(large);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    this.OnBackPressed();
+                    return true;
+            }
+
+            return base.OnOptionsItemSelected(item);
         }
 
         private void ShowPictureFromDatabase(bool showLarge)

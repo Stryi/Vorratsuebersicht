@@ -37,6 +37,7 @@ namespace VorratsUebersicht
             var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
             backgroundPaint.SetBounds(0, 0, 10, 10);
             ActionBar.SetBackgroundDrawable(backgroundPaint);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
 
             this.text       = Intent.GetStringExtra ("Heading") ?? string.Empty;
             this.articleId  = Intent.GetIntExtra    ("ArticleId", 0);
@@ -78,6 +79,7 @@ namespace VorratsUebersicht
 
                 ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
                 ((StorageItemQuantityListViewAdapter)listView.Adapter).Add(itemView);
+                listView.InvalidateViews();
 
                 if (!this.durableInfinity)
                 {
@@ -132,6 +134,10 @@ namespace VorratsUebersicht
         {
             switch (item.ItemId)
             {
+                case Android.Resource.Id.Home:
+                    this.OnBackPressed();
+                    return true;
+
                 case Resource.Id.StorageItemQuantity_Edit:
 					this.SetEditMode(true);
 
@@ -220,13 +226,8 @@ namespace VorratsUebersicht
 
                 Database.UpdateStorageItemQuantity(
 					item.StorageItem);
-				/*
-                Database.UpdateStorageItemQuantity(
-                    item.StorageItem.StorageItemId, 
-                    this.articleId,
-                    item.StorageItem.Quantity,
-                    item.StorageItem.QuantityDiff);
-				*/
+
+                item.StorageItem.QuantityDiff = 0;  // Änderung gespeichert.
             }
         }
 
@@ -260,41 +261,48 @@ namespace VorratsUebersicht
 			if (!string.IsNullOrEmpty(article.Manufacturer))
 			{
 				if (!string.IsNullOrEmpty(info)) info += "\r\n";
-				info += string.Format("Hersteller: {0}", article.Manufacturer);
+                info += MainActivity.Strings_Manufacturer;
+				info += string.Format(" {0}", article.Manufacturer);
 			}
 
 			if (article.Size.HasValue)
 			{
 				if (!string.IsNullOrEmpty(info)) info += "\r\n";
-				info += string.Format("Menge: {0} {1}", article.Size.Value, article.Unit);
+                info += MainActivity.Strings_Size;
+				info += string.Format(" {0} {1}", article.Size.Value, article.Unit).TrimEnd();
 			}
 			if (article.Calorie.HasValue)
 			{
 				if (!string.IsNullOrEmpty(info)) info += "\r\n";
-				info += string.Format("Kalorien: {0:n0}", article.Calorie.Value);
+                info += MainActivity.Strings_Calories;
+				info += string.Format(" {0:n0}", article.Calorie.Value);
 			}
             if (article.DurableInfinity == false && article.WarnInDays.HasValue)
 			{
 				if (!string.IsNullOrEmpty(info)) info += "\r\n";
-				info += string.Format("Warnen: {0} Tage(n) vor Ablauf", article.WarnInDays.Value);
+                info += MainActivity.Strings_WarnenInTagen;
+				info += string.Format(" {0}", article.WarnInDays.Value);
 			}
 
 			if (!string.IsNullOrEmpty(article.Category))
 			{
 				if (!string.IsNullOrEmpty(info)) info += "\r\n";
-				info += string.Format("Kategorie: {0}", article.Category);
+                info += MainActivity.Strings_Category;
+				info += string.Format(" {0}", article.Category);
 			}
 
 			if (!string.IsNullOrEmpty(article.SubCategory))
 			{
 				if (!string.IsNullOrEmpty(info)) info += "\r\n";
-				info += string.Format("Unterkategorie: {0}", article.SubCategory);
+                info += MainActivity.Strings_SubCategory;
+				info += string.Format(" {0}", article.SubCategory);
 			}
 
 			if (!string.IsNullOrEmpty(article.EANCode))
 			{
 				if (!string.IsNullOrEmpty(info)) info += "\r\n";
-				info += string.Format("EAN Code: {0}", article.EANCode);
+                info += MainActivity.Strings_EANCode;
+				info += string.Format(" {0}", article.EANCode);
 			}
 
             detailView.Text = info;

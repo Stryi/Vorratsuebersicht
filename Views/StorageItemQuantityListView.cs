@@ -19,7 +19,7 @@ namespace VorratsUebersicht
 
         public override string Heading
         {
-             get { return string.Format("Anzahl: {0}", this.StorageItem.Quantity); }
+             get { return string.Format("{0} {1}", MainActivity.Strings_Amount, this.StorageItem.Quantity); }
         }
 
         public override string SubHeading

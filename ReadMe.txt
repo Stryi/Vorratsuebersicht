@@ -39,9 +39,38 @@ Die eingesetzte SQLite Datenbank unterstützt diese Sortierung nicht.
 Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
+Version 1.45 (CodeVersion 21)
+==================================
+minSdkVersion="16" targetSdkVersion="27"
+
+Google Play Version
+
+
+Version 1.44 (CodeVersion 20)
+==================================
+minSdkVersion="15" targetSdkVersion="27"
+
+C033 - Hinweis, wie man Backup macht.
+
+Version 1.44 (CodeVersion 17)
+==================================
+minSdkVersion="15"
+
+C032 - Auswahl Unterkategorie jetzt unabhängig der Kategorie.
+C031 - "Zurück" Pfeil in der Titelleiste
+
+Version 1.43 (CodeVersion 16)
+==================================
+minSdkVersion="15" targetSdkVersion="27"
+
+C030 - Fehler beim initialen Datenbankzugriff wird jetzt angezeigt
+C029 - Löschen (und Neuerstellung) der Datenbank jetzt im Settings möglich
+
 Version 1.42 (CodeVersion 15)
 ==================================
+minSdkVersion="15" targetSdkVersion="27"
 
+C028 - Datums Problem bei einigen Smartphones behoben
 C027 - Nach dem EAN-Scann kommt eine Auswahl: Lagerbestand und Artikeldaten 
 C026 - Testdaten korrigiert (Kategorie "Lebensmittel" statt "Essen" und Größe/Einheit)
 C025 - Auswahl "Alle" oder "Ohne" Unterkategorie
@@ -52,11 +81,13 @@ C021 - Klick auf ein leeres Bild beim Lagerbestand bringt keine (fast) leere Sei
 
 Version 1.41 (CodeVersion 14)
 ==================================
+minSdkVersion="15" targetSdkVersion="27"
 
 C020 - Performance beim Laden der Listen weiter verbessert.
 
 Version 1.40 (CodeVersion 13)
 ==================================
+minSdkVersion="16" targetSdkVersion="24"
 
 C019 - Performance beim Laden der Listen verbessert.
 C018 - Problem mit Bild erstellen und fehlender SD Karte behoben.
@@ -64,17 +95,20 @@ C017 - Farbschema überarbeitet
 
 Version 1.31 (CodeVersion 10)
 ==================================
+minSdkVersion="16" targetSdkVersion="24"
 
 C016 - Eingabe von Zahlen vor Absturz abgesichert.
 
 Version 1.30 (CodeVersion 9)
 ==================================
+minSdkVersion="16" targetSdkVersion="16"
 
 C015 - Eingabe von "Inhalt / Größe" vor Absturz abgesichert (richtig).
 
 
 Version 1.25 (CodeVersion 8)
 ==================================
+minSdkVersion="16" targetSdkVersion="16"
 
 C016 - Einstellungen in eine separate Seite vershoben.
 C015 - Eingabe von "Inhalt / Größe" vor Absturz abgesichert.
@@ -82,18 +116,21 @@ C015 - Eingabe von "Inhalt / Größe" vor Absturz abgesichert.
 
 Version 1.24 (CodeVersion 7)
 ==================================
+minSdkVersion="16" targetSdkVersion="16"
 
 C014 - Teilweise englische Übersetzung
 C013 - Open-Source-Lizencen werden jetzt als HTML angezeigt.
 
 Version 1.23 (CodeVersion 6)
 ==================================
+minSdkVersion="16" targetSdkVersion="16"
 
 C012 - Open-Source-Lizencen können jetzt angezeigt werden.
 
 
 Version 1.22 (CodeVersion 5)
 ==================================
+minSdkVersion="16" targetSdkVersion="16"
 
 Erweiterungen:
 
