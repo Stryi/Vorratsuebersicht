@@ -24,7 +24,7 @@
   <string name="Main_Button_Artikelangaben">Artikelangaben</string>
   <string name="Main_Button_ArtikelListe">Artikelliste</string>
   <string name="Main_Button_ArtikelScannen">Artikel scannen</string>
-  <string name="Main_Button_Einkaufsliste">Einkaufsliste (geplant)</string>
+  <string name="Main_Button_Einkaufsliste">Einkaufsliste (Experimental)</string>
   
   <!-- Maske Optionen -->
   <string name="Settings_Title">Einstellungen</string>
@@ -39,6 +39,7 @@
   <string name="Settings_BackupAndRestoreInfo">Zum Sichern und Wiederherstellen der produktiven Datenbank kopieren Sie die folgende Datei:\n\n{0}</string>
 
   <!-- Artikeldetails Menü -->
+  <string name="ArticleDetails_Menu_ToShoppingList">Auf Einkaufsliste</string>
   <string name="ArticleDetails_Menu_DeleteArticle">Artikel löschen</string>
   <string name="ArticleDetails_Menu_CreatePicture">Bild erstellen</string>
   <string name="ArticleDetails_Menu_SelectPicture">Bild auswählen</string>

@@ -70,7 +70,7 @@ namespace VorratsUebersicht
             // Somewhere in your app, call the initialization code:
             ZXing.Mobile.MobileBarcodeScanner.Initialize (Application);
 
-			string error = this.ShowInfoText();
+            string error = this.ShowInfoText();
             if (!string.IsNullOrEmpty(error))
             {
                 TextView text = FindViewById<TextView>(Resource.Id.Main_Text2);
@@ -103,9 +103,8 @@ namespace VorratsUebersicht
 
             // Einkaufsliste
             Button buttonShoppingList = FindViewById<Button>(Resource.Id.MainButton_ShoppingList);
-            // TODO: Irgendwann mal implementieren...            
-            //buttonShoppingList.Enabled = true;
-            //buttonShoppingList.Click += delegate { StartActivity (new Intent (this, typeof(ShoppingListActivity)));};
+            buttonShoppingList.Enabled = true;
+            buttonShoppingList.Click += delegate { StartActivity (new Intent (this, typeof(ShoppingListActivity)));};
 
             // Barcode scannen
             Button buttonBarcode = FindViewById<Button>(Resource.Id.MainButton_Barcode);
@@ -172,6 +171,7 @@ namespace VorratsUebersicht
             string lastRunDay = prefs.GetString("LastRunDay", string.Empty);
             string today      = DateTime.Today.ToString("yyyy.MM.dd");
 
+            /*
             if (!lastRunDay.Equals(today))
             {
                 var message = new AlertDialog.Builder(this);
@@ -181,6 +181,7 @@ namespace VorratsUebersicht
                 message.SetPositiveButton(Resource.String.App_Ok, (s, e) => { });
                 message.Create().Show();
             }
+            */
 
             var prefEditor = prefs.Edit();
             prefEditor.PutString("LastRunDay", today);
@@ -234,14 +235,14 @@ namespace VorratsUebersicht
             TextView text = FindViewById<TextView>(Resource.Id.Main_Text1);
             if (abgelaufen > 0)
             {
-				string value = Resources.GetString(Resource.String.Main_ArticlesWithExpiryDate);
+                string value = Resources.GetString(Resource.String.Main_ArticlesWithExpiryDate);
                 text.Text = string.Format(value, abgelaufen);
                 text.Visibility = ViewStates.Visible;
             }
-			else
-			{
+            else
+            {
                 text.Visibility = ViewStates.Gone;
-			}
+            }
 
             decimal kurzDavor;
 
@@ -258,29 +259,29 @@ namespace VorratsUebersicht
             text = FindViewById<TextView>(Resource.Id.Main_Text2);
             if (kurzDavor > 0)
             {
-				string value = Resources.GetString(Resource.String.Main_ArticlesNearExpiryDate);
+                string value = Resources.GetString(Resource.String.Main_ArticlesNearExpiryDate);
                 text.Text = string.Format(value, kurzDavor);
                 text.Visibility = ViewStates.Visible;
             }
-			else
-			{
+            else
+            {
                 text.Visibility = ViewStates.Gone;
-			}
+            }
 
             text = FindViewById<TextView>(Resource.Id.Main_Text);
             if ((abgelaufen > 0) || (kurzDavor > 0))
             {
                 text.Visibility = ViewStates.Visible;
             }
-			else
-			{
+            else
+            {
                 text.Visibility = ViewStates.Gone;
-			}
+            }
 
             return null;
-		}
+        }
 
-		protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
 		{
 			base.OnActivityResult(requestCode, resultCode, data);
 

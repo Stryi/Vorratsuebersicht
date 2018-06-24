@@ -137,8 +137,10 @@ namespace VorratsUebersicht
         public override bool OnPrepareOptionsMenu(IMenu menu)
         {
             IMenuItem itemDelete = menu.FindItem(Resource.Id.ArticleDetails_Delete);
-
             itemDelete.SetVisible(this.article?.ArticleId > 0);
+
+            IMenuItem itemToShopping = menu.FindItem(Resource.Id.ArticleDetails_ToShoppingList);
+            itemToShopping.SetVisible(this.article?.ArticleId > 0);
 
             IMenuItem itemAddPhoto = menu.FindItem(Resource.Id.ArticleDetails_MakeAPhoto);
             itemAddPhoto.SetVisible(IsThereAnAppToTakePictures());
@@ -174,6 +176,9 @@ namespace VorratsUebersicht
                     this.OnBackPressed();
                     return true;
 
+                case Resource.Id.ArticleDetails_ToShoppingList:
+                    this.AddToShoppimgList();
+                    return true;
 
                 case Resource.Id.ArticleDetails_MakeAPhoto:
                     this.TakeAPhoto();
@@ -192,8 +197,15 @@ namespace VorratsUebersicht
             return false;
         }
 
+        private void AddToShoppimgList()
+        {
+            double count = Database.AddToShoppingList(this.articleId, 1);
 
-		private async void ScanEAN()
+            string msg = string.Format("{0} Stück auf der Liste.", count);
+            Toast.MakeText(this, msg, ToastLength.Long).Show();
+        }
+
+        private async void ScanEAN()
         {
             var scanner = new ZXing.Mobile.MobileBarcodeScanner();
             var scanResult = await scanner.Scan();

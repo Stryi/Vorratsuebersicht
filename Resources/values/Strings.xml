@@ -23,7 +23,7 @@
   <string name="Main_Button_Artikelangaben">Article details</string>
   <string name="Main_Button_ArtikelListe">Article list</string>
   <string name="Main_Button_ArtikelScannen">Scan article</string>
-  <string name="Main_Button_Einkaufsliste">Shopping list (planned)</string>
+  <string name="Main_Button_Einkaufsliste">Shopping list (experimental)</string>
 
   <!-- Maske Optionen -->
   <string name="Settings_Title">Settings</string>
@@ -38,6 +38,7 @@
   <string name="Settings_BackupAndRestoreInfo">To back up and restore the production database, copy the following file:\n\n{0}</string>
 
   <!-- Artikeldetails Menü -->
+  <string name="ArticleDetails_Menu_ToShoppingList">To shopping list</string>
   <string name="ArticleDetails_Menu_DeleteArticle">Delete article</string>
   <string name="ArticleDetails_Menu_CreatePicture">Create picture</string>
   <string name="ArticleDetails_Menu_SelectPicture">Select picture</string>

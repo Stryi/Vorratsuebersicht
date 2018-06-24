@@ -55,7 +55,73 @@ namespace VorratsUebersicht
 
 		}
 
-		internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(StorageItemQuantityResult storegeItem)
+        internal static IList<ShoppingItemListResult> GetShoppingItemList()
+        {
+            List<ShoppingItemListResult> result = new List<ShoppingItemListResult>();
+
+            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            if (databaseConnection == null)
+                return result;
+
+            string cmd = string.Empty;
+            SQLiteCommand command;
+
+            cmd += "SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Size, Unit, Calorie, Quantity";
+            cmd += " FROM ShoppingList";
+            cmd += " LEFT JOIN Article ON ShoppingList.ArticleId = Article.ArticleId";
+            cmd += " ORDER BY Name";
+
+            command = databaseConnection.CreateCommand(cmd, new object[] { });
+
+            return command.ExecuteQuery<ShoppingItemListResult>();
+        }
+
+        internal static double AddToShoppingList(int articleId, double addQuantity)
+        {
+            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            if (databaseConnection == null)
+                return 0;
+
+            SQLiteCommand command;
+            string cmd = string.Empty;
+
+            cmd += "SELECT Quantity FROM ShoppingList WHERE ArticleId = ?";
+            command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
+            double isQuantity = command.ExecuteScalar<double>();
+
+            double newQuantity = isQuantity + addQuantity;
+
+            if (isQuantity == 0)
+            {
+                cmd = "INSERT INTO ShoppingList (ArticleId, Quantity) VALUES (?, ?)";
+                command = databaseConnection.CreateCommand(cmd, new object[] { articleId, newQuantity });
+            }
+            else
+            {
+                cmd = "UPDATE ShoppingList SET Quantity = ? WHERE ArticleId = ?";
+                command = databaseConnection.CreateCommand(cmd, new object[] { newQuantity, articleId });
+            }
+
+            command.ExecuteNonQuery();
+
+            return newQuantity;
+        }
+
+        internal static void RemoveFromShoppingList(int shoppingListId)
+        {
+            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            if (databaseConnection == null)
+                return;
+
+            SQLiteCommand command;
+            string cmd = string.Empty;
+
+            cmd += "DELETE FROM ShoppingList WHERE ShoppingListId = ?";
+            command = databaseConnection.CreateCommand(cmd, new object[] { shoppingListId });
+            command.ExecuteNonQuery();
+        }
+
+        internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(StorageItemQuantityResult storegeItem)
 		{
             IList<StorageItemQuantityResult> result = new List<StorageItemQuantityResult>();
 

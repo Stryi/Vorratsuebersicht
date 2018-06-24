@@ -79,11 +79,11 @@ namespace VorratsUebersicht
 
             File.Delete(dbPath);
 
-			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
+            string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
             this.CreateDatabaseIfNotExists(documentsPath,  Android_Database.sqliteFilename_New,  Android_Database.sqliteFilename_Prod, false);
         }
 
-		public bool IsCurrentDatabaseExists()
+        public bool IsCurrentDatabaseExists()
 		{
 			var path = new Android_Database().GetDatabasePath();
 
@@ -282,7 +282,20 @@ namespace VorratsUebersicht
 			{
 				conn.Execute("ALTER TABLE Article ADD COLUMN Calorie INTEGER");
 			}
-		}
+
+            // Update 1.50: Einkaufswagen
+            if (!this.IsTableInDatabase(conn, "ShoppingList"))
+            {
+                string cmd = string.Empty;
+
+                cmd += "CREATE TABLE [ShoppingList] (";
+                cmd += " [ShoppingListId] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,";
+                cmd += " [ArticleId] INTEGER CONSTRAINT[FK_Article] REFERENCES[Article], ";
+                cmd += " [Quantity] NUMERIC);";
+
+                conn.Execute(cmd);
+            }
+}
 
 		private bool IsFieldInTheTable(SQLiteConnection conn, string tableName, string fieldName)
 		{
@@ -291,6 +304,13 @@ namespace VorratsUebersicht
 			var field = tableInfo.FirstOrDefault(e => e.name.Equals(fieldName, StringComparison.InvariantCultureIgnoreCase));
 			return (field != null);
 		}
+
+        private bool IsTableInDatabase(SQLiteConnection conn, string tableName)
+        {
+            string cmd = string.Format("SELECT name FROM sqlite_master WHERE type = 'table' AND name = '{0}'", tableName);
+            IList<table_info> tableInfo = conn.Query<table_info>(cmd);
+            return (tableInfo.Count > 0);
+        }
 
         /// <summary>
         /// Erstellt Datenbank aus den Resourcen.
