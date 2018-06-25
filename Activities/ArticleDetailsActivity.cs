@@ -202,7 +202,7 @@ namespace VorratsUebersicht
             double count = Database.AddToShoppingList(this.articleId, 1);
 
             string msg = string.Format("{0} Stück auf der Liste.", count);
-            Toast.MakeText(this, msg, ToastLength.Long).Show();
+            Toast.MakeText(this, msg, ToastLength.Short).Show();
         }
 
         private async void ScanEAN()

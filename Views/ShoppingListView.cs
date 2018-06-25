@@ -61,6 +61,9 @@ namespace VorratsUebersicht
         {
             get
             {
+                if (this.ShoppingItem.Quantity == 0)
+                    return string.Empty;
+
                 return  string.Format("Anzahl: {0}", this.ShoppingItem.Quantity);
             }
         }

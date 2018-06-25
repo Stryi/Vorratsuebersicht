@@ -24,7 +24,7 @@
   <string name="Main_Button_Artikelangaben">Artikelangaben</string>
   <string name="Main_Button_ArtikelListe">Artikelliste</string>
   <string name="Main_Button_ArtikelScannen">Artikel scannen</string>
-  <string name="Main_Button_Einkaufsliste">Einkaufsliste (Experimental)</string>
+  <string name="Main_Button_Einkaufsliste">Einkaufsliste (Beta)</string>
   
   <!-- Maske Optionen -->
   <string name="Settings_Title">Einstellungen</string>

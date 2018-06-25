@@ -23,7 +23,7 @@
   <string name="Main_Button_Artikelangaben">Article details</string>
   <string name="Main_Button_ArtikelListe">Article list</string>
   <string name="Main_Button_ArtikelScannen">Scan article</string>
-  <string name="Main_Button_Einkaufsliste">Shopping list (experimental)</string>
+  <string name="Main_Button_Einkaufsliste">Shopping list (beta)</string>
 
   <!-- Maske Optionen -->
   <string name="Settings_Title">Settings</string>

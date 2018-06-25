@@ -295,7 +295,7 @@ namespace VorratsUebersicht
 
                 conn.Execute(cmd);
             }
-}
+        }
 
 		private bool IsFieldInTheTable(SQLiteConnection conn, string tableName, string fieldName)
 		{

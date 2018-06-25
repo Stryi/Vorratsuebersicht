@@ -63,7 +63,7 @@ namespace VorratsUebersicht
                 var articleImage = new Intent (this, typeof(ArticleImageActivity));
                 articleImage.PutExtra("Heading", text);
                 articleImage.PutExtra("ArticleId", articleId);
-                this.StartActivityForResult(articleImage, 1000);
+                this.StartActivity(articleImage);
             };
 
             ImageButton addRemove = FindViewById<ImageButton>(Resource.Id.StorageItemQuantity_AddArticle);
@@ -161,7 +161,7 @@ namespace VorratsUebersicht
                     var articleImage = new Intent (this, typeof(ArticleImageActivity));
                     articleImage.PutExtra("Heading", text);
                     articleImage.PutExtra("ArticleId", articleId);
-                    this.StartActivityForResult(articleImage, 1000);
+                    this.StartActivity(articleImage);
                     break;
             }
             return true;

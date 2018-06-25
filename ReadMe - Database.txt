@@ -60,6 +60,10 @@ StorageTransactionId   StorageId    ArticleId     Quantity  Reason     PricePerU
 000000000206           000000000302 000000000002         -1 Verfallen,Kaputt,Beschädigt
 
 
+CREATE TABLE [ShoppingList] (
+ [ShoppingListId] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+ [ArticleId] INTEGER CONSTRAINT[FK_Article] REFERENCES[Article],
+ [Quantity] NUMERIC)
 
 --------------------------------------------------------------------------------
 Artikel, die abgelaufen sind

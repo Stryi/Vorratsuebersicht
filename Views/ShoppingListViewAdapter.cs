@@ -40,7 +40,20 @@ namespace VorratsUebersicht
             var item = items[position];
             View view = convertView;
             if (view == null) // no view to re-use, create new
+            {
                 view = context.LayoutInflater.Inflate(Resource.Layout.ArticleListView, null);
+                ImageView imageView = view.FindViewById<ImageView>(Resource.Id.Image);
+                imageView.Click += delegate
+                {
+                    if (item.Image == null)
+                        return;
+
+                    var articleImage = new Intent(context, typeof(ArticleImageActivity));
+                    articleImage.PutExtra("Heading", item.Heading);
+                    articleImage.PutExtra("ArticleId", item.ArticleId);
+                    context.StartActivity(articleImage);
+                };
+            }
 
             view.FindViewById<TextView>(Resource.Id.Text1).Text = item.Heading;
             view.FindViewById<TextView>(Resource.Id.Text2).Text = item.SubHeading;

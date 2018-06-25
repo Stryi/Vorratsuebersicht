@@ -39,6 +39,12 @@ Die eingesetzte SQLite Datenbank unterstützt diese Sortierung nicht.
 Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
+Version 2.00 (CodeVersion 22)
+==================================
+minSdkVersion="16" targetSdkVersion="27"
+
+C034 - Einkaufsliste
+
 Version 1.45 (CodeVersion 21)
 ==================================
 minSdkVersion="16" targetSdkVersion="27"

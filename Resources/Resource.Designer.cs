@@ -494,10 +494,13 @@ namespace VorratsUebersicht
 			public const int Main_menu = 2131230722;
 			
 			// aapt resource value: 0x7f080003
-			public const int StorageItemList_menu = 2131230723;
+			public const int ShoppingList_menu = 2131230723;
 			
 			// aapt resource value: 0x7f080004
-			public const int StorageItemQuantity_menu = 2131230724;
+			public const int StorageItemList_menu = 2131230724;
+			
+			// aapt resource value: 0x7f080005
+			public const int StorageItemQuantity_menu = 2131230725;
 			
 			static Menu()
 			{

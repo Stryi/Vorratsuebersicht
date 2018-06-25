@@ -343,8 +343,8 @@ namespace VorratsUebersicht
                 string[] actions = 
                     {
                         Resources.GetString(Resource.String.Main_Button_Lagerbestand),
-                        Resources.GetString(Resource.String.Main_Button_Artikelangaben)
-                        //Resources.GetString(Resource.String.Main_Button_Einkaufsliste)
+                        Resources.GetString(Resource.String.Main_Button_Artikelangaben),
+                        Resources.GetString(Resource.String.Main_Button_Einkaufsliste)
                     };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -364,6 +364,12 @@ namespace VorratsUebersicht
                             articleDetails = new Intent(this, typeof(ArticleDetailsActivity));
                             articleDetails.PutExtra("ArticleId", artickeId);
                             StartActivityForResult(articleDetails, 10);
+                            break;
+                        case 2:
+                            // Auf die Einkaufsliste
+                            double count = Database.AddToShoppingList(artickeId, 1);
+                            string msg = string.Format("{0} Stück auf der Liste.", count);
+                            Toast.MakeText(this, msg, ToastLength.Short).Show();
                             break;
                     }
                     return;
