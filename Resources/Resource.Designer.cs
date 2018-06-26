@@ -350,6 +350,12 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f09002b
 			public const int ShoppingItemList = 2131296299;
 			
+			// aapt resource value: 0x7f090044
+			public const int ShoppingList_popup_Add1 = 2131296324;
+			
+			// aapt resource value: 0x7f090045
+			public const int ShoppingList_popup_Less1 = 2131296325;
+			
 			// aapt resource value: 0x7f09002d
 			public const int SimpleImageViewText = 2131296301;
 			
@@ -365,8 +371,8 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f090031
 			public const int StorageItemListView_TextWarning = 2131296305;
 			
-			// aapt resource value: 0x7f090044
-			public const int StorageItemList_Add = 2131296324;
+			// aapt resource value: 0x7f090046
+			public const int StorageItemList_Add = 2131296326;
 			
 			// aapt resource value: 0x7f090038
 			public const int StorageItemQuantityList_Add = 2131296312;
@@ -383,20 +389,20 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f090035
 			public const int StorageItemQuantity_AddArticle = 2131296309;
 			
+			// aapt resource value: 0x7f090049
+			public const int StorageItemQuantity_Cancel = 2131296329;
+			
 			// aapt resource value: 0x7f090047
-			public const int StorageItemQuantity_Cancel = 2131296327;
+			public const int StorageItemQuantity_Edit = 2131296327;
 			
-			// aapt resource value: 0x7f090045
-			public const int StorageItemQuantity_Edit = 2131296325;
-			
-			// aapt resource value: 0x7f090046
-			public const int StorageItemQuantity_EditPicture = 2131296326;
+			// aapt resource value: 0x7f090048
+			public const int StorageItemQuantity_EditPicture = 2131296328;
 			
 			// aapt resource value: 0x7f090033
 			public const int StorageItemQuantity_Image = 2131296307;
 			
-			// aapt resource value: 0x7f090048
-			public const int StorageItemQuantity_Save = 2131296328;
+			// aapt resource value: 0x7f09004a
+			public const int StorageItemQuantity_Save = 2131296330;
 			
 			// aapt resource value: 0x7f090015
 			public const int Text = 2131296277;
@@ -497,10 +503,13 @@ namespace VorratsUebersicht
 			public const int ShoppingList_menu = 2131230723;
 			
 			// aapt resource value: 0x7f080004
-			public const int StorageItemList_menu = 2131230724;
+			public const int ShoppingList_popup = 2131230724;
 			
 			// aapt resource value: 0x7f080005
-			public const int StorageItemQuantity_menu = 2131230725;
+			public const int StorageItemList_menu = 2131230725;
+			
+			// aapt resource value: 0x7f080006
+			public const int StorageItemQuantity_menu = 2131230726;
 			
 			static Menu()
 			{
@@ -661,6 +670,9 @@ namespace VorratsUebersicht
 			
 			// aapt resource value: 0x7f050012
 			public const int Settings_Title = 2131034130;
+			
+			// aapt resource value: 0x7f050034
+			public const int ShoppingList_Remove = 2131034164;
 			
 			// aapt resource value: 0x7f050008
 			public const int Start_DeleteProdDbQuestion = 2131034120;

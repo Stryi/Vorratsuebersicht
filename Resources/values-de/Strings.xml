@@ -67,6 +67,8 @@
   <string name="NoSubCategory_ItemEntry">[Keine Unterkategorie]</string>
   <string name="AnySubCategory_ItemEntry">[Beliebige Unterkategorie]</string>
 
+  <string name="ShoppingList_Remove">Entfernen (gekauft)</string>
+  
   <string-array name="ArticleCatagories">
     <item>Lebensmittel</item>
     <item>Trinken</item>     

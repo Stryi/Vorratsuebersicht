@@ -36,6 +36,55 @@ namespace VorratsUebersicht
             listView.ItemClick += ListView_ItemClick;
         }
 
+        private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            ListView listView = sender as ListView;
+            Java.Lang.Object itemObject = listView.GetItemAtPosition(e.Position);
+            ShoppingListView item = Tools.Cast<ShoppingListView>(itemObject);
+
+            string removeText = Resources.GetString(Resource.String.ShoppingList_Remove);
+
+            string[] actions = { "+10", "+1", "-1", "-10", removeText };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle(item.Heading);
+            builder.SetItems(actions, (sender2, args) =>
+            {
+
+                switch (args.Which)
+                {
+                    case 0: // +10
+                        Database.AddToShoppingList(item.ArticleId, 10);
+                        ShowShoppingList();
+                        break;
+
+                    case 1: // +1
+                        Database.AddToShoppingList(item.ArticleId, 1);
+                        ShowShoppingList();
+                        break;
+
+                    case 2: // -1
+                        Database.AddToShoppingList(item.ArticleId, -1);
+                        ShowShoppingList();
+                        break;
+
+                    case 3: // -10
+                        Database.AddToShoppingList(item.ArticleId, -10);
+                        ShowShoppingList();
+                        break;
+
+                    case 4: // Entfernen
+
+                        Database.RemoveFromShoppingList(item.ShoppingListId);
+                        ShowShoppingList();
+                        break;
+                }
+
+                return;
+            });
+            builder.Show();
+        }
+
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.ShoppingList_menu, menu);
@@ -76,25 +125,6 @@ namespace VorratsUebersicht
                 Database.AddToShoppingList(id, 1);
                 this.ShowShoppingList();
             }
-        }
-
-        private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
-        {
-            Java.Lang.Object itemObject = ((ListView)sender).GetItemAtPosition(e.Position);
-
-            ShoppingListView listView = Tools.Cast<ShoppingListView>(itemObject);
-
-            string question = string.Format("Artikel '{0}' aus der Liste entfernen?", listView.Heading);
-
-            var message = new AlertDialog.Builder(this);
-            message.SetMessage(question);
-            message.SetPositiveButton(Resource.String.App_Yes, (s, ev) =>
-            {
-                Database.RemoveFromShoppingList(listView.ShoppingListId);
-                ShowShoppingList();
-            });
-            message.SetNegativeButton(Resource.String.App_No, (s, ev) => { });
-            message.Create().Show();
         }
 
         private void ShowShoppingList()
