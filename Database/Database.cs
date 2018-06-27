@@ -85,9 +85,6 @@ namespace VorratsUebersicht
             SQLiteCommand command;
             string cmd = string.Empty;
 
-            cmd = "SELECT COUNT(*) FROM ShoppingList WHERE ArticleId = ?";
-            command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
-            int listCount = command.ExecuteScalar<int>();
 
             cmd = "SELECT Quantity FROM ShoppingList WHERE ArticleId = ?";
             command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
@@ -95,7 +92,8 @@ namespace VorratsUebersicht
 
             double newQuantity = isQuantity + addQuantity;
 
-            if (listCount == 0)
+            bool isInList = Database.IsArticleInStoppingList(articleId);
+            if (!isInList)
             {
                 cmd = "INSERT INTO ShoppingList (ArticleId, Quantity) VALUES (?, ?)";
                 command = databaseConnection.CreateCommand(cmd, new object[] { articleId, newQuantity });
@@ -188,6 +186,22 @@ namespace VorratsUebersicht
             decimal anzahl = result[0].Quantity;
 
             return anzahl;
+        }
+
+        internal static bool IsArticleInStoppingList(int articleId)
+        {
+            SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+
+            // Artikel suchen, die schon abgelaufen sind.
+            string cmd = string.Empty;
+            cmd += "SELECT COUNT(*)";
+            cmd += " FROM ShoppingList";
+            cmd += " WHERE ArticleId = ?";
+
+            var command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
+            int count = command.ExecuteScalar<int>();
+
+            return count > 0;
         }
 
         internal static string[] GetCategories()

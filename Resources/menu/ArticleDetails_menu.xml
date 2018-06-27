@@ -4,23 +4,25 @@
         android:icon="@drawable/ic_close_white_24dp"
         android:title="@string/App_Cancel"
         android:showAsAction="always" />
+  
 	<item android:id="@+id/ArticleDetails_Save"
         android:icon="@drawable/ic_check_white_24dp"
         android:title="@string/App_Save"
         android:showAsAction="always" />
-  <item android:id="@+id/ArticleDetails_ToShoppingList"
-        android:icon="@drawable/ic_shopping_cart_white_48dp"
-        android:title="@string/ArticleDetails_Menu_ToShoppingList"
-        android:showAsAction="always" />
+  
   <item android:id="@+id/ArticleDetails_Delete"
         android:icon="@drawable/ic_delete_white_24dp"
-        android:title="@string/ArticleDetails_Menu_DeleteArticle" />
+        android:title="@string/ArticleDetails_Menu_DeleteArticle"
+        android:showAsAction="always" />
+
   <item android:id="@+id/ArticleDetails_MakeAPhoto"
         android:icon="@drawable/ic_photo_camera_white_24dp"
         android:title="@string/ArticleDetails_Menu_CreatePicture" />
+  
   <item android:id="@+id/ArticleDetails_SelectAPicture"
         android:icon="@drawable/ic_photo_camera_white_24dp"
         android:title="@string/ArticleDetails_Menu_SelectPicture" />
+  
   <item android:id="@+id/ArticleDetails_ScanEAN"
         android:icon="@drawable/ic_insert_photo_white_24dp"
         android:title="@string/ArticleDetails_Menu_EAN_Scannen" />

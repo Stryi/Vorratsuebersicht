@@ -39,7 +39,6 @@
   <string name="Settings_BackupAndRestoreInfo">Zum Sichern und Wiederherstellen der produktiven Datenbank kopieren Sie die folgende Datei:\n\n{0}</string>
 
   <!-- Artikeldetails Menü -->
-  <string name="ArticleDetails_Menu_ToShoppingList">Auf Einkaufsliste</string>
   <string name="ArticleDetails_Menu_DeleteArticle">Artikel löschen</string>
   <string name="ArticleDetails_Menu_CreatePicture">Bild erstellen</string>
   <string name="ArticleDetails_Menu_SelectPicture">Bild auswählen</string>
@@ -61,6 +60,9 @@
   <string name="ArticleDetails_EANCode">EAN Code:</string>
   <string name="ArticleDetails_Notes">Notizen:</string>
   <string name="ArticleDetails_Amount">Anzahl:</string>
+
+  <!-- Lagerbestand -->
+  <string name="StorageItemQuantity_Menu_ToShoppingList">Auf Einkaufsliste</string>
 
   <string name="ArticleCatagoriesSelect">Auswahl Kategorie...</string>
   <string name="NoArticleCatagories">Keine Kategorien vorhanden.</string>

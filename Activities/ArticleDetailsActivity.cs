@@ -139,9 +139,6 @@ namespace VorratsUebersicht
             IMenuItem itemDelete = menu.FindItem(Resource.Id.ArticleDetails_Delete);
             itemDelete.SetVisible(this.article?.ArticleId > 0);
 
-            IMenuItem itemToShopping = menu.FindItem(Resource.Id.ArticleDetails_ToShoppingList);
-            itemToShopping.SetVisible(this.article?.ArticleId > 0);
-
             IMenuItem itemAddPhoto = menu.FindItem(Resource.Id.ArticleDetails_MakeAPhoto);
             itemAddPhoto.SetVisible(IsThereAnAppToTakePictures());
 
@@ -176,14 +173,9 @@ namespace VorratsUebersicht
                     this.OnBackPressed();
                     return true;
 
-                case Resource.Id.ArticleDetails_ToShoppingList:
-                    this.AddToShoppimgList();
-                    return true;
-
                 case Resource.Id.ArticleDetails_MakeAPhoto:
                     this.TakeAPhoto();
                     return true;
-
 
                 case Resource.Id.ArticleDetails_SelectAPicture:
                     this.SelectAPicture();
@@ -195,14 +187,6 @@ namespace VorratsUebersicht
             }
 
             return false;
-        }
-
-        private void AddToShoppimgList()
-        {
-            double count = Database.AddToShoppingList(this.articleId, 1);
-
-            string msg = string.Format("{0} Stück auf der Liste.", count);
-            Toast.MakeText(this, msg, ToastLength.Short).Show();
         }
 
         private async void ScanEAN()
@@ -437,6 +421,20 @@ namespace VorratsUebersicht
 
                 return;
             }
+
+            bool isInList = Database.IsArticleInStoppingList(articleId);
+            if (isInList)
+            {
+                string msg = string.Format("Dieser Artikel kann nicht gelöscht werden, da er sich noch auf der Einkaufsliste befinden.");
+
+                var builder1 = new AlertDialog.Builder(this);
+                builder1.SetMessage(msg);
+                builder1.SetPositiveButton("OK", (s, e) => { });
+                builder1.Create().Show();
+
+                return;
+            }
+
 
             var builder = new AlertDialog.Builder(this);
             builder.SetMessage("Soll dieser Artikel wirklich gelöscht werden?");

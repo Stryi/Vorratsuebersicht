@@ -38,7 +38,6 @@
   <string name="Settings_BackupAndRestoreInfo">To back up and restore the production database, copy the following file:\n\n{0}</string>
 
   <!-- Artikeldetails Menü -->
-  <string name="ArticleDetails_Menu_ToShoppingList">To shopping list</string>
   <string name="ArticleDetails_Menu_DeleteArticle">Delete article</string>
   <string name="ArticleDetails_Menu_CreatePicture">Create picture</string>
   <string name="ArticleDetails_Menu_SelectPicture">Select picture</string>
@@ -60,6 +59,9 @@
   <string name="ArticleDetails_EANCode">EAN code:</string>
   <string name="ArticleDetails_Notes">Notes:</string>
   <string name="ArticleDetails_Amount">Amount:</string>
+
+  <!-- Lagerbestand -->
+  <string name="StorageItemQuantity_Menu_ToShoppingList">To shopping list</string>
 
   <string name="ArticleCatagoriesSelect">Select category...</string>
   <string name="NoArticleCatagories">No categories available.</string>
