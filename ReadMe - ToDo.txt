@@ -10,6 +10,7 @@ file:///storage exposed beyond app through ClipData.Item.getUri()
 Prio 2
 ======
 
+- Aus der Lagerbestand Liste auf die Einkaufsliste setzen (Context Menü?)
 
 - Komprimierung/Verkleinerung der Bilder nicht immer effizient
 
@@ -21,6 +22,7 @@ Prio 2
 - Unterkategorie Control auf PopUp umstellen, 
   damit man immer alles anzeigen kann, nicht nur bei Eingabe.
 
+- Ausrichtung der Bilder beachten (Quer fotografiert)
 
 Prio 3
 ======

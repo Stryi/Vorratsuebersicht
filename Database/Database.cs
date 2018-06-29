@@ -343,6 +343,23 @@ namespace VorratsUebersicht
             return command.ExecuteQuery<Article>().FirstOrDefault();
         }
 
+        internal static string GetArticleName(int articleId)
+        {
+            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            if (databaseConnection == null)
+                return null;
+
+            string cmd = string.Empty;
+
+            cmd += "SELECT Name";
+            cmd += " FROM Article";
+            cmd += " WHERE ArticleId = ?";
+
+            var command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
+
+            return command.ExecuteScalar<string>();
+        }
+
         internal static decimal GetArticleCount_Abgelaufen()
         {
             SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();

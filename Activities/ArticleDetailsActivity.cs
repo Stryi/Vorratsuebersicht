@@ -114,7 +114,6 @@ namespace VorratsUebersicht
 
 
                 var articleImage = new Intent (this, typeof(ArticleImageActivity));
-                articleImage.PutExtra("Heading", text);
                 articleImage.PutExtra("ArticleId", this.articleId);
                 articleImage.PutExtra("Large", true);
                 StartActivity (articleImage);

@@ -15,6 +15,7 @@ namespace VorratsUebersicht
     public class ShoppingListActivity : Activity
     {
         public static readonly int SelectArticleId = 1001;
+        private IParcelable listViewState;
 
         List<ShoppingListView> liste = new List<ShoppingListView>();
 
@@ -141,7 +142,9 @@ namespace VorratsUebersicht
             ShoppingListViewAdapter listAdapter = new ShoppingListViewAdapter(this, this.liste);
 
             ListView listView = FindViewById<ListView>(Resource.Id.ShoppingItemList);
+            this.listViewState = listView.OnSaveInstanceState();        // Zustand der Liste merken (wo der Anfang angezeigt wird)
             listView.Adapter = listAdapter;
+            listView.OnRestoreInstanceState(this.listViewState);        // Zustand der Liste wiederherstellen
         }
     }
 }
