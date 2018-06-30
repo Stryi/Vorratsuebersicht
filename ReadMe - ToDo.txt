@@ -39,6 +39,33 @@ https://guides.codepath.com/android/floating-action-buttons
 Gemeldete Abstürze:
 ===================
 
+
+30.06.2018 11:51 in der App-Version 16
+Samsung Galaxy S7 (herolte), Android 8.0
+Bericht 1 von 1
+java.lang.RuntimeException: 
+  at android.app.ActivityThread.performResumeActivity (ActivityThread.java:3790)
+  at android.app.ActivityThread.handleResumeActivity (ActivityThread.java:3830)
+  at android.app.ActivityThread.handleLaunchActivity (ActivityThread.java:3038)
+  at android.app.ActivityThread.handleRelaunchActivity (ActivityThread.java:4921)
+  at android.app.ActivityThread.-wrap19 (Unknown Source)
+  at android.app.ActivityThread$H.handleMessage (ActivityThread.java:1702)
+  at android.os.Handler.dispatchMessage (Handler.java:105)
+  at android.os.Looper.loop (Looper.java:164)
+  at android.app.ActivityThread.main (ActivityThread.java:6944)
+  at java.lang.reflect.Method.invoke (Native Method)
+  at com.android.internal.os.Zygote$MethodAndArgsCaller.run (Zygote.java:327)
+  at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:1374)
+Caused by: java.lang.RuntimeException: 
+  at android.app.ActivityThread.deliverResults (ActivityThread.java:4491)
+  at android.app.ActivityThread.performResumeActivity (ActivityThread.java:3762)
+Caused by: java.lang.NullPointerException: 
+  at android.widget.AbsListView.onRestoreInstanceState (AbsListView.java:2680)
+  at md56c9fe683bd4750f69443fa5376e732f4.StorageItemListActivity.n_onActivityResult (Native Method)
+  at md56c9fe683bd4750f69443fa5376e732f4.StorageItemListActivity.onActivityResult (StorageItemListActivity.java:56)
+  at android.app.Activity.dispatchActivityResult (Activity.java:7547)
+  at android.app.ActivityThread.deliverResults (ActivityThread.java:4487)
+
 10 Berichte
 Alle Berichte mit: Samsung Galaxy S7 Edge (hero2lte), 4096MB RAM, Android 7.0
 
