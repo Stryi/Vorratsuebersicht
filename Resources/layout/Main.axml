@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_shopping_cart_white_48dp"
             android:gravity="left|center_vertical"
-            android:enabled="true"
+            android:enabled="false"
             android:drawablePadding="20dp" />
     </LinearLayout>
 </ScrollView>

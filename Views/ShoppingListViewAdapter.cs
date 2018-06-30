@@ -40,7 +40,7 @@ namespace VorratsUebersicht
                 view = context.LayoutInflater.Inflate(Resource.Layout.ArticleListView, null);
             }
 
-            view.FindViewById<TextView>(Resource.Id.Text1).Text = item.Heading + " (" + item.ArticleId.ToString() + ")";
+            view.FindViewById<TextView>(Resource.Id.Text1).Text = item.Heading;
             view.FindViewById<TextView>(Resource.Id.Text2).Text = item.SubHeading;
             view.FindViewById<TextView>(Resource.Id.Text3).Text = item.Information;
             view.FindViewById<TextView>(Resource.Id.Text3).Visibility = ViewStates.Visible;

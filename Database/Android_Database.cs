@@ -283,7 +283,7 @@ namespace VorratsUebersicht
 				conn.Execute("ALTER TABLE Article ADD COLUMN Calorie INTEGER");
 			}
 
-            // Update 1.50: Einkaufswagen
+            // Update 2.00: Einkaufswagen
             if (!this.IsTableInDatabase(conn, "ShoppingList"))
             {
                 string cmd = string.Empty;

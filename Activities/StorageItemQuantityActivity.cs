@@ -60,7 +60,7 @@ namespace VorratsUebersicht
                    return;
 
                 var articleImage = new Intent (this, typeof(ArticleImageActivity));
-                articleImage.PutExtra("Heading", text);
+                //articleImage.PutExtra("Heading", text);
                 articleImage.PutExtra("ArticleId", articleId);
                 this.StartActivity(articleImage);
             };

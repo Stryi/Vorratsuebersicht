@@ -434,7 +434,6 @@ namespace VorratsUebersicht
                 return;
             }
 
-
             var builder = new AlertDialog.Builder(this);
             builder.SetMessage("Soll dieser Artikel wirklich gelöscht werden?");
             builder.SetNegativeButton("Nein", (s, e) => 

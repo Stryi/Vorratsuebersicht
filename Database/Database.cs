@@ -126,6 +126,22 @@ namespace VorratsUebersicht
             command.ExecuteNonQuery();
         }
 
+        internal static bool IsArticleInStoppingList(int articleId)
+        {
+            SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+
+            // Artikel suchen, die schon abgelaufen sind.
+            string cmd = string.Empty;
+            cmd += "SELECT COUNT(*)";
+            cmd += " FROM ShoppingList";
+            cmd += " WHERE ArticleId = ?";
+
+            var command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
+            int count = command.ExecuteScalar<int>();
+
+            return count > 0;
+        }
+
         internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(StorageItemQuantityResult storegeItem)
 		{
             IList<StorageItemQuantityResult> result = new List<StorageItemQuantityResult>();
@@ -186,22 +202,6 @@ namespace VorratsUebersicht
             decimal anzahl = result[0].Quantity;
 
             return anzahl;
-        }
-
-        internal static bool IsArticleInStoppingList(int articleId)
-        {
-            SQLiteConnection databaseConnection = new Android_Database().GetConnection();
-
-            // Artikel suchen, die schon abgelaufen sind.
-            string cmd = string.Empty;
-            cmd += "SELECT COUNT(*)";
-            cmd += " FROM ShoppingList";
-            cmd += " WHERE ArticleId = ?";
-
-            var command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
-            int count = command.ExecuteScalar<int>();
-
-            return count > 0;
         }
 
         internal static string[] GetCategories()
