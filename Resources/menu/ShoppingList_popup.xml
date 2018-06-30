@@ -1,0 +1,19 @@
+﻿<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+  <item
+      android:id="@+id/ShoppingList_popup_Add1"
+      android:title="+1"/>
+
+  <item
+      android:id="@+id/ShoppingList_popup_Less1"
+      android:title="+10"/>
+
+  <item
+      android:title="-1"/>
+  
+  <item
+      android:title="-10"/>
+
+  <item
+      android:title="Entfernen (gekauft)"/>
+</menu>

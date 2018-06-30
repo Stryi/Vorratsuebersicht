@@ -34,5 +34,13 @@
             android:textColor="@color/Text_Color2"
             android:text="Details"
             android:textSize="14dip" />
+        <TextView
+            android:id="@+id/Text3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FF0000FF"
+            android:text="Anzahl"
+            android:textSize="20dip"
+            android:visibility="gone" />
     </LinearLayout>
 </RelativeLayout>

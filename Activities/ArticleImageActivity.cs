@@ -31,9 +31,9 @@ namespace VorratsUebersicht
             ActionBar.SetBackgroundDrawable(backgroundPaint);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            string text    = Intent.GetStringExtra ("Heading") ?? string.Empty;
             this.articleId = Intent.GetIntExtra    ("ArticleId", 0);
             bool large     = Intent.GetBooleanExtra("Large", true);
+            string text    = Database.GetArticleName(this.articleId);
 
             this.imageView  = FindViewById<ImageView> (Resource.Id.ArticleImage_Image);
 

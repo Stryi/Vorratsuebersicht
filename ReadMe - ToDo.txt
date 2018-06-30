@@ -2,39 +2,44 @@
 Prio 1
 ======
 
-
-Warnungen
-
-Deine App ist derzeit auf API-Ebene 16 ausgerichtet, sollte jedoch eine API-Mindestebene von 26 haben. 
-Hierdurch soll sichergestellt werden, dass deine App den neuesten APIs entspricht, 
-Nutzern eine optimale Leistung bietet und sicher ist.
-
-Ab August 2018 müssen neue Apps auf mindestens Android 8.0 (API-Ebene 26) ausgerichtet sein.
-Ab November 2018 müssen App-Updates auf Android 8.0 (API-Ebene 26) ausgerichtet sein.
-
-Tipp: Wir empfehlen dir, die Ziel-API-Ebene deiner App zu ändern. Hier erfährst du, wie du dies tun kannst.
-https://developer.android.com/distribute/best-practices/develop/target-sdk.html
-
 file:///storage exposed beyond app through ClipData.Item.getUri()
+
+- Einkaufsliste
+
 
 Prio 2
 ======
 
-- Artikel Liste auf Englische Resourcen setzen
-- Unterkategorie Control auf PopUp umstellen
-- Nach dem Auswahl vom Bild wird noch das alte angezeigt (Vollbild)
+- Aus der Lagerbestand Liste auf die Einkaufsliste setzen (Context Menü?)
 
-Bild entfernen programmieren
-Komprimierung/Verkleinerung der Bilder nicht immer effizient
-Selbst definierte Kategorien
-Suche nach Artikelnamen (oder Hersteller)
+- Komprimierung/Verkleinerung der Bilder nicht immer effizient
+
+- Selbst definierte Kategorien
+
+- Für Hinzufügen von Positionen, Artikel oder Bestand ein "Floating Action Button" verwenden
+  https://guides.codepath.com/android/floating-action-buttons
+
+- Unterkategorie Control auf PopUp umstellen, 
+  damit man immer alles anzeigen kann, nicht nur bei Eingabe.
+
+- Ausrichtung der Bilder beachten (Quer fotografiert)
+
+Prio 3
+======
+
+- Nach dem Auswahl vom neuen Bild wird noch beim Anklicken das alte angezeigt.
+
+- Bild entfernen programmieren
+
+- Artikel Liste auf Englische Resourcen setzen
+
+
+- Suche im Artikelnamen (Nach Text oder Hersteller) und im Lagerbestand.
 
 Artikel "Unendlich haltbar: Ja"
 - Keine Anzeige "Warnen {0} Tage(n) vor Ablauf" (im Artikelstand)
 - Keine Anzeige "Ablaufdatum" (im Lagerbestand)
 
-Für Hinzufügen von Positionen, Artikel oder Bestand ein "Floating Action Button" verwenden
-https://guides.codepath.com/android/floating-action-buttons
 
 Gemeldete Abstürze:
 ===================

@@ -114,7 +114,6 @@ namespace VorratsUebersicht
 
 
                 var articleImage = new Intent (this, typeof(ArticleImageActivity));
-                articleImage.PutExtra("Heading", text);
                 articleImage.PutExtra("ArticleId", this.articleId);
                 articleImage.PutExtra("Large", true);
                 StartActivity (articleImage);
@@ -137,7 +136,6 @@ namespace VorratsUebersicht
         public override bool OnPrepareOptionsMenu(IMenu menu)
         {
             IMenuItem itemDelete = menu.FindItem(Resource.Id.ArticleDetails_Delete);
-
             itemDelete.SetVisible(this.article?.ArticleId > 0);
 
             IMenuItem itemAddPhoto = menu.FindItem(Resource.Id.ArticleDetails_MakeAPhoto);
@@ -174,11 +172,9 @@ namespace VorratsUebersicht
                     this.OnBackPressed();
                     return true;
 
-
                 case Resource.Id.ArticleDetails_MakeAPhoto:
                     this.TakeAPhoto();
                     return true;
-
 
                 case Resource.Id.ArticleDetails_SelectAPicture:
                     this.SelectAPicture();
@@ -192,8 +188,7 @@ namespace VorratsUebersicht
             return false;
         }
 
-
-		private async void ScanEAN()
+        private async void ScanEAN()
         {
             var scanner = new ZXing.Mobile.MobileBarcodeScanner();
             var scanResult = await scanner.Scan();
@@ -425,6 +420,20 @@ namespace VorratsUebersicht
 
                 return;
             }
+
+            bool isInList = Database.IsArticleInStoppingList(articleId);
+            if (isInList)
+            {
+                string msg = string.Format("Dieser Artikel kann nicht gelöscht werden, da er sich noch auf der Einkaufsliste befinden.");
+
+                var builder1 = new AlertDialog.Builder(this);
+                builder1.SetMessage(msg);
+                builder1.SetPositiveButton("OK", (s, e) => { });
+                builder1.Create().Show();
+
+                return;
+            }
+
 
             var builder = new AlertDialog.Builder(this);
             builder.SetMessage("Soll dieser Artikel wirklich gelöscht werden?");

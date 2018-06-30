@@ -21,10 +21,9 @@ namespace VorratsUebersicht
         int articleId;
         string text;
         bool durableInfinity = false;
-
         bool isChanged = false;
-
         bool isEditMode = false;
+        Toast toast;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -63,7 +62,7 @@ namespace VorratsUebersicht
                 var articleImage = new Intent (this, typeof(ArticleImageActivity));
                 articleImage.PutExtra("Heading", text);
                 articleImage.PutExtra("ArticleId", articleId);
-                this.StartActivityForResult(articleImage, 1000);
+                this.StartActivity(articleImage);
             };
 
             ImageButton addRemove = FindViewById<ImageButton>(Resource.Id.StorageItemQuantity_AddArticle);
@@ -152,16 +151,18 @@ namespace VorratsUebersicht
 
                 case Resource.Id.StorageItemQuantity_Cancel:
                     this.ShowStorageListForArticle(this.articleId);
-
 					this.SetEditMode(false);
-
                     break;
+
+                case Resource.Id.StorageItemQuantity_ToShoppingList:
+                    this.AddToShoppimgList();
+                    return true;
 
                 case Resource.Id.StorageItemQuantity_EditPicture:
                     var articleImage = new Intent (this, typeof(ArticleImageActivity));
                     articleImage.PutExtra("Heading", text);
                     articleImage.PutExtra("ArticleId", articleId);
-                    this.StartActivityForResult(articleImage, 1000);
+                    this.StartActivity(articleImage);
                     break;
             }
             return true;
@@ -190,7 +191,26 @@ namespace VorratsUebersicht
             listView.InvalidateViews();
 		}
 
-		protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        private void AddToShoppimgList()
+        {
+            double count = Database.AddToShoppingList(this.articleId, 1);
+
+            string msg = string.Format("{0} Stück auf der Liste.", count);
+            if (this.toast != null)
+            {
+                this.toast.Cancel();
+                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
+            }
+            else
+            {
+                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
+            }
+
+            this.toast.Show();
+        }
+
+
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
@@ -316,7 +336,6 @@ namespace VorratsUebersicht
             else
                 imageView.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
         }
-
 
         private void ShowStorageListForArticle(int articleId)
         {

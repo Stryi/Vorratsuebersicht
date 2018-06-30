@@ -128,9 +128,6 @@ namespace VorratsUebersicht
 
             if ((requestCode == SelectArticleId) && (resultCode == Result.Ok) && (data != null))
             {
-
-				StorageItemListView item = Tools.Cast<StorageItemListView>(data);
-
 				// Anzeige Menge prü Artikel
 				var storageItemQuantity = new Intent (this, typeof(StorageItemQuantityActivity));
 				string heading = data.GetStringExtra("Heading");
