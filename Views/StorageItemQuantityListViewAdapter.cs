@@ -45,27 +45,18 @@ namespace VorratsUebersicht
             if (view == null) // no view to re-use, create new
             {
                 view = context.LayoutInflater.Inflate(Resource.Layout.StorageItemQuantityListView, null);
-                ImageButton buttonRemove = view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Remove);
-                buttonRemove.Click += delegate 
-                {
-                    if (item.StorageItem.Quantity == 0)
-                        return;
-
-                    item.StorageItem.Quantity --;
-                    item.StorageItem.QuantityDiff--;
-                    System.Diagnostics.Trace.WriteLine(item.Heading);
-                    this.NotifyDataSetChanged();
-                };
-
-                ImageButton buttonAdd = view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Add);
-                buttonAdd.Click += delegate 
-                {
-                    item.StorageItem.Quantity++;
-                    item.StorageItem.QuantityDiff++;
-                    System.Diagnostics.Trace.WriteLine(item.Heading);
-                    this.NotifyDataSetChanged();
-                };                
             }
+
+            ImageButton buttonRemove = view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Remove);
+            buttonRemove.Tag = position;
+            buttonRemove.Click -= DecreaseQuantity;
+            buttonRemove.Click += DecreaseQuantity;
+
+            ImageButton buttonAdd = view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Add);
+            buttonAdd.Tag = position;
+            buttonAdd.Click -= IncreaseQuantity;
+            buttonAdd.Click += IncreaseQuantity;
+
             view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Text).Text = item.Heading;
             view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Details).Text = item.SubHeading;
 
@@ -86,6 +77,35 @@ namespace VorratsUebersicht
                 view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Add)   .Visibility = ViewStates.Invisible;
             }
             return view;
+        }
+
+        private void DecreaseQuantity(object sender, EventArgs e)
+        {
+            ImageButton button = (ImageButton)sender;
+            int position = (int)button.Tag;
+
+            var item = items[position];
+
+            if (item.StorageItem.Quantity == 0)
+                return;
+
+            item.StorageItem.Quantity--;
+            item.StorageItem.QuantityDiff--;
+            System.Diagnostics.Trace.WriteLine(item.Heading);
+            this.NotifyDataSetChanged();
+        }
+
+        private void IncreaseQuantity(object sender, EventArgs e)
+        {
+            ImageButton button = (ImageButton)sender;
+            int position = (int)button.Tag;
+
+            var item = items[position];
+
+            item.StorageItem.Quantity++;
+            item.StorageItem.QuantityDiff++;
+            System.Diagnostics.Trace.WriteLine(item.Heading);
+            this.NotifyDataSetChanged();
         }
 
         public void ActivateButtons()

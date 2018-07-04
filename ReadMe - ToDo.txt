@@ -4,8 +4,6 @@ Prio 1
 
 file:///storage exposed beyond app through ClipData.Item.getUri()
 
-- Einkaufsliste
-
 
 Prio 2
 ======
@@ -23,6 +21,15 @@ Prio 2
   damit man immer alles anzeigen kann, nicht nur bei Eingabe.
 
 - Ausrichtung der Bilder beachten (Quer fotografiert)
+
+- Mehrere Bilder Pro Artikel
+
+- Aus Artikeldetails auf die Einkaufsliste.
+
+- "Keine Kategorie" als Popup Auswahl
+
+- Anzahl gruppieren und Summieren nach Datum.
+
 
 Prio 3
 ======
