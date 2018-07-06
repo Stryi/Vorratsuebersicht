@@ -2,50 +2,48 @@
 Prio 1
 ======
 
-file:///storage exposed beyond app through ClipData.Item.getUri()
+Bilder erstellen:
+- Fehler 'file:///storage exposed beyond app through ClipData.Item.getUri()' beheben.
 
 
 Prio 2
 ======
 
-- Aus der Lagerbestand Liste auf die Einkaufsliste setzen (Context Menü?)
+Einkaufsliste:
+- Aus der Lagerbestand Liste auf die Einkaufsliste setzen ("..." Menü?)
 
+Bilder
 - Komprimierung/Verkleinerung der Bilder nicht immer effizient
+- Ausrichtung der Bilder beachten (Quer fotografiert)
+- Nach dem Auswahl vom neuen Bild wird noch beim Anklicken das alte angezeigt.
+- Bild entfernen programmieren
 
-- Selbst definierte Kategorien
-
-- Für Hinzufügen von Positionen, Artikel oder Bestand ein "Floating Action Button" verwenden
-  https://guides.codepath.com/android/floating-action-buttons
-
+Kategorie/Unterkategorie
 - Unterkategorie Control auf PopUp umstellen, 
   damit man immer alles anzeigen kann, nicht nur bei Eingabe.
-
-- Ausrichtung der Bilder beachten (Quer fotografiert)
-
-- Mehrere Bilder Pro Artikel
-
-- Aus Artikeldetails auf die Einkaufsliste.
-
+- Selbst definierte Kategorien
 - "Keine Kategorie" als Popup Auswahl
 
-- Anzahl gruppieren und Summieren nach Datum.
+Artikel-/Bestandliste
+- Sortieren der Lagerbestandsliste (Name, Zum Verbrauchen zuerst)
+
+
 
 
 Prio 3
 ======
 
-- Nach dem Auswahl vom neuen Bild wird noch beim Anklicken das alte angezeigt.
+- Anzahl gruppieren und Summieren nach Datum.
 
-- Bild entfernen programmieren
+- Suche im Artikelstamm und Lagerbestand (nach Text oder Hersteller).
+
+- Mehrere Bilder Pro Artikel
 
 - Artikel Liste auf Englische Resourcen setzen
 
+- Für Hinzufügen von Positionen, Artikel oder Bestand ein "Floating Action Button" verwenden
+  https://guides.codepath.com/android/floating-action-buttons
 
-- Suche im Artikelnamen (Nach Text oder Hersteller) und im Lagerbestand.
-
-Artikel "Unendlich haltbar: Ja"
-- Keine Anzeige "Warnen {0} Tage(n) vor Ablauf" (im Artikelstand)
-- Keine Anzeige "Ablaufdatum" (im Lagerbestand)
 
 
 Gemeldete Abstürze:

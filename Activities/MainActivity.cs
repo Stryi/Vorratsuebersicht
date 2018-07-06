@@ -73,12 +73,7 @@ namespace VorratsUebersicht
             string error = this.ShowInfoText();
             if (!string.IsNullOrEmpty(error))
             {
-                TextView text = FindViewById<TextView>(Resource.Id.Main_Text2);
-                text.Text = "Fehler beim Zugriff auf die Datenbank:\n\n" + error;
-                text.SetTextColor(Android.Graphics.Color.Black);
-                text.SetBackgroundColor(Android.Graphics.Color.White);
-                text.Visibility = ViewStates.Visible;
-                return;
+                this.ShowDatabaseError(error);
             }
 
             // Klick auf den "abgelaufen" Text bringt die Liste der (bald) abgelaufender Artieln.
@@ -88,28 +83,25 @@ namespace VorratsUebersicht
 
             // Auswahl nach Kategorien
             Button buttonKategorie = FindViewById<Button>(Resource.Id.MainButton_Kategorie);
-            buttonKategorie.Enabled = true;
             buttonKategorie.Click += delegate { this.ShowCategoriesSelection();};
 
             // Lagerbestand
             Button buttonLagerbestand = FindViewById<Button>(Resource.Id.MainButton_Lagerbestand);
-            buttonLagerbestand.Enabled = true;
             buttonLagerbestand.Click += delegate { StartActivityForResult (new Intent (this, typeof(StorageItemListActivity)), EditStorageItemQuantityId);};
 
             // Artikeldaten
             Button buttonArticle = FindViewById<Button>(Resource.Id.MainButton_Artikeldaten);
-            buttonArticle.Enabled = true;
             buttonArticle.Click += delegate { StartActivity (new Intent (this, typeof(ArticleListActivity)));};
 
             // Einkaufsliste
             Button buttonShoppingList = FindViewById<Button>(Resource.Id.MainButton_ShoppingList);
-            buttonShoppingList.Enabled = true;
             buttonShoppingList.Click += delegate { StartActivity (new Intent (this, typeof(ShoppingListActivity)));};
 
             // Barcode scannen
             Button buttonBarcode = FindViewById<Button>(Resource.Id.MainButton_Barcode);
-            buttonBarcode.Enabled = true;
             buttonBarcode.Click += ButtonBarcode_Click;
+
+            this.EnableButtons(string.IsNullOrEmpty(error));
 
             this.ShowInfoAufTestversion();
 
@@ -163,6 +155,18 @@ namespace VorratsUebersicht
                 StartActivity(subCategory);
             });
             builder.Show();
+        }
+
+        private void ShowDatabaseError(string error)
+        {
+            FindViewById<TextView>(Resource.Id.Main_Text).Visibility = ViewStates.Gone;
+            FindViewById<TextView>(Resource.Id.Main_Text1).Visibility = ViewStates.Gone;
+
+            TextView text = FindViewById<TextView>(Resource.Id.Main_Text2);
+            text.Text = "Fehler beim Zugriff auf die Datenbank:\n\n" + error;
+            text.SetTextColor(Android.Graphics.Color.Black);
+            text.SetBackgroundColor(Android.Graphics.Color.White);
+            text.Visibility = ViewStates.Visible;
         }
 
         private void ShowInfoAufTestversion()
@@ -260,6 +264,8 @@ namespace VorratsUebersicht
             if (kurzDavor > 0)
             {
                 string value = Resources.GetString(Resource.String.Main_ArticlesNearExpiryDate);
+                text.SetTextColor(Android.Graphics.Color.Blue);
+                text.SetBackgroundColor(Android.Graphics.Color.Transparent);
                 text.Text = string.Format(value, kurzDavor);
                 text.Visibility = ViewStates.Visible;
             }
@@ -301,10 +307,37 @@ namespace VorratsUebersicht
                 // Sich neu connecten;
                 Android_Database.SQLiteConnection = null;
 
-                //this.ShowDatabaseInfo();
-                this.ShowInfoText();
+                string error = this.ShowInfoText();
+                if (!string.IsNullOrEmpty(error))
+                {
+                    this.ShowDatabaseError(error);
+                }
+
+                this.EnableButtons(string.IsNullOrEmpty(error));
             }
 
+        }
+
+        private void EnableButtons(bool enable)
+        {
+            Button buttonKategorie = FindViewById<Button>(Resource.Id.MainButton_Kategorie);
+            buttonKategorie.Enabled = enable;
+
+            // Lagerbestand
+            Button buttonLagerbestand = FindViewById<Button>(Resource.Id.MainButton_Lagerbestand);
+            buttonLagerbestand.Enabled = enable;
+
+            // Artikeldaten
+            Button buttonArticle = FindViewById<Button>(Resource.Id.MainButton_Artikeldaten);
+            buttonArticle.Enabled = enable;
+
+            // Einkaufsliste
+            Button buttonShoppingList = FindViewById<Button>(Resource.Id.MainButton_ShoppingList);
+            buttonShoppingList.Enabled = enable;
+
+            // Barcode scannen
+            Button buttonBarcode = FindViewById<Button>(Resource.Id.MainButton_Barcode);
+            buttonBarcode.Enabled = enable;
         }
 
         private async void ButtonBarcode_Click(object sender, System.EventArgs e)

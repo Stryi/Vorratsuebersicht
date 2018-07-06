@@ -40,6 +40,13 @@ Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
 
+Version 2.01 (CodeVersion 24)
+==================================
+
+C038 - Bildaufnahmen mit Android 6 und höher sollte jetzt wieder funktionieren.
+C037 - Aus Artikeldetails auf die Einkaufsliste setzen.
+C036 - Bessere Behandlung bei fehlerhaften Datenbankzugriff
+
 Version 2.00 (CodeVersion 23)
 ==================================
 

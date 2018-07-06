@@ -26,4 +26,9 @@
   <item android:id="@+id/ArticleDetails_ScanEAN"
         android:icon="@drawable/ic_insert_photo_white_24dp"
         android:title="@string/ArticleDetails_Menu_EAN_Scannen" />
+
+  <item android:id="@+id/ArticleDetails_ToShoppingList"
+      android:icon="@drawable/ic_shopping_cart_white_48dp"
+      android:title="@string/StorageItemQuantity_Menu_ToShoppingList" />
+
 </menu>

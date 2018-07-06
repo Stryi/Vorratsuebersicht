@@ -18,11 +18,6 @@ using static Android.Widget.AdapterView;
 using System.Threading;
 using Android.Support.V4.Content;
 
-public static class App {
-    public static Java.IO.File _file;
-    public static Java.IO.File _dir;     
-}
-
 namespace VorratsUebersicht
 {
     [Activity(Label = "@string/Main_Button_Artikelangaben", Icon = "@drawable/ic_local_offer_white_48dp")]
@@ -38,11 +33,14 @@ namespace VorratsUebersicht
         TextView  imageTextView;
         EditText  warningInDaysView;
         TextView  warningInDaysLabelView;
+        Toast toast;
+        ImageCaptureHelper imageCapture;
 
         CatalogItemSelectedListener catalogListener;
         IList<string> SubCategories;
         string category;
         string subCategory;
+        bool cameraExists;
 
         public static readonly int PickImageId = 1000;
         public static readonly int TakePhotoId = 1001;
@@ -64,6 +62,9 @@ namespace VorratsUebersicht
             string eanCode   = Intent.GetStringExtra ("EANCode") ?? string.Empty;
             this.category    = Intent.GetStringExtra ("Category");
             this.subCategory = Intent.GetStringExtra ("SubCategory");
+
+            this.imageCapture = new ImageCaptureHelper();
+            this.cameraExists = this.imageCapture.Initializer(this);
 
             this.imageView              = FindViewById<ImageView>(Resource.Id.ArticleDetails_Image);
             this.imageView2             = FindViewById<ImageView>(Resource.Id.ArticleDetails_Image2);
@@ -102,8 +103,6 @@ namespace VorratsUebersicht
 
             this.ShowPictureAndDetails(this.articleId, eanCode);
 
-            this.CreateDirectoryForPictures();
-
             imageView.Click += delegate
             {
                 if (this.article.Image == null)
@@ -139,7 +138,7 @@ namespace VorratsUebersicht
             itemDelete.SetVisible(this.article?.ArticleId > 0);
 
             IMenuItem itemAddPhoto = menu.FindItem(Resource.Id.ArticleDetails_MakeAPhoto);
-            itemAddPhoto.SetVisible(IsThereAnAppToTakePictures());
+            itemAddPhoto.SetVisible(this.cameraExists);
 
             return true;
         }
@@ -182,6 +181,10 @@ namespace VorratsUebersicht
 
                 case Resource.Id.ArticleDetails_ScanEAN:
                     this.ScanEAN();
+                    return true;
+
+                case Resource.Id.ArticleDetails_ToShoppingList:
+                    this.AddToShoppimgList();
                     return true;
             }
 
@@ -227,7 +230,19 @@ namespace VorratsUebersicht
                 var progressDialog = ProgressDialog.Show(this, "Bitte warten...", "Bild wird komprimiert...", true);
                 new Thread(new ThreadStart(delegate             
                 {
-                    this.LoadAndResizeBitmap(App._file.Path);
+                    string path = this.imageCapture.FilePath;
+                    if (System.IO.File.Exists(path))
+                    {
+                        this.LoadAndResizeBitmap(path);
+                    }
+                    else
+                    {
+                        RunOnUiThread(() =>
+                        {
+                            string message = string.Format("Fotodatei '{0}' nicht gefunden.", path);
+                            Toast.MakeText(this, message, ToastLength.Long);
+                        });
+                    }
 
                     // Dispose of the Java side bitmap.
                     GC.Collect();
@@ -252,14 +267,6 @@ namespace VorratsUebersicht
             this.article = null;
         }
 
-        private bool IsThereAnAppToTakePictures ()
-        {
-            Intent intent = new Intent (MediaStore.ActionImageCapture);
-            IList<ResolveInfo> availableActivities =
-                PackageManager.QueryIntentActivities (intent, PackageInfoFlags.MatchDefaultOnly);
-            return availableActivities != null && availableActivities.Count > 0;
-        }
-
         private void SelectAPicture()
         {
             Intent = new Intent();
@@ -268,47 +275,16 @@ namespace VorratsUebersicht
             StartActivityForResult(Intent.CreateChooser(Intent, "Select Picture"), PickImageId);
         }
 
-        private void CreateDirectoryForPictures()
-        {
-            var pictureFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures);
-            bool folderExists = pictureFolder.Exists();
-
-            if (folderExists)
-            {
-                App._dir = new Java.IO.File(pictureFolder, "Vorräte Bilder");
-                if (!App._dir.Exists())
-                {
-                    App._dir.Mkdirs();
-                }
-                return;
-            }
-
-            string internalPicturePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures);
-            App._dir = new Java.IO.File(internalPicturePath, "Vorräte Bilder");
-            if (!App._dir.Exists())
-            {
-                App._dir.Mkdirs();
-            }
-        }
 
         private void TakeAPhoto()
         {
-            Intent intent = new Intent (MediaStore.ActionImageCapture);
-
-            App._file = new Java.IO.File(App._dir, String.Format("VorratPhoto_{0}.jpg", Guid.NewGuid()));
-
-            intent.PutExtra(MediaStore.ExtraOutput, Android.Net.Uri.FromFile(App._file));
-
-            try
-            {
-                StartActivityForResult(intent, TakePhotoId);
-            }
-            catch(Exception ex)
-            {
-                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-            }
+            this.imageCapture.TakePicture();
         }
 
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            this.imageCapture.RequestPermissions(requestCode, grantResults);
+        }
 
         private bool SaveArticle()
         {
@@ -384,11 +360,6 @@ namespace VorratsUebersicht
             if (this.imageSmall != null)
                 this.article.Image      = this.imageSmall;
 
-            /*
-            FindViewById<ImageView>(Resource.Id.ArticleDetails_Image);
-            FindViewById<ImageView>(Resource.Id.ArticleDetails_ImageLarge);
-            */
-
             SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
             if (databaseConnection == null)
                 return false;
@@ -457,6 +428,24 @@ namespace VorratsUebersicht
 
         }
 
+        private void AddToShoppimgList()
+        {
+            double count = Database.AddToShoppingList(this.articleId, 1);
+
+            string msg = string.Format("{0} Stück auf der Liste.", count);
+            if (this.toast != null)
+            {
+                this.toast.Cancel();
+                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
+            }
+            else
+            {
+                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
+            }
+
+            this.toast.Show();
+        }
+
         private void ShowPictureAndDetails(int articleId, string eanCode)
         {
             this.article = Database.GetArticle(articleId);
@@ -499,7 +488,7 @@ namespace VorratsUebersicht
             if (article.Image != null)
             {
                 Bitmap largeBitmap = BitmapFactory.DecodeByteArray(article.ImageLarge, 0, article.ImageLarge.Length);
-                Bitmap smallBitmap = BitmapFactory.DecodeByteArray (article.Image,     0, article.Image.Length);
+                Bitmap smallBitmap = BitmapFactory.DecodeByteArray(article.Image,      0, article.Image.Length);
                 
                 this.imageView.SetImageBitmap(smallBitmap);
                 this.imageView2.Visibility = ViewStates.Gone;
