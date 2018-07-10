@@ -92,6 +92,14 @@ namespace VorratsUebersicht
 					this.StartActivityForResult (articleListIntent, SelectArticleId);
 
                     return true;
+
+                case Resource.Id.StorageItemList_Filter:
+
+                    this.showToConsumerOnly = !this.showToConsumerOnly;
+                    this.ShowStorageItemList();
+
+                    return true;
+
             }
             return true;
         }

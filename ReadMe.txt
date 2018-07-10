@@ -39,6 +39,10 @@ Die eingesetzte SQLite Datenbank unterstützt diese Sortierung nicht.
 Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
+Version 2.02 (CodeVersion 25)
+==================================
+
+C040 - Lagerbestand filtern (nur "abgelaufene")
 
 Version 2.01 (CodeVersion 24)
 ==================================

@@ -1,16 +1,14 @@
-﻿
+
 Prio 1
 ======
-
-Bilder erstellen:
-- Fehler 'file:///storage exposed beyond app through ClipData.Item.getUri()' beheben.
 
 
 Prio 2
 ======
 
-Einkaufsliste:
-- Aus der Lagerbestand Liste auf die Einkaufsliste setzen ("..." Menü?)
+Anwendung
+- warning CS0618: 'ProgressDialog' is obsolete: 'This class is obsoleted in this android platform'
+
 
 Bilder
 - Komprimierung/Verkleinerung der Bilder nicht immer effizient
@@ -27,11 +25,22 @@ Kategorie/Unterkategorie
 Artikel-/Bestandliste
 - Sortieren der Lagerbestandsliste (Name, Zum Verbrauchen zuerst)
 
+Artikeldetail
+- Bilder für das Menü korrigieren
+- Lagerort
 
+Settings
+- Release Notes der App anzeigen
+- Spracheingabe, https://docs.microsoft.com/de-de/xamarin/android/platform/speech
 
+Artikel scannen
+- https://corporate.codecheck.info/produkte/produktdaten-api/
 
 Prio 3
 ======
+
+Einkaufsliste:
+- Aus der Lagerbestand Liste auf die Einkaufsliste setzen ("..." Menü?)
 
 - Anzahl gruppieren und Summieren nach Datum.
 

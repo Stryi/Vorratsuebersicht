@@ -20,12 +20,14 @@
         android:title="@string/ArticleDetails_Menu_CreatePicture" />
   
   <item android:id="@+id/ArticleDetails_SelectAPicture"
-        android:icon="@drawable/ic_photo_camera_white_24dp"
+        android:icon="@drawable/ic_photo_white_24dp"
         android:title="@string/ArticleDetails_Menu_SelectPicture" />
   
   <item android:id="@+id/ArticleDetails_ScanEAN"
-        android:icon="@drawable/ic_insert_photo_white_24dp"
-        android:title="@string/ArticleDetails_Menu_EAN_Scannen" />
+        android:icon="@drawable/Barcode"
+        android:title="@string/ArticleDetails_Menu_EAN_Scannen"
+        android:showAsAction="always"
+        />
 
   <item android:id="@+id/ArticleDetails_ToShoppingList"
       android:icon="@drawable/ic_shopping_cart_white_48dp"

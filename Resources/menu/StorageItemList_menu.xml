@@ -1,10 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+  
+  <item android:id="@+id/StorageItemList_Filter"
+        android:icon="@drawable/outline_assignment_late_white_24"
+        android:title="Filter"
+        android:showAsAction="always" />
+
   <item android:id="@+id/StorageItemList_Add"
         android:icon="@drawable/ic_add_circle_outline_white_24dp"
         android:title="Artikel hinzufügen"
         android:showAsAction="always" />
-  <!-- item android:id="@+id/ArticleList_Search"
-        android:icon="@drawable/ic_search_white_24dp"
-        android:showAsAction="always" / -->
 </menu>
