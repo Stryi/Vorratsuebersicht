@@ -42,6 +42,8 @@ Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 Version 2.02 (CodeVersion 25)
 ==================================
 
+C042 - Hinweis auf Datenbank, die nicht auf SD-Karte sich befindet.
+C041 - Spracheingabe für Artikelname (zum Testen)
 C040 - Lagerbestand filtern (nur "abgelaufene")
 
 Version 2.01 (CodeVersion 24)

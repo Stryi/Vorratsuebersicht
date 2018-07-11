@@ -2,6 +2,9 @@
 Prio 1
 ======
 
+Hauptmaske
+- Hinweis, dass die Datenbank nicht auf der SD Karte sich befindet
+- Hinweis zum Backup der Datenbank (1 x Monat?)
 
 Prio 2
 ======

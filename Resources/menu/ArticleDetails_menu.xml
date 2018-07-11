@@ -33,4 +33,7 @@
       android:icon="@drawable/ic_shopping_cart_white_48dp"
       android:title="@string/StorageItemQuantity_Menu_ToShoppingList" />
 
+  <item android:id="@+id/ArticleDetails_Speech"
+    android:title="Spracheingabe" />
+
 </menu>

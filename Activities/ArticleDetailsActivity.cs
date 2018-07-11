@@ -17,6 +17,7 @@ using MatrixGuide;
 using static Android.Widget.AdapterView;
 using System.Threading;
 using Android.Support.V4.Content;
+using Android.Speech;
 
 namespace VorratsUebersicht
 {
@@ -44,6 +45,7 @@ namespace VorratsUebersicht
 
         public static readonly int PickImageId = 1000;
         public static readonly int TakePhotoId = 1001;
+        public static readonly int SpechId = 1002;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -186,6 +188,11 @@ namespace VorratsUebersicht
                 case Resource.Id.ArticleDetails_ToShoppingList:
                     this.AddToShoppimgList();
                     return true;
+
+                case Resource.Id.ArticleDetails_Speech:
+                    this.SprachEingabe();
+                    return true;
+
             }
 
             return false;
@@ -207,7 +214,12 @@ namespace VorratsUebersicht
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
-            if ((requestCode == PickImageId) && (resultCode == Result.Ok) && (data != null))
+            if (resultCode != Result.Ok)
+            {
+                return;
+            }
+
+            if ((requestCode == PickImageId) && (data != null))
             {
                 var progressDialog = ProgressDialog.Show(this, "Bitte warten...", "Bild wird komprimiert...", true);
                 new Thread(new ThreadStart(delegate             
@@ -225,7 +237,7 @@ namespace VorratsUebersicht
                 })).Start();
             }
 
-            if ((requestCode == TakePhotoId) && (resultCode == Result.Ok))
+            if ((requestCode == TakePhotoId))
             {
                 var progressDialog = ProgressDialog.Show(this, "Bitte warten...", "Bild wird komprimiert...", true);
                 new Thread(new ThreadStart(delegate             
@@ -244,14 +256,24 @@ namespace VorratsUebersicht
                         });
                     }
 
+                    RunOnUiThread(() => progressDialog.Hide());
+
                     // Dispose of the Java side bitmap.
                     GC.Collect();
-
-                    RunOnUiThread(() => progressDialog.Hide());
 
                 })).Start();
             }
 
+            if (requestCode == SpechId)
+            {
+                var matches = data.GetStringArrayListExtra(RecognizerIntent.ExtraResults);
+                if (matches.Count != 0)
+                {
+                    EditText text = FindViewById<EditText>(Resource.Id.ArticleDetails_Name);
+                    string textInput = text.Text + matches[0];
+                    text.Text = textInput;
+                }
+            }
         }
 
         public override void OnBackPressed()
@@ -274,7 +296,6 @@ namespace VorratsUebersicht
             Intent.SetAction(Intent.ActionGetContent);
             StartActivityForResult(Intent.CreateChooser(Intent, "Select Picture"), PickImageId);
         }
-
 
         private void TakeAPhoto()
         {
@@ -444,6 +465,33 @@ namespace VorratsUebersicht
             }
 
             this.toast.Show();
+        }
+
+        // Anhand vom https://docs.microsoft.com/de-de/xamarin/android/platform/speech
+        private void SprachEingabe()
+        {
+            string rec = Android.Content.PM.PackageManager.FeatureMicrophone;
+            if (rec != "android.hardware.microphone")
+            {
+                var alert = new AlertDialog.Builder(this);
+                alert.SetTitle("You don't seem to have a microphone to record with");
+                alert.SetPositiveButton("OK", (sender, e) =>
+                {
+                    return;
+                });
+                alert.Show();
+            }
+
+            var voiceIntent = new Intent(RecognizerIntent.ActionRecognizeSpeech);
+            voiceIntent.PutExtra(RecognizerIntent.ExtraLanguageModel, RecognizerIntent.LanguageModelFreeForm);
+            voiceIntent.PutExtra(RecognizerIntent.ExtraPrompt, Application.Context.GetString(Resource.String.ArticleDetails_ArticleName));
+            //voiceIntent.PutExtra(RecognizerIntent.ExtraPrompt, "Test");
+            voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputCompleteSilenceLengthMillis, 1500);
+            voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputPossiblyCompleteSilenceLengthMillis, 1500);
+            voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputMinimumLengthMillis, 15000);
+            voiceIntent.PutExtra(RecognizerIntent.ExtraMaxResults, 1);
+            voiceIntent.PutExtra(RecognizerIntent.ExtraLanguage, Java.Util.Locale.Default);
+            StartActivityForResult(voiceIntent, SpechId);
         }
 
         private void ShowPictureAndDetails(int articleId, string eanCode)

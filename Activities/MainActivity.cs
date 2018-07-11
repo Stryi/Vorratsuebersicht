@@ -10,6 +10,7 @@ using Android.OS;
 using Android.Content.Res;
 using Android.Support.V4.Content;
 
+
 namespace VorratsUebersicht
 {
     [Activity(Label = "Vorratsübersicht", Icon = "@drawable/ic_launcher")]
@@ -59,10 +60,8 @@ namespace VorratsUebersicht
             string databaseName = new Android_Database().GetDatabasePath();
             if (databaseName == null)
             {
-                TextView text = FindViewById<TextView>(Resource.Id.Main_Text1);
+                TextView text = FindViewById<TextView>(Resource.Id.Main_TextInfo);
                 text.Text = "Keine Datenbank gefunden";
-                text.SetTextColor(Android.Graphics.Color.Black);
-                text.SetBackgroundColor(Android.Graphics.Color.White);
                 text.Visibility = ViewStates.Visible;
                 return;
             }
@@ -71,10 +70,7 @@ namespace VorratsUebersicht
             ZXing.Mobile.MobileBarcodeScanner.Initialize (Application);
 
             string error = this.ShowInfoText();
-            if (!string.IsNullOrEmpty(error))
-            {
-                this.ShowDatabaseError(error);
-            }
+            this.ShowDatabaseError(error);
 
             // Klick auf den "abgelaufen" Text bringt die Liste der (bald) abgelaufender Artieln.
             FindViewById<TextView>(Resource.Id.Main_Text).Click  += ArticlesNearExpiryDate_Click;
@@ -104,7 +100,6 @@ namespace VorratsUebersicht
             this.EnableButtons(string.IsNullOrEmpty(error));
 
             this.ShowInfoAufTestversion();
-
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -159,14 +154,16 @@ namespace VorratsUebersicht
 
         private void ShowDatabaseError(string error)
         {
-            FindViewById<TextView>(Resource.Id.Main_Text).Visibility = ViewStates.Gone;
-            FindViewById<TextView>(Resource.Id.Main_Text1).Visibility = ViewStates.Gone;
-
-            TextView text = FindViewById<TextView>(Resource.Id.Main_Text2);
-            text.Text = "Fehler beim Zugriff auf die Datenbank:\n\n" + error;
-            text.SetTextColor(Android.Graphics.Color.Black);
-            text.SetBackgroundColor(Android.Graphics.Color.White);
-            text.Visibility = ViewStates.Visible;
+            TextView text = FindViewById<TextView>(Resource.Id.Main_TextInfo);
+            if (!string.IsNullOrEmpty(error))
+            {
+                text.Text = "Fehler beim Zugriff auf die Datenbank:\n\n" + error;
+                text.Visibility = ViewStates.Visible;
+            }
+            else
+            {
+                text.Visibility = ViewStates.Gone;
+            }
         }
 
         private void ShowInfoAufTestversion()
@@ -264,8 +261,6 @@ namespace VorratsUebersicht
             if (kurzDavor > 0)
             {
                 string value = Resources.GetString(Resource.String.Main_ArticlesNearExpiryDate);
-                text.SetTextColor(Android.Graphics.Color.Blue);
-                text.SetBackgroundColor(Android.Graphics.Color.Transparent);
                 text.Text = string.Format(value, kurzDavor);
                 text.Visibility = ViewStates.Visible;
             }
@@ -308,10 +303,7 @@ namespace VorratsUebersicht
                 Android_Database.SQLiteConnection = null;
 
                 string error = this.ShowInfoText();
-                if (!string.IsNullOrEmpty(error))
-                {
-                    this.ShowDatabaseError(error);
-                }
+                this.ShowDatabaseError(error);
 
                 this.EnableButtons(string.IsNullOrEmpty(error));
             }

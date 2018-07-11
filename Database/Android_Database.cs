@@ -14,6 +14,7 @@ namespace VorratsUebersicht
         // http://err2solution.com/2016/05/sqlite-with-xamarin-forms-step-by-step-guide/
 
 		public static bool UseTestDatabase = false;
+        public static bool? IsDatabaseOnSdCard = null;
 
         public const string sqliteFilename_Prod = "Vorraete.db3";
         public const string sqliteFilename_New  = "Vorraete_db0.db3";
@@ -35,20 +36,26 @@ namespace VorratsUebersicht
 			string sdCardPath = this.GetSdCardPath();
             string databaseFileName = Path.Combine(sdCardPath, databaseName);
 
-			if (File.Exists(databaseFileName))
-				return databaseFileName;
+            if (File.Exists(databaseFileName))
+            {
+                Android_Database.IsDatabaseOnSdCard = true;
+                return databaseFileName;
+            }
 
             //
             // Jetzt prüfen, ob imr Applikationsverzeichnis die Datenbank da ist.
             //
-			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
+            string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
             databaseFileName = Path.Combine(documentsPath, databaseName);
 
 			if (File.Exists(databaseFileName))
-				return databaseFileName;
+            {
+                Android_Database.IsDatabaseOnSdCard = false;
+                return databaseFileName;
+            }
 
-
-			return null;
+            Android_Database.IsDatabaseOnSdCard = null;
+            return null;
 		}
 
         public string GetDatabaseInfoText(string format)
