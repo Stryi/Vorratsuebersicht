@@ -49,12 +49,14 @@ namespace VorratsUebersicht
                     info += MainActivity.Strings_Size;
 					info += string.Format(" {0} {1}", this.Article.Size.Value, this.Article.Unit).TrimEnd();
 				}
+
 				if (this.Article.Calorie.HasValue)
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
                     info += MainActivity.Strings_Calories;
 					info += string.Format(" {0:n0}", this.Article.Calorie.Value);
 				}
+
 				if (this.Article.DurableInfinity == false && this.Article.WarnInDays.HasValue)
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
@@ -76,7 +78,14 @@ namespace VorratsUebersicht
 				    info += string.Format(" {0}", this.Article.SubCategory);
 				}
 
-				return info;
+                if (!string.IsNullOrEmpty(this.Article.StorageName))
+                {
+                    if (!string.IsNullOrEmpty(info)) info += ", ";
+                    info += MainActivity.Strings_Storage;
+                    info += string.Format(" {0}", this.Article.StorageName);
+                }
+
+                return info;
 			}
         }
 

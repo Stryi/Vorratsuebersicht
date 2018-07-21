@@ -12,16 +12,18 @@ using Android.Support.V4.Content;
 namespace VorratsUebersicht
 {
     [Activity(Label = "@string/Main_Button_Lagerbestand", Icon = "@drawable/ic_assignment_white_48dp")]
-    public class StorageItemListActivity : Activity
+    public class StorageItemListActivity : Activity, SearchView.IOnQueryTextListener
     {
         List<StorageItemListView> liste = new List<StorageItemListView>();
         private IParcelable listViewState;
+        private List<string> storageList;
 
         private string category;
         private string subCategory;
         private bool   showToConsumerOnly;
         private string eanCode;
         private bool   showEmptyStorageArticles;
+        private string storageNameFilter = string.Empty;
 
         public static readonly int StorageItemQuantityId = 1000;
         public static readonly int SelectArticleId = 1001;
@@ -63,12 +65,53 @@ namespace VorratsUebersicht
                 this.Title = string.Format("{0} - {1}", this.Title, this.eanCode);
             }
 
+            this.storageList = new List<string>();
+            this.storageList.Add(Resources.GetString(Resource.String.StorageItem_AllStoragesStorage));
+            this.storageList.AddRange(Database.GetStorageNames());
+
+            if (storageList.Count > 1)
+            {
+                var storageSelection = FindViewById<LinearLayout>(Resource.Id.StorageItemList_SelectStorageSection);
+                storageSelection.Visibility = ViewStates.Visible;
+
+                var spinnerStorage = FindViewById<Spinner>(Resource.Id.StorageItemList_Storages);
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleSpinnerItem, this.storageList);
+                dataAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+                spinnerStorage.Adapter = dataAdapter;
+
+                spinnerStorage.ItemSelected += SpinnerStorage_ItemSelected;
+            }
+
             this.ShowStorageItemList();
+        }
+
+        private void SpinnerStorage_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            string newStorageName = string.Empty;
+            if (e.Position > 0)
+            {
+                newStorageName = this.storageList[e.Position];
+            }
+
+            if (newStorageName != this.storageNameFilter)
+            {
+                this.storageNameFilter = newStorageName;
+                this.ShowStorageItemList();
+            }
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.StorageItemList_menu, menu);
+
+            // https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+            SearchManager searchManager = (SearchManager)GetSystemService(Context.SearchService);
+
+            var searchMenuItem = menu.FindItem(Resource.Id.StorageItemList_Search);
+            var searchView = (SearchView)searchMenuItem.ActionView;
+
+            searchView.SetOnQueryTextListener(this);
+
             return base.OnCreateOptionsMenu(menu);
         }
 
@@ -155,11 +198,11 @@ namespace VorratsUebersicht
 
         }
 
-        private void ShowStorageItemList()
+        private void ShowStorageItemList(string filter = null)
         {
             this.liste = new List<StorageItemListView>();
 
-            var storageItemQuantityList = Database.GetStorageItemQuantityListNoImage(this.category, this.subCategory, this.eanCode, this.showEmptyStorageArticles);
+            var storageItemQuantityList = Database.GetStorageItemQuantityListNoImage(this.category, this.subCategory, this.eanCode, this.showEmptyStorageArticles, filter, this.storageNameFilter);
             foreach(StorageItemQuantityResult storegeItem in storageItemQuantityList)
             {
                 if (storegeItem.WarningLevel == 0)
@@ -203,6 +246,20 @@ namespace VorratsUebersicht
             ListView listView = FindViewById<ListView>(Resource.Id.MyListView);
             listView.Adapter = listAdapter;
             listView.Focusable = true;
+        }
+
+        public bool OnQueryTextChange(string newText)
+        {
+            //ggf. auf Adapter Filter umstellen: ...listAdapter.Filter.InvokeFilter(newText);
+            this.ShowStorageItemList(newText);
+            return true;
+        }
+
+        public bool OnQueryTextSubmit(string query)
+        {
+            // Filter ggf. mit Adapter, siehe https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+            this.ShowStorageItemList(query);
+            return true;
         }
     }
 }

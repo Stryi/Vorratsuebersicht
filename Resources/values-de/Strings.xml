@@ -12,7 +12,7 @@
 
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">Sie starten die Anwendung zum ersten Mal.\n\nSoll eine Testdatenbank zum Kennenlernen der Anwendung aktiviert werden?\n\nDiese können Sie dann unter Optionen wieder deaktivieren.</string>
-  <string name="Start_TestVersionInfo">Das ist eine Testversion. Bitte diese nicht produktiv einsetzen.</string>
+  <string name="Start_TestVersionInfo">Diese App wird ständig sorgsam weiterentwickelt. Dennoch kann es zu Fehlern oder Abstürzen kommen. Für Datenverlust kann nicht gehaftet werden.</string>
   <string name="Start_DeleteProdDbQuestion">Soll Ihre PRODUKTIVE Datenbank wirklich GELÖSCHT werden?</string>
 
   <!-- Hauptmaske -->
@@ -57,9 +57,16 @@
   <string name="ArticleDetails_Unit">Einheit:</string>
   <string name="ArticleDetails_Unit_Hint">g, l, kg, stk</string>
   <string name="ArticleDetails_Calories">Kalorien:</string>
+  <string name="ArticleDetails_StorageLabel">Lagerort:</string>
+  <string name="ArticleDetails_MinQuantityLabel">Mindestmenge:</string>
+  <string name="ArticleDetails_PrefQuantityLabel">Bevorzugte Menge:</string>
+  <string name="ArticleDetails_SupermarketLabel">Einkaufsmarkt:</string>
   <string name="ArticleDetails_EANCode">EAN Code:</string>
   <string name="ArticleDetails_Notes">Notizen:</string>
   <string name="ArticleDetails_Amount">Anzahl:</string>
+
+  <!-- Lagerbestandsliste -->
+  <string name="StorageItem_AllStoragesStorage">[Alle Lager]</string>
 
   <!-- Lagerbestand -->
   <string name="StorageItemQuantity_Menu_ToShoppingList">Auf Einkaufsliste</string>

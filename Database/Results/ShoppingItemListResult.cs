@@ -21,6 +21,7 @@ namespace VorratsUebersicht
         public int ArticleId { get; set; }
         public string Name { get; set; }
         public string Manufacturer { get; set; }
+        public string Supermarket { get; set; }
         public decimal? Size { get; set; }
         public string Unit { get; set; }
         public int? Calorie { get; set; }

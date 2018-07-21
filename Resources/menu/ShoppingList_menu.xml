@@ -1,7 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:id="@+id/ArticleList_Add"
+
+  <item android:id="@+id/ShoppingList_Search"
+        android:title="Search"
+        android:icon="@drawable/ic_search_white_24dp"
+        android:showAsAction="collapseActionView|ifRoom"
+        android:actionViewClass="android.widget.SearchView" />
+
+  <item android:id="@+id/ShoppingList_Add"
         android:icon="@drawable/ic_add_circle_outline_white_24dp"
         android:title="Artikel in Liste aufnehmen"
         android:showAsAction="always" />
+<!--
+  <item android:id="@+id/ShoppingList_Autogenerate"
+        android:icon="@drawable/ic_add_circle_outline_white_24dp"
+        android:title="Aus Mindestbestand erstellen" />
+-->     
+
 </menu>

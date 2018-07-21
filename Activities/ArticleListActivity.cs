@@ -12,7 +12,7 @@ using Android.Widget;
 namespace VorratsUebersicht
 {
     [Activity(Label = "@string/Main_Button_ArtikelListe", Icon = "@drawable/ic_local_offer_white_48dp")]
-    public class ArticleListActivity : Activity
+    public class ArticleListActivity : Activity, SearchView.IOnQueryTextListener
     {
         List<ArticleListView> liste = new List<ArticleListView>();
         private IParcelable listViewState;
@@ -52,6 +52,15 @@ namespace VorratsUebersicht
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.ArticleList_menu, menu);
+
+            // https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+            SearchManager searchManager = (SearchManager)GetSystemService(Context.SearchService);
+
+            var searchMenuItem = menu.FindItem(Resource.Id.ArticleList_Search);
+            var searchView = (SearchView) searchMenuItem.ActionView;
+
+            searchView.SetOnQueryTextListener(this);
+
             return base.OnCreateOptionsMenu(menu);
         }
 
@@ -72,11 +81,11 @@ namespace VorratsUebersicht
             return true;
         }
 
-        private void ShowArticleList()
+        private void ShowArticleList(string text = null)
         {
             this.liste = new List<ArticleListView>();
 
-            var articleList = Database.GetArticleListNoImages(this.category, this.subCategory);
+            var articleList = Database.GetArticleListNoImages(this.category, this.subCategory, text);
 
             foreach(Article article in articleList)
             {
@@ -136,6 +145,20 @@ namespace VorratsUebersicht
                 ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
                 listView.OnRestoreInstanceState(this.listViewState);
             }
+        }
+
+        public bool OnQueryTextChange(string filter)
+        {
+            // Filter ggf. mit Adapter, siehe https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+            ShowArticleList(filter);
+            return true;
+        }
+
+        public bool OnQueryTextSubmit(string filter)
+        {
+            // Filter ggf. mit Adapter, siehe https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+            ShowArticleList(filter);
+            return true;
         }
     }
 }

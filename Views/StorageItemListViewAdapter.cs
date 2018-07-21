@@ -1,23 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Android.Graphics;
-using System.Diagnostics;
 
 namespace VorratsUebersicht
 {
-    public class StorageItemListViewAdapter : BaseAdapter<StorageItemListView>
+    public class StorageItemListViewAdapter : BaseAdapter<StorageItemListView>   // , IFilterable
     {
-        List<StorageItemListView> items;
-        Activity context;
+        public List<StorageItemListView> items;
+        private Activity context;
 
         public StorageItemListViewAdapter(Activity context, List<StorageItemListView> items) : base()
         {
@@ -36,6 +29,23 @@ namespace VorratsUebersicht
         {
             get { return items.Count; }
         }
+
+        /*
+        // Funktioniert irgendwie nicht
+        private PositionFilter filter;
+        public Filter Filter
+        {
+            get
+            {
+                if (this.filter != null)
+                    return this.Filter;
+
+                this.filter = new PositionFilter(this);
+
+                return this.filter;
+            }
+        }
+        */
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             StorageItemListView item = items[position];
@@ -84,5 +94,56 @@ namespace VorratsUebersicht
             
             return view;
        }
+
+        /*
+        // https://forums.xamarin.com/discussion/46051/custom-filter-problem
+        // Funktioniert aber irgendwie nicht
+        private class PositionFilter : Filter
+        {
+
+            StorageItemListViewAdapter customAdapter;
+            public PositionFilter(StorageItemListViewAdapter adapter) : base()
+            {
+                customAdapter = adapter;
+            }
+
+            protected override FilterResults PerformFiltering(ICharSequence constraint)
+            {
+                
+                FilterResults filterResults = new FilterResults();
+                if (constraint == null || constraint.Length() == 0)
+                {
+                    List<StorageItemListView> matchList = new List<StorageItemListView>();
+
+                    foreach (StorageItemListView view in customAdapter.items)
+                    {
+                        if (view.Heading.ToUpper().Contains(constraint.ToString().ToUpper()))
+                        {
+                            matchList.Add(view);
+                        }
+                    }
+
+                    Java.Lang.Object[] resultsValues;
+                    resultsValues = new Java.Lang.Object[matchList.Count()];
+
+                    for (int i = 0; i < matchList.Count(); i++)
+                    {
+                        resultsValues[i] = matchList[i];
+                    }
+
+                    filterResults.Count  = matchList.Count();
+                    filterResults.Values = resultsValues;
+
+                    return filterResults;
+                }
+                
+                return filterResults;
+            }
+
+            protected override void PublishResults(ICharSequence constraint, FilterResults results)
+            {
+            }
+        }
+        */
     }
 }

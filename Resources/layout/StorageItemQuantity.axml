@@ -17,7 +17,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:background="@color/Application_Background2">
         <ImageView
             android:id="@+id/StorageItemQuantity_Image"

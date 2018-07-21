@@ -37,14 +37,35 @@ namespace VorratsUebersicht
                 info += MainActivity.Strings_Amount;
                 info += string.Format(" {0}", this.StorageItem.Quantity);
 
-				if (this.StorageItem.Size != 0)
+                if (this.StorageItem.Size != 0)
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
                     info += MainActivity.Strings_Size;
 					info += string.Format(" {0} {1}", this.StorageItem.Size, this.StorageItem.Unit).TrimEnd();
 				}
 
-				return info;
+                if (this.StorageItem.MinQuantity.HasValue)
+                {
+                    if (!string.IsNullOrEmpty(info)) info += "\r\n";
+                    info += MainActivity.Strings_MinQuantity;
+                    info += string.Format(" {0}", this.StorageItem.MinQuantity);
+                }
+
+                if (this.StorageItem.PrefQuantity.HasValue)
+                {
+                    if (!string.IsNullOrEmpty(info)) info += "\r\n";
+                    info += MainActivity.Strings_PrefQuantity;
+                    info += string.Format(" {0}", this.StorageItem.PrefQuantity);
+                }
+
+                if (!string.IsNullOrEmpty(this.StorageItem.StorageName))
+                {
+                    if (!string.IsNullOrEmpty(info)) info += "\r\n";
+                    info += MainActivity.Strings_Storage;
+                    info += string.Format(" {0}", this.StorageItem.StorageName);
+                }
+
+                return info;
 			}
         }
 

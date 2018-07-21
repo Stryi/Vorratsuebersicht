@@ -117,6 +117,7 @@
     <Compile Include="Activities\ShoppingListActivity.cs" />
     <Compile Include="Activities\SplashScreenActivity.cs" />
     <Compile Include="Activities\SubCategoryActivity.cs" />
+    <Compile Include="Database\ArticleData.cs" />
     <Compile Include="Database\Results\ShoppingItemListResult.cs" />
     <Compile Include="Database\Results\StringResult.cs" />
     <Compile Include="Database\Results\table_info.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\ImageCaptureHelper.cs" />
     <Compile Include="Tools\ImageResizer.cs" />
+    <Compile Include="Tools\ShoppingListHelper.cs" />
     <Compile Include="Tools\SpaceTokenizer.cs" />
     <Compile Include="Tools\Tools.cs" />
     <Compile Include="Activities\StorageItemQuantityActivity.cs" />

@@ -39,10 +39,58 @@ Die eingesetzte SQLite Datenbank unterstützt diese Sortierung nicht.
 Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
-Version 2.02 (CodeVersion 25)
+Logik der Bestellmenge:
+
+Der Anwender bekommt beim Speichern der Bestandsliste bei 
+
+	[ToBuy] -[Menge auf Einkaufszettel] > 0 
+	
+eine Meldung, ob er das Artikel mit der Menge (s. Formel) auf die Einkaufsliste setzen will.
+
+Beim Betätigen des 'Einkaufswagen' Icons wird ohne Nachfrage 'ToBuy' Menge bestellt
+oder (falls schon auf dem Einkaufszettel vorhanden) die Menge im Einkaufszettel um 1 erhöht.
+
+	Nur 'MinQuantity' gesetzt: Bestellt wird beim Unterschreiten auf die 'MinQuantity' Menge.
+
+
+		MinQuantity		PrefQuantity		IsQuantity		ToBuy
+		5				-					6				-
+		5				-					5				-
+		5				-					4				1
+		5				-					3				2
+		5				-					2				3
+
+	Nur 'PrefQuantity' gesetzt: Verhalten wie bei 'MinQuantity'.
+	Bestellt wird beim Unterschreiten auf die 'PrefQuantity' Menge.
+
+		MinQuantity		PrefQuantity		IsQuantity		ToBuy
+		-				8					9				-
+		-				8					8				-
+		-				8					7				1
+		-				8					1				6
+
+
+	Nur 'MinQuantity' und 'PrefQuantity' gesetzt: 
+	Beim Unterschreiten der MinQuantity	wird auf die PrefQuantity bestellt
+
+		MinQuantity		PrefQuantity		IsQuantity		ToBuy
+		5				8					9				-
+		5				8					8				-
+		5				8					7				-
+		5				8					6				-
+		5				8					5				-
+		5				8					4				4
+		5				8					3				5
+		5				8					4				6
+		5				8					1				7
+
+
+
+Version 2.10 (CodeVersion 25)
 ==================================
 
-C042 - Hinweis auf Datenbank, die nicht auf SD-Karte sich befindet.
+C043 - Suche nach Artikeln hinzugefügt
+C042 - Artikelstamm um Einkaufsmarkt, Lagerort, Mindestmenge und bervorzugte Menge erweitert.
 C041 - Spracheingabe für Artikelname (zum Testen)
 C040 - Lagerbestand filtern (nur "abgelaufene")
 

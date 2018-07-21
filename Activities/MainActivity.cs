@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Diagnostics;
 
 using Android.App;
@@ -9,7 +10,6 @@ using Android.Widget;
 using Android.OS;
 using Android.Content.Res;
 using Android.Support.V4.Content;
-
 
 namespace VorratsUebersicht
 {
@@ -26,6 +26,10 @@ namespace VorratsUebersicht
         public static string Strings_Calories;
         public static string Strings_Category;
         public static string Strings_SubCategory;
+        public static string Strings_Supermarket;
+        public static string Strings_Storage;
+        public static string Strings_MinQuantity;
+        public static string Strings_PrefQuantity;
         public static string Strings_EANCode;
         public static string Strings_Amount;
 
@@ -37,10 +41,19 @@ namespace VorratsUebersicht
             MainActivity.Strings_Calories      = Resources.GetString(Resource.String.ArticleDetails_Calories);
             MainActivity.Strings_Category      = Resources.GetString(Resource.String.ArticleDetails_Category);
             MainActivity.Strings_SubCategory   = Resources.GetString(Resource.String.ArticleDetails_SubCategory);
+            MainActivity.Strings_Supermarket   = Resources.GetString(Resource.String.ArticleDetails_SupermarketLabel);
+            MainActivity.Strings_Storage       = Resources.GetString(Resource.String.ArticleDetails_StorageLabel);
+            MainActivity.Strings_MinQuantity   = Resources.GetString(Resource.String.ArticleDetails_MinQuantityLabel);
+            MainActivity.Strings_PrefQuantity  = Resources.GetString(Resource.String.ArticleDetails_PrefQuantityLabel);
             MainActivity.Strings_EANCode       = Resources.GetString(Resource.String.ArticleDetails_EANCode);
             MainActivity.Strings_Amount        = Resources.GetString(Resource.String.ArticleDetails_Amount);
 
             base.OnCreate(bundle);
+
+            if (Debugger.IsAttached)
+            {
+                ShoppingListHelper.UnitTest();
+            }
 
             var lan = Resources.Configuration.Locale;
 
@@ -60,16 +73,14 @@ namespace VorratsUebersicht
             string databaseName = new Android_Database().GetDatabasePath();
             if (databaseName == null)
             {
-                TextView text = FindViewById<TextView>(Resource.Id.Main_TextInfo);
-                text.Text = "Keine Datenbank gefunden";
-                text.Visibility = ViewStates.Visible;
+                this.SetInfoText("Keine Datenbank gefunden");
                 return;
             }
 
             // Somewhere in your app, call the initialization code:
             ZXing.Mobile.MobileBarcodeScanner.Initialize (Application);
 
-            string error = this.ShowInfoText();
+            string error = this.ShowStorageInfoText();
             this.ShowDatabaseError(error);
 
             // Klick auf den "abgelaufen" Text bringt die Liste der (bald) abgelaufender Artieln.
@@ -154,16 +165,12 @@ namespace VorratsUebersicht
 
         private void ShowDatabaseError(string error)
         {
-            TextView text = FindViewById<TextView>(Resource.Id.Main_TextInfo);
-            if (!string.IsNullOrEmpty(error))
-            {
-                text.Text = "Fehler beim Zugriff auf die Datenbank:\n\n" + error;
-                text.Visibility = ViewStates.Visible;
-            }
-            else
-            {
-                text.Visibility = ViewStates.Gone;
-            }
+            if (string.IsNullOrEmpty(error))
+                return;
+
+            string text = "Fehler beim Zugriff auf die Datenbank:\n\n" + error;
+
+            this.SetInfoText(text);
         }
 
         private void ShowInfoAufTestversion()
@@ -172,23 +179,16 @@ namespace VorratsUebersicht
             string lastRunDay = prefs.GetString("LastRunDay", string.Empty);
             string today      = DateTime.Today.ToString("yyyy.MM.dd");
 
-            /*
             if (!lastRunDay.Equals(today))
             {
-                var message = new AlertDialog.Builder(this);
-                message.SetMessage(Resource.String.Start_TestVersionInfo);
-                message.SetTitle(Resource.String.App_Name);
-                message.SetIcon(Resource.Drawable.ic_launcher);
-                message.SetPositiveButton(Resource.String.App_Ok, (s, e) => { });
-                message.Create().Show();
+                this.SetInfoText(Resources.GetString(Resource.String.Start_TestVersionInfo));
             }
-            */
 
             var prefEditor = prefs.Edit();
             prefEditor.PutString("LastRunDay", today);
             prefEditor.Commit();
         }
-        
+
         private void ShowInfoAufTestdatenbank()
         {
             var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
@@ -204,7 +204,7 @@ namespace VorratsUebersicht
                     { 
                         Android_Database.UseTestDatabase = true;
                         Android_Database.SQLiteConnection = null;   // Sich neu connecten;
-                        this.ShowInfoText();
+                        this.ShowStorageInfoText();
                     });
                 message.SetNegativeButton(Resource.String.App_No, (s, e) => { });
                 message.Create().Show();
@@ -219,7 +219,7 @@ namespace VorratsUebersicht
         /// Information über abgelaufene Lagerpositionen und die Positionen, bei denen das Ablaufdatum
         /// innerhalb vom Warnungsdatum liegt.
         /// </summary>
-        private string ShowInfoText()
+        private string ShowStorageInfoText()
 		{
             decimal abgelaufen;
 
@@ -282,6 +282,16 @@ namespace VorratsUebersicht
             return null;
         }
 
+        private void SetInfoText(string text)
+        {
+            TextView textView = FindViewById<TextView>(Resource.Id.Main_TextInfo);
+            if (!string.IsNullOrEmpty(textView.Text))
+                textView.Text += "\n\n";
+
+            textView.Text += text;
+            textView.Visibility = ViewStates.Visible;
+        }
+
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
 		{
 			base.OnActivityResult(requestCode, resultCode, data);
@@ -294,7 +304,7 @@ namespace VorratsUebersicht
 
 			if (requestCode == EditStorageItemQuantityId)
 			{
-				this.ShowInfoText();
+				this.ShowStorageInfoText();
 			}
 
             if (requestCode == OptionsId)
@@ -302,7 +312,7 @@ namespace VorratsUebersicht
                 // Sich neu connecten;
                 Android_Database.SQLiteConnection = null;
 
-                string error = this.ShowInfoText();
+                string error = this.ShowStorageInfoText();
                 this.ShowDatabaseError(error);
 
                 this.EnableButtons(string.IsNullOrEmpty(error));

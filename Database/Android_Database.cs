@@ -302,9 +302,18 @@ namespace VorratsUebersicht
 
                 conn.Execute(cmd);
             }
+
+            // Update 2.10: Lagerort, Mindestbestand, Einkaufsmarkt
+            if (!this.IsFieldInTheTable(conn, "Article", "StorageName"))
+            {
+                conn.Execute("ALTER TABLE Article ADD COLUMN MinQuantity INTEGER");
+                conn.Execute("ALTER TABLE Article ADD COLUMN PrefQuantity INTEGER");
+                conn.Execute("ALTER TABLE Article ADD COLUMN StorageName TEXT");
+                conn.Execute("ALTER TABLE Article ADD COLUMN Supermarket TEXT");
+            }
         }
 
-		private bool IsFieldInTheTable(SQLiteConnection conn, string tableName, string fieldName)
+        private bool IsFieldInTheTable(SQLiteConnection conn, string tableName, string fieldName)
 		{
 			string cmd = string.Format("PRAGMA table_info({0})", tableName);
 			IList<table_info> tableInfo = conn.Query<table_info>(cmd);

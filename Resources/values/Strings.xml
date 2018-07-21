@@ -11,7 +11,7 @@
 
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">You start the application for the first time.\n\nShould a test database be activated to get to know the application?\n\nYou can deactivate these under options.</string>
-  <string name="Start_TestVersionInfo">This is a test version. Please do not used productively.</string>
+  <string name="Start_TestVersionInfo">This app is constantly being carefully developed. Nevertheless, errors or crashes can occur. For data loss can not be adhered to.</string>
   <string name="Start_DeleteProdDbQuestion">Should your PRODUCTIVE database really be DELETED?</string>
 
   <!-- Hauptmaske -->
@@ -48,7 +48,7 @@
   <string name="ArticleDetails_Manufacturer">Manufacturer:</string>
   <string name="ArticleDetails_Category">Category:</string>
   <string name="ArticleDetails_Category_Hint">Food, Drink, Hygiene Articles, Health, Protection</string>
-  <string name="ArticleDetails_SubCategory">Subategory:</string>
+  <string name="ArticleDetails_SubCategory">Subcategory:</string>
   <string name="ArticleDetails_SubCategory_Hint">Depending on the category, e.g. Honey in the food category.</string>
   <string name="ArticleDetails_EnduringlyDurable">Enduringly durable</string>
   <string name="ArticleDetails_WarningInDays">Warn in days before expiration:</string>
@@ -56,9 +56,16 @@
   <string name="ArticleDetails_Unit">Unit:</string>
   <string name="ArticleDetails_Unit_Hint">g, l, kg, pcs</string>
   <string name="ArticleDetails_Calories">Calories:</string>
+  <string name="ArticleDetails_StorageLabel">Storage location:</string>
+  <string name="ArticleDetails_MinQuantityLabel">Min. quantity:</string>
+  <string name="ArticleDetails_PrefQuantityLabel">Pref. quantity:</string>
+  <string name="ArticleDetails_SupermarketLabel">Supermarket:</string>
   <string name="ArticleDetails_EANCode">EAN code:</string>
   <string name="ArticleDetails_Notes">Notes:</string>
   <string name="ArticleDetails_Amount">Amount:</string>
+
+  <!-- Lagerbestandsliste -->
+  <string name="StorageItem_AllStoragesStorage">[All storages]</string>
 
   <!-- Lagerbestand -->
   <string name="StorageItemQuantity_Menu_ToShoppingList">To shopping list</string>

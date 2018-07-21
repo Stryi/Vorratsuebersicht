@@ -145,8 +145,8 @@ namespace VorratsUebersicht
                 case Resource.Id.StorageItemQuantity_Save:
 					this.isChanged = true;
                     this.SaveNewQuantity();
-
 					this.SetEditMode(false);
+                    this.AddToShoppingList();
                     break;
 
                 case Resource.Id.StorageItemQuantity_Cancel:
@@ -155,7 +155,7 @@ namespace VorratsUebersicht
                     break;
 
                 case Resource.Id.StorageItemQuantity_ToShoppingList:
-                    this.AddToShoppimgList();
+                    this.AddToShoppingListAutomatically();
                     return true;
 
                 case Resource.Id.StorageItemQuantity_EditPicture:
@@ -168,7 +168,7 @@ namespace VorratsUebersicht
             return true;
         }
 
-		private void SetEditMode(bool editMode)
+        private void SetEditMode(bool editMode)
 		{
             this.isEditMode = editMode;
 
@@ -191,11 +191,15 @@ namespace VorratsUebersicht
             listView.InvalidateViews();
 		}
 
-        private void AddToShoppimgList()
+        private void AddToShoppingListAutomatically()
         {
-            double count = Database.AddToShoppingList(this.articleId, 1);
+            int toBuyQuantity = Database.GetToShoppingListQuantity(this.articleId);
+            if (toBuyQuantity == 0)
+                toBuyQuantity = 1;
 
-            string msg = string.Format("{0} Stück auf der Liste.", count);
+            double count = Database.AddToShoppingList(this.articleId, toBuyQuantity);
+
+            string msg = string.Format("{0} Stück auf der Einkaufsliste.", count);
             if (this.toast != null)
             {
                 this.toast.Cancel();
@@ -207,6 +211,25 @@ namespace VorratsUebersicht
             }
 
             this.toast.Show();
+        }
+
+        private void AddToShoppingList()
+        {
+            int toBuy = Database.GetToShoppingListQuantity(this.articleId);
+            if (toBuy == 0)
+                return;
+
+            string msg = string.Format("Artikel mit Menge {0} auf die Einkaufsliste setzen?", toBuy);
+
+            var builder = new AlertDialog.Builder(this);
+            builder.SetTitle("Mindestmenge unterschritten");
+            builder.SetMessage(msg);
+            builder.SetNegativeButton("Nein", (s, e) => { });
+            builder.SetPositiveButton("Ja", (s, e) => 
+            {
+                Database.AddToShoppingList(this.articleId, toBuy);
+            });
+            builder.Create().Show();
         }
 
 
@@ -318,7 +341,28 @@ namespace VorratsUebersicht
 				info += string.Format(" {0}", article.SubCategory);
 			}
 
-			if (!string.IsNullOrEmpty(article.EANCode))
+            if (!string.IsNullOrEmpty(article.StorageName))
+            {
+                if (!string.IsNullOrEmpty(info)) info += "\r\n";
+                info += MainActivity.Strings_Storage;
+                info += string.Format(" {0}", article.StorageName);
+            }
+
+            if (article.MinQuantity.HasValue)
+            {
+                if (!string.IsNullOrEmpty(info)) info += "\r\n";
+                info += MainActivity.Strings_MinQuantity;
+                info += string.Format(" {0}", article.MinQuantity);
+            }
+
+            if (article.PrefQuantity.HasValue)
+            {
+                if (!string.IsNullOrEmpty(info)) info += "\r\n";
+                info += MainActivity.Strings_PrefQuantity;
+                info += string.Format(" {0}", article.PrefQuantity);
+            }
+
+            if (!string.IsNullOrEmpty(article.EANCode))
 			{
 				if (!string.IsNullOrEmpty(info)) info += "\r\n";
                 info += MainActivity.Strings_EANCode;

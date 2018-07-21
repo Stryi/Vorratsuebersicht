@@ -43,17 +43,22 @@ namespace VorratsUebersicht
 
 				if (!string.IsNullOrEmpty(this.ShoppingItem.Manufacturer))
 				{
-					if (!string.IsNullOrEmpty(info)) info += ", ";
-					info += string.Format("Hersteller: {0}", this.ShoppingItem.Manufacturer);
+					if (!string.IsNullOrEmpty(info)) info += "\r\n";
+					info += string.Format("{0} {1}", MainActivity.Strings_Manufacturer, this.ShoppingItem.Manufacturer);
 				}
 
 				if (this.ShoppingItem.Size.HasValue)
 				{
-					if (!string.IsNullOrEmpty(info)) info += ", ";
-					info += string.Format("Größe: {0} {1}", this.ShoppingItem.Size.Value, this.ShoppingItem.Unit);
+					if (!string.IsNullOrEmpty(info)) info += "\r\n";
+					info += string.Format("{0} {1} {2}", MainActivity.Strings_Size, this.ShoppingItem.Size.Value, this.ShoppingItem.Unit);
 				}
+                if (!string.IsNullOrEmpty(this.ShoppingItem.Supermarket))
+                {
+                    if (!string.IsNullOrEmpty(info)) info += "\r\n";
+                    info += string.Format("{0} {1}", MainActivity.Strings_Supermarket, this.ShoppingItem.Supermarket);
+                }
 
-				return info;
+                return info;
 			}
         }
 

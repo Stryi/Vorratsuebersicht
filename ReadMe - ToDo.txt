@@ -2,9 +2,6 @@
 Prio 1
 ======
 
-Hauptmaske
-- Hinweis, dass die Datenbank nicht auf der SD Karte sich befindet
-- Hinweis zum Backup der Datenbank (1 x Monat?)
 
 Prio 2
 ======
@@ -15,9 +12,14 @@ Anwendung
 
 Bilder
 - Komprimierung/Verkleinerung der Bilder nicht immer effizient
+- Komprimierung/Verkleinerung dauert verdächtig lange
+- Komprimierung ein-/ausschaltbar (Optionen)
 - Ausrichtung der Bilder beachten (Quer fotografiert)
 - Nach dem Auswahl vom neuen Bild wird noch beim Anklicken das alte angezeigt.
 - Bild entfernen programmieren
+- Bilder für das Menü korrigieren
+- Bild drehen
+- Verzeichnis mit Bilder löschen
 
 Kategorie/Unterkategorie
 - Unterkategorie Control auf PopUp umstellen, 
@@ -27,14 +29,18 @@ Kategorie/Unterkategorie
 
 Artikel-/Bestandliste
 - Sortieren der Lagerbestandsliste (Name, Zum Verbrauchen zuerst)
+- Suche https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
 
 Artikeldetail
-- Bilder für das Menü korrigieren
-- Lagerort
+- Einkaufsmarkt als AutoComplete (wie Lagerort)
 
-Settings
+Einkaufszettel
+- Liste anhand der Mindestmenge erstellen.
+
+Sonstiges
 - Release Notes der App anzeigen
 - Spracheingabe, https://docs.microsoft.com/de-de/xamarin/android/platform/speech
+- Absturz protokollieren (LOG-Datei)
 
 Artikel scannen
 - https://corporate.codecheck.info/produkte/produktdaten-api/

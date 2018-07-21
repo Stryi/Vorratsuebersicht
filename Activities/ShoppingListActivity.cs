@@ -12,7 +12,7 @@ using Android.Widget;
 namespace VorratsUebersicht
 {
     [Activity(Label = "@string/Main_Button_Einkaufsliste", Icon = "@drawable/ic_shopping_cart_white_48dp")]
-    public class ShoppingListActivity : Activity
+    public class ShoppingListActivity : Activity, SearchView.IOnQueryTextListener
     {
         public static readonly int SelectArticleId = 1001;
         private IParcelable listViewState;
@@ -89,6 +89,15 @@ namespace VorratsUebersicht
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.ShoppingList_menu, menu);
+
+            // https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+            SearchManager searchManager = (SearchManager)GetSystemService(Context.SearchService);
+
+            var searchMenuItem = menu.FindItem(Resource.Id.ShoppingList_Search);
+            var searchView = (SearchView)searchMenuItem.ActionView;
+
+            searchView.SetOnQueryTextListener(this);
+
             return base.OnCreateOptionsMenu(menu);
         }
 
@@ -101,7 +110,7 @@ namespace VorratsUebersicht
                     this.OnBackPressed();
                     return true;
 
-                case Resource.Id.ArticleList_Add:
+                case Resource.Id.ShoppingList_Add:
                     // Select Article
                     var articleListIntent = new Intent(this, typeof(ArticleListActivity));
                     articleListIntent.PutExtra("SelectArticleOnly", true);
@@ -128,11 +137,11 @@ namespace VorratsUebersicht
             }
         }
 
-        private void ShowShoppingList()
+        private void ShowShoppingList(string filter = null)
         {
             this.liste = new List<ShoppingListView>();
 
-            var shoppingList = Database.GetShoppingItemList();
+            var shoppingList = Database.GetShoppingList(filter);
 
             foreach (ShoppingItemListResult ShoppingItem in shoppingList)
             {
@@ -145,6 +154,20 @@ namespace VorratsUebersicht
             this.listViewState = listView.OnSaveInstanceState();        // Zustand der Liste merken (wo der Anfang angezeigt wird)
             listView.Adapter = listAdapter;
             listView.OnRestoreInstanceState(this.listViewState);        // Zustand der Liste wiederherstellen
+        }
+
+        public bool OnQueryTextChange(string newText)
+        {
+            // Filter ggf. mit Adapter, siehe https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+            this.ShowShoppingList(newText);
+            return true;
+        }
+
+        public bool OnQueryTextSubmit(string query)
+        {
+            // Filter ggf. mit Adapter, siehe https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+            this.ShowShoppingList(query);
+            return true;
         }
     }
 }

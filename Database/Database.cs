@@ -55,7 +55,7 @@ namespace VorratsUebersicht
 
 		}
 
-        internal static IList<ShoppingItemListResult> GetShoppingItemList()
+        internal static IList<ShoppingItemListResult> GetShoppingList(string textFilter = null)
         {
             List<ShoppingItemListResult> result = new List<ShoppingItemListResult>();
 
@@ -66,15 +66,43 @@ namespace VorratsUebersicht
             string cmd = string.Empty;
             SQLiteCommand command;
 
-            cmd += "SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Size, Unit, Calorie, Quantity";
+            cmd += "SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Supermarket, Size, Unit, Calorie, Quantity";
             cmd += " FROM ShoppingList";
             cmd += " LEFT JOIN Article ON ShoppingList.ArticleId = Article.ArticleId";
+
+            IList<object> parameter = new List<object>();
+
+            if (!string.IsNullOrEmpty(textFilter))
+            {
+                if (parameter.Count > 0)
+                    cmd += " AND ";
+                else
+                    cmd += " WHERE ";
+
+                cmd += " UPPER(Article.Name) LIKE ?";
+                parameter.Add("%" + textFilter.ToUpper() + "%");
+            }
+
             cmd += " ORDER BY Name";
 
-            command = databaseConnection.CreateCommand(cmd, new object[] { });
+            command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());
 
             return command.ExecuteQuery<ShoppingItemListResult>();
         }
+
+        internal static int GetShoppingListQuantiy(int articleId)
+        {
+            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            if (databaseConnection == null)
+                return 0;
+
+            string cmd = "SELECT Quantity FROM ShoppingList WHERE ArticleId = ?";
+            SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
+            int isQuantity = command.ExecuteScalar<int>();
+
+            return isQuantity;
+        }
+
 
         internal static double AddToShoppingList(int articleId, double addQuantity)
         {
@@ -85,14 +113,11 @@ namespace VorratsUebersicht
             SQLiteCommand command;
             string cmd = string.Empty;
 
-
-            cmd = "SELECT Quantity FROM ShoppingList WHERE ArticleId = ?";
-            command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
-            double isQuantity = command.ExecuteScalar<double>();
+            double isQuantity = Database.GetShoppingListQuantiy(articleId);
 
             double newQuantity = isQuantity + addQuantity;
 
-            bool isInList = Database.IsArticleInStoppingList(articleId);
+            bool isInList = Database.IsArticleInShoppingList(articleId);
             if (!isInList)
             {
                 cmd = "INSERT INTO ShoppingList (ArticleId, Quantity) VALUES (?, ?)";
@@ -126,20 +151,31 @@ namespace VorratsUebersicht
             command.ExecuteNonQuery();
         }
 
-        internal static bool IsArticleInStoppingList(int articleId)
+        internal static bool IsArticleInShoppingList(int articleId)
         {
-            SQLiteConnection databaseConnection = new Android_Database().GetConnection();
-
-            // Artikel suchen, die schon abgelaufen sind.
-            string cmd = string.Empty;
-            cmd += "SELECT COUNT(*)";
-            cmd += " FROM ShoppingList";
-            cmd += " WHERE ArticleId = ?";
-
-            var command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
-            int count = command.ExecuteScalar<int>();
+            int count = Database.GetShoppingListQuantiy(articleId);
 
             return count > 0;
+        }
+
+        internal static int GetToShoppingListQuantity(int articleId)
+        {
+            ArticleData article = Database.GetArticleData(articleId);
+
+            int minQuantity  = article.MinQuantity.HasValue  ? article.MinQuantity.Value  : 0;
+            int prefQuantity = article.PrefQuantity.HasValue ? article.PrefQuantity.Value : 0;
+            int isQuantity  = (int)Database.GetArticleQuantityInStorage(articleId);
+
+            int toBuyQuantity = ShoppingListHelper.GetToBuyQuantity(minQuantity, prefQuantity, isQuantity);
+            
+            int shoppingListQuantiy = Database.GetShoppingListQuantiy(articleId);
+
+            toBuyQuantity = toBuyQuantity - shoppingListQuantiy;
+
+            if (toBuyQuantity < 0) // Mehr auf der Einkaufsliste als berechnet?
+                return 0;
+
+            return toBuyQuantity;
         }
 
         internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(StorageItemQuantityResult storegeItem)
@@ -164,6 +200,30 @@ namespace VorratsUebersicht
 
             return command.ExecuteQuery<StorageItemQuantityResult>();
 		}
+
+        /// <summary>
+        /// Artikelangaben ohne die Bilder (braucht weniger Speicher und ist schneller).
+        /// </summary>
+        /// <param name="articleId"></param>
+        /// <returns></returns>
+        internal static ArticleData GetArticleData(int articleId)
+        {
+            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            if (databaseConnection == null)
+                return null;
+
+            string cmd = string.Empty;
+
+            cmd += "SELECT ArticleId, Name, Manufacturer, Category, SubCategory, StorageName, Supermarket,";
+            cmd += " DurableInfinity, WarnInDays, Size, Unit, Calorie, MinQuantity, PrefQuantity,";
+            cmd += " EANCode, Notes";
+            cmd += " FROM Article";
+            cmd += " WHERE ArticleId = ?";
+
+            var command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
+
+            return command.ExecuteQuery<ArticleData>().First();
+        }
 
         internal static Article GetArticleImage(int articleId, bool showLarge)
         {
@@ -266,7 +326,59 @@ namespace VorratsUebersicht
             return stringList;
         }
 
-        internal static IList<Article> GetArticleListNoImages(string category, string subCategory)
+        internal static List<string> GetStorageNames()
+        {
+            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+
+            // Artikel suchen, die schon abgelaufen sind.
+            string cmd = string.Empty;
+            cmd += "SELECT DISTINCT StorageName AS Value";
+            cmd += " FROM Article";
+            cmd += " WHERE StorageName IS NOT NULL";
+            cmd += " ORDER BY StorageName";
+
+            SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
+
+            IList<StringResult> result = command.ExecuteQuery<StringResult>();
+
+            List<string> stringList = new List<string>();
+            for (int i = 0; i < result.Count; i++)
+            {
+                string storageName = result[i].Value;
+                if (string.IsNullOrEmpty(storageName))
+                    continue;
+
+                stringList.Add(storageName);
+            }
+
+            return stringList;
+        }
+
+        
+        internal static string[] GetSupermarketNames()
+        {
+            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+
+            // Artikel suchen, die schon abgelaufen sind.
+            string cmd = string.Empty;
+            cmd += "SELECT DISTINCT Supermarket AS Value";
+            cmd += " FROM Article";
+            cmd += " ORDER BY Supermarket";
+
+            SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
+
+            IList<StringResult> result = command.ExecuteQuery<StringResult>();
+
+            string[] stringList = new string[result.Count];
+            for (int i = 0; i < result.Count; i++)
+            {
+                stringList[i] = result[i].Value;
+            }
+
+            return stringList;
+        }
+
+        internal static IList<Article> GetArticleListNoImages(string category, string subCategory, string textFilter = null)
         {
             IList<Article> result = new Article[0];
 
@@ -277,7 +389,7 @@ namespace VorratsUebersicht
             IList<object> parameter = new List<object>();
 
             string cmd = string.Empty;
-            cmd += "SELECT ArticleId, Name, Manufacturer, Category, SubCategory, DurableInfinity, WarnInDays, Size, Unit, Calorie, Notes, EANCode";
+            cmd += "SELECT ArticleId, Name, Manufacturer, Category, SubCategory, DurableInfinity, WarnInDays, Size, Unit, Calorie, Notes, EANCode, StorageName";
 			cmd += " FROM Article";
 
             if (!string.IsNullOrEmpty(category))
@@ -297,7 +409,19 @@ namespace VorratsUebersicht
                 parameter.Add(subCategory);
             }
 
-			cmd += " ORDER BY Name COLLATE NOCASE";
+            if (!string.IsNullOrEmpty(textFilter))
+            {
+                if (parameter.Count > 0)
+                    cmd += " AND ";
+                else
+                    cmd += " WHERE ";
+
+                cmd += " UPPER(Article.Name) LIKE ?";
+                parameter.Add("%" + textFilter.ToUpper() + "%");
+            }
+            
+
+            cmd += " ORDER BY Name COLLATE NOCASE";
 
             var command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());
             result = command.ExecuteQuery<Article>();
@@ -408,7 +532,7 @@ namespace VorratsUebersicht
             return result[0].Quantity;
         }
 
-        internal static IList<StorageItemQuantityResult> GetStorageItemQuantityListNoImage(string category, string subCategory, string eanCode, bool showNotInStorageArticles)
+        internal static IList<StorageItemQuantityResult> GetStorageItemQuantityListNoImage(string category, string subCategory, string eanCode, bool showNotInStorageArticles, string articleName = null, string storageName = null)
         {
             var result = new List<StorageItemQuantityResult>();
 
@@ -417,7 +541,7 @@ namespace VorratsUebersicht
                 return result;
 
             string cmd = string.Empty;
-            cmd += "SELECT ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity,";
+            cmd += "SELECT ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, StorageName, MinQuantity, PrefQuantity,";
 			cmd += " (SELECT SUM(Quantity) FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId) AS Quantity,";
 			cmd += " (SELECT BestBefore FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId ORDER BY BestBefore ASC LIMIT 1) AS BestBefore";
 			cmd += " FROM Article";
@@ -452,7 +576,22 @@ namespace VorratsUebersicht
                 parameter.Add(eanCode);
             }
 
-            cmd += filter;
+            if (!string.IsNullOrEmpty(articleName))
+            {
+                if (string.IsNullOrEmpty(filter)) { filter += " WHERE "; } else { filter += " AND "; }
+                filter += " UPPER(Article.Name) LIKE ?";
+                parameter.Add("%" + articleName.ToUpper() + "%");
+            }
+
+            if (!string.IsNullOrEmpty(storageName))
+            {
+                if (string.IsNullOrEmpty(filter)) { filter += " WHERE "; } else { filter += " AND "; }
+                filter += " Article.StorageName = ?";
+                parameter.Add(storageName);
+            }
+            
+
+                        cmd += filter;
             cmd += " ORDER BY Article.Name COLLATE NOCASE";
 
             var command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());

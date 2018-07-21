@@ -39,6 +39,9 @@ namespace VorratsUebersicht
 
         CatalogItemSelectedListener catalogListener;
         IList<string> SubCategories;
+        IList<string> Storages;
+        IList<string> Supermarkets;
+
         string category;
         string subCategory;
         bool cameraExists;
@@ -99,9 +102,29 @@ namespace VorratsUebersicht
             ArrayAdapter<String> subCategoryAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, SubCategories);
             subCategory.Adapter = subCategoryAdapter;
             subCategory.Threshold = 1;
-
             subCategory.SetTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
             subCategory.SetTokenizer(new SpaceTokenizer());
+
+            this.Storages = new List<string>();
+
+            var storage = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Storage);
+
+            ArrayAdapter<String> storageAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, Storages);
+            storage.Adapter = storageAdapter;
+            storage.Threshold = 1;
+            storage.SetTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+            storage.SetTokenizer(new SpaceTokenizer());
+
+            this.Supermarkets = new List<string>();
+
+            var supermarket = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Supermarket);
+
+            ArrayAdapter<String> supermarketAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, this.Supermarkets);
+            supermarket.Adapter = supermarketAdapter;
+            supermarket.Threshold = 1;
+            supermarket.SetTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+            supermarket.SetTokenizer(new SpaceTokenizer());
+
 
             this.ShowPictureAndDetails(this.articleId, eanCode);
 
@@ -141,6 +164,9 @@ namespace VorratsUebersicht
 
             IMenuItem itemAddPhoto = menu.FindItem(Resource.Id.ArticleDetails_MakeAPhoto);
             itemAddPhoto.SetVisible(this.cameraExists);
+
+            IMenuItem itemSpeech = menu.FindItem(Resource.Id.ArticleDetails_Speech);
+            itemSpeech.SetEnabled(this.IsThereAnSpeechAvailable());
 
             return true;
         }
@@ -186,7 +212,7 @@ namespace VorratsUebersicht
                     return true;
 
                 case Resource.Id.ArticleDetails_ToShoppingList:
-                    this.AddToShoppimgList();
+                    this.AddToShoppingListAutomatically();
                     return true;
 
                 case Resource.Id.ArticleDetails_Speech:
@@ -312,10 +338,15 @@ namespace VorratsUebersicht
             string warnInDaysText = FindViewById<EditText>(Resource.Id.ArticleDetails_WarnInDays).Text;
             string sizeText    = FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text;
             string calorieText = FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie).Text;
+            string minQuantityText  = FindViewById<EditText>(Resource.Id.ArticleDetails_MinQuantity).Text;
+            string prefQuantityText = FindViewById<EditText>(Resource.Id.ArticleDetails_PrefQuantity).Text;
 
             int?     warnInDays = null;
             int?     calorie = null;
             decimal? size = null;
+            int?     minQuantity = null;
+            int?     prefQuantity = null;
+
             try
             {
                 if (!string.IsNullOrEmpty(warnInDaysText))
@@ -329,6 +360,14 @@ namespace VorratsUebersicht
                 if (!string.IsNullOrEmpty(calorieText))
                 {
                     calorie = Convert.ToInt32(calorieText, CultureInfo.InvariantCulture);
+                }
+                if (!string.IsNullOrEmpty(minQuantityText))
+                {
+                    minQuantity = Convert.ToInt32(minQuantityText, CultureInfo.InvariantCulture);
+                }
+                if (!string.IsNullOrEmpty(prefQuantityText))
+                {
+                    prefQuantity = Convert.ToInt32(prefQuantityText, CultureInfo.InvariantCulture);
                 }
             }
             catch(Exception ex)
@@ -372,6 +411,10 @@ namespace VorratsUebersicht
             this.article.Size            = size;
             this.article.Calorie         = calorie;
             this.article.Unit            = FindViewById<EditText>(Resource.Id.ArticleDetails_Unit).Text;
+            this.article.MinQuantity     = minQuantity;
+            this.article.PrefQuantity    = prefQuantity;
+            this.article.StorageName     = FindViewById<EditText>(Resource.Id.ArticleDetails_Storage).Text;
+            this.article.Supermarket     = FindViewById<EditText>(Resource.Id.ArticleDetails_Supermarket).Text;
             this.article.EANCode         = FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text;
             this.article.Notes           = FindViewById<EditText>(Resource.Id.ArticleDetails_Notes).Text;
 
@@ -413,7 +456,7 @@ namespace VorratsUebersicht
                 return;
             }
 
-            bool isInList = Database.IsArticleInStoppingList(articleId);
+            bool isInList = Database.IsArticleInShoppingList(articleId);
             if (isInList)
             {
                 string msg = string.Format("Dieser Artikel kann nicht gelöscht werden, da er sich noch auf der Einkaufsliste befinden.");
@@ -449,11 +492,15 @@ namespace VorratsUebersicht
 
         }
 
-        private void AddToShoppimgList()
+        private void AddToShoppingListAutomatically()
         {
-            double count = Database.AddToShoppingList(this.articleId, 1);
+            int toBuyQuantity = Database.GetToShoppingListQuantity(this.articleId);
+            if (toBuyQuantity == 0)
+                toBuyQuantity = 1;
 
-            string msg = string.Format("{0} Stück auf der Liste.", count);
+            double count = Database.AddToShoppingList(this.articleId, toBuyQuantity);
+
+            string msg = string.Format("{0} Stück auf der Einkaufsliste.", count);
             if (this.toast != null)
             {
                 this.toast.Cancel();
@@ -465,6 +512,14 @@ namespace VorratsUebersicht
             }
 
             this.toast.Show();
+        }
+
+        private bool IsThereAnSpeechAvailable()
+        {
+            Intent intent = new Intent(RecognizerIntent.ActionRecognizeSpeech);
+            IList<ResolveInfo> availableActivities =
+                this.PackageManager.QueryIntentActivities(intent, PackageInfoFlags.MatchDefaultOnly);
+            return availableActivities != null && availableActivities.Count > 0;
         }
 
         // Anhand vom https://docs.microsoft.com/de-de/xamarin/android/platform/speech
@@ -485,7 +540,6 @@ namespace VorratsUebersicht
             var voiceIntent = new Intent(RecognizerIntent.ActionRecognizeSpeech);
             voiceIntent.PutExtra(RecognizerIntent.ExtraLanguageModel, RecognizerIntent.LanguageModelFreeForm);
             voiceIntent.PutExtra(RecognizerIntent.ExtraPrompt, Application.Context.GetString(Resource.String.ArticleDetails_ArticleName));
-            //voiceIntent.PutExtra(RecognizerIntent.ExtraPrompt, "Test");
             voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputCompleteSilenceLengthMillis, 1500);
             voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputPossiblyCompleteSilenceLengthMillis, 1500);
             voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputMinimumLengthMillis, 15000);
@@ -504,13 +558,14 @@ namespace VorratsUebersicht
 
             FindViewById<EditText>(Resource.Id.ArticleDetails_Name).Text               = article.Name;
             FindViewById<EditText>(Resource.Id.ArticleDetails_Manufacturer).Text       = article.Manufacturer;
-            FindViewById<EditText>(Resource.Id.ArticleDetails_SubCategory).Text        = article.SubCategory;
             FindViewById<Switch>  (Resource.Id.ArticleDetails_DurableInfinity).Checked = article.DurableInfinity;
 
             if (article.WarnInDays.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_WarnInDays).Text = article.WarnInDays.Value.ToString();
             if (article.Calorie.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie).Text       = article.Calorie.Value.ToString();
             if (article.Size.HasValue)    FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text          = article.Size.Value.ToString(CultureInfo.InvariantCulture);
-            
+            if (article.MinQuantity.HasValue)  FindViewById<EditText>(Resource.Id.ArticleDetails_MinQuantity).Text  = article.MinQuantity.Value.ToString();
+            if (article.PrefQuantity.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_PrefQuantity).Text = article.PrefQuantity.Value.ToString();
+
             FindViewById<EditText>(Resource.Id.ArticleDetails_Unit).Text               = article.Unit;
             FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text            = article.EANCode;
             FindViewById<EditText>(Resource.Id.ArticleDetails_Notes).Text              = article.Notes;
@@ -532,6 +587,28 @@ namespace VorratsUebersicht
             subCategoryAdapter.Clear();
             subCategoryAdapter.AddAll(this.SubCategories.ToList<string>());
             subCategoryAdapter.NotifyDataSetChanged();
+
+
+            this.Storages = Database.GetStorageNames();
+
+            var storage = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Storage);
+            var storageAdapter = (ArrayAdapter<String>)(storage.Adapter);
+            storageAdapter.Clear();
+            storageAdapter.AddAll(this.Storages.ToList<string>());
+            storageAdapter.NotifyDataSetChanged();
+
+
+            this.Supermarkets = Database.GetSupermarketNames();
+
+            var supermarket = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Supermarket);
+            var supermarketAdapter = (ArrayAdapter<String>)(storage.Adapter);
+            supermarketAdapter.Clear();
+            supermarketAdapter.AddAll(this.Storages.ToList<string>());
+            supermarketAdapter.NotifyDataSetChanged();
+
+            FindViewById<EditText>(Resource.Id.ArticleDetails_SubCategory).Text = article.SubCategory;
+            FindViewById<EditText>(Resource.Id.ArticleDetails_Supermarket).Text = article.Supermarket;
+            FindViewById<EditText>(Resource.Id.ArticleDetails_Storage).Text     = article.StorageName;
 
             if (article.Image != null)
             {
