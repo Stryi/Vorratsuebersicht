@@ -2,6 +2,20 @@
 Prio 1
 ======
 
+Lagerliste
+- Letzte Zeile Summe "kcal" und "Gewicht nach Einheit"
+- Bilder im Thread laden
+
+Artikelliste
+- Bilder im Thread laden
+
+Artikeldetail
+- "Artikel löschen" -> "Nein" beendet den Dialog.
+- Kein Text unter "Artikelname", dann Tastatur einblenden.+
+
+Einkaufszettel
+- Einkaufsliste verdoppelt sich bei -1, -10, usw.
+- "Gekauft" springt direkt zum Lagerbestand.
 
 Prio 2
 ======
@@ -13,29 +27,31 @@ Anwendung
 Bilder
 - Komprimierung/Verkleinerung der Bilder nicht immer effizient
 - Komprimierung/Verkleinerung dauert verdächtig lange
-- Komprimierung ein-/ausschaltbar (Optionen)
 - Ausrichtung der Bilder beachten (Quer fotografiert)
 - Nach dem Auswahl vom neuen Bild wird noch beim Anklicken das alte angezeigt.
-- Bild entfernen programmieren
-- Bilder für das Menü korrigieren
-- Bild drehen
-- Verzeichnis mit Bilder löschen
+- Bilder im Verzeichnis "Vorräte Bilder" anschließend löschen.
 
 Kategorie/Unterkategorie
-- Unterkategorie Control auf PopUp umstellen, 
-  damit man immer alles anzeigen kann, nicht nur bei Eingabe.
 - Selbst definierte Kategorien
 - "Keine Kategorie" als Popup Auswahl
 
-Artikel-/Bestandliste
-- Sortieren der Lagerbestandsliste (Name, Zum Verbrauchen zuerst)
-- Suche https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+Artikelliste
+- Nach dem Filtern und bearbeiten ist der Filter ohne Wirkung
+
 
 Artikeldetail
-- Einkaufsmarkt als AutoComplete (wie Lagerort)
+- Artikelangaben speichern dauert lange (wird auch Image immer wieder gespeichert?)
+- Menü "Bild bearbeiten" und dann "Bild drehen" Funktionalität 
+- Bild entfernen programmieren
+
 
 Einkaufszettel
 - Liste anhand der Mindestmenge erstellen.
+
+
+Einstellungen
+- BUG: Backup Hinweis zeit die Test-Datenbank an
+
 
 Sonstiges
 - Release Notes der App anzeigen
@@ -44,6 +60,7 @@ Sonstiges
 
 Artikel scannen
 - https://corporate.codecheck.info/produkte/produktdaten-api/
+- Bei Bestandsanzeige gleich in Edit-Modus.
 
 Prio 3
 ======
@@ -67,6 +84,81 @@ Einkaufsliste:
 Gemeldete Abstürze:
 ===================
 
+
+26.07.2018, 11:27 in der App-Version 24
+Samsung Galaxy S7 (herolte), Android 8.0
+Bericht 1 von 1
+android.runtime.JavaProxyThrowable: at VorratsUebersicht.ArticleDetailsActivity.SaveArticle () [0x001bd] in <81b7fdaf0dfc44ce9b6e4e2da45aa98f>:0
+at VorratsUebersicht.ArticleDetailsActivity.OnOptionsItemSelected (Android.Views.IMenuItem item) [0x00059] in <81b7fdaf0dfc44ce9b6e4e2da45aa98f>:0
+at Android.App.Activity.n_OnOptionsItemSelected_Landroid_view_MenuItem_ (System.IntPtr jnienv, System.IntPtr native__this, System.IntPtr native_item) [0x0000f] in <263adecfa58f4c449f1ff56156d886fd>:0
+at (wrapper dynamic-method) System.Object.91e80665-3b33-4e6c-8562-2b85f70d7126(intptr,intptr,intptr)
+  at md56c9fe683bd4750f69443fa5376e732f4.ArticleDetailsActivity.n_onOptionsItemSelected (Native Method)
+  at md56c9fe683bd4750f69443fa5376e732f4.ArticleDetailsActivity.onOptionsItemSelected (ArticleDetailsActivity.java:59)
+  at android.app.Activity.onMenuItemSelected (Activity.java:3527)
+  at com.android.internal.policy.PhoneWindow.onMenuItemSelected (PhoneWindow.java:1278)
+  at com.android.internal.view.menu.MenuBuilder.dispatchMenuItemSelected (MenuBuilder.java:761)
+  at com.android.internal.view.menu.MenuItemImpl.invoke (MenuItemImpl.java:172)
+  at com.android.internal.view.menu.MenuBuilder.performItemAction (MenuBuilder.java:908)
+  at com.android.internal.view.menu.MenuBuilder.performItemAction (MenuBuilder.java:898)
+  at android.widget.ActionMenuView.invokeItem (ActionMenuView.java:741)
+  at com.android.internal.view.menu.ActionMenuItemView.onClick (ActionMenuItemView.java:293)
+  at android.view.View.performClick (View.java:6897)
+  at android.widget.TextView.performClick (TextView.java:12693)
+  at android.view.View$PerformClick.run (View.java:26101)
+  at android.os.Handler.handleCallback (Handler.java:789)
+  at android.os.Handler.dispatchMessage (Handler.java:98)
+  at android.os.Looper.loop (Looper.java:164)
+  at android.app.ActivityThread.main (ActivityThread.java:6944)
+  at java.lang.reflect.Method.invoke (Native Method)
+  at com.android.internal.os.Zygote$MethodAndArgsCaller.run (Zygote.java:327)
+  at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:1374)
+
+22. Juli 23:08 in der App-Version 24
+Samsung Galaxy Xcover4 (xcover4lte), Android 7.0
+
+android.runtime.JavaProxyThrowable: at VorratsUebersicht.Database.GetCategories () [0x00055] in <81b7fdaf0dfc44ce9b6e4e2da45aa98f>:0
+at VorratsUebersicht.MainActivity.ShowCategoriesSelection () [0x0000e] in <81b7fdaf0dfc44ce9b6e4e2da45aa98f>:0
+at VorratsUebersicht.MainActivity.<OnCreate>b__11_0 (System.Object <p0>, System.EventArgs <p1>) [0x00001] in <81b7fdaf0dfc44ce9b6e4e2da45aa98f>:0
+at Android.Views.View+IOnClickListenerImplementor.OnClick (Android.Views.View v) [0x00011] in <263adecfa58f4c449f1ff56156d886fd>:0
+at Android.Views.View+IOnClickListenerInvoker.n_OnClick_Landroid_view_View_ (System.IntPtr jnienv, System.IntPtr native__this, System.IntPtr native_v) [0x0000f] in <263adecfa58f4c449f1ff56156d886fd>:0
+at (wrapper dynamic-method) System.Object.471bc43b-80b5-4bee-81c4-9b0e41d5ab1d(intptr,intptr,intptr)
+  at mono.android.view.View_OnClickListenerImplementor.n_onClick (Native Method)
+  at mono.android.view.View_OnClickListenerImplementor.onClick (View_OnClickListenerImplementor.java:30)
+  at android.view.View.performClick (View.java:6257)
+  at android.widget.TextView.performClick (TextView.java:11145)
+  at android.view.View$PerformClick.run (View.java:23705)
+  at android.os.Handler.handleCallback (Handler.java:751)
+  at android.os.Handler.dispatchMessage (Handler.java:95)
+  at android.os.Looper.loop (Looper.java:154)
+  at android.app.ActivityThread.main (ActivityThread.java:6836)
+  at java.lang.reflect.Method.invoke (Native Method)
+  at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run (ZygoteInit.java:1520)
+  at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:1410)
+
+
+
+22. Juli 15:16 in der App-Version 24
+Samsung Galaxy Tab S2 (gts210vewifi), Android 7.0
+Bericht 1 von 1
+android.runtime.JavaProxyThrowable: at VorratsUebersicht.Database.GetSubcategoriesOf (System.String category) [0x00087] in <81b7fdaf0dfc44ce9b6e4e2da45aa98f>:0
+at VorratsUebersicht.ArticleDetailsActivity.ShowPictureAndDetails (System.Int32 articleId, System.String eanCode) [0x00259] in <81b7fdaf0dfc44ce9b6e4e2da45aa98f>:0
+at VorratsUebersicht.ArticleDetailsActivity.OnCreate (Android.OS.Bundle savedInstanceState) [0x0021d] in <81b7fdaf0dfc44ce9b6e4e2da45aa98f>:0
+at Android.App.Activity.n_OnCreate_Landroid_os_Bundle_ (System.IntPtr jnienv, System.IntPtr native__this, System.IntPtr native_savedInstanceState) [0x0000f] in <263adecfa58f4c449f1ff56156d886fd>:0
+at (wrapper dynamic-method) System.Object.f7ba5654-bb22-44a4-ba7e-8ae042540e3a(intptr,intptr,intptr)
+  at md56c9fe683bd4750f69443fa5376e732f4.ArticleDetailsActivity.n_onCreate (Native Method)
+  at md56c9fe683bd4750f69443fa5376e732f4.ArticleDetailsActivity.onCreate (ArticleDetailsActivity.java:35)
+  at android.app.Activity.performCreate (Activity.java:6948)
+  at android.app.Instrumentation.callActivityOnCreate (Instrumentation.java:1126)
+  at android.app.ActivityThread.performLaunchActivity (ActivityThread.java:2924)
+  at android.app.ActivityThread.handleLaunchActivity (ActivityThread.java:3042)
+  at android.app.ActivityThread.-wrap14 (ActivityThread.java)
+  at android.app.ActivityThread$H.handleMessage (ActivityThread.java:1639)
+  at android.os.Handler.dispatchMessage (Handler.java:102)
+  at android.os.Looper.loop (Looper.java:154)
+  at android.app.ActivityThread.main (ActivityThread.java:6780)
+  at java.lang.reflect.Method.invoke (Native Method)
+  at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run (ZygoteInit.java:1496)
+  at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:1386)
 
 30.06.2018 11:51 in der App-Version 16
 Samsung Galaxy S7 (herolte), Android 8.0

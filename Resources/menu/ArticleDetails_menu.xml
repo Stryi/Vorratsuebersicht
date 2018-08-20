@@ -22,7 +22,11 @@
   <item android:id="@+id/ArticleDetails_SelectAPicture"
         android:icon="@drawable/ic_photo_white_24dp"
         android:title="@string/ArticleDetails_Menu_SelectPicture" />
-  
+
+  <item android:id="@+id/ArticleDetails_ShowPicture"
+        android:icon="@drawable/ic_photo_white_24dp"
+        android:title="@string/ArticleDetails_Menu_ShowPicture" />
+
   <item android:id="@+id/ArticleDetails_ScanEAN"
         android:icon="@drawable/Barcode"
         android:title="@string/ArticleDetails_Menu_EAN_Scannen" />

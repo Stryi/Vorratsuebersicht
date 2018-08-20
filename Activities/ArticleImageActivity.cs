@@ -70,19 +70,30 @@ namespace VorratsUebersicht
 
             if (article.Image != null)
             {
+                string message = string.Empty;
                 try
                 {
                     Bitmap image= BitmapFactory.DecodeByteArray (article.Image, 0, article.Image.Length);
+
+                    // Bild um 90 Grad drehen
+                    //Matrix mat = new Matrix();
+                    //mat.PostRotate(90);
+                    //Bitmap bMapRotate = Bitmap.CreateBitmap(image, 0, 0, image.Width, image.Height, mat, true);
+                    //this.imageView.SetImageBitmap(bMapRotate);
+
                     this.imageView.SetImageBitmap(image);
 
-                    string text = string.Format("Bild: {0:n0} X {1:n0} ({2:n0})", image.Height, image.Width, Tools.ToFuzzyByteString(image.ByteCount));
-                    FindViewById<TextView> (Resource.Id.ArticleImage_Info).Text = text;
+                    message = string.Format("Bild: {0:n0} X {1:n0} ({2:n0})", image.Height, image.Width, Tools.ToFuzzyByteString(image.ByteCount));
+                    image = null;
                 }
                 catch (Exception e)
                 {
-                    System.Diagnostics.Trace.WriteLine(e.ToString());
-                    this.imageView.SetImageResource(Resource.Drawable.ic_broken_image_white_24dp);
+                    message = e.Message;
+                    this.imageView.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
                 }               
+
+                FindViewById<TextView> (Resource.Id.ArticleImage_Info).Text = message;
+                article = null;
             }
             else
                 this.imageView.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);

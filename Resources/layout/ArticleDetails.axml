@@ -65,6 +65,7 @@
             android:id="@+id/ArticleDetails_Category"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:padding="0dp" 
             android:hint="@string/ArticleDetails_Category_Hint" />
         <TextView
             android:layout_width="fill_parent"

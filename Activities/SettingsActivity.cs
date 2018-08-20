@@ -26,7 +26,7 @@ namespace VorratsUebersicht
             ActionBar.SetBackgroundDrawable(backgroundPaint);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            string dbInfoFormat = Resources.GetString(Resource.String.Main_Datenbank);
+            string dbInfoFormat = Resources.GetString(Resource.String.Settings_Datenbank);
 
             TextView databasePath = FindViewById<TextView>(Resource.Id.SettingsButton_DatabasePath);
             databasePath.Text = new Android_Database().GetDatabaseInfoText(dbInfoFormat);
@@ -126,7 +126,7 @@ namespace VorratsUebersicht
         private void ButtonDeleteDb_Click(object sender, EventArgs e)
         {
             var message = new AlertDialog.Builder(this);
-            message.SetMessage(Resource.String.Start_DeleteProdDbQuestion);
+            message.SetMessage(Resource.String.Settings_DeleteProdDbQuestion);
             message.SetTitle(Resource.String.App_Name);
             message.SetIcon(Resource.Drawable.ic_launcher);
             message.SetPositiveButton(Resource.String.App_Yes, (s, ev) => 
@@ -163,12 +163,12 @@ namespace VorratsUebersicht
             PackageInfo info = context.PackageManager.GetPackageInfo(context.PackageName, 0);
 
             TextView versionInfo = FindViewById<TextView>(Resource.Id.SettingsButton_Version);
-            versionInfo.Text = string.Format("Version {0}.{1}", info.VersionName, info.VersionCode);
+            versionInfo.Text = string.Format("Version {0} (Code Version {1})", info.VersionName, info.VersionCode);
         }
 
         private void ShowDatabaseInfo()
         {
-            string dbInfoFormat = Resources.GetString(Resource.String.Main_Datenbank);
+            string dbInfoFormat = Resources.GetString(Resource.String.Settings_Datenbank);
 
             TextView databasePath = FindViewById<TextView>(Resource.Id.SettingsButton_DatabasePath);
             databasePath.Text = new Android_Database().GetDatabaseInfoText(dbInfoFormat);

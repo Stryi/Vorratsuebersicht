@@ -12,7 +12,6 @@
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">You start the application for the first time.\n\nShould a test database be activated to get to know the application?\n\nYou can deactivate these under options.</string>
   <string name="Start_TestVersionInfo">This app is constantly being carefully developed. Nevertheless, errors or crashes can occur. For data loss can not be adhered to.</string>
-  <string name="Start_DeleteProdDbQuestion">Should your PRODUCTIVE database really be DELETED?</string>
 
   <!-- Hauptmaske -->
   <string name="Main_DemnaechstZuVerbrauchen">Consume soon:</string>
@@ -27,20 +26,22 @@
 
   <!-- Maske Optionen -->
   <string name="Settings_Title">Settings</string>
-  <string name="Main_TestDatenbank">Test database</string>
-  <string name="Main_Datenbank">Database: {0}\r\nSize: {1} ({2:n0} Bytes)</string>
-  <string name="Main_TestDatenbankZuruecksetzen">Reset test database</string>
-  <string name="Main_TestDatenbankLeeren">Empty test database</string>
-  <string name="Main_DatenbankKomprimieren">Compact database</string>
-  <string name="Main_DeleteDatabase">DELETE productive database!!!</string>
-  <string name="Main_BackupAndRestore">Create and restore backup</string>
-  <string name="Main_OpenSourceLizenzen">Open-source licenses</string>
+  <string name="Settings_TestDatenbank">Test database</string>
+  <string name="Settings_Datenbank">Database: {0}\r\nSize: {1} ({2:n0} Bytes)</string>
+  <string name="Settings_TestDatenbankZuruecksetzen">Reset test database</string>
+  <string name="Settings_TestDatenbankLeeren">Empty test database</string>
+  <string name="Settings_DatenbankKomprimieren">Compact database</string>
+  <string name="Settings_DeleteDatabase">DELETE productive database!!!</string>
+  <string name="Settings_BackupAndRestore">Create and restore backup</string>
+  <string name="Settings_OpenSourceLizenzen">Open-source licenses</string>
   <string name="Settings_BackupAndRestoreInfo">To back up and restore the production database, copy the following file:\n\n{0}</string>
+  <string name="Settings_DeleteProdDbQuestion">Should your PRODUCTIVE database really be DELETED?</string>
 
   <!-- Artikeldetails Menü -->
   <string name="ArticleDetails_Menu_DeleteArticle">Delete article</string>
   <string name="ArticleDetails_Menu_CreatePicture">Create picture</string>
   <string name="ArticleDetails_Menu_SelectPicture">Select picture</string>
+  <string name="ArticleDetails_Menu_ShowPicture">Show picture</string>
   <string name="ArticleDetails_Menu_EAN_Scannen">Scannen EAN</string>
     
   <!-- Artikeldetails -->

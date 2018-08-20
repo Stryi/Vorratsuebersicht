@@ -40,6 +40,7 @@ namespace VorratsUebersicht
 
             this.text       = Intent.GetStringExtra ("Heading") ?? string.Empty;
             this.articleId  = Intent.GetIntExtra    ("ArticleId", 0);
+            bool editMode = Intent.GetBooleanExtra  ("EditMode", false);
 
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -103,6 +104,11 @@ namespace VorratsUebersicht
                     listView.InvalidateViews();
                 }
             };
+
+            if (editMode)
+            {
+                this.SetEditMode(true);
+            }
         }
 
         public static void Reload()
@@ -373,9 +379,18 @@ namespace VorratsUebersicht
 
             if (article.ImageLarge != null)
             {
-                Bitmap image= BitmapFactory.DecodeByteArray (article.ImageLarge, 0, article.ImageLarge.Length);
+                try
+                {
+                    Bitmap image= BitmapFactory.DecodeByteArray (article.ImageLarge, 0, article.ImageLarge.Length);
 
-                imageView.SetImageBitmap(image);
+                    imageView.SetImageBitmap(image);
+                }
+                catch(Exception ex)
+                {
+                    detailView.Text += "\r\n" + ex.Message;
+                    imageView.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
+
+                }
             }
             else
                 imageView.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);

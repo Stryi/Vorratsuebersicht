@@ -99,7 +99,7 @@ namespace VorratsUebersicht
 
             var subCategory = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_SubCategory);
 
-            ArrayAdapter<String> subCategoryAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, SubCategories);
+            ArrayAdapter<String> subCategoryAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, this.SubCategories);
             subCategory.Adapter = subCategoryAdapter;
             subCategory.Threshold = 1;
             subCategory.SetTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
@@ -109,7 +109,7 @@ namespace VorratsUebersicht
 
             var storage = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Storage);
 
-            ArrayAdapter<String> storageAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, Storages);
+            ArrayAdapter<String> storageAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, this.Storages);
             storage.Adapter = storageAdapter;
             storage.Threshold = 1;
             storage.SetTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
@@ -165,6 +165,9 @@ namespace VorratsUebersicht
             IMenuItem itemAddPhoto = menu.FindItem(Resource.Id.ArticleDetails_MakeAPhoto);
             itemAddPhoto.SetVisible(this.cameraExists);
 
+            IMenuItem itemShowPicture = menu.FindItem(Resource.Id.ArticleDetails_ShowPicture);
+            itemShowPicture.SetEnabled(this.article.Image != null);
+
             IMenuItem itemSpeech = menu.FindItem(Resource.Id.ArticleDetails_Speech);
             itemSpeech.SetEnabled(this.IsThereAnSpeechAvailable());
 
@@ -207,6 +210,16 @@ namespace VorratsUebersicht
                     this.SelectAPicture();
                     return true;
 
+                case Resource.Id.ArticleDetails_ShowPicture:
+                    if (this.article.Image != null)
+                    { 
+                        var articleImage = new Intent (this, typeof(ArticleImageActivity));
+                        articleImage.PutExtra("ArticleId", this.articleId);
+                        articleImage.PutExtra("Large", true);
+                        StartActivity (articleImage);
+                    }
+                    return true;
+
                 case Resource.Id.ArticleDetails_ScanEAN:
                     this.ScanEAN();
                     return true;
@@ -247,9 +260,12 @@ namespace VorratsUebersicht
 
             if ((requestCode == PickImageId) && (data != null))
             {
-                var progressDialog = ProgressDialog.Show(this, "Bitte warten...", "Bild wird komprimiert...", true);
+                var progressDialog = ProgressDialog.Show(this, "Bitte warten...", "Bild wird verarbeitet...", true);
                 new Thread(new ThreadStart(delegate             
                 {
+                    // Dispose of the Java side bitmap.
+                    GC.Collect();
+
                     Android.Net.Uri uri = data.Data;
                     Bitmap newBitmap = MediaStore.Images.Media.GetBitmap( this.ContentResolver, uri);
 
@@ -265,7 +281,7 @@ namespace VorratsUebersicht
 
             if ((requestCode == TakePhotoId))
             {
-                var progressDialog = ProgressDialog.Show(this, "Bitte warten...", "Bild wird komprimiert...", true);
+                var progressDialog = ProgressDialog.Show(this, "Bitte warten...", "Bild wird verarbeitet...", true);
                 new Thread(new ThreadStart(delegate             
                 {
                     string path = this.imageCapture.FilePath;
@@ -335,12 +351,6 @@ namespace VorratsUebersicht
 
         private bool SaveArticle()
         {
-            string warnInDaysText = FindViewById<EditText>(Resource.Id.ArticleDetails_WarnInDays).Text;
-            string sizeText    = FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text;
-            string calorieText = FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie).Text;
-            string minQuantityText  = FindViewById<EditText>(Resource.Id.ArticleDetails_MinQuantity).Text;
-            string prefQuantityText = FindViewById<EditText>(Resource.Id.ArticleDetails_PrefQuantity).Text;
-
             int?     warnInDays = null;
             int?     calorie = null;
             decimal? size = null;
@@ -349,31 +359,15 @@ namespace VorratsUebersicht
 
             try
             {
-                if (!string.IsNullOrEmpty(warnInDaysText))
-                {
-                    warnInDays = Convert.ToInt32(warnInDaysText, CultureInfo.InvariantCulture);
-                }
-                if (!string.IsNullOrEmpty(sizeText))
-                {
-                    size = Convert.ToDecimal(sizeText, CultureInfo.InvariantCulture);
-                }
-                if (!string.IsNullOrEmpty(calorieText))
-                {
-                    calorie = Convert.ToInt32(calorieText, CultureInfo.InvariantCulture);
-                }
-                if (!string.IsNullOrEmpty(minQuantityText))
-                {
-                    minQuantity = Convert.ToInt32(minQuantityText, CultureInfo.InvariantCulture);
-                }
-                if (!string.IsNullOrEmpty(prefQuantityText))
-                {
-                    prefQuantity = Convert.ToInt32(prefQuantityText, CultureInfo.InvariantCulture);
-                }
+                warnInDays   = GetIntegerFromEditText(Resource.Id.ArticleDetails_WarnInDays);
+                size         = GetDecimalFromEditText(Resource.Id.ArticleDetails_Size);
+                calorie      = GetIntegerFromEditText(Resource.Id.ArticleDetails_Calorie);
+                minQuantity  = GetIntegerFromEditText(Resource.Id.ArticleDetails_MinQuantity);
+                prefQuantity = GetIntegerFromEditText(Resource.Id.ArticleDetails_PrefQuantity);
             }
             catch(Exception ex)
             {
-                string fehlerText = "Fehler beim Konvertieren von '{0}', '{1}' oder '{2}' in eine Zahl.";
-                fehlerText = string.Format(fehlerText, warnInDaysText, sizeText, calorieText);
+                string fehlerText = ex.Message;
 
                 string text = fehlerText + "\n\nSoll eine E-Mail mit dem Fehler an den Entwickler geschickt werden?";
                 text += "\n\n(Ihre E-Mail Adresse wird dem Entwickler angezeigt)?";
@@ -494,7 +488,13 @@ namespace VorratsUebersicht
 
         private void AddToShoppingListAutomatically()
         {
-            int toBuyQuantity = Database.GetToShoppingListQuantity(this.articleId);
+            int? minQuantity  = GetIntegerFromEditText(Resource.Id.ArticleDetails_MinQuantity);
+            int? prefQuantity = GetIntegerFromEditText(Resource.Id.ArticleDetails_PrefQuantity);
+
+            if (minQuantity  == null) minQuantity  = 0;
+            if (prefQuantity == null) prefQuantity = 0;
+
+            int toBuyQuantity = Database.GetToShoppingListQuantity(this.articleId, minQuantity.Value, prefQuantity.Value);
             if (toBuyQuantity == 0)
                 toBuyQuantity = 1;
 
@@ -601,9 +601,9 @@ namespace VorratsUebersicht
             this.Supermarkets = Database.GetSupermarketNames();
 
             var supermarket = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Supermarket);
-            var supermarketAdapter = (ArrayAdapter<String>)(storage.Adapter);
+            var supermarketAdapter = (ArrayAdapter<String>)(supermarket.Adapter);
             supermarketAdapter.Clear();
-            supermarketAdapter.AddAll(this.Storages.ToList<string>());
+            supermarketAdapter.AddAll(this.Supermarkets.ToList<string>());
             supermarketAdapter.NotifyDataSetChanged();
 
             FindViewById<EditText>(Resource.Id.ArticleDetails_SubCategory).Text = article.SubCategory;
@@ -612,17 +612,28 @@ namespace VorratsUebersicht
 
             if (article.Image != null)
             {
-                Bitmap largeBitmap = BitmapFactory.DecodeByteArray(article.ImageLarge, 0, article.ImageLarge.Length);
-                Bitmap smallBitmap = BitmapFactory.DecodeByteArray(article.Image,      0, article.Image.Length);
-                
-                this.imageView.SetImageBitmap(smallBitmap);
-                this.imageView2.Visibility = ViewStates.Gone;
-
                 string text = string.Empty;
+                try
+                {
+                    Bitmap largeBitmap = BitmapFactory.DecodeByteArray(article.ImageLarge, 0, article.ImageLarge.Length);
+                    Bitmap smallBitmap = BitmapFactory.DecodeByteArray(article.Image,      0, article.Image.Length);
+                
+                    this.imageView.SetImageBitmap(smallBitmap);
+                    this.imageView2.Visibility = ViewStates.Gone;
 
-                text += string.Format("Thn.: {0:n0} X {1:n0} ({2:n0})", smallBitmap.Height, smallBitmap.Width, Tools.ToFuzzyByteString(smallBitmap.ByteCount));
-                text += "\n";
-                text += string.Format("Bild: {0:n0} X {1:n0} ({2:n0})", largeBitmap.Height, largeBitmap.Width, Tools.ToFuzzyByteString(largeBitmap.ByteCount));
+                    text += string.Format("Bild: {0:n0} X {1:n0} ({2:n0})", largeBitmap.Height, largeBitmap.Width, Tools.ToFuzzyByteString(largeBitmap.ByteCount));
+                    text += "\n";
+                    text += string.Format("Thn.: {0:n0} X {1:n0} ({2:n0})", smallBitmap.Height, smallBitmap.Width, Tools.ToFuzzyByteString(smallBitmap.ByteCount));
+
+                    largeBitmap = null;
+                }
+                catch(Exception ex)
+                {
+                    text = ex.Message;
+
+                    this.imageView.Visibility  = ViewStates.Gone;
+                    this.imageView2.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
+                }
 
                 this.imageTextView.Text = text;
             }
@@ -637,117 +648,107 @@ namespace VorratsUebersicht
 
         private void ResizeBitmap(Bitmap newBitmap)
         {
+            MemoryStream stream;
+            byte[] resizedImage;
+
             string text = string.Empty;
 
-            int width1  = newBitmap.Width;
-            int height1 = newBitmap.Height;
+            try
+            {
+                int width1  = newBitmap.Width;
+                int height1 = newBitmap.Height;
 
-            text += string.Format("Org.: {0:n0} x {1:n0} ({2:n0})\r\n",  newBitmap.Height,  newBitmap.Width, Tools.ToFuzzyByteString(newBitmap.ByteCount));
+                text += string.Format("Org.: {0:n0} x {1:n0} ({2:n0})\r\n",  newBitmap.Height,  newBitmap.Width, Tools.ToFuzzyByteString(newBitmap.ByteCount));
 
-            byte[] resizedImage = ImageResizer.ResizeImageAndroid(newBitmap, 480*1, 854*1);
+                resizedImage = ImageResizer.ResizeImageAndroid(newBitmap, 480*1, 854*1);
 
-            Bitmap largeBitmap = BitmapFactory.DecodeByteArray(resizedImage, 0, resizedImage.Length);
+                Bitmap largeBitmap = BitmapFactory.DecodeByteArray(resizedImage, 0, resizedImage.Length);
 
-            int width2  = largeBitmap.Width;
-            int height2 = largeBitmap.Height;
+                stream = new MemoryStream();
+                largeBitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
+                this.imageLarge = stream.ToArray();
 
-            text += string.Format("Bild: {0:n0} x {1:n0} ({2:n0})\r\n", largeBitmap.Height, largeBitmap.Width, Tools.ToFuzzyByteString(largeBitmap.ByteCount));
+                text += string.Format("Bild: {0:n0} x {1:n0} ({2:n0}, {3:n0})\r\n", largeBitmap.Height, largeBitmap.Width, Tools.ToFuzzyByteString(largeBitmap.ByteCount), Tools.ToFuzzyByteString(this.imageLarge.Length));
 
-            MemoryStream stream = new MemoryStream();
-            largeBitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
-            this.imageLarge = stream.ToArray();
+                resizedImage = ImageResizer.ResizeImageAndroid(newBitmap, 48*2, 85*2);
 
+                Bitmap smallBitmap = BitmapFactory.DecodeByteArray(resizedImage, 0, resizedImage.Length);
 
+                stream = new MemoryStream();
+                smallBitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
+                this.imageSmall = stream.ToArray();
 
-            resizedImage = ImageResizer.ResizeImageAndroid(newBitmap, 48, 85);
+                text += string.Format("Thn.: {0:n0} x {1:n0} ({2:n0}, {3:n0})", smallBitmap.Height, smallBitmap.Width, Tools.ToFuzzyByteString(smallBitmap.ByteCount), Tools.ToFuzzyByteString(this.imageSmall.Length));
 
-            Bitmap smallBitmap = BitmapFactory.DecodeByteArray(resizedImage, 0, resizedImage.Length);
+                RunOnUiThread(() => this.imageView.SetImageBitmap(smallBitmap));
+                RunOnUiThread(() => this.imageView2.Visibility = ViewStates.Gone);
+                RunOnUiThread(() => this.imageTextView.Text = text);
 
-            int width3  = smallBitmap.Width;
-            int height3 = smallBitmap.Height;
-
-            text += string.Format("Thn.: {0:n0} x {1:n0} ({2:n0})", smallBitmap.Height, smallBitmap.Width, Tools.ToFuzzyByteString(smallBitmap.ByteCount));
-
-            stream = new MemoryStream();
-            smallBitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
-            this.imageSmall = stream.ToArray();
-
-            RunOnUiThread(() => this.imageView.SetImageBitmap(smallBitmap));
-            RunOnUiThread(() => this.imageView2.Visibility = ViewStates.Gone);
-            RunOnUiThread(() => this.imageTextView.Text = text);
-
-            System.Diagnostics.Trace.WriteLine(string.Format("Bild original : W={0:n0}, H={1:n0}", newBitmap.Width, newBitmap.Height));
-            System.Diagnostics.Trace.WriteLine(string.Format("Bild original : Size={0}", Tools.ToFuzzyByteString(newBitmap.ByteCount)));
-            System.Diagnostics.Trace.WriteLine(string.Format("Bild small    : W={0:n0}, H={1:n0}", smallBitmap.Width, smallBitmap.Height));
-            System.Diagnostics.Trace.WriteLine(string.Format("Bild small    : Size={0}", Tools.ToFuzzyByteString(smallBitmap.ByteCount)));
-            System.Diagnostics.Trace.WriteLine(string.Format("Image size    : Size={0}", Tools.ToFuzzyByteString(this.imageLarge.Length)));
+                System.Diagnostics.Trace.WriteLine(string.Format("Bild original : W={0:n0}, H={1:n0}", newBitmap.Width, newBitmap.Height));
+                System.Diagnostics.Trace.WriteLine(string.Format("Bild original : Size={0}", Tools.ToFuzzyByteString(newBitmap.ByteCount)));
+                System.Diagnostics.Trace.WriteLine(string.Format("Bild small    : W={0:n0}, H={1:n0}", smallBitmap.Width, smallBitmap.Height));
+                System.Diagnostics.Trace.WriteLine(string.Format("Bild small    : Size={0}", Tools.ToFuzzyByteString(smallBitmap.ByteCount)));
+                System.Diagnostics.Trace.WriteLine(string.Format("Image size    : Size={0}", Tools.ToFuzzyByteString(this.imageLarge.Length)));
+            }
+            catch(Exception ex)
+            {
+                RunOnUiThread(() => this.imageTextView.Text = ex.Message);
+            }
+        
         }
 
 
         private void LoadAndResizeBitmap(string fileName)
         {
-            int height = 854;
-            int width  = 480;
+            Bitmap bitmap = BitmapFactory.DecodeFile(fileName);
 
-            // First we get the the dimensions of the file on disk
-            BitmapFactory.Options options = new BitmapFactory.Options { InJustDecodeBounds = true };
-            BitmapFactory.DecodeFile(fileName, options);
+            this.ResizeBitmap(bitmap);
 
-            FileInfo fileInfo = new FileInfo (fileName);
-            Console.WriteLine (fileInfo.Length);
-            string text = string.Empty;
-            text += string.Format("Org.: {0:n0} x {1:n0} ({2:n0})\r\n", options.OutHeight, options.OutWidth, Tools.ToFuzzyByteString(fileInfo.Length));
-
-            // Next we calculate the ratio that we need to resize the image by
-            // in order to fit the requested dimensions.
-            int outHeight = options.OutHeight;
-            int outWidth  = options.OutWidth;
-            int inSampleSize = 1;
-
-            if (outHeight > height || outWidth > width)
-            {
-                inSampleSize = outWidth > outHeight
-                                   ? outHeight / height
-                                   : outWidth / width;
-            }
-
-
-            // Now we will load the image and have BitmapFactory resize it for us.
-            options.InSampleSize = inSampleSize;
-            options.InJustDecodeBounds = false;
-            Bitmap resizedBitmap = BitmapFactory.DecodeFile(fileName, options);
-
-            text += string.Format("Bild: {0:n0} x {1:n0} ({2:n0})\r\n", resizedBitmap.Height, resizedBitmap.Width, Tools.ToFuzzyByteString(resizedBitmap.ByteCount));
-
-            height = 48;
-            width  = 85;
-
-            if (outHeight > height || outWidth > width)
-            {
-                inSampleSize = outWidth > outHeight
-                                   ? outHeight / height
-                                   : outWidth / width;
-            }
-
-            // Now we will load the image and have BitmapFactory resize it for us.
-            options.InSampleSize = inSampleSize;
-            options.InJustDecodeBounds = false;
-            Bitmap smallBitmap = BitmapFactory.DecodeFile(fileName, options);
-
-            text += string.Format("Thn.: {0:n0} x {1:n0} ({2:n0})\r\n", smallBitmap.Height, smallBitmap.Width, Tools.ToFuzzyByteString(smallBitmap.ByteCount));
-
-            RunOnUiThread(() => this.imageView.SetImageBitmap(resizedBitmap));
-            RunOnUiThread(() => this.imageView2.Visibility = ViewStates.Gone);
-            RunOnUiThread(() => this.imageTextView.Text = text);
-
-            MemoryStream stream = new MemoryStream();
-            resizedBitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
-            this.imageLarge = stream.ToArray();
-
-            stream = new MemoryStream();
-            smallBitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
-            this.imageSmall = stream.ToArray();
+            File.Delete(fileName);
         }
+
+        private int? GetIntegerFromEditText(int resourceId)
+        {
+            int? value = null;
+
+            string valueText  = FindViewById<EditText>(resourceId).Text;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(valueText))
+                {
+                    value = Convert.ToInt32(valueText, CultureInfo.InvariantCulture);
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(string.Format("Fehler beim Konvertieren von '{0}' in ein Integer.", valueText), ex);
+            }
+
+            return value;
+        }
+
+        
+        private decimal? GetDecimalFromEditText(int resourceId)
+        {
+            decimal? value = null;
+
+            string valueText  = FindViewById<EditText>(resourceId).Text;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(valueText))
+                {
+                    value = Convert.ToDecimal(valueText, CultureInfo.InvariantCulture);
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(string.Format("Fehler beim Konvertieren von '{0}' in ein Decimal.", valueText), ex);
+            }
+            return value;
+        }
+
    }
 
     public class CatalogItemSelectedListener : Java.Lang.Object, IOnItemSelectedListener

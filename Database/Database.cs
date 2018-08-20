@@ -1,14 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using SQLite;
 
 namespace VorratsUebersicht
@@ -79,7 +72,8 @@ namespace VorratsUebersicht
                 else
                     cmd += " WHERE ";
 
-                cmd += " UPPER(Article.Name) LIKE ?";
+                cmd += " (UPPER(Article.Name) LIKE ? OR UPPER(Article.Manufacturer) LIKE ?)";
+                parameter.Add("%" + textFilter.ToUpper() + "%");
                 parameter.Add("%" + textFilter.ToUpper() + "%");
             }
 
@@ -164,6 +158,14 @@ namespace VorratsUebersicht
 
             int minQuantity  = article.MinQuantity.HasValue  ? article.MinQuantity.Value  : 0;
             int prefQuantity = article.PrefQuantity.HasValue ? article.PrefQuantity.Value : 0;
+
+            return Database.GetToShoppingListQuantity(articleId, minQuantity, prefQuantity);
+        }
+
+        internal static int GetToShoppingListQuantity(int articleId, int minQuantity, int prefQuantity)
+        {
+            ArticleData article = Database.GetArticleData(articleId);
+
             int isQuantity  = (int)Database.GetArticleQuantityInStorage(articleId);
 
             int toBuyQuantity = ShoppingListHelper.GetToBuyQuantity(minQuantity, prefQuantity, isQuantity);
@@ -363,6 +365,7 @@ namespace VorratsUebersicht
             string cmd = string.Empty;
             cmd += "SELECT DISTINCT Supermarket AS Value";
             cmd += " FROM Article";
+            cmd += " WHERE Supermarket IS NOT NULL";
             cmd += " ORDER BY Supermarket";
 
             SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
@@ -416,10 +419,11 @@ namespace VorratsUebersicht
                 else
                     cmd += " WHERE ";
 
-                cmd += " UPPER(Article.Name) LIKE ?";
+                cmd += " (UPPER(Article.Name) LIKE ? OR UPPER(Article.Manufacturer) LIKE ?)";
+                parameter.Add("%" + textFilter.ToUpper() + "%");
                 parameter.Add("%" + textFilter.ToUpper() + "%");
             }
-            
+
 
             cmd += " ORDER BY Name COLLATE NOCASE";
 
@@ -532,7 +536,7 @@ namespace VorratsUebersicht
             return result[0].Quantity;
         }
 
-        internal static IList<StorageItemQuantityResult> GetStorageItemQuantityListNoImage(string category, string subCategory, string eanCode, bool showNotInStorageArticles, string articleName = null, string storageName = null)
+        internal static IList<StorageItemQuantityResult> GetStorageItemQuantityListNoImage(string category, string subCategory, string eanCode, bool showNotInStorageArticles, string textFilter = null, string storageName = null)
         {
             var result = new List<StorageItemQuantityResult>();
 
@@ -576,11 +580,12 @@ namespace VorratsUebersicht
                 parameter.Add(eanCode);
             }
 
-            if (!string.IsNullOrEmpty(articleName))
+            if (!string.IsNullOrEmpty(textFilter))
             {
                 if (string.IsNullOrEmpty(filter)) { filter += " WHERE "; } else { filter += " AND "; }
-                filter += " UPPER(Article.Name) LIKE ?";
-                parameter.Add("%" + articleName.ToUpper() + "%");
+                cmd += " (UPPER(Article.Name) LIKE ? OR UPPER(Article.Manufacturer) LIKE ?)";
+                parameter.Add("%" + textFilter.ToUpper() + "%");
+                parameter.Add("%" + textFilter.ToUpper() + "%");
             }
 
             if (!string.IsNullOrEmpty(storageName))

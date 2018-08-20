@@ -85,6 +85,16 @@ oder (falls schon auf dem Einkaufszettel vorhanden) die Menge im Einkaufszettel 
 		5				8					1				7
 
 
+Version 2.11 (CodeVersion 26)
+==================================
+
+Vor dem Hochladen ins Google Store: 
+- this.ActivateEANScanDay auf Today + 3 Tage,
+  damit die automatische Prüfung sich nicht beim EAN Scan "gefangen bleibt".
+
+C046 - Absicherung gegen OutOfMemory Abstürze bei Bildern
+C045 - Nach dem EAN Scan der Lagerbestand gleich im Edit-Modus.
+C044 - Suche nach Artikeln um Hersteller erweitert
 
 Version 2.10 (CodeVersion 25)
 ==================================

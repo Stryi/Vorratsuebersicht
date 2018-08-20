@@ -33,6 +33,8 @@ namespace VorratsUebersicht
         public static string Strings_EANCode;
         public static string Strings_Amount;
 
+        private DateTime ActivateEANScanDay;
+
         protected override void OnCreate(Bundle bundle)
         {
             MainActivity.Strings_Manufacturer  = Resources.GetString(Resource.String.ArticleDetails_Manufacturer);
@@ -47,6 +49,8 @@ namespace VorratsUebersicht
             MainActivity.Strings_PrefQuantity  = Resources.GetString(Resource.String.ArticleDetails_PrefQuantityLabel);
             MainActivity.Strings_EANCode       = Resources.GetString(Resource.String.ArticleDetails_EANCode);
             MainActivity.Strings_Amount        = Resources.GetString(Resource.String.ArticleDetails_Amount);
+
+            this.ActivateEANScanDay = new DateTime(2018, 8, 23);
 
             base.OnCreate(bundle);
 
@@ -339,7 +343,10 @@ namespace VorratsUebersicht
 
             // Barcode scannen
             Button buttonBarcode = FindViewById<Button>(Resource.Id.MainButton_Barcode);
-            buttonBarcode.Enabled = enable;
+            if (DateTime.Now.Date >= this.ActivateEANScanDay)
+            {
+                buttonBarcode.Enabled = enable;
+            }
         }
 
         private async void ButtonBarcode_Click(object sender, System.EventArgs e)
@@ -391,6 +398,8 @@ namespace VorratsUebersicht
                         case 0: // Lagerbestand bearbeiten
                             var articleDetails = new Intent(this, typeof(StorageItemQuantityActivity));
                             articleDetails.PutExtra("ArticleId", artickeId);
+                            articleDetails.PutExtra("EditMode",  true);
+
                             this.StartActivityForResult(articleDetails, 1000);
                             break;
 
