@@ -15,6 +15,7 @@ namespace VorratsUebersicht
     public class ShoppingListActivity : Activity, SearchView.IOnQueryTextListener
     {
         public static readonly int SelectArticleId = 1001;
+        public static readonly int EditStorageQuantity = 1002;
         private IParcelable listViewState;
 
         List<ShoppingListView> liste = new List<ShoppingListView>();
@@ -44,8 +45,9 @@ namespace VorratsUebersicht
             ShoppingListView item = Tools.Cast<ShoppingListView>(itemObject);
 
             string removeText = Resources.GetString(Resource.String.ShoppingList_Remove);
+            string toStorage  = Resources.GetString(Resource.String.ShoppingList_ToStorage);
 
-            string[] actions = { "+10", "+1", "-1", "-10", removeText };
+            string[] actions = { "+10", "+1", "-1", "-10", removeText, toStorage };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle(item.Heading);
@@ -75,9 +77,15 @@ namespace VorratsUebersicht
                         break;
 
                     case 4: // Entfernen
-
-                        Database.RemoveFromShoppingList(item.ShoppingListId);
+                        Database.RemoveFromShoppingList(item.ArticleId);
                         ShowShoppingList();
+                        break;
+
+                    case 5: // Ins Lagerbestand
+                        var storageDetails = new Intent(this, typeof(StorageItemQuantityActivity));
+                        storageDetails.PutExtra("ArticleId", item.ArticleId);
+                        storageDetails.PutExtra("EditMode",  true);
+                        this.StartActivityForResult(storageDetails, EditStorageQuantity);
                         break;
                 }
 
@@ -134,6 +142,16 @@ namespace VorratsUebersicht
 
                 Database.AddToShoppingList(id, 1);
                 this.ShowShoppingList();
+            }
+
+            if ((requestCode == EditStorageQuantity) && (resultCode == Result.Ok) && (data != null))
+            {
+                int id = data.GetIntExtra("ArticleId", -1);
+                if (id == -1)
+                    return;
+
+                Database.RemoveFromShoppingList(id);
+                ShowShoppingList();
             }
         }
 

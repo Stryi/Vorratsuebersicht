@@ -396,16 +396,16 @@ namespace VorratsUebersicht
                     switch(args.Which)
                     {
                         case 0: // Lagerbestand bearbeiten
-                            var articleDetails = new Intent(this, typeof(StorageItemQuantityActivity));
-                            articleDetails.PutExtra("ArticleId", artickeId);
-                            articleDetails.PutExtra("EditMode",  true);
+                            var storageDetails = new Intent(this, typeof(StorageItemQuantityActivity));
+                            storageDetails.PutExtra("ArticleId", artickeId);
+                            storageDetails.PutExtra("EditMode",  true);
 
-                            this.StartActivityForResult(articleDetails, 1000);
+                            this.StartActivityForResult(storageDetails, 1000);
                             break;
 
                         case 1:
                             // Artikelstamm bearbeiten
-                            articleDetails = new Intent(this, typeof(ArticleDetailsActivity));
+                            var articleDetails = new Intent(this, typeof(ArticleDetailsActivity));
                             articleDetails.PutExtra("ArticleId", artickeId);
                             StartActivityForResult(articleDetails, 10);
                             break;

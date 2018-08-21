@@ -23,7 +23,7 @@
   <string name="Main_Button_Artikelangaben">Artikelangaben</string>
   <string name="Main_Button_ArtikelListe">Artikelliste</string>
   <string name="Main_Button_ArtikelScannen">Artikel scannen</string>
-  <string name="Main_Button_Einkaufsliste">Einkaufsliste (Beta)</string>
+  <string name="Main_Button_Einkaufsliste">Einkaufsliste</string>
   
   <!-- Maske Optionen -->
   <string name="Settings_Title">Einstellungen</string>
@@ -77,8 +77,10 @@
   <string name="NoSubCategory_ItemEntry">[Keine Unterkategorie]</string>
   <string name="AnySubCategory_ItemEntry">[Beliebige Unterkategorie]</string>
 
+  <!-- Einkaufsliste -->
   <string name="ShoppingList_Remove">Entfernen (gekauft)</string>
-  
+  <string name="ShoppingList_ToStorage">Ins Lagerbestand...</string>
+
   <string-array name="ArticleCatagories">
     <item>Lebensmittel</item>
     <item>Trinken</item>     

@@ -2,27 +2,20 @@
 Prio 1
 ======
 
-Lagerliste
-- Letzte Zeile Summe "kcal" und "Gewicht nach Einheit"
-- Bilder im Thread laden
+Anwendung
+- warning CS0618: 'ProgressDialog' is obsolete: 'This class is obsoleted in this android platform'
 
-Artikelliste
-- Bilder im Thread laden
 
 Artikeldetail
 - "Artikel löschen" -> "Nein" beendet den Dialog.
-- Kein Text unter "Artikelname", dann Tastatur einblenden.+
+- Kein Text unter "Artikelname", dann Tastatur einblenden.
 
-Einkaufszettel
-- Einkaufsliste verdoppelt sich bei -1, -10, usw.
-- "Gekauft" springt direkt zum Lagerbestand.
 
 Prio 2
 ======
 
-Anwendung
-- warning CS0618: 'ProgressDialog' is obsolete: 'This class is obsoleted in this android platform'
-
+ALgerbestand / Artikelliste
+- Bilder im Thread laden
 
 Bilder
 - Komprimierung/Verkleinerung der Bilder nicht immer effizient
@@ -31,9 +24,8 @@ Bilder
 - Nach dem Auswahl vom neuen Bild wird noch beim Anklicken das alte angezeigt.
 - Bilder im Verzeichnis "Vorräte Bilder" anschließend löschen.
 
-Kategorie/Unterkategorie
-- Selbst definierte Kategorien
-- "Keine Kategorie" als Popup Auswahl
+Lagerliste
+- Letzte Zeile Summe "kcal", "Anzahl" und "Menge nach Einheit"
 
 Artikelliste
 - Nach dem Filtern und bearbeiten ist der Filter ohne Wirkung
@@ -52,29 +44,36 @@ Einkaufszettel
 Einstellungen
 - BUG: Backup Hinweis zeit die Test-Datenbank an
 
+Artikel scannen
+- https://corporate.codecheck.info/produkte/produktdaten-api/
+
 
 Sonstiges
 - Release Notes der App anzeigen
 - Spracheingabe, https://docs.microsoft.com/de-de/xamarin/android/platform/speech
 - Absturz protokollieren (LOG-Datei)
 
-Artikel scannen
-- https://corporate.codecheck.info/produkte/produktdaten-api/
-- Bei Bestandsanzeige gleich in Edit-Modus.
 
 Prio 3
 ======
 
+Kategorie/Unterkategorie
+- Selbst definierte Kategorien
+- "Keine Kategorie" als Popup Auswahl
+
+
 Einkaufsliste:
 - Aus der Lagerbestand Liste auf die Einkaufsliste setzen ("..." Menü?)
 
+Lagerbestand
 - Anzahl gruppieren und Summieren nach Datum.
 
-- Suche im Artikelstamm und Lagerbestand (nach Text oder Hersteller).
-
+Artikeldetails
 - Mehrere Bilder Pro Artikel
 
-- Artikel Liste auf Englische Resourcen setzen
+
+Prio 4
+======
 
 - Für Hinzufügen von Positionen, Artikel oder Bestand ein "Floating Action Button" verwenden
   https://guides.codepath.com/android/floating-action-buttons

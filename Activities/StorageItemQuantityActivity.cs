@@ -256,6 +256,7 @@ namespace VorratsUebersicht
             if (this.isChanged)
             {
                 Intent intent = new Intent();
+				intent.PutExtra("ArticleId", this.articleId);
                 this.SetResult(Result.Ok, intent);
             }
 

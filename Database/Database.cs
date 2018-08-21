@@ -131,7 +131,7 @@ namespace VorratsUebersicht
             return newQuantity;
         }
 
-        internal static void RemoveFromShoppingList(int shoppingListId)
+        internal static void RemoveFromShoppingList(int articleId)
         {
             SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
             if (databaseConnection == null)
@@ -140,14 +140,20 @@ namespace VorratsUebersicht
             SQLiteCommand command;
             string cmd = string.Empty;
 
-            cmd += "DELETE FROM ShoppingList WHERE ShoppingListId = ?";
-            command = databaseConnection.CreateCommand(cmd, new object[] { shoppingListId });
+            cmd += "DELETE FROM ShoppingList WHERE ArticleId = ?";
+            command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
             command.ExecuteNonQuery();
         }
 
         internal static bool IsArticleInShoppingList(int articleId)
         {
-            int count = Database.GetShoppingListQuantiy(articleId);
+            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            if (databaseConnection == null)
+                return false;
+
+            string cmd = "SELECT COUNT(*) FROM ShoppingList WHERE ArticleId = ?";
+            SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
+            int count = command.ExecuteScalar<int>();
 
             return count > 0;
         }
@@ -583,7 +589,7 @@ namespace VorratsUebersicht
             if (!string.IsNullOrEmpty(textFilter))
             {
                 if (string.IsNullOrEmpty(filter)) { filter += " WHERE "; } else { filter += " AND "; }
-                cmd += " (UPPER(Article.Name) LIKE ? OR UPPER(Article.Manufacturer) LIKE ?)";
+                filter += " (UPPER(Article.Name) LIKE ? OR UPPER(Article.Manufacturer) LIKE ?)";
                 parameter.Add("%" + textFilter.ToUpper() + "%");
                 parameter.Add("%" + textFilter.ToUpper() + "%");
             }
@@ -595,8 +601,7 @@ namespace VorratsUebersicht
                 parameter.Add(storageName);
             }
             
-
-                        cmd += filter;
+            cmd += filter;
             cmd += " ORDER BY Article.Name COLLATE NOCASE";
 
             var command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());

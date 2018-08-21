@@ -749,6 +749,9 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f05003a
 			public const int ShoppingList_Remove = 2131034170;
 			
+			// aapt resource value: 0x7f05003b
+			public const int ShoppingList_ToStorage = 2131034171;
+			
 			// aapt resource value: 0x7f050006
 			public const int Start_TestDbQuestion = 2131034118;
 			
