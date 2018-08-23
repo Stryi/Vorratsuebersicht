@@ -36,10 +36,18 @@
                 android:textColor="@color/Text_Color2"
                 android:layout_toRightOf="@+id/ArticleDetails_Image" />
         </LinearLayout>
-        <TextView
+      <ProgressBar
+              android:id="@+id/ProgressBar"
+              style="?android:attr/progressBarStyleHorizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:indeterminate="true"
+              android:max="100"
+              android:layout_marginTop="-7dp"
+              android:visibility="invisible"/>
+      <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="@string/ArticleDetails_ArticleName" />
         <EditText
             android:id="@+id/ArticleDetails_Name"
@@ -51,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/ArticleDetails_Manufacturer" />
-        <EditText
+        <MultiAutoCompleteTextView
             android:id="@+id/ArticleDetails_Manufacturer"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

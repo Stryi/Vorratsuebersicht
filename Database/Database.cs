@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 using SQLite;
@@ -347,7 +348,11 @@ namespace VorratsUebersicht
 
             SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
 
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
             IList<StringResult> result = command.ExecuteQuery<StringResult>();
+            stopWatch.Stop();
+            Tools.TRACE("Dauer der Abfrage für DISTINCT StorageName: {0}", stopWatch.Elapsed.ToString());
 
             List<string> stringList = new List<string>();
             for (int i = 0; i < result.Count; i++)
@@ -363,6 +368,36 @@ namespace VorratsUebersicht
         }
 
         
+        internal static string[] GetManufacturerNames()
+        {
+            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+
+            // Artikel suchen, die schon abgelaufen sind.
+            string cmd = string.Empty;
+            cmd += "SELECT DISTINCT Manufacturer AS Value";
+            cmd += " FROM Article";
+            cmd += " WHERE Manufacturer IS NOT NULL";
+            cmd += " ORDER BY Manufacturer";
+
+            SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
+
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            IList<StringResult> result = command.ExecuteQuery<StringResult>();
+            
+            stopWatch.Stop();
+            Tools.TRACE("Dauer der Abfrage für DISTINCT Manufacturer: {0}", stopWatch.Elapsed.ToString());
+
+            string[] stringList = new string[result.Count];
+            for (int i = 0; i < result.Count; i++)
+            {
+                stringList[i] = result[i].Value;
+            }
+
+            return stringList;
+        }
+
         internal static string[] GetSupermarketNames()
         {
             SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
@@ -398,7 +433,8 @@ namespace VorratsUebersicht
             IList<object> parameter = new List<object>();
 
             string cmd = string.Empty;
-            cmd += "SELECT ArticleId, Name, Manufacturer, Category, SubCategory, DurableInfinity, WarnInDays, Size, Unit, Calorie, Notes, EANCode, StorageName";
+            cmd += "SELECT ArticleId, Name, Manufacturer, Category, SubCategory, DurableInfinity, WarnInDays,";
+            cmd += " Size, Unit, Notes, EANCode"; //,Calorie, StorageName";
 			cmd += " FROM Article";
 
             if (!string.IsNullOrEmpty(category))
@@ -434,8 +470,15 @@ namespace VorratsUebersicht
             cmd += " ORDER BY Name COLLATE NOCASE";
 
             var command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());
+
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+
             result = command.ExecuteQuery<Article>();
-            
+
+            stopWatch.Stop();
+            Tools.TRACE("Dauer der Abfrage für Artikelliste: {0}", stopWatch.Elapsed.ToString());
+
             return result;
         }
 
@@ -551,7 +594,7 @@ namespace VorratsUebersicht
                 return result;
 
             string cmd = string.Empty;
-            cmd += "SELECT ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, StorageName, MinQuantity, PrefQuantity,";
+            cmd += "SELECT ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity, PrefQuantity,"; // StorageName, 
 			cmd += " (SELECT SUM(Quantity) FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId) AS Quantity,";
 			cmd += " (SELECT BestBefore FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId ORDER BY BestBefore ASC LIMIT 1) AS BestBefore";
 			cmd += " FROM Article";
@@ -605,7 +648,16 @@ namespace VorratsUebersicht
             cmd += " ORDER BY Article.Name COLLATE NOCASE";
 
             var command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());
-            return command.ExecuteQuery<StorageItemQuantityResult>();
+
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            result = command.ExecuteQuery<StorageItemQuantityResult>();
+            
+            stopWatch.Stop();
+            Tools.TRACE("Dauer der Abfrage für Lagerbestand: {0}", stopWatch.Elapsed.ToString());
+
+            return result;
         }
 
         internal static IList<StorageItemQuantityResult> GetStorageItemQuantityList(int articleId)

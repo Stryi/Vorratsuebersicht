@@ -83,7 +83,12 @@ namespace VorratsUebersicht
 
                     this.imageView.SetImageBitmap(image);
 
-                    message = string.Format("Bild: {0:n0} X {1:n0} ({2:n0})", image.Height, image.Width, Tools.ToFuzzyByteString(image.ByteCount));
+                    message = string.Format("Bild: {0:n0} X {1:n0} (Größe: {2:n0}, Komprimiert: {3:n0})", 
+                        image.Height, 
+                        image.Width, 
+                        Tools.ToFuzzyByteString(image.ByteCount),
+                        Tools.ToFuzzyByteString(article.Image.Length));
+
                     image = null;
                 }
                 catch (Exception e)

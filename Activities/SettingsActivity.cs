@@ -84,7 +84,7 @@ namespace VorratsUebersicht
 
         private void ButtonRestoreSampleDb_Click(object sender, EventArgs e)
         {
-            var progressDialog = ProgressDialog.Show(this, "Bitte warten...", "Test Datenbank wird zurückgesetzt...", true);
+            var progressDialog = this.CreateProgressBar();
             new Thread(new ThreadStart(delegate
             {
                 new Android_Database().RestoreDatabase_Test_Sample(true);
@@ -94,7 +94,7 @@ namespace VorratsUebersicht
 
                 RunOnUiThread(() => this.ShowDatabaseInfo());
 
-                RunOnUiThread(() => progressDialog.Hide());
+                this.HideProgressBar(progressDialog);
 
             })).Start();
         }
@@ -111,13 +111,13 @@ namespace VorratsUebersicht
 
         private void ButtonCompressDb_Click(object sender, EventArgs e)
         {
-            var progressDialog = ProgressDialog.Show(this, "Bitte warten...", "Datenbank wird komprimiert...", true);
+            var progressDialog = this.CreateProgressBar();
             new Thread(new ThreadStart(delegate
             {
                 new Android_Database().CompressDatabase();
 
                 RunOnUiThread(() => this.ShowDatabaseInfo());
-                RunOnUiThread(() => progressDialog.Hide());
+                this.HideProgressBar(progressDialog);
 
             })).Start();
         }
@@ -174,6 +174,22 @@ namespace VorratsUebersicht
             databasePath.Text = new Android_Database().GetDatabaseInfoText(dbInfoFormat);
         }
 
+        private ProgressBar CreateProgressBar()
+        {
+            var progressBar = FindViewById<ProgressBar>(Resource.Id.ProgressBar);
+            progressBar.Visibility = ViewStates.Visible;
+            this.Window.SetFlags(WindowManagerFlags.NotTouchable, WindowManagerFlags.NotTouchable);
+            return progressBar;
+        }
+
+        private void HideProgressBar(ProgressBar progressBar)
+        {
+            RunOnUiThread(() =>
+            {
+                progressBar.Visibility = ViewStates.Invisible;
+                this.Window.ClearFlags(WindowManagerFlags.NotTouchable);
+            });
+        }
 
     }
 }

@@ -2,34 +2,21 @@
 Prio 1
 ======
 
-Anwendung
-- warning CS0618: 'ProgressDialog' is obsolete: 'This class is obsoleted in this android platform'
-
-
-Artikeldetail
-- "Artikel löschen" -> "Nein" beendet den Dialog.
-- Kein Text unter "Artikelname", dann Tastatur einblenden.
-
-
 Prio 2
 ======
 
-ALgerbestand / Artikelliste
-- Bilder im Thread laden
+Lgerbestand / Artikelliste
+- Bilder im Thread oder asynchron laden
+  https://blog.xamarin.com/getting-started-with-async-await/
 
 Bilder
 - Komprimierung/Verkleinerung der Bilder nicht immer effizient
-- Komprimierung/Verkleinerung dauert verdächtig lange
 - Ausrichtung der Bilder beachten (Quer fotografiert)
 - Nach dem Auswahl vom neuen Bild wird noch beim Anklicken das alte angezeigt.
 - Bilder im Verzeichnis "Vorräte Bilder" anschließend löschen.
 
 Lagerliste
 - Letzte Zeile Summe "kcal", "Anzahl" und "Menge nach Einheit"
-
-Artikelliste
-- Nach dem Filtern und bearbeiten ist der Filter ohne Wirkung
-
 
 Artikeldetail
 - Artikelangaben speichern dauert lange (wird auch Image immer wieder gespeichert?)
@@ -82,6 +69,38 @@ Prio 4
 
 Gemeldete Abstürze:
 ===================
+
+New in version 24
+java.lang.NullPointerException
+in md56c9fe683bd4750f69443fa5376e732f4.ArticleListActivity.n_onActivityResult
+
+Aug 19, 8:05 PM on app version 24
+Samsung Galaxy S7 (herolte), Android 8.0
+Report 1 of 5
+java.lang.RuntimeException: 
+  at android.app.ActivityThread.performResumeActivity (ActivityThread.java:3790)
+  at android.app.ActivityThread.handleResumeActivity (ActivityThread.java:3830)
+  at android.app.ActivityThread.handleLaunchActivity (ActivityThread.java:3038)
+  at android.app.ActivityThread.handleRelaunchActivity (ActivityThread.java:4921)
+  at android.app.ActivityThread.-wrap19 (Unknown Source)
+  at android.app.ActivityThread$H.handleMessage (ActivityThread.java:1702)
+  at android.os.Handler.dispatchMessage (Handler.java:105)
+  at android.os.Looper.loop (Looper.java:164)
+  at android.app.ActivityThread.main (ActivityThread.java:6944)
+  at java.lang.reflect.Method.invoke (Native Method)
+  at com.android.internal.os.Zygote$MethodAndArgsCaller.run (Zygote.java:327)
+  at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:1374)
+Caused by: java.lang.RuntimeException: 
+  at android.app.ActivityThread.deliverResults (ActivityThread.java:4491)
+  at android.app.ActivityThread.performResumeActivity (ActivityThread.java:3762)
+Caused by: java.lang.NullPointerException: 
+  at android.widget.AbsListView.onRestoreInstanceState (AbsListView.java:2680)
+  at md56c9fe683bd4750f69443fa5376e732f4.ArticleListActivity.n_onActivityResult (Native Method)
+  at md56c9fe683bd4750f69443fa5376e732f4.ArticleListActivity.onActivityResult (ArticleListActivity.java:56)
+  at android.app.Activity.dispatchActivityResult (Activity.java:7547)
+  at android.app.ActivityThread.deliverResults (ActivityThread.java:4487)
+
+
 
 
 26.07.2018, 11:27 in der App-Version 24

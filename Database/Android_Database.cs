@@ -306,10 +306,15 @@ namespace VorratsUebersicht
             // Update 2.10: Lagerort, Mindestbestand, Einkaufsmarkt
             if (!this.IsFieldInTheTable(conn, "Article", "StorageName"))
             {
-                conn.Execute("ALTER TABLE Article ADD COLUMN MinQuantity INTEGER");
-                conn.Execute("ALTER TABLE Article ADD COLUMN PrefQuantity INTEGER");
-                conn.Execute("ALTER TABLE Article ADD COLUMN StorageName TEXT");
-                conn.Execute("ALTER TABLE Article ADD COLUMN Supermarket TEXT");
+                conn.Execute("ALTER TABLE Article ADD COLUMN [MinQuantity] INTEGER");
+                conn.Execute("ALTER TABLE Article ADD COLUMN [PrefQuantity] INTEGER");
+                conn.Execute("ALTER TABLE Article ADD COLUMN [StorageName] TEXT");
+                conn.Execute("ALTER TABLE Article ADD COLUMN [Supermarket] TEXT");
+
+                //conn.Execute("DROP   INDEX [Article_StorageName]");
+                conn.Execute("CREATE INDEX [Article_StorageName] ON [Article] ([StorageName] COLLATE NOCASE ASC);");
+                //conn.Execute("DROP   INDEX [Article_Calorie]");
+                conn.Execute("CREATE INDEX [Article_Calorie]     ON [Article] ([Calorie]     COLLATE NOCASE ASC);");
             }
         }
 

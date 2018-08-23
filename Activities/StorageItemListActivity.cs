@@ -24,6 +24,7 @@ namespace VorratsUebersicht
         private string eanCode;
         private bool   showEmptyStorageArticles;
         private string storageNameFilter = string.Empty;
+        private string lastSearchText = string.Empty;
 
         public static readonly int StorageItemQuantityId = 1000;
         public static readonly int SelectArticleId = 1001;
@@ -96,7 +97,7 @@ namespace VorratsUebersicht
             if (newStorageName != this.storageNameFilter)
             {
                 this.storageNameFilter = newStorageName;
-                this.ShowStorageItemList();
+                this.ShowStorageItemList(this.lastSearchText);
             }
         }
 
@@ -104,12 +105,10 @@ namespace VorratsUebersicht
         {
             MenuInflater.Inflate(Resource.Menu.StorageItemList_menu, menu);
 
-            // https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
-            SearchManager searchManager = (SearchManager)GetSystemService(Context.SearchService);
-
             var searchMenuItem = menu.FindItem(Resource.Id.StorageItemList_Search);
             var searchView = (SearchView)searchMenuItem.ActionView;
 
+            // https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
             searchView.SetOnQueryTextListener(this);
 
             return base.OnCreateOptionsMenu(menu);
@@ -139,7 +138,7 @@ namespace VorratsUebersicht
                 case Resource.Id.StorageItemList_Filter:
 
                     this.showToConsumerOnly = !this.showToConsumerOnly;
-                    this.ShowStorageItemList();
+                    this.ShowStorageItemList(this.lastSearchText);
 
                     return true;
 
@@ -171,7 +170,7 @@ namespace VorratsUebersicht
 
             if ((requestCode == StorageItemQuantityId) && (resultCode == Result.Ok))
             {
-                this.ShowStorageItemList();
+                this.ShowStorageItemList(this.lastSearchText);
 
                 ListView listView = FindViewById<ListView>(Resource.Id.MyListView);
                 listView.OnRestoreInstanceState(this.listViewState);
@@ -248,17 +247,26 @@ namespace VorratsUebersicht
             listView.Focusable = true;
         }
 
-        public bool OnQueryTextChange(string newText)
+        public bool OnQueryTextChange(string filter)
         {
+            if (this.lastSearchText == filter)
+                return true;
+
             //ggf. auf Adapter Filter umstellen: ...listAdapter.Filter.InvokeFilter(newText);
-            this.ShowStorageItemList(newText);
+            this.ShowStorageItemList(filter);
+            this.lastSearchText = filter;
+            
             return true;
         }
 
-        public bool OnQueryTextSubmit(string query)
+        public bool OnQueryTextSubmit(string filter)
         {
+            if (this.lastSearchText == filter)
+                return false;
+
             // Filter ggf. mit Adapter, siehe https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
-            this.ShowStorageItemList(query);
+            this.ShowStorageItemList(filter);
+            this.lastSearchText = filter;
             return true;
         }
     }

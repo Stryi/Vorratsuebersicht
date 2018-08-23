@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+  <TextView
+      android:id="@+id/SplashScreen_ProgressText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:layout_above="@+id/SplashScreen_ProgressBar"
+      android:background="@android:color/transparent"
+      android:textColor="@color/Text_Color"
+      android:text="Bitte warten..." />
+  <ProgressBar
+        android:id="@+id/SplashScreen_ProgressBar"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"        
+        style="@android:style/Widget.DeviceDefault.ProgressBar.Horizontal"
+        android:layout_marginRight="5dp" />
+</RelativeLayout>

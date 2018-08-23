@@ -26,7 +26,16 @@
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:text="@string/Settings_Datenbank" />
-        <Button
+      <ProgressBar
+              android:id="@+id/ProgressBar"
+              style="?android:attr/progressBarStyleHorizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:indeterminate="true"
+              android:max="100"
+              android:layout_marginTop="-7dp"
+              android:visibility="invisible"/>
+      <Button
             android:id="@+id/SettingsButton_RestoreSampleDb"
             android:text="@string/Settings_TestDatenbankZuruecksetzen"
             android:textSize="15sp"

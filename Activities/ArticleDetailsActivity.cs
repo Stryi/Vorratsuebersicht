@@ -37,6 +37,7 @@ namespace VorratsUebersicht
         Toast toast;
         ImageCaptureHelper imageCapture;
 
+        IList<string> Manufacturers;
         CatalogItemSelectedListener catalogListener;
         IList<string> SubCategories;
         IList<string> Storages;
@@ -52,6 +53,8 @@ namespace VorratsUebersicht
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            var stopWatch = new System.Diagnostics.Stopwatch();
+            stopWatch.Start();
             base.OnCreate(savedInstanceState);
 
             this.SetContentView(Resource.Layout.ArticleDetails);
@@ -84,6 +87,19 @@ namespace VorratsUebersicht
                 this.warningInDaysLabelView.Enabled = !durableInfinity.Checked;
             };
 
+            // Hersteller Eingabe
+            this.Manufacturers = new List<string>();
+
+            var manufacturer = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Manufacturer);
+
+            ArrayAdapter<String> manufacturerAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, this.Manufacturers);
+            manufacturer.Adapter = manufacturerAdapter;
+            manufacturer.Threshold = 1;
+            manufacturer.SetTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+            manufacturer.SetTokenizer(new SpaceTokenizer());
+
+
+            // Kategorie Auswahl
             this.catalogListener = new CatalogItemSelectedListener();
 
             string[] Categories = Resources.GetStringArray(Resource.Array.ArticleCatagories);
@@ -94,7 +110,8 @@ namespace VorratsUebersicht
             Spinner categorySpinner = (Spinner)FindViewById<Spinner>(Resource.Id.ArticleDetails_Category);
             categorySpinner.Adapter = categoryAdapter;
             categorySpinner.OnItemSelectedListener = this.catalogListener;
-            
+
+            // Unterkategorie Eingabe
             this.SubCategories = new List<string>();
 
             var subCategory = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_SubCategory);
@@ -105,6 +122,7 @@ namespace VorratsUebersicht
             subCategory.SetTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
             subCategory.SetTokenizer(new SpaceTokenizer());
 
+            // Lagerort Eingabe
             this.Storages = new List<string>();
 
             var storage = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Storage);
@@ -115,6 +133,7 @@ namespace VorratsUebersicht
             storage.SetTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
             storage.SetTokenizer(new SpaceTokenizer());
 
+            // Einkaufsmarkt Eingabe
             this.Supermarkets = new List<string>();
 
             var supermarket = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Supermarket);
@@ -148,7 +167,13 @@ namespace VorratsUebersicht
                 this.SelectAPicture();
             };
 
-            this.Window.SetSoftInputMode(SoftInput.StateHidden);
+            if (!string.IsNullOrEmpty(this.article.Name))
+            { 
+                // Artikelname ist eingetragen. Tastatus anfänglich ausblenden.
+                this.Window.SetSoftInputMode(SoftInput.StateHidden);
+            }
+            stopWatch.Stop();
+            Tools.TRACE("Dauer Laden der Artikeldaten: {0}", stopWatch.Elapsed.ToString());
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -260,7 +285,7 @@ namespace VorratsUebersicht
 
             if ((requestCode == PickImageId) && (data != null))
             {
-                var progressDialog = ProgressDialog.Show(this, "Bitte warten...", "Bild wird verarbeitet...", true);
+                var progressDialog = this.CreateProgressBar();
                 new Thread(new ThreadStart(delegate             
                 {
                     // Dispose of the Java side bitmap.
@@ -274,14 +299,14 @@ namespace VorratsUebersicht
                     // Dispose of the Java side bitmap.
                     GC.Collect();
 
-                    RunOnUiThread(() => progressDialog.Hide());
+                    this.HideProgressBar(progressDialog);
 
                 })).Start();
             }
 
             if ((requestCode == TakePhotoId))
             {
-                var progressDialog = ProgressDialog.Show(this, "Bitte warten...", "Bild wird verarbeitet...", true);
+                var progressDialog = this.CreateProgressBar();
                 new Thread(new ThreadStart(delegate             
                 {
                     string path = this.imageCapture.FilePath;
@@ -298,7 +323,7 @@ namespace VorratsUebersicht
                         });
                     }
 
-                    RunOnUiThread(() => progressDialog.Hide());
+                    this.HideProgressBar(progressDialog);
 
                     // Dispose of the Java side bitmap.
                     GC.Collect();
@@ -465,11 +490,7 @@ namespace VorratsUebersicht
 
             var builder = new AlertDialog.Builder(this);
             builder.SetMessage("Soll dieser Artikel wirklich gelöscht werden?");
-            builder.SetNegativeButton("Nein", (s, e) => 
-            {
-                this.OnBackPressed();
-
-            });
+            builder.SetNegativeButton("Nein", (s, e) => { });
             builder.SetPositiveButton("Ja", (s, e) => 
             { 
                 SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
@@ -557,7 +578,6 @@ namespace VorratsUebersicht
             FindViewById<TextView>(Resource.Id.ArticleDetails_ArticleId).Text       = string.Format("ArticleId: {0}", article.ArticleId);
 
             FindViewById<EditText>(Resource.Id.ArticleDetails_Name).Text               = article.Name;
-            FindViewById<EditText>(Resource.Id.ArticleDetails_Manufacturer).Text       = article.Manufacturer;
             FindViewById<Switch>  (Resource.Id.ArticleDetails_DurableInfinity).Checked = article.DurableInfinity;
 
             if (article.WarnInDays.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_WarnInDays).Text = article.WarnInDays.Value.ToString();
@@ -572,6 +592,17 @@ namespace VorratsUebersicht
 
             this.warningInDaysView.Enabled      = !article.DurableInfinity;
             this.warningInDaysLabelView.Enabled = !article.DurableInfinity;
+
+
+            // Hersteller
+            this.Manufacturers = Database.GetManufacturerNames();
+
+            var manufacturer = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Manufacturer);
+            var manufacturerAdapter = (ArrayAdapter<String>)(manufacturer.Adapter);
+            manufacturerAdapter.Clear();
+            manufacturerAdapter.AddAll(this.Manufacturers.ToList<string>());
+            manufacturerAdapter.NotifyDataSetChanged();
+
 
             Spinner categorySpinner = FindViewById<Spinner>(Resource.Id.ArticleDetails_Category);
 
@@ -606,33 +637,31 @@ namespace VorratsUebersicht
             supermarketAdapter.AddAll(this.Supermarkets.ToList<string>());
             supermarketAdapter.NotifyDataSetChanged();
 
-            FindViewById<EditText>(Resource.Id.ArticleDetails_SubCategory).Text = article.SubCategory;
-            FindViewById<EditText>(Resource.Id.ArticleDetails_Supermarket).Text = article.Supermarket;
-            FindViewById<EditText>(Resource.Id.ArticleDetails_Storage).Text     = article.StorageName;
+            FindViewById<EditText>(Resource.Id.ArticleDetails_Manufacturer).Text = article.Manufacturer;
+            FindViewById<EditText>(Resource.Id.ArticleDetails_SubCategory).Text  = article.SubCategory;
+            FindViewById<EditText>(Resource.Id.ArticleDetails_Supermarket).Text  = article.Supermarket;
+            FindViewById<EditText>(Resource.Id.ArticleDetails_Storage).Text      = article.StorageName;
 
             if (article.Image != null)
             {
                 string text = string.Empty;
+                this.imageView2.Visibility = ViewStates.Gone;
                 try
                 {
-                    Bitmap largeBitmap = BitmapFactory.DecodeByteArray(article.ImageLarge, 0, article.ImageLarge.Length);
                     Bitmap smallBitmap = BitmapFactory.DecodeByteArray(article.Image,      0, article.Image.Length);
                 
                     this.imageView.SetImageBitmap(smallBitmap);
-                    this.imageView2.Visibility = ViewStates.Gone;
 
-                    text += string.Format("Bild: {0:n0} X {1:n0} ({2:n0})", largeBitmap.Height, largeBitmap.Width, Tools.ToFuzzyByteString(largeBitmap.ByteCount));
-                    text += "\n";
-                    text += string.Format("Thn.: {0:n0} X {1:n0} ({2:n0})", smallBitmap.Height, smallBitmap.Width, Tools.ToFuzzyByteString(smallBitmap.ByteCount));
-
-                    largeBitmap = null;
+                    text += string.Format("Voransicht: {0:n0} X {1:n0}\n", smallBitmap.Height, smallBitmap.Width);
+                    text += string.Format("Größe: {0:n0}\n", Tools.ToFuzzyByteString(smallBitmap.ByteCount));
+                    text += string.Format("Komprimiert: {0:n0}\n", Tools.ToFuzzyByteString(article.Image.Length));
                 }
                 catch(Exception ex)
                 {
-                    text = ex.Message;
+                    text += "\n" + ex.Message;
 
-                    this.imageView.Visibility  = ViewStates.Gone;
-                    this.imageView2.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
+                    this.imageView.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
+                    this.imageView.Enabled = false;
                 }
 
                 this.imageTextView.Text = text;
@@ -747,6 +776,23 @@ namespace VorratsUebersicht
                 throw new Exception(string.Format("Fehler beim Konvertieren von '{0}' in ein Decimal.", valueText), ex);
             }
             return value;
+        }
+
+        private ProgressBar CreateProgressBar()
+        {
+            var progressBar = FindViewById<ProgressBar>(Resource.Id.ProgressBar);
+            progressBar.Visibility = ViewStates.Visible;
+            this.Window.SetFlags(WindowManagerFlags.NotTouchable, WindowManagerFlags.NotTouchable);
+            return progressBar;
+        }
+
+        private void HideProgressBar(ProgressBar progressBar)
+        {
+            RunOnUiThread(() =>
+            {
+                progressBar.Visibility = ViewStates.Invisible;
+                this.Window.ClearFlags(WindowManagerFlags.NotTouchable);
+            });
         }
 
    }

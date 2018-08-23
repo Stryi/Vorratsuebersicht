@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -20,6 +19,7 @@ namespace VorratsUebersicht
 		private bool selectArticleOnly;
         private string category;
         private string subCategory;
+        private string lastSearchText = string.Empty;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -53,12 +53,10 @@ namespace VorratsUebersicht
         {
             MenuInflater.Inflate(Resource.Menu.ArticleList_menu, menu);
 
-            // https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
-            SearchManager searchManager = (SearchManager)GetSystemService(Context.SearchService);
-
             var searchMenuItem = menu.FindItem(Resource.Id.ArticleList_Search);
             var searchView = (SearchView) searchMenuItem.ActionView;
 
+            // https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
             searchView.SetOnQueryTextListener(this);
 
             return base.OnCreateOptionsMenu(menu);
@@ -140,7 +138,7 @@ namespace VorratsUebersicht
         {
             if (resultCode == Result.Ok)
             {
-                this.ShowArticleList();
+                this.ShowArticleList(this.lastSearchText);
 
                 ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
                 listView.OnRestoreInstanceState(this.listViewState);
@@ -149,15 +147,23 @@ namespace VorratsUebersicht
 
         public bool OnQueryTextChange(string filter)
         {
+            if (this.lastSearchText == filter)
+                return true;
+
             // Filter ggf. mit Adapter, siehe https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
             ShowArticleList(filter);
+            this.lastSearchText = filter;
             return true;
         }
 
         public bool OnQueryTextSubmit(string filter)
         {
+            if (this.lastSearchText == filter)
+                return true;
+
             // Filter ggf. mit Adapter, siehe https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
             ShowArticleList(filter);
+            this.lastSearchText = filter;
             return true;
         }
     }

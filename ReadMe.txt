@@ -92,6 +92,19 @@ Vor dem Hochladen ins Google Store:
 - this.ActivateEANScanDay auf Today + 3 Tage,
   damit die automatische Prüfung sich nicht beim EAN Scan "gefangen bleibt".
 
+Hersteller jetzt auch mit Autovervollständigung.
+Kein Text unter "Artikelname", dann Tastatur einblenden.
+Aus der Einkaufsliste direkt ins Lagerbestand
+Absicherung gegen OutOfMemory Abstürze bei Bildern
+Nach dem EAN Scan der Lagerbestand gleich im Edit-Modus.
+Suche nach Artikeln um Hersteller erweitert
+
+
+
+C051 - FIX: Nach dem Filtern und bearbeiten ist der Filter ohne Wirkung
+C051 - Hersteller jetzt auch mit Autovervollständigung.
+C051 - Kein Text unter "Artikelname", dann Tastatur einblenden.
+C050 - FIX: "Artikel löschen" -> "Nein" beendet den Dialog nicht mehr.
 C047 - Aus der Einkaufsliste direkt ins Lagerbestand
 C046 - Absicherung gegen OutOfMemory Abstürze bei Bildern
 C045 - Nach dem EAN Scan der Lagerbestand gleich im Edit-Modus.
@@ -105,7 +118,7 @@ C042 - Artikelstamm um Einkaufsmarkt, Lagerort, Mindestmenge und bervorzugte Men
 C041 - Spracheingabe für Artikelname (zum Testen)
 C040 - Lagerbestand filtern (nur "abgelaufene")
 
-Version 2.01 (CodeVersion 24)
+Version 2.01 (CodeVersion 24) -> Full rollout im Play Store am 15.06.2018
 ==================================
 
 C038 - Bildaufnahmen mit Android 6 und höher sollte jetzt wieder funktionieren.
