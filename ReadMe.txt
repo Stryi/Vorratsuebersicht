@@ -92,13 +92,14 @@ Vor dem Hochladen ins Google Store:
 - this.ActivateEANScanDay auf Today + 3 Tage,
   damit die automatische Prüfung sich nicht beim EAN Scan "gefangen bleibt".
 
-Hersteller jetzt auch mit Autovervollständigung.
-Kein Text unter "Artikelname", dann Tastatur einblenden.
-Aus der Einkaufsliste direkt ins Lagerbestand
-Absicherung gegen OutOfMemory Abstürze bei Bildern
+Suche nach Artikeln umd Hersteller integriert.
+Artikelstamm um Einkaufsmarkt, Lagerort, Mindestmenge und bevorzugte Menge erweitert.
+Spracheingabe für Artikelname (zum Testen).
+Aus der Einkaufsliste direkt ins Lagerbestand.
 Nach dem EAN Scan der Lagerbestand gleich im Edit-Modus.
-Suche nach Artikeln um Hersteller erweitert
-
+Hersteller jetzt auch mit Autovervollständigung.
+Lagerbestand filtern (nur "abgelaufene")
+Absicherung gegen OutOfMemory Abstürze bei Bildern.
 
 
 C051 - FIX: Nach dem Filtern und bearbeiten ist der Filter ohne Wirkung

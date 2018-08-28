@@ -52,7 +52,7 @@ namespace VorratsUebersicht
 
             // Damit Pre-Launch von Google Play Store nicht immer wieder
             // in die EAN Scan "Fall" tappt und da nicht wieder rauskommt.
-            this.ActivateEANScanDay = new DateTime(2018, 9, 1);
+            this.ActivateEANScanDay = new DateTime(2018, 8, 29);
 
             base.OnCreate(bundle);
 
