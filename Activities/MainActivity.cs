@@ -50,7 +50,7 @@ namespace VorratsUebersicht
             MainActivity.Strings_EANCode       = Resources.GetString(Resource.String.ArticleDetails_EANCode);
             MainActivity.Strings_Amount        = Resources.GetString(Resource.String.ArticleDetails_Amount);
 
-            this.ActivateEANScanDay = new DateTime(2018, 8, 23);
+            this.ActivateEANScanDay = new DateTime(2018, 9, 1);
 
             base.OnCreate(bundle);
 
