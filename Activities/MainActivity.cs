@@ -50,6 +50,8 @@ namespace VorratsUebersicht
             MainActivity.Strings_EANCode       = Resources.GetString(Resource.String.ArticleDetails_EANCode);
             MainActivity.Strings_Amount        = Resources.GetString(Resource.String.ArticleDetails_Amount);
 
+            // Damit Pre-Launch von Google Play Store nicht immer wieder
+            // in die EAN Scan "Fall" tappt und da nicht wieder rauskommt.
             this.ActivateEANScanDay = new DateTime(2018, 9, 1);
 
             base.OnCreate(bundle);
