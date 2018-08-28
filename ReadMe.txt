@@ -85,7 +85,7 @@ oder (falls schon auf dem Einkaufszettel vorhanden) die Menge im Einkaufszettel 
 		5				8					1				7
 
 
-Version 2.11 (CodeVersion 26)
+Version 2.12 (CodeVersion 27)
 ==================================
 
 Vor dem Hochladen ins Google Store: 
@@ -101,6 +101,8 @@ Hersteller jetzt auch mit Autovervollständigung.
 Lagerbestand filtern (nur "abgelaufene")
 Absicherung gegen OutOfMemory Abstürze bei Bildern.
 
+Version 2.11 (CodeVersion 26)
+==================================
 
 C051 - FIX: Nach dem Filtern und bearbeiten ist der Filter ohne Wirkung
 C051 - Hersteller jetzt auch mit Autovervollständigung.
