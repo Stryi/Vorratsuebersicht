@@ -12,6 +12,8 @@ using Android.Support.V4.Content;
 
 namespace VorratsUebersicht
 {
+    using static Tools;
+
     [Activity(Label = "Artikelbestand", Icon = "@drawable/ic_assignment_white_48dp")]
     public class StorageItemQuantityActivity : Activity
     {
@@ -271,8 +273,6 @@ namespace VorratsUebersicht
             {
                 if (item.StorageItem.QuantityDiff == 0)
                     continue;
-
-                System.Diagnostics.Trace.WriteLine(item.StorageItem.Quantity);
 
                 Database.UpdateStorageItemQuantity(
 					item.StorageItem);

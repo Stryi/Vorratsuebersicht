@@ -21,6 +21,8 @@ using Android.Speech;
 
 namespace VorratsUebersicht
 {
+    using static Tools;
+
     [Activity(Label = "@string/Main_Button_Artikelangaben", Icon = "@drawable/ic_local_offer_white_48dp")]
     public class ArticleDetailsActivity : Activity
     {
@@ -173,7 +175,7 @@ namespace VorratsUebersicht
                 this.Window.SetSoftInputMode(SoftInput.StateHidden);
             }
             stopWatch.Stop();
-            Tools.TRACE("Dauer Laden der Artikeldaten: {0}", stopWatch.Elapsed.ToString());
+            TRACE("Dauer Laden der Artikeldaten: {0}", stopWatch.Elapsed.ToString());
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -276,7 +278,7 @@ namespace VorratsUebersicht
             if (scanResult == null)
                 return;
 
-            System.Diagnostics.Trace.WriteLine("Scanned Barcode: " + scanResult.Text);
+            TRACE("Scanned Barcode: {0}", scanResult.Text);
             FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text = scanResult.Text;
         }
 
@@ -719,11 +721,11 @@ namespace VorratsUebersicht
                 RunOnUiThread(() => this.imageView2.Visibility = ViewStates.Gone);
                 RunOnUiThread(() => this.imageTextView.Text = text);
 
-                System.Diagnostics.Trace.WriteLine(string.Format("Bild original : W={0:n0}, H={1:n0}", newBitmap.Width, newBitmap.Height));
-                System.Diagnostics.Trace.WriteLine(string.Format("Bild original : Size={0}", Tools.ToFuzzyByteString(newBitmap.ByteCount)));
-                System.Diagnostics.Trace.WriteLine(string.Format("Bild small    : W={0:n0}, H={1:n0}", smallBitmap.Width, smallBitmap.Height));
-                System.Diagnostics.Trace.WriteLine(string.Format("Bild small    : Size={0}", Tools.ToFuzzyByteString(smallBitmap.ByteCount)));
-                System.Diagnostics.Trace.WriteLine(string.Format("Image size    : Size={0}", Tools.ToFuzzyByteString(this.imageLarge.Length)));
+                TRACE("Bild original : W={0:n0}, H={1:n0}", newBitmap.Width, newBitmap.Height);
+                TRACE("Bild original : Size={0}", Tools.ToFuzzyByteString(newBitmap.ByteCount));
+                TRACE("Bild small    : W={0:n0}, H={1:n0}", smallBitmap.Width, smallBitmap.Height);
+                TRACE("Bild small    : Size={0}", Tools.ToFuzzyByteString(smallBitmap.ByteCount));
+                TRACE("Image size    : Size={0}", Tools.ToFuzzyByteString(this.imageLarge.Length));
             }
             catch(Exception ex)
             {

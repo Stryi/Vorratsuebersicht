@@ -6,6 +6,8 @@ using Android.Content.Res;
 
 namespace VorratsUebersicht
 {
+    using static Tools;
+
     public class StorageItemListView : ListItemViewBase
     {
         public StorageItemListView(StorageItemQuantityResult storageItem)
@@ -130,7 +132,7 @@ namespace VorratsUebersicht
                 Bitmap unScaledBitmap = BitmapFactory.DecodeByteArray (image, 0, image.Length);
 
                 this.bitmp = unScaledBitmap;
-                System.Diagnostics.Trace.WriteLine(this.StorageItem.Name);
+                TRACE("StorageItem Name {0}", this.StorageItem.Name);
 
                 return this.bitmp;
             }

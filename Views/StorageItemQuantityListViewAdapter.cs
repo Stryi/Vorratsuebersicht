@@ -91,7 +91,6 @@ namespace VorratsUebersicht
 
             item.StorageItem.Quantity--;
             item.StorageItem.QuantityDiff--;
-            System.Diagnostics.Trace.WriteLine(item.Heading);
             this.NotifyDataSetChanged();
         }
 
@@ -104,7 +103,6 @@ namespace VorratsUebersicht
 
             item.StorageItem.Quantity++;
             item.StorageItem.QuantityDiff++;
-            System.Diagnostics.Trace.WriteLine(item.Heading);
             this.NotifyDataSetChanged();
         }
 

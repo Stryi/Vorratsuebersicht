@@ -8,6 +8,7 @@ using Android.Content.Res;
 namespace VorratsUebersicht
 {
     using SQLite;
+    using static Tools;
 
     public class Android_Database
     {
@@ -122,7 +123,7 @@ namespace VorratsUebersicht
 			}
 			catch (Exception e)
 			{
-				System.Diagnostics.Trace.WriteLine(e.ToString());
+				TRACE(e);
 				return false;
 			}
             
@@ -204,7 +205,7 @@ namespace VorratsUebersicht
                     }
                     catch (Exception e)
                     {
-                        System.Diagnostics.Trace.WriteLine(e.ToString());
+                        TRACE(e);
                         return false;
                     }
                     return true;
@@ -267,7 +268,7 @@ namespace VorratsUebersicht
                 return null;
 
 			// This is where we copy in the prepopulated database
-			Console.WriteLine (path);
+			TRACE("Database Path: {0}", path);
 			if (!File.Exists(path))
 				return null;
 

@@ -47,7 +47,12 @@ namespace VorratsUebersicht
         }
         public static void TRACE(string format, params object[] args)
         {
-            Log.WriteLine(LogPriority.Debug, "stryi", string.Format(format, args));
+            TRACE(string.Format(format, args));
+        }
+
+        public static void TRACE(Exception e)
+        {
+            Log.WriteLine(LogPriority.Error, "stryi", e.ToString());
         }
     }
 }

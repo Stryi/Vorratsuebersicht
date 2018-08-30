@@ -13,6 +13,8 @@ using Android.Graphics;
 
 namespace VorratsUebersicht
 {
+    using static Tools;
+
     public class ArticleListView : ListItemViewBase
     {
         public ArticleListView(Article article)
@@ -112,17 +114,10 @@ namespace VorratsUebersicht
                 Bitmap unScaledBitmap = BitmapFactory.DecodeByteArray (image, 0, image.Length);
 
                 this.bitmp = unScaledBitmap;
-                System.Diagnostics.Trace.WriteLine(this.Article.Name);
+                TRACE("Article: {0}", this.Article.Name);
 
                 return this.bitmp;
             }
-            /*
-            set
-            {
-                this.bitmp = value;
-            }
-            */
         }
-
     }
 }

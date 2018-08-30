@@ -13,6 +13,8 @@ using Android.Support.V4.Content;
 
 namespace VorratsUebersicht
 {
+    using static Tools;
+
     [Activity(Label = "Vorratsübersicht", Icon = "@drawable/ic_launcher")]
     public class MainActivity : Activity
     {
@@ -382,7 +384,7 @@ namespace VorratsUebersicht
                 if (scanResult == null)
                     return;
 
-                System.Diagnostics.Trace.WriteLine("Scanned Barcode: " + scanResult.Text);
+                TRACE("Scanned Barcode: {0}", scanResult.Text);
                 eanCode = scanResult.Text;
             }
 
