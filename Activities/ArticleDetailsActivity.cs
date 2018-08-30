@@ -184,17 +184,23 @@ namespace VorratsUebersicht
 
         public override bool OnPrepareOptionsMenu(IMenu menu)
         {
-            IMenuItem itemDelete = menu.FindItem(Resource.Id.ArticleDetails_Delete);
+            IMenuItem itemDelete = menu.FindItem(Resource.Id.ArticleDetailsMenu_Delete);
             itemDelete.SetVisible(this.article?.ArticleId > 0);
 
-            IMenuItem itemAddPhoto = menu.FindItem(Resource.Id.ArticleDetails_MakeAPhoto);
+            IMenuItem itemAddPhoto = menu.FindItem(Resource.Id.ArticleDetailsMenu_MakeAPhoto);
             itemAddPhoto.SetVisible(this.cameraExists);
 
-            IMenuItem itemShowPicture = menu.FindItem(Resource.Id.ArticleDetails_ShowPicture);
+            IMenuItem itemShowPicture = menu.FindItem(Resource.Id.ArticleDetailsMenu_ShowPicture);
             itemShowPicture.SetEnabled(this.article.Image != null);
 
-            IMenuItem itemSpeech = menu.FindItem(Resource.Id.ArticleDetails_Speech);
+            IMenuItem itemSpeech = menu.FindItem(Resource.Id.ArticleDetailsMenu_Speech);
             itemSpeech.SetEnabled(this.IsThereAnSpeechAvailable());
+
+            if (MainActivity.IsGooglePlayPreLaunchTestMode)
+            {
+                IMenuItem itemEanScan = menu.FindItem(Resource.Id.ArticleDetailsMenu_ScanEAN);
+                itemEanScan.SetEnabled(false);
+            }
 
             return true;
         }
@@ -207,11 +213,11 @@ namespace VorratsUebersicht
                     this.OnBackPressed();
                     return true;
 
-                case Resource.Id.ArticleDetails_Delete:
+                case Resource.Id.ArticleDetailsMenu_Delete:
                     this.DeleteArticle();
                     return true;
 
-                case Resource.Id.ArticleDetails_Save:
+                case Resource.Id.ArticleDetailsMenu_Save:
                     this.isChanged = true;
 
                     if (!this.SaveArticle())
@@ -222,20 +228,20 @@ namespace VorratsUebersicht
                     this.OnBackPressed();
                     return true;
 
-                case Resource.Id.ArticleDetails_Cancel:
+                case Resource.Id.ArticleDetailsMenu_Cancel:
                     this.MoveTaskToBack(false);
                     this.OnBackPressed();
                     return true;
 
-                case Resource.Id.ArticleDetails_MakeAPhoto:
+                case Resource.Id.ArticleDetailsMenu_MakeAPhoto:
                     this.TakeAPhoto();
                     return true;
 
-                case Resource.Id.ArticleDetails_SelectAPicture:
+                case Resource.Id.ArticleDetailsMenu_SelectAPicture:
                     this.SelectAPicture();
                     return true;
 
-                case Resource.Id.ArticleDetails_ShowPicture:
+                case Resource.Id.ArticleDetailsMenu_ShowPicture:
                     if (this.article.Image != null)
                     { 
                         var articleImage = new Intent (this, typeof(ArticleImageActivity));
@@ -245,15 +251,15 @@ namespace VorratsUebersicht
                     }
                     return true;
 
-                case Resource.Id.ArticleDetails_ScanEAN:
+                case Resource.Id.ArticleDetailsMenu_ScanEAN:
                     this.ScanEAN();
                     return true;
 
-                case Resource.Id.ArticleDetails_ToShoppingList:
+                case Resource.Id.ArticleDetailsMenu_ToShoppingList:
                     this.AddToShoppingListAutomatically();
                     return true;
 
-                case Resource.Id.ArticleDetails_Speech:
+                case Resource.Id.ArticleDetailsMenu_Speech:
                     this.SprachEingabe();
                     return true;
 

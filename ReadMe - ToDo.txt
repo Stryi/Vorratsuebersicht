@@ -5,34 +5,39 @@ Prio 1
 Prio 2
 ======
 
-Lgerbestand / Artikelliste
-- Bilder im Thread oder asynchron laden
-  https://blog.xamarin.com/getting-started-with-async-await/
-
-Bilder
-- Komprimierung/Verkleinerung der Bilder nicht immer effizient
-- Ausrichtung der Bilder beachten (Quer fotografiert)
-- Nach dem Auswahl vom neuen Bild wird noch beim Anklicken das alte angezeigt.
-- Bilder im Verzeichnis "Vorräte Bilder" anschließend löschen.
-
-Lagerliste
-- Letzte Zeile Summe "kcal", "Anzahl" und "Menge nach Einheit"
-
-Artikeldetail
-- Artikelangaben speichern dauert lange (wird auch Image immer wieder gespeichert?)
-- Menü "Bild bearbeiten" und dann "Bild drehen" Funktionalität 
-- Bild entfernen programmieren
+Allgemein
+- System.Diagnostics.Trace.WriteLine, Console.WriteLine,  ersetzten
+  durch TRACE(...) ersetzten.
 
 
-Einkaufszettel
-- Liste anhand der Mindestmenge erstellen.
+Artikelliste
+- Filter auf Kategorie
 
 
 Einstellungen
+- Automatischen Backup ("Alle X Tage...", "Y Kopien behalten")
 - BUG: Backup Hinweis zeit die Test-Datenbank an
 
-Artikel scannen
-- https://corporate.codecheck.info/produkte/produktdaten-api/
+
+Bilder
+- Ausrichtung der Bilder beachten (Quer fotografiert), ggf. "Bild drehen" Funktionalität implementieren.
+- Nach dem Auswahl vom neuen Bild wird noch beim Anklicken das alte angezeigt.
+- Bilder im Verzeichnis "Vorräte Bilder" anschließend löschen.
+- Bild entfernen programmieren
+
+
+Lagerliste
+- Index auf Lager (Abfrage dauert lange)
+- Letzte Zeile Summe "kcal", "Anzahl" und "Menge nach Einheit"
+
+
+Artikeldetail
+- Artikelangaben speichern dauert lange (wird auch Image immer wieder gespeichert?)
+- Klick auf Text neben dem Bild soll auch das Bild zeigen.
+
+
+Einkaufszettel
+- Liste automatisch anhand der Mindestmenge erstellen.
 
 
 Sonstiges
@@ -44,6 +49,14 @@ Sonstiges
 Prio 3
 ======
 
+Bilder
+- Komprimierung/Verkleinerung der Bilder nicht immer effizient
+
+Lagerbestand / Artikelliste
+- Bilder im Thread oder asynchron laden
+  https://blog.xamarin.com/getting-started-with-async-await/
+
+
 Kategorie/Unterkategorie
 - Selbst definierte Kategorien
 - "Keine Kategorie" als Popup Auswahl
@@ -52,11 +65,15 @@ Kategorie/Unterkategorie
 Einkaufsliste:
 - Aus der Lagerbestand Liste auf die Einkaufsliste setzen ("..." Menü?)
 
+
 Lagerbestand
 - Anzahl gruppieren und Summieren nach Datum.
 
 Artikeldetails
 - Mehrere Bilder Pro Artikel
+
+Artikel scannen
+- https://corporate.codecheck.info/produkte/produktdaten-api/
 
 
 Prio 4

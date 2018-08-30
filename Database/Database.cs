@@ -73,9 +73,9 @@ namespace VorratsUebersicht
                 else
                     cmd += " WHERE ";
 
-                cmd += " (UPPER(Article.Name) LIKE ? OR UPPER(Article.Manufacturer) LIKE ?)";
-                parameter.Add("%" + textFilter.ToUpper() + "%");
-                parameter.Add("%" + textFilter.ToUpper() + "%");
+                cmd += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ?)";
+                parameter.Add("%" + textFilter + "%");
+                parameter.Add("%" + textFilter + "%");
             }
 
             cmd += " ORDER BY Name";
@@ -461,9 +461,9 @@ namespace VorratsUebersicht
                 else
                     cmd += " WHERE ";
 
-                cmd += " (UPPER(Article.Name) LIKE ? OR UPPER(Article.Manufacturer) LIKE ?)";
-                parameter.Add("%" + textFilter.ToUpper() + "%");
-                parameter.Add("%" + textFilter.ToUpper() + "%");
+                cmd += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ?)";
+                parameter.Add("%" + textFilter + "%");
+                parameter.Add("%" + textFilter + "%");
             }
 
 
@@ -632,9 +632,9 @@ namespace VorratsUebersicht
             if (!string.IsNullOrEmpty(textFilter))
             {
                 if (string.IsNullOrEmpty(filter)) { filter += " WHERE "; } else { filter += " AND "; }
-                filter += " (UPPER(Article.Name) LIKE ? OR UPPER(Article.Manufacturer) LIKE ?)";
-                parameter.Add("%" + textFilter.ToUpper() + "%");
-                parameter.Add("%" + textFilter.ToUpper() + "%");
+                filter += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ?)";
+                parameter.Add("%" + textFilter + "%");
+                parameter.Add("%" + textFilter + "%");
             }
 
             if (!string.IsNullOrEmpty(storageName))

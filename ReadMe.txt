@@ -85,21 +85,50 @@ oder (falls schon auf dem Einkaufszettel vorhanden) die Menge im Einkaufszettel 
 		5				8					1				7
 
 
-Version 2.12 (CodeVersion 27)
+Version 2.13 (CodeVersion 28)
 ==================================
 
 Vor dem Hochladen ins Google Store: 
-- this.ActivateEANScanDay auf Today + 3 Tage,
-  damit die automatische Prüfung sich nicht beim EAN Scan "gefangen bleibt".
 
-Suche nach Artikeln umd Hersteller integriert.
+  Im MainActivity das Datum in
+
+      MainActivity.preLaunchTestEndDay = new DateTime(2018, 8, 30);
+
+  auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
+  bei Google Play nicht beim EAN Scan "gefangen bleibt".
+
+Play Store Eintrag:
+
+Suche nach Artikeln und Hersteller integriert.
 Artikelstamm um Einkaufsmarkt, Lagerort, Mindestmenge und bevorzugte Menge erweitert.
-Spracheingabe für Artikelname (zum Testen).
+Lagerbestand filtern (nur "abgelaufene")
 Aus der Einkaufsliste direkt ins Lagerbestand.
 Nach dem EAN Scan der Lagerbestand gleich im Edit-Modus.
 Hersteller jetzt auch mit Autovervollständigung.
+Spracheingabe für Artikelname (zum Testen).
+FIX: Suche nach Umlauten in Artikel-, Einkaufs- und Lagerliste funktioniert jetzt.
+
+- Suche nach Umlauten in Artikel-, Einkaufs- und Lagerliste funktioniert jetzt.
+- Pre-Launch Tests "austricksen"
+- NullReferenzException in Artikel- und Lagerliste vorbeugen
+
+
+Version 2.12 (CodeVersion 27)
+==================================
+
+Play Store Eintrag:
+
+Suche nach Artikeln und Hersteller integriert.
+Artikelstamm um Einkaufsmarkt, Lagerort, Mindestmenge und bevorzugte Menge erweitert.
 Lagerbestand filtern (nur "abgelaufene")
+Aus der Einkaufsliste direkt ins Lagerbestand.
+Nach dem EAN Scan der Lagerbestand gleich im Edit-Modus.
+Hersteller jetzt auch mit Autovervollständigung.
+Spracheingabe für Artikelname (zum Testen).
 Absicherung gegen OutOfMemory Abstürze bei Bildern.
+
+
+EAN Scan am 29.08.2018 aktivieren.
 
 Version 2.11 (CodeVersion 26)
 ==================================

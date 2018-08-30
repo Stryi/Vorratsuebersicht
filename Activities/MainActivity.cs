@@ -33,7 +33,7 @@ namespace VorratsUebersicht
         public static string Strings_EANCode;
         public static string Strings_Amount;
 
-        private DateTime ActivateEANScanDay;
+        private static DateTime preLaunchTestEndDay;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -51,8 +51,8 @@ namespace VorratsUebersicht
             MainActivity.Strings_Amount        = Resources.GetString(Resource.String.ArticleDetails_Amount);
 
             // Damit Pre-Launch von Google Play Store nicht immer wieder
-            // in die EAN Scan "Fall" tappt und da nicht wieder rauskommt.
-            this.ActivateEANScanDay = new DateTime(2018, 8, 29);
+            // in die EAN Scan "Falle" tappt und da nicht wieder rauskommt.
+            MainActivity.preLaunchTestEndDay = new DateTime(2018, 8, 30);
 
             base.OnCreate(bundle);
 
@@ -74,7 +74,14 @@ namespace VorratsUebersicht
             // Datenbanken erstellen
             new Android_Database().RestoreSampleDatabaseFromResources();
 
-            this.ShowInfoAufTestdatenbank();
+            if (MainActivity.IsGooglePlayPreLaunchTestMode)
+            {
+			    Android_Database.UseTestDatabase = true;
+            }
+            else
+            {
+                this.ShowInfoAufTestdatenbank();
+            }
 
             string databaseName = new Android_Database().GetDatabasePath();
             if (databaseName == null)
@@ -181,6 +188,14 @@ namespace VorratsUebersicht
 
         private void ShowInfoAufTestversion()
         {
+            if (MainActivity.IsGooglePlayPreLaunchTestMode)
+            {
+                string message = "Die App befindet sich im Testmodus. Einige funktionen sind temporär bis {0} deaktiviert.";
+                message = string.Format(message, MainActivity.preLaunchTestEndDay.AddDays(-1).ToShortDateString());
+                this.SetInfoText(message);
+                return;
+            }
+
             var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
             string lastRunDay = prefs.GetString("LastRunDay", string.Empty);
             string today      = DateTime.Today.ToString("yyyy.MM.dd");
@@ -345,7 +360,7 @@ namespace VorratsUebersicht
 
             // Barcode scannen
             Button buttonBarcode = FindViewById<Button>(Resource.Id.MainButton_Barcode);
-            if (DateTime.Now.Date >= this.ActivateEANScanDay)
+            if (!MainActivity.IsGooglePlayPreLaunchTestMode)
             {
                 buttonBarcode.Enabled = enable;
             }
@@ -429,6 +444,14 @@ namespace VorratsUebersicht
             storageitemList.PutExtra("EANCode", eanCode);
             storageitemList.PutExtra("ShowEmptyStorageArticles", true); // Auch Artikel ohne Lagerbestand anzeigen
             StartActivity(storageitemList);
+        }
+
+        public static bool IsGooglePlayPreLaunchTestMode
+        {
+            get
+            {
+                return DateTime.Now.Date < MainActivity.preLaunchTestEndDay;
+            }
         }
     }
 }

@@ -36,6 +36,11 @@ namespace VorratsUebersicht
             buttonTestDB.Click += ButtonTestDB_Click;
             buttonTestDB.Checked = Android_Database.UseTestDatabase;
 
+            if (MainActivity.IsGooglePlayPreLaunchTestMode)
+            {
+                buttonTestDB.Enabled = false;
+            }
+
             Button buttonRestoreSampleDb = FindViewById<Button>(Resource.Id.SettingsButton_RestoreSampleDb);
             buttonRestoreSampleDb.Click += ButtonRestoreSampleDb_Click;
 
