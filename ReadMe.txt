@@ -85,7 +85,7 @@ oder (falls schon auf dem Einkaufszettel vorhanden) die Menge im Einkaufszettel 
 		5				8					1				7
 
 
-Version 2.13 (CodeVersion 28)
+Version 2.14 (CodeVersion 29)
 ==================================
 
 Vor dem Hochladen ins Google Store: 
@@ -99,18 +99,17 @@ Vor dem Hochladen ins Google Store:
 
 Play Store Eintrag:
 
-Suche nach Artikeln und Hersteller integriert.
-Artikelstamm um Einkaufsmarkt, Lagerort, Mindestmenge und bevorzugte Menge erweitert.
-Lagerbestand filtern (nur "abgelaufene")
-Aus der Einkaufsliste direkt ins Lagerbestand.
-Nach dem EAN Scan der Lagerbestand gleich im Edit-Modus.
-Hersteller jetzt auch mit Autovervollständigung.
-Spracheingabe für Artikelname (zum Testen).
-FIX: Suche nach Umlauten in Artikel-, Einkaufs- und Lagerliste funktioniert jetzt.
+	TODO
 
-- Suche nach Umlauten in Artikel-, Einkaufs- und Lagerliste funktioniert jetzt.
-- Pre-Launch Tests "austricksen"
-- NullReferenzException in Artikel- und Lagerliste vorbeugen
+C057 - Artikelliste: Filter auf Kategorie.
+
+
+Version 2.13 (CodeVersion 28)
+==================================
+
+C056 - Suche nach Umlauten in Artikel-, Einkaufs- und Lagerliste funktioniert jetzt.
+C055 - Pre-Launch Tests "austricksen"
+C054 - NullReferenzException in Artikel- und Lagerliste vorbeugen
 
 
 Version 2.12 (CodeVersion 27)
@@ -133,8 +132,8 @@ EAN Scan am 29.08.2018 aktivieren.
 Version 2.11 (CodeVersion 26)
 ==================================
 
-C051 - FIX: Nach dem Filtern und bearbeiten ist der Filter ohne Wirkung
-C051 - Hersteller jetzt auch mit Autovervollständigung.
+C053 - FIX: Nach dem Filtern und bearbeiten ist der Filter ohne Wirkung
+C052 - Hersteller jetzt auch mit Autovervollständigung.
 C051 - Kein Text unter "Artikelname", dann Tastatur einblenden.
 C050 - FIX: "Artikel löschen" -> "Nein" beendet den Dialog nicht mehr.
 C047 - Aus der Einkaufsliste direkt ins Lagerbestand

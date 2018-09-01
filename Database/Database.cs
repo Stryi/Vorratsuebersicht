@@ -367,6 +367,37 @@ namespace VorratsUebersicht
             return stringList;
         }
 
+        internal static List<string> GetCategoryNames()
+        {
+            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+
+            // Artikel suchen, die schon abgelaufen sind.
+            string cmd = string.Empty;
+            cmd += "SELECT DISTINCT Category AS Value";
+            cmd += " FROM Article";
+            cmd += " WHERE Category IS NOT NULL";
+            cmd += " ORDER BY Category";
+
+            SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
+
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            IList<StringResult> result = command.ExecuteQuery<StringResult>();
+            stopWatch.Stop();
+            Tools.TRACE("Dauer der Abfrage für DISTINCT Category: {0}", stopWatch.Elapsed.ToString());
+
+            List<string> stringList = new List<string>();
+            for (int i = 0; i < result.Count; i++)
+            {
+                string storageName = result[i].Value;
+                if (string.IsNullOrEmpty(storageName))
+                    continue;
+
+                stringList.Add(storageName);
+            }
+
+            return stringList;
+        }
         
         internal static string[] GetManufacturerNames()
         {

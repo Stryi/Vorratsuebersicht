@@ -20,6 +20,7 @@ namespace VorratsUebersicht
         private string category;
         private string subCategory;
         private string lastSearchText = string.Empty;
+        private List<string> categoryList;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -43,10 +44,43 @@ namespace VorratsUebersicht
             ActionBar.SetBackgroundDrawable(backgroundPaint);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
+            this.categoryList = new List<string>();
+            this.categoryList.Add(Resources.GetString(Resource.String.ArticleList_AllCategories));
+            this.categoryList.AddRange(Database.GetCategoryNames());
+
+            if (categoryList.Count > 1)
+            {
+                var categorySelection = FindViewById<LinearLayout>(Resource.Id.ArticleList_SelectCategory);
+                categorySelection.Visibility = ViewStates.Visible;
+
+                var spinnerCategory = FindViewById<Spinner>(Resource.Id.ArticleList_Categories);
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleSpinnerItem, this.categoryList);
+                dataAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+                spinnerCategory.Adapter = dataAdapter;
+
+                spinnerCategory.ItemSelected += SpinnerCategory_ItemSelected;
+            }
+
+
             ShowArticleList();
 
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
             listView.ItemClick += OnOpenArticleDetails;
+        }
+
+        private void SpinnerCategory_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            string newCategoryName = string.Empty;
+            if (e.Position > 0)
+            {
+                newCategoryName = this.categoryList[e.Position];
+            }
+
+            if (newCategoryName != this.category)
+            {
+                this.category = newCategoryName;
+                this.ShowArticleList(this.lastSearchText);
+            }
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

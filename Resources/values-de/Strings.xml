@@ -9,10 +9,10 @@
   <string name="App_Cancel">Abbrechen</string>
   <string name="App_Save">Speichern</string>
 
-
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">Sie starten die Anwendung zum ersten Mal.\n\nSoll eine Testdatenbank zum Kennenlernen der Anwendung aktiviert werden?\n\nDiese können Sie dann unter Optionen wieder deaktivieren.</string>
   <string name="Start_TestVersionInfo">Diese App wird ständig sorgsam weiterentwickelt. Dennoch kann es zu Fehlern oder Abstürzen kommen. Für Datenverlust kann nicht gehaftet werden.</string>
+  <string name="Start_TestVersionInfo2">Bitte sichern Sie regelmäßig die Datenbank \'{0}\'.</string>
 
   <!-- Hauptmaske -->
   <string name="Main_DemnaechstZuVerbrauchen">Demnächst zu verbrauchen:</string>
@@ -38,6 +38,9 @@
   <string name="Settings_BackupAndRestoreInfo">Zum Sichern und Wiederherstellen der produktiven Datenbank kopieren Sie die folgende Datei:\n\n{0}</string>
   <string name="Settings_DeleteProdDbQuestion">Soll Ihre PRODUKTIVE Datenbank wirklich GELÖSCHT werden?</string>
 
+  <!-- Artikelliste -->
+  <string name="ArticleList_AllCategories">[Alle Kategorien]</string>
+  
   <!-- Artikeldetails Menü -->
   <string name="ArticleDetails_Menu_DeleteArticle">Artikel löschen</string>
   <string name="ArticleDetails_Menu_CreatePicture">Bild erstellen</string>

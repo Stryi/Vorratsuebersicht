@@ -190,9 +190,11 @@ namespace VorratsUebersicht
 
         private void ShowInfoAufTestversion()
         {
+            string message = string.Empty;
+
             if (MainActivity.IsGooglePlayPreLaunchTestMode)
             {
-                string message = "Die App befindet sich im Testmodus. Einige funktionen sind temporär bis {0} deaktiviert.";
+                message = "Die App befindet sich im Testmodus. Einige Funktionen sind temporär bis {0} deaktiviert.";
                 message = string.Format(message, MainActivity.preLaunchTestEndDay.AddDays(-1).ToShortDateString());
                 this.SetInfoText(message);
                 return;
@@ -200,15 +202,44 @@ namespace VorratsUebersicht
 
             var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
             string lastRunDay = prefs.GetString("LastRunDay", string.Empty);
-            string today      = DateTime.Today.ToString("yyyy.MM.dd");
+            int startInfoNr   = prefs.GetInt("StartInfoNumber", 0);
 
-            if (!lastRunDay.Equals(today))
+            DateTime lastRun = new DateTime();
+            DateTime today = DateTime.Today;
+
+            if (!string.IsNullOrEmpty(lastRunDay))
             {
-                this.SetInfoText(Resources.GetString(Resource.String.Start_TestVersionInfo));
+                lastRun = DateTime.ParseExact(lastRunDay, "yyyy.MM.dd", CultureInfo.InvariantCulture);
+            }
+
+            if (today != lastRun)
+            {
+                startInfoNr++;
+                if (startInfoNr > 2)
+                    startInfoNr = 1;
+
+                switch(startInfoNr)
+                {
+                    case 1:
+                        message = Resources.GetString(Resource.String.Start_TestVersionInfo);
+                        break;
+
+                    case 2:
+                        message = Resources.GetString(Resource.String.Start_TestVersionInfo2);
+                        string databaseName = new Android_Database().GetDatabasePath();
+                        message = string.Format(message, databaseName); 
+                        break;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                this.SetInfoText(message);
             }
 
             var prefEditor = prefs.Edit();
-            prefEditor.PutString("LastRunDay", today);
+            prefEditor.PutString("LastRunDay",   today.ToString("yyyy.MM.dd"));
+            prefEditor.PutInt("StartInfoNumber", startInfoNr);
             prefEditor.Commit();
         }
 

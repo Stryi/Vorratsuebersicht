@@ -5,11 +5,6 @@ Prio 1
 Prio 2
 ======
 
-Allgemein
-- System.Diagnostics.Trace.WriteLine, Console.WriteLine,  ersetzten
-  durch TRACE(...) ersetzten.
-
-
 Artikelliste
 - Filter auf Kategorie
 
