@@ -85,29 +85,33 @@ oder (falls schon auf dem Einkaufszettel vorhanden) die Menge im Einkaufszettel 
 		5				8					1				7
 
 
-Version 2.14 (CodeVersion 29)
+Version 2.13 (CodeVersion 28)
 ==================================
 
 Vor dem Hochladen ins Google Store: 
 
   Im MainActivity das Datum in
 
-      MainActivity.preLaunchTestEndDay = new DateTime(2018, 8, 30);
+      MainActivity.preLaunchTestEndDay = new DateTime(2018, 9, 3);
 
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
 Play Store Eintrag:
 
-	TODO
+Notizen in Artikelliste und Einkaufsliste.
+Artikelliste: Filter auf Kategorie.
+Suche nach Artikeln und Hersteller integriert.
+Artikelstamm um Einkaufsmarkt, Lagerort, Mindestmenge und bevorzugte Menge erweitert.
+Lagerbestand filtern (nur "abgelaufene")
+Aus der Einkaufsliste direkt ins Lagerbestand.
+Nach dem EAN Scan der Lagerbestand gleich im Edit-Modus.
+Hersteller jetzt auch mit Autovervollständigung.
+Spracheingabe für Artikelname (zum Testen).
 
-C058 - Notizen in Artikelliste und Einkaufsliste wird angezeigt
+
+C058 - Notizen in Artikelliste und Einkaufsliste.
 C057 - Artikelliste: Filter auf Kategorie.
-
-
-Version 2.13 (CodeVersion 28)
-==================================
-
 C056 - Suche nach Umlauten in Artikel-, Einkaufs- und Lagerliste funktioniert jetzt.
 C055 - Pre-Launch Tests "austricksen"
 C054 - NullReferenzException in Artikel- und Lagerliste vorbeugen
