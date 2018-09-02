@@ -60,7 +60,7 @@ namespace VorratsUebersicht
             string cmd = string.Empty;
             SQLiteCommand command;
 
-            cmd += "SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Supermarket, Size, Unit, Calorie, Quantity";
+            cmd += "SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Supermarket, Size, Unit, Calorie, Quantity, Notes";
             cmd += " FROM ShoppingList";
             cmd += " LEFT JOIN Article ON ShoppingList.ArticleId = Article.ArticleId";
 

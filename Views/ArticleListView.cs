@@ -86,6 +86,12 @@ namespace VorratsUebersicht
                     info += MainActivity.Strings_Storage;
                     info += string.Format(" {0}", this.Article.StorageName);
                 }
+                if (!string.IsNullOrEmpty(this.Article.Notes))
+                {
+                    if (!string.IsNullOrEmpty(info)) info += "\n";
+                    info += MainActivity.Strings_Notes;
+                    info += string.Format("{0}", this.Article.Notes);
+                }
 
                 return info;
 			}

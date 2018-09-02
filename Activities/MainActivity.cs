@@ -34,6 +34,7 @@ namespace VorratsUebersicht
         public static string Strings_PrefQuantity;
         public static string Strings_EANCode;
         public static string Strings_Amount;
+        public static string Strings_Notes;
 
         private static DateTime preLaunchTestEndDay;
 
@@ -51,6 +52,7 @@ namespace VorratsUebersicht
             MainActivity.Strings_PrefQuantity  = Resources.GetString(Resource.String.ArticleDetails_PrefQuantityLabel);
             MainActivity.Strings_EANCode       = Resources.GetString(Resource.String.ArticleDetails_EANCode);
             MainActivity.Strings_Amount        = Resources.GetString(Resource.String.ArticleDetails_Amount);
+            MainActivity.Strings_Notes         = Resources.GetString(Resource.String.ArticleDetails_Notes);
 
             // Damit Pre-Launch von Google Play Store nicht immer wieder
             // in die EAN Scan "Falle" tappt und da nicht wieder rauskommt.

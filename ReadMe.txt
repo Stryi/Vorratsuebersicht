@@ -101,6 +101,7 @@ Play Store Eintrag:
 
 	TODO
 
+C058 - Notizen in Artikelliste und Einkaufsliste wird angezeigt
 C057 - Artikelliste: Filter auf Kategorie.
 
 
