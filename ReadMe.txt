@@ -85,7 +85,7 @@ oder (falls schon auf dem Einkaufszettel vorhanden) die Menge im Einkaufszettel 
 		5				8					1				7
 
 
-Version 2.13 (CodeVersion 28)
+Version 2.14 (CodeVersion 29)
 ==================================
 
 Vor dem Hochladen ins Google Store: 
