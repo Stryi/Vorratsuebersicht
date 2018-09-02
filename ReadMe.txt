@@ -110,6 +110,11 @@ Hersteller jetzt auch mit Autovervollständigung.
 Spracheingabe für Artikelname (zum Testen).
 
 
+C059 - Deutlicher Hinweis auf den Testbetrieb.
+
+Version 2.13 (CodeVersion 28)
+==================================
+
 C058 - Notizen in Artikelliste und Einkaufsliste.
 C057 - Artikelliste: Filter auf Kategorie.
 C056 - Suche nach Umlauten in Artikel-, Einkaufs- und Lagerliste funktioniert jetzt.

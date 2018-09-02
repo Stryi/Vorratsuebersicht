@@ -196,8 +196,18 @@ namespace VorratsUebersicht
 
             if (MainActivity.IsGooglePlayPreLaunchTestMode)
             {
-                message = "Die App befindet sich im Testmodus. Einige Funktionen sind temporär bis {0} deaktiviert.";
+                message = "Die App befindet sich im Testmodus. Folgende Einschränkung bestehen bis zum {0}:\n\n";
+                message += "- Nur Testdatenbank\n";
+                message += "- Kein EAN Scan\n";
                 message = string.Format(message, MainActivity.preLaunchTestEndDay.AddDays(-1).ToShortDateString());
+
+                var messageDialog = new AlertDialog.Builder(this);
+                messageDialog.SetMessage(message);
+                messageDialog.SetTitle(Resource.String.App_Name);
+                messageDialog.SetIcon(Resource.Drawable.ic_launcher);
+                messageDialog.SetPositiveButton(Resource.String.App_Ok, (s, e) => {});
+                messageDialog.Create().Show();
+
                 this.SetInfoText(message);
                 return;
             }
