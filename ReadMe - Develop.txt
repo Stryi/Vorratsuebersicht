@@ -75,13 +75,9 @@ Fehler Berichte:
 Geplante Funktionalitäten
 =========================
 
-    - Einkaufsliste
-
     - Auswertung des Lagers (Gesamt Gewicht, Gesamt Kalorien, Liste der Artikel,...)
 
     - Backup, Restore
-
-    - Lagerort Verwaltung
 
     - Historie der Lagerbewegung (Lagerbewegungsdaten)
     

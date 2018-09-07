@@ -2,14 +2,22 @@
 Vorratsübersicht - Mindesthaltbarkeitsdatum von Vorräten überwachen
 ===================================================================
 
-Mit dieser App können Sie Mindesthaltbarkeitsdatum der Lebensmittel in Ihrem Vorratsschrank überwachen.
+Mit dieser App können Sie Mindesthaltbarkeitsdatum der Lebensmittel in Ihren Vorräten überwachen.
 
 Funktionsweise
 
-Für jeden Artikel kann Menge und das Mindesthaltbarkeitsdatum erfasst werden.
-Wird das Datum überschritten, so erscheint ein roter Hinweis.
-Wird pro Artikel zusätzlich eine Anzahl Tage für die Warnung angegeben, 
-so erfolgt schon vor dem Datum ein gelber Hinweis.
+Zuerst wird ein Artikel (einmalig) in "Artikelliste" mit seinen Angaben und ggf. Bild erfasst.
+Danach kann im "Lagerbestand" den Artikel auswählen und die Menge mit Ablaufdatum eintragen werden.
+Nähert sich das Ablaufdatum oder wird das Datum überschritten, so erscheint eine Warnung in der App.
+
+Wird beim Artikel der EAN Code eingetragen (oder gescannt),
+so kann man über "Artikel scannen" direkt den Lagerbestand oder die Artikelangaben bearbeiten.
+Die Artikeldaten werden über den EAN Code nicht automatisch (z.B. über's Internet) ermittelt.
+
+Für die Warnung vor dem Ablaufdatum kann pro Artikel anzahl Tage definieren werden.
+
+
+
 
 Die Artikel können anhand vom EAN Code erfasst und gesucht werden.
 Die Angaben zum Artikel müssen jedoch (einmalig) manuell gemacht werden, 
@@ -39,53 +47,8 @@ Die eingesetzte SQLite Datenbank unterstützt diese Sortierung nicht.
 Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
-Logik der Bestellmenge:
 
-Der Anwender bekommt beim Speichern der Bestandsliste bei 
-
-	[ToBuy] -[Menge auf Einkaufszettel] > 0 
-	
-eine Meldung, ob er das Artikel mit der Menge (s. Formel) auf die Einkaufsliste setzen will.
-
-Beim Betätigen des 'Einkaufswagen' Icons wird ohne Nachfrage 'ToBuy' Menge bestellt
-oder (falls schon auf dem Einkaufszettel vorhanden) die Menge im Einkaufszettel um 1 erhöht.
-
-	Nur 'MinQuantity' gesetzt: Bestellt wird beim Unterschreiten auf die 'MinQuantity' Menge.
-
-
-		MinQuantity		PrefQuantity		IsQuantity		ToBuy
-		5				-					6				-
-		5				-					5				-
-		5				-					4				1
-		5				-					3				2
-		5				-					2				3
-
-	Nur 'PrefQuantity' gesetzt: Verhalten wie bei 'MinQuantity'.
-	Bestellt wird beim Unterschreiten auf die 'PrefQuantity' Menge.
-
-		MinQuantity		PrefQuantity		IsQuantity		ToBuy
-		-				8					9				-
-		-				8					8				-
-		-				8					7				1
-		-				8					1				6
-
-
-	Nur 'MinQuantity' und 'PrefQuantity' gesetzt: 
-	Beim Unterschreiten der MinQuantity	wird auf die PrefQuantity bestellt
-
-		MinQuantity		PrefQuantity		IsQuantity		ToBuy
-		5				8					9				-
-		5				8					8				-
-		5				8					7				-
-		5				8					6				-
-		5				8					5				-
-		5				8					4				4
-		5				8					3				5
-		5				8					4				6
-		5				8					1				7
-
-
-Version 2.14 (CodeVersion 29)
+Version 2.15 (CodeVersion 30)
 ==================================
 
 Vor dem Hochladen ins Google Store: 
@@ -109,6 +72,11 @@ Nach dem EAN Scan der Lagerbestand gleich im Edit-Modus.
 Hersteller jetzt auch mit Autovervollständigung.
 Spracheingabe für Artikelname (zum Testen).
 
+C061 - Bilder drehen
+C060 - Meldung beim erstmaligen Starten der Anwendung jetzt verständlicher.
+
+Version 2.14 (CodeVersion 29)
+==================================
 
 C059 - Deutlicher Hinweis auf den Testbetrieb.
 

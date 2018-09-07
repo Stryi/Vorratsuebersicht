@@ -266,13 +266,13 @@ namespace VorratsUebersicht
                 message.SetMessage(Resource.String.Start_TestDbQuestion);
                 message.SetTitle(Resource.String.App_Name);
                 message.SetIcon(Resource.Drawable.ic_launcher);
-                message.SetPositiveButton(Resource.String.App_Yes, (s, e) => 
+                message.SetPositiveButton("Test starten", (s, e) => 
                     { 
                         Android_Database.UseTestDatabase = true;
                         Android_Database.SQLiteConnection = null;   // Sich neu connecten;
                         this.ShowStorageInfoText();
                     });
-                message.SetNegativeButton(Resource.String.App_No, (s, e) => { });
+                message.SetNegativeButton("OK", (s, e) => { });
                 message.Create().Show();
             }
 
