@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -14,7 +15,7 @@ namespace VorratsUebersicht
 {
     using static Tools;
 
-    [Activity(Label = "Artikelbestand", Icon = "@drawable/ic_assignment_white_48dp")]
+    [Activity(Label = "Artikelbestand", Icon = "@drawable/ic_assignment_white_48dp", ScreenOrientation = ScreenOrientation.Portrait)]
     public class StorageItemQuantityActivity : Activity
     {
         public static List<StorageItemQuantityListView> liste = null;
