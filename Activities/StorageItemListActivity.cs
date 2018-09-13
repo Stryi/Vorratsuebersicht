@@ -172,6 +172,9 @@ namespace VorratsUebersicht
             {
                 this.ShowStorageItemList(this.lastSearchText);
 
+                if (this.listViewState == null)
+                    return;
+
                 ListView listView = FindViewById<ListView>(Resource.Id.MyListView);
                 listView?.OnRestoreInstanceState(this.listViewState);
             }
