@@ -171,8 +171,6 @@ namespace VorratsUebersicht
 
         internal static int GetToShoppingListQuantity(int articleId, int minQuantity, int prefQuantity)
         {
-            ArticleData article = Database.GetArticleData(articleId);
-
             int isQuantity  = (int)Database.GetArticleQuantityInStorage(articleId);
 
             int toBuyQuantity = ShoppingListHelper.GetToBuyQuantity(minQuantity, prefQuantity, isQuantity);
@@ -254,6 +252,24 @@ namespace VorratsUebersicht
             var command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
 
             return command.ExecuteQuery<Article>().First();
+        }
+
+        internal static void SaveArticleImages(int articleId, byte[] imageLarge, byte[] image)
+        {
+            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            if (databaseConnection == null)
+                return;
+
+            string cmd = string.Empty;
+
+			cmd += "UPDATE Article SET";
+			cmd += " ImageLarge = ?,";
+			cmd += " Image = ?";
+			cmd += " WHERE ArticleId = ?";
+
+			var command = databaseConnection.CreateCommand(cmd, new object[] { imageLarge, imageLarge, articleId });
+
+            command.ExecuteNonQuery();
         }
 
         internal static decimal GetArticleQuantityInStorage(int articleId)

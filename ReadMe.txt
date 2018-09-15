@@ -62,6 +62,7 @@ Vor dem Hochladen ins Google Store:
 
 Play Store Eintrag:
 
+Bilder drehen jetzt möglich.
 Notizen in Artikelliste und Einkaufsliste.
 Artikelliste: Filter auf Kategorie.
 Suche nach Artikeln und Hersteller integriert.
@@ -70,9 +71,9 @@ Lagerbestand filtern (nur "abgelaufene")
 Aus der Einkaufsliste direkt ins Lagerbestand.
 Nach dem EAN Scan der Lagerbestand gleich im Edit-Modus.
 Hersteller jetzt auch mit Autovervollständigung.
-Spracheingabe für Artikelname (zum Testen).
 
-C061 - Bilder drehen
+
+C061 - Bilder drehen jetzt möglich
 C060 - Meldung beim erstmaligen Starten der Anwendung jetzt verständlicher.
 
 Version 2.14 (CodeVersion 29)

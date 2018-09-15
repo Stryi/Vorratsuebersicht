@@ -23,14 +23,15 @@ namespace VorratsUebersicht
 {
     using static Tools;
 
-    [Activity(Label = "@string/Main_Button_Artikelangaben", Icon = "@drawable/ic_local_offer_white_48dp")]
+    [Activity(Label = "@string/Main_Button_Artikelangaben", Icon = "@drawable/ic_local_offer_white_48dp", ScreenOrientation = ScreenOrientation.Portrait)]
     public class ArticleDetailsActivity : Activity
     {
+        internal static byte[] imageLarge;
+        internal static byte[] imageSmall;
+
         Article article;
         int articleId;
         bool isChanged = false;
-        byte[] imageLarge;
-        byte[] imageSmall;
         ImageView imageView;
         ImageView imageView2;
         TextView  imageTextView;
@@ -52,6 +53,21 @@ namespace VorratsUebersicht
         public static readonly int PickImageId = 1000;
         public static readonly int TakePhotoId = 1001;
         public static readonly int SpechId = 1002;
+        public static readonly int EditPhoto = 1003;
+
+        public bool IsPhotoSelected
+        {
+            get 
+            {
+                if (this.article.Image != null)
+                    return true;
+
+                if (ArticleDetailsActivity.imageLarge != null)
+                    return true;
+
+                return false;
+            }
+        }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -149,20 +165,8 @@ namespace VorratsUebersicht
 
             this.ShowPictureAndDetails(this.articleId, eanCode);
 
-            imageView.Click += delegate
-            {
-                if (this.article.Image == null)
-                {
-                    this.TakeAPhoto();
-                    return;
-                };
-
-
-                var articleImage = new Intent (this, typeof(ArticleImageActivity));
-                articleImage.PutExtra("ArticleId", this.articleId);
-                articleImage.PutExtra("Large", true);
-                StartActivity (articleImage);
-            };
+            imageView.Click     += TakeOrShowPhoto;
+            imageTextView.Click += TakeOrShowPhoto;
 
             imageView2.Click += delegate
             {
@@ -176,6 +180,21 @@ namespace VorratsUebersicht
             }
             stopWatch.Stop();
             TRACE("Dauer Laden der Artikeldaten: {0}", stopWatch.Elapsed.ToString());
+        }
+
+        private void TakeOrShowPhoto(object sender, EventArgs e)
+        {
+            if (!this.IsPhotoSelected)
+            {
+                this.TakeAPhoto();
+                return;
+            };
+
+
+            var articleImage = new Intent (this, typeof(ArticleImageActivity));
+            articleImage.PutExtra("ArticleId", this.articleId);
+            articleImage.PutExtra("EditMode", true);
+            StartActivityForResult (articleImage, EditPhoto);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -193,7 +212,7 @@ namespace VorratsUebersicht
             itemAddPhoto.SetVisible(this.cameraExists);
 
             IMenuItem itemShowPicture = menu.FindItem(Resource.Id.ArticleDetailsMenu_ShowPicture);
-            itemShowPicture.SetEnabled(this.article.Image != null);
+            itemShowPicture.SetEnabled(this.IsPhotoSelected);
 
             IMenuItem itemSpeech = menu.FindItem(Resource.Id.ArticleDetailsMenu_Speech);
             itemSpeech.SetEnabled(this.IsThereAnSpeechAvailable());
@@ -220,8 +239,6 @@ namespace VorratsUebersicht
                     return true;
 
                 case Resource.Id.ArticleDetailsMenu_Save:
-                    this.isChanged = true;
-
                     if (!this.SaveArticle())
                     {
                         return false;
@@ -244,12 +261,12 @@ namespace VorratsUebersicht
                     return true;
 
                 case Resource.Id.ArticleDetailsMenu_ShowPicture:
-                    if (this.article.Image != null)
+                    if (this.IsPhotoSelected)
                     { 
                         var articleImage = new Intent (this, typeof(ArticleImageActivity));
                         articleImage.PutExtra("ArticleId", this.articleId);
-                        articleImage.PutExtra("Large", true);
-                        StartActivity (articleImage);
+                        articleImage.PutExtra("EditMode", true);
+                        StartActivityForResult (articleImage, EditPhoto);
                     }
                     return true;
 
@@ -258,7 +275,7 @@ namespace VorratsUebersicht
                     return true;
 
                 case Resource.Id.ArticleDetailsMenu_ToShoppingList:
-                    this.AddToShoppingListAutomatically();
+                    this.SaveAndAddToShoppingList();                // Bei Neuanlage erst Artikel speichern (sonst keine Referenz aus dem Einkaufszettel)
                     return true;
 
                 case Resource.Id.ArticleDetailsMenu_Speech:
@@ -268,6 +285,30 @@ namespace VorratsUebersicht
             }
 
             return false;
+        }
+
+        private void SaveAndAddToShoppingList()
+        {
+            if (this.articleId != 0)
+            {
+                this.AddToShoppingListAutomatically();
+                return;
+            }
+
+            var message = new AlertDialog.Builder(this);
+            message.SetMessage("Ein Artikel kann erst nach der Neuanlage auf die Einkaufsliste kommen.\n\nArtikel speichern (anlegen)?");
+            message.SetIcon(Resource.Drawable.ic_launcher);
+            message.SetPositiveButton("OK", (s, e) => 
+                {
+                    this.SaveArticle();
+                    if (this.articleId != 0)    // Speichern erfolgreich (articleId gesetzt?)
+                    {
+                        this.AddToShoppingListAutomatically();
+                        return;
+                    }
+                });
+            message.SetNegativeButton("Abbrechen", (s, e) => { });
+            message.Create().Show();
         }
 
         private async void ScanEAN()
@@ -349,6 +390,14 @@ namespace VorratsUebersicht
                     text.Text = textInput;
                 }
             }
+
+            if (requestCode == EditPhoto)
+            {
+                Bitmap bitmap = BitmapFactory.DecodeByteArray(ArticleDetailsActivity.imageLarge, 0, ArticleDetailsActivity.imageLarge.Length);
+                
+                this.imageView.SetImageBitmap(bitmap);
+                this.isChanged = true;
+            }
         }
 
         public override void OnBackPressed()
@@ -362,6 +411,8 @@ namespace VorratsUebersicht
             base.OnBackPressed();
 
             this.article = null;
+            ArticleDetailsActivity.imageLarge = null;
+            ArticleDetailsActivity.imageSmall = null;
         }
 
         private void SelectAPicture()
@@ -445,11 +496,11 @@ namespace VorratsUebersicht
             this.article.EANCode         = FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text;
             this.article.Notes           = FindViewById<EditText>(Resource.Id.ArticleDetails_Notes).Text;
 
-            if (this.imageLarge != null)
-                this.article.ImageLarge = this.imageLarge;
+            if (ArticleDetailsActivity.imageLarge != null)
+                this.article.ImageLarge = ArticleDetailsActivity.imageLarge;
 
-            if (this.imageSmall != null)
-                this.article.Image      = this.imageSmall;
+            if (ArticleDetailsActivity.imageSmall != null)
+                this.article.Image      = ArticleDetailsActivity.imageSmall;
 
             SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
             if (databaseConnection == null)
@@ -462,7 +513,10 @@ namespace VorratsUebersicht
             else
             {
                 databaseConnection.Insert(this.article);
+                this.articleId = this.article.ArticleId;
             }
+
+            this.isChanged = true;
 
             return true;
         }
@@ -703,9 +757,9 @@ namespace VorratsUebersicht
 
                 stream = new MemoryStream();
                 largeBitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
-                this.imageLarge = stream.ToArray();
+                ArticleDetailsActivity.imageLarge = stream.ToArray();
 
-                text += string.Format("Bild: {0:n0} x {1:n0} ({2:n0}, {3:n0})\r\n", largeBitmap.Height, largeBitmap.Width, Tools.ToFuzzyByteString(largeBitmap.ByteCount), Tools.ToFuzzyByteString(this.imageLarge.Length));
+                text += string.Format("Bild: {0:n0} x {1:n0} ({2:n0}, {3:n0})\r\n", largeBitmap.Height, largeBitmap.Width, Tools.ToFuzzyByteString(largeBitmap.ByteCount), Tools.ToFuzzyByteString(ArticleDetailsActivity.imageLarge.Length));
 
                 resizedImage = ImageResizer.ResizeImageAndroid(newBitmap, 48*2, 85*2);
 
@@ -713,9 +767,9 @@ namespace VorratsUebersicht
 
                 stream = new MemoryStream();
                 smallBitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
-                this.imageSmall = stream.ToArray();
+                ArticleDetailsActivity.imageSmall = stream.ToArray();
 
-                text += string.Format("Thn.: {0:n0} x {1:n0} ({2:n0}, {3:n0})", smallBitmap.Height, smallBitmap.Width, Tools.ToFuzzyByteString(smallBitmap.ByteCount), Tools.ToFuzzyByteString(this.imageSmall.Length));
+                text += string.Format("Thn.: {0:n0} x {1:n0} ({2:n0}, {3:n0})", smallBitmap.Height, smallBitmap.Width, Tools.ToFuzzyByteString(smallBitmap.ByteCount), Tools.ToFuzzyByteString(ArticleDetailsActivity.imageSmall.Length));
 
                 RunOnUiThread(() => this.imageView.SetImageBitmap(smallBitmap));
                 RunOnUiThread(() => this.imageView2.Visibility = ViewStates.Gone);
@@ -725,7 +779,7 @@ namespace VorratsUebersicht
                 TRACE("Bild original : Size={0}", Tools.ToFuzzyByteString(newBitmap.ByteCount));
                 TRACE("Bild small    : W={0:n0}, H={1:n0}", smallBitmap.Width, smallBitmap.Height);
                 TRACE("Bild small    : Size={0}", Tools.ToFuzzyByteString(smallBitmap.ByteCount));
-                TRACE("Image size    : Size={0}", Tools.ToFuzzyByteString(this.imageLarge.Length));
+                TRACE("Image size    : Size={0}", Tools.ToFuzzyByteString(ArticleDetailsActivity.imageLarge.Length));
             }
             catch(Exception ex)
             {
