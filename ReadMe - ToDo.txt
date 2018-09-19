@@ -1,22 +1,17 @@
 Prio 1
 ======
 
-Bilder
-- FIX: Zurück Taste speichert die Bild-Drehung nicht.
-
 
 Kategorie/Unterkategorie
 - Selbst definierte Kategorien
 - "Keine Kategorie" als Popup Auswahl?
 
 
-Hauptmakse
-- Freiwillige Helfer gesucht. Betatester, C# Entweder, Designer oder für Dokumentation erstellen. 
-
-
 Prio 2
 ======
 
+Hauptmakse
+- Freiwillige Helfer gesucht. Betatester, C# Entweder, Designer oder für Dokumentation erstellen. 
 
 Einstellungen
 - Hinweis, wenn DB nicht auf SD Karte

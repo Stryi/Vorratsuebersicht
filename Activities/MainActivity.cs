@@ -227,7 +227,7 @@ namespace VorratsUebersicht
             if (today != lastRun)
             {
                 startInfoNr++;
-                if (startInfoNr > 2)
+                if (startInfoNr > 3)
                     startInfoNr = 1;
 
                 switch(startInfoNr)
@@ -240,6 +240,10 @@ namespace VorratsUebersicht
                         message = Resources.GetString(Resource.String.Start_TestVersionInfo2);
                         string databaseName = new Android_Database().GetDatabasePath();
                         message = string.Format(message, databaseName); 
+                        break;
+
+                    case 3:
+                        message = Resources.GetString(Resource.String.Start_TestVersionInfo3);
                         break;
                 }
             }
