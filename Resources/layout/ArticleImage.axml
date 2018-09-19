@@ -4,7 +4,16 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@color/Application_Background">
-    <TextView
+  <ProgressBar
+          android:id="@+id/ProgressBar"
+          style="?android:attr/progressBarStyleHorizontal"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:indeterminate="true"
+          android:max="100"
+          android:layout_marginTop="-7dp"
+          android:visibility="invisible"/>
+  <TextView
         android:id="@+id/ArticleImage_Info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -2,16 +2,20 @@ Prio 1
 ======
 
 Bilder
-- Ausrichtung der Bilder beachten: "Bild drehen" Funktionalität implementieren.
-- Nach dem Auswahl vom neuen Bild wird noch beim Anklicken das alte angezeigt.
+- FIX: Zurück Taste speichert die Bild-Drehung nicht.
 
-
-Prio 2
-======
 
 Kategorie/Unterkategorie
 - Selbst definierte Kategorien
 - "Keine Kategorie" als Popup Auswahl?
+
+
+Hauptmakse
+- Freiwillige Helfer gesucht. Betatester, C# Entweder, Designer oder für Dokumentation erstellen. 
+
+
+Prio 2
+======
 
 
 Einstellungen
@@ -23,18 +27,25 @@ Einstellungen
 Bilder
 - Bilder im Verzeichnis "Vorräte Bilder" anschließend löschen.
 - Bild entfernen programmieren
+- Ständiges Drehen des Bildes bringt "OutOfMemory"
 
 
 Lagerliste
 - Index auf Lager (Abfrage dauert lange)
 - Fusszeile: Summe "kcal", "Anzahl" und "Menge nach Einheit"
+- Auswahl Lagerort auch an Subkategorie berücksichtigen
 
+Artikelliste
+- Anzeige der Anzahl der Artikel
 
 Artikeldetail
 - Artikelangaben speichern dauert lange
+- Preis (zum Einkaufsmarkt)
+
 
 
 Einkaufszettel
+- Popup Auswahl nach Einkaufsmarkt
 - Liste automatisch anhand der Mindestmenge erstellen.
 
 

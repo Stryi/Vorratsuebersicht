@@ -9,6 +9,7 @@ using Android.Graphics;
 using Android.Support.V4.Content;
 using Android.Views;
 using MatrixGuide;
+using System.Threading;
 
 namespace VorratsUebersicht
 {
@@ -19,6 +20,7 @@ namespace VorratsUebersicht
         bool editMode;
         ImageView imageView;
         Bitmap rotatedBitmap;
+        bool isChanged = false;
 
         public static readonly int PickImageId = 1000;
         public static readonly int TakePhotoId = 1001;
@@ -68,19 +70,7 @@ namespace VorratsUebersicht
                     this.RotateImage();
                     return true;
 
-                /*
-                case Resource.Id.ArticleImageMenu_Save:
-                    this.SaveBitmap();
-                    this.OnBackPressed();
-                    return true;
-
-                case Resource.Id.ArticleImageMenu_Cancel:
-                    this.OnBackPressed();
-                    return true;
-                */
-
                 case Android.Resource.Id.Home:
-                    this.SaveBitmap();
                     this.OnBackPressed();
                     return true;
             }
@@ -88,9 +78,32 @@ namespace VorratsUebersicht
             return base.OnOptionsItemSelected(item);
         }
 
+        public override void OnBackPressed()
+        {
+            if (!this.isChanged)
+            {
+                base.OnBackPressed();
+                return;
+            }
+
+            var progressDialog = this.CreateProgressBar();
+            new Thread(new ThreadStart(delegate             
+            {
+                this.SaveBitmap();
+                GC.Collect();
+                
+                RunOnUiThread(() => base.OnBackPressed());
+
+                this.HideProgressBar(progressDialog);
+            })).Start();
+        }
+
         private void SaveBitmap()
         {
             if (this.rotatedBitmap == null)
+                return;
+
+            if (!this.isChanged)
                 return;
 
             MemoryStream stream = new MemoryStream();
@@ -110,6 +123,7 @@ namespace VorratsUebersicht
             this.SetResult(Result.Ok, intent);
 
             this.rotatedBitmap = null;
+            this.isChanged = false;
         }
 
         private void ShowPictureFromDatabase()
@@ -197,6 +211,7 @@ namespace VorratsUebersicht
                 Bitmap bMapRotate = Bitmap.CreateBitmap(this.rotatedBitmap, 0, 0, this.rotatedBitmap.Width, this.rotatedBitmap.Height, mat, true);
                 this.imageView.SetImageBitmap(bMapRotate);
                 this.rotatedBitmap = bMapRotate;
+                this.isChanged = true;
 
                 string message = string.Format("Bild: {0:n0} X {1:n0} (Größe: {2:n0})", 
                     this.rotatedBitmap.Height, 
@@ -204,6 +219,7 @@ namespace VorratsUebersicht
                     Tools.ToFuzzyByteString(this.rotatedBitmap.ByteCount));
 
                 FindViewById<TextView> (Resource.Id.ArticleImage_Info).Text = message;
+
             }
             catch(Exception ex)
             {
@@ -212,5 +228,22 @@ namespace VorratsUebersicht
                 FindViewById<TextView> (Resource.Id.ArticleImage_Info).Text = ex.Message;
             }
         }
-    }
+
+        private ProgressBar CreateProgressBar()
+        {
+            var progressBar = FindViewById<ProgressBar>(Resource.Id.ProgressBar);
+            progressBar.Visibility = ViewStates.Visible;
+            this.Window.SetFlags(WindowManagerFlags.NotTouchable, WindowManagerFlags.NotTouchable);
+            return progressBar;
+        }
+
+        private void HideProgressBar(ProgressBar progressBar)
+        {
+            RunOnUiThread(() =>
+            {
+                progressBar.Visibility = ViewStates.Invisible;
+                this.Window.ClearFlags(WindowManagerFlags.NotTouchable);
+            });
+        }
+   }
 }

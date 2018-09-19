@@ -48,7 +48,7 @@ Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
 
-Version 2.15 (CodeVersion 30)
+Version 2.16 (CodeVersion 31)
 ==================================
 
 Vor dem Hochladen ins Google Store: 
@@ -62,7 +62,7 @@ Vor dem Hochladen ins Google Store:
 
 Play Store Eintrag:
 
-Bilder drehen jetzt möglich.
+Bilder drehen jetzt möglich (korrektur).
 Notizen in Artikelliste und Einkaufsliste.
 Artikelliste: Filter auf Kategorie.
 Suche nach Artikeln und Hersteller integriert.
@@ -72,6 +72,11 @@ Aus der Einkaufsliste direkt ins Lagerbestand.
 Nach dem EAN Scan der Lagerbestand gleich im Edit-Modus.
 Hersteller jetzt auch mit Autovervollständigung.
 
+
+C062 - Zurück Taste speichert jetzt auch das gedrehte Bild.
+
+Version 2.15 (CodeVersion 30)
+==================================
 
 C061 - Bilder drehen jetzt möglich
 C060 - Meldung beim erstmaligen Starten der Anwendung jetzt verständlicher.
