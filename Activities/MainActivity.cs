@@ -56,7 +56,7 @@ namespace VorratsUebersicht
 
             // Damit Pre-Launch von Google Play Store nicht immer wieder
             // in die EAN Scan "Falle" tappt und da nicht wieder rauskommt.
-            MainActivity.preLaunchTestEndDay = new DateTime(2018, 9, 17);
+            MainActivity.preLaunchTestEndDay = new DateTime(2018, 9, 22);
 
             base.OnCreate(bundle);
 

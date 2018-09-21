@@ -55,7 +55,7 @@ Vor dem Hochladen ins Google Store:
 
   Im MainActivity das Datum in
 
-      MainActivity.preLaunchTestEndDay = new DateTime(2018, 9, 3);
+      MainActivity.preLaunchTestEndDay = new DateTime(2018, 9, 22);
 
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
