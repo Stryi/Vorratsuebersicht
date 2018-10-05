@@ -18,7 +18,6 @@ namespace VorratsUebersicht
     [Activity(Label = "Vorratsübersicht", Icon = "@drawable/ic_launcher")]
     public class MainActivity : Activity
     {
-        public static readonly int SelectBackupFileId = 1000;
         public static readonly int EditStorageItemQuantityId = 1001;
         public static readonly int OptionsId = 1002;
 
@@ -365,12 +364,6 @@ namespace VorratsUebersicht
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
 		{
 			base.OnActivityResult(requestCode, resultCode, data);
-
-            if ((requestCode == SelectBackupFileId) && (resultCode == Result.Ok) && (data != null))
-            {
-                Android.Net.Uri uri = data.Data;
-			}
-
 
 			if (requestCode == EditStorageItemQuantityId)
 			{

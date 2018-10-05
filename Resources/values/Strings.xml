@@ -33,11 +33,9 @@
   <string name="Settings_TestDatenbankZuruecksetzen">Reset test database</string>
   <string name="Settings_TestDatenbankLeeren">Empty test database</string>
   <string name="Settings_DatenbankKomprimieren">Compact database</string>
-  <string name="Settings_DeleteDatabase">DELETE productive database!!!</string>
-  <string name="Settings_BackupAndRestore">Create and restore backup</string>
+  <string name="Settings_CreateBackup">Create backup (Beta)</string>
+  <string name="Settings_RestoreBackup">Restore backup (Beta)</string>
   <string name="Settings_OpenSourceLizenzen">Open-source licenses</string>
-  <string name="Settings_BackupAndRestoreInfo">To back up and restore the production database, copy the following file:\n\n{0}</string>
-  <string name="Settings_DeleteProdDbQuestion">Should your PRODUCTIVE database really be DELETED?</string>
 
   <!-- Artikelliste -->
   <string name="ArticleList_AllCategories">[All categories]</string>

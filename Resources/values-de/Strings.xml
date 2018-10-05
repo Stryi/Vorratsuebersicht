@@ -33,11 +33,9 @@
   <string name="Settings_TestDatenbankZuruecksetzen">Test Datenbank zurücksetzen</string>
   <string name="Settings_TestDatenbankLeeren">Test Datenbank leeren</string>
   <string name="Settings_DatenbankKomprimieren">Datenbank komprimieren</string>
-  <string name="Settings_DeleteDatabase">Produktive Datenbank LÖSCHEN!!!</string>
-  <string name="Settings_BackupAndRestore">Backup erstellen oder zurückspielen</string>
+  <string name="Settings_CreateBackup">Backup erstellen (Beta)</string>
+  <string name="Settings_RestoreBackup">Backup zurückspielen (Beta)</string>
   <string name="Settings_OpenSourceLizenzen">Open-Source-Lizenzen</string>
-  <string name="Settings_BackupAndRestoreInfo">Zum Sichern und Wiederherstellen der produktiven Datenbank kopieren Sie die folgende Datei:\n\n{0}</string>
-  <string name="Settings_DeleteProdDbQuestion">Soll Ihre PRODUKTIVE Datenbank wirklich GELÖSCHT werden?</string>
 
   <!-- Artikelliste -->
   <string name="ArticleList_AllCategories">[Alle Kategorien]</string>

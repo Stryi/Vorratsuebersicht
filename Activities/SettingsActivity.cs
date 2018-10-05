@@ -8,12 +8,17 @@ using Android.Content.PM;
 using Android.Widget;
 using Android.Support.V4.Content;
 using Android.Views;
+using Android.Runtime;
+using Android.Provider;
+using System.IO;
 
 namespace VorratsUebersicht
 {
     [Activity(Label = "@string/Settings_Title")]
     public class SettingsActivity : Activity
     {
+        public static readonly int SelectBackupId = 1000;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -50,30 +55,37 @@ namespace VorratsUebersicht
             Button buttonCompressDb = FindViewById<Button>(Resource.Id.SettingsButton_Compress);
             buttonCompressDb.Click += ButtonCompressDb_Click;
 
-            Button buttonDeleteDb = FindViewById<Button>(Resource.Id.SettingsButton_DeleteDatabase);
-            buttonDeleteDb.Click += ButtonDeleteDb_Click;
-
             Button buttonLicenses = FindViewById<Button>(Resource.Id.SettingsButton_Licenses);
             buttonLicenses.Click += delegate { StartActivity(new Intent(this, typeof(LicensesActivity))); };
 
-            Button buttonBackup = FindViewById<Button>(Resource.Id.SettingsButton_BackupAndRestore);
+            Button buttonBackup = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
             buttonBackup.Click += delegate  
             {
-                string text = Resources.GetString(Resource.String.Settings_BackupAndRestoreInfo);
-
                 var path = new Android_Database().GetDatabasePath();
-                text = string.Format(text, path);
 
-                var message = new AlertDialog.Builder(this);
-                message.SetMessage(text);
-                message.SetTitle(Resource.String.App_Name);
-                message.SetIcon(Resource.Drawable.ic_launcher);
-                message.SetPositiveButton(Resource.String.App_Ok, (s, e) => { });
-                message.Create().Show();
+                var shareUri = Android.Net.Uri.Parse("file://" + path);
+
+                Intent intent = new Intent(Intent.ActionSend);
+                intent.SetType("*/*");
+                //intent.SetType("application/db3");
+                intent.PutExtra(Intent.ExtraStream, shareUri);
+                this.StartActivity(Intent.CreateChooser(intent, "Share file"));
+            };
+
+            Button buttonRestore = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
+            buttonRestore.Click += delegate  
+            {
+                var intent = new Intent();
+                intent.SetType("*/*");
+                //intent.SetType("application/db3");
+                //intent.SetType("application/*");
+                intent.SetAction(Intent.ActionGetContent);
+                StartActivityForResult(Intent.CreateChooser(intent, "Select backup"), SelectBackupId);
             };
 
             this.ShowApplicationVersion();
         }
+
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -85,6 +97,85 @@ namespace VorratsUebersicht
             }
 
             return base.OnOptionsItemSelected(item);
+        }
+
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if (resultCode != Result.Ok)
+                return;
+
+            if ((requestCode == SelectBackupId) && (data != null))
+            {
+                var builder = new AlertDialog.Builder(this);
+                builder.SetTitle(Resource.String.Settings_RestoreBackup);
+                builder.SetMessage("Ist noch nicht implementiert.\n\n" + data.DataString);
+                builder.SetPositiveButton("Ok", (s, e) => { });
+                builder.Create().Show();
+                
+                /*
+                 * TODO: Implementieren
+                if (!data.DataString.EndsWith(".db3"))
+                {                    
+                    // Keine Datenbank Datei ausgewählt.
+                    return;
+                }
+
+                Android.Net.Uri uri = data.Data;
+                string fileSource = this.GetPathToFile(uri);
+
+                var path = new Android_Database().GetDatabasePath();
+                string destinationPath = Path.GetDirectoryName(path);
+                string fileDestination = Path.Combine(destinationPath, "Vorraete_Restore.db3");
+
+                //File.Copy(fileSource, fileDestination, true);
+                */
+            }
+        }
+
+        private string GetPathToFile(Android.Net.Uri uri)
+        {
+            var cursor = this.ContentResolver.Query(uri, null, null, null, null);
+            cursor.MoveToFirst();
+            string document_id = cursor.GetString(0);
+            document_id = document_id.Split(':')[1];
+            cursor.Close();
+
+            
+            string path = string.Empty;
+
+            // SD Karten oder interner Speicher
+            if (uri.Host == "com.android.externalstorage.documents")
+            {
+                if (uri.Path.Contains("/primary:"))
+                {
+                    // Pfad: /storage/emulated/0/_Backup
+                    // Interner Speicher
+                    //path = Android.OS.Environment.DataDirectory.AbsolutePath;
+
+                    path = Path.Combine(Android.OS.Environment.RootDirectory.Path,
+                        Android.OS.Environment.DataDirectory.Path);
+
+                    var test1 = Android.OS.Environment.DataDirectory;
+                    var test2 = Android.OS.Environment.RootDirectory;
+                    var test3 = Android.OS.Environment.DataDirectory;
+                    var test4 = Android.OS.Environment.DirectoryDownloads;
+
+                    var test5 = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads);
+                }
+                else
+                {
+                    // SD Karte
+                    string sdCardPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+
+                    //path = "/storage/sdcard/";
+                }
+            }
+                    
+            path = Path.Combine(path, document_id);
+
+            return path;
         }
 
         private void ButtonRestoreSampleDb_Click(object sender, EventArgs e)
@@ -126,23 +217,6 @@ namespace VorratsUebersicht
 
             })).Start();
         }
-
-
-        private void ButtonDeleteDb_Click(object sender, EventArgs e)
-        {
-            var message = new AlertDialog.Builder(this);
-            message.SetMessage(Resource.String.Settings_DeleteProdDbQuestion);
-            message.SetTitle(Resource.String.App_Name);
-            message.SetIcon(Resource.Drawable.ic_launcher);
-            message.SetPositiveButton(Resource.String.App_Yes, (s, ev) => 
-                { 
-                    new Android_Database().DeleteDatabase();
-                });
-            message.SetNegativeButton(Resource.String.App_No, (s, ev) => { });
-            message.Create().Show();
-
-        }
-
 
         private void ButtonTestDB_Click(object sender, System.EventArgs e)
         {
