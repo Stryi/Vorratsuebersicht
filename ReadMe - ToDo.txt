@@ -5,6 +5,10 @@ Einstellungen
 - Backup erstellen und wieder einspielen
 
 
+Artikeldetail
+- Preis (zum Einkaufsmarkt)
+
+
 Kategorie/Unterkategorie
 - Selbst definierte Kategorien
 - "Keine Kategorie" als Popup Auswahl?
@@ -14,20 +18,13 @@ Prio 2
 ======
 
 Lagerbestand
- - Eine Warnung zu bekommen, wenn die Menge eines Artikels unter die Wunschmenge fällt 
-   und vielleicht direkt den Vorschlag zu erhalten, diesen auf die Einkaufsliste zu setzen.
-
+- Anzahl nicht nur über "-" und "+" sindern auch direkt eingeben (von Kathrin B. und Michi H. vorgeschlagen))
 
 
 Einstellungen
 - Hinweis, wenn DB nicht auf SD Karte
 - Automatischen Backup ("Alle X Tage...", "Y Kopien behalten")
 - BUG: Backup Hinweis zeigt die Test-Datenbank an.
-
-
-Bilder
-- Bild entfernen programmieren
-- Ständiges Drehen des Bildes bringt "OutOfMemory"
 
 
 Lagerliste
@@ -38,11 +35,9 @@ Lagerliste
 
 Artikelliste
 - Anzeige der Anzahl der Artikel
+- Filter auch nach Unterkategorie (von Kathrin B. vorgeschlagen)
+- Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. vorgeschlagen)
 
-
-Artikeldetail
-- Artikelangaben speichern dauert lange
-- Preis (zum Einkaufsmarkt)
 
 
 Einkaufszettel
@@ -63,7 +58,7 @@ Prio 3
 ======
 
 Bilder
-- Komprimierung/Verkleinerung der Bilder nicht immer effizient
+- Bild entfernen programmieren
 
 
 Lagerbestand / Artikelliste
