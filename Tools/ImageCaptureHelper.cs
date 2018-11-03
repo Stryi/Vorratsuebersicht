@@ -15,7 +15,6 @@ namespace VorratsUebersicht
 
         const string cameraPermission = Android.Manifest.Permission.Camera;
         const string storageWritePermission = Android.Manifest.Permission.WriteExternalStorage;
-        const string storageReadPermission = Android.Manifest.Permission.ReadExternalStorage;
 
         private Context context;
 

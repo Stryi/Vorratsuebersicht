@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Runtime;
 using Android.Provider;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace VorratsUebersicht
 {
@@ -61,31 +62,53 @@ namespace VorratsUebersicht
             Button buttonBackup = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
             buttonBackup.Click += delegate  
             {
-                var path = new Android_Database().GetDatabasePath();
+                var databaseFileName = new Android_Database().GetProductiveDatabasePath();
 
-                var shareUri = Android.Net.Uri.Parse("file://" + path);
+                var downloadFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(
+                                        Android.OS.Environment.DirectoryDownloads).AbsolutePath;
 
-                Intent intent = new Intent(Intent.ActionSend);
-                intent.SetType("*/*");
-                //intent.SetType("application/db3");
-                intent.PutExtra(Intent.ExtraStream, shareUri);
-                this.StartActivity(Intent.CreateChooser(intent, "Share file"));
+                string backupName = string.Format("Vü_{0}.VueBak", 
+                    DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss"));
+
+                var backupFileName = Path.Combine(downloadFolder, backupName);
+
+                var progressDialog = this.CreateProgressBar();
+                new Thread(new ThreadStart(delegate
+                {
+                    File.Copy(databaseFileName, backupFileName);
+
+                    this.HideProgressBar(progressDialog);
+
+                    RunOnUiThread(() =>
+                    {
+                        var builder = new AlertDialog.Builder(this);
+                        builder.SetTitle("Datenbank im Download Verzeichnis gesichert als");
+                        builder.SetMessage(backupFileName);
+                        builder.SetPositiveButton("Ok", (s, e) => { });
+                        builder.Create().Show();
+                    });
+                })).Start();
+
+                return;
             };
 
             Button buttonRestore = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
             buttonRestore.Click += delegate  
             {
-                var intent = new Intent();
-                intent.SetType("*/*");
-                //intent.SetType("application/db3");
-                //intent.SetType("application/*");
-                intent.SetAction(Intent.ActionGetContent);
-                StartActivityForResult(Intent.CreateChooser(intent, "Select backup"), SelectBackupId);
-            };
+                // Backups müssen sich im Download Verzeichnis befinden.
+                var downloadFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(
+                                        Android.OS.Environment.DirectoryDownloads).AbsolutePath;
+
+                var selectFile = new Intent(this, typeof(SelectFileActivity));
+                selectFile.PutExtra("Text",         "Backup auswählen:");
+                selectFile.PutExtra("Path",          downloadFolder);
+                selectFile.PutExtra("SearchPattern", "*.VueBak");
+
+                StartActivityForResult(selectFile, SelectBackupId);
+             };
 
             this.ShowApplicationVersion();
         }
-
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -108,75 +131,34 @@ namespace VorratsUebersicht
 
             if ((requestCode == SelectBackupId) && (data != null))
             {
-                var builder = new AlertDialog.Builder(this);
-                builder.SetTitle(Resource.String.Settings_RestoreBackup);
-                builder.SetMessage("Ist noch nicht implementiert.\n\n" + data.DataString);
-                builder.SetPositiveButton("Ok", (s, e) => { });
-                builder.Create().Show();
+                string fileSource = data.GetStringExtra("FullName");
+                string fileDestination = new Android_Database().GetProductiveDatabasePath();
                 
-                /*
-                 * TODO: Implementieren
-                if (!data.DataString.EndsWith(".db3"))
-                {                    
-                    // Keine Datenbank Datei ausgewählt.
-                    return;
-                }
+                var builder = new AlertDialog.Builder(this);
+                builder.SetTitle("Datenbank zurückspielen");
+                builder.SetMessage(fileSource);
+                builder.SetNegativeButton("Abbruch",(s, e) => { });
+                builder.SetPositiveButton("Ok", (s, e) => 
+                { 
+                    var progressDialog = this.CreateProgressBar();
+                    new Thread(new ThreadStart(delegate
+                    {
+                        File.Copy(fileSource, fileDestination, true);
 
-                Android.Net.Uri uri = data.Data;
-                string fileSource = this.GetPathToFile(uri);
+                        // Sich neu connecten;
+                        Android_Database.SQLiteConnection = null;
 
-                var path = new Android_Database().GetDatabasePath();
-                string destinationPath = Path.GetDirectoryName(path);
-                string fileDestination = Path.Combine(destinationPath, "Vorraete_Restore.db3");
+                        RunOnUiThread(() => this.ShowDatabaseInfo());
 
-                //File.Copy(fileSource, fileDestination, true);
-                */
+                        this.HideProgressBar(progressDialog);
+
+                    })).Start();
+
+                });
+                builder.Create().Show();
             }
         }
 
-        private string GetPathToFile(Android.Net.Uri uri)
-        {
-            var cursor = this.ContentResolver.Query(uri, null, null, null, null);
-            cursor.MoveToFirst();
-            string document_id = cursor.GetString(0);
-            document_id = document_id.Split(':')[1];
-            cursor.Close();
-
-            
-            string path = string.Empty;
-
-            // SD Karten oder interner Speicher
-            if (uri.Host == "com.android.externalstorage.documents")
-            {
-                if (uri.Path.Contains("/primary:"))
-                {
-                    // Pfad: /storage/emulated/0/_Backup
-                    // Interner Speicher
-                    //path = Android.OS.Environment.DataDirectory.AbsolutePath;
-
-                    path = Path.Combine(Android.OS.Environment.RootDirectory.Path,
-                        Android.OS.Environment.DataDirectory.Path);
-
-                    var test1 = Android.OS.Environment.DataDirectory;
-                    var test2 = Android.OS.Environment.RootDirectory;
-                    var test3 = Android.OS.Environment.DataDirectory;
-                    var test4 = Android.OS.Environment.DirectoryDownloads;
-
-                    var test5 = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads);
-                }
-                else
-                {
-                    // SD Karte
-                    string sdCardPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
-
-                    //path = "/storage/sdcard/";
-                }
-            }
-                    
-            path = Path.Combine(path, document_id);
-
-            return path;
-        }
 
         private void ButtonRestoreSampleDb_Click(object sender, EventArgs e)
         {

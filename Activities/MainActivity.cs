@@ -8,6 +8,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Android.Content.PM;
 using Android.Content.Res;
 using Android.Support.V4.Content;
 
@@ -93,6 +94,11 @@ namespace VorratsUebersicht
                 return;
             }
 
+            if (Android_Database.IsDatabaseOnSdCard.HasValue && Android_Database.IsDatabaseOnSdCard.Value)
+            {
+                new SdCardAccess().Grand(this);
+            }
+
             // Somewhere in your app, call the initialization code:
             ZXing.Mobile.MobileBarcodeScanner.Initialize (Application);
 
@@ -129,6 +135,17 @@ namespace VorratsUebersicht
             this.ShowInfoAufTestversion();
         }
 
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            // Sich neu connecten;
+            Android_Database.SQLiteConnection = null;
+
+            string error = this.ShowStorageInfoText();
+            this.ShowDatabaseError(error);
+
+            this.EnableButtons(string.IsNullOrEmpty(error));
+        }
+
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.Main_menu, menu);
@@ -153,7 +170,6 @@ namespace VorratsUebersicht
             var storageitemList = new Intent(this, typeof(StorageItemListActivity));
             storageitemList.PutExtra("ShowToConsumerOnly", true);
             StartActivity(storageitemList);
-
         }
 
         private void ShowCategoriesSelection()
@@ -181,10 +197,10 @@ namespace VorratsUebersicht
 
         private void ShowDatabaseError(string error)
         {
-            if (string.IsNullOrEmpty(error))
-                return;
+            string text = string.Empty;
 
-            string text = "Fehler beim Zugriff auf die Datenbank:\n\n" + error;
+            if (!string.IsNullOrEmpty(error))
+                text = "Fehler beim Zugriff auf die Datenbank:\n\n" + error;
 
             this.SetInfoText(text);
         }
@@ -237,8 +253,6 @@ namespace VorratsUebersicht
 
                     case 2:
                         message = Resources.GetString(Resource.String.Start_TestVersionInfo2);
-                        string databaseName = new Android_Database().GetDatabasePath();
-                        message = string.Format(message, databaseName); 
                         break;
 
                     case 3:
@@ -273,9 +287,16 @@ namespace VorratsUebersicht
                     { 
                         Android_Database.UseTestDatabase = true;
                         Android_Database.SQLiteConnection = null;   // Sich neu connecten;
-                        this.ShowStorageInfoText();
+                        string error = this.ShowStorageInfoText();
+                        this.ShowDatabaseError(error);
                     });
-                message.SetNegativeButton("OK", (s, e) => { });
+                message.SetNegativeButton("OK", (s, e) => 
+                    {
+                        if (Android_Database.IsDatabaseOnSdCard.HasValue && Android_Database.IsDatabaseOnSdCard.Value)
+                        {
+                            new SdCardAccess().Grand(this);
+                        }
+                    });
                 message.Create().Show();
             }
 
@@ -298,7 +319,7 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
-                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
+                //Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
                 return ex.Message;
             }
 
@@ -322,7 +343,7 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
-                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
+                //Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
                 return ex.Message;
             }
 
@@ -354,11 +375,17 @@ namespace VorratsUebersicht
         private void SetInfoText(string text)
         {
             TextView textView = FindViewById<TextView>(Resource.Id.Main_TextInfo);
-            if (!string.IsNullOrEmpty(textView.Text))
-                textView.Text += "\n\n";
 
-            textView.Text += text;
-            textView.Visibility = ViewStates.Visible;
+            if (string.IsNullOrEmpty(text))
+            {
+                textView.Text = string.Empty;
+                textView.Visibility = ViewStates.Gone;
+            }
+            else
+            {
+                textView.Text = text;
+                textView.Visibility = ViewStates.Visible;
+            }
         }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
@@ -367,7 +394,8 @@ namespace VorratsUebersicht
 
 			if (requestCode == EditStorageItemQuantityId)
 			{
-				this.ShowStorageInfoText();
+				string error = this.ShowStorageInfoText();
+                this.ShowDatabaseError(error);
 			}
 
             if (requestCode == OptionsId)
@@ -380,7 +408,6 @@ namespace VorratsUebersicht
 
                 this.EnableButtons(string.IsNullOrEmpty(error));
             }
-
         }
 
         private void EnableButtons(bool enable)

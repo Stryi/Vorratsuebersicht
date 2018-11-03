@@ -1,10 +1,5 @@
 Prio 1
 ======
-
-Einstellungen
-- Backup erstellen und wieder einspielen
-
-
 Artikeldetail
 - Preis (zum Einkaufsmarkt)
 
@@ -14,11 +9,22 @@ Kategorie/Unterkategorie
 - "Keine Kategorie" als Popup Auswahl?
 
 
+Sonstiges
+- Push Benachrichtigung über bald zu verbrauchende Artikel einmal pro Tag
+  https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/notifications/local-notifications-walkthrough
+  https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/services/service-notifications
+
+
 Prio 2
 ======
 
 Lagerbestand
 - Anzahl nicht nur über "-" und "+" sindern auch direkt eingeben (von Kathrin B. und Michi H. vorgeschlagen))
+
+
+Einkaufszettel
+- Popup Auswahl nach Einkaufsmarkt oder Sortierung
+- Einkaufszettel als TXT exportieren (Sharen)
 
 
 Einstellungen
@@ -31,24 +37,21 @@ Lagerliste
 - Index auf Lager (Abfrage dauert lange)
 - Fusszeile: Summe "kcal", "Anzahl" und "Menge nach Einheit"
 - Auswahl Lagerort auch an Subkategorie berücksichtigen
-
+- Lagebestand als TXT exportieren  (Sharen)
 
 Artikelliste
 - Anzeige der Anzahl der Artikel
 - Filter auch nach Unterkategorie (von Kathrin B. vorgeschlagen)
 - Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. vorgeschlagen)
-
+- Artielliste als TXT exportieren (Teilen)
 
 
 Einkaufszettel
-- Popup Auswahl nach Einkaufsmarkt
 - Liste automatisch anhand der Mindestmenge erstellen.
 
 
+
 Sonstiges
-- Push Benachrichtigung über bald zu verbrauchende Artikel einmal pro Tag
-  https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/notifications/local-notifications-walkthrough
-  https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/services/service-notifications
 - Release Notes der App anzeigen
 - Spracheingabe, https://docs.microsoft.com/de-de/xamarin/android/platform/speech
 - Absturz protokollieren (LOG-Datei)

@@ -22,6 +22,17 @@ namespace VorratsUebersicht
         public const string sqliteFilename_Demo = "Vorraete_Demo.db3";
         public const string sqliteFilename_Test = "Vorraete_Test.db3";
 
+        public string GetProductiveDatabasePath()
+        {
+            bool sikop = Android_Database.UseTestDatabase;
+            Android_Database.UseTestDatabase = false;
+
+            var path = new Android_Database().GetDatabasePath();
+            Android_Database.UseTestDatabase = sikop;
+
+            return path;
+        }
+
 		public string GetDatabasePath()
 		{
             string databaseName = Android_Database.sqliteFilename_Prod;

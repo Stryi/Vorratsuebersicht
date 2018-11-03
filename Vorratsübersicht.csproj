@@ -114,6 +114,7 @@
     <Compile Include="Activities\ArticleImageActivity.cs" />
     <Compile Include="Activities\ArticleListActivity.cs" />
     <Compile Include="Activities\LicensesActivity.cs" />
+    <Compile Include="Activities\SelectFileActivity.cs" />
     <Compile Include="Activities\SettingsActivity.cs" />
     <Compile Include="Activities\ShoppingListActivity.cs" />
     <Compile Include="Activities\SplashScreenActivity.cs" />
@@ -138,15 +139,18 @@
     <Compile Include="Tools\ImageCaptureHelper.cs" />
     <Compile Include="Tools\ImageResizer.cs" />
     <Compile Include="Tools\IOUtil.cs" />
+    <Compile Include="Tools\SdCardAccess.cs" />
     <Compile Include="Tools\ShoppingListHelper.cs" />
     <Compile Include="Tools\SpaceTokenizer.cs" />
     <Compile Include="Tools\Tools.cs" />
     <Compile Include="Activities\StorageItemQuantityActivity.cs" />
     <Compile Include="Views\ArticleListViewAdapter.cs" />
     <Compile Include="Views\ArticleListView.cs" />
+    <Compile Include="Views\SimpleListItem2View.cs" />
     <Compile Include="Views\ListItemViewBase.cs" />
     <Compile Include="Views\ShoppingListView.cs" />
     <Compile Include="Views\ShoppingListViewAdapter.cs" />
+    <Compile Include="Views\SimpleListItem2Adapter.cs" />
     <Compile Include="Views\StorageItemQuantityListView.cs" />
     <Compile Include="Views\StorageItemQuantityListViewAdapter.cs" />
     <Compile Include="Views\StorageItemListView.cs" />
@@ -728,6 +732,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe - Gebrauchsanweisung.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SelectFile.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

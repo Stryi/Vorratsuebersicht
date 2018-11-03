@@ -62,7 +62,9 @@ Vor dem Hochladen ins Google Store:
 Play Store Eintrag:
 
 Backup und Restore jetzt zum Testen (auf eigene Verantwortung)
-Bilder drehen jetzt möglich (Korrektur).
+Problem beim erstmaligen Zugriff auf die SD Karte jetzt (hoffentlich) gelöst.
+Beschriftung der Buttons jetzt nicht mehr in Grossbuchstaben.
+Bilder drehen jetzt möglich.
 Notizen in Artikelliste und Einkaufsliste.
 Artikelliste: Filter auf Kategorie.
 Suche nach Artikeln und Hersteller integriert.
@@ -72,7 +74,26 @@ Aus der Einkaufsliste direkt ins Lagerbestand.
 Nach dem EAN Scan der Lagerbestand gleich im Edit-Modus.
 Hersteller jetzt auch mit Autovervollständigung.
 
-C063 - Backup und Restore
+
+C064 - Backup und Restore
+C063 - Zugriff auf SD Karte nach der Installation
+
+Geschätzte Beta Tester,
+
+nun ist es so weit. Ich habe jetzt die Backup und Restore Funktionalität integriert. 
+
+Ich verrate keine Vorgehensweise, denn Ihr sollt unvoreingenommen sein.
+
+Nur eins voraus, es geht um Eure PRODUKTIVE Datenbank. Also schön aufpassen!
+
+Ich freue micht auf Eure Berichte.
+
+Nein, das war gelogen, ich fürchte micht, Eure Berichte zu bekommen. ;-)
+
+Gruß
+Christian Stryi
+
+
 
 Version 2.16 (CodeVersion 31)
 ==================================

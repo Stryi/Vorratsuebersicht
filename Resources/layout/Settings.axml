@@ -20,14 +20,6 @@
           android:max="100"
           android:layout_marginTop="0dp"
           android:visibility="invisible"/>
-      <Switch
-          android:id="@+id/SettingsButton_SwitchToTestDB"
-          android:text="@string/Settings_TestDatenbank"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:gravity="left|center_vertical"
-          android:paddingTop="0dp"
-          android:drawablePadding="20dp" />
       <TextView
           android:id="@+id/SettingsButton_DatabasePath"
           android:layout_width="match_parent"
@@ -41,6 +33,7 @@
           android:textSize="15sp"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:textAllCaps="false"
           android:gravity="left|center_vertical"
           android:drawablePadding="10dp" />
       <TextView
@@ -54,6 +47,7 @@
           android:textSize="15sp"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:textAllCaps="false"
           android:gravity="left|center_vertical"
           android:drawablePadding="10dp" />
       <Button
@@ -62,6 +56,7 @@
           android:textSize="15sp"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:textAllCaps="false"
           android:gravity="left|center_vertical"
           android:drawablePadding="10dp" />
       <TextView
@@ -69,12 +64,21 @@
           android:layout_height="wrap_content"
           android:paddingTop="10dp"
           android:text="Testdatenbank:" />
+      <Switch
+          android:id="@+id/SettingsButton_SwitchToTestDB"
+          android:text="@string/Settings_TestDatenbank"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="left|center_vertical"
+          android:paddingTop="0dp"
+          android:drawablePadding="20dp" />
       <Button
           android:id="@+id/SettingsButton_RestoreSampleDb"
           android:text="@string/Settings_TestDatenbankZuruecksetzen"
           android:textSize="15sp"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:textAllCaps="false"
           android:gravity="left|center_vertical"
           android:drawablePadding="10dp" />
       <Button
@@ -83,6 +87,7 @@
           android:textSize="15sp"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:textAllCaps="false"
           android:gravity="left|center_vertical"
           android:drawablePadding="10dp" />
       <Button
@@ -90,6 +95,7 @@
           android:text="@string/Settings_OpenSourceLizenzen"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:textAllCaps="false"
           android:gravity="left|center_vertical"
           android:textSize="15sp" />
       <TextView
