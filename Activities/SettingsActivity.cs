@@ -110,6 +110,8 @@ namespace VorratsUebersicht
                 StartActivityForResult(selectFile, SelectBackupId);
              };
 
+            this.EnableButtons();
+
             this.ShowApplicationVersion();
         }
 
@@ -221,6 +223,16 @@ namespace VorratsUebersicht
             Android_Database.SQLiteConnection = null;
 
             this.ShowDatabaseInfo();
+            this.EnableButtons();
+        }
+
+        private void EnableButtons()
+        {
+            Button buttonBackup = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
+            Button buttonRestore = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
+
+            buttonBackup.Enabled = !Android_Database.UseTestDatabase;
+            buttonRestore.Enabled = !Android_Database.UseTestDatabase;       
         }
 
         private void ShowApplicationVersion()

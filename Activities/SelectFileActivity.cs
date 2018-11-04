@@ -16,8 +16,7 @@ using Android.Widget;
 namespace VorratsUebersicht
 {
     [Activity(Label = "Auswahl Datei")]
-    //[Activity(Label = "Auswahl Datei", MainLauncher=true)]  
-    public class SelectFileActivity : Activity //ListActivity
+    public class SelectFileActivity : Activity
     {
         List<SimpleListItem2View> items;
         private string path;
@@ -32,6 +31,8 @@ namespace VorratsUebersicht
             backgroundPaint.SetBounds(0, 0, 10, 10);
             ActionBar.SetBackgroundDrawable(backgroundPaint);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
+            //ActionBar.SetDisplayShowHomeEnabled(false);
+            ActionBar.SetIcon(Resource.Drawable.baseline_folder_white_24);
 
             this.Title         = Intent.GetStringExtra("Text");
             this.path          = Intent.GetStringExtra("Path");
