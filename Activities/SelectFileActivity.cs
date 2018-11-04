@@ -81,8 +81,7 @@ namespace VorratsUebersicht
                         break;
 
                     case 1: // Löschen
-                        File.Delete(item.Tag.ToString());
-                        this.ShowFileList();
+                        this.DeleteBackup(item.Tag.ToString());
                         break;
                 }
 
@@ -90,6 +89,21 @@ namespace VorratsUebersicht
             });
             builder.Show();
 
+        }
+
+        private void DeleteBackup(string filePath)
+        {
+            string message = string.Format("Backup Datei löschen?\n\n{0}",
+                Path.GetFileName(filePath));
+            var builder = new AlertDialog.Builder(this);
+            builder.SetMessage(message);
+            builder.SetNegativeButton("Nicht löschen", (s, e) => { });
+            builder.SetPositiveButton("Löschen", (s, e) => 
+            { 
+                File.Delete(filePath);
+                this.ShowFileList();
+            });
+            builder.Create().Show();
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)

@@ -40,7 +40,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:paddingTop="10dp"
-          android:text="Backup und Restore (auf eigene Verantwortung):" />
+          android:text="Backup und Restore (auf eigene Verantwortung)" />
       <Button
           android:id="@+id/SettingsButton_Backup"
           android:text="@string/Settings_CreateBackup"
@@ -63,7 +63,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:paddingTop="10dp"
-          android:text="Testdatenbank:" />
+          android:text="Zum Kennenlernen oder Testen neuer Funktionalität" />
       <Switch
           android:id="@+id/SettingsButton_SwitchToTestDB"
           android:text="@string/Settings_TestDatenbank"
@@ -90,6 +90,11 @@
           android:textAllCaps="false"
           android:gravity="left|center_vertical"
           android:drawablePadding="10dp" />
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="10dp"
+          android:text="Lizenzbedingungen" />
       <Button
           android:id="@+id/SettingsButton_Licenses"
           android:text="@string/Settings_OpenSourceLizenzen"

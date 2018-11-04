@@ -11,9 +11,10 @@
 
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">You start the application for the first time.\n\nTo get to know the application, a test database can be activated. You can deactivate these under Options.</string>
-  <string name="Start_TestVersionInfo">This app is constantly being carefully developed. Nevertheless, errors or crashes can occur. For data loss can not be adhered to.</string>
-  <string name="Start_TestVersionInfo2">Please use settings menu to back up the database regularly.</string>
-  <string name="Start_TestVersionInfo3">Freiwillige Helfer gesucht: Betatester, C# Entweder, Designer oder für Dokumentation erstellen.</string>
+  <string name="Start_TestVersionInfo">Backup now under settings easily possible.</string>
+  <!-- This app is constantly being carefully developed. Nevertheless, errors or crashes can occur. For data loss can not be adhered to. -->
+  <!-- Please use settings menu to back up the database regularly. -->
+  <!-- Freiwillige Helfer gesucht: Betatester, C# Entweder, Designer oder für Dokumentation erstellen.-->
 
   <!-- Hauptmaske -->
   <string name="Main_DemnaechstZuVerbrauchen">Consume soon:</string>

@@ -81,9 +81,12 @@ namespace VorratsUebersicht
 
                     RunOnUiThread(() =>
                     {
+                        string message = string.Format(
+                            "Datenbank im Download Verzeichnis gesichert als:\n\n {0}",
+                            backupFileName);
+
                         var builder = new AlertDialog.Builder(this);
-                        builder.SetTitle("Datenbank im Download Verzeichnis gesichert als");
-                        builder.SetMessage(backupFileName);
+                        builder.SetMessage(message);
                         builder.SetPositiveButton("Ok", (s, e) => { });
                         builder.Create().Show();
                     });
@@ -134,9 +137,11 @@ namespace VorratsUebersicht
                 string fileSource = data.GetStringExtra("FullName");
                 string fileDestination = new Android_Database().GetProductiveDatabasePath();
                 
+                string message = string.Format("Backup Datenbank zurückspielen?\n\n{0}",
+                    Path.GetFileName(fileSource));
+
                 var builder = new AlertDialog.Builder(this);
-                builder.SetTitle("Datenbank zurückspielen");
-                builder.SetMessage(fileSource);
+                builder.SetMessage(message);
                 builder.SetNegativeButton("Abbruch",(s, e) => { });
                 builder.SetPositiveButton("Ok", (s, e) => 
                 { 
