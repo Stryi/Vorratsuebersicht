@@ -47,7 +47,7 @@ Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
 
-Version 2.20 (CodeVersion 32)
+Version 2.22 (CodeVersion 34)
 ==================================
 
 Vor dem Hochladen ins Google Store: 
@@ -64,40 +64,21 @@ Play Store Eintrag:
 Backup und Restore jetzt zum Testen (auf eigene Verantwortung)
 Problem beim erstmaligen Zugriff auf die SD Karte jetzt (hoffentlich) gelöst.
 Beschriftung der Buttons jetzt nicht mehr in Grossbuchstaben.
-Bilder drehen jetzt möglich.
-Notizen in Artikelliste und Einkaufsliste.
-Artikelliste: Filter auf Kategorie.
-Suche nach Artikeln und Hersteller integriert.
-Artikelstamm um Einkaufsmarkt, Lagerort, Mindestmenge und bevorzugte Menge erweitert.
-Lagerbestand filtern (nur "abgelaufene")
-Aus der Einkaufsliste direkt ins Lagerbestand.
-Nach dem EAN Scan der Lagerbestand gleich im Edit-Modus.
-Hersteller jetzt auch mit Autovervollständigung.
 
+
+Version 2.21 (CodeVersion 33)
+==================================
+
+C065 - Icon und Meldungen vom Backup/Restore überrbeitet.
+
+Version 2.20 (CodeVersion 32)
+==================================
 
 C064 - Backup und Restore
 C063 - Zugriff auf SD Karte nach der Installation
 
-Geschätzte Beta Tester,
-
-nun ist es so weit. Ich habe jetzt die Backup und Restore Funktionalität integriert. 
-
-Ich verrate keine Vorgehensweise, denn Ihr sollt unvoreingenommen sein.
-
-Nur eins voraus, es geht um Eure PRODUKTIVE Datenbank. Also schön aufpassen!
-
-Ich freue micht auf Eure Berichte.
-
-Nein, das war gelogen, ich fürchte micht, Eure Berichte zu bekommen. ;-)
-
-Gruß
-Christian Stryi
-
-
-
 Version 2.16 (CodeVersion 31)
 ==================================
-
 
 C062 - Zurück Taste speichert jetzt auch das gedrehte Bild.
 

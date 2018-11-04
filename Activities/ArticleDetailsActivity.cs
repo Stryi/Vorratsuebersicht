@@ -425,6 +425,9 @@ namespace VorratsUebersicht
 
         private void TakeAPhoto()
         {
+            if (MainActivity.IsGooglePlayPreLaunchTestMode)
+                return;
+
             this.imageCapture.TakePicture();
         }
 
