@@ -83,7 +83,8 @@
   <!-- Einkaufsliste -->
   <string name="ShoppingList_Remove">Entfernen (gekauft)</string>
   <string name="ShoppingList_ToStorage">Ins Lagerbestand...</string>
-
+  <string name="ShoppingList_AllSupermarkets">[Alle]</string>
+  
   <string-array name="ArticleCatagories">
     <item>Lebensmittel</item>
     <item>Trinken</item>     

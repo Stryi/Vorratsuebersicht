@@ -82,7 +82,8 @@ namespace VorratsUebersicht
                     RunOnUiThread(() =>
                     {
                         string message = string.Format(
-                            "Datenbank im Download Verzeichnis gesichert als:\n\n {0}",
+                            "Datenbank im Download Verzeichnis gesichert als:\n\n {0}" +
+                            "\n\nSichern Sie diese Datei auf Google Drive oder auf Ihren PC.",
                             backupFileName);
 
                         var builder = new AlertDialog.Builder(this);

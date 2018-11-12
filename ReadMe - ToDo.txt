@@ -1,5 +1,7 @@
 Prio 1
 ======
+
+
 Artikeldetail
 - Preis (zum Einkaufsmarkt)
 
@@ -19,28 +21,28 @@ Prio 2
 ======
 
 Lagerbestand
-- Anzahl nicht nur über "-" und "+" sindern auch direkt eingeben (von Kathrin B. und Michi H. vorgeschlagen))
+- Anzahl nicht nur über "-" und "+" sindern auch direkt eingeben (von Kathrin B. und Michi H. vorgeschlagen)
 
 
 Einkaufszettel
-- Popup Auswahl nach Einkaufsmarkt oder Sortierung
 - Einkaufszettel als TXT exportieren (Sharen)
+- Alle Listen als SCV exportieren (Markus Neese)
 
 
 Einstellungen
 - Hinweis, wenn DB nicht auf SD Karte
 - Automatischen Backup ("Alle X Tage...", "Y Kopien behalten")
-- BUG: Backup Hinweis zeigt die Test-Datenbank an.
 
 
 Lagerliste
 - Index auf Lager (Abfrage dauert lange)
-- Fusszeile: Summe "kcal", "Anzahl" und "Menge nach Einheit"
+- Zusammenfügen von Unterkategorien bei der Mindestmenge. 
+  So das z.B die Unterkategorie Kaffee auf 5 Pack steht.
+  Und nicht Hersteller A ein Pack, Hersteller B zwei Pack (vom Markus Neese vorgeschlagen)
 - Auswahl Lagerort auch an Subkategorie berücksichtigen
 - Lagebestand als TXT exportieren  (Sharen)
 
 Artikelliste
-- Anzeige der Anzahl der Artikel
 - Filter auch nach Unterkategorie (von Kathrin B. vorgeschlagen)
 - Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. vorgeschlagen)
 - Artielliste als TXT exportieren (Teilen)

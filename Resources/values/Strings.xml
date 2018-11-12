@@ -83,6 +83,7 @@
   <!-- Einkaufsliste -->
   <string name="ShoppingList_Remove">Remove (bought)</string>
   <string name="ShoppingList_ToStorage">To storage...</string>
+  <string name="ShoppingList_AllSupermarkets">[All]</string>
 
   <string-array name="ArticleCatagories">
     <item>Foods</item>

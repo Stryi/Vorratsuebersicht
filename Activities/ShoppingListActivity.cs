@@ -20,6 +20,10 @@ namespace VorratsUebersicht
 
         List<ShoppingListView> liste = new List<ShoppingListView>();
 
+        private string lastSearchText = string.Empty;
+        private List<string> supermarketList;
+        string supermarket;
+        
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -36,6 +40,39 @@ namespace VorratsUebersicht
 
             ListView listView = FindViewById<ListView>(Resource.Id.ShoppingItemList);
             listView.ItemClick += ListView_ItemClick;
+
+            this.supermarketList = new List<string>();
+            this.supermarketList.Add(Resources.GetString(Resource.String.ShoppingList_AllSupermarkets));
+            this.supermarketList.AddRange(Database.GetSupermarketNames(true));
+
+            if (this.supermarketList.Count > 1)
+            {
+                // Mehr als ein Einkaufsladen: Auswahl anzeigen
+                var supermarketSelection = FindViewById<LinearLayout>(Resource.Id.ShoppingItemList_SelectSupermarket);
+                supermarketSelection.Visibility = ViewStates.Visible;
+
+                var spinnerSupermarket = FindViewById<Spinner>(Resource.Id.ShoppingItemList_Spinner);
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleSpinnerItem, this.supermarketList);
+                dataAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+                spinnerSupermarket.Adapter = dataAdapter;
+
+                spinnerSupermarket.ItemSelected += SpinnerSupermarket_ItemSelected;
+            }
+        }
+
+        private void SpinnerSupermarket_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            string newSupermarketName = string.Empty;
+            if (e.Position > 0)
+            {
+                newSupermarketName = this.supermarketList[e.Position];
+            }
+
+            if (newSupermarketName != this.supermarket)
+            {
+                this.supermarket = newSupermarketName;
+                this.ShowShoppingList(this.lastSearchText);
+            }
         }
 
         private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -159,7 +196,7 @@ namespace VorratsUebersicht
         {
             this.liste = new List<ShoppingListView>();
 
-            var shoppingList = Database.GetShoppingList(filter);
+            var shoppingList = Database.GetShoppingList(this.supermarket, filter);
 
             foreach (ShoppingItemListResult ShoppingItem in shoppingList)
             {
@@ -174,17 +211,25 @@ namespace VorratsUebersicht
             listView.OnRestoreInstanceState(this.listViewState);        // Zustand der Liste wiederherstellen
         }
 
-        public bool OnQueryTextChange(string newText)
+        public bool OnQueryTextChange(string filter)
         {
+            if (this.lastSearchText == filter)
+                return true;
+
             // Filter ggf. mit Adapter, siehe https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
-            this.ShowShoppingList(newText);
+            this.ShowShoppingList(filter);
+            this.lastSearchText = filter;
             return true;
         }
 
-        public bool OnQueryTextSubmit(string query)
+        public bool OnQueryTextSubmit(string filter)
         {
+            if (this.lastSearchText == filter)
+                return true;
+
             // Filter ggf. mit Adapter, siehe https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
-            this.ShowShoppingList(query);
+            this.ShowShoppingList(filter);
+            this.lastSearchText = filter;
             return true;
         }
     }

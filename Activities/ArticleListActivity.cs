@@ -61,11 +61,10 @@ namespace VorratsUebersicht
                 spinnerCategory.ItemSelected += SpinnerCategory_ItemSelected;
             }
 
-
-            ShowArticleList();
-
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
             listView.ItemClick += OnOpenArticleDetails;
+
+            ShowArticleList();
         }
 
         private void SpinnerCategory_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
@@ -128,6 +127,9 @@ namespace VorratsUebersicht
 
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
             listView.Adapter = listAdapter;
+
+            TextView footer = FindViewById<TextView>(Resource.Id.ArticleList_Footer);
+            footer.Text = string.Format("Anzahl: {0}", articleList.Count);
         }
 
         private void OnOpenArticleDetails(object sender, AdapterView.ItemClickEventArgs e)

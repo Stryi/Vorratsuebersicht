@@ -49,7 +49,7 @@ namespace VorratsUebersicht
 
 		}
 
-        internal static IList<ShoppingItemListResult> GetShoppingList(string textFilter = null)
+        internal static IList<ShoppingItemListResult> GetShoppingList(string supermarket, string textFilter = null)
         {
             List<ShoppingItemListResult> result = new List<ShoppingItemListResult>();
 
@@ -78,7 +78,18 @@ namespace VorratsUebersicht
                 parameter.Add("%" + textFilter + "%");
             }
 
-            cmd += " ORDER BY Name";
+            if (!string.IsNullOrEmpty(supermarket))
+            {
+                if (parameter.Count > 0)
+                    cmd += " AND ";
+                else
+                    cmd += " WHERE ";
+
+                cmd += " Supermarket = ?";
+                parameter.Add(supermarket);
+            }
+
+            cmd += " ORDER BY Supermarket, Name";
 
             command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());
 
@@ -445,7 +456,7 @@ namespace VorratsUebersicht
             return stringList;
         }
 
-        internal static string[] GetSupermarketNames()
+        internal static List<string> GetSupermarketNames(bool shoppingListOnly = false)
         {
             SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
 
@@ -453,17 +464,34 @@ namespace VorratsUebersicht
             string cmd = string.Empty;
             cmd += "SELECT DISTINCT Supermarket AS Value";
             cmd += " FROM Article";
+
+            if (shoppingListOnly)
+            {
+                cmd += " JOIN ShoppingList ON ShoppingList.ArticleId = Article.ArticleId";
+            }
+
             cmd += " WHERE Supermarket IS NOT NULL";
             cmd += " ORDER BY Supermarket";
 
             SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
 
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+
             IList<StringResult> result = command.ExecuteQuery<StringResult>();
 
-            string[] stringList = new string[result.Count];
+            stopWatch.Stop();
+            Tools.TRACE("Dauer der Abfrage für DISTINCT Supermarket: {0}", stopWatch.Elapsed.ToString());
+
+
+            List<string> stringList = new List<string>();
             for (int i = 0; i < result.Count; i++)
             {
-                stringList[i] = result[i].Value;
+                string supermarketName = result[i].Value;
+                if (string.IsNullOrEmpty(supermarketName))
+                    continue;
+
+                stringList.Add(supermarketName);
             }
 
             return stringList;
@@ -641,7 +669,7 @@ namespace VorratsUebersicht
                 return result;
 
             string cmd = string.Empty;
-            cmd += "SELECT ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity, PrefQuantity,"; // StorageName, 
+            cmd += "SELECT ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity, PrefQuantity, Calorie,"; // StorageName, 
 			cmd += " (SELECT SUM(Quantity) FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId) AS Quantity,";
 			cmd += " (SELECT BestBefore FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId ORDER BY BestBefore ASC LIMIT 1) AS BestBefore";
 			cmd += " FROM Article";

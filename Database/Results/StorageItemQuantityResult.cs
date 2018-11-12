@@ -28,6 +28,7 @@ namespace VorratsUebersicht
         public decimal Size {get; set; }
         public string Unit {get; set;}
         public int Quantity {get; set;}
+        public int Calorie {get; set;}
         public DateTime? BestBefore {get; set;}
         public string StorageName { get; set; }
         public int? MinQuantity { get; set; }

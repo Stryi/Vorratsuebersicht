@@ -204,6 +204,11 @@ namespace VorratsUebersicht
         {
             this.liste = new List<StorageItemListView>();
 
+            int sum_anzahl = 0;
+            int sum_warnung = 0;
+            int sum_abgelaufen = 0;
+            int sum_kcal = 0;
+
             var storageItemQuantityList = Database.GetStorageItemQuantityListNoImage(this.category, this.subCategory, this.eanCode, this.showEmptyStorageArticles, filter, this.storageNameFilter);
             foreach(StorageItemQuantityResult storegeItem in storageItemQuantityList)
             {
@@ -228,17 +233,22 @@ namespace VorratsUebersicht
 				        {
 					        if (!string.IsNullOrEmpty(info)) info += "\r\n";
 					        info += string.Format("{0} mit Ablaufdatum {1}", result.Quantity, result.BestBefore.Value.ToShortDateString());
+                            sum_warnung += result.Quantity;
 				        }
 				        if (result.WarningLevel == 2)
 				        {
 					        if (!string.IsNullOrEmpty(warning)) warning += "\r\n";
 					        warning += string.Format("{0} mit Ablaufdatum {1}", result.Quantity, result.BestBefore.Value.ToShortDateString());
+                            sum_abgelaufen += result.Quantity;
 				        }
 			        }
 
 			        storegeItem.BestBeforeInfoText    = info;
 			        storegeItem.BestBeforeWarningText = warning;
                 }
+
+                sum_anzahl += storegeItem.Quantity;
+                sum_kcal   += storegeItem.Quantity * storegeItem.Calorie;
 
                 liste.Add(new StorageItemListView(storegeItem));
             }
@@ -248,6 +258,17 @@ namespace VorratsUebersicht
             ListView listView = FindViewById<ListView>(Resource.Id.MyListView);
             listView.Adapter = listAdapter;
             listView.Focusable = true;
+
+            TextView footer = FindViewById<TextView>(Resource.Id.StorageItemList_Footer);
+            
+            string status = string.Format("Anzahl: {0}", liste.Count);
+
+            if (sum_anzahl     > 0) status += string.Format(", Menge: {0:n0}",      sum_anzahl);
+            if (sum_warnung    > 0) status += string.Format(", Warnung: {0:n0}",    sum_warnung);
+            if (sum_abgelaufen > 0) status += string.Format(", Abgelaufen: {0:n0}", sum_abgelaufen);
+            if (sum_kcal       > 0) status += string.Format(", Kalorien: {0:n0}",   sum_kcal);
+
+            footer.Text = status;
         }
 
         public bool OnQueryTextChange(string filter)
