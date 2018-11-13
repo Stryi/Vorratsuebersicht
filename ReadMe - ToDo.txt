@@ -21,7 +21,7 @@ Prio 2
 ======
 
 Lagerbestand
-- Anzahl nicht nur über "-" und "+" sindern auch direkt eingeben (von Kathrin B. und Michi H. vorgeschlagen)
+- Anzahl nicht nur über "-" und "+" sondern auch direkt eingeben (von Kathrin B. und Michi H. vorgeschlagen)
 
 
 Einkaufszettel

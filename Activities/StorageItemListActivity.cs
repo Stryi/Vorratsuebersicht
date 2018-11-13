@@ -204,10 +204,7 @@ namespace VorratsUebersicht
         {
             this.liste = new List<StorageItemListView>();
 
-            int sum_anzahl = 0;
-            int sum_warnung = 0;
-            int sum_abgelaufen = 0;
-            int sum_kcal = 0;
+            StockStatistic statistic = new StockStatistic();
 
             var storageItemQuantityList = Database.GetStorageItemQuantityListNoImage(this.category, this.subCategory, this.eanCode, this.showEmptyStorageArticles, filter, this.storageNameFilter);
             foreach(StorageItemQuantityResult storegeItem in storageItemQuantityList)
@@ -233,13 +230,15 @@ namespace VorratsUebersicht
 				        {
 					        if (!string.IsNullOrEmpty(info)) info += "\r\n";
 					        info += string.Format("{0} mit Ablaufdatum {1}", result.Quantity, result.BestBefore.Value.ToShortDateString());
-                            sum_warnung += result.Quantity;
+
+                            statistic.AddWarningLevel1(result.Quantity);
 				        }
 				        if (result.WarningLevel == 2)
 				        {
 					        if (!string.IsNullOrEmpty(warning)) warning += "\r\n";
 					        warning += string.Format("{0} mit Ablaufdatum {1}", result.Quantity, result.BestBefore.Value.ToShortDateString());
-                            sum_abgelaufen += result.Quantity;
+
+                            statistic.AddWarningLevel2(result.Quantity);
 				        }
 			        }
 
@@ -247,8 +246,7 @@ namespace VorratsUebersicht
 			        storegeItem.BestBeforeWarningText = warning;
                 }
 
-                sum_anzahl += storegeItem.Quantity;
-                sum_kcal   += storegeItem.Quantity * storegeItem.Calorie;
+                statistic.AddStorageItem(storegeItem);
 
                 liste.Add(new StorageItemListView(storegeItem));
             }
@@ -260,15 +258,7 @@ namespace VorratsUebersicht
             listView.Focusable = true;
 
             TextView footer = FindViewById<TextView>(Resource.Id.StorageItemList_Footer);
-            
-            string status = string.Format("Anzahl: {0}", liste.Count);
-
-            if (sum_anzahl     > 0) status += string.Format(", Menge: {0:n0}",      sum_anzahl);
-            if (sum_warnung    > 0) status += string.Format(", Warnung: {0:n0}",    sum_warnung);
-            if (sum_abgelaufen > 0) status += string.Format(", Abgelaufen: {0:n0}", sum_abgelaufen);
-            if (sum_kcal       > 0) status += string.Format(", Kalorien: {0:n0}",   sum_kcal);
-
-            footer.Text = status;
+            footer.Text = statistic.GetStatistic();
         }
 
         public bool OnQueryTextChange(string filter)
@@ -292,6 +282,77 @@ namespace VorratsUebersicht
             this.ShowStorageItemList(filter);
             this.lastSearchText = filter;
             return true;
+        }
+    }
+
+    internal class StockStatistic
+    {
+        int count = 0;
+        Dictionary<string, decimal> sum_menge = new Dictionary<string, decimal>();
+        int sum_warnung = 0;
+        int sum_abgelaufen = 0;
+        int sum_kcal = 0;
+
+        internal void AddWarningLevel1(int quantity)
+        {
+            sum_warnung += quantity;
+        }
+
+        internal void AddWarningLevel2(int quantity)
+        {
+            sum_abgelaufen += quantity;
+
+        }
+        
+        private void AddUnitQuantity(string unit, decimal size, int quantity)
+        {
+            if (string.IsNullOrEmpty(unit))
+                unit = string.Empty;
+
+            if (!sum_menge.ContainsKey(unit))
+            {
+                sum_menge.Add(unit, size * quantity);
+            }
+            else
+            {
+                sum_menge[unit] += size * quantity;
+            }
+        }
+
+        private void AddCalorie(int quantity, int calorie)
+        {
+            sum_kcal += quantity * calorie;
+        }
+
+        internal void AddStorageItem(StorageItemQuantityResult storegeItem)
+        {
+            this.count ++;
+            AddUnitQuantity(storegeItem.Unit, storegeItem.Size, storegeItem.Quantity);
+            AddCalorie(storegeItem.Quantity, storegeItem.Calorie);
+        }
+
+        internal string GetStatistic()
+        {
+            string status = string.Format("{0} Zeilen", this.count);
+
+            if (sum_menge.Count > 0)
+            {
+                string mengeListe = string.Empty;
+
+                foreach(var menge in sum_menge)
+                {
+                    if (!string.IsNullOrEmpty(mengeListe))
+                        mengeListe += ", ";
+                    mengeListe += string.Format("{0:n0} {1}", menge.Value, menge.Key);
+                }
+                status += string.Format(", Menge: {0:n0}", mengeListe);
+            }
+
+            if (sum_kcal        > 0) status += string.Format(", Kalorien: {0:n0}",   sum_kcal);
+            if (sum_warnung     > 0) status += string.Format(", {0:n0} Warnung(en)", sum_warnung);
+            if (sum_abgelaufen  > 0) status += string.Format(", {0:n0} Abgelaufen",  sum_abgelaufen);
+
+            return status;
         }
     }
 }

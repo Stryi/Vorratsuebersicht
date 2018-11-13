@@ -15,6 +15,8 @@ Version 2.22 (CodeVersion 34)
 
 Play Store Eintrag:
 
+Einkaufszettel jetzt mit Auswahl des Einkaufsmarktes.
+Statuszeile bei Lager- und Artikelliste
 Backup und Restore jetzt zum Testen (auf eigene Verantwortung)
 Problem beim erstmaligen Zugriff auf die SD Karte jetzt (hoffentlich) gelöst.
 Beschriftung der Buttons jetzt nicht mehr in Grossbuchstaben.

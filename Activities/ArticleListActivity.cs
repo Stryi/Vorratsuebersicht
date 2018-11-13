@@ -129,7 +129,7 @@ namespace VorratsUebersicht
             listView.Adapter = listAdapter;
 
             TextView footer = FindViewById<TextView>(Resource.Id.ArticleList_Footer);
-            footer.Text = string.Format("Anzahl: {0}", articleList.Count);
+            footer.Text = string.Format("{0} Zeilen", articleList.Count);
         }
 
         private void OnOpenArticleDetails(object sender, AdapterView.ItemClickEventArgs e)
