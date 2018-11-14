@@ -10,7 +10,7 @@ Vor dem Hochladen ins Google Play Store:
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
 
-Version 2.22 (CodeVersion 34)
+Version 2.30 (CodeVersion 34)
 ==================================
 
 Play Store Eintrag:
