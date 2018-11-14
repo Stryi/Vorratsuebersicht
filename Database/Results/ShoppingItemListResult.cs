@@ -27,5 +27,6 @@ namespace VorratsUebersicht
         public int? Calorie { get; set; }
         public decimal Quantity { get; set; }
         public string Notes { get; set; }
+        public decimal? Price { get; set; }
     }
 }

@@ -292,6 +292,7 @@ namespace VorratsUebersicht
         int sum_warnung = 0;
         int sum_abgelaufen = 0;
         int sum_kcal = 0;
+        decimal sum_price = 0;
 
         internal void AddWarningLevel1(int quantity)
         {
@@ -327,8 +328,14 @@ namespace VorratsUebersicht
         internal void AddStorageItem(StorageItemQuantityResult storegeItem)
         {
             this.count ++;
-            AddUnitQuantity(storegeItem.Unit, storegeItem.Size, storegeItem.Quantity);
-            AddCalorie(storegeItem.Quantity, storegeItem.Calorie);
+            this.AddUnitQuantity(storegeItem.Unit, storegeItem.Size, storegeItem.Quantity);
+            this.AddCalorie(storegeItem.Quantity, storegeItem.Calorie);
+            this.AddCosts(storegeItem.Quantity, storegeItem.Price);
+        }
+
+        private void AddCosts(int quantity, decimal price)
+        {
+            this.sum_price += quantity * price;
         }
 
         internal string GetStatistic()
@@ -349,9 +356,10 @@ namespace VorratsUebersicht
             }
 
             if (sum_kcal        > 0) status += string.Format(", Kalorien: {0:n0}",   sum_kcal);
+            if (sum_price       > 0) status += string.Format(", Wert: {0:n2} €",       sum_price);
             if (sum_warnung     > 0) status += string.Format(", {0:n0} Warnung(en)", sum_warnung);
             if (sum_abgelaufen  > 0) status += string.Format(", {0:n0} Abgelaufen",  sum_abgelaufen);
-
+            
             return status;
         }
     }

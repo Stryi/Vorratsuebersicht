@@ -22,5 +22,6 @@ namespace VorratsUebersicht
         public int? MinQuantity { get; set; }
         public int? PrefQuantity { get; set; }
         public string Supermarket { get; set; }
+        public decimal? Price { get; set; }
     }
 }

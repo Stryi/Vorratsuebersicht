@@ -443,6 +443,7 @@ namespace VorratsUebersicht
             decimal? size = null;
             int?     minQuantity = null;
             int?     prefQuantity = null;
+            decimal? price = null;
 
             try
             {
@@ -451,6 +452,7 @@ namespace VorratsUebersicht
                 calorie      = GetIntegerFromEditText(Resource.Id.ArticleDetails_Calorie);
                 minQuantity  = GetIntegerFromEditText(Resource.Id.ArticleDetails_MinQuantity);
                 prefQuantity = GetIntegerFromEditText(Resource.Id.ArticleDetails_PrefQuantity);
+                price        = GetDecimalFromEditText(Resource.Id.ArticleDetails_Price);
             }
             catch(Exception ex)
             {
@@ -489,6 +491,7 @@ namespace VorratsUebersicht
             this.article.SubCategory     = FindViewById<EditText>(Resource.Id.ArticleDetails_SubCategory).Text;
             this.article.DurableInfinity = FindViewById<Switch>(Resource.Id.ArticleDetails_DurableInfinity).Checked;
             this.article.WarnInDays      = warnInDays;
+            this.article.Price           = price;
             this.article.Size            = size;
             this.article.Calorie         = calorie;
             this.article.Unit            = FindViewById<EditText>(Resource.Id.ArticleDetails_Unit).Text;

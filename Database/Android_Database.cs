@@ -330,6 +330,12 @@ namespace VorratsUebersicht
                 //conn.Execute("DROP   INDEX [Article_Calorie]");
                 conn.Execute("CREATE INDEX [Article_Calorie]     ON [Article] ([Calorie]     COLLATE NOCASE ASC);");
             }
+
+            // Update 2.22: Preis
+            if (!this.IsFieldInTheTable(conn, "Article", "Price"))
+            {
+                conn.Execute("ALTER TABLE Article ADD COLUMN [Price] MONEY");
+            }
         }
 
         private bool IsFieldInTheTable(SQLiteConnection conn, string tableName, string fieldName)

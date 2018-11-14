@@ -33,6 +33,7 @@ namespace VorratsUebersicht
         public string StorageName { get; set; }
         public int? MinQuantity { get; set; }
         public int? PrefQuantity { get; set; }
+        public decimal Price { get; set; }
 
         public int QuantityDiff;
 

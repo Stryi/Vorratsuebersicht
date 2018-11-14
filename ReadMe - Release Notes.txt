@@ -15,12 +15,14 @@ Version 2.22 (CodeVersion 34)
 
 Play Store Eintrag:
 
+Preis zum Artikel und in der Statistik.
 Einkaufszettel jetzt mit Auswahl des Einkaufsmarktes.
 Statuszeile bei Lager- und Artikelliste
 Backup und Restore jetzt zum Testen (auf eigene Verantwortung)
 Problem beim erstmaligen Zugriff auf die SD Karte jetzt (hoffentlich) gelöst.
 Beschriftung der Buttons jetzt nicht mehr in Grossbuchstaben.
 
+C068 - Preis zum Artikel und in der Statistik.
 C067 - Lagerliste und Artikelliste: Summenzeile in der Artikel- und Lagerliste
 C066 - Einkaufszettel: Popup Auswahl und Sortierung nach Einkaufsmarkt
 

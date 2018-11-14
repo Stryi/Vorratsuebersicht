@@ -59,6 +59,11 @@ namespace VorratsUebersicht
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";
                     info += string.Format("{0} {1}", MainActivity.Strings_Supermarket, this.ShoppingItem.Supermarket);
                 }
+                if (this.ShoppingItem.Price.HasValue)
+                {
+                    if (!string.IsNullOrEmpty(info)) info += "\r\n";
+                    info += string.Format("Preis {0} €", this.ShoppingItem.Price.Value);
+                }
                 if (!string.IsNullOrEmpty(this.ShoppingItem.Notes))
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";

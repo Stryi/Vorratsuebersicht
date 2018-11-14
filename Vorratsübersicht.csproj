@@ -173,6 +173,7 @@
     <AndroidResource Include="Resources\layout\Settings.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <None Include="Resources\raw\PutToDevice.cmd" />
     <None Include="Resources\raw\ResetDevice.cmd" />
     <AndroidResource Include="Resources\layout\StorageItemQuantity.axml">
       <SubType>Designer</SubType>
@@ -191,7 +192,7 @@
     <AndroidResource Include="Resources\layout\ArticleDetails.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <None Include="Resources\raw\CopyToDevice.cmd" />
+    <None Include="Resources\raw\GetFromDevice.cmd" />
     <None Include="Resources\raw\CopyToEmulator.cmd" />
   </ItemGroup>
   <ItemGroup>

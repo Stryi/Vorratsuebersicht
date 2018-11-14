@@ -60,7 +60,7 @@ namespace VorratsUebersicht
             string cmd = string.Empty;
             SQLiteCommand command;
 
-            cmd += "SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Supermarket, Size, Unit, Calorie, Quantity, Notes";
+            cmd += "SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Supermarket, Size, Unit, Calorie, Quantity, Notes, Price";
             cmd += " FROM ShoppingList";
             cmd += " LEFT JOIN Article ON ShoppingList.ArticleId = Article.ArticleId";
 
@@ -669,7 +669,7 @@ namespace VorratsUebersicht
                 return result;
 
             string cmd = string.Empty;
-            cmd += "SELECT ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity, PrefQuantity, Calorie,"; // StorageName, 
+            cmd += "SELECT ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity, PrefQuantity, Calorie, Price, "; // StorageName, 
 			cmd += " (SELECT SUM(Quantity) FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId) AS Quantity,";
 			cmd += " (SELECT BestBefore FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId ORDER BY BestBefore ASC LIMIT 1) AS BestBefore";
 			cmd += " FROM Article";

@@ -57,7 +57,7 @@ namespace VorratsUebersicht
                 spinnerSupermarket.Adapter = dataAdapter;
 
                 spinnerSupermarket.ItemSelected += SpinnerSupermarket_ItemSelected;
-            }
+            }            
         }
 
         private void SpinnerSupermarket_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
@@ -195,12 +195,20 @@ namespace VorratsUebersicht
         private void ShowShoppingList(string filter = null)
         {
             this.liste = new List<ShoppingListView>();
+            decimal sum_quantity = 0;
+            decimal sum_betrag = 0;
 
             var shoppingList = Database.GetShoppingList(this.supermarket, filter);
 
-            foreach (ShoppingItemListResult ShoppingItem in shoppingList)
+            foreach (ShoppingItemListResult shoppingItem in shoppingList)
             {
-                this.liste.Add(new ShoppingListView(ShoppingItem));
+                this.liste.Add(new ShoppingListView(shoppingItem));
+                
+                sum_quantity += shoppingItem.Quantity;
+                if (shoppingItem.Price != null)
+                {
+                    sum_betrag += shoppingItem.Quantity * shoppingItem.Price.Value;
+                }
             }
 
             ShoppingListViewAdapter listAdapter = new ShoppingListViewAdapter(this, this.liste);
@@ -209,6 +217,14 @@ namespace VorratsUebersicht
             this.listViewState = listView.OnSaveInstanceState();        // Zustand der Liste merken (wo der Anfang angezeigt wird)
             listView.Adapter = listAdapter;
             listView.OnRestoreInstanceState(this.listViewState);        // Zustand der Liste wiederherstellen
+        
+            string status = string.Format("{0} Position(en)", shoppingList.Count);
+
+            if (sum_quantity > 0) status += string.Format(", Anzahl {0}", sum_quantity);
+            if (sum_betrag   > 0) status += string.Format(", Betrag {0} €", sum_betrag);
+
+            TextView footer = FindViewById<TextView>(Resource.Id.ShoppingItemList_Footer);
+            footer.Text = status;
         }
 
         public bool OnQueryTextChange(string filter)
