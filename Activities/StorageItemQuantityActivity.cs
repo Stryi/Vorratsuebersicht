@@ -69,6 +69,9 @@ namespace VorratsUebersicht
                 this.StartActivity(articleImage);
             };
 
+            ListView articleListView = FindViewById<ListView>(Resource.Id.ArticleList);
+            articleListView.ItemClick += ListView_ItemClick;
+
             ImageButton addRemove = FindViewById<ImageButton>(Resource.Id.StorageItemQuantity_AddArticle);
             addRemove.Click += delegate 
             {
@@ -112,6 +115,11 @@ namespace VorratsUebersicht
             {
                 this.SetEditMode(true);
             }
+        }
+
+        private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+
         }
 
         public static void Reload()

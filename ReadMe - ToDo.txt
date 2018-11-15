@@ -1,11 +1,6 @@
 Prio 1
 ======
 
-
-Artikeldetail
-- Preis (zum Einkaufsmarkt)
-
-
 Kategorie/Unterkategorie
 - Selbst definierte Kategorien
 - "Keine Kategorie" als Popup Auswahl?
@@ -35,7 +30,6 @@ Einstellungen
 
 
 Lagerliste
-- Index auf Lager (Abfrage dauert lange)
 - Zusammenfügen von Unterkategorien bei der Mindestmenge. 
   So das z.B die Unterkategorie Kaffee auf 5 Pack steht.
   Und nicht Hersteller A ein Pack, Hersteller B zwei Pack (vom Markus Neese vorgeschlagen)
@@ -50,7 +44,6 @@ Artikelliste
 
 Einkaufszettel
 - Liste automatisch anhand der Mindestmenge erstellen.
-
 
 
 Sonstiges

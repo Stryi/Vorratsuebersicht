@@ -193,7 +193,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="Resources\raw\GetFromDevice.cmd" />
-    <None Include="Resources\raw\CopyToEmulator.cmd" />
+    <None Include="Resources\raw\PutToEmulator.cmd" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values-de\Strings.xml" />

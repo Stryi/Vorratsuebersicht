@@ -196,7 +196,8 @@ namespace VorratsUebersicht
         {
             this.liste = new List<ShoppingListView>();
             decimal sum_quantity = 0;
-            decimal sum_betrag = 0;
+            decimal sum_amount = 0;
+            int sum_noPrice = 0;
 
             var shoppingList = Database.GetShoppingList(this.supermarket, filter);
 
@@ -207,7 +208,11 @@ namespace VorratsUebersicht
                 sum_quantity += shoppingItem.Quantity;
                 if (shoppingItem.Price != null)
                 {
-                    sum_betrag += shoppingItem.Quantity * shoppingItem.Price.Value;
+                    sum_amount += shoppingItem.Quantity * shoppingItem.Price.Value;
+                }
+                else
+                {
+                    sum_noPrice++;
                 }
             }
 
@@ -220,8 +225,9 @@ namespace VorratsUebersicht
         
             string status = string.Format("{0} Position(en)", shoppingList.Count);
 
-            if (sum_quantity > 0) status += string.Format(", Anzahl {0}", sum_quantity);
-            if (sum_betrag   > 0) status += string.Format(", Betrag {0} €", sum_betrag);
+            if (sum_quantity > 0) status += string.Format(", Anzahl {0}",   sum_quantity);
+            if (sum_amount   > 0) status += string.Format(", Betrag {0} €", sum_amount);
+            if (sum_noPrice  > 0) status += string.Format(", {0} Artikel ohne Preisangabe", sum_noPrice);
 
             TextView footer = FindViewById<TextView>(Resource.Id.ShoppingItemList_Footer);
             footer.Text = status;

@@ -65,6 +65,7 @@
   <string name="ArticleDetails_MinQuantityLabel">Min. quantity:</string>
   <string name="ArticleDetails_PrefQuantityLabel">Pref. quantity:</string>
   <string name="ArticleDetails_SupermarketLabel">Supermarket:</string>
+  <string name="ArticleDetails_Price">Price:</string>
   <string name="ArticleDetails_EANCode">EAN code:</string>
   <string name="ArticleDetails_Notes">Notes:</string>
   <string name="ArticleDetails_Amount">Amount:</string>

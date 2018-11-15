@@ -29,6 +29,7 @@ namespace VorratsUebersicht
         public static string Strings_Category;
         public static string Strings_SubCategory;
         public static string Strings_Supermarket;
+        public static string Strings_Price;
         public static string Strings_Storage;
         public static string Strings_MinQuantity;
         public static string Strings_PrefQuantity;
@@ -47,6 +48,7 @@ namespace VorratsUebersicht
             MainActivity.Strings_Category      = Resources.GetString(Resource.String.ArticleDetails_Category);
             MainActivity.Strings_SubCategory   = Resources.GetString(Resource.String.ArticleDetails_SubCategory);
             MainActivity.Strings_Supermarket   = Resources.GetString(Resource.String.ArticleDetails_SupermarketLabel);
+            MainActivity.Strings_Price         = Resources.GetString(Resource.String.ArticleDetails_Price);
             MainActivity.Strings_Storage       = Resources.GetString(Resource.String.ArticleDetails_StorageLabel);
             MainActivity.Strings_MinQuantity   = Resources.GetString(Resource.String.ArticleDetails_MinQuantityLabel);
             MainActivity.Strings_PrefQuantity  = Resources.GetString(Resource.String.ArticleDetails_PrefQuantityLabel);

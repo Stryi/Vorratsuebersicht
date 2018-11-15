@@ -644,8 +644,8 @@ namespace VorratsUebersicht
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f050038
-			public const int AnySubCategory_ItemEntry = 2131034168;
+			// aapt resource value: 0x7f050039
+			public const int AnySubCategory_ItemEntry = 2131034169;
 			
 			// aapt resource value: 0x7f050004
 			public const int App_Cancel = 2131034116;
@@ -665,11 +665,11 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f050001
 			public const int App_Yes = 2131034113;
 			
-			// aapt resource value: 0x7f050035
-			public const int ArticleCatagoriesSelect = 2131034165;
+			// aapt resource value: 0x7f050036
+			public const int ArticleCatagoriesSelect = 2131034166;
 			
-			// aapt resource value: 0x7f050032
-			public const int ArticleDetails_Amount = 2131034162;
+			// aapt resource value: 0x7f050033
+			public const int ArticleDetails_Amount = 2131034163;
 			
 			// aapt resource value: 0x7f050020
 			public const int ArticleDetails_ArticleName = 2131034144;
@@ -683,8 +683,8 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f050023
 			public const int ArticleDetails_Category_Hint = 2131034147;
 			
-			// aapt resource value: 0x7f050030
-			public const int ArticleDetails_EANCode = 2131034160;
+			// aapt resource value: 0x7f050031
+			public const int ArticleDetails_EANCode = 2131034161;
 			
 			// aapt resource value: 0x7f050026
 			public const int ArticleDetails_EnduringlyDurable = 2131034150;
@@ -710,11 +710,14 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f05002d
 			public const int ArticleDetails_MinQuantityLabel = 2131034157;
 			
-			// aapt resource value: 0x7f050031
-			public const int ArticleDetails_Notes = 2131034161;
+			// aapt resource value: 0x7f050032
+			public const int ArticleDetails_Notes = 2131034162;
 			
 			// aapt resource value: 0x7f05002e
 			public const int ArticleDetails_PrefQuantityLabel = 2131034158;
+			
+			// aapt resource value: 0x7f050030
+			public const int ArticleDetails_Price = 2131034160;
 			
 			// aapt resource value: 0x7f050028
 			public const int ArticleDetails_Size = 2131034152;
@@ -770,11 +773,11 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f050008
 			public const int Main_DemnaechstZuVerbrauchen = 2131034120;
 			
-			// aapt resource value: 0x7f050036
-			public const int NoArticleCatagories = 2131034166;
-			
 			// aapt resource value: 0x7f050037
-			public const int NoSubCategory_ItemEntry = 2131034167;
+			public const int NoArticleCatagories = 2131034167;
+			
+			// aapt resource value: 0x7f050038
+			public const int NoSubCategory_ItemEntry = 2131034168;
 			
 			// aapt resource value: 0x7f050017
 			public const int Settings_CreateBackup = 2131034135;
@@ -803,14 +806,14 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f050011
 			public const int Settings_Title = 2131034129;
 			
-			// aapt resource value: 0x7f05003b
-			public const int ShoppingList_AllSupermarkets = 2131034171;
-			
-			// aapt resource value: 0x7f050039
-			public const int ShoppingList_Remove = 2131034169;
+			// aapt resource value: 0x7f05003c
+			public const int ShoppingList_AllSupermarkets = 2131034172;
 			
 			// aapt resource value: 0x7f05003a
-			public const int ShoppingList_ToStorage = 2131034170;
+			public const int ShoppingList_Remove = 2131034170;
+			
+			// aapt resource value: 0x7f05003b
+			public const int ShoppingList_ToStorage = 2131034171;
 			
 			// aapt resource value: 0x7f050006
 			public const int Start_TestDbQuestion = 2131034118;
@@ -818,11 +821,11 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f050007
 			public const int Start_TestVersionInfo = 2131034119;
 			
-			// aapt resource value: 0x7f050034
-			public const int StorageItemQuantity_Menu_ToShoppingList = 2131034164;
+			// aapt resource value: 0x7f050035
+			public const int StorageItemQuantity_Menu_ToShoppingList = 2131034165;
 			
-			// aapt resource value: 0x7f050033
-			public const int StorageItem_AllStoragesStorage = 2131034163;
+			// aapt resource value: 0x7f050034
+			public const int StorageItem_AllStoragesStorage = 2131034164;
 			
 			static String()
 			{
