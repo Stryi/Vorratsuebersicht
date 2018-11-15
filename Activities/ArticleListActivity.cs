@@ -128,8 +128,15 @@ namespace VorratsUebersicht
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
             listView.Adapter = listAdapter;
 
+            string status;
+
+            if (articleList.Count == 1)
+                status = string.Format("{0:n0} Position", articleList.Count);
+            else
+                status = string.Format("{0:n0} Positionen", articleList.Count);
+
             TextView footer = FindViewById<TextView>(Resource.Id.ArticleList_Footer);
-            footer.Text = string.Format("{0} Zeilen", articleList.Count);
+            footer.Text = status;
         }
 
         private void OnOpenArticleDetails(object sender, AdapterView.ItemClickEventArgs e)

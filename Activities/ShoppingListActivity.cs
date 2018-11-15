@@ -223,11 +223,15 @@ namespace VorratsUebersicht
             listView.Adapter = listAdapter;
             listView.OnRestoreInstanceState(this.listViewState);        // Zustand der Liste wiederherstellen
         
-            string status = string.Format("{0} Position(en)", shoppingList.Count);
+            string status;
+            if (shoppingList.Count == 1)
+                status = string.Format("{0:n0} Position", shoppingList.Count);
+            else
+                status = string.Format("{0:n0} Positionen", shoppingList.Count);
 
-            if (sum_quantity > 0) status += string.Format(", Anzahl {0}",   sum_quantity);
-            if (sum_amount   > 0) status += string.Format(", Betrag {0} €", sum_amount);
-            if (sum_noPrice  > 0) status += string.Format(", {0} Artikel ohne Preisangabe", sum_noPrice);
+            if (sum_quantity > 0) status += string.Format(", Anzahl {0:n0}",   sum_quantity);
+            if (sum_amount   > 0) status += string.Format(", Betrag {0:n2} €", sum_amount);
+            if (sum_noPrice  > 0) status += string.Format(", {0:n0} Artikel ohne Preisangabe", sum_noPrice);
 
             TextView footer = FindViewById<TextView>(Resource.Id.ShoppingItemList_Footer);
             footer.Text = status;

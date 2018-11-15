@@ -589,7 +589,7 @@ namespace VorratsUebersicht
 
             double count = Database.AddToShoppingList(this.articleId, toBuyQuantity);
 
-            string msg = string.Format("{0} Stück auf der Einkaufsliste.", count);
+            string msg = string.Format("{0:n0} Stück auf der Einkaufsliste.", count);
             if (this.toast != null)
             {
                 this.toast.Cancel();
@@ -653,6 +653,7 @@ namespace VorratsUebersicht
             if (article.Size.HasValue)    FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text          = article.Size.Value.ToString(CultureInfo.InvariantCulture);
             if (article.MinQuantity.HasValue)  FindViewById<EditText>(Resource.Id.ArticleDetails_MinQuantity).Text  = article.MinQuantity.Value.ToString();
             if (article.PrefQuantity.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_PrefQuantity).Text = article.PrefQuantity.Value.ToString();
+            if (article.Price.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_Price).Text = article.Price.Value.ToString();
 
             FindViewById<EditText>(Resource.Id.ArticleDetails_Unit).Text               = article.Unit;
             FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text            = article.EANCode;

@@ -340,7 +340,11 @@ namespace VorratsUebersicht
 
         internal string GetStatistic()
         {
-            string status = string.Format("{0} Zeilen", this.count);
+            string status;
+            if (this.count == 1)
+                status = string.Format("{0:n0} Position", this.count);
+            else
+                status = string.Format("{0:n0} Positionen", this.count);
 
             if (sum_menge.Count > 0)
             {
@@ -348,11 +352,17 @@ namespace VorratsUebersicht
 
                 foreach(var menge in sum_menge)
                 {
+                    if (menge.Value == 0)
+                        continue;
+
                     if (!string.IsNullOrEmpty(mengeListe))
                         mengeListe += ", ";
                     mengeListe += string.Format("{0:n0} {1}", menge.Value, menge.Key);
                 }
-                status += string.Format(", Menge: {0:n0}", mengeListe);
+                if (!string.IsNullOrEmpty(mengeListe))
+                {
+                    status += string.Format(", Menge: {0:n0}", mengeListe);
+                }
             }
 
             if (sum_kcal        > 0) status += string.Format(", Kalorien: {0:n0}",   sum_kcal);
