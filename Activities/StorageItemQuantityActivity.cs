@@ -119,8 +119,35 @@ namespace VorratsUebersicht
 
         private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
+            /*
+            string[] actions = { "+100", "+10", "-10", "-100"};
 
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            //builder.SetTitle(item.Heading);
+            builder.SetItems(actions, (sender2, args) =>
+            {
+
+                switch (args.Which)
+                {
+                    case 0: // +100
+                        break;
+
+                    case 1: // +10
+                        break;
+
+                    case 2: // -10
+                        break;
+
+                    case 3: // -100
+                        break;
+                }
+
+                return;
+            });
+            builder.Show();
+            */
         }
+
 
         public static void Reload()
         {

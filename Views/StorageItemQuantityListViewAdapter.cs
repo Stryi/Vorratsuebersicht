@@ -57,6 +57,11 @@ namespace VorratsUebersicht
             buttonAdd.Click -= IncreaseQuantity;
             buttonAdd.Click += IncreaseQuantity;
 
+            ImageButton buttonEdit = view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Edit);
+            buttonEdit.Tag = position;
+            buttonEdit.Click -= EditQuantity;
+            buttonEdit.Click += EditQuantity;
+
             view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Text).Text = item.Heading;
             view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Details).Text = item.SubHeading;
 
@@ -68,11 +73,13 @@ namespace VorratsUebersicht
 
             if (this.actionButtonsVisible)
             {
+                //view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Edit)  .Visibility = ViewStates.Visible;
                 view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Remove).Visibility = ViewStates.Visible;
                 view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Add)   .Visibility = ViewStates.Visible;
             }
             else
             {
+                //view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Edit)  .Visibility = ViewStates.Invisible;
                 view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Remove).Visibility = ViewStates.Invisible;
                 view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Add)   .Visibility = ViewStates.Invisible;
             }
@@ -104,6 +111,37 @@ namespace VorratsUebersicht
             item.StorageItem.Quantity++;
             item.StorageItem.QuantityDiff++;
             this.NotifyDataSetChanged();
+        }
+
+        private void EditQuantity(object sender, EventArgs e)
+        {
+            /*
+            string[] actions = { "+100", "+10", "-10", "-100"};
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(sender);
+            //builder.SetTitle(item.Heading);
+            builder.SetItems(actions, (sender2, args) =>
+            {
+
+                switch (args.Which)
+                {
+                    case 0: // +100
+                        break;
+
+                    case 1: // +10
+                        break;
+
+                    case 2: // -10
+                        break;
+
+                    case 3: // -100
+                        break;
+                }
+
+                return;
+            });
+            builder.Show();
+            */
         }
 
         public void ActivateButtons()

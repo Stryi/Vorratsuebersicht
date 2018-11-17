@@ -20,6 +20,14 @@
         android:layout_below="@+id/StorageItemQuantityList_Text"
         android:text="Details" />
     <ImageButton
+        android:id="@+id/StorageItemQuantityList_Edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/StorageItemQuantityList_Add"
+        android:visibility="invisible"
+        android:focusable="false"
+        android:src="@drawable/ic_create_white_24dp" />
+    <ImageButton
         android:id="@+id/StorageItemQuantityList_Add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
