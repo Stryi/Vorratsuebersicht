@@ -13,11 +13,36 @@ Vor dem Hochladen ins Google Play Store:
 Version 2.30 (CodeVersion 34)
 ==================================
 
+E-Mail an Beta Tester.
+
+Betreff: Vorratsübersicht: Preis, Statuszeile und Einkaufszettel
+
+Geschetzten Beta Tester,
+
+ich war nach langer Zeit mal wieder fleißig. ;-) 
+Hier die Neuerungen, die es zum Testen und begutachten gibt:
+
+- (Standarf) Preis zum Artikel kann jetzt erfasst werden.
+- Einkaufszettel jetzt mit Auswahl des Einkaufsmarktes und Statuszeile.
+- Statuszeile bei Lager- und Artikelliste mit (hoffentlich) nützlichen Informionen.
+
+Viel Spaß mit dem Testen und bitte meldet Euch,
+wenn was nicht funktioniert, falsch oder unlogisch ist.
+
+Falls Ihr nicht mehr Beta Tester Seit, bitte g'schwind um E-Mail,
+dann bekomme Ihr die Benachrichtigugen nicht mehr.
+
+Gruß
+Christian Stryi
+
+
+
+
 Play Store Eintrag:
 
-Preis zum Artikel und in der Statistik.
+(Standarf) Preis zum Artikel kann jetzt erfasst werden.
 Einkaufszettel jetzt mit Auswahl des Einkaufsmarktes.
-Statuszeile bei Lager- und Artikelliste
+Statuszeile bei Lager- und Artikelliste mit (hoffentlich) nützlichen Informionen.
 Backup und Restore jetzt zum Testen (auf eigene Verantwortung)
 Problem beim erstmaligen Zugriff auf die SD Karte jetzt (hoffentlich) gelöst.
 Beschriftung der Buttons jetzt nicht mehr in Grossbuchstaben.
