@@ -223,6 +223,9 @@ namespace VorratsUebersicht
                 itemEanScan.SetEnabled(false);
             }
 
+            IMenuItem itemEanSearch = menu.FindItem(Resource.Id.ArticleDetailsMenu_SearchEAN);
+            itemEanSearch.SetEnabled(!string.IsNullOrEmpty(this.article.EANCode));
+
             return true;
         }
 
@@ -274,6 +277,10 @@ namespace VorratsUebersicht
                     this.ScanEAN();
                     return true;
 
+                case Resource.Id.ArticleDetailsMenu_SearchEAN:
+                    this.SucheEAN();
+                    return true;
+
                 case Resource.Id.ArticleDetailsMenu_ToShoppingList:
                     this.SaveAndAddToShoppingList();                // Bei Neuanlage erst Artikel speichern (sonst keine Referenz aus dem Einkaufszettel)
                     return true;
@@ -285,6 +292,16 @@ namespace VorratsUebersicht
             }
 
             return false;
+        }
+
+        void SucheEAN()
+        {
+            string webPage = "https://www.codecheck.info/product.search?q=";
+
+            Android.Net.Uri uri = Android.Net.Uri.Parse(webPage + this.article.EANCode);
+            
+            Intent intent = new Intent(Intent.ActionView, uri);
+            StartActivity(intent);
         }
 
         private void SaveAndAddToShoppingList()

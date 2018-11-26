@@ -81,7 +81,9 @@ Artikeldetails
 
 
 Artikel scannen (Anhaben aus EAN Datenbank, kostenpflichtig?)
+- https://www.codecheck.info/product.search?q=4006544205006
 - https://corporate.codecheck.info/produkte/produktdaten-api/
+- https://www.ean-suche.de/?q=4000462810052
 
 
 Gemeldete Abstürze:

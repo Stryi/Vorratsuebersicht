@@ -46,7 +46,7 @@ namespace VorratsUebersicht
 
             this.categoryList = new List<string>();
             this.categoryList.Add(Resources.GetString(Resource.String.ArticleList_AllCategories));
-            this.categoryList.AddRange(Database.GetCategoryNames());
+            this.categoryList.AddRange(Database.GetCategoryAndSubCategoryNames());
 
             if (categoryList.Count > 1)
             {
@@ -69,15 +69,29 @@ namespace VorratsUebersicht
 
         private void SpinnerCategory_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            string newCategoryName = string.Empty;
+            string newCategoryName    = string.Empty;
+            string newSubCategoryName = string.Empty;
+
+            string name = this.categoryList[e.Position];
+
             if (e.Position > 0)
             {
-                newCategoryName = this.categoryList[e.Position];
+                if (name.StartsWith("  - "))    // Ist das ein SubCategory?
+                {
+                    name = name.Substring(4);  // Mach aus "  - Gulasch" ein "Gulasch"
+                    newSubCategoryName = name;
+                }
+                else
+                {
+                    newCategoryName = name;
+                }
             }
 
-            if (newCategoryName != this.category)
+            if ((newCategoryName != this.category) || (newSubCategoryName != this.subCategory))
             {
-                this.category = newCategoryName;
+                this.category    = newCategoryName;;
+                this.subCategory = newSubCategoryName;
+
                 this.ShowArticleList(this.lastSearchText);
             }
         }

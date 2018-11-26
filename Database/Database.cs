@@ -425,7 +425,55 @@ namespace VorratsUebersicht
 
             return stringList;
         }
-        
+
+        internal static List<string> GetCategoryAndSubCategoryNames()
+        {
+            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+
+            // Artikel suchen, die schon abgelaufen sind.
+            string cmd = string.Empty;
+            cmd += "SELECT DISTINCT Category AS Value1, Subcategory AS Value2";
+			cmd += " FROM Article";
+            cmd += " WHERE Category IS NOT NULL";
+			cmd += " ORDER BY Category, Subcategory";
+
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            var command = databaseConnection.CreateCommand(cmd);
+            IList<StringPairResult> result = command.ExecuteQuery<StringPairResult>();
+
+            stopWatch.Stop();
+            Tools.TRACE("Dauer der Abfrage für DISTINCT Category, Subcategory: {0}", stopWatch.Elapsed.ToString());
+
+            string lastCategory = string.Empty;
+
+            List<string> stringList = new List<string>();
+            foreach(StringPairResult item in result)
+            {
+                string categoryName    = item.Value1;
+                string subCategoryName = item.Value2;
+
+                if (string.IsNullOrEmpty(categoryName) && string.IsNullOrEmpty(subCategoryName))
+                    continue;
+                if (categoryName != lastCategory)
+                {
+                    stringList.Add(categoryName);
+                    lastCategory = categoryName;
+                }
+
+                if (!string.IsNullOrEmpty(subCategoryName))
+                {
+                    // Die Zeichenfülge "  - " vor dem {0} ist wichtig
+                    // für das Erkennen der Unterkategorie bei Auswahl.
+
+                    stringList.Add(string.Format("  - {0}", subCategoryName));
+                }
+            }
+
+            return stringList;
+        }
+
         internal static string[] GetManufacturerNames()
         {
             SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();

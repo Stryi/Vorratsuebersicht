@@ -1,4 +1,4 @@
-﻿
+
 Vor dem Hochladen ins Google Play Store: 
 ----------------------------------------
 
@@ -9,6 +9,12 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 2.31 (CodeVersion 35)
+==================================
+
+C070 - Aufruf für die EAN-Suche
+C069 - Artikelvorauswahl jetzt auch mit Unterkategorie
+
 
 Version 2.30 (CodeVersion 34)
 ==================================
@@ -17,20 +23,20 @@ E-Mail an Beta Tester.
 
 Betreff: Vorratsübersicht: Preis, Statuszeile und Einkaufszettel
 
-Geschetzten Beta Tester,
+Geschätzten Beta Tester,
 
 ich war nach langer Zeit mal wieder fleißig. ;-) 
 Hier die Neuerungen, die es zum Testen und begutachten gibt:
 
-- (Standarf) Preis zum Artikel kann jetzt erfasst werden.
+- (Standard) Preis zum Artikel kann jetzt erfasst werden.
 - Einkaufszettel jetzt mit Auswahl des Einkaufsmarktes und Statuszeile.
-- Statuszeile bei Lager- und Artikelliste mit (hoffentlich) nützlichen Informionen.
+- Statuszeile bei Lager- und Artikelliste mit (hoffentlich) nützlichen Informationen.
 
 Viel Spaß mit dem Testen und bitte meldet Euch,
 wenn was nicht funktioniert, falsch oder unlogisch ist.
 
 Falls Ihr nicht mehr Beta Tester Seit, bitte g'schwind um E-Mail,
-dann bekomme Ihr die Benachrichtigugen nicht mehr.
+dann bekomme Ihr die Benachrichtigungen nicht mehr.
 
 Gruß
 Christian Stryi
@@ -40,12 +46,13 @@ Christian Stryi
 
 Play Store Eintrag:
 
-(Standarf) Preis zum Artikel kann jetzt erfasst werden.
+(Standard-) Preis zum Artikel kann jetzt erfasst werden.
 Einkaufszettel jetzt mit Auswahl des Einkaufsmarktes.
-Statuszeile bei Lager- und Artikelliste mit (hoffentlich) nützlichen Informionen.
+Statuszeile bei Lager- und Artikelliste mit (hoffentlich) nützlichen Einformionen.
 Backup und Restore jetzt zum Testen (auf eigene Verantwortung)
 Problem beim erstmaligen Zugriff auf die SD Karte jetzt (hoffentlich) gelöst.
-Beschriftung der Buttons jetzt nicht mehr in Grossbuchstaben.
+Beschriftung der Buttons jetzt nicht mehr in Großbuchstaben.
+
 
 C068 - Preis zum Artikel und in der Statistik.
 C067 - Lagerliste und Artikelliste: Summenzeile in der Artikel- und Lagerliste
