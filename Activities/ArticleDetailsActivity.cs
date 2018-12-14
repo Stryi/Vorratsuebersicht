@@ -39,6 +39,12 @@ namespace VorratsUebersicht
         TextView  warningInDaysLabelView;
         Toast toast;
         ImageCaptureHelper imageCapture;
+        EditText size;
+        EditText unit;
+        EditText calorie;
+        TextView caloriePerUnitLabel;
+        EditText caloriePerUnit;
+        bool ignoreTextChangeEvent;
 
         IList<string> Manufacturers;
         CatalogItemSelectedListener catalogListener;
@@ -104,6 +110,17 @@ namespace VorratsUebersicht
                 this.warningInDaysView.Enabled      = !durableInfinity.Checked;
                 this.warningInDaysLabelView.Enabled = !durableInfinity.Checked;
             };
+
+            this.size                  = FindViewById<EditText>(Resource.Id.ArticleDetails_Size);
+            this.unit                  = FindViewById<EditText>(Resource.Id.ArticleDetails_Unit);
+            this.calorie               = FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie);
+            this.caloriePerUnitLabel   = FindViewById<TextView>(Resource.Id.ArticleDetails_CaloriePerUnitLabel);
+            this.caloriePerUnit        = FindViewById<EditText>(Resource.Id.ArticleDetails_CaloriePerUnit);
+
+            this.size.TextChanged            += this.BerechneCalPerUnit;
+            this.unit.TextChanged            += this.BerechneCalPerUnit;
+            this.calorie.TextChanged         += this.BerechneCalPerUnit;
+            this.caloriePerUnit.TextChanged  += this.BerechneCalGes;
 
             // Hersteller Eingabe
             this.Manufacturers = new List<string>();
@@ -173,6 +190,7 @@ namespace VorratsUebersicht
                 this.SelectAPicture();
             };
 
+
             if (!string.IsNullOrEmpty(this.article.Name))
             { 
                 // Artikelname ist eingetragen. Tastatus anfänglich ausblenden.
@@ -180,6 +198,96 @@ namespace VorratsUebersicht
             }
             stopWatch.Stop();
             TRACE("Dauer Laden der Artikeldaten: {0}", stopWatch.Elapsed.ToString());
+        }
+
+        private void BerechneCalPerUnit(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            if (this.ignoreTextChangeEvent)
+                return;
+
+            string unitPerX = UnitConvert.GetConvertUnit(this.unit.Text);
+
+            Int64 calPerUnit = UnitConvert.GetCaloriePerUnit(
+                this.size.Text,
+                this.unit.Text,
+                this.calorie.Text);
+
+            /*
+            string sizeText = this.size.Text;
+            string unit = this.unit.Text;
+            string calorieText = this.calorie.Text;
+
+            string unitPerX = string.Empty;
+            decimal factor = 1;                     // Umrechnungsfaktor zwischen l und ml oder kg und mg
+
+            int calorie = 0;
+            int.TryParse(calorieText, out calorie);
+            int size = 0;
+            int.TryParse(sizeText, out size);
+
+            if (unit == "kg")
+            {
+                unitPerX = "g";
+                factor = 0.1M;
+            }
+
+            if (unit == "g")
+            {
+                unitPerX = "g";
+                factor = 100;
+            }
+
+            if (unit == "l")
+            {
+                unitPerX = "ml";
+                factor = 0.1M;
+            }
+            if (unit == "ml")
+            {
+                unitPerX = "ml";
+                factor = 100;
+            }
+            */
+
+            this.ignoreTextChangeEvent = true;
+            if (calPerUnit >= 0)
+            {
+                this.caloriePerUnit.Text = calPerUnit.ToString();
+                this.caloriePerUnit.Enabled = true;
+            }
+            else
+            {
+                this.caloriePerUnit.Text = "---";
+                this.caloriePerUnit.Enabled = false;
+            }
+            this.ignoreTextChangeEvent = false;
+
+            // Text auf "Kalorien pro 100 ??" setzen.
+            string perUnitText = Resources.GetString(Resource.String.ArticleDetails_CaloriesPerUnit);
+            perUnitText = string.Format(perUnitText, unitPerX);
+            this.caloriePerUnitLabel.Text = perUnitText;
+        }
+
+        private void BerechneCalGes(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            if (this.ignoreTextChangeEvent)
+                return;
+
+            int calorieGes = UnitConvert.GetGesamtCalorie(
+                this.size.Text,
+                this.unit.Text,
+                this.caloriePerUnit.Text);
+
+            if (calorieGes == -1)
+                return;
+
+            // Hat sich nichts geändert?
+            if (this.calorie.Text == calorieGes.ToString())
+                return;
+
+            this.ignoreTextChangeEvent = true;
+            this.calorie.Text = calorieGes.ToString();
+            this.ignoreTextChangeEvent = false;
         }
 
         private void TakeOrShowPhoto(object sender, EventArgs e)
@@ -665,8 +773,24 @@ namespace VorratsUebersicht
             FindViewById<EditText>(Resource.Id.ArticleDetails_Name).Text               = article.Name;
             FindViewById<Switch>  (Resource.Id.ArticleDetails_DurableInfinity).Checked = article.DurableInfinity;
 
+            /*
+            int calorie = this.article.Calorie.Value;
+
+            if (article.Unit == "g")
+            {
+                calorieLabel.Visibility        = ViewStates.Gone;
+                caloriePerUnitLabel.Visibility = ViewStates.Visible;
+                calorie = 100 * calorie / (int)this.article.Size.Value;
+            }
+            else
+            {
+                calorieLabel.Visibility        = ViewStates.Visible;
+                caloriePerUnitLabel.Visibility = ViewStates.Gone;
+            }
+            */
+
             if (article.WarnInDays.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_WarnInDays).Text = article.WarnInDays.Value.ToString();
-            if (article.Calorie.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie).Text       = article.Calorie.Value.ToString();
+            if (article.Calorie.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie).Text       = this.article.Calorie.ToString();
             if (article.Size.HasValue)    FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text          = article.Size.Value.ToString(CultureInfo.InvariantCulture);
             if (article.MinQuantity.HasValue)  FindViewById<EditText>(Resource.Id.ArticleDetails_MinQuantity).Text  = article.MinQuantity.Value.ToString();
             if (article.PrefQuantity.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_PrefQuantity).Text = article.PrefQuantity.Value.ToString();

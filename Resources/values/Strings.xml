@@ -59,8 +59,9 @@
   <string name="ArticleDetails_WarningInDays">Warn in days before expiration:</string>
   <string name="ArticleDetails_Size">Content/size:</string>
   <string name="ArticleDetails_Unit">Unit:</string>
-  <string name="ArticleDetails_Unit_Hint">g, l, kg, pcs</string>
+  <string name="ArticleDetails_Unit_Hint">g, l, kg, mg, pcs</string>
   <string name="ArticleDetails_Calories">Calories:</string>
+  <string name="ArticleDetails_CaloriesPerUnit">Calories per 100 {0}:</string>
   <string name="ArticleDetails_StorageLabel">Storage location:</string>
   <string name="ArticleDetails_MinQuantityLabel">Min. quantity:</string>
   <string name="ArticleDetails_PrefQuantityLabel">Pref. quantity:</string>

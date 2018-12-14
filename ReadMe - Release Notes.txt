@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 2.31 (CodeVersion 35)
 ==================================
 
+C071 - Umrechnung 100 mg und 100 ml in Gesamtkalorien
 C070 - Aufruf für die EAN-Suche
 C069 - Artikelvorauswahl jetzt auch mit Unterkategorie
 

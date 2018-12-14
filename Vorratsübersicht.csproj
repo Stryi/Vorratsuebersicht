@@ -125,6 +125,7 @@
     <Compile Include="Database\Results\table_info.cs" />
     <Compile Include="Database\ShoppingItem.cs" />
     <Compile Include="Tools\BitmapHelpers.cs" />
+    <Compile Include="Tools\UnitConvert.cs" />
     <Compile Include="Tools\DatePickerFragment .cs" />
     <Compile Include="Activities\StorageItemListActivity.cs" />
     <Compile Include="Database\Android_Database.cs" />
