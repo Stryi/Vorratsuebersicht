@@ -207,7 +207,7 @@ namespace VorratsUebersicht
 
             string unitPerX = UnitConvert.GetConvertUnit(this.unit.Text);
 
-            Int64 calPerUnit = UnitConvert.GetCaloriePerUnit(
+            string calPerUnit = UnitConvert.GetCaloriePerUnit(
                 this.size.Text,
                 this.unit.Text,
                 this.calorie.Text);
@@ -250,9 +250,9 @@ namespace VorratsUebersicht
             */
 
             this.ignoreTextChangeEvent = true;
-            if (calPerUnit >= 0)
+            if (calPerUnit != "---")
             {
-                this.caloriePerUnit.Text = calPerUnit.ToString();
+                this.caloriePerUnit.Text = calPerUnit;
                 this.caloriePerUnit.Enabled = true;
             }
             else
@@ -273,16 +273,16 @@ namespace VorratsUebersicht
             if (this.ignoreTextChangeEvent)
                 return;
 
-            int calorieGes = UnitConvert.GetGesamtCalorie(
+            string calorieGes = UnitConvert.GetGesamtCalorie(
                 this.size.Text,
                 this.unit.Text,
                 this.caloriePerUnit.Text);
 
-            if (calorieGes == -1)
+            if (calorieGes == "")
                 return;
 
             // Hat sich nichts geändert?
-            if (this.calorie.Text == calorieGes.ToString())
+            if (this.calorie.Text == calorieGes)
                 return;
 
             this.ignoreTextChangeEvent = true;

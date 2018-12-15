@@ -27,23 +27,26 @@ namespace VorratsUebersicht
         }
 
         // Umrechnung, z.B. 500 g mit 30 kcal/100g => 150 kcal
-        public static int GetGesamtCalorie(string sizeText, string unit, string caloriePerUnitText)
+        public static string GetGesamtCalorie(string sizeText, string unit, string caloriePerUnitText)
         {
             decimal factor     = 1;                     // Umrechnungsfaktor zwischen l und ml oder kg und mg
-            int caloriePerUnit = -1;
+            Int64 caloriePerUnit = 0;
             decimal size       = 0;
 
-            int.TryParse(caloriePerUnitText, out caloriePerUnit);
+            Int64.TryParse(caloriePerUnitText, out caloriePerUnit);
             decimal.TryParse(sizeText, 
                 NumberStyles.Number, 
                 CultureInfo.InvariantCulture, 
                 out size);
 
-            //if (string.IsNullOrEmpty(caloriePerUnitText))
-            //    return - 1;
+            if (string.IsNullOrEmpty(caloriePerUnitText))
+                return "";
 
-            if ((size == 0) || (caloriePerUnit == -1))
-                return - 1;
+            if (string.IsNullOrEmpty(sizeText))
+                return "";
+
+            if ((size == 0) || (caloriePerUnit == 0))
+                return "";
 
             string unitPerX = GetConvertUnit(unit);
             if ((unit == "kg") && (unitPerX == "g"))
@@ -67,15 +70,23 @@ namespace VorratsUebersicht
             }
 
             if (string.IsNullOrEmpty(unitPerX))
-                return -1;
+                return "";
 
-            int calorieGes = (int)(caloriePerUnit * factor * size);
+            Int64 calorieGes;
+            try
+            {
+                calorieGes = (Int64)(caloriePerUnit * factor * size);
+            }
+            catch
+            {
+                return "";
+            }
 
-            return calorieGes;
+            return calorieGes.ToString();
         }
 
         // Umechnung, z.B. 500 g Packung hat 2000 kcal => 150 kcal/100 g
-        public static Int64 GetCaloriePerUnit(string sizeText, string unit, string calorieText)
+        public static string GetCaloriePerUnit(string sizeText, string unit, string calorieText)
         {
             decimal factor = 1;                     // Umrechnungsfaktor zwischen l und ml oder kg und mg
             decimal calorie = -1;
@@ -88,11 +99,14 @@ namespace VorratsUebersicht
                 CultureInfo.InvariantCulture, 
                 out size);
 
-            //if (string.IsNullOrEmpty(calorieText))
-            //    return - 1;
+            if (string.IsNullOrEmpty(calorieText))
+                return "";
+
+            if (string.IsNullOrEmpty(sizeText))
+                return "---";
 
             if ((size == -1) || (calorie == -1))
-                return - 1;
+                return "---";
 
             string unitPerX = GetConvertUnit(unit);
             if ((unit == "kg") && (unitPerX == "g"))
@@ -117,7 +131,7 @@ namespace VorratsUebersicht
             }
 
             if (string.IsNullOrEmpty(unitPerX))
-                return -1;
+                return "---";
 
             Int64 calPerUnit = -1;
             try
@@ -126,95 +140,107 @@ namespace VorratsUebersicht
             }
             catch { }
 
-            return calPerUnit;
+            return calPerUnit.ToString();
         }
 
         internal void UnitTest_GetGesamtCalorie()
         {
-            int gesCal;
+            string gesCal;
+
+            // Umrechnung, z.B. 500 g mit 30 kcal/100g => 150 kcal
+            gesCal = UnitConvert.GetGesamtCalorie("500", "g", "30");
+            gesCal = UnitConvert.GetGesamtCalorie("",    "g", "30");
+            gesCal = UnitConvert.GetGesamtCalorie("500", "",  "30");
+            gesCal = UnitConvert.GetGesamtCalorie("",    "",  "30");
+
 
             gesCal = UnitConvert.GetGesamtCalorie("500", "g", "30");
-            Debug.Assert(gesCal == 150);
+            Debug.Assert(gesCal == "150");
 
 
             // 500 g Packung mit 30 kcal/100 g
             gesCal = UnitConvert.GetGesamtCalorie("500", "g", "30");
-            Debug.Assert(gesCal == 150);
+            Debug.Assert(gesCal == "150");
 
             gesCal = UnitConvert.GetGesamtCalorie("100", "g", "27");
-            Debug.Assert(gesCal == 27);
+            Debug.Assert(gesCal == "27");
 
             gesCal = UnitConvert.GetGesamtCalorie("200", "g", "27");
-            Debug.Assert(gesCal == 2*27);
+            Debug.Assert(gesCal == "54");
 
             gesCal = UnitConvert.GetGesamtCalorie("0.1", "kg", "30");
-            Debug.Assert(gesCal == 30);
+            Debug.Assert(gesCal == "30");
 
             gesCal = UnitConvert.GetGesamtCalorie("0.2", "kg", "30");
-            Debug.Assert(gesCal == 60);
+            Debug.Assert(gesCal == "60");
 
             gesCal = UnitConvert.GetGesamtCalorie("0.5", "kg", "30");
-            Debug.Assert(gesCal == 150);
+            Debug.Assert(gesCal == "150");
 
             // 1 Liter mit 50 kcal/100 ml
             gesCal = UnitConvert.GetGesamtCalorie("0.5", "l", "120");
-            Debug.Assert(gesCal == 600);
+            Debug.Assert(gesCal == "600");
 
             gesCal = UnitConvert.GetGesamtCalorie("0.1", "l", "120");
-            Debug.Assert(gesCal == 120);
+            Debug.Assert(gesCal == "120");
 
             gesCal = UnitConvert.GetGesamtCalorie("1", "l", "120");
-            Debug.Assert(gesCal == 1200);
+            Debug.Assert(gesCal == "1200");
 
             gesCal = UnitConvert.GetGesamtCalorie("500", "ml", "120");
-            Debug.Assert(gesCal == 600);
+            Debug.Assert(gesCal == "600");
 
             gesCal = UnitConvert.GetGesamtCalorie("", "ml", "120");
-            Debug.Assert(gesCal == -1);
+            Debug.Assert(gesCal == "");
 
             gesCal = UnitConvert.GetGesamtCalorie("500", "ml", "");
-            Debug.Assert(gesCal == -1);
-
+            Debug.Assert(gesCal == "");
         }
 
         internal void UnitTest_GetCaloriePerUnit()
         {
-            Int64 calPerUnit;
+            string calPerUnit;
 
             // Umechnung, z.B. 500 g Packung hat 500 kcal => 100 kcal/100 g
             calPerUnit = UnitConvert.GetCaloriePerUnit("500", "g", "500");
-            Debug.Assert(calPerUnit == 100);
+            calPerUnit = UnitConvert.GetCaloriePerUnit("",    "g", "500");
+            calPerUnit = UnitConvert.GetCaloriePerUnit("500", "",  "500");
+            calPerUnit = UnitConvert.GetCaloriePerUnit("",    "",  "500");
+
+            // Umechnung, z.B. 500 g Packung hat 500 kcal => 100 kcal/100 g
+            calPerUnit = UnitConvert.GetCaloriePerUnit("500", "g", "500");
+            Debug.Assert(calPerUnit == "100");
 
             calPerUnit = UnitConvert.GetCaloriePerUnit("500", "g", "250");
-            Debug.Assert(calPerUnit == 50);
+            Debug.Assert(calPerUnit == "50");
 
             calPerUnit = UnitConvert.GetCaloriePerUnit("200", "g", "100");
-            Debug.Assert(calPerUnit ==50);
+            Debug.Assert(calPerUnit == "50");
 
             calPerUnit = UnitConvert.GetCaloriePerUnit("0.1", "kg", "30");
-            Debug.Assert(calPerUnit == 30);
+            Debug.Assert(calPerUnit == "30");
 
             calPerUnit = UnitConvert.GetCaloriePerUnit("0.2", "kg", "30");
-            Debug.Assert(calPerUnit == 15);
+            Debug.Assert(calPerUnit == "15");
 
             calPerUnit = UnitConvert.GetCaloriePerUnit("0.5", "kg", "300");
-            Debug.Assert(calPerUnit == 60);
+            Debug.Assert(calPerUnit == "60");
 
             calPerUnit = UnitConvert.GetCaloriePerUnit("0.1", "l", "120");
-            Debug.Assert(calPerUnit == 120);
+            Debug.Assert(calPerUnit == "120");
 
             // 1 Liter mit 50 kcal/100 ml
             calPerUnit = UnitConvert.GetCaloriePerUnit("0.5", "l", "120");
-            Debug.Assert(calPerUnit == 24);
+            Debug.Assert(calPerUnit == "24");
 
             calPerUnit = UnitConvert.GetCaloriePerUnit("1", "l", "120");
-            Debug.Assert(calPerUnit == 12);
+            Debug.Assert(calPerUnit == "12");
 
             calPerUnit = UnitConvert.GetCaloriePerUnit("500", "ml", "120");
-            Debug.Assert(calPerUnit == 24);
+            Debug.Assert(calPerUnit == "24");
 
             calPerUnit = UnitConvert.GetCaloriePerUnit("500", "ml", "0");
-            Debug.Assert(calPerUnit == 0);
+            Debug.Assert(calPerUnit == "0");
         }
 
         internal static string GetConvertUnit(string unit)
