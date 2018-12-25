@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 2.32 (CodeVersion 36)
+==================================
+
+C072 - FIX: Fehler beim Speichern von Preisen mit Komma beseitigt.
+
 Version 2.31 (CodeVersion 35)
 ==================================
 

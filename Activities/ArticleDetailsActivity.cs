@@ -794,7 +794,7 @@ namespace VorratsUebersicht
             if (article.Size.HasValue)    FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text          = article.Size.Value.ToString(CultureInfo.InvariantCulture);
             if (article.MinQuantity.HasValue)  FindViewById<EditText>(Resource.Id.ArticleDetails_MinQuantity).Text  = article.MinQuantity.Value.ToString();
             if (article.PrefQuantity.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_PrefQuantity).Text = article.PrefQuantity.Value.ToString();
-            if (article.Price.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_Price).Text = article.Price.Value.ToString();
+            if (article.Price.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_Price).Text = article.Price.Value.ToString(CultureInfo.InvariantCulture);
 
             FindViewById<EditText>(Resource.Id.ArticleDetails_Unit).Text               = article.Unit;
             FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text            = article.EANCode;

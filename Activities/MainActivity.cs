@@ -135,7 +135,23 @@ namespace VorratsUebersicht
             this.EnableButtons(string.IsNullOrEmpty(error));
 
             this.ShowInfoAufTestversion();
+
+            // SetAlarmForBackgroundServices(this);
         }
+
+        /*
+		public static void SetAlarmForBackgroundServices(Context context)
+		{
+			var alarmIntent = new Intent(context.ApplicationContext, typeof(AlarmReceiver));
+			var broadcast = PendingIntent.GetBroadcast(context.ApplicationContext, 0, alarmIntent, PendingIntentFlags.NoCreate);
+			if (broadcast == null)
+			{
+				var pendingIntent = PendingIntent.GetBroadcast(context.ApplicationContext, 0, alarmIntent, 0);
+				var alarmManager = (AlarmManager)context.GetSystemService(Context.AlarmService);
+				alarmManager.SetRepeating(AlarmType.ElapsedRealtimeWakeup, SystemClock.ElapsedRealtime(), 15000, pendingIntent);
+			}
+		}
+        */
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
