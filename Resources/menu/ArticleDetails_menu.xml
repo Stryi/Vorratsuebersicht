@@ -31,10 +31,6 @@
         android:icon="@drawable/Barcode"
         android:title="@string/ArticleDetails_Menu_EAN_Scannen" />
 
-  <item android:id="@+id/ArticleDetailsMenu_SearchEAN"
-        android:icon="@drawable/Barcode"
-        android:title="EAN auf www.codecheck.info" />
-
   <item android:id="@+id/ArticleDetailsMenu_ToShoppingList"
       android:icon="@drawable/ic_shopping_cart_white_48dp"
       android:title="@string/StorageItemQuantity_Menu_ToShoppingList" />

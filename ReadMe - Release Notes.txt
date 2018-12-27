@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 2.33 (CodeVersion 37)
+==================================
+
+C073 - Aufruf für die EAN-Suche entfernt.
+
 Version 2.32 (CodeVersion 36)
 ==================================
 
