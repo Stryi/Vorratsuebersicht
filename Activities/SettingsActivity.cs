@@ -62,6 +62,13 @@ namespace VorratsUebersicht
             Button buttonBackup = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
             buttonBackup.Click += delegate  
             {
+                bool isGranted = new SdCardAccess().Grand(this);
+
+                if (!isGranted)
+                {
+                    return;
+                }
+
                 var databaseFileName = new Android_Database().GetProductiveDatabasePath();
 
                 var downloadFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(
@@ -72,19 +79,27 @@ namespace VorratsUebersicht
 
                 var backupFileName = Path.Combine(downloadFolder, backupName);
 
-                var progressDialog = this.CreateProgressBar();
+                var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_BackupAndRestore);
                 new Thread(new ThreadStart(delegate
                 {
-                    File.Copy(databaseFileName, backupFileName);
+                    string message; 
+                    try
+                    {
+                        File.Copy(databaseFileName, backupFileName);
+                        message = string.Format(
+                            "Datenbank im Download Verzeichnis gesichert als:\n\n {0}" +
+                            "\n\nSichern Sie diese Datei auf Google Drive oder auf Ihren PC.",
+                            backupFileName);
+                    }
+                    catch(Exception ex)
+                    {
+                        message = ex.Message;
+                    }
 
                     this.HideProgressBar(progressDialog);
 
                     RunOnUiThread(() =>
                     {
-                        string message = string.Format(
-                            "Datenbank im Download Verzeichnis gesichert als:\n\n {0}" +
-                            "\n\nSichern Sie diese Datei auf Google Drive oder auf Ihren PC.",
-                            backupFileName);
 
                         var builder = new AlertDialog.Builder(this);
                         builder.SetMessage(message);
@@ -148,7 +163,7 @@ namespace VorratsUebersicht
                 builder.SetNegativeButton("Abbruch",(s, e) => { });
                 builder.SetPositiveButton("Ok", (s, e) => 
                 { 
-                    var progressDialog = this.CreateProgressBar();
+                    var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_BackupAndRestore);
                     new Thread(new ThreadStart(delegate
                     {
                         File.Copy(fileSource, fileDestination, true);
@@ -170,7 +185,7 @@ namespace VorratsUebersicht
 
         private void ButtonRestoreSampleDb_Click(object sender, EventArgs e)
         {
-            var progressDialog = this.CreateProgressBar();
+            var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_RestoreSampleDb);
             new Thread(new ThreadStart(delegate
             {
                 new Android_Database().RestoreDatabase_Test_Sample(true);
@@ -197,7 +212,7 @@ namespace VorratsUebersicht
 
         private void ButtonCompressDb_Click(object sender, EventArgs e)
         {
-            var progressDialog = this.CreateProgressBar();
+            var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_Compress);
             new Thread(new ThreadStart(delegate
             {
                 new Android_Database().CompressDatabase();
@@ -253,9 +268,9 @@ namespace VorratsUebersicht
             databasePath.Text = new Android_Database().GetDatabaseInfoText(dbInfoFormat);
         }
 
-        private ProgressBar CreateProgressBar()
+        private ProgressBar CreateProgressBar(int resourceId)
         {
-            var progressBar = FindViewById<ProgressBar>(Resource.Id.ProgressBar);
+            var progressBar = FindViewById<ProgressBar>(resourceId);
             progressBar.Visibility = ViewStates.Visible;
             this.Window.SetFlags(WindowManagerFlags.NotTouchable, WindowManagerFlags.NotTouchable);
             return progressBar;

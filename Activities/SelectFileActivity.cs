@@ -31,7 +31,6 @@ namespace VorratsUebersicht
             backgroundPaint.SetBounds(0, 0, 10, 10);
             ActionBar.SetBackgroundDrawable(backgroundPaint);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-            //ActionBar.SetDisplayShowHomeEnabled(false);
             ActionBar.SetIcon(Resource.Drawable.baseline_folder_white_24);
 
             this.Title         = Intent.GetStringExtra("Text");

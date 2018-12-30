@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 2.34 (CodeVersion 38)
+==================================
+
+C074 - FIX: Absturz beim Backup.
+
 Version 2.33 (CodeVersion 37)
 ==================================
 
