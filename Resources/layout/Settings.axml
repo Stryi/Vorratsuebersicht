@@ -41,6 +41,19 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:paddingTop="10dp"
+          android:text="Kategorien mit Komme ',' getrennt definieren (Beta)" />
+      <EditText
+            android:id="@+id/Settings_Categories"
+            android:inputType="textMultiLine"
+            android:gravity="top|left"
+            android:scrollbars="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Essen, Trinken, Medikamente, Sonstiges," />
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="10dp"
           android:text="Backup und Restore (auf eigene Verantwortung)" />
       <ProgressBar
           android:id="@+id/ProgressBar_BackupAndRestore"

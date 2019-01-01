@@ -124,11 +124,34 @@ namespace VorratsUebersicht
                 selectFile.PutExtra("SearchPattern", "*.VueBak");
 
                 StartActivityForResult(selectFile, SelectBackupId);
-             };
+            };
+
+            Database.GetCategories();
+
+            string categoryText = string.Empty;
+            
+            string[] categories = MainActivity.GetExistingsCategories(Resources.GetStringArray(Resource.Array.ArticleCatagories));
+            foreach(string category in categories)
+            {
+                categoryText += category + ", ";
+            }
+
+            EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
+            catEdit.Text = categoryText;
+            catEdit.SetSelection(categoryText.Length);
+            catEdit.TextChanged += CatEdit_TextChanged;
 
             this.EnableButtons();
 
             this.ShowApplicationVersion();
+
+            // Artikelname ist eingetragen. Tastatus anfänglich ausblenden.
+            this.Window.SetSoftInputMode(SoftInput.StateHidden);
+        }
+
+        private void CatEdit_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            MainActivity.SetExistingsCategories(e.Text.ToString());
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

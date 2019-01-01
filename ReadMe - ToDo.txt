@@ -2,7 +2,6 @@ Prio 1
 ======
 
 Kategorie/Unterkategorie
-- Selbst definierte Kategorien
 - "Keine Kategorie" als Popup Auswahl?
 
 

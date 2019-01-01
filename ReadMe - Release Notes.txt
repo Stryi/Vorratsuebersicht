@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 2.35 (CodeVersion 39)
+==================================
+
+C075 - Selbst definierte Kategorien (in Einstellungen).
+
 Version 2.34 (CodeVersion 38)
 ==================================
 

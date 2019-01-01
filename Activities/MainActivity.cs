@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 using Android.App;
 using Android.Content;
@@ -14,6 +15,7 @@ using Android.Support.V4.Content;
 
 namespace VorratsUebersicht
 {
+    using System.Collections.ObjectModel;
     using static Tools;
 
     [Activity(Label = "Vorratsübersicht", Icon = "@drawable/ic_launcher")]
@@ -66,8 +68,6 @@ namespace VorratsUebersicht
             {
                 ShoppingListHelper.UnitTest();
             }
-
-            var lan = Resources.Configuration.Locale;
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
@@ -539,6 +539,44 @@ namespace VorratsUebersicht
             {
                 return DateTime.Now.Date < MainActivity.preLaunchTestEndDay;
             }
+        }
+
+        internal static string[] GetExistingsCategories(string[] defaultCategories)
+        {
+            string name = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+            string settingsName = "Categories-" + name;
+
+            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
+            ICollection<string> categories = prefs.GetStringSet("Categories", null);
+            if (categories == null)
+                return defaultCategories;
+
+            if (categories.Count == 0)
+                return defaultCategories;
+
+            string[] definedCategories = new string[categories.Count];
+            categories.CopyTo(definedCategories, 0);
+
+            return definedCategories;
+        }
+
+        internal static void SetExistingsCategories(string newCategories)
+        {
+            string name = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+            string settingsName = "Categories-" + name;
+            IList<string> valueList = new List<string>();
+            string[] newValues = newCategories.Split(',');
+            foreach(string value in newValues)
+            {
+                if (string.IsNullOrEmpty(value.Trim()))
+                    continue;
+
+                valueList.Add(value.Trim());
+            }
+            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
+            var edit = prefs.Edit();
+            edit.PutStringSet("Categories", valueList);
+            edit.Commit();
         }
     }
 }
