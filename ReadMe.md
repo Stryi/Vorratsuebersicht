@@ -7,15 +7,15 @@ Mit dieser App können Sie Mindesthaltbarkeitsdatum der Lebensmittel in Ihren Vo
 
 Zuerst wird ein Artikel (einmalig) in "Artikelliste" mit seinen Angaben und ggf. Bild erfasst.
 
-![](https://raw.githubusercontent.com/Stryi/Vorratsuebersicht/master/Screenshots/Screenshot_003.jpeg)
+![](Screenshots/Screenshot_003.jpeg)
 
 Danach kann man im "Lagerbestand" mit "+" den Artikel hinzufügen,
 
-![](https://raw.githubusercontent.com/Stryi/Vorratsuebersicht/master/Screenshots/Screenshot_005.jpeg)
+![](Screenshots/Screenshot_005.jpeg)
 
 das Ablaufdatum ausgewählt und die Menge erfassen.
 
-![](https://raw.githubusercontent.com/Stryi/Vorratsuebersicht/master/Screenshots/Screenshot_006.jpeg)
+![](Screenshots/Screenshot_006.jpeg)
 
 Nähert sich das Ablaufdatum oder wird das Datum überschritten, so erscheint eine Warnung in der App.
 Für die Warnung vor dem Ablaufdatum kann pro Artikel Anzahl Tage definieren werden.
