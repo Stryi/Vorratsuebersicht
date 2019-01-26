@@ -9,6 +9,8 @@ using Android.Widget;
 // 
 namespace VorratsUebersicht  
 {  
+    using static Tools;
+
     [Activity(Label="Vorratsübersicht",MainLauncher=true,Theme="@style/Theme.Splash",NoHistory=true,Icon="@drawable/ic_launcher")]  
     public class SplashScreenActivity : Activity  
     {  
@@ -25,14 +27,29 @@ namespace VorratsUebersicht
             new System.Threading.Thread(new ThreadStart(delegate             
             {
                 this.InitializeApp();
-                StartActivity(typeof(MainActivity));  
+                StartActivity(typeof(MainActivity));
 
             })).Start();
-        }  
+        }
 
         private void InitializeApp() 
         {
             /*
+            bool emulator = Android.OS.Environment.IsExternalStorageEmulated;
+            string status = Android.OS.Environment.ExternalStorageState;
+            bool canWrite = Android.OS.Environment.ExternalStorageDirectory.CanWrite();
+            string sdCardPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+            string databasePath = new Android_Database().GetDatabasePath();
+            
+            TRACE("********************************************");
+            TRACE("Is SD card emulated : {0}", emulator);
+            TRACE("SD card state       : {0}", status);
+            TRACE("Can write SD card   : {0}", canWrite);
+            TRACE("SD card path        : {0}", sdCardPath);
+            TRACE("Database path       : {0}", databasePath);
+            TRACE("Database on SD card : {0}", Android_Database.IsDatabaseOnSdCard);
+            TRACE("********************************************");
+
             for (int progress=0; progress<100; progress+=10) 
             {
                 System.Threading.Thread.Sleep(1000);

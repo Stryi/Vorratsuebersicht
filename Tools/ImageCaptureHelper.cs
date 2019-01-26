@@ -56,7 +56,7 @@ namespace VorratsUebersicht
             if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
                 if (this.context.CheckSelfPermission(cameraPermission) == (int)Permission.Granted &&
-                    this.context.CheckSelfPermission(storageWritePermission) == (int)Permission.Granted)
+                        this.context.CheckSelfPermission(storageWritePermission) == (int)Permission.Granted)
                 {
                     StartCameraActivity();
                 }
@@ -98,13 +98,6 @@ namespace VorratsUebersicht
                     App._dir.Mkdirs();
                 }
                 return;
-            }
-
-            string internalPicturePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures);
-            App._dir = new Java.IO.File(internalPicturePath, "Vorräte Bilder");
-            if (!App._dir.Exists())
-            {
-                App._dir.Mkdirs();
             }
         }
 

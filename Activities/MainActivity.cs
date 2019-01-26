@@ -136,6 +136,22 @@ namespace VorratsUebersicht
 
             this.ShowInfoAufTestversion();
 
+            // Prüfe, ob in der App-DB Daten sind und auf der SD nicht.
+            if (new Android_Database().CheckWrongDatabase())
+            {
+                var message = new AlertDialog.Builder(this);
+                message.SetMessage("Die Datenbank auf der SD Karte enthält keine Daten.\n\nSollen die Daten vom Applikationsverzeichnis übernommen werden?");
+                message.SetIcon(Resource.Drawable.ic_launcher);
+                message.SetPositiveButton("Ja", (s, e) => 
+                    {
+                        // Unbekannter Fehlerfall ist aufgetreten.
+                        // Datenbank von App-Verzeichnis auf SD Karte (erneut) kopieren.
+                        new Android_Database().CopyDatabaseToSDCard(true);
+                    });
+                message.SetNegativeButton("Keine Ahnung. Mache nichts.", (s, e) => { });
+                message.Create().Show();
+            }
+            
             // SetAlarmForBackgroundServices(this);
         }
 
@@ -541,13 +557,18 @@ namespace VorratsUebersicht
             }
         }
 
+        /*
         internal static string[] GetExistingsCategories(string[] defaultCategories)
         {
             string name = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
             string settingsName = "Categories-" + name;
+            
+            IList<string> myCategories = new List<string>();
+
+            string[] isCategories = Database.GetCategories();
 
             var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
-            ICollection<string> categories = prefs.GetStringSet("Categories", null);
+            ICollection<string> categories = prefs.GetStringSet(settingsName, null);
             if (categories == null)
                 return defaultCategories;
 
@@ -562,8 +583,6 @@ namespace VorratsUebersicht
 
         internal static void SetExistingsCategories(string newCategories)
         {
-            string name = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-            string settingsName = "Categories-" + name;
             IList<string> valueList = new List<string>();
             string[] newValues = newCategories.Split(',');
             foreach(string value in newValues)
@@ -573,11 +592,16 @@ namespace VorratsUebersicht
 
                 valueList.Add(value.Trim());
             }
+
+            string name = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+            string settingsName = "Categories-" + name;
+
             var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
             var edit = prefs.Edit();
-            edit.PutStringSet("Categories", valueList);
+            edit.PutStringSet(settingsName, valueList);
             edit.Commit();
         }
+        */
     }
 }
 

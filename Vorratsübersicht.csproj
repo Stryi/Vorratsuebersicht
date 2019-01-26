@@ -124,6 +124,9 @@
     <Compile Include="Database\Results\StringResult.cs" />
     <Compile Include="Database\Results\table_info.cs" />
     <Compile Include="Database\ShoppingItem.cs" />
+    <None Include="KnowladgeBase\Fehler_beim_Zugriff_auf_die_Datenbank.md" />
+    <AndroidResource Include="Resources\raw\DelFromEmulator2.cmd" />
+    <AndroidResource Include="Resources\raw\DelFromEmulator.cmd" />
     <None Include="Service\AlarmReceiver.cs" />
     <None Include="Service\BootBroadcast.cs" />
     <None Include="Service\PeriodicBackgroundService.cs" />
@@ -761,6 +764,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="KnowladgeBase\Pictures\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

@@ -37,6 +37,7 @@
           android:textAllCaps="false"
           android:gravity="left|center_vertical"
           android:drawablePadding="10dp" />
+      <!--
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -50,6 +51,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Essen, Trinken, Medikamente, Sonstiges," />
+      -->
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -124,6 +126,14 @@
           android:textAllCaps="false"
           android:gravity="left|center_vertical"
           android:drawablePadding="10dp" />
+      <Switch
+          android:id="@+id/SettingsButton_SwitchToAppDb"
+          android:text="Benutze Applikationsverzeichnis statt SD-Karte"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="left|center_vertical"
+          android:paddingTop="0dp"
+          android:drawablePadding="20dp" />
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

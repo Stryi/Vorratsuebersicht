@@ -137,7 +137,7 @@ namespace VorratsUebersicht
             // Kategorie Auswahl
             this.catalogListener = new CatalogItemSelectedListener();
 
-            string[] categories = MainActivity.GetExistingsCategories(Resources.GetStringArray(Resource.Array.ArticleCatagories));
+            string[] categories = Resources.GetStringArray(Resource.Array.ArticleCatagories);
 
             ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, categories);
             categoryAdapter.SetDropDownViewResource (Android.Resource.Layout.SimpleSpinnerDropDownItem);
@@ -935,6 +935,8 @@ namespace VorratsUebersicht
         private void LoadAndResizeBitmap(string fileName)
         {
             Bitmap bitmap = BitmapFactory.DecodeFile(fileName);
+            if (bitmap == null)
+                return;
 
             this.ResizeBitmap(bitmap);
 

@@ -38,13 +38,22 @@ namespace VorratsUebersicht
             databasePath.Text = new Android_Database().GetDatabaseInfoText(dbInfoFormat);
 
 
-            Android.Widget.Switch buttonTestDB = FindViewById<Android.Widget.Switch>(Resource.Id.SettingsButton_SwitchToTestDB);
-            buttonTestDB.Click += ButtonTestDB_Click;
-            buttonTestDB.Checked = Android_Database.UseTestDatabase;
+            Switch switchToTestDB = FindViewById<Switch>(Resource.Id.SettingsButton_SwitchToTestDB);
+            switchToTestDB.Click += ButtonTestDB_Click;
+            switchToTestDB.Checked = Android_Database.UseTestDatabase;
 
             if (MainActivity.IsGooglePlayPreLaunchTestMode)
             {
-                buttonTestDB.Enabled = false;
+                switchToTestDB.Enabled = false;
+            }
+
+            Switch switchToAppDB = FindViewById<Switch>(Resource.Id.SettingsButton_SwitchToAppDb);
+            switchToAppDB.Click += SwitchToAppDb_Click;
+            switchToAppDB.Checked = Android_Database.UseAppFolderDatabase;
+
+            if (MainActivity.IsGooglePlayPreLaunchTestMode)
+            {
+                switchToAppDB.Enabled = false;
             }
 
             Button buttonRestoreSampleDb = FindViewById<Button>(Resource.Id.SettingsButton_RestoreSampleDb);
@@ -126,8 +135,7 @@ namespace VorratsUebersicht
                 StartActivityForResult(selectFile, SelectBackupId);
             };
 
-            Database.GetCategories();
-
+            /*
             string categoryText = string.Empty;
             
             string[] categories = MainActivity.GetExistingsCategories(Resources.GetStringArray(Resource.Array.ArticleCatagories));
@@ -136,10 +144,12 @@ namespace VorratsUebersicht
                 categoryText += category + ", ";
             }
 
+            // Muss noch genauer überlegt werden (Stichwort: Umstellung der Sprache, Merge der erfassten Werte)
             EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
             catEdit.Text = categoryText;
             catEdit.SetSelection(categoryText.Length);
             catEdit.TextChanged += CatEdit_TextChanged;
+            */
 
             this.EnableButtons();
 
@@ -149,10 +159,12 @@ namespace VorratsUebersicht
             this.Window.SetSoftInputMode(SoftInput.StateHidden);
         }
 
+        /*
         private void CatEdit_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
             MainActivity.SetExistingsCategories(e.Text.ToString());
         }
+        */
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -255,8 +267,42 @@ namespace VorratsUebersicht
                 Android_Database.UseTestDatabase = !Android_Database.UseTestDatabase;
             }
 
-            Android.Widget.Switch buttonTestDB = FindViewById<Android.Widget.Switch>(Resource.Id.SettingsButton_SwitchToTestDB);
-            buttonTestDB.Checked = Android_Database.UseTestDatabase;
+            Switch switchToTestDB = FindViewById<Switch>(Resource.Id.SettingsButton_SwitchToTestDB);
+            switchToTestDB.Checked = Android_Database.UseTestDatabase;
+
+            // Sich neu connecten;
+            Android_Database.SQLiteConnection = null;
+
+            this.ShowDatabaseInfo();
+            this.EnableButtons();
+        }
+
+        private void SwitchToAppDb_Click(object sender, System.EventArgs e)
+        {
+            Android_Database.UseAppFolderDatabase = !Android_Database.UseAppFolderDatabase;
+
+            new Android_Database().GetDatabasePath();
+
+            if (Android_Database.UseAppFolderDatabase)
+            {
+                // Ist stattdessen die SD Karten Datenbank?
+                if ((Android_Database.IsDatabaseOnSdCard == null) ||(Android_Database.IsDatabaseOnSdCard == true))
+                {
+                    Android_Database.UseAppFolderDatabase = !Android_Database.UseAppFolderDatabase;
+                }
+            }
+            else
+            {
+                // Ist stattdessen die SD Karten Datenbank?
+                if ((Android_Database.IsDatabaseOnSdCard == null) ||(Android_Database.IsDatabaseOnSdCard == false))
+                {
+                    Android_Database.UseAppFolderDatabase = !Android_Database.UseAppFolderDatabase;
+                }
+            }
+
+
+            Switch switchToAppDb = FindViewById<Switch>(Resource.Id.SettingsButton_SwitchToAppDb);
+            switchToAppDb.Checked = Android_Database.UseAppFolderDatabase;
 
             // Sich neu connecten;
             Android_Database.SQLiteConnection = null;
@@ -267,11 +313,13 @@ namespace VorratsUebersicht
 
         private void EnableButtons()
         {
-            Button buttonBackup = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
+            Button buttonBackup  = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
             Button buttonRestore = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
+            Switch switchToAppDB = FindViewById<Switch>(Resource.Id.SettingsButton_SwitchToAppDb);
 
-            buttonBackup.Enabled = !Android_Database.UseTestDatabase;
-            buttonRestore.Enabled = !Android_Database.UseTestDatabase;       
+            buttonBackup.Enabled  = !Android_Database.UseTestDatabase;
+            buttonRestore.Enabled = !Android_Database.UseTestDatabase;
+            switchToAppDB.Enabled = !Android_Database.UseTestDatabase;
         }
 
         private void ShowApplicationVersion()

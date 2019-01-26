@@ -12,7 +12,11 @@ Vor dem Hochladen ins Google Play Store:
 Version 2.35 (CodeVersion 39)
 ==================================
 
+C076 - Datenverlust erkennen und beseitigen
 C075 - Selbst definierte Kategorien (in Einstellungen).
+
+Sprache ändern, alles löschen
+
 
 Version 2.34 (CodeVersion 38)
 ==================================
