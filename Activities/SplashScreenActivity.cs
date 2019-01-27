@@ -39,7 +39,7 @@ namespace VorratsUebersicht
             string status = Android.OS.Environment.ExternalStorageState;
             bool canWrite = Android.OS.Environment.ExternalStorageDirectory.CanWrite();
             string sdCardPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
-            string databasePath = new Android_Database().GetDatabasePath();
+            string databasePath = Android_Database.Instance.GetDatabasePath();
             
             TRACE("********************************************");
             TRACE("Is SD card emulated : {0}", emulator);

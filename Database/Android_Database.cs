@@ -23,7 +23,6 @@ namespace VorratsUebersicht
         public const string sqliteFilename_Demo = "Vorraete_Demo.db3";
         public const string sqliteFilename_Test = "Vorraete_Test.db3";
 
-        /*
         private static Android_Database instance = null;
         public static Android_Database Instance
         {
@@ -35,15 +34,19 @@ namespace VorratsUebersicht
                 }
                 return Android_Database.instance;
             }
+        }
+
+        private Android_Database()
+        {
 
         }
-        */
+
         public string GetProductiveDatabasePath()
         {
             bool sikop = Android_Database.UseTestDatabase;
             Android_Database.UseTestDatabase = false;
 
-            var path = new Android_Database().GetDatabasePath();
+            var path = Android_Database.Instance.GetDatabasePath();
             Android_Database.UseTestDatabase = sikop;
 
             return path;
@@ -119,7 +122,7 @@ namespace VorratsUebersicht
 
         public string GetDatabaseInfoText(string format)
         {
-            string databaseName = new Android_Database().GetDatabasePath();
+            string databaseName = Android_Database.Instance.GetDatabasePath();
             if (databaseName == null)
                 return string.Empty;
 
@@ -153,7 +156,7 @@ namespace VorratsUebersicht
 
         public bool IsCurrentDatabaseExists()
 		{
-			var path = new Android_Database().GetDatabasePath();
+			var path = Android_Database.Instance.GetDatabasePath();
 
 			return File.Exists(path);
 		}
@@ -245,7 +248,7 @@ namespace VorratsUebersicht
         /*
 		public void RestoreDatabase_Prod_Db0(bool overrideDatabase)
         {
-            var databaseName = new Android_Database().GetDatabasePath();
+            var databaseName = Android_Database.Instance.GetDatabasePath();
             
 			string databasePath = Path.GetDirectoryName(databaseName);
 
@@ -446,7 +449,7 @@ namespace VorratsUebersicht
                 int? appArticleCount = null;
 
                 // SD Karten Datenbank Pfad (falls vorhanden)
-                string dbFileName = new Android_Database().GetSdCardDatabasePath();
+                string dbFileName = Android_Database.Instance.GetSdCardDatabasePath();
                 if ((dbFileName == null) || !Android.OS.Environment.ExternalStorageDirectory.CanWrite())
                 {
                     // Keine Datenbank oder kein Zugriff auf die SD Karte.
@@ -464,7 +467,7 @@ namespace VorratsUebersicht
                 }
 
                 // DB im Applikationsverzeichnis?
-                dbFileName = new Android_Database().GetAppFolderDatabasePath();
+                dbFileName = Android_Database.Instance.GetAppFolderDatabasePath();
                 if (dbFileName == null)
                 {
                     // Noch keine Datenbank angelegt (Erstaufruf?).

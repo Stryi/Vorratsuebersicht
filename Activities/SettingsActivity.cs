@@ -35,7 +35,7 @@ namespace VorratsUebersicht
             string dbInfoFormat = Resources.GetString(Resource.String.Settings_Datenbank);
 
             TextView databasePath = FindViewById<TextView>(Resource.Id.SettingsButton_DatabasePath);
-            databasePath.Text = new Android_Database().GetDatabaseInfoText(dbInfoFormat);
+            databasePath.Text = Android_Database.Instance.GetDatabaseInfoText(dbInfoFormat);
 
 
             Switch switchToTestDB = FindViewById<Switch>(Resource.Id.SettingsButton_SwitchToTestDB);
@@ -78,7 +78,7 @@ namespace VorratsUebersicht
                     return;
                 }
 
-                var databaseFileName = new Android_Database().GetProductiveDatabasePath();
+                var databaseFileName = Android_Database.Instance.GetProductiveDatabasePath();
 
                 var downloadFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(
                                         Android.OS.Environment.DirectoryDownloads).AbsolutePath;
@@ -184,7 +184,7 @@ namespace VorratsUebersicht
             if ((requestCode == SelectBackupId) && (data != null))
             {
                 string fileSource = data.GetStringExtra("FullName");
-                string fileDestination = new Android_Database().GetProductiveDatabasePath();
+                string fileDestination = Android_Database.Instance.GetProductiveDatabasePath();
                 
                 string message = string.Format("Backup Datenbank zurückspielen?\n\n{0}",
                     Path.GetFileName(fileSource));
@@ -219,7 +219,7 @@ namespace VorratsUebersicht
             var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_RestoreSampleDb);
             new Thread(new ThreadStart(delegate
             {
-                new Android_Database().RestoreDatabase_Test_Sample(true);
+                Android_Database.Instance.RestoreDatabase_Test_Sample(true);
 
                 // Sich neu connecten;
                 Android_Database.SQLiteConnection = null;
@@ -233,7 +233,7 @@ namespace VorratsUebersicht
 
         private void ButtonRestoreDb0_Click(object sender, EventArgs e)
         {
-            new Android_Database().RestoreDatabase_Test_Db0(true);
+            Android_Database.Instance.RestoreDatabase_Test_Db0(true);
 
             // Sich neu connecten;
             Android_Database.SQLiteConnection = null;
@@ -246,7 +246,7 @@ namespace VorratsUebersicht
             var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_Compress);
             new Thread(new ThreadStart(delegate
             {
-                new Android_Database().CompressDatabase();
+                Android_Database.Instance.CompressDatabase();
 
                 RunOnUiThread(() => this.ShowDatabaseInfo());
                 this.HideProgressBar(progressDialog);
@@ -258,7 +258,7 @@ namespace VorratsUebersicht
         {
             Android_Database.UseTestDatabase = !Android_Database.UseTestDatabase;
 
-            if (!new Android_Database().IsCurrentDatabaseExists())
+            if (!Android_Database.Instance.IsCurrentDatabaseExists())
             {
                 Android_Database.UseTestDatabase = !Android_Database.UseTestDatabase;
             }
@@ -277,7 +277,7 @@ namespace VorratsUebersicht
         {
             Android_Database.UseAppFolderDatabase = !Android_Database.UseAppFolderDatabase;
 
-            new Android_Database().GetDatabasePath();
+            Android_Database.Instance.GetDatabasePath();
 
             if (Android_Database.UseAppFolderDatabase)
             {
@@ -332,7 +332,7 @@ namespace VorratsUebersicht
             string dbInfoFormat = Resources.GetString(Resource.String.Settings_Datenbank);
 
             TextView databasePath = FindViewById<TextView>(Resource.Id.SettingsButton_DatabasePath);
-            databasePath.Text = new Android_Database().GetDatabaseInfoText(dbInfoFormat);
+            databasePath.Text = Android_Database.Instance.GetDatabaseInfoText(dbInfoFormat);
         }
 
         private ProgressBar CreateProgressBar(int resourceId)

@@ -11,7 +11,7 @@ namespace VorratsUebersicht
     {
 		internal static void UpdateStorageItemQuantity(StorageItemQuantityResult storageItem)
 		{
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return;
 
@@ -53,7 +53,7 @@ namespace VorratsUebersicht
         {
             List<ShoppingItemListResult> result = new List<ShoppingItemListResult>();
 
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return result;
 
@@ -98,7 +98,7 @@ namespace VorratsUebersicht
 
         internal static int GetShoppingListQuantiy(int articleId)
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return 0;
 
@@ -112,7 +112,7 @@ namespace VorratsUebersicht
 
         internal static double AddToShoppingList(int articleId, double addQuantity)
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return 0;
 
@@ -145,7 +145,7 @@ namespace VorratsUebersicht
 
         internal static void RemoveFromShoppingList(int articleId)
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return;
 
@@ -159,7 +159,7 @@ namespace VorratsUebersicht
 
         internal static bool IsArticleInShoppingList(int articleId)
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return false;
 
@@ -200,7 +200,7 @@ namespace VorratsUebersicht
 		{
             IList<StorageItemQuantityResult> result = new List<StorageItemQuantityResult>();
 
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return result;
 
@@ -226,7 +226,7 @@ namespace VorratsUebersicht
         /// <returns></returns>
         internal static ArticleData GetArticleData(int articleId)
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return null;
 
@@ -245,7 +245,7 @@ namespace VorratsUebersicht
 
         internal static Article GetArticleImage(int articleId, bool showLarge)
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return null;
 
@@ -267,7 +267,7 @@ namespace VorratsUebersicht
 
         internal static void SaveArticleImages(int articleId, byte[] imageLarge, byte[] image)
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return;
 
@@ -285,7 +285,7 @@ namespace VorratsUebersicht
 
         internal static decimal GetArticleQuantityInStorage(int articleId)
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
 
             // Artikel suchen, die schon abgelaufen sind.
             string cmd = string.Empty;
@@ -302,7 +302,7 @@ namespace VorratsUebersicht
 
         internal static string[] GetCategories()
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
 
             // Artikel suchen, die schon abgelaufen sind.
             string cmd = string.Empty;
@@ -326,7 +326,7 @@ namespace VorratsUebersicht
 
         internal static string[] GetSubcategoriesOf(string category = null)
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
 
             // Artikel suchen, die schon abgelaufen sind.
             string cmd = string.Empty;
@@ -364,7 +364,7 @@ namespace VorratsUebersicht
 
         internal static List<string> GetStorageNames()
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
 
             // Artikel suchen, die schon abgelaufen sind.
             string cmd = string.Empty;
@@ -396,7 +396,7 @@ namespace VorratsUebersicht
 
         internal static List<string> GetCategoryNames()
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
 
             // Artikel suchen, die schon abgelaufen sind.
             string cmd = string.Empty;
@@ -428,7 +428,7 @@ namespace VorratsUebersicht
 
         internal static List<string> GetCategoryAndSubCategoryNames()
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
 
             // Artikel suchen, die schon abgelaufen sind.
             string cmd = string.Empty;
@@ -476,7 +476,7 @@ namespace VorratsUebersicht
 
         internal static string[] GetManufacturerNames()
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
 
             // Artikel suchen, die schon abgelaufen sind.
             string cmd = string.Empty;
@@ -506,7 +506,7 @@ namespace VorratsUebersicht
 
         internal static List<string> GetSupermarketNames(bool shoppingListOnly = false)
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
 
             // Artikel suchen, die schon abgelaufen sind.
             string cmd = string.Empty;
@@ -549,7 +549,7 @@ namespace VorratsUebersicht
         {
             IList<Article> result = new Article[0];
 
-            var databaseConnection = new Android_Database().GetConnection();
+            var databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return result;
 
@@ -609,7 +609,7 @@ namespace VorratsUebersicht
         {
             IList<Article> result = new List<Article>();
 
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return result;
 
@@ -628,7 +628,7 @@ namespace VorratsUebersicht
 
         internal static Article GetArticle(int articleId)
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return null;
 
@@ -645,7 +645,7 @@ namespace VorratsUebersicht
 
         internal static string GetArticleName(int articleId)
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return null;
 
@@ -662,7 +662,7 @@ namespace VorratsUebersicht
 
         internal static decimal GetArticleCount_Abgelaufen()
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return 0;
 
@@ -688,7 +688,7 @@ namespace VorratsUebersicht
         /// <returns></returns>
         internal static decimal GetArticleCount_BaldZuVerbrauchen()
         {
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return 0;
 
@@ -712,7 +712,7 @@ namespace VorratsUebersicht
         {
             var result = new List<StorageItemQuantityResult>();
 
-            var databaseConnection = new Android_Database().GetConnection();
+            var databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return result;
 
@@ -787,7 +787,7 @@ namespace VorratsUebersicht
         {
             var result = new List<StorageItemQuantityResult>();
 
-            var databaseConnection = new Android_Database().GetConnection();
+            var databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return result;
 

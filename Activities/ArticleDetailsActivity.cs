@@ -628,7 +628,7 @@ namespace VorratsUebersicht
             if (ArticleDetailsActivity.imageSmall != null)
                 this.article.Image      = ArticleDetailsActivity.imageSmall;
 
-            SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return false;
 
@@ -681,7 +681,7 @@ namespace VorratsUebersicht
             builder.SetNegativeButton("Nein", (s, e) => { });
             builder.SetPositiveButton("Ja", (s, e) => 
             { 
-                SQLite.SQLiteConnection databaseConnection = new Android_Database().GetConnection();
+                SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
                 if (this.article.ArticleId > 0)
                 {
                     databaseConnection.Delete(this.article);

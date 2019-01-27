@@ -78,7 +78,7 @@ namespace VorratsUebersicht
             ActionBar.SetBackgroundDrawable(backgroundPaint);
 
             // Datenbanken erstellen
-            new Android_Database().RestoreSampleDatabaseFromResources();
+            Android_Database.Instance.RestoreSampleDatabaseFromResources();
 
             if (MainActivity.IsGooglePlayPreLaunchTestMode)
             {
@@ -89,7 +89,7 @@ namespace VorratsUebersicht
                 this.ShowInfoAufTestdatenbank();
             }
 
-            string databaseName = new Android_Database().GetDatabasePath();
+            string databaseName = Android_Database.Instance.GetDatabasePath();
             if (databaseName == null)
             {
                 this.SetInfoText("Keine Datenbank gefunden");
@@ -137,7 +137,7 @@ namespace VorratsUebersicht
             this.ShowInfoAufTestversion();
 
             // Prüfe, ob in der App-DB Daten sind und auf der SD nicht.
-            if (new Android_Database().CheckWrongDatabase())
+            if (Android_Database.Instance.CheckWrongDatabase())
             {
                 var message = new AlertDialog.Builder(this);
                 message.SetMessage("Die Datenbank auf der SD Karte enthält keine Daten.\n\nSollen die Daten vom Applikationsverzeichnis übernommen werden?");
@@ -147,7 +147,7 @@ namespace VorratsUebersicht
                     {
                         // Unbekannter Fehlerfall ist aufgetreten.
                         // Datenbank von App-Verzeichnis auf SD Karte (erneut) kopieren.
-                        Exception exception = new Android_Database().CopyDatabaseToSDCard(true);
+                        Exception exception = Android_Database.Instance.CopyDatabaseToSDCard(true);
                         if (exception != null)
                         {
                             ShowExceptionMessage(exception);
