@@ -37,21 +37,18 @@
           android:textAllCaps="false"
           android:gravity="left|center_vertical"
           android:drawablePadding="10dp" />
-      <!--
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:paddingTop="10dp"
-          android:text="Kategorien mit Komme ',' getrennt definieren (Beta)" />
+          android:text="Zusätzliche Kategorien (mit Komma ',' getrennt definieren)" />
       <EditText
             android:id="@+id/Settings_Categories"
             android:inputType="textMultiLine"
             android:gravity="top|left"
             android:scrollbars="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Essen, Trinken, Medikamente, Sonstiges," />
-      -->
+            android:layout_height="wrap_content" />
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

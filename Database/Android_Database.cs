@@ -158,7 +158,7 @@ namespace VorratsUebersicht
 			return File.Exists(path);
 		}
 
-		public bool CopyDatabaseToSDCard(bool overrideDatabase)
+		public Exception CopyDatabaseToSDCard(bool overrideDatabase)
         {
 			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
 			string sdCardPath    = this.CreateAndGetSdCardPath();
@@ -168,26 +168,32 @@ namespace VorratsUebersicht
 
             if (File.Exists(destination) && !overrideDatabase)
             {
-                return false;
+                return null;
             }
 
 
 			try
 			{
+                // Test eines Absturzes
+                //Activity test = null; test.GetType();
+
                 if (overrideDatabase)
                 {
                     File.Delete(destination);
                 }
 
-				File.Copy(source, destination);
+                File.Copy(source, destination);
+
+                // Datenbankverbindung neu öffnen
+                Android_Database.SQLiteConnection = null;
 			}
 			catch (Exception e)
 			{
 				TRACE(e);
-				return false;
+				return e;
 			}
             
-            return true;
+            return null;
         }
 
         /// <summary>

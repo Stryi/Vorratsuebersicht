@@ -141,14 +141,19 @@ namespace VorratsUebersicht
             {
                 var message = new AlertDialog.Builder(this);
                 message.SetMessage("Die Datenbank auf der SD Karte enthält keine Daten.\n\nSollen die Daten vom Applikationsverzeichnis übernommen werden?");
+                message.SetTitle("Datenverlust erkannt!");
                 message.SetIcon(Resource.Drawable.ic_launcher);
                 message.SetPositiveButton("Ja", (s, e) => 
                     {
                         // Unbekannter Fehlerfall ist aufgetreten.
                         // Datenbank von App-Verzeichnis auf SD Karte (erneut) kopieren.
-                        new Android_Database().CopyDatabaseToSDCard(true);
+                        Exception exception = new Android_Database().CopyDatabaseToSDCard(true);
+                        if (exception != null)
+                        {
+                            ShowExceptionMessage(exception);
+                        }
                     });
-                message.SetNegativeButton("Keine Ahnung. Mache nichts.", (s, e) => { });
+                message.SetNegativeButton("Keine Ahnung. Mache lieber nichts.", (s, e) => { });
                 message.Create().Show();
             }
             
@@ -337,6 +342,35 @@ namespace VorratsUebersicht
             var prefEditor = prefs.Edit();
             prefEditor.PutBoolean("FirstRun", false);
             prefEditor.Commit();
+        }
+
+        void ShowExceptionMessage(Exception exception)
+        {
+            string text = "Es ist ein Fehler aufgetreten. Soll eine E-Mail mit den Fehlerdetails an den Entwickler geschickt werden?";
+            text += "\n\n(Ihre E-Mail Adresse wird dem Entwickler angezeigt)?";
+
+            var message = new AlertDialog.Builder(this);
+            message.SetMessage(text);
+            message.SetTitle("Fehler aufgetreten!");
+            message.SetIcon(Resource.Drawable.ic_launcher);
+            message.SetPositiveButton("Ja", (s, e) => 
+                {
+                    // E-Mail an den Entwickler
+                    this.SendEmailToDeveloper("Vorratsübersicht: Absturzbericht beim Kopieren der Datenbank",
+                        exception.ToString());
+                });
+            message.SetNegativeButton("Nein", (s, e) => {});
+            message.Create().Show();
+        }
+
+        private void SendEmailToDeveloper(string subject, string errorText)
+        {
+            var emailIntent = new Intent(Intent.ActionSend);
+            emailIntent.PutExtra(Android.Content.Intent.ExtraEmail, new[] { "cstryi@freenet.de" });
+            emailIntent.PutExtra(Android.Content.Intent.ExtraSubject, subject);
+            emailIntent.SetType("message/rfc822");
+            emailIntent.PutExtra(Android.Content.Intent.ExtraText, errorText);
+            StartActivity(Intent.CreateChooser(emailIntent, "E-Mail an Entwickler senden mit..."));
         }
 
         /// <summary>
@@ -557,31 +591,22 @@ namespace VorratsUebersicht
             }
         }
 
-        /*
-        internal static string[] GetExistingsCategories(string[] defaultCategories)
+        internal static ICollection<string> GetAdditionalCategories()
         {
             string name = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
             string settingsName = "Categories-" + name;
             
             IList<string> myCategories = new List<string>();
 
-            string[] isCategories = Database.GetCategories();
-
             var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
             ICollection<string> categories = prefs.GetStringSet(settingsName, null);
             if (categories == null)
-                return defaultCategories;
+                return new List<string>();
 
-            if (categories.Count == 0)
-                return defaultCategories;
-
-            string[] definedCategories = new string[categories.Count];
-            categories.CopyTo(definedCategories, 0);
-
-            return definedCategories;
+            return categories;
         }
 
-        internal static void SetExistingsCategories(string newCategories)
+        internal static void SetAdditionalCategories(string newCategories)
         {
             IList<string> valueList = new List<string>();
             string[] newValues = newCategories.Split(',');
@@ -601,7 +626,6 @@ namespace VorratsUebersicht
             edit.PutStringSet(settingsName, valueList);
             edit.Commit();
         }
-        */
     }
 }
 

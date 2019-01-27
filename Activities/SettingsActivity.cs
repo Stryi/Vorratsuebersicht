@@ -135,10 +135,9 @@ namespace VorratsUebersicht
                 StartActivityForResult(selectFile, SelectBackupId);
             };
 
-            /*
             string categoryText = string.Empty;
             
-            string[] categories = MainActivity.GetExistingsCategories(Resources.GetStringArray(Resource.Array.ArticleCatagories));
+            var categories = MainActivity.GetAdditionalCategories();
             foreach(string category in categories)
             {
                 categoryText += category + ", ";
@@ -149,7 +148,6 @@ namespace VorratsUebersicht
             catEdit.Text = categoryText;
             catEdit.SetSelection(categoryText.Length);
             catEdit.TextChanged += CatEdit_TextChanged;
-            */
 
             this.EnableButtons();
 
@@ -159,12 +157,10 @@ namespace VorratsUebersicht
             this.Window.SetSoftInputMode(SoftInput.StateHidden);
         }
 
-        /*
         private void CatEdit_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
-            MainActivity.SetExistingsCategories(e.Text.ToString());
+            MainActivity.SetAdditionalCategories(e.Text.ToString());
         }
-        */
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
