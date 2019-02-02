@@ -213,7 +213,7 @@ namespace VorratsUebersicht
 
         private void ShowCategoriesSelection()
         {
-            string[] categories = Database.GetCategories();
+            string[] categories = Database.GetCategoriesInUse();
 
             if (categories.Length == 0)
             {
@@ -591,40 +591,22 @@ namespace VorratsUebersicht
             }
         }
 
-        internal static ICollection<string> GetAdditionalCategories()
+        internal static ICollection<string> GetUserDefinedCategories()
         {
-            string name = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-            string settingsName = "Categories-" + name;
-            
-            IList<string> myCategories = new List<string>();
+            string userCategories = Database.GetSettingsString("USER_CATEGORIES");
+            if (userCategories == null)
+                return new Collection<string>();
 
-            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
-            ICollection<string> categories = prefs.GetStringSet(settingsName, null);
-            if (categories == null)
-                return new List<string>();
+            userCategories = userCategories.Trim().Trim(',');
+            if (string.IsNullOrEmpty(userCategories))
+                return new Collection<string>();
 
-            return categories;
+            return userCategories.Split(',');
         }
 
-        internal static void SetAdditionalCategories(string newCategories)
+        internal static void SetUserDefinedCategories(string newCategories)
         {
-            IList<string> valueList = new List<string>();
-            string[] newValues = newCategories.Split(',');
-            foreach(string value in newValues)
-            {
-                if (string.IsNullOrEmpty(value.Trim()))
-                    continue;
-
-                valueList.Add(value.Trim());
-            }
-
-            string name = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-            string settingsName = "Categories-" + name;
-
-            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
-            var edit = prefs.Edit();
-            edit.PutStringSet(settingsName, valueList);
-            edit.Commit();
+            Database.SetSettings("USER_CATEGORIES", newCategories);
         }
     }
 }

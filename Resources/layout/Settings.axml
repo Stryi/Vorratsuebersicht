@@ -41,7 +41,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:paddingTop="10dp"
-          android:text="Zusätzliche Kategorien (mit Komma ',' getrennt definieren)" />
+          android:text="Zusätzliche Kategorien (mit Komma getrennt definieren)" />
       <EditText
             android:id="@+id/Settings_Categories"
             android:inputType="textMultiLine"

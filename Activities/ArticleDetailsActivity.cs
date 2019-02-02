@@ -137,7 +137,15 @@ namespace VorratsUebersicht
             // Kategorie Auswahl
             this.catalogListener = new CatalogItemSelectedListener();
 
-            string[] categories = Resources.GetStringArray(Resource.Array.ArticleCatagories);
+            // Fest definierte Kategorien
+            IList<string> categories = new List<string>(Resources.GetStringArray(Resource.Array.ArticleCatagories));
+
+            // Benutzerspezifische Kategorien
+            var userCategories = MainActivity.GetUserDefinedCategories();
+            foreach(string userCategory in userCategories)
+            {
+                categories.Add(userCategory);
+            }
 
             ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, categories);
             categoryAdapter.SetDropDownViewResource (Android.Resource.Layout.SimpleSpinnerDropDownItem);

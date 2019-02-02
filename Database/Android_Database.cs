@@ -142,18 +142,6 @@ namespace VorratsUebersicht
             databaseConnection.Execute("VACUUM");
         }
 
-        /*
-        public void DeleteDatabase()
-        {
-            string dbPath = GetDatabasePath();
-
-            File.Delete(dbPath);
-
-            string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
-            this.CreateDatabaseIfNotExists(documentsPath,  Android_Database.sqliteFilename_New,  Android_Database.sqliteFilename_Prod, false);
-        }
-        */
-
         public bool IsCurrentDatabaseExists()
 		{
 			var path = Android_Database.Instance.GetDatabasePath();
@@ -245,20 +233,6 @@ namespace VorratsUebersicht
         }
 
         
-        /*
-		public void RestoreDatabase_Prod_Db0(bool overrideDatabase)
-        {
-            var databaseName = Android_Database.Instance.GetDatabasePath();
-            
-			string databasePath = Path.GetDirectoryName(databaseName);
-
-            string source      = Path.Combine(databasePath, Android_Database.sqliteFilename_New);
-			string destination = Path.Combine(databasePath, Android_Database.sqliteFilename_Prod);
-
-            this.RestoreDatabase(source, destination, overrideDatabase);
-        }
-        */
-
         private bool RestoreDatabase(string source, string destination, bool overrideDestination)
         {
             if (File.Exists(source))
@@ -390,6 +364,19 @@ namespace VorratsUebersicht
             if (!this.IsFieldInTheTable(conn, "Article", "Price"))
             {
                 conn.Execute("ALTER TABLE Article ADD COLUMN [Price] MONEY");
+            }
+
+            // Update 2.34: Einstellungen (z.B. für zusätzliche eigene Kategorien)
+            if (!this.IsTableInDatabase(conn, "Settings"))
+            {
+                string cmd = string.Empty;
+
+                cmd += "CREATE TABLE [Settings] (";
+                cmd += " [SettingsId] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,";
+                cmd += " [Key] TEXT, ";
+                cmd += " [Value] TEXT);";
+
+                conn.Execute(cmd);
             }
         }
 

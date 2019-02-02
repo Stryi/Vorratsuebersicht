@@ -136,8 +136,8 @@ namespace VorratsUebersicht
             };
 
             string categoryText = string.Empty;
-            
-            var categories = MainActivity.GetAdditionalCategories();
+
+            var categories = MainActivity.GetUserDefinedCategories();
             foreach(string category in categories)
             {
                 categoryText += category + ", ";
@@ -147,7 +147,7 @@ namespace VorratsUebersicht
             EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
             catEdit.Text = categoryText;
             catEdit.SetSelection(categoryText.Length);
-            catEdit.TextChanged += CatEdit_TextChanged;
+            catEdit.TextChanged += CategoryEdit_TextChanged;
 
             this.EnableButtons();
 
@@ -157,9 +157,9 @@ namespace VorratsUebersicht
             this.Window.SetSoftInputMode(SoftInput.StateHidden);
         }
 
-        private void CatEdit_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        private void CategoryEdit_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
-            MainActivity.SetAdditionalCategories(e.Text.ToString());
+            MainActivity.SetUserDefinedCategories(e.Text.ToString());
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

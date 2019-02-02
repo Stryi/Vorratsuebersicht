@@ -11,7 +11,7 @@ using Android.App;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Vorratsuebersicht")]
-[assembly: AssemblyCopyright("Copyright © 2017-2018 Stryi")]
+[assembly: AssemblyCopyright("Copyright © 2017-2019 Stryi")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
@@ -26,5 +26,5 @@ using Android.App;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.33")]
-[assembly: AssemblyFileVersion("2.33.0.0")]
+[assembly: AssemblyVersion("2.34")]
+[assembly: AssemblyFileVersion("2.34.0.0")]

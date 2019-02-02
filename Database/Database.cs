@@ -300,7 +300,7 @@ namespace VorratsUebersicht
             return anzahl;
         }
 
-        internal static string[] GetCategories()
+        internal static string[] GetCategoriesInUse()
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
 
@@ -803,6 +803,49 @@ namespace VorratsUebersicht
             var command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
 
             return command.ExecuteQuery<StorageItemQuantityResult>();
+        }
+
+        internal static string GetSettingsString(string key)
+        {
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
+            if (databaseConnection == null)
+                return null;
+
+            string cmd = string.Empty;
+
+            cmd += "SELECT Value";
+            cmd += " FROM Settings";
+            cmd += " WHERE Key = ?";
+
+            var command = databaseConnection.CreateCommand(cmd, new object[] { key });
+
+            return command.ExecuteScalar<string>();
+        }
+
+        internal static void SetSettings(string key, string value)
+        {
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
+            if (databaseConnection == null)
+                return;
+
+            string oldValue = GetSettingsString(key);
+
+            if (oldValue == null)
+            {
+                string cmd = "INSERT INTO Settings (Key, Value) VALUES (?, ?)";
+
+                var command = databaseConnection.CreateCommand(cmd, new object[] { key, value });
+
+                command.ExecuteNonQuery();
+            }
+            else
+            {
+                string cmd = "UPDATE Settings SET Value = ? WHERE Key = ?";
+
+                var command = databaseConnection.CreateCommand(cmd, new object[] { value, key });
+
+                command.ExecuteNonQuery();
+            }
         }
     }
 }
