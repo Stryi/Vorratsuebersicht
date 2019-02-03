@@ -70,75 +70,10 @@ namespace VorratsUebersicht
             buttonLicenses.Click += delegate { StartActivity(new Intent(this, typeof(LicensesActivity))); };
 
             Button buttonBackup = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
-            buttonBackup.Click += delegate  
-            {
-                bool isGranted = new SdCardAccess().Grand(this);
-
-                if (!isGranted)
-                {
-                    return;
-                }
-
-                // Vor dem Backup ggf. die User-Kategorien ggf. speichern,
-                // damit es auch im Backup ist.
-                this.SaveUserDefinedCategories();
-
-                var databaseFileName = Android_Database.Instance.GetProductiveDatabasePath();
-
-                var downloadFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(
-                                        Android.OS.Environment.DirectoryDownloads).AbsolutePath;
-
-                string backupName = string.Format("Vü_{0}.VueBak", 
-                    DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss"));
-
-                var backupFileName = Path.Combine(downloadFolder, backupName);
-
-                var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_BackupAndRestore);
-                new Thread(new ThreadStart(delegate
-                {
-                    string message; 
-                    try
-                    {
-                        File.Copy(databaseFileName, backupFileName);
-                        message = string.Format(
-                            "Datenbank im Download Verzeichnis gesichert als:\n\n {0}" +
-                            "\n\nSichern Sie diese Datei auf Google Drive oder auf Ihren PC.",
-                            backupFileName);
-                    }
-                    catch(Exception ex)
-                    {
-                        message = ex.Message;
-                    }
-
-                    this.HideProgressBar(progressDialog);
-
-                    RunOnUiThread(() =>
-                    {
-
-                        var builder = new AlertDialog.Builder(this);
-                        builder.SetMessage(message);
-                        builder.SetPositiveButton("Ok", (s, e) => { });
-                        builder.Create().Show();
-                    });
-                })).Start();
-
-                return;
-            };
+            buttonBackup.Click += ButtonBackup_Click;
 
             Button buttonRestore = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
-            buttonRestore.Click += delegate  
-            {
-                // Backups müssen sich im Download Verzeichnis befinden.
-                var downloadFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(
-                                        Android.OS.Environment.DirectoryDownloads).AbsolutePath;
-
-                var selectFile = new Intent(this, typeof(SelectFileActivity));
-                selectFile.PutExtra("Text",         "Backup auswählen:");
-                selectFile.PutExtra("Path",          downloadFolder);
-                selectFile.PutExtra("SearchPattern", "*.VueBak");
-
-                StartActivityForResult(selectFile, SelectBackupId);
-            };
+            buttonRestore.Click += ButtonRestore_Click;
 
             this.ShowUserDefinedCategories();
 
@@ -326,6 +261,75 @@ namespace VorratsUebersicht
             this.ShowDatabaseInfo();
             this.ShowUserDefinedCategories();
             this.EnableButtons();
+        }
+
+        private void ButtonRestore_Click(object sender, EventArgs e)
+        {
+            // Backups müssen sich im Download Verzeichnis befinden.
+            var downloadFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(
+                                    Android.OS.Environment.DirectoryDownloads).AbsolutePath;
+
+            var selectFile = new Intent(this, typeof(SelectFileActivity));
+            selectFile.PutExtra("Text",         "Backup auswählen:");
+            selectFile.PutExtra("Path",          downloadFolder);
+            selectFile.PutExtra("SearchPattern", "*.VueBak");
+
+            StartActivityForResult(selectFile, SelectBackupId);
+        }
+
+        private void ButtonBackup_Click(object sender, EventArgs e)
+        {
+            bool isGranted = new SdCardAccess().Grand(this);
+
+            if (!isGranted)
+            {
+                return;
+            }
+
+            // Vor dem Backup ggf. die User-Kategorien ggf. speichern,
+            // damit es auch im Backup ist.
+            this.SaveUserDefinedCategories();
+
+            var databaseFileName = Android_Database.Instance.GetProductiveDatabasePath();
+
+            var downloadFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(
+                                    Android.OS.Environment.DirectoryDownloads).AbsolutePath;
+
+            string backupName = string.Format("Vü_{0}.VueBak", 
+                DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss"));
+
+            var backupFileName = Path.Combine(downloadFolder, backupName);
+
+            var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_BackupAndRestore);
+            new Thread(new ThreadStart(delegate
+            {
+                string message; 
+                try
+                {
+                    File.Copy(databaseFileName, backupFileName);
+                    message = string.Format(
+                        "Datenbank im Download Verzeichnis gesichert als:\n\n {0}" +
+                        "\n\nSichern Sie diese Datei auf Google Drive oder auf Ihren PC.",
+                        backupFileName);
+                }
+                catch(Exception ex)
+                {
+                    message = ex.Message;
+                }
+
+                this.HideProgressBar(progressDialog);
+
+                RunOnUiThread(() =>
+                {
+
+                    var builder = new AlertDialog.Builder(this);
+                    builder.SetMessage(message);
+                    builder.SetPositiveButton("Ok", (s, e) => { });
+                    builder.Create().Show();
+                });
+            })).Start();
+
+            return;
         }
 
         private void EnableButtons()
