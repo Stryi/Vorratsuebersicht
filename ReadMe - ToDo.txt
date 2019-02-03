@@ -27,7 +27,6 @@ Einkaufszettel
 
 
 Einstellungen
-- Hinweis, wenn DB nicht auf SD Karte
 - Automatischen Backup ("Alle X Tage...", "Y Kopien behalten")
 
 
@@ -39,7 +38,6 @@ Lagerliste
 - Lagebestand als TXT exportieren  (Sharen)
 
 Artikelliste
-- Filter auch nach Unterkategorie (von Kathrin B. vorgeschlagen)
 - Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. vorgeschlagen)
 - Artielliste als TXT exportieren (Teilen)
 

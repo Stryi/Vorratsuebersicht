@@ -19,6 +19,7 @@ namespace VorratsUebersicht
     public class SettingsActivity : Activity
     {
         public static readonly int SelectBackupId = 1000;
+        private bool userCategoriesChanged = false;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -78,6 +79,10 @@ namespace VorratsUebersicht
                     return;
                 }
 
+                // Vor dem Backup ggf. die User-Kategorien ggf. speichern,
+                // damit es auch im Backup ist.
+                this.SaveUserDefinedCategories();
+
                 var databaseFileName = Android_Database.Instance.GetProductiveDatabasePath();
 
                 var downloadFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(
@@ -135,19 +140,10 @@ namespace VorratsUebersicht
                 StartActivityForResult(selectFile, SelectBackupId);
             };
 
-            string categoryText = string.Empty;
+            this.ShowUserDefinedCategories();
 
-            var categories = MainActivity.GetUserDefinedCategories();
-            foreach(string category in categories)
-            {
-                categoryText += category + ", ";
-            }
-
-            // Muss noch genauer überlegt werden (Stichwort: Umstellung der Sprache, Merge der erfassten Werte)
             EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
-            catEdit.Text = categoryText;
-            catEdit.SetSelection(categoryText.Length);
-            catEdit.TextChanged += CategoryEdit_TextChanged;
+            catEdit.TextChanged += delegate { this.userCategoriesChanged = true; };
 
             this.EnableButtons();
 
@@ -155,11 +151,6 @@ namespace VorratsUebersicht
 
             // Artikelname ist eingetragen. Tastatus anfänglich ausblenden.
             this.Window.SetSoftInputMode(SoftInput.StateHidden);
-        }
-
-        private void CategoryEdit_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
-        {
-            MainActivity.SetUserDefinedCategories(e.Text.ToString());
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -172,6 +163,21 @@ namespace VorratsUebersicht
             }
 
             return base.OnOptionsItemSelected(item);
+        }
+
+        public override void OnBackPressed()
+        {
+            this.SaveUserDefinedCategories();
+            base.OnBackPressed();
+        }
+
+        private void SaveUserDefinedCategories()
+        {
+            if (!this.userCategoriesChanged)
+                return;
+
+            EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
+            MainActivity.SetUserDefinedCategories(catEdit?.Text);
         }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
@@ -202,7 +208,11 @@ namespace VorratsUebersicht
                         // Sich neu connecten;
                         Android_Database.SQLiteConnection = null;
 
-                        RunOnUiThread(() => this.ShowDatabaseInfo());
+                        RunOnUiThread(() =>
+                        {
+                            this.ShowDatabaseInfo();
+                            this.ShowUserDefinedCategories();
+                        });
 
                         this.HideProgressBar(progressDialog);
 
@@ -224,7 +234,11 @@ namespace VorratsUebersicht
                 // Sich neu connecten;
                 Android_Database.SQLiteConnection = null;
 
-                RunOnUiThread(() => this.ShowDatabaseInfo());
+                RunOnUiThread(() => 
+                {
+                    this.ShowDatabaseInfo();
+                    this.ShowUserDefinedCategories();
+                });
 
                 this.HideProgressBar(progressDialog);
 
@@ -239,6 +253,7 @@ namespace VorratsUebersicht
             Android_Database.SQLiteConnection = null;
 
             this.ShowDatabaseInfo();
+            this.ShowUserDefinedCategories();
         }
 
         private void ButtonCompressDb_Click(object sender, EventArgs e)
@@ -263,6 +278,8 @@ namespace VorratsUebersicht
                 Android_Database.UseTestDatabase = !Android_Database.UseTestDatabase;
             }
 
+            this.SaveUserDefinedCategories();
+
             Switch switchToTestDB = FindViewById<Switch>(Resource.Id.SettingsButton_SwitchToTestDB);
             switchToTestDB.Checked = Android_Database.UseTestDatabase;
 
@@ -270,11 +287,14 @@ namespace VorratsUebersicht
             Android_Database.SQLiteConnection = null;
 
             this.ShowDatabaseInfo();
+            this.ShowUserDefinedCategories();
             this.EnableButtons();
         }
 
         private void SwitchToAppDb_Click(object sender, System.EventArgs e)
         {
+            this.SaveUserDefinedCategories();
+
             Android_Database.UseAppFolderDatabase = !Android_Database.UseAppFolderDatabase;
 
             Android_Database.Instance.GetDatabasePath();
@@ -304,6 +324,7 @@ namespace VorratsUebersicht
             Android_Database.SQLiteConnection = null;
 
             this.ShowDatabaseInfo();
+            this.ShowUserDefinedCategories();
             this.EnableButtons();
         }
 
@@ -316,6 +337,24 @@ namespace VorratsUebersicht
             buttonBackup.Enabled  = !Android_Database.UseTestDatabase;
             buttonRestore.Enabled = !Android_Database.UseTestDatabase;
             switchToAppDB.Enabled = !Android_Database.UseTestDatabase;
+        }
+
+        private void ShowUserDefinedCategories()
+        {
+            string categoryText = string.Empty;
+
+            var categories = MainActivity.GetUserDefinedCategories();
+            foreach(string category in categories)
+            {
+                categoryText += category + ", ";
+            }
+
+            // Muss noch genauer überlegt werden (Stichwort: Umstellung der Sprache, Merge der erfassten Werte)
+            EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
+            catEdit.Text = categoryText;
+            catEdit.SetSelection(categoryText.Length);
+
+            this.userCategoriesChanged = false;
         }
 
         private void ShowApplicationVersion()
