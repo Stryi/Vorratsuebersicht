@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="de.stryi.Vorratsuebersicht"
           android:installLocation="auto"
-          android:versionCode="39"
+          android:versionCode="40"
           android:versionName="2.40">
   <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="27" />
 	<uses-permission android:name="android.permission.CAMERA" />
