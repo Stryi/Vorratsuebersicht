@@ -122,85 +122,88 @@ namespace VorratsUebersicht
 			public const int baseline_settings_white_24 = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int ic_add_a_photo_white_24dp = 2130837511;
+			public const int baseline_share_white_24 = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int ic_add_circle_outline_white_24dp = 2130837512;
+			public const int ic_add_a_photo_white_24dp = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int ic_add_shopping_cart_white_24dp = 2130837513;
+			public const int ic_add_circle_outline_white_24dp = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int ic_add_shopping_cart_white_48dp = 2130837514;
+			public const int ic_add_shopping_cart_white_24dp = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int ic_assignment_white_48dp = 2130837515;
+			public const int ic_add_shopping_cart_white_48dp = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int ic_broken_image_white_24dp = 2130837516;
+			public const int ic_assignment_white_48dp = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int ic_cancel_white_24dp = 2130837517;
+			public const int ic_broken_image_white_24dp = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int ic_check_white_24dp = 2130837518;
+			public const int ic_cancel_white_24dp = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int ic_close_white_24dp = 2130837519;
+			public const int ic_check_white_24dp = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int ic_create_white_24dp = 2130837520;
+			public const int ic_close_white_24dp = 2130837520;
 			
 			// aapt resource value: 0x7f020011
-			public const int ic_delete_white_24dp = 2130837521;
+			public const int ic_create_white_24dp = 2130837521;
 			
 			// aapt resource value: 0x7f020012
-			public const int ic_insert_photo_white_24dp = 2130837522;
+			public const int ic_delete_white_24dp = 2130837522;
 			
 			// aapt resource value: 0x7f020013
-			public const int ic_launcher = 2130837523;
+			public const int ic_insert_photo_white_24dp = 2130837523;
 			
 			// aapt resource value: 0x7f020014
-			public const int ic_local_offer_white_48dp = 2130837524;
+			public const int ic_launcher = 2130837524;
 			
 			// aapt resource value: 0x7f020015
-			public const int ic_mode_edit_white_24dp = 2130837525;
+			public const int ic_local_offer_white_48dp = 2130837525;
 			
 			// aapt resource value: 0x7f020016
-			public const int ic_photo_black_24dp = 2130837526;
+			public const int ic_mode_edit_white_24dp = 2130837526;
 			
 			// aapt resource value: 0x7f020017
-			public const int ic_photo_camera_black_24dp = 2130837527;
+			public const int ic_photo_black_24dp = 2130837527;
 			
 			// aapt resource value: 0x7f020018
-			public const int ic_photo_camera_white_24dp = 2130837528;
+			public const int ic_photo_camera_black_24dp = 2130837528;
 			
 			// aapt resource value: 0x7f020019
-			public const int ic_photo_white_24dp = 2130837529;
+			public const int ic_photo_camera_white_24dp = 2130837529;
 			
 			// aapt resource value: 0x7f02001a
-			public const int ic_remove_circle_outline_white_24dp = 2130837530;
+			public const int ic_photo_white_24dp = 2130837530;
 			
 			// aapt resource value: 0x7f02001b
-			public const int ic_save_white_24dp = 2130837531;
+			public const int ic_remove_circle_outline_white_24dp = 2130837531;
 			
 			// aapt resource value: 0x7f02001c
-			public const int ic_search_white_24dp = 2130837532;
+			public const int ic_save_white_24dp = 2130837532;
 			
 			// aapt resource value: 0x7f02001d
-			public const int ic_shopping_cart_white_48dp = 2130837533;
+			public const int ic_search_white_24dp = 2130837533;
 			
 			// aapt resource value: 0x7f02001e
-			public const int ic_storage_white_48dp = 2130837534;
+			public const int ic_shopping_cart_white_48dp = 2130837534;
 			
 			// aapt resource value: 0x7f02001f
-			public const int outline_assignment_late_white_24 = 2130837535;
+			public const int ic_storage_white_48dp = 2130837535;
 			
 			// aapt resource value: 0x7f020020
-			public const int outline_rotate_right_white_24 = 2130837536;
+			public const int outline_assignment_late_white_24 = 2130837536;
 			
 			// aapt resource value: 0x7f020021
-			public const int splash = 2130837537;
+			public const int outline_rotate_right_white_24 = 2130837537;
+			
+			// aapt resource value: 0x7f020022
+			public const int splash = 2130837538;
 			
 			static Drawable()
 			{
@@ -462,10 +465,13 @@ namespace VorratsUebersicht
 			public const int ShoppingList_Search = 2131361896;
 			
 			// aapt resource value: 0x7f0a006a
-			public const int ShoppingList_popup_Add1 = 2131361898;
+			public const int ShoppingList_Share = 2131361898;
 			
 			// aapt resource value: 0x7f0a006b
-			public const int ShoppingList_popup_Less1 = 2131361899;
+			public const int ShoppingList_popup_Add1 = 2131361899;
+			
+			// aapt resource value: 0x7f0a006c
+			public const int ShoppingList_popup_Less1 = 2131361900;
 			
 			// aapt resource value: 0x7f0a004c
 			public const int SimpleImageViewText = 2131361868;
@@ -488,17 +494,17 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f0a0050
 			public const int StorageItemListView_TextWarning = 2131361872;
 			
-			// aapt resource value: 0x7f0a006e
-			public const int StorageItemList_Add = 2131361902;
+			// aapt resource value: 0x7f0a006f
+			public const int StorageItemList_Add = 2131361903;
 			
-			// aapt resource value: 0x7f0a006d
-			public const int StorageItemList_Filter = 2131361901;
+			// aapt resource value: 0x7f0a006e
+			public const int StorageItemList_Filter = 2131361902;
 			
 			// aapt resource value: 0x7f0a004a
 			public const int StorageItemList_Footer = 2131361866;
 			
-			// aapt resource value: 0x7f0a006c
-			public const int StorageItemList_Search = 2131361900;
+			// aapt resource value: 0x7f0a006d
+			public const int StorageItemList_Search = 2131361901;
 			
 			// aapt resource value: 0x7f0a0047
 			public const int StorageItemList_SelectStorageSection = 2131361863;
@@ -527,23 +533,23 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f0a0054
 			public const int StorageItemQuantity_AddArticle = 2131361876;
 			
-			// aapt resource value: 0x7f0a0071
-			public const int StorageItemQuantity_Cancel = 2131361905;
-			
-			// aapt resource value: 0x7f0a006f
-			public const int StorageItemQuantity_Edit = 2131361903;
+			// aapt resource value: 0x7f0a0072
+			public const int StorageItemQuantity_Cancel = 2131361906;
 			
 			// aapt resource value: 0x7f0a0070
-			public const int StorageItemQuantity_EditPicture = 2131361904;
+			public const int StorageItemQuantity_Edit = 2131361904;
+			
+			// aapt resource value: 0x7f0a0071
+			public const int StorageItemQuantity_EditPicture = 2131361905;
 			
 			// aapt resource value: 0x7f0a0052
 			public const int StorageItemQuantity_Image = 2131361874;
 			
-			// aapt resource value: 0x7f0a0072
-			public const int StorageItemQuantity_Save = 2131361906;
-			
 			// aapt resource value: 0x7f0a0073
-			public const int StorageItemQuantity_ToShoppingList = 2131361907;
+			public const int StorageItemQuantity_Save = 2131361907;
+			
+			// aapt resource value: 0x7f0a0074
+			public const int StorageItemQuantity_ToShoppingList = 2131361908;
 			
 			// aapt resource value: 0x7f0a0023
 			public const int Text = 2131361827;

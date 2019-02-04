@@ -9,6 +9,15 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 2.40 (CodeVersion 40)
+==================================
+
+C078 - Einkaufszettel als TXT exportieren (Sharen)
+
+Version 2.36 (CodeVersion 39)
+==================================
+
+C077 - Kategoriesn Speichern beim Umschalten der Datenbanken.
 
 Version 2.34 (CodeVersion 38)
 ==================================

@@ -163,8 +163,36 @@ namespace VorratsUebersicht
                     this.StartActivityForResult(articleListIntent, SelectArticleId);
 
                     return true;
+
+                case Resource.Id.ShoppingList_Share:
+                    this.ShareList();
+                    return true;
             }
             return true;
+        }
+
+        private void ShareList()
+        {
+            string text = string.Empty;
+
+            foreach(ShoppingListView view in this.liste)
+            {
+                if (!string.IsNullOrEmpty(view.Heading))     text += view.Heading     + "\n";
+                if (!string.IsNullOrEmpty(view.SubHeading))  text += view.SubHeading  + "\n";
+                if (!string.IsNullOrEmpty(view.Information)) text += view.Information + "\n";
+                text += "\n";
+            }
+
+            TextView footer = FindViewById<TextView>(Resource.Id.ShoppingItemList_Footer);
+            text += footer.Text;
+
+            Intent intentsend = new Intent();
+            intentsend.SetAction(Intent.ActionSend);
+            intentsend.PutExtra(Intent.ExtraSubject, Resources.GetString(Resource.String.Main_Button_Einkaufsliste));
+            intentsend.PutExtra(Intent.ExtraText, text);
+            intentsend.SetType("text/plain");
+            
+            StartActivity(intentsend);
         }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)

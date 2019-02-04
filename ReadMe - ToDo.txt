@@ -22,7 +22,6 @@ Lagerbestand
 
 
 Einkaufszettel
-- Einkaufszettel als TXT exportieren (Sharen)
 - Alle Listen als SCV exportieren (Markus Neese)
 
 
