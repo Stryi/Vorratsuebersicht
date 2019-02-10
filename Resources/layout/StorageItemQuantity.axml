@@ -59,6 +59,7 @@
             android:gravity="center"
             android:textSize="20dip"
             android:text = "1x"
+            android:textColor="@color/Text_Color"
             android:layout_toRightOf="@id/StorageItemQuantity_StepButton"
             android:textStyle="bold" />
         <ImageButton
@@ -67,7 +68,6 @@
             android:id="@+id/StorageItemQuantity_AddArticle"
             android:layout_marginTop="0.0dp"
             android:layout_marginBottom="0.0dp"
-            android:gravity="right"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_add_circle_outline_white_24dp" />
     </RelativeLayout>
