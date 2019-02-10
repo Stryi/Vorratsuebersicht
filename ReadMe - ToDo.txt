@@ -18,7 +18,7 @@ Artikeldetail
 - Aufruf mit EAN Nummer ins Internet
 
 Lagerbestand
-- Anzahl nicht nur über "-" und "+" sondern auch direkt eingeben (von Kathrin B. und Michi H. vorgeschlagen)
+Gemacht: - Anzahl nicht nur über "-" und "+" sondern auch direkt eingeben (von Kathrin B. und Michi H. vorgeschlagen)
 
 
 Einkaufszettel
