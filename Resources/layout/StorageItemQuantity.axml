@@ -31,17 +31,46 @@
             android:layout_marginLeft="5dp"
             android:textColor="@color/Text_Color"
             android:background="@color/Application_Background2"
-            android:text="Liste" />
+            android:text="Beschreibung des Artikels" />
     </LinearLayout>
-    <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/StorageItemQuantity_AddArticle"
-        android:layout_marginTop="0.0dp"
-        android:layout_marginBottom="0.0dp"
-        android:layout_gravity="right"
+    <RelativeLayout
+        android:id="@+id/StorageItemQuantity"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Application_Background2"
         android:visibility="gone"
-        android:src="@drawable/ic_add_circle_outline_white_24dp" />
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="1dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/StorageItemQuantity_StepButton"
+            android:layout_marginTop="0.0dp"
+            android:layout_marginBottom="0.0dp"
+            android:text = "Schritt:" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:id="@+id/StorageItemQuantity_StepText"
+            android:layout_marginLeft="5.0dp"
+            android:layout_marginTop="0.0dp"
+            android:layout_marginBottom="0.0dp"
+            android:gravity="center"
+            android:textSize="20dip"
+            android:text = "1x"
+            android:layout_toRightOf="@id/StorageItemQuantity_StepButton"
+            android:textStyle="bold" />
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/StorageItemQuantity_AddArticle"
+            android:layout_marginTop="0.0dp"
+            android:layout_marginBottom="0.0dp"
+            android:gravity="right"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_add_circle_outline_white_24dp" />
+    </RelativeLayout>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

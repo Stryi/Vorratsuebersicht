@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 2.41 (CodeVersion 41)
+==================================
+
+C079 - Beim Erfassen der Mänge sind jetzt 1, 10 und 100-e Schritte möglich.
+
 Version 2.40 (CodeVersion 40)
 ==================================
 

@@ -64,13 +64,12 @@ namespace VorratsUebersicht
                    return;
 
                 var articleImage = new Intent (this, typeof(ArticleImageActivity));
-                //articleImage.PutExtra("Heading", text);
                 articleImage.PutExtra("ArticleId", articleId);
                 this.StartActivity(articleImage);
             };
 
-            ListView articleListView = FindViewById<ListView>(Resource.Id.ArticleList);
-            articleListView.ItemClick += ListView_ItemClick;
+            Button stepButton = FindViewById<Button>(Resource.Id.StorageItemQuantity_StepButton);
+            stepButton.Click += StepButton_Click;
 
             ImageButton addRemove = FindViewById<ImageButton>(Resource.Id.StorageItemQuantity_AddArticle);
             addRemove.Click += delegate 
@@ -115,39 +114,24 @@ namespace VorratsUebersicht
             {
                 this.SetEditMode(true);
             }
+
+            StorageItemQuantityListViewAdapter.StepValue = 1;
         }
 
-        private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        private void StepButton_Click(object sender, EventArgs e)
         {
-            /*
-            string[] actions = { "+100", "+10", "-10", "-100"};
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            //builder.SetTitle(item.Heading);
-            builder.SetItems(actions, (sender2, args) =>
+            switch (StorageItemQuantityListViewAdapter.StepValue)
             {
+                case   1: StorageItemQuantityListViewAdapter.StepValue =  10; break;
+                case  10: StorageItemQuantityListViewAdapter.StepValue = 100; break;
+                case 100: StorageItemQuantityListViewAdapter.StepValue =   1; break;
+                
+                default: break;
+            }
 
-                switch (args.Which)
-                {
-                    case 0: // +100
-                        break;
-
-                    case 1: // +10
-                        break;
-
-                    case 2: // -10
-                        break;
-
-                    case 3: // -100
-                        break;
-                }
-
-                return;
-            });
-            builder.Show();
-            */
+            TextView text = FindViewById<TextView>(Resource.Id.StorageItemQuantity_StepText);
+            text.Text = string.Format("{0}x", StorageItemQuantityListViewAdapter.StepValue);
         }
-
 
         public static void Reload()
         {
@@ -223,12 +207,12 @@ namespace VorratsUebersicht
 
 			if (editMode)
             {
-                FindViewById(Resource.Id.StorageItemQuantity_AddArticle).Visibility = ViewStates.Visible;
+                FindViewById(Resource.Id.StorageItemQuantity).Visibility = ViewStates.Visible;
                 adapter.ActivateButtons();
             }
             else
             {
-                FindViewById(Resource.Id.StorageItemQuantity_AddArticle).Visibility = ViewStates.Gone;
+                FindViewById(Resource.Id.StorageItemQuantity).Visibility = ViewStates.Gone;
                 adapter.DeactivateButtons();
             }
 
