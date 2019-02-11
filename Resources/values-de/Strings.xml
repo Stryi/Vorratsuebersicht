@@ -11,9 +11,6 @@
 
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">Sie starten die Anwendung zum ersten Mal.\n\nZum Kennenlernen der Anwendung kann eine Testdatenbank aktiviert werden. Diese können Sie unter Optionen wieder deaktivieren.</string>
-  <string name="Start_TestVersionInfo1">Einkaufszettel kann jetzt geteilt werden.</string>
-  <string name="Start_TestVersionInfo2">Zusätzliche Kategorien können jetzt in einstellungen definiert werden.</string>
-  <string name="Start_TestVersionInfo3">Menge kann jetzte in 10-er oder 100-ter Schritten erfasst werden.</string>
 
   <!-- Hauptmaske -->
   <string name="Main_DemnaechstZuVerbrauchen">Demnächst zu verbrauchen:</string>
