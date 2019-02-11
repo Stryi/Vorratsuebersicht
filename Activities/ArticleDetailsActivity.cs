@@ -220,43 +220,6 @@ namespace VorratsUebersicht
                 this.unit.Text,
                 this.calorie.Text);
 
-            /*
-            string sizeText = this.size.Text;
-            string unit = this.unit.Text;
-            string calorieText = this.calorie.Text;
-
-            string unitPerX = string.Empty;
-            decimal factor = 1;                     // Umrechnungsfaktor zwischen l und ml oder kg und mg
-
-            int calorie = 0;
-            int.TryParse(calorieText, out calorie);
-            int size = 0;
-            int.TryParse(sizeText, out size);
-
-            if (unit == "kg")
-            {
-                unitPerX = "g";
-                factor = 0.1M;
-            }
-
-            if (unit == "g")
-            {
-                unitPerX = "g";
-                factor = 100;
-            }
-
-            if (unit == "l")
-            {
-                unitPerX = "ml";
-                factor = 0.1M;
-            }
-            if (unit == "ml")
-            {
-                unitPerX = "ml";
-                factor = 100;
-            }
-            */
-
             this.ignoreTextChangeEvent = true;
             if (calPerUnit != "---")
             {
@@ -775,22 +738,6 @@ namespace VorratsUebersicht
 
             FindViewById<EditText>(Resource.Id.ArticleDetails_Name).Text               = article.Name;
             FindViewById<Switch>  (Resource.Id.ArticleDetails_DurableInfinity).Checked = article.DurableInfinity;
-
-            /*
-            int calorie = this.article.Calorie.Value;
-
-            if (article.Unit == "g")
-            {
-                calorieLabel.Visibility        = ViewStates.Gone;
-                caloriePerUnitLabel.Visibility = ViewStates.Visible;
-                calorie = 100 * calorie / (int)this.article.Size.Value;
-            }
-            else
-            {
-                calorieLabel.Visibility        = ViewStates.Visible;
-                caloriePerUnitLabel.Visibility = ViewStates.Gone;
-            }
-            */
 
             if (article.WarnInDays.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_WarnInDays).Text = article.WarnInDays.Value.ToString();
             if (article.Calorie.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie).Text       = this.article.Calorie.ToString();

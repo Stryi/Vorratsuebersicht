@@ -60,8 +60,7 @@
             android:textSize="20dip"
             android:text = "1x"
             android:textColor="@color/Text_Color"
-            android:layout_toRightOf="@id/StorageItemQuantity_StepButton"
-            android:textStyle="bold" />
+            android:layout_toRightOf="@id/StorageItemQuantity_StepButton" />
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"

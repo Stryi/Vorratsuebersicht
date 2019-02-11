@@ -11,11 +11,9 @@
 
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">Sie starten die Anwendung zum ersten Mal.\n\nZum Kennenlernen der Anwendung kann eine Testdatenbank aktiviert werden. Diese können Sie unter Optionen wieder deaktivieren.</string>
-  <string name="Start_TestVersionInfo">Bitte die Preise der Artikel überprüfen! Durch einen Fehler wurde das Komma falsch interpretiert.</string>
-  <!-- Backup jetzt unter Einstellungen leicht möglich. -->
-  <!-- Diese App wird ständig sorgsam weiterentwickelt. Dennoch kann es zu Fehlern oder Abstürzen kommen. Für Datenverlust kann nicht gehaftet werden. -->
-  <!-- Bitte sichern Sie regelmäßig die Datenbank unter Einstellungen (siehe Zahnrad oben rechts). -->
-  <!-- Freiwillige Helfer gesucht: Betatester, C# Entweder, Designer oder für Dokumentation erstellen. -->
+  <string name="Start_TestVersionInfo1">Einkaufszettel kann jetzt mit 'Teilen' versendet werden.</string>
+  <string name="Start_TestVersionInfo2">Zusätzliche Kategorien können jetzt in einstellungen definiert werden.</string>
+  <string name="Start_TestVersionInfo3">Menge kann jetzte in 10-er oder 100-ter Schritten erfasst werden.</string>
 
   <!-- Hauptmaske -->
   <string name="Main_DemnaechstZuVerbrauchen">Demnächst zu verbrauchen:</string>

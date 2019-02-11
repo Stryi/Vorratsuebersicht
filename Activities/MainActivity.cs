@@ -263,7 +263,6 @@ namespace VorratsUebersicht
                 messageDialog.SetPositiveButton(Resource.String.App_Ok, (s, e) => {});
                 messageDialog.Create().Show();
 
-                this.SetInfoText(message);
                 return;
             }
 
@@ -288,15 +287,15 @@ namespace VorratsUebersicht
                 switch(startInfoNr)
                 {
                     case 1:
-                        message = Resources.GetString(Resource.String.Start_TestVersionInfo);
+                        message = Resources.GetString(Resource.String.Start_TestVersionInfo1);
                         break;
 
                     case 2:
-                        //message = Resources.GetString(Resource.String.Start_TestVersionInfo2);
+                        message = Resources.GetString(Resource.String.Start_TestVersionInfo2);
                         break;
 
                     case 3:
-                        //message = Resources.GetString(Resource.String.Start_TestVersionInfo3);
+                        message = Resources.GetString(Resource.String.Start_TestVersionInfo3);
                         break;
                 }
             }

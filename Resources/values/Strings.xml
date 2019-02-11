@@ -11,11 +11,6 @@
 
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">You start the application for the first time.\n\nTo get to know the application, a test database can be activated. You can deactivate these under Options.</string>
-  <string name="Start_TestVersionInfo">Bitte die Preise der Artikel überprüfen! Durch einen Fehler wurde das Komma falsch interpretiert.</string>
-  <!-- Backup now under settings easily possible. -->
-  <!-- This app is constantly being carefully developed. Nevertheless, errors or crashes can occur. For data loss can not be adhered to. -->
-  <!-- Please use settings menu to back up the database regularly. -->
-  <!-- Freiwillige Helfer gesucht: Betatester, C# Entweder, Designer oder für Dokumentation erstellen.-->
 
   <!-- Hauptmaske -->
   <string name="Main_DemnaechstZuVerbrauchen">Consume soon:</string>

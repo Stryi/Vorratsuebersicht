@@ -21,7 +21,7 @@ Lagerbestand
 Gemacht: - Anzahl nicht nur über "-" und "+" sondern auch direkt eingeben (von Kathrin B. und Michi H. vorgeschlagen)
 
 
-Einkaufszettel
+Einstellungen
 - Alle Listen als SCV exportieren (Markus Neese)
 
 
