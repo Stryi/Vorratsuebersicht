@@ -23,6 +23,7 @@ namespace VorratsUebersicht
     {
         public static readonly int EditStorageItemQuantityId = 1001;
         public static readonly int OptionsId = 1002;
+        public static readonly int ArticleListId = 1003;
 
         public static string Strings_Manufacturer;
         public static string Strings_Size;
@@ -123,7 +124,7 @@ namespace VorratsUebersicht
 
             // Artikeldaten
             Button buttonArticle = FindViewById<Button>(Resource.Id.MainButton_Artikeldaten);
-            buttonArticle.Click += delegate { StartActivity (new Intent (this, typeof(ArticleListActivity)));};
+            buttonArticle.Click += delegate { StartActivityForResult (new Intent (this, typeof(ArticleListActivity)), ArticleListId);};
 
             // Einkaufsliste
             Button buttonShoppingList = FindViewById<Button>(Resource.Id.MainButton_ShoppingList);

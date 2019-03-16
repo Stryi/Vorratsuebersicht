@@ -288,6 +288,7 @@ namespace VorratsUebersicht
     internal class StockStatistic
     {
         int count = 0;
+        int quantity = 0;
         Dictionary<string, decimal> sum_menge = new Dictionary<string, decimal>();
         int sum_warnung = 0;
         int sum_abgelaufen = 0;
@@ -302,7 +303,6 @@ namespace VorratsUebersicht
         internal void AddWarningLevel2(int quantity)
         {
             sum_abgelaufen += quantity;
-
         }
         
         private void AddUnitQuantity(string unit, decimal size, int quantity)
@@ -328,6 +328,7 @@ namespace VorratsUebersicht
         internal void AddStorageItem(StorageItemQuantityResult storegeItem)
         {
             this.count ++;
+            this.quantity += storegeItem.Quantity;
             this.AddUnitQuantity(storegeItem.Unit, storegeItem.Size, storegeItem.Quantity);
             this.AddCalorie(storegeItem.Quantity, storegeItem.Calorie);
             this.AddCosts(storegeItem.Quantity, storegeItem.Price);
@@ -345,6 +346,8 @@ namespace VorratsUebersicht
                 status = string.Format("{0:n0} Position", this.count);
             else
                 status = string.Format("{0:n0} Positionen", this.count);
+
+            status += string.Format(", Anzahl: {0:n0}", this.quantity);
 
             if (sum_menge.Count > 0)
             {

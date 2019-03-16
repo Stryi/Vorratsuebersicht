@@ -9,6 +9,12 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 2.42 (CodeVersion 42)
+==================================
+
+C081 - In der Lagerliste wird jetzt auch die Anzahl summiert.
+C080 - Aktualisierung der Komponenten (erhoffte Verbesserung beim EAN Scan).
+
 Version 2.41 (CodeVersion 41)
 ==================================
 
