@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 2.42 (CodeVersion 42)
 ==================================
 
+C082 - Kalorien und Lager wird jetzt in der Artikelliste angezeigt.
 C081 - In der Lagerliste wird jetzt auch die Anzahl summiert.
 C080 - Aktualisierung der Komponenten (erhoffte Verbesserung beim EAN Scan).
 

@@ -557,7 +557,7 @@ namespace VorratsUebersicht
 
             string cmd = string.Empty;
             cmd += "SELECT ArticleId, Name, Manufacturer, Category, SubCategory, DurableInfinity, WarnInDays,";
-            cmd += " Size, Unit, Notes, EANCode"; //,Calorie, StorageName";
+            cmd += " Size, Unit, Notes, EANCode, Calorie, StorageName";
 			cmd += " FROM Article";
 
             if (!string.IsNullOrEmpty(category))
