@@ -86,6 +86,40 @@ Gemeldete Abstürze:
 ===================
 
 
+18. März 19:00 in der App-Version 41
+Sony Xperia XZ1 (G8341), Android 9
+Bericht 1 von 1
+android.runtime.JavaProxyThrowable: at System.IO.__Error.WinIOError (System.Int32 errorCode, System.String maybeFullPath) [0x00129] in <fe08c003e91342eb83df1ca48302ddbb>:0
+at System.IO.FileSystemEnumerableIterator`1[TSource].HandleError (System.Int32 hr, System.String path) [0x00006] in <fe08c003e91342eb83df1ca48302ddbb>:0
+at System.IO.FileSystemEnumerableIterator`1[TSource].CommonInit () [0x00054] in <fe08c003e91342eb83df1ca48302ddbb>:0
+at System.IO.FileSystemEnumerableIterator`1[TSource]..ctor (System.String path, System.String originalUserPath, System.String searchPattern, System.IO.SearchOption searchOption, System.IO.SearchResultHandler`1[TSource] resultHandler, System.Boolean checkHost) [0x000d6] in <fe08c003e91342eb83df1ca48302ddbb>:0
+at System.IO.FileSystemEnumerableFactory.CreateFileNameIterator (System.String path, System.String originalUserPath, System.String searchPattern, System.Boolean includeFiles, System.Boolean includeDirs, System.IO.SearchOption searchOption, System.Boolean checkHost) [0x00009] in <fe08c003e91342eb83df1ca48302ddbb>:0
+at System.IO.Directory.InternalGetFileDirectoryNames (System.String path, System.String userPathOriginal, System.String searchPattern, System.Boolean includeFiles, System.Boolean includeDirs, System.IO.SearchOption searchOption, System.Boolean checkHost) [0x00000] in <fe08c003e91342eb83df1ca48302ddbb>:0
+at System.IO.Directory.InternalGetFiles (System.String path, System.String searchPattern, System.IO.SearchOption searchOption) [0x00000] in <fe08c003e91342eb83df1ca48302ddbb>:0
+at System.IO.Directory.GetFiles (System.String path, System.String searchPattern) [0x0001c] in <fe08c003e91342eb83df1ca48302ddbb>:0
+at System.IO.DirectoryInfo.GetFiles (System.String searchPattern) [0x0000e] in <fe08c003e91342eb83df1ca48302ddbb>:0
+at VorratsUebersicht.SelectFileActivity.ShowFileList () [0x0000c] in <399c20d519f74e46a4196a802d43cada>:0
+at VorratsUebersicht.SelectFileActivity.OnRequestPermissionsResult (System.Int32 requestCode, System.String[] permissions, Android.Content.PM.Permission[] grantResults) [0x00001] in <399c20d519f74e46a4196a802d43cada>:0
+at Android.App.Activity.n_OnRequestPermissionsResult_IarrayLjava_lang_String_arrayI (System.IntPtr jnienv, System.IntPtr native__this, System.Int32 requestCode, System.IntPtr native_permissions, System.IntPtr native_grantResults) [0x00038] in <ad2f15102b3a4d36b40e9b0cbc11c376>:0
+at (wrapper dynamic-method) System.Object.4(intptr,intptr,int,intptr,intptr)
+  at md56c9fe683bd4750f69443fa5376e732f4.SelectFileActivity.n_onRequestPermissionsResult (Native Method)
+  at md56c9fe683bd4750f69443fa5376e732f4.SelectFileActivity.onRequestPermissionsResult (SelectFileActivity.java:39)
+  at android.app.Activity.dispatchRequestPermissionsResult (Activity.java:7608)
+  at android.app.Activity.dispatchActivityResult (Activity.java:7458)
+  at android.app.ActivityThread.deliverResults (ActivityThread.java:4375)
+  at android.app.ActivityThread.handleSendResult (ActivityThread.java:4424)
+  at android.app.servertransaction.ActivityResultItem.execute (ActivityResultItem.java:49)
+  at android.app.servertransaction.TransactionExecutor.executeCallbacks (TransactionExecutor.java:108)
+  at android.app.servertransaction.TransactionExecutor.execute (TransactionExecutor.java:68)
+  at android.app.ActivityThread$H.handleMessage (ActivityThread.java:1814)
+  at android.os.Handler.dispatchMessage (Handler.java:106)
+  at android.os.Looper.loop (Looper.java:280)
+  at android.app.ActivityThread.main (ActivityThread.java:6706)
+  at java.lang.reflect.Method.invoke (Native Method)
+  at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run (RuntimeInit.java:493)
+  at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:858)
+  
+
 1. Okt. 13:16 in der App-Version 31
 LGE LG G6 (lucye), Android 8.0
 Bericht 1 von 1
