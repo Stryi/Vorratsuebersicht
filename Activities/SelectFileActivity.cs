@@ -113,22 +113,31 @@ namespace VorratsUebersicht
 
         private void ShowFileList()
         {
-            var fileList = new DirectoryInfo(this.path).GetFiles(this.searchPattern);
-
-            this.items = new List<SimpleListItem2View>();
-            foreach(FileInfo file in fileList)
+            try
             {
-                var item = new SimpleListItem2View();
-                item.Heading = Path.GetFileNameWithoutExtension(file.FullName);
-                item.SubHeading = Tools.ToFuzzyByteString(file.Length);
-                item.Tag = file.FullName;
+                var fileList = new DirectoryInfo(this.path).GetFiles(this.searchPattern);
 
-                items.Add(item);
+                this.items = new List<SimpleListItem2View>();
+                foreach(FileInfo file in fileList)
+                {
+                    var item = new SimpleListItem2View();
+                    item.Heading = Path.GetFileNameWithoutExtension(file.FullName);
+                    item.SubHeading = Tools.ToFuzzyByteString(file.Length);
+                    item.Tag = file.FullName;
+
+                    items.Add(item);
+                }
+
+                var listView = FindViewById<ListView>(Resource.Id.SelectFile);
+                var listAdapter = new SimpleListItem2Adapter(this, items);
+                listView.Adapter = listAdapter;
             }
-
-            var listView = FindViewById<ListView>(Resource.Id.SelectFile);
-            var listAdapter = new SimpleListItem2Adapter(this, items);
-            listView.Adapter = listAdapter;
+            catch(Exception e)
+            {
+                var pathView = FindViewById<TextView>(Resource.Id.SelectFile_Message);
+                pathView.Visibility = ViewStates.Visible;
+                pathView.Text = e.Message;
+            }
          }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
