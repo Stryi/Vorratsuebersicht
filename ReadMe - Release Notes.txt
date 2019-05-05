@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 2.42 (CodeVersion 42)
 ==================================
 
+C084 - Kategorie und Unterkategorie wird jetzt zusammen in der Artikelliste angezeigt (platzsparender).
 C083 - Fehler beim Zugriff auf Download Verzeichnis wird jetzt angezeigt.
 C082 - Kalorien und Lager wird jetzt in der Artikelliste angezeigt.
 C081 - In der Lagerliste wird jetzt auch die Anzahl summiert.

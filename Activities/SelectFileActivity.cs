@@ -22,6 +22,8 @@ namespace VorratsUebersicht
         private string path;
         private string searchPattern;
 
+        public static readonly int PickBackupId = 1000;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -43,6 +45,8 @@ namespace VorratsUebersicht
             var pathView = FindViewById<TextView>(Resource.Id.SelectFile_Path);
             pathView.Text = this.path;
 
+            var selectFileButton = FindViewById<Button>(Resource.Id.SelectFile_Button);
+            selectFileButton.Click += SelectFileButton_Click;
 
             var listView = FindViewById<ListView>(Resource.Id.SelectFile);
             listView.ItemClick += ListView_ItemClick;
@@ -111,6 +115,20 @@ namespace VorratsUebersicht
             this.ShowFileList();
         }
 
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if (resultCode != Result.Ok)
+            {
+                return;
+            }
+            if ((requestCode == PickBackupId) && (data != null))
+            {
+            }
+
+        }
+
         private void ShowFileList()
         {
             try
@@ -151,5 +169,14 @@ namespace VorratsUebersicht
 
             return base.OnOptionsItemSelected(item);
         }
+
+        private void SelectFileButton_Click(object sender, EventArgs e)
+        {
+            Intent = new Intent();
+            Intent.SetType("*/*.VueBak"); // *.VueBak
+            Intent.SetAction(Intent.ActionGetContent);
+            StartActivityForResult(Intent.CreateChooser(Intent, "Select Backup"), PickBackupId);
+        }
+
     }
 }

@@ -66,20 +66,34 @@ namespace VorratsUebersicht
 					info += string.Format(" {0}", this.Article.WarnInDays.Value);
 				}
 
+                string categoryText = string.Empty;
+
 				if (!string.IsNullOrEmpty(this.Article.Category))
+				{
+                    categoryText += this.Article.Category;
+                }
+				if (!string.IsNullOrEmpty(this.Article.SubCategory))
+                {
+					if (!string.IsNullOrEmpty(categoryText)) categoryText += " / ";
+
+                    categoryText += this.Article.SubCategory;
+                }
+
+				if (!string.IsNullOrEmpty(categoryText))
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
 					info += MainActivity.Strings_Category;
-				    info += string.Format(" {0}", this.Article.Category);
+				    info += string.Format(" {0}", categoryText);
 				}
 
+                /*
 				if (!string.IsNullOrEmpty(this.Article.SubCategory))
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
 					info += MainActivity.Strings_SubCategory;
 				    info += string.Format(" {0}", this.Article.SubCategory);
 				}
-
+                */
                 if (!string.IsNullOrEmpty(this.Article.StorageName))
                 {
                     if (!string.IsNullOrEmpty(info)) info += ", ";
