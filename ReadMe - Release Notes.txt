@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 2.43 (CodeVersion 43)
+==================================
+
+C085 - Datenbank Reparatur/Check integriert
+
 Version 2.42 (CodeVersion 42)
 ==================================
 

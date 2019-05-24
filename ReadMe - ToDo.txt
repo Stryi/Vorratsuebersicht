@@ -17,6 +17,11 @@ Prio 2
 Artikeldetail
 - Aufruf mit EAN Nummer ins Internet
 
+    https://world.openfoodfacts.org/data
+    https://world.openfoodfacts.org/api/v0/product/4000462810052.json
+    https://world.openfoodfacts.org/api/v0/product/5410673854001.json?fields=status,code,product_name,energy_unit,brands
+    https://world.openfoodfacts.org/api/v0/product/20005016.json?fields=status,code,product_name,energy_unit,brands,quantity,product_quantity,nova_groups
+
 Lagerbestand
 Gemacht: - Anzahl nicht nur über "-" und "+" sondern auch direkt eingeben (von Kathrin B. und Michi H. vorgeschlagen)
 

@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 
 namespace VorratsUebersicht
 {
+    using static Tools;
+
     [Activity(Label = "@string/Settings_Title")]
     public class SettingsActivity : Activity
     {
@@ -65,6 +67,9 @@ namespace VorratsUebersicht
 
             Button buttonCompressDb = FindViewById<Button>(Resource.Id.SettingsButton_Compress);
             buttonCompressDb.Click += ButtonCompressDb_Click;
+
+            Button buttonRepairDb = FindViewById<Button>(Resource.Id.SettingsButton_Repair);
+            buttonRepairDb.Click += ButtonRepairDb_Click;
 
             Button buttonLicenses = FindViewById<Button>(Resource.Id.SettingsButton_Licenses);
             buttonLicenses.Click += delegate { StartActivity(new Intent(this, typeof(LicensesActivity))); };
@@ -196,9 +201,58 @@ namespace VorratsUebersicht
             var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_Compress);
             new Thread(new ThreadStart(delegate
             {
-                Android_Database.Instance.CompressDatabase();
+                try
+                {
+                    Android_Database.Instance.CompressDatabase();
+                }
+                catch(Exception ex)
+                {
+                    RunOnUiThread(() =>
+                    {
+                        var messageBox = new AlertDialog.Builder(this);
+                        messageBox.SetTitle("Fehler aufgetreten!");
+                        messageBox.SetMessage(ex.Message);
+                        messageBox.SetPositiveButton("OK", (s, evt) => { });
+                        messageBox.Create().Show();
+                    });
+                }
 
                 RunOnUiThread(() => this.ShowDatabaseInfo());
+                this.HideProgressBar(progressDialog);
+
+            })).Start();
+        }
+
+        private void ButtonRepairDb_Click(object sender, EventArgs e)
+        {
+            var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_Compress);
+            new Thread(new ThreadStart(delegate
+            {
+                try
+                {
+                    string result = Android_Database.Instance.RepairDatabase();
+
+                    RunOnUiThread(() =>
+                    {
+                        var messageBox = new AlertDialog.Builder(this);
+                        messageBox.SetTitle("Ergebnis der Prüfung:");
+                        messageBox.SetMessage(result);
+                        messageBox.SetPositiveButton("OK", (s, evt) => { });
+                        messageBox.Create().Show();
+                    });
+                }
+                catch(Exception ex)
+                {
+                    RunOnUiThread(() =>
+                    {
+                        var messageBox = new AlertDialog.Builder(this);
+                        messageBox.SetTitle("Fehler aufgetreten!");
+                        messageBox.SetMessage(ex.Message);
+                        messageBox.SetPositiveButton("OK", (s, evt) => { });
+                        messageBox.Create().Show();
+                    });
+                }
+
                 this.HideProgressBar(progressDialog);
 
             })).Start();
@@ -347,14 +401,28 @@ namespace VorratsUebersicht
         {
             string categoryText = string.Empty;
 
-            var categories = MainActivity.GetUserDefinedCategories();
-            foreach(string category in categories)
+           EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
+
+            try
             {
-                categoryText += category + ", ";
+                var categories = MainActivity.GetUserDefinedCategories();
+                foreach(string category in categories)
+                {
+                    categoryText += category + ", ";
+                }
+            }
+            catch(Exception e)
+            {
+                var messageBox = new AlertDialog.Builder(this);
+                messageBox.SetTitle("Fehler aufgetreten!");
+                messageBox.SetMessage("Fehler beim Laden der benutzerspezifischen Kategorien\n\n" + e.Message);
+                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.Create().Show();
+
+                this.FindViewById<TextView>(Resource.Id.Settings_Categories_Text).Enabled = false;
+                catEdit.Enabled = false;
             }
 
-            // Muss noch genauer überlegt werden (Stichwort: Umstellung der Sprache, Merge der erfassten Werte)
-            EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
             catEdit.Text = categoryText;
             catEdit.SetSelection(categoryText.Length);
 

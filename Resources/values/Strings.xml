@@ -33,6 +33,7 @@
   <string name="Settings_TestDatenbankZuruecksetzen">Reset test database</string>
   <string name="Settings_TestDatenbankLeeren">Empty test database</string>
   <string name="Settings_DatenbankKomprimieren">Compact database</string>
+  <string name="Settings_DatenbankReparieren">Repair/Check database (Beta)</string>
   <string name="Settings_CreateBackup">Create backup (Beta)</string>
   <string name="Settings_RestoreBackup">Restore backup (Beta)</string>
   <string name="Settings_OpenSourceLizenzen">Open-source licenses</string>

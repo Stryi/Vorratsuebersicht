@@ -142,6 +142,27 @@ namespace VorratsUebersicht
             databaseConnection.Execute("VACUUM");
         }
 
+        public string RepairDatabase()
+        {
+			string path = GetDatabasePath();
+            if (path == null)
+                return "Keine Datenbank angegeben.";
+
+			// This is where we copy in the prepopulated database
+			TRACE("Database Path: {0}", path);
+			if (!File.Exists(path))
+                return "Datenbank Datei existiert nicht.";
+
+			var conn = new SQLite.SQLiteConnection(path, false);
+
+            var checkResult = conn.Query<IntegrityCheck>("PRAGMA integrity_check");
+
+            if (checkResult.Count == 0)
+                return "Kein Ergebnis beim PRAGMA integrity_check geliefert.";
+
+            return checkResult[0].integrity_check;
+        }
+
         public bool IsCurrentDatabaseExists()
 		{
 			var path = Android_Database.Instance.GetDatabasePath();
