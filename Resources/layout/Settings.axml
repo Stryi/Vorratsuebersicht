@@ -37,7 +37,17 @@
           android:textAllCaps="false"
           android:gravity="left|center_vertical"
           android:drawablePadding="10dp" />
+      <Button
+          android:id="@+id/SettingsButton_Repair"
+          android:text="@string/Settings_DatenbankReparieren"
+          android:textSize="15sp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAllCaps="false"
+          android:gravity="left|center_vertical"
+          android:drawablePadding="10dp" />
       <TextView
+          android:id="@+id/Settings_Categories_Text"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:paddingTop="10dp"

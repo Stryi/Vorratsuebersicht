@@ -36,7 +36,7 @@
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs28C4.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\StryiC\AppData\Local\Temp\vsD63F.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -57,7 +57,7 @@
     <Debugger>Xamarin</Debugger>
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
     <EnableProguard>False</EnableProguard>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs28C4.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\StryiC\AppData\Local\Temp\vsD63F.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FastAndroidCamera, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -135,6 +135,7 @@
     <Compile Include="Activities\SplashScreenActivity.cs" />
     <Compile Include="Activities\SubCategoryActivity.cs" />
     <Compile Include="Database\ArticleData.cs" />
+    <Compile Include="Database\Database.cs" />
     <Compile Include="Database\Results\Integrity_Check.cs" />
     <Compile Include="Database\Results\ShoppingItemListResult.cs" />
     <Compile Include="Database\Results\StringResult.cs" />
@@ -155,7 +156,6 @@
     <Compile Include="Activities\StorageItemListActivity.cs" />
     <Compile Include="Database\Android_Database.cs" />
     <Compile Include="Database\Article.cs" />
-    <Compile Include="Database\Database.cs" />
     <Compile Include="Database\Results\QuantityResult.cs" />
     <Compile Include="Database\StorageItem.cs" />
     <Compile Include="Database\Results\StorageItemQuantityResult.cs" />

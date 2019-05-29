@@ -529,6 +529,8 @@ namespace VorratsUebersicht
             IList<StringResult> result = command.ExecuteQuery<StringResult>();
 
             stopWatch.Stop();
+
+            // TODO: Abfrage optimieren (dauert ca, 1,5 Sekunden)
             Tools.TRACE("Dauer der Abfrage für DISTINCT Supermarket: {0}", stopWatch.Elapsed.ToString());
 
 
@@ -557,7 +559,7 @@ namespace VorratsUebersicht
 
             string cmd = string.Empty;
             cmd += "SELECT ArticleId, Name, Manufacturer, Category, SubCategory, DurableInfinity, WarnInDays,";
-            cmd += " Size, Unit, Notes, EANCode, Calorie, StorageName";
+            cmd += " Size, Unit, Notes, EANCode"; //, Calorie, StorageName"; Die beiden Felder machen die Abfrage langsam
 			cmd += " FROM Article";
 
             if (!string.IsNullOrEmpty(category))
@@ -717,7 +719,7 @@ namespace VorratsUebersicht
                 return result;
 
             string cmd = string.Empty;
-            cmd += "SELECT ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity, PrefQuantity, Calorie, Price, "; // StorageName, 
+            cmd += "SELECT ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity, PrefQuantity, Price,"; // Calorie,"; // StorageName, 
 			cmd += " (SELECT SUM(Quantity) FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId) AS Quantity,";
 			cmd += " (SELECT BestBefore FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId ORDER BY BestBefore ASC LIMIT 1) AS BestBefore";
 			cmd += " FROM Article";
