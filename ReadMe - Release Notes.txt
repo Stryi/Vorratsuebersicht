@@ -12,7 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 2.43 (CodeVersion 43)
 ==================================
 
-C086 - Laden der Artikelliste optimiert.
+C086 - Laden der Artikelliste und Lagerbestand optimiert (leider zugunsten von weniger Angaben).
 C085 - Datenbank Reparatur/Check integriert
 
 Version 2.42 (CodeVersion 42)
