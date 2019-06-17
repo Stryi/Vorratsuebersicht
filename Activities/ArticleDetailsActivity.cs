@@ -60,6 +60,7 @@ namespace VorratsUebersicht
         public static readonly int TakePhotoId = 1001;
         public static readonly int SpechId = 1002;
         public static readonly int EditPhoto = 1003;
+        public static readonly int InternetDB = 1004;
 
         public bool IsPhotoSelected
         {
@@ -206,6 +207,11 @@ namespace VorratsUebersicht
             }
             stopWatch.Stop();
             TRACE("Dauer Laden der Artikeldaten: {0}", stopWatch.Elapsed.ToString());
+
+            if (this.articleId == 0)
+            {
+                this.SearchEanCodeOnInternetDb();
+            }
         }
 
         private void BerechneCalPerUnit(object sender, Android.Text.TextChangedEventArgs e)
@@ -302,6 +308,11 @@ namespace VorratsUebersicht
                 itemEanScan.SetEnabled(false);
             }
 
+            string EANCode = FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text;
+
+            IMenuItem itemInternetDB = menu.FindItem(Resource.Id.ArticleDetailsMenu_InternetDB);
+            itemInternetDB.SetEnabled(!string.IsNullOrEmpty(EANCode));
+
             return true;
         }
 
@@ -361,22 +372,34 @@ namespace VorratsUebersicht
                     this.SprachEingabe();
                     return true;
 
+                case Resource.Id.ArticleDetailsMenu_InternetDB:
+                    this.SearchEanCodeOnInternetDb();
+                    return true;
             }
 
             return false;
         }
 
-        /*
-        void SucheEAN()
+        private void SearchEanCodeOnInternetDb()
         {
-            string webPage = "https://www.google.de/product.search?q=";
+            string EANCode = FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text;
 
-            Android.Net.Uri uri = Android.Net.Uri.Parse(webPage + this.article.EANCode);
-            
-            Intent intent = new Intent(Intent.ActionView, uri);
-            StartActivity(intent);
+            if (string.IsNullOrEmpty(EANCode))
+                return;
+
+            var message = new AlertDialog.Builder(this);
+            message.SetTitle("EAN Suche...");
+            message.SetMessage("Artikelangaben im Internet auf OpenFoodFacts.org suchen?\n\nInternetzugriff kann zusätzliche Kosten verursachen.");
+            message.SetIcon(Resource.Drawable.ic_launcher);
+            message.SetPositiveButton("Ja", (s, e) => 
+            {
+                var internetDB = new Intent(this, typeof(InternetDatabaseSearchActivity));
+                internetDB.PutExtra("EANCode", EANCode);
+                this.StartActivityForResult(internetDB, InternetDB);
+            });
+            message.SetNegativeButton("Nein", (s, e) => { });
+            message.Create().Show();
         }
-        */
 
         private void SaveAndAddToShoppingList()
         {
@@ -489,6 +512,20 @@ namespace VorratsUebersicht
                 this.imageView.SetImageBitmap(bitmap);
                 this.isChanged = true;
             }
+
+            if (requestCode == InternetDB)
+            {
+                string name       = data.GetStringExtra("Name");
+                string hersteller = data.GetStringExtra("Hersteller");
+
+                if (!string.IsNullOrEmpty(name))
+                    FindViewById<EditText>(Resource.Id.ArticleDetails_Name).Text = name;
+
+                if (!string.IsNullOrEmpty(hersteller))
+                    FindViewById<EditText>(Resource.Id.ArticleDetails_Manufacturer).Text = hersteller;
+
+                this.ResizeBitmap(InternetDatabaseSearchActivity.picture);
+            }
         }
 
         public override void OnBackPressed()
@@ -504,6 +541,7 @@ namespace VorratsUebersicht
             this.article = null;
             ArticleDetailsActivity.imageLarge = null;
             ArticleDetailsActivity.imageSmall = null;
+            InternetDatabaseSearchActivity.picture = null;
         }
 
         private void SelectAPicture()

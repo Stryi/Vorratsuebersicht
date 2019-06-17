@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/InternetDatabaseResult"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/Application_Background2"        
+    android:paddingLeft="5dp">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+      <ProgressBar
+          android:id="@+id/InternetDatabaseResult_Progress"            
+          style="?android:attr/progressBarStyleHorizontal"
+          android:layout_width="fill_parent"
+          android:layout_height="40dp"
+          android:indeterminate="true"
+          android:max="100"
+          android:visibility="visible"/>
+        <TextView
+            android:id="@+id/InternetDatabaseResult_ProgressText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/Text_Color" />
+        <ImageView
+            android:id="@+id/InternetDatabaseResult_Image"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"            
+            android:scaleType="fitCenter" />
+        <TextView
+            android:id="@+id/InternetDatabaseResult_Text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="20sp"            
+            android:textColor="@color/Text_Color" />
+    </LinearLayout>
+</ScrollView>

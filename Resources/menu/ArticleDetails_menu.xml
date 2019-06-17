@@ -38,4 +38,7 @@
   <item android:id="@+id/ArticleDetailsMenu_Speech"
     android:title="Spracheingabe" />
 
+  <item android:id="@+id/ArticleDetailsMenu_InternetDB"
+    android:title="Search OpenFoodFacts.org" />
+
 </menu>

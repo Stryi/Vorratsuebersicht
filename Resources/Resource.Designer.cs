@@ -218,38 +218,41 @@ namespace VorratsUebersicht
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0a0055
-			public const int ArticleDetailHeader = 2131361877;
+			// aapt resource value: 0x7f0a005a
+			public const int ArticleDetailHeader = 2131361882;
 			
-			// aapt resource value: 0x7f0a0057
-			public const int ArticleDetailList = 2131361879;
-			
-			// aapt resource value: 0x7f0a0061
-			public const int ArticleDetailsMenu_Cancel = 2131361889;
-			
-			// aapt resource value: 0x7f0a0063
-			public const int ArticleDetailsMenu_Delete = 2131361891;
-			
-			// aapt resource value: 0x7f0a0064
-			public const int ArticleDetailsMenu_MakeAPhoto = 2131361892;
-			
-			// aapt resource value: 0x7f0a0062
-			public const int ArticleDetailsMenu_Save = 2131361890;
-			
-			// aapt resource value: 0x7f0a0067
-			public const int ArticleDetailsMenu_ScanEAN = 2131361895;
-			
-			// aapt resource value: 0x7f0a0065
-			public const int ArticleDetailsMenu_SelectAPicture = 2131361893;
+			// aapt resource value: 0x7f0a005c
+			public const int ArticleDetailList = 2131361884;
 			
 			// aapt resource value: 0x7f0a0066
-			public const int ArticleDetailsMenu_ShowPicture = 2131361894;
-			
-			// aapt resource value: 0x7f0a0069
-			public const int ArticleDetailsMenu_Speech = 2131361897;
+			public const int ArticleDetailsMenu_Cancel = 2131361894;
 			
 			// aapt resource value: 0x7f0a0068
-			public const int ArticleDetailsMenu_ToShoppingList = 2131361896;
+			public const int ArticleDetailsMenu_Delete = 2131361896;
+			
+			// aapt resource value: 0x7f0a006f
+			public const int ArticleDetailsMenu_InternetDB = 2131361903;
+			
+			// aapt resource value: 0x7f0a0069
+			public const int ArticleDetailsMenu_MakeAPhoto = 2131361897;
+			
+			// aapt resource value: 0x7f0a0067
+			public const int ArticleDetailsMenu_Save = 2131361895;
+			
+			// aapt resource value: 0x7f0a006c
+			public const int ArticleDetailsMenu_ScanEAN = 2131361900;
+			
+			// aapt resource value: 0x7f0a006a
+			public const int ArticleDetailsMenu_SelectAPicture = 2131361898;
+			
+			// aapt resource value: 0x7f0a006b
+			public const int ArticleDetailsMenu_ShowPicture = 2131361899;
+			
+			// aapt resource value: 0x7f0a006e
+			public const int ArticleDetailsMenu_Speech = 2131361902;
+			
+			// aapt resource value: 0x7f0a006d
+			public const int ArticleDetailsMenu_ToShoppingList = 2131361901;
 			
 			// aapt resource value: 0x7f0a001a
 			public const int ArticleDetails_ArticleId = 2131361818;
@@ -326,8 +329,8 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f0a000c
 			public const int ArticleDetails_WarnInDaysLabel = 2131361804;
 			
-			// aapt resource value: 0x7f0a006a
-			public const int ArticleImageMenu_RotateRight = 2131361898;
+			// aapt resource value: 0x7f0a0070
+			public const int ArticleImageMenu_RotateRight = 2131361904;
 			
 			// aapt resource value: 0x7f0a001c
 			public const int ArticleImage_Image = 2131361820;
@@ -338,8 +341,8 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f0a0021
 			public const int ArticleList = 2131361825;
 			
-			// aapt resource value: 0x7f0a006c
-			public const int ArticleList_Add = 2131361900;
+			// aapt resource value: 0x7f0a0072
+			public const int ArticleList_Add = 2131361906;
 			
 			// aapt resource value: 0x7f0a001f
 			public const int ArticleList_Categories = 2131361823;
@@ -350,8 +353,8 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f0a0020
 			public const int ArticleList_Footer = 2131361824;
 			
-			// aapt resource value: 0x7f0a006b
-			public const int ArticleList_Search = 2131361899;
+			// aapt resource value: 0x7f0a0071
+			public const int ArticleList_Search = 2131361905;
 			
 			// aapt resource value: 0x7f0a001d
 			public const int ArticleList_SelectCategory = 2131361821;
@@ -360,214 +363,232 @@ namespace VorratsUebersicht
 			public const int Image = 2131361826;
 			
 			// aapt resource value: 0x7f0a0027
-			public const int Licenses_Text = 2131361831;
-			
-			// aapt resource value: 0x7f0a002e
-			public const int MainButton_Artikeldaten = 2131361838;
-			
-			// aapt resource value: 0x7f0a002f
-			public const int MainButton_Barcode = 2131361839;
-			
-			// aapt resource value: 0x7f0a002c
-			public const int MainButton_Kategorie = 2131361836;
-			
-			// aapt resource value: 0x7f0a002d
-			public const int MainButton_Lagerbestand = 2131361837;
-			
-			// aapt resource value: 0x7f0a0030
-			public const int MainButton_ShoppingList = 2131361840;
-			
-			// aapt resource value: 0x7f0a006d
-			public const int Main_Menu_Options = 2131361901;
-			
-			// aapt resource value: 0x7f0a0028
-			public const int Main_Text = 2131361832;
-			
-			// aapt resource value: 0x7f0a0029
-			public const int Main_Text1 = 2131361833;
+			public const int InternetDatabaseResult = 2131361831;
 			
 			// aapt resource value: 0x7f0a002a
-			public const int Main_Text2 = 2131361834;
+			public const int InternetDatabaseResult_Image = 2131361834;
+			
+			// aapt resource value: 0x7f0a0028
+			public const int InternetDatabaseResult_Progress = 2131361832;
+			
+			// aapt resource value: 0x7f0a0029
+			public const int InternetDatabaseResult_ProgressText = 2131361833;
+			
+			// aapt resource value: 0x7f0a0073
+			public const int InternetDatabaseResult_Save = 2131361907;
 			
 			// aapt resource value: 0x7f0a002b
-			public const int Main_TextInfo = 2131361835;
+			public const int InternetDatabaseResult_Text = 2131361835;
 			
-			// aapt resource value: 0x7f0a004f
-			public const int MyListView = 2131361871;
+			// aapt resource value: 0x7f0a002c
+			public const int Licenses_Text = 2131361836;
+			
+			// aapt resource value: 0x7f0a0033
+			public const int MainButton_Artikeldaten = 2131361843;
+			
+			// aapt resource value: 0x7f0a0034
+			public const int MainButton_Barcode = 2131361844;
+			
+			// aapt resource value: 0x7f0a0031
+			public const int MainButton_Kategorie = 2131361841;
+			
+			// aapt resource value: 0x7f0a0032
+			public const int MainButton_Lagerbestand = 2131361842;
+			
+			// aapt resource value: 0x7f0a0035
+			public const int MainButton_ShoppingList = 2131361845;
+			
+			// aapt resource value: 0x7f0a0074
+			public const int Main_Menu_Options = 2131361908;
+			
+			// aapt resource value: 0x7f0a002d
+			public const int Main_Text = 2131361837;
+			
+			// aapt resource value: 0x7f0a002e
+			public const int Main_Text1 = 2131361838;
+			
+			// aapt resource value: 0x7f0a002f
+			public const int Main_Text2 = 2131361839;
+			
+			// aapt resource value: 0x7f0a0030
+			public const int Main_TextInfo = 2131361840;
+			
+			// aapt resource value: 0x7f0a0054
+			public const int MyListView = 2131361876;
 			
 			// aapt resource value: 0x7f0a0004
 			public const int ProgressBar = 2131361796;
 			
-			// aapt resource value: 0x7f0a003b
-			public const int ProgressBar_BackupAndRestore = 2131361851;
-			
-			// aapt resource value: 0x7f0a0036
-			public const int ProgressBar_Compress = 2131361846;
-			
-			// aapt resource value: 0x7f0a003f
-			public const int ProgressBar_RestoreSampleDb = 2131361855;
-			
-			// aapt resource value: 0x7f0a0034
-			public const int SelectFile = 2131361844;
-			
-			// aapt resource value: 0x7f0a0032
-			public const int SelectFile_Button = 2131361842;
-			
-			// aapt resource value: 0x7f0a0033
-			public const int SelectFile_Message = 2131361843;
-			
-			// aapt resource value: 0x7f0a0031
-			public const int SelectFile_Path = 2131361841;
-			
-			// aapt resource value: 0x7f0a003c
-			public const int SettingsButton_Backup = 2131361852;
-			
-			// aapt resource value: 0x7f0a0037
-			public const int SettingsButton_Compress = 2131361847;
-			
-			// aapt resource value: 0x7f0a0035
-			public const int SettingsButton_DatabasePath = 2131361845;
-			
-			// aapt resource value: 0x7f0a0043
-			public const int SettingsButton_Licenses = 2131361859;
-			
-			// aapt resource value: 0x7f0a0038
-			public const int SettingsButton_Repair = 2131361848;
-			
-			// aapt resource value: 0x7f0a003d
-			public const int SettingsButton_Restore = 2131361853;
-			
-			// aapt resource value: 0x7f0a0041
-			public const int SettingsButton_RestoreDb0 = 2131361857;
-			
 			// aapt resource value: 0x7f0a0040
-			public const int SettingsButton_RestoreSampleDb = 2131361856;
+			public const int ProgressBar_BackupAndRestore = 2131361856;
 			
-			// aapt resource value: 0x7f0a0042
-			public const int SettingsButton_SwitchToAppDb = 2131361858;
-			
-			// aapt resource value: 0x7f0a003e
-			public const int SettingsButton_SwitchToTestDB = 2131361854;
+			// aapt resource value: 0x7f0a003b
+			public const int ProgressBar_Compress = 2131361851;
 			
 			// aapt resource value: 0x7f0a0044
-			public const int SettingsButton_Version = 2131361860;
-			
-			// aapt resource value: 0x7f0a003a
-			public const int Settings_Categories = 2131361850;
+			public const int ProgressBar_RestoreSampleDb = 2131361860;
 			
 			// aapt resource value: 0x7f0a0039
-			public const int Settings_Categories_Text = 2131361849;
+			public const int SelectFile = 2131361849;
+			
+			// aapt resource value: 0x7f0a0037
+			public const int SelectFile_Button = 2131361847;
+			
+			// aapt resource value: 0x7f0a0038
+			public const int SelectFile_Message = 2131361848;
+			
+			// aapt resource value: 0x7f0a0036
+			public const int SelectFile_Path = 2131361846;
+			
+			// aapt resource value: 0x7f0a0041
+			public const int SettingsButton_Backup = 2131361857;
+			
+			// aapt resource value: 0x7f0a003c
+			public const int SettingsButton_Compress = 2131361852;
+			
+			// aapt resource value: 0x7f0a003a
+			public const int SettingsButton_DatabasePath = 2131361850;
 			
 			// aapt resource value: 0x7f0a0048
-			public const int ShoppingItemList = 2131361864;
+			public const int SettingsButton_Licenses = 2131361864;
 			
-			// aapt resource value: 0x7f0a0047
-			public const int ShoppingItemList_Footer = 2131361863;
+			// aapt resource value: 0x7f0a003d
+			public const int SettingsButton_Repair = 2131361853;
 			
-			// aapt resource value: 0x7f0a0045
-			public const int ShoppingItemList_SelectSupermarket = 2131361861;
+			// aapt resource value: 0x7f0a0042
+			public const int SettingsButton_Restore = 2131361858;
 			
 			// aapt resource value: 0x7f0a0046
-			public const int ShoppingItemList_Spinner = 2131361862;
+			public const int SettingsButton_RestoreDb0 = 2131361862;
 			
-			// aapt resource value: 0x7f0a006f
-			public const int ShoppingList_Add = 2131361903;
+			// aapt resource value: 0x7f0a0045
+			public const int SettingsButton_RestoreSampleDb = 2131361861;
 			
-			// aapt resource value: 0x7f0a006e
-			public const int ShoppingList_Search = 2131361902;
+			// aapt resource value: 0x7f0a0047
+			public const int SettingsButton_SwitchToAppDb = 2131361863;
 			
-			// aapt resource value: 0x7f0a0070
-			public const int ShoppingList_Share = 2131361904;
-			
-			// aapt resource value: 0x7f0a0071
-			public const int ShoppingList_popup_Add1 = 2131361905;
-			
-			// aapt resource value: 0x7f0a0072
-			public const int ShoppingList_popup_Less1 = 2131361906;
-			
-			// aapt resource value: 0x7f0a0050
-			public const int SimpleImageViewText = 2131361872;
-			
-			// aapt resource value: 0x7f0a004a
-			public const int SplashScreen_ProgressBar = 2131361866;
+			// aapt resource value: 0x7f0a0043
+			public const int SettingsButton_SwitchToTestDB = 2131361859;
 			
 			// aapt resource value: 0x7f0a0049
-			public const int SplashScreen_ProgressText = 2131361865;
+			public const int SettingsButton_Version = 2131361865;
 			
-			// aapt resource value: 0x7f0a0052
-			public const int StorageItemListView_TextDetails = 2131361874;
+			// aapt resource value: 0x7f0a003f
+			public const int Settings_Categories = 2131361855;
 			
-			// aapt resource value: 0x7f0a0051
-			public const int StorageItemListView_TextHeader = 2131361873;
-			
-			// aapt resource value: 0x7f0a0053
-			public const int StorageItemListView_TextInfo = 2131361875;
-			
-			// aapt resource value: 0x7f0a0054
-			public const int StorageItemListView_TextWarning = 2131361876;
-			
-			// aapt resource value: 0x7f0a0075
-			public const int StorageItemList_Add = 2131361909;
-			
-			// aapt resource value: 0x7f0a0074
-			public const int StorageItemList_Filter = 2131361908;
-			
-			// aapt resource value: 0x7f0a004e
-			public const int StorageItemList_Footer = 2131361870;
-			
-			// aapt resource value: 0x7f0a0073
-			public const int StorageItemList_Search = 2131361907;
-			
-			// aapt resource value: 0x7f0a004b
-			public const int StorageItemList_SelectStorageSection = 2131361867;
+			// aapt resource value: 0x7f0a003e
+			public const int Settings_Categories_Text = 2131361854;
 			
 			// aapt resource value: 0x7f0a004d
-			public const int StorageItemList_Storages = 2131361869;
+			public const int ShoppingItemList = 2131361869;
 			
 			// aapt resource value: 0x7f0a004c
-			public const int StorageItemList_TextStorage = 2131361868;
+			public const int ShoppingItemList_Footer = 2131361868;
 			
-			// aapt resource value: 0x7f0a0058
-			public const int StorageItemQuantity = 2131361880;
+			// aapt resource value: 0x7f0a004a
+			public const int ShoppingItemList_SelectSupermarket = 2131361866;
 			
-			// aapt resource value: 0x7f0a005e
-			public const int StorageItemQuantityList_Add = 2131361886;
-			
-			// aapt resource value: 0x7f0a005d
-			public const int StorageItemQuantityList_Details = 2131361885;
-			
-			// aapt resource value: 0x7f0a005f
-			public const int StorageItemQuantityList_Remove = 2131361887;
-			
-			// aapt resource value: 0x7f0a005c
-			public const int StorageItemQuantityList_Text = 2131361884;
-			
-			// aapt resource value: 0x7f0a005b
-			public const int StorageItemQuantity_AddArticle = 2131361883;
-			
-			// aapt resource value: 0x7f0a0078
-			public const int StorageItemQuantity_Cancel = 2131361912;
+			// aapt resource value: 0x7f0a004b
+			public const int ShoppingItemList_Spinner = 2131361867;
 			
 			// aapt resource value: 0x7f0a0076
-			public const int StorageItemQuantity_Edit = 2131361910;
+			public const int ShoppingList_Add = 2131361910;
+			
+			// aapt resource value: 0x7f0a0075
+			public const int ShoppingList_Search = 2131361909;
 			
 			// aapt resource value: 0x7f0a0077
-			public const int StorageItemQuantity_EditPicture = 2131361911;
+			public const int ShoppingList_Share = 2131361911;
 			
-			// aapt resource value: 0x7f0a0056
-			public const int StorageItemQuantity_Image = 2131361878;
+			// aapt resource value: 0x7f0a0078
+			public const int ShoppingList_popup_Add1 = 2131361912;
 			
 			// aapt resource value: 0x7f0a0079
-			public const int StorageItemQuantity_Save = 2131361913;
+			public const int ShoppingList_popup_Less1 = 2131361913;
+			
+			// aapt resource value: 0x7f0a0055
+			public const int SimpleImageViewText = 2131361877;
+			
+			// aapt resource value: 0x7f0a004f
+			public const int SplashScreen_ProgressBar = 2131361871;
+			
+			// aapt resource value: 0x7f0a004e
+			public const int SplashScreen_ProgressText = 2131361870;
+			
+			// aapt resource value: 0x7f0a0057
+			public const int StorageItemListView_TextDetails = 2131361879;
+			
+			// aapt resource value: 0x7f0a0056
+			public const int StorageItemListView_TextHeader = 2131361878;
+			
+			// aapt resource value: 0x7f0a0058
+			public const int StorageItemListView_TextInfo = 2131361880;
 			
 			// aapt resource value: 0x7f0a0059
-			public const int StorageItemQuantity_StepButton = 2131361881;
+			public const int StorageItemListView_TextWarning = 2131361881;
 			
-			// aapt resource value: 0x7f0a005a
-			public const int StorageItemQuantity_StepText = 2131361882;
+			// aapt resource value: 0x7f0a007c
+			public const int StorageItemList_Add = 2131361916;
+			
+			// aapt resource value: 0x7f0a007b
+			public const int StorageItemList_Filter = 2131361915;
+			
+			// aapt resource value: 0x7f0a0053
+			public const int StorageItemList_Footer = 2131361875;
 			
 			// aapt resource value: 0x7f0a007a
-			public const int StorageItemQuantity_ToShoppingList = 2131361914;
+			public const int StorageItemList_Search = 2131361914;
+			
+			// aapt resource value: 0x7f0a0050
+			public const int StorageItemList_SelectStorageSection = 2131361872;
+			
+			// aapt resource value: 0x7f0a0052
+			public const int StorageItemList_Storages = 2131361874;
+			
+			// aapt resource value: 0x7f0a0051
+			public const int StorageItemList_TextStorage = 2131361873;
+			
+			// aapt resource value: 0x7f0a005d
+			public const int StorageItemQuantity = 2131361885;
+			
+			// aapt resource value: 0x7f0a0063
+			public const int StorageItemQuantityList_Add = 2131361891;
+			
+			// aapt resource value: 0x7f0a0062
+			public const int StorageItemQuantityList_Details = 2131361890;
+			
+			// aapt resource value: 0x7f0a0064
+			public const int StorageItemQuantityList_Remove = 2131361892;
+			
+			// aapt resource value: 0x7f0a0061
+			public const int StorageItemQuantityList_Text = 2131361889;
+			
+			// aapt resource value: 0x7f0a0060
+			public const int StorageItemQuantity_AddArticle = 2131361888;
+			
+			// aapt resource value: 0x7f0a007f
+			public const int StorageItemQuantity_Cancel = 2131361919;
+			
+			// aapt resource value: 0x7f0a007d
+			public const int StorageItemQuantity_Edit = 2131361917;
+			
+			// aapt resource value: 0x7f0a007e
+			public const int StorageItemQuantity_EditPicture = 2131361918;
+			
+			// aapt resource value: 0x7f0a005b
+			public const int StorageItemQuantity_Image = 2131361883;
+			
+			// aapt resource value: 0x7f0a0080
+			public const int StorageItemQuantity_Save = 2131361920;
+			
+			// aapt resource value: 0x7f0a005e
+			public const int StorageItemQuantity_StepButton = 2131361886;
+			
+			// aapt resource value: 0x7f0a005f
+			public const int StorageItemQuantity_StepText = 2131361887;
+			
+			// aapt resource value: 0x7f0a0081
+			public const int StorageItemQuantity_ToShoppingList = 2131361921;
 			
 			// aapt resource value: 0x7f0a0023
 			public const int Text = 2131361827;
@@ -581,8 +602,8 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f0a0026
 			public const int Text3 = 2131361830;
 			
-			// aapt resource value: 0x7f0a0060
-			public const int contentFrame = 2131361888;
+			// aapt resource value: 0x7f0a0065
+			public const int contentFrame = 2131361893;
 			
 			// aapt resource value: 0x7f0a0000
 			public const int scroll = 2131361792;
@@ -613,40 +634,43 @@ namespace VorratsUebersicht
 			public const int ArticleListView = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int Licenses = 2130903044;
+			public const int InternetDatabaseSearch = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int Main = 2130903045;
+			public const int Licenses = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int SelectFile = 2130903046;
+			public const int Main = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int Settings = 2130903047;
+			public const int SelectFile = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int ShoppingItemList = 2130903048;
+			public const int Settings = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int SplashScreen = 2130903049;
+			public const int ShoppingItemList = 2130903049;
 			
 			// aapt resource value: 0x7f03000a
-			public const int StorageItemList = 2130903050;
+			public const int SplashScreen = 2130903050;
 			
 			// aapt resource value: 0x7f03000b
-			public const int StorageItemListView = 2130903051;
+			public const int StorageItemList = 2130903051;
 			
 			// aapt resource value: 0x7f03000c
-			public const int StorageItemQuantity = 2130903052;
+			public const int StorageItemListView = 2130903052;
 			
 			// aapt resource value: 0x7f03000d
-			public const int StorageItemQuantityListView = 2130903053;
+			public const int StorageItemQuantity = 2130903053;
 			
 			// aapt resource value: 0x7f03000e
-			public const int zxingscanneractivitylayout = 2130903054;
+			public const int StorageItemQuantityListView = 2130903054;
 			
 			// aapt resource value: 0x7f03000f
-			public const int zxingscannerfragmentlayout = 2130903055;
+			public const int zxingscanneractivitylayout = 2130903055;
+			
+			// aapt resource value: 0x7f030010
+			public const int zxingscannerfragmentlayout = 2130903056;
 			
 			static Layout()
 			{
@@ -671,19 +695,22 @@ namespace VorratsUebersicht
 			public const int ArticleList_menu = 2131296258;
 			
 			// aapt resource value: 0x7f090003
-			public const int Main_menu = 2131296259;
+			public const int InternetDatabaseSearch_menu = 2131296259;
 			
 			// aapt resource value: 0x7f090004
-			public const int ShoppingList_menu = 2131296260;
+			public const int Main_menu = 2131296260;
 			
 			// aapt resource value: 0x7f090005
-			public const int ShoppingList_popup = 2131296261;
+			public const int ShoppingList_menu = 2131296261;
 			
 			// aapt resource value: 0x7f090006
-			public const int StorageItemList_menu = 2131296262;
+			public const int ShoppingList_popup = 2131296262;
 			
 			// aapt resource value: 0x7f090007
-			public const int StorageItemQuantity_menu = 2131296263;
+			public const int StorageItemList_menu = 2131296263;
+			
+			// aapt resource value: 0x7f090008
+			public const int StorageItemQuantity_menu = 2131296264;
 			
 			static Menu()
 			{
