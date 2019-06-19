@@ -515,14 +515,29 @@ namespace VorratsUebersicht
 
             if (requestCode == InternetDB)
             {
-                string name       = data.GetStringExtra("Name");
-                string hersteller = data.GetStringExtra("Hersteller");
+                string  name       = data.GetStringExtra("Name");
+                string  hersteller = data.GetStringExtra("Hersteller");
+                decimal quantity   = data.GetLongExtra  ("Quantity", -1);
+                string  unit       = data.GetStringExtra("Unit");
+                decimal kcalPer100 = data.GetLongExtra  ("KCalPer100", -1);
 
                 if (!string.IsNullOrEmpty(name))
                     FindViewById<EditText>(Resource.Id.ArticleDetails_Name).Text = name;
 
                 if (!string.IsNullOrEmpty(hersteller))
                     FindViewById<EditText>(Resource.Id.ArticleDetails_Manufacturer).Text = hersteller;
+
+                if (quantity > 0)
+                    this.size.Text = quantity.ToString(CultureInfo.InvariantCulture);
+
+                if (!string.IsNullOrEmpty(unit))
+                    this.unit.Text = unit;
+
+                if (kcalPer100 > 0)
+                {
+                    this.caloriePerUnit.Text = kcalPer100.ToString();
+                    this.BerechneCalGes(this, null);
+                }
 
                 this.ResizeBitmap(InternetDatabaseSearchActivity.picture);
             }

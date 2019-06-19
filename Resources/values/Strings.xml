@@ -11,9 +11,9 @@
 
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">You start the application for the first time.\n\nTo get to know the application, a test database can be activated. You can deactivate these under Options.</string>
-  <string name="Start_TestVersionInfo1">Einkaufszettel kann jetzt geteilt werden.</string>
-  <string name="Start_TestVersionInfo2">Zusätzliche Kategorien können jetzt in einstellungen definiert werden.</string>
-  <string name="Start_TestVersionInfo3">Menge kann jetzte in 10-er oder 100-ter Schritten erfasst werden.</string>
+  <string name="Start_TestVersionInfo1">Artikeldaten können jetzt aus OpenFoodFacts.org geladen werden.</string>
+  <string name="Start_TestVersionInfo2"></string>
+  <string name="Start_TestVersionInfo3"></string>
 
   <!-- Hauptmaske -->
   <string name="Main_DemnaechstZuVerbrauchen">Consume soon:</string>

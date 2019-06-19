@@ -510,7 +510,7 @@ namespace VorratsUebersicht
             
             if (Debugger.IsAttached)
             {
-                eanCode = "22120649";
+                eanCode = "4005500339403";
             }
             else
             {

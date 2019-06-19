@@ -13,7 +13,7 @@
           android:id="@+id/InternetDatabaseResult_Progress"            
           style="?android:attr/progressBarStyleHorizontal"
           android:layout_width="fill_parent"
-          android:layout_height="40dp"
+          android:layout_height="10dp"
           android:indeterminate="true"
           android:max="100"
           android:visibility="visible"/>
@@ -24,13 +24,14 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:textSize="20sp"
             android:textColor="@color/Text_Color" />
         <ImageView
             android:id="@+id/InternetDatabaseResult_Image"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"            
-            android:scaleType="fitCenter" />
+            android:layout_height="fill_parent" 
+            android:scaleType="fitCenter"/>
         <TextView
             android:id="@+id/InternetDatabaseResult_Text"
             android:layout_width="fill_parent"
@@ -39,6 +40,14 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:textSize="20sp"            
+            android:textColor="@color/Text_Color" />
+        <TextView
+            android:id="@+id/InternetDatabaseResult_Description"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:textColor="@color/Text_Color" />
     </LinearLayout>
 </ScrollView>

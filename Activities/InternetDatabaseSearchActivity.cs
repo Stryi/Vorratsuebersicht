@@ -13,6 +13,7 @@ using Android.Runtime;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
+using Android.Content.PM;
 using Newtonsoft.Json;
 
 namespace VorratsUebersicht
@@ -45,6 +46,11 @@ namespace VorratsUebersicht
 
             var textView = FindViewById<TextView>(Resource.Id.InternetDatabaseResult_ProgressText);
             textView.Text = "Suche nach Artikeldaten auf:\n\n  https://world.openfoodfacts.org";
+            
+            var textInfo = FindViewById<TextView>(Resource.Id.InternetDatabaseResult_Description);
+            textInfo.Text = "Die Produktdaten werden nach dem Wikipedia-Prinzip auf OpenFoodFacts.org " +
+                "von der Community gepflegt und sind noch lange nicht vollständig und/oder korrekt.\n\n" +
+                "Bitte helfen Sie, die Produkte dort zu pflegen.";
 
             new System.Threading.Thread(new ThreadStart(delegate             
             {
@@ -74,6 +80,16 @@ namespace VorratsUebersicht
                         Intent intent = new Intent();
                         intent.PutExtra("Name",       this.foodInfo.product.product_name);
                         intent.PutExtra("Hersteller", this.foodInfo.product.brands);
+                        if (this.foodSize != null)
+                        {
+                            intent.PutExtra("Quantity",   (long)this.foodSize.Quantity);
+                            intent.PutExtra("Unit",       this.foodSize.Unit);
+                        }
+                        if (this.kcalPer100 != null)
+                        {
+                            intent.PutExtra("KCalPer100",   (long)this.kcalPer100.Value);
+                            
+                        }
 
                         this.SetResult(Result.Ok, intent);
                     }
@@ -131,27 +147,32 @@ namespace VorratsUebersicht
 
                     if (this.foodInfo.status == 1)
                     {
-                        info += string.Format("Produkt:\n{0}\n\n",              this.foodInfo.product.product_name);
-                        info += string.Format("Hersteller:\n{0}\n\n",           this.foodInfo.product.brands);
-                        info += string.Format("Menge mit Einheit:\n{0}\n\n",    this.foodInfo.product.quantity);
+                        info += string.Format("Produkt:\n{0}\n\n",    this.foodInfo.product.product_name);
+                        info += string.Format("Hersteller:\n{0}\n\n", this.foodInfo.product.brands);
 
                         this.foodSize = QuantityAndUnit.Parse(this.foodInfo.product.quantity);
                         if (this.foodSize != null)
                         {
-                            info += string.Format("Menge: {0}\n",     this.foodSize.Quantity);
-                            info += string.Format("Einheit: {0}\n\n", this.foodSize.Unit);
+                            info += string.Format("Menge: {0} {1}",  this.foodSize.Quantity, this.foodSize.Unit);
+                        }
+                        else
+                        {
+                            info += string.Format("Menge mit Einheit nicht erkannt: {0}", this.foodInfo.product.quantity);
                         }
 
                         if (foodInfo.product.nutriments != null)
                         {
+                            /*
                             info += string.Format("Nährwert: {0} {1} pro 100g\n", 
                                 this.foodInfo.product.nutriments.energy_100g,
                                 this.foodInfo.product.nutriments.energy_unit);
+                            */
 
                             if (string.Compare(this.foodInfo.product.nutriments.energy_unit, "kcal", true) == 0)
                             {
                                 this.kcalPer100 = this.foodInfo.product.nutriments.energy_value;
-                                info += string.Format("Nährwert: {0} kcal pro 100g\n", this.kcalPer100);
+                                info += "\n\n";
+                                info += string.Format("Nährwert: {0} kcal pro 100g", this.kcalPer100);
                             }
 
                             if (string.Compare(this.foodInfo.product.nutriments.energy_unit, "kJ", true) == 0)
@@ -160,7 +181,8 @@ namespace VorratsUebersicht
                                 this.kcalPer100 = this.foodInfo.product.nutriments.energy_100g / 4.184m;
                                 this.kcalPer100 = Math.Round(this.kcalPer100.Value, 0);
 
-                                info += string.Format("Nährwert: {0} kcal pro 100g\n", this.kcalPer100);
+                                info += "\n\n";
+                                info += string.Format("Nährwert: {0} kcal pro 100g", this.kcalPer100);
                             }
                         }
                     }
@@ -204,9 +226,15 @@ namespace VorratsUebersicht
             }
 
             //TRACE("WebRequest: {0}", request);
+            Context context = this.ApplicationContext;
+            PackageInfo info = context.PackageManager.GetPackageInfo(context.PackageName, 0);
+
+            string agentInfo = "Vorratsübersicht - Android - Version " + info.VersionName + " - https://sites.google.com/site/vorratsuebersicht";
 
             WebRequest webRequest = WebRequest.Create(request);
             webRequest.Credentials = CredentialCache.DefaultCredentials;
+            webRequest.Headers.Add("UserAgent", agentInfo);
+            webRequest.Timeout = 10000;
 
             WebResponse response = webRequest.GetResponse();
 
