@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="de.stryi.Vorratsuebersicht" android:installLocation="auto" android:versionCode="44" android:versionName="3.00">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+          package="de.stryi.Vorratsuebersicht" 
+          android:installLocation="auto" 
+          android:versionCode="45" 
+          android:versionName="3.10">
 	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="27" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

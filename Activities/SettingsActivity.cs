@@ -143,6 +143,15 @@ namespace VorratsUebersicht
                     var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_BackupAndRestore);
                     new Thread(new ThreadStart(delegate
                     {
+                        // Löschen von '*.db3-shn' und '*.db3-wal'
+                        //string deleteFile1 = Path.ChangeExtension(fileDestination, "db3-shm");
+                        //File.Delete(deleteFile1);
+
+                        string deleteFile2 = Path.ChangeExtension(fileDestination, "db3-wal");
+
+                        if (File.Exists(deleteFile2))
+                            File.Delete(deleteFile2);
+
                         File.Copy(fileSource, fileDestination, true);
 
                         // Sich neu connecten;
@@ -349,10 +358,12 @@ namespace VorratsUebersicht
             var downloadFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(
                                     Android.OS.Environment.DirectoryDownloads).AbsolutePath;
 
-            string backupName = string.Format("Vü_{0}.VueBak", 
+            string backupName = string.Format("Vue_{0}.VueBak", 
                 DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss"));
 
             var backupFileName = Path.Combine(downloadFolder, backupName);
+
+            Android_Database.Instance.CloseConnection();
 
             var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_BackupAndRestore);
             new Thread(new ThreadStart(delegate

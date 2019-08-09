@@ -1,4 +1,5 @@
-﻿using Android.Content;
+﻿
+using Android.Content;
 
 namespace VorratsUebersicht
 {

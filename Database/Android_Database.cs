@@ -337,6 +337,13 @@ namespace VorratsUebersicht
 
 			var conn = new SQLite.SQLiteConnection(path, false);
             //conn.Trace = true;
+  
+			string cmd = "PRAGMA journal_mode=MEMORY";
+			IList<JournalMode> tableInfo = conn.Query<JournalMode>(cmd);
+            if (tableInfo.Count > 0)
+            {
+                TRACE("PRAGMA journal_mode={0}", tableInfo[0].journal_mode);
+            }
 
 			this.UpdateDatabase(conn);
 
@@ -345,6 +352,15 @@ namespace VorratsUebersicht
 			// Return the database connection 
 			return conn;
 		}
+
+        public void CloseConnection()
+        {
+            if (Android_Database.SQLiteConnection != null)
+            {
+                Android_Database.SQLiteConnection.Close();
+                Android_Database.SQLiteConnection = null;
+            }
+        }
 
 		private void UpdateDatabase(SQLiteConnection conn)
 		{

@@ -103,7 +103,7 @@ namespace VorratsUebersicht
                 new SdCardAccess().Grand(this);
             }
 
-            // Somewhere in your app, call the initialization code:
+            // Initialisierung für EAN Scanner
             ZXing.Mobile.MobileBarcodeScanner.Initialize (Application);
 
             string error = this.ShowStorageInfoText();
