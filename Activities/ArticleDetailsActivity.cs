@@ -145,6 +145,9 @@ namespace VorratsUebersicht
             var userCategories = MainActivity.GetUserDefinedCategories();
             foreach(string userCategory in userCategories)
             {
+                if (categories.Contains(userCategory))      // Doppelte verhindern
+                    continue;
+
                 categories.Add(userCategory);
             }
 

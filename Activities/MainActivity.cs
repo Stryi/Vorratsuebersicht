@@ -602,7 +602,17 @@ namespace VorratsUebersicht
             if (string.IsNullOrEmpty(userCategories))
                 return new Collection<string>();
 
-            return userCategories.Split(',');
+            var result = new List<string>();
+
+            foreach(string category in userCategories.Split(','))
+            {
+                if (string.IsNullOrEmpty(category))
+                    continue;
+
+                result.Add(category.Trim());
+            }
+
+            return result;
         }
 
         internal static void SetUserDefinedCategories(string newCategories)

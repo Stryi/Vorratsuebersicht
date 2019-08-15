@@ -1,8 +1,15 @@
 Prio 1
 ======
 
-Kategorie/Unterkategorie
-- "Keine Kategorie" als Popup Auswahl?
+Datenbank Laufzeit optimieren
+
+
+EAN Scanner aktualisieren
+    Die Java Variante. Da wir noch ältere Android Versionen unterstützen so:
+    implementation('com.journeyapps:zxing-android-embedded:3.6.0') { transitive = false }
+    implementation 'com.google.zxing:core:3.3.0' 
+
+    https://github.com/journeyapps/zxing-android-embedded 
 
 
 Sonstiges
@@ -15,15 +22,7 @@ Prio 2
 ======
 
 Artikeldetail
-- Aufruf mit EAN Nummer ins Internet
-
-    https://world.openfoodfacts.org/data
-    https://world.openfoodfacts.org/api/v0/product/4000462810052.json
-    https://world.openfoodfacts.org/api/v0/product/5410673854001.json?fields=status,code,product_name,energy_unit,brands
-    https://world.openfoodfacts.org/api/v0/product/20005016.json?fields=status,code,product_name,energy_unit,brands,quantity,product_quantity,nova_groups
-
-Lagerbestand
-Gemacht: - Anzahl nicht nur über "-" und "+" sondern auch direkt eingeben (von Kathrin B. und Michi H. vorgeschlagen)
+- Sprung aus Einkaufsliste
 
 
 Einstellungen
