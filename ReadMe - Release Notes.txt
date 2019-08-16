@@ -9,7 +9,7 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
-Version 3.10 (CodeVersion 45)
+Version 3.01 (CodeVersion 45)
 ==================================
 
 C089 - FIX: Benutzerdefinierte Kategorien mit Leerzeichen vorne.
