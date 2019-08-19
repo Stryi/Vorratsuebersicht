@@ -81,10 +81,11 @@ namespace VorratsUebersicht
             Java.Lang.Object itemObject = listView.GetItemAtPosition(e.Position);
             ShoppingListView item = Tools.Cast<ShoppingListView>(itemObject);
 
-            string removeText = Resources.GetString(Resource.String.ShoppingList_Remove);
-            string toStorage  = Resources.GetString(Resource.String.ShoppingList_ToStorage);
+            string removeText    = Resources.GetString(Resource.String.ShoppingList_Remove);
+            string toStorage     = Resources.GetString(Resource.String.ShoppingList_ToStorage);
+            string articleDetail = Resources.GetString(Resource.String.ShoppingList_Artikelangaben);
 
-            string[] actions = { "+10", "+1", "-1", "-10", removeText, toStorage };
+            string[] actions = { "+10", "+1", "-1", "-10", removeText, toStorage, articleDetail};
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle(item.Heading);
@@ -113,7 +114,7 @@ namespace VorratsUebersicht
                         ShowShoppingList();
                         break;
 
-                    case 4: // Entfernen
+                    case 4: // Entfernen (gekauft)
                         Database.RemoveFromShoppingList(item.ArticleId);
                         ShowShoppingList();
                         break;
@@ -123,6 +124,13 @@ namespace VorratsUebersicht
                         storageDetails.PutExtra("ArticleId", item.ArticleId);
                         storageDetails.PutExtra("EditMode",  true);
                         this.StartActivityForResult(storageDetails, EditStorageQuantity);
+                        break;
+
+                    case 6: // Artikelangaben...
+                        var articleDetails = new Intent (this, typeof(ArticleDetailsActivity));
+                        articleDetails.PutExtra("ArticleId", item.ArticleId);
+                        StartActivity(articleDetails);
+
                         break;
                 }
 

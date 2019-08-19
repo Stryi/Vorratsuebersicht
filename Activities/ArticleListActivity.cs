@@ -7,6 +7,7 @@ using Android.Runtime;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
+using static Android.Widget.AdapterView;
 
 namespace VorratsUebersicht
 {
@@ -21,6 +22,7 @@ namespace VorratsUebersicht
         private string subCategory;
         private string lastSearchText = string.Empty;
         private List<string> categoryList;
+        Toast toast;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -64,7 +66,48 @@ namespace VorratsUebersicht
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
             listView.ItemClick += OnOpenArticleDetails;
 
+            this.RegisterForContextMenu(listView);
+
             ShowArticleList();
+        }
+
+        public override void OnCreateContextMenu(IContextMenu menu, View view, IContextMenuContextMenuInfo menuInfo)
+        {
+            if (view.Id == Resource.Id.ArticleList) 
+            {
+                ListView listView = (ListView)view;
+                AdapterView.AdapterContextMenuInfo acmi = (AdapterContextMenuInfo) menuInfo;
+                //ArticleListView obj = (ArticleListView)listView.GetItemAtPosition(acmi.Position);
+
+                menu.Add(Menu.None, 1, Menu.None, Resource.String.ArticleList_ToShoppingList);  // Auf Einkaufszettel
+                menu.Add(Menu.None, 2, Menu.None, Resource.String.ArticleList_Lagerbestand);    // Lagerbestand
+
+            }
+        }
+
+        public override bool OnContextItemSelected(IMenuItem item)
+        {
+            AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.MenuInfo;
+
+            ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
+            ArticleListView  selectedItem = Tools.Cast<ArticleListView>(listView.Adapter.GetItem(info.Position));
+
+            switch(item.ItemId)
+            {
+                case 1: // Auf Einkaufszettel
+                    this.AddToShoppingListAutomatically(selectedItem.Id);
+                    return true;
+
+                case 2: // Lagerbestand
+                    var storageDetails = new Intent(this, typeof(StorageItemQuantityActivity));
+                    storageDetails.PutExtra("ArticleId", selectedItem.Id);
+
+                    this.StartActivity(storageDetails);
+                    return true;
+
+                default:
+                    return base.OnContextItemSelected(item);
+            }
         }
 
         private void SpinnerCategory_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
@@ -226,5 +269,28 @@ namespace VorratsUebersicht
             this.lastSearchText = filter;
             return true;
         }
+
+        private void AddToShoppingListAutomatically(int articleId)
+        {
+            int toBuyQuantity = Database.GetToShoppingListQuantity(articleId);
+            if (toBuyQuantity == 0)
+                toBuyQuantity = 1;
+
+            double count = Database.AddToShoppingList(articleId, toBuyQuantity);
+
+            string msg = string.Format("{0} Stück auf der Einkaufsliste.", count);
+            if (this.toast != null)
+            {
+                this.toast.Cancel();
+                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
+            }
+            else
+            {
+                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
+            }
+
+            this.toast.Show();
+        }
+
     }
 }

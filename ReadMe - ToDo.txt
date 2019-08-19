@@ -1,21 +1,11 @@
 Prio 1
 ======
 
-Einkaufsliste
-- Artikeldaten ändern (2x gefragt, auch vom M. Pleuge)
-
-
-Artikelliste
-- Contextmenü mit: Einkaufszettel (M. Pleuger), Lagerbestand
-
-Lagerbestand
-- Artikeldaten ändern.
-
+Mehrere Datenbanken im Verzeichnis: Auswahl beim Starten.
 
 Prio 2
 ======
 
-Mehrere Datenbanken im Verzeichnis: Auswahl beim Starten.
 
 
 Freie Sortierung der Kategorien. (M. Pleuger)

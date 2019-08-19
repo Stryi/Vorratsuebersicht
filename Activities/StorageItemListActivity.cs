@@ -8,6 +8,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V4.Content;
+using static Android.Widget.AdapterView;
 
 namespace VorratsUebersicht
 {
@@ -25,9 +26,11 @@ namespace VorratsUebersicht
         private bool   showEmptyStorageArticles;
         private string storageNameFilter = string.Empty;
         private string lastSearchText = string.Empty;
+        Toast toast;
 
         public static readonly int StorageItemQuantityId = 1000;
         public static readonly int SelectArticleId = 1001;
+        public static readonly int ArticleDetailId = 1002;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -42,9 +45,10 @@ namespace VorratsUebersicht
             ActionBar.SetBackgroundDrawable(backgroundPaint);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            ListView listView = FindViewById<ListView>(Resource.Id.MyListView);
+            ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
+            listView.ItemClick += OnOpenArticleStorageItemQuentity;
 
-            listView.ItemClick += OnOpenArticleDetails;
+            this.RegisterForContextMenu(listView);
 
             this.category                 = Intent.GetStringExtra ("Category");
             this.subCategory              = Intent.GetStringExtra ("SubCategory");
@@ -84,6 +88,41 @@ namespace VorratsUebersicht
             }
 
             this.ShowStorageItemList();
+        }
+
+        public override void OnCreateContextMenu(IContextMenu menu, View view, IContextMenuContextMenuInfo menuInfo)
+        {
+            if (view.Id == Resource.Id.StorageItemView) 
+            {
+                ListView listView = (ListView)view;
+                AdapterView.AdapterContextMenuInfo acmi = (AdapterContextMenuInfo) menuInfo;
+                //ArticleListView obj = (ArticleListView)listView.GetItemAtPosition(acmi.Position);
+
+                menu.Add(Menu.None, 1, Menu.None, Resource.String.StorageItem_ToShoppingList);
+                menu.Add(Menu.None, 2, Menu.None, Resource.String.StorageItem_Artikelangaben);
+            }
+        }
+
+        public override bool OnContextItemSelected(IMenuItem item)
+        {
+            AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.MenuInfo;
+
+            ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
+            StorageItemListView  selectedItem = Tools.Cast<StorageItemListView>(listView.Adapter.GetItem(info.Position));
+
+            switch(item.ItemId)
+            {
+                case 1: // Auf Einkaufszettel
+                    this.AddToShoppingListAutomatically(selectedItem.Id);
+                    return true;
+
+                case 2: // Artikelangabe
+                    this.OnOpenArticleDetails(selectedItem.Id);
+                    return true;
+
+                default:
+                    return base.OnContextItemSelected(item);
+            }
         }
 
         private void SpinnerStorage_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
@@ -146,7 +185,7 @@ namespace VorratsUebersicht
             return true;
         }
 
-        private void OnOpenArticleDetails(object sender, AdapterView.ItemClickEventArgs e)
+        private void OnOpenArticleStorageItemQuentity(object sender, AdapterView.ItemClickEventArgs e)
         {
             Java.Lang.Object itemObject = ((ListView)sender).GetItemAtPosition(e.Position);
 
@@ -159,9 +198,18 @@ namespace VorratsUebersicht
             storageItemQuantity.PutExtra("ArticleId", item.Id);
             this.StartActivityForResult(storageItemQuantity, StorageItemQuantityId);
 
-            ListView listView = FindViewById<ListView>(Resource.Id.MyListView);
+            ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
             this.listViewState = listView.OnSaveInstanceState();
+        }
 
+        private void OnOpenArticleDetails(int articleId)
+        {
+            var articleDetails = new Intent(this, typeof(ArticleDetailsActivity));
+            articleDetails.PutExtra("ArticleId", articleId);
+            this.StartActivityForResult(articleDetails, ArticleDetailId);
+
+            ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
+            this.listViewState = listView.OnSaveInstanceState();
         }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
@@ -175,7 +223,18 @@ namespace VorratsUebersicht
                 if (this.listViewState == null)
                     return;
 
-                ListView listView = FindViewById<ListView>(Resource.Id.MyListView);
+                ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
+                listView?.OnRestoreInstanceState(this.listViewState);
+            }
+
+            if ((requestCode == ArticleDetailId) && (resultCode == Result.Ok))
+            {
+                this.ShowStorageItemList(this.lastSearchText);
+
+                if (this.listViewState == null)
+                    return;
+
+                ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
                 listView?.OnRestoreInstanceState(this.listViewState);
             }
 
@@ -194,7 +253,7 @@ namespace VorratsUebersicht
 
 				this.StartActivityForResult(storageItemQuantity, StorageItemQuantityId);
 
-				ListView listView = FindViewById<ListView>(Resource.Id.MyListView);
+				ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
 				this.listViewState = listView.OnSaveInstanceState();
 			}
 
@@ -253,7 +312,7 @@ namespace VorratsUebersicht
 
             StorageItemListViewAdapter listAdapter = new StorageItemListViewAdapter(this, liste);
 
-            ListView listView = FindViewById<ListView>(Resource.Id.MyListView);
+            ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
             listView.Adapter = listAdapter;
             listView.Focusable = true;
 
@@ -282,6 +341,28 @@ namespace VorratsUebersicht
             this.ShowStorageItemList(filter);
             this.lastSearchText = filter;
             return true;
+        }
+
+        private void AddToShoppingListAutomatically(int articleId)
+        {
+            int toBuyQuantity = Database.GetToShoppingListQuantity(articleId);
+            if (toBuyQuantity == 0)
+                toBuyQuantity = 1;
+
+            double count = Database.AddToShoppingList(articleId, toBuyQuantity);
+
+            string msg = string.Format("{0} Stück auf der Einkaufsliste.", count);
+            if (this.toast != null)
+            {
+                this.toast.Cancel();
+                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
+            }
+            else
+            {
+                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
+            }
+
+            this.toast.Show();
         }
     }
 

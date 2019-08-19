@@ -33,7 +33,10 @@
 
   <item android:id="@+id/ArticleDetailsMenu_ToShoppingList"
       android:icon="@drawable/ic_shopping_cart_white_48dp"
-      android:title="@string/StorageItemQuantity_Menu_ToShoppingList" />
+      android:title="@string/ArticleDetails_Menu_ToShoppingList" />
+
+  <item android:id="@+id/ArticleDetailsMenu_CurrentStock"
+      android:title="@string/ArticleDetails_Menu_CurrentStock" />
 
   <item android:id="@+id/ArticleDetailsMenu_Speech"
     android:title="Spracheingabe" />

@@ -36,7 +36,7 @@
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs6B5F.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs76D6.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -57,7 +57,7 @@
     <Debugger>Xamarin</Debugger>
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
     <EnableProguard>False</EnableProguard>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs6B5F.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs76D6.tmp\Release\</IntermediateOutputPath>
     <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
@@ -153,6 +153,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="ReadMe - ToDo.txt" />
     <None Include="Service\AlarmReceiver.cs" />
     <None Include="Service\BootBroadcast.cs" />
     <None Include="Service\PeriodicBackgroundService.cs" />
@@ -466,9 +467,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_close_white_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ReadMe - ToDo.txt" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Styles.xml" />

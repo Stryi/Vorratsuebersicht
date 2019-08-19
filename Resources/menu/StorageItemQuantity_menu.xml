@@ -25,4 +25,9 @@
       android:title="@string/StorageItemQuantity_Menu_ToShoppingList"
       android:showAsAction="always" />
 
+  <item android:id="@+id/StorageItemQuantity_Artikelangaben"
+      android:title="@string/StorageItemQuantity_Menu_Artikelangaben"
+      android:showAsAction="never" />
+
+  
 </menu>

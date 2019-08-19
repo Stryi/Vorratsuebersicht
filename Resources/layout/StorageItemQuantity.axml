@@ -25,7 +25,7 @@
             android:layout_height="100dp"
             android:background="@color/Application_Background2" />
         <TextView
-            android:id="@+id/ArticleDetailList"
+            android:id="@+id/StorageItemQuantity_ArticleDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"

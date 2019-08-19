@@ -18,6 +18,8 @@ namespace VorratsUebersicht
     [Activity(Label = "Artikelbestand", Icon = "@drawable/ic_assignment_white_48dp", ScreenOrientation = ScreenOrientation.Portrait)]
     public class StorageItemQuantityActivity : Activity
     {
+        public static readonly int ArticleDetailId = 1002;
+
         public static List<StorageItemQuantityListView> liste = null;
         public static Article article = null;
 
@@ -66,6 +68,12 @@ namespace VorratsUebersicht
                 var articleImage = new Intent (this, typeof(ArticleImageActivity));
                 articleImage.PutExtra("ArticleId", articleId);
                 this.StartActivity(articleImage);
+            };
+
+            TextView articleText = FindViewById<TextView>(Resource.Id.StorageItemQuantity_ArticleDetail);
+            articleText.Click += delegate
+            {
+                this.GotoArticleDetails(this.articleId);
             };
 
             Button stepButton = FindViewById<Button>(Resource.Id.StorageItemQuantity_StepButton);
@@ -186,6 +194,10 @@ namespace VorratsUebersicht
                     this.AddToShoppingListAutomatically();
                     return true;
 
+                case Resource.Id.StorageItemQuantity_Artikelangaben:
+                    this.GotoArticleDetails(this.articleId);
+                    return true;
+
                 case Resource.Id.StorageItemQuantity_EditPicture:
                     var articleImage = new Intent (this, typeof(ArticleImageActivity));
                     articleImage.PutExtra("Heading", text);
@@ -265,12 +277,12 @@ namespace VorratsUebersicht
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
-            if (resultCode == Result.Ok)
+            if ((requestCode == ArticleDetailId) && (resultCode == Result.Ok))
             {
                 StorageItemQuantityActivity.article = null;
                 this.ShowPictureAndDetails(this.articleId, this.text);
-                this.isChanged = true;
             }
+
         }
 
         public override void OnBackPressed()
@@ -305,7 +317,7 @@ namespace VorratsUebersicht
         {
             var headerView = FindViewById<TextView>  (Resource.Id.ArticleDetailHeader);
             var imageView  = FindViewById<ImageView> (Resource.Id.StorageItemQuantity_Image);
-            var detailView = FindViewById<TextView>  (Resource.Id.ArticleDetailList);
+            var detailView = FindViewById<TextView>  (Resource.Id.StorageItemQuantity_ArticleDetail);
 
             if (articleId == 0)
             {
@@ -433,6 +445,13 @@ namespace VorratsUebersicht
             StorageItemQuantityListViewAdapter listAdapter = new StorageItemQuantityListViewAdapter(this, StorageItemQuantityActivity.liste);
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
             listView.Adapter = listAdapter;
+        }
+
+        private void GotoArticleDetails(int articleId)
+        {
+            var articleDetails = new Intent(this, typeof(ArticleDetailsActivity));
+            articleDetails.PutExtra("ArticleId", this.articleId);
+            this.StartActivityForResult(articleDetails, ArticleDetailId);
         }
     }
 }

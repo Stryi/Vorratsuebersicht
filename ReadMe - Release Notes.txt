@@ -9,6 +9,12 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 3.10 (CodeVersion 46)
+==================================
+
+C091 - In der Einkaufsliste gleich zum Artikeldetail.
+C090 - Sprünge zwischen Artikelstamm und Lagerbestand über Contextmenü.
+
 Version 3.01 (CodeVersion 45)
 ==================================
 

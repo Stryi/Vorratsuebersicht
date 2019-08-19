@@ -40,6 +40,8 @@
 
   <!-- Artikelliste -->
   <string name="ArticleList_AllCategories">[All categories]</string>
+  <string name="ArticleList_ToShoppingList">To shopping list</string>
+  <string name="ArticleList_Lagerbestand">Current stock</string>
 
   <!-- Artikeldetails Menü -->
   <string name="ArticleDetails_Menu_DeleteArticle">Delete article</string>
@@ -47,7 +49,9 @@
   <string name="ArticleDetails_Menu_SelectPicture">Select picture</string>
   <string name="ArticleDetails_Menu_ShowPicture">Edit picture</string>
   <string name="ArticleDetails_Menu_EAN_Scannen">Scannen EAN</string>
-    
+  <string name="ArticleDetails_Menu_ToShoppingList">To shopping list</string>
+  <string name="ArticleDetails_Menu_CurrentStock">Current stock</string>
+
   <!-- Artikeldetails -->
   <string name="ArticleDetails_ArticleName">Article name:</string>
   <string name="ArticleDetails_Manufacturer">Manufacturer:</string>
@@ -73,9 +77,12 @@
 
   <!-- Lagerbestandsliste -->
   <string name="StorageItem_AllStoragesStorage">[All storages]</string>
+  <string name="StorageItem_ToShoppingList">To shopping list</string>
+  <string name="StorageItem_Artikelangaben">Article details...</string>
 
   <!-- Lagerbestand -->
   <string name="StorageItemQuantity_Menu_ToShoppingList">To shopping list</string>
+  <string name="StorageItemQuantity_Menu_Artikelangaben">Article details</string>
 
   <string name="ArticleCatagoriesSelect">Select category...</string>
   <string name="NoArticleCatagories">No categories available.</string>
@@ -85,6 +92,7 @@
   <!-- Einkaufsliste -->
   <string name="ShoppingList_Remove">Remove (bought)</string>
   <string name="ShoppingList_ToStorage">To storage...</string>
+  <string name="ShoppingList_Artikelangaben">Article details...</string>
   <string name="ShoppingList_AllSupermarkets">[All]</string>
 
   <string-array name="ArticleCatagories">

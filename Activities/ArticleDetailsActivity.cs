@@ -371,6 +371,10 @@ namespace VorratsUebersicht
                     this.SaveAndAddToShoppingList();                // Bei Neuanlage erst Artikel speichern (sonst keine Referenz aus dem Einkaufszettel)
                     return true;
 
+                case Resource.Id.ArticleDetailsMenu_CurrentStock:
+                    this.SaveAndGoToStorageItem();
+                    return true;
+
                 case Resource.Id.ArticleDetailsMenu_Speech:
                     this.SprachEingabe();
                     return true;
@@ -408,6 +412,7 @@ namespace VorratsUebersicht
         {
             if (this.articleId != 0)
             {
+                this.SaveArticle();
                 this.AddToShoppingListAutomatically();
                 return;
             }
@@ -426,6 +431,39 @@ namespace VorratsUebersicht
                 });
             message.SetNegativeButton("Abbrechen", (s, e) => { });
             message.Create().Show();
+        }
+
+        private void SaveAndGoToStorageItem()
+        {
+            if (this.articleId != 0)
+            {
+                this.SaveArticle();
+                this.GoToStorageItem(this.articleId);
+                return;
+            }
+
+            var message = new AlertDialog.Builder(this);
+            message.SetMessage("Lagerbestand kann erst nach dem Speichern bearbeitet werden.\n\nArtikel speichern (anlegen)?");
+            message.SetIcon(Resource.Drawable.ic_launcher);
+            message.SetPositiveButton("OK", (s, e) => 
+                {
+                    this.SaveArticle();
+                    if (this.articleId != 0)    // Speichern erfolgreich (articleId gesetzt?)
+                    {
+                        this.GoToStorageItem(this.articleId);
+                        return;
+                    }
+                });
+            message.SetNegativeButton("Abbrechen", (s, e) => { });
+            message.Create().Show();
+        }
+
+        private void GoToStorageItem(int articleId)
+        {
+            var storageDetails = new Intent(this, typeof(StorageItemQuantityActivity));
+            storageDetails.PutExtra("ArticleId", articleId);
+
+            this.StartActivity(storageDetails);
         }
 
         private async void ScanEAN()
