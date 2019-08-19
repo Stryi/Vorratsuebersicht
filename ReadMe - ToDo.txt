@@ -1,8 +1,39 @@
 Prio 1
 ======
 
+Einkaufsliste
+- Artikeldaten ändern (2x gefragt, auch vom M. Pleuge)
+
+
+Artikelliste
+- Contextmenü mit: Einkaufszettel (M. Pleuger), Lagerbestand
+
+Lagerbestand
+- Artikeldaten ändern.
+
+
+Prio 2
+======
+
+Mehrere Datenbanken im Verzeichnis: Auswahl beim Starten.
+
+
+Freie Sortierung der Kategorien. (M. Pleuger)
+
 Datenbank Laufzeit optimieren
 
+
+
+Einstellungen
+- Alle Listen als SCV exportieren (Markus Neese)
+
+
+Lagerbestand
+- Datum ändern (M. Pleuge)
+
+
+Einstellungen
+- Automatischen Backup ("Alle X Tage...", "Y Kopien behalten")
 
 EAN Scanner aktualisieren
     Die Java Variante. Da wir noch ältere Android Versionen unterstützen so:
@@ -16,21 +47,6 @@ Sonstiges
 - Push Benachrichtigung über bald zu verbrauchende Artikel einmal pro Tag
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/notifications/local-notifications-walkthrough
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/services/service-notifications
-
-
-Prio 2
-======
-
-Artikeldetail
-- Sprung aus Einkaufsliste
-
-
-Einstellungen
-- Alle Listen als SCV exportieren (Markus Neese)
-
-
-Einstellungen
-- Automatischen Backup ("Alle X Tage...", "Y Kopien behalten")
 
 
 Lagerliste
