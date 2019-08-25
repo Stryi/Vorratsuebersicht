@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Threading;
+using System.IO;
+using Android.Content;
 using Android.App;
 using Android.OS;
 using Android.Widget;
@@ -24,16 +25,64 @@ namespace VorratsUebersicht
 
             this.progressText = FindViewById<TextView>(Resource.Id.SplashScreen_ProgressText);
 
+            bool ok = this.InitializeApp();
+            if (ok)
+            {
+                StartActivity(typeof(MainActivity));
+            }
+
+            /*
             new System.Threading.Thread(new ThreadStart(delegate             
             {
-                this.InitializeApp();
-                StartActivity(typeof(MainActivity));
 
             })).Start();
+            */
         }
 
-        private void InitializeApp() 
+        private bool InitializeApp() 
         {
+             return true;
+
+            string sdCardPath = Android_Database.Instance.GetSdCardPath();
+
+            if (!Directory.Exists(sdCardPath))
+            {
+                return true;
+            }
+
+            string[] fileList = Directory.GetFiles(sdCardPath, "*.db3");
+
+            if (fileList.Length <= 1)
+            {
+                return true;
+        }
+
+            string[] databaseNames = new string[fileList.Length];
+
+            for(int i = 0; i < fileList.Length; i++)
+            {
+                databaseNames[i] = Path.GetFileNameWithoutExtension(fileList[i]);
+            }
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle("Datenbank auswählen:");
+            builder.SetItems(databaseNames, (sender2, args) =>
+        {
+                string databaseName = fileList[args.Which];
+                databaseName = Path.GetFileName(databaseName);
+
+                Android_Database.SelectedDatabaseName = databaseName;
+
+                StartActivity(typeof(MainActivity));
+            });
+            builder.SetOnCancelListener(new OnDismissListener(() =>
+            {
+                StartActivity(typeof(MainActivity));
+            }));
+            builder.Show();
+
+            return false;
+
             /*
             bool emulator = Android.OS.Environment.IsExternalStorageEmulated;
             string status = Android.OS.Environment.ExternalStorageState;
@@ -60,6 +109,21 @@ namespace VorratsUebersicht
                 });
             }
             */
+        }
+
+        private class OnDismissListener : Java.Lang.Object, IDialogInterfaceOnCancelListener
+        {
+            private readonly Action action;
+
+            public OnDismissListener(Action action)
+            {
+                this.action = action;
+            }
+
+            public void OnCancel(IDialogInterface dialog)
+            {
+                this.action();
+            }
         }
     }
 }   

@@ -18,6 +18,8 @@ namespace VorratsUebersicht
         public static bool UseAppFolderDatabase = false;
         public static bool? IsDatabaseOnSdCard = null;
 
+        public static string SelectedDatabaseName = Android_Database.sqliteFilename_Prod;
+
         public const string sqliteFilename_Prod = "Vorraete.db3";
         public const string sqliteFilename_New  = "Vorraete_db0.db3";
         public const string sqliteFilename_Demo = "Vorraete_Demo.db3";
@@ -55,7 +57,7 @@ namespace VorratsUebersicht
         public string GetSdCardDatabasePath()
         {
             string databaseFileName = Path.Combine(this.GetSdCardPath(), 
-                                        Android_Database.sqliteFilename_Prod);
+                                        Android_Database.SelectedDatabaseName);
 
             if (!File.Exists(databaseFileName))
             {
@@ -81,12 +83,16 @@ namespace VorratsUebersicht
 
 		public string GetDatabasePath()
 		{
-            string databaseName = Android_Database.sqliteFilename_Prod;
+            string databasePath;
             string databaseFileName;
 
 			if (Android_Database.UseTestDatabase)
             {
-            	databaseName = Android_Database.sqliteFilename_Test;
+                databasePath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
+                databaseFileName = Path.Combine(databasePath, Android_Database.sqliteFilename_Test);
+
+                Android_Database.IsDatabaseOnSdCard = false;
+                return databaseFileName;
             }
 
             if (!Android_Database.UseAppFolderDatabase)
@@ -95,7 +101,7 @@ namespace VorratsUebersicht
                 // Zuerst prüfen, ob auf der SD Karte die Datenbank ist.
                 //
 			    string sdCardPath = this.GetSdCardPath();
-                databaseFileName = Path.Combine(sdCardPath, databaseName);
+                databaseFileName = Path.Combine(sdCardPath, Android_Database.SelectedDatabaseName);
 
                 if (File.Exists(databaseFileName))
                 {
@@ -108,7 +114,7 @@ namespace VorratsUebersicht
             // Jetzt prüfen, ob im Applikationsverzeichnis die Datenbank da ist.
             //
             string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
-            databaseFileName = Path.Combine(documentsPath, databaseName);
+            databaseFileName = Path.Combine(documentsPath, Android_Database.sqliteFilename_Prod);
 
 			if (File.Exists(databaseFileName))
             {
@@ -298,7 +304,7 @@ namespace VorratsUebersicht
             }
         }
 
-        private string GetSdCardPath()
+        public string GetSdCardPath()
         {
             string sdCardPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
             sdCardPath = Path.Combine(sdCardPath, "Vorratsuebersicht");

@@ -20,6 +20,7 @@ namespace VorratsUebersicht
 		private bool selectArticleOnly;
         private string category;
         private string subCategory;
+        private bool   notInStorage;
         private string lastSearchText = string.Empty;
         private List<string> categoryList;
         Toast toast;
@@ -30,8 +31,9 @@ namespace VorratsUebersicht
 
             this.selectArticleOnly = Intent.GetBooleanExtra("SelectArticleOnly", false);
 
-            this.category    = Intent.GetStringExtra ("Category") ?? string.Empty;
-            this.subCategory = Intent.GetStringExtra ("SubCategory") ?? string.Empty;
+            this.category     = Intent.GetStringExtra ("Category") ?? string.Empty;
+            this.subCategory  = Intent.GetStringExtra ("SubCategory") ?? string.Empty;
+            this.notInStorage = Intent.GetBooleanExtra("NotInStorage", false);
 
             if (!string.IsNullOrEmpty(this.subCategory))
             {
@@ -173,7 +175,7 @@ namespace VorratsUebersicht
         {
             this.liste = new List<ArticleListView>();
 
-            var articleList = Database.GetArticleListNoImages(this.category, this.subCategory, text);
+            var articleList = Database.GetArticleListNoImages(this.category, this.subCategory, this.notInStorage, text);
 
             foreach(Article article in articleList)
             {

@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 3.10 (CodeVersion 46)
 ==================================
 
+C092 - Bei Neuanlage einer Lagerposition werden nur noch die nicht hinzugefügten Artikel angezeigt.
 C091 - In der Einkaufsliste gleich zum Artikeldetail.
 C090 - Sprünge zwischen Artikelstamm und Lagerbestand über Contextmenü.
 

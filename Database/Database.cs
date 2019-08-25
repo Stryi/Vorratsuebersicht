@@ -545,7 +545,7 @@ namespace VorratsUebersicht
             return stringList;
         }
 
-        internal static IList<Article> GetArticleListNoImages(string category, string subCategory, string textFilter = null)
+        internal static IList<Article> GetArticleListNoImages(string category, string subCategory, bool notInStorage, string textFilter = null)
         {
             IList<Article> result = new Article[0];
 
@@ -555,41 +555,53 @@ namespace VorratsUebersicht
 
             IList<object> parameter = new List<object>();
 
-            string cmd = string.Empty;
-            cmd += "SELECT ArticleId, Name, Manufacturer, Category, SubCategory, DurableInfinity, WarnInDays,";
-            cmd += " Size, Unit, Notes, EANCode"; // , Calorie, StorageName";
-            cmd += " FROM Article";
+            string filter = string.Empty;
 
             if (!string.IsNullOrEmpty(category))
             {
-                cmd += " WHERE Article.Category = ?";
+                filter += " WHERE Article.Category = ?";
                 parameter.Add(category);
             }
 
             if (!string.IsNullOrEmpty(subCategory))
             {
-                if (parameter.Count > 0)
-                    cmd += " AND ";
+                if (!string.IsNullOrEmpty(filter))
+                    filter += " AND ";
                 else
-                    cmd += " WHERE ";
+                    filter += " WHERE ";
 
-                cmd += " Article.SubCategory = ?";
+                filter += " Article.SubCategory = ?";
                 parameter.Add(subCategory);
             }
 
             if (!string.IsNullOrEmpty(textFilter))
             {
-                if (parameter.Count > 0)
-                    cmd += " AND ";
+                if (!string.IsNullOrEmpty(filter))
+                    filter += " AND ";
                 else
-                    cmd += " WHERE ";
+                    filter += " WHERE ";
 
-                cmd += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ?)";
+                filter += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ?)";
                 parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
             }
 
+            if (notInStorage)
+            {
+                if (!string.IsNullOrEmpty(filter))
+                    filter += " AND ";
+                else
+                    filter += " WHERE ";
 
+                filter += " ArticleId NOT IN (SELECT ArticleId FROM StorageItem)";
+
+            }
+
+            string cmd = string.Empty;
+            cmd += "SELECT ArticleId, Name, Manufacturer, Category, SubCategory, DurableInfinity, WarnInDays,";
+            cmd += " Size, Unit, Notes, EANCode"; // , Calorie, StorageName";
+            cmd += " FROM Article";
+            cmd += filter;
             cmd += " ORDER BY Name COLLATE NOCASE";
 
             var command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());

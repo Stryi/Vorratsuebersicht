@@ -36,7 +36,7 @@
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs76D6.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs8392.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -57,7 +57,7 @@
     <Debugger>Xamarin</Debugger>
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
     <EnableProguard>False</EnableProguard>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs76D6.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs8392.tmp\Release\</IntermediateOutputPath>
     <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
@@ -146,13 +146,13 @@
     <Compile Include="Database\Results\StringResult.cs" />
     <Compile Include="Database\Results\table_info.cs" />
     <Compile Include="Database\ShoppingItem.cs" />
-    <None Include="KnowladgeBase\Datenbank auf ein neues Smartphone übernehmen.md" />
+    <None Include="KnowladgeBase\Datenbank_auf_ein_neues_Smartphone_übernehmen.md" />
     <None Include="KnowladgeBase\Fehler_beim_Zugriff_auf_die_Datenbank.md" />
-    <AndroidResource Include="Resources\raw\DelFromEmulator2.cmd" />
-    <AndroidResource Include="Resources\raw\DelFromEmulator.cmd" />
+    <None Include="KnowladgeBase\Mehrere_Datenbanken_betreiben.md" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="ReadMe - Release Notes.txt" />
     <None Include="ReadMe - ToDo.txt" />
     <None Include="Service\AlarmReceiver.cs" />
     <None Include="Service\BootBroadcast.cs" />
@@ -190,6 +190,13 @@
     <Compile Include="Views\StorageItemQuantityListViewAdapter.cs" />
     <Compile Include="Views\StorageItemListView.cs" />
     <Compile Include="Views\StorageItemListViewAdapter.cs" />
+    <None Include="Testdaten\DelFromEmulator.cmd" />
+    <None Include="Testdaten\DelFromEmulator2.cmd" />
+    <None Include="Testdaten\GetFromDevice.cmd" />
+    <None Include="Testdaten\GetFromEmulator.cmd" />
+    <None Include="Testdaten\PutToDevice.cmd" />
+    <None Include="Testdaten\PutToEmulator.cmd" />
+    <None Include="Testdaten\ResetDevice.cmd" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Vorraete_db0.db3" />
@@ -205,8 +212,6 @@
     <AndroidResource Include="Resources\layout\Settings.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <None Include="Resources\raw\PutToDevice.cmd" />
-    <None Include="Resources\raw\ResetDevice.cmd" />
     <AndroidResource Include="Resources\layout\StorageItemQuantity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -224,8 +229,6 @@
     <AndroidResource Include="Resources\layout\ArticleDetails.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <None Include="Resources\raw\GetFromDevice.cmd" />
-    <None Include="Resources\raw\PutToEmulator.cmd" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values-de\Strings.xml" />
@@ -779,13 +782,11 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\baseline_folder_white_24.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ReadMe - Release Notes.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="ReadMe.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="KnowladgeBase\Pictures\" />
+    <Folder Include="Resources\raw\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\baseline_share_white_24.png" />

@@ -169,6 +169,7 @@ namespace VorratsUebersicht
 
 					articleListIntent.PutExtra("Category",    this.category);
 					articleListIntent.PutExtra("SubCategory", this.subCategory);
+					articleListIntent.PutExtra("NotInStorage", true);
 
 					this.StartActivityForResult (articleListIntent, SelectArticleId);
 
