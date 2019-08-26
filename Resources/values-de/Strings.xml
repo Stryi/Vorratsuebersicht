@@ -15,7 +15,7 @@
   <!-- Hauptmaske -->
   <string name="Main_DemnaechstZuVerbrauchen">Demnächst zu verbrauchen:</string>
   <string name="Main_ArticlesWithExpiryDate">{0} Artikel nach dem Ablaufdatum</string>
-	<string name="Main_ArticlesNearExpiryDate">{0} Artikel demnächst verbrauchen</string>
+  <string name="Main_ArticlesNearExpiryDate">{0} Artikel demnächst verbrauchen</string>
   <string name="Main_Button_BestandNachKategorie">Bestand nach Kategorie</string>
   <string name="Main_Button_Lagerbestand">Lagerbestand</string>
   <string name="Main_Button_Artikelangaben">Artikelangaben</string>
@@ -46,7 +46,7 @@
   <string name="ArticleDetails_Menu_SelectPicture">Bild auswählen</string>
   <string name="ArticleDetails_Menu_ShowPicture">Bild bearbeiten</string>
   <string name="ArticleDetails_Menu_EAN_Scannen">EAN Scannen</string>
-  <string name="ArticleDetails_Menu_ToShoppingList">To shopping list</string>
+  <string name="ArticleDetails_Menu_ToShoppingList">Auf Einkaufsliste</string>
   <string name="ArticleDetails_Menu_CurrentStock">Lagerbestand</string>
 
   <!-- Artikeldetails -->
@@ -90,7 +90,6 @@
   <string name="ShoppingList_Remove">Entfernen (gekauft)</string>
   <string name="ShoppingList_ToStorage">Ins Lagerbestand...</string>
   <string name="ShoppingList_Artikelangaben">Artikelangaben...</string>
-
   <string name="ShoppingList_AllSupermarkets">[Alle]</string>
   
   <string-array name="ArticleCatagories">

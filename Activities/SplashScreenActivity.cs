@@ -41,7 +41,7 @@ namespace VorratsUebersicht
 
         private bool InitializeApp() 
         {
-             return true;
+            Android_Database.Instance.CloseConnection();
 
             string sdCardPath = Android_Database.Instance.GetSdCardPath();
 

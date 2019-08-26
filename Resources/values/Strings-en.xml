@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <!-- wird vorläufig nicht mehr gepflegt. -->
+  
+  <!-- Applikations Name-->
+  <string name="App_Name">Vorratsübersicht</string>
+  <string name="App_Yes">Ja</string>
+  <string name="App_No">Nein</string>
+  <string name="App_Ok">OK</string>
+  <string name="App_Cancel">Abbrechen</string>
+  <string name="App_Save">Speichern</string>
+
+  <!-- Meldungen beim Starten -->
+  <string name="Start_TestDbQuestion">Sie starten die Anwendung zum ersten Mal.\n\nZum Kennenlernen der Anwendung kann eine Testdatenbank aktiviert werden. Diese können Sie unter Optionen wieder deaktivieren.</string>
+  <string name="Start_TestVersionInfo1">Artikeldaten können jetzt aus OpenFoodFacts.org geladen werden.</string>
+  <string name="Start_TestVersionInfo2"></string>
+  <string name="Start_TestVersionInfo3"></string>
+
+  <!-- Hauptmaske -->
+  <string name="Main_DemnaechstZuVerbrauchen">Demnächst zu verbrauchen:</string>
+  <string name="Main_ArticlesWithExpiryDate">{0} Artikel nach dem Ablaufdatum</string>
+  <string name="Main_ArticlesNearExpiryDate">{0} Artikel demnächst verbrauchen</string>
+  <string name="Main_Button_BestandNachKategorie">Bestand nach Kategorie</string>
+  <string name="Main_Button_Lagerbestand">Lagerbestand</string>
+  <string name="Main_Button_Artikelangaben">Artikelangaben</string>
+  <string name="Main_Button_ArtikelListe">Artikelliste</string>
+  <string name="Main_Button_ArtikelScannen">Artikel scannen</string>
+  <string name="Main_Button_Einkaufsliste">Einkaufsliste</string>
+
+  <!-- Maske Optionen -->
+  <string name="Settings_Title">Einstellungen</string>
+  <string name="Settings_TestDatenbank">Test Datenbank</string>
+  <string name="Settings_Datenbank">Datenbank: {0}\r\nGröße: {1} ({2:n0} Bytes)</string>
+  <string name="Settings_TestDatenbankZuruecksetzen">Test Datenbank zurücksetzen</string>
+  <string name="Settings_TestDatenbankLeeren">Test Datenbank leeren</string>
+  <string name="Settings_DatenbankKomprimieren">Datenbank komprimieren</string>
+  <string name="Settings_DatenbankReparieren">Datenbank reparieren/checken (Beta)</string>
+  <string name="Settings_CreateBackup">Backup erstellen (Beta)</string>
+  <string name="Settings_RestoreBackup">Backup zurückspielen (Beta)</string>
+  <string name="Settings_OpenSourceLizenzen">Open-Source-Lizenzen</string>
+
+  <!-- Artikelliste -->
+  <string name="ArticleList_AllCategories">[Alle Kategorien]</string>
+  <string name="ArticleList_ToShoppingList">Auf Einkaufsliste</string>
+  <string name="ArticleList_Lagerbestand">Lagerbestand</string>
+
+  <!-- Artikeldetails Menü -->
+  <string name="ArticleDetails_Menu_DeleteArticle">Delete article</string>
+  <string name="ArticleDetails_Menu_CreatePicture">Create picture</string>
+  <string name="ArticleDetails_Menu_SelectPicture">Select picture</string>
+  <string name="ArticleDetails_Menu_ShowPicture">Edit picture</string>
+  <string name="ArticleDetails_Menu_EAN_Scannen">Scannen EAN</string>
+  <string name="ArticleDetails_Menu_ToShoppingList">To shopping list</string>
+  <string name="ArticleDetails_Menu_CurrentStock">Current stock</string>
+
+  <!-- Artikeldetails -->
+  <string name="ArticleDetails_ArticleName">Article name:</string>
+  <string name="ArticleDetails_Manufacturer">Manufacturer:</string>
+  <string name="ArticleDetails_Category">Category:</string>
+  <string name="ArticleDetails_Category_Hint">Food, Drink, Hygiene Articles, Health, Protection</string>
+  <string name="ArticleDetails_SubCategory">Subcategory:</string>
+  <string name="ArticleDetails_SubCategory_Hint">Depending on the category, e.g. Honey in the food category.</string>
+  <string name="ArticleDetails_EnduringlyDurable">Enduringly durable</string>
+  <string name="ArticleDetails_WarningInDays">Warn in days before expiration:</string>
+  <string name="ArticleDetails_Size">Content/size:</string>
+  <string name="ArticleDetails_Unit">Unit:</string>
+  <string name="ArticleDetails_Unit_Hint">g, l, kg, mg, pcs</string>
+  <string name="ArticleDetails_Calories">Calories:</string>
+  <string name="ArticleDetails_CaloriesPerUnit">Calories per 100 {0}:</string>
+  <string name="ArticleDetails_StorageLabel">Storage location:</string>
+  <string name="ArticleDetails_MinQuantityLabel">Min. quantity:</string>
+  <string name="ArticleDetails_PrefQuantityLabel">Pref. quantity:</string>
+  <string name="ArticleDetails_SupermarketLabel">Supermarket:</string>
+  <string name="ArticleDetails_Price">Price:</string>
+  <string name="ArticleDetails_EANCode">EAN code:</string>
+  <string name="ArticleDetails_Notes">Notes:</string>
+  <string name="ArticleDetails_Amount">Amount:</string>
+
+  <!-- Lagerbestandsliste -->
+  <string name="StorageItem_AllStoragesStorage">[All storages]</string>
+  <string name="StorageItem_ToShoppingList">To shopping list</string>
+  <string name="StorageItem_Artikelangaben">Article details...</string>
+
+  <!-- Lagerbestand -->
+  <string name="StorageItemQuantity_Menu_ToShoppingList">To shopping list</string>
+  <string name="StorageItemQuantity_Menu_Artikelangaben">Article details</string>
+
+  <string name="ArticleCatagoriesSelect">Select category...</string>
+  <string name="NoArticleCatagories">No categories available.</string>
+  <string name="NoSubCategory_ItemEntry">[No subcategory]</string>
+  <string name="AnySubCategory_ItemEntry">[Any subcategory]</string>
+
+  <!-- Einkaufsliste -->
+  <string name="ShoppingList_Remove">Remove (bought)</string>
+  <string name="ShoppingList_ToStorage">To storage...</string>
+  <string name="ShoppingList_Artikelangaben">Article details...</string>
+  <string name="ShoppingList_AllSupermarkets">[All]</string>
+
+  <string-array name="ArticleCatagories">
+    <item>Foods</item>
+    <item>Drink</item>
+    <item>Hygiene</item>
+    <item>Medikament</item>
+    <item>Others</item>
+  </string-array>
+</resources>
+

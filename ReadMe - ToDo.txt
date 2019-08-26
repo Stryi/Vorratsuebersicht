@@ -1,22 +1,21 @@
 Prio 1
 ======
 
-Mehrere Datenbanken im Verzeichnis: Auswahl beim Starten.
-
-Prio 2
-======
-
-
-
-Freie Sortierung der Kategorien. (M. Pleuger)
+Einkaufszettel
+- Neues Menü "Gekauft, später ins Lager" oder auf eine Checkbox "Gekauft"
 
 Datenbank Laufzeit optimieren
 
 
+Prio 2
+======
+
+Besserer EAN Scanner.
+
+Freie Sortierung der Kategorien. (M. Pleuger)
 
 Einstellungen
 - Alle Listen als SCV exportieren (Markus Neese)
-
 
 Lagerbestand
 - Datum ändern (M. Pleuge)
@@ -73,10 +72,6 @@ Lagerbestand / Artikelliste
   https://blog.xamarin.com/getting-started-with-async-await/
 
 
-Einkaufsliste:
-- Aus der Lagerbestand Liste auf die Einkaufsliste setzen ("..." Menü?)
-
-
 Lagerbestand
 - Anzahl gruppieren und Summieren nach Datum.
 - Lagerbewegung in einer Tabelle speichern
@@ -84,12 +79,6 @@ Lagerbestand
 
 Artikeldetails
 - Mehrere Bilder Pro Artikel
-
-
-Artikel scannen (Anhaben aus EAN Datenbank, kostenpflichtig?)
-- https://www.codecheck.info/product.search?q=4006544205006
-- https://corporate.codecheck.info/produkte/produktdaten-api/
-- https://www.ean-suche.de/?q=4000462810052
 
 
 Gemeldete Abstürze:
