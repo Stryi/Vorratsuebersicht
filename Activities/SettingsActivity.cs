@@ -132,8 +132,9 @@ namespace VorratsUebersicht
                 string fileSource = data.GetStringExtra("FullName");
                 string fileDestination = Android_Database.Instance.GetProductiveDatabasePath();
                 
-                string message = string.Format("Backup Datenbank zurückspielen?\n\n{0}",
-                    Path.GetFileName(fileSource));
+                string message = string.Format("Backup Datenbank\n\n{0}\n\nwiederherstellen in {1}?",
+                    Path.GetFileName(fileSource),
+                    Path.GetFileName(fileDestination));
 
                 var builder = new AlertDialog.Builder(this);
                 builder.SetMessage(message);
@@ -353,15 +354,26 @@ namespace VorratsUebersicht
             // damit es auch im Backup ist.
             this.SaveUserDefinedCategories();
 
-            var databaseFileName = Android_Database.Instance.GetProductiveDatabasePath();
+            var databaseFilePath = Android_Database.Instance.GetProductiveDatabasePath();
 
             var downloadFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(
                                     Android.OS.Environment.DirectoryDownloads).AbsolutePath;
 
-            string backupName = string.Format("Vue_{0}.VueBak", 
-                DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss"));
+            string backupFileName;
+            string databaseFileName = Path.GetFileNameWithoutExtension(databaseFilePath);
 
-            var backupFileName = Path.Combine(downloadFolder, backupName);
+            if (databaseFileName == "Vorraete")
+            {
+                backupFileName = string.Format("Vue_{0}.VueBak", 
+                    DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss"));
+            }
+            else
+            {
+                backupFileName = string.Format(databaseFileName + "_{0}.VueBak", 
+                    DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss"));
+            }
+
+            var backupFilePath = Path.Combine(downloadFolder, backupFileName);
 
             Android_Database.Instance.CloseConnection();
 
@@ -371,11 +383,11 @@ namespace VorratsUebersicht
                 string message; 
                 try
                 {
-                    File.Copy(databaseFileName, backupFileName);
+                    File.Copy(databaseFilePath, backupFilePath);
                     message = string.Format(
                         "Datenbank im Download Verzeichnis gesichert als:\n\n {0}" +
                         "\n\nSichern Sie diese Datei auf Google Drive oder auf Ihren PC.",
-                        backupFileName);
+                        backupFilePath);
                 }
                 catch(Exception ex)
                 {

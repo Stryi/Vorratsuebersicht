@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Globalization;
 using System.Diagnostics;
 using System.Collections.Generic;
@@ -62,7 +63,7 @@ namespace VorratsUebersicht
             // Damit Pre-Launch von Google Play Store nicht immer wieder
             // in die EAN Scan "Falle" tappt und da nicht wieder rauskommt.
             // (meistens nächster Tag)
-            MainActivity.preLaunchTestEndDay = new DateTime(2019, 08, 27);
+            MainActivity.preLaunchTestEndDay = new DateTime(2019, 08, 28);
 
             base.OnCreate(bundle);
 
@@ -78,6 +79,13 @@ namespace VorratsUebersicht
             var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
             backgroundPaint.SetBounds(0, 0, 10, 10);
             ActionBar.SetBackgroundDrawable(backgroundPaint);
+
+            string dbPath = Android_Database.Instance.GetDatabasePath();
+            string dbFileName = Path.GetFileNameWithoutExtension(dbPath);
+            if (dbFileName != "Vorraete")
+            {
+                ActionBar.Subtitle = "Datenbank: " + dbFileName;
+            }
 
             // Datenbanken erstellen
             Android_Database.Instance.RestoreSampleDatabaseFromResources();

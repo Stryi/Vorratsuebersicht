@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 3.12 (CodeVersion 48)
+==================================
+
+C095 - Alternative Datenbank in ActionBar und Backup anzeigen.
+
 Version 3.11 (CodeVersion 47)
 ==================================
 

@@ -41,8 +41,9 @@ namespace VorratsUebersicht
 
         private bool InitializeApp() 
         {
-            Android_Database.Instance.CloseConnection();
-
+            if (Android_Database.SQLiteConnection != null)
+                return true;
+            
             string sdCardPath = Android_Database.Instance.GetSdCardPath();
 
             if (!Directory.Exists(sdCardPath))
