@@ -32,6 +32,8 @@ namespace VorratsUebersicht
         Article article;
         int articleId;
         bool isChanged = false;
+        bool noStorageQuantity = false;
+
         ImageView imageView;
         ImageView imageView2;
         TextView  imageTextView;
@@ -61,6 +63,7 @@ namespace VorratsUebersicht
         public static readonly int SpechId = 1002;
         public static readonly int EditPhoto = 1003;
         public static readonly int InternetDB = 1004;
+        public static readonly int StorageQuantityId = 1005;
 
         public bool IsPhotoSelected
         {
@@ -90,11 +93,12 @@ namespace VorratsUebersicht
             ActionBar.SetBackgroundDrawable(backgroundPaint);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            string text      = Intent.GetStringExtra ("Name") ?? string.Empty;
-            this.articleId   = Intent.GetIntExtra    ("ArticleId", 0);
-            string eanCode   = Intent.GetStringExtra ("EANCode") ?? string.Empty;
-            this.category    = Intent.GetStringExtra ("Category");
-            this.subCategory = Intent.GetStringExtra ("SubCategory");
+            string text            = Intent.GetStringExtra ("Name") ?? string.Empty;
+            this.articleId         = Intent.GetIntExtra    ("ArticleId", 0);
+            string eanCode         = Intent.GetStringExtra ("EANCode") ?? string.Empty;
+            this.category          = Intent.GetStringExtra ("Category");
+            this.subCategory       = Intent.GetStringExtra ("SubCategory");
+            this.noStorageQuantity = Intent.GetBooleanExtra("NoStorageQuantity", false);
 
             this.imageCapture = new ImageCaptureHelper();
             this.cameraExists = this.imageCapture.Initializer(this);
@@ -195,7 +199,7 @@ namespace VorratsUebersicht
             this.ShowPictureAndDetails(this.articleId, eanCode);
 
             imageView.Click     += TakeOrShowPhoto;
-            imageTextView.Click += TakeOrShowPhoto;
+            imageTextView.Click += delegate { this.SaveAndGoToStorageItem(); };
 
             imageView2.Click += delegate
             {
@@ -316,6 +320,8 @@ namespace VorratsUebersicht
             IMenuItem itemInternetDB = menu.FindItem(Resource.Id.ArticleDetailsMenu_InternetDB);
             itemInternetDB.SetEnabled(!string.IsNullOrEmpty(EANCode));
 
+            menu.FindItem(Resource.Id.ArticleDetailsMenu_ToStorageQuantity).SetVisible(!this.noStorageQuantity);
+
             return true;
         }
 
@@ -371,7 +377,7 @@ namespace VorratsUebersicht
                     this.SaveAndAddToShoppingList();                // Bei Neuanlage erst Artikel speichern (sonst keine Referenz aus dem Einkaufszettel)
                     return true;
 
-                case Resource.Id.ArticleDetailsMenu_CurrentStock:
+                case Resource.Id.ArticleDetailsMenu_ToStorageQuantity:
                     this.SaveAndGoToStorageItem();
                     return true;
 
@@ -435,6 +441,9 @@ namespace VorratsUebersicht
 
         private void SaveAndGoToStorageItem()
         {
+            if (this.noStorageQuantity)
+                return;
+
             if (this.articleId != 0)
             {
                 this.SaveArticle();
@@ -460,10 +469,13 @@ namespace VorratsUebersicht
 
         private void GoToStorageItem(int articleId)
         {
+            if (this.noStorageQuantity)
+                return;
+
             var storageDetails = new Intent(this, typeof(StorageItemQuantityActivity));
             storageDetails.PutExtra("ArticleId", articleId);
-
-            this.StartActivity(storageDetails);
+            storageDetails.PutExtra("NoArticleDetails", true);
+            this.StartActivityForResult(storageDetails, StorageQuantityId);
         }
 
         private async void ScanEAN()
@@ -581,6 +593,11 @@ namespace VorratsUebersicht
                 }
 
                 this.ResizeBitmap(InternetDatabaseSearchActivity.picture);
+            }
+
+            if (requestCode == StorageQuantityId)
+            {
+                this.ShowStoreQuantityInfo(this.articleId);
             }
         }
 
@@ -896,29 +913,24 @@ namespace VorratsUebersicht
             FindViewById<EditText>(Resource.Id.ArticleDetails_Supermarket).Text  = article.Supermarket;
             FindViewById<EditText>(Resource.Id.ArticleDetails_Storage).Text      = article.StorageName;
 
+            this.ShowStoreQuantityInfo(article.ArticleId);
+            
             if (article.Image != null)
             {
-                string text = string.Empty;
                 this.imageView2.Visibility = ViewStates.Gone;
                 try
                 {
                     Bitmap smallBitmap = BitmapFactory.DecodeByteArray(article.Image,      0, article.Image.Length);
                 
                     this.imageView.SetImageBitmap(smallBitmap);
-
-                    text += string.Format("Voransicht: {0:n0} X {1:n0}\n", smallBitmap.Height, smallBitmap.Width);
-                    text += string.Format("Größe: {0:n0}\n", Tools.ToFuzzyByteString(smallBitmap.ByteCount));
-                    text += string.Format("Komprimiert: {0:n0}\n", Tools.ToFuzzyByteString(article.Image.Length));
                 }
                 catch(Exception ex)
                 {
-                    text += "\n" + ex.Message;
+                    this.imageTextView.Text = ex.Message;
 
                     this.imageView.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
                     this.imageView.Enabled = false;
                 }
-
-                this.imageTextView.Text = text;
             }
             else
                 this.imageView.SetImageResource(Resource.Drawable.ic_photo_camera_white_24dp);
@@ -927,6 +939,57 @@ namespace VorratsUebersicht
             {
                 FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text = eanCode;
             }
+        }
+
+        private void ShowStoreQuantityInfo(int articleId)
+        {
+			var storageItemBestList = Database.GetBestBeforeItemQuantity(article.ArticleId);
+
+            int bestand = 0;
+            int vorDemAblauf = 0;
+            int mitWarnung = 0;
+            int abgelaufen = 0;
+
+			foreach(StorageItemQuantityResult result in storageItemBestList)
+			{
+                bestand += result.Quantity;
+				if (result.WarningLevel == 0)
+				{
+                    vorDemAblauf += result.Quantity;
+				}
+				if (result.WarningLevel == 1)
+				{
+                    mitWarnung += result.Quantity;
+				}
+				if (result.WarningLevel == 2)
+				{
+                    abgelaufen += result.Quantity;
+				}
+			}
+
+			string info    = string.Empty;
+			
+            info = string.Format("Bestand: {0} Stück", bestand);
+
+            if (vorDemAblauf > 0)
+            {
+			    if (!string.IsNullOrEmpty(info)) info += "\r\n";
+			    info += string.Format("{0} vor dem Ablaufdatum", vorDemAblauf);
+            }
+
+            if (mitWarnung > 0)
+            {
+			    if (!string.IsNullOrEmpty(info)) info += "\r\n";
+			    info += string.Format("{0} mit Warnung", mitWarnung);
+            }
+
+            if (abgelaufen > 0)
+            {
+			    if (!string.IsNullOrEmpty(info)) info += "\r\n";
+			    info += string.Format("{0} bereits abgelaufen", abgelaufen);
+            }
+
+            this.imageTextView.Text = info;
         }
 
         private void ResizeBitmap(Bitmap newBitmap)

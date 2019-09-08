@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace VorratsUebersicht
 {
     /// <summary>
     /// Lagerbestand mit Anzahl
     /// </summary>
+    [DebuggerDisplay("{Name} {WarningLevel}, {Quantity}")]
     public class StorageItemQuantityResult
     {
         public int ArticleId {get; set;}

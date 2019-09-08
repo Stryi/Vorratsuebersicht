@@ -196,7 +196,7 @@ namespace VorratsUebersicht
             return toBuyQuantity;
         }
 
-        internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(StorageItemQuantityResult storegeItem)
+        internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(int articleId)
         {
             IList<StorageItemQuantityResult> result = new List<StorageItemQuantityResult>();
 
@@ -214,7 +214,7 @@ namespace VorratsUebersicht
             cmd += " GROUP BY BestBefore";
             cmd += " ORDER BY BestBefore";
 
-            command = databaseConnection.CreateCommand(cmd, new object[] { storegeItem.ArticleId });
+            command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
 
             return command.ExecuteQuery<StorageItemQuantityResult>();
         }

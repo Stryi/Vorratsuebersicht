@@ -28,6 +28,8 @@ namespace VorratsUebersicht
         bool durableInfinity = false;
         bool isChanged = false;
         bool isEditMode = false;
+        bool noArticleDetails = false;
+   
         Toast toast;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -43,9 +45,10 @@ namespace VorratsUebersicht
             ActionBar.SetBackgroundDrawable(backgroundPaint);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            this.text       = Intent.GetStringExtra ("Heading") ?? string.Empty;
-            this.articleId  = Intent.GetIntExtra    ("ArticleId", 0);
-            bool editMode = Intent.GetBooleanExtra  ("EditMode", false);
+            this.text             = Intent.GetStringExtra ("Heading") ?? string.Empty;
+            this.articleId        = Intent.GetIntExtra    ("ArticleId", 0);
+            bool editMode         = Intent.GetBooleanExtra("EditMode", false);
+            this.noArticleDetails = Intent.GetBooleanExtra("NoArticleDetails", false);
 
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -162,6 +165,8 @@ namespace VorratsUebersicht
             if (StorageItemQuantityActivity.article.ImageLarge == null)
                 menu.FindItem(Resource.Id.StorageItemQuantity_EditPicture).SetVisible(false);
 
+            menu.FindItem(Resource.Id.StorageItemQuantity_ToArticleDetails).SetVisible(!this.noArticleDetails);
+            
             return true;
         }
 
@@ -194,7 +199,7 @@ namespace VorratsUebersicht
                     this.AddToShoppingListAutomatically();
                     return true;
 
-                case Resource.Id.StorageItemQuantity_Artikelangaben:
+                case Resource.Id.StorageItemQuantity_ToArticleDetails:
                     this.GotoArticleDetails(this.articleId);
                     return true;
 
@@ -449,8 +454,12 @@ namespace VorratsUebersicht
 
         private void GotoArticleDetails(int articleId)
         {
+            if (this.noArticleDetails)
+                return;
+
             var articleDetails = new Intent(this, typeof(ArticleDetailsActivity));
             articleDetails.PutExtra("ArticleId", this.articleId);
+            articleDetails.PutExtra("NoStorageQuantity", true);
             this.StartActivityForResult(articleDetails, ArticleDetailId);
         }
     }

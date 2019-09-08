@@ -35,7 +35,7 @@
       android:icon="@drawable/ic_shopping_cart_white_48dp"
       android:title="@string/ArticleDetails_Menu_ToShoppingList" />
 
-  <item android:id="@+id/ArticleDetailsMenu_CurrentStock"
+  <item android:id="@+id/ArticleDetailsMenu_ToStorageQuantity"
       android:title="@string/ArticleDetails_Menu_CurrentStock" />
 
   <item android:id="@+id/ArticleDetailsMenu_Speech"

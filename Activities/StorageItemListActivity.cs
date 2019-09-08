@@ -280,7 +280,7 @@ namespace VorratsUebersicht
                 if (storegeItem.WarningLevel > 0)
 				{
 					// Informationen über die Mengen zum Ablaufdatum.
-					var storageItemBestList = Database.GetBestBeforeItemQuantity(storegeItem);
+					var storageItemBestList = Database.GetBestBeforeItemQuantity(storegeItem.ArticleId);
 
 			        string info    = string.Empty;
 			        string warning = string.Empty;

@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 3.13 (CodeVersion 49)
+==================================
+
+C096 - Im Artikelstamm wird jetzt der Lagerbestand angezeigt.
+
 Version 3.12 (CodeVersion 48)
 ==================================
 
