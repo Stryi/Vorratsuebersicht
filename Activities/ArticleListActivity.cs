@@ -81,8 +81,8 @@ namespace VorratsUebersicht
                 AdapterView.AdapterContextMenuInfo acmi = (AdapterContextMenuInfo) menuInfo;
                 //ArticleListView obj = (ArticleListView)listView.GetItemAtPosition(acmi.Position);
 
-                menu.Add(Menu.None, 1, Menu.None, Resource.String.ArticleList_ToShoppingList);  // Auf Einkaufszettel
-                menu.Add(Menu.None, 2, Menu.None, Resource.String.ArticleList_Lagerbestand);    // Lagerbestand
+                menu.Add(Menu.None, 1, Menu.None, Resource.String.ArticleList_Lagerbestand);    // Lagerbestand
+                menu.Add(Menu.None, 2, Menu.None, Resource.String.ArticleList_ToShoppingList);  // Auf Einkaufszettel
 
             }
         }
@@ -96,15 +96,15 @@ namespace VorratsUebersicht
 
             switch(item.ItemId)
             {
-                case 1: // Auf Einkaufszettel
-                    this.AddToShoppingListAutomatically(selectedItem.Id);
-                    return true;
-
-                case 2: // Lagerbestand
+                case 1: // Lagerbestand
                     var storageDetails = new Intent(this, typeof(StorageItemQuantityActivity));
                     storageDetails.PutExtra("ArticleId", selectedItem.Id);
 
                     this.StartActivity(storageDetails);
+                    return true;
+
+                case 2: // Auf Einkaufszettel
+                    this.AddToShoppingListAutomatically(selectedItem.Id);
                     return true;
 
                 default:
