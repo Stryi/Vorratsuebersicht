@@ -73,7 +73,9 @@ namespace VorratsUebersicht
                 else
                     cmd += " WHERE ";
 
-                cmd += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ?)";
+                cmd += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ? OR Article.Notes LIKE ? OR Article.Supermarket LIKE ?)";
+                parameter.Add("%" + textFilter + "%");
+                parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
             }
@@ -581,7 +583,9 @@ namespace VorratsUebersicht
                 else
                     filter += " WHERE ";
 
-                filter += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ?)";
+                filter += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ? OR Article.Notes LIKE ? OR Article.Supermarket LIKE ?)";
+                parameter.Add("%" + textFilter + "%");
+                parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
             }
@@ -767,7 +771,9 @@ namespace VorratsUebersicht
             if (!string.IsNullOrEmpty(textFilter))
             {
                 if (string.IsNullOrEmpty(filter)) { filter += " WHERE "; } else { filter += " AND "; }
-                filter += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ?)";
+                filter += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ? OR Article.Notes LIKE ? OR Article.Supermarket LIKE ?)";
+                parameter.Add("%" + textFilter + "%");
+                parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
             }

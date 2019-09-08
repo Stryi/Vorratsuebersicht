@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 3.13 (CodeVersion 49)
 ==================================
 
+C097 - Suche jetzt auch in Notizen und Einkaufsmarkt.
 C096 - Im Artikelstamm wird jetzt der Lagerbestand angezeigt.
 
 Version 3.12 (CodeVersion 48)
