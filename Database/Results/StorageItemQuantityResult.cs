@@ -19,7 +19,7 @@ namespace VorratsUebersicht
         public int WarnInDays {get; set;}
         public decimal Size {get; set; }
         public string Unit {get; set;}
-        public int Quantity {get; set;}
+        public decimal Quantity {get; set;}
         public int Calorie {get; set;}
         public DateTime? BestBefore {get; set;}
         public string StorageName { get; set; }
@@ -27,7 +27,7 @@ namespace VorratsUebersicht
         public int? PrefQuantity { get; set; }
         public decimal Price { get; set; }
 
-        public int QuantityDiff;
+        public decimal QuantityDiff;
 
 		/// <summary>
 		/// Ablaufdatum überschritten oder nur Warnung für Ablaufdatum

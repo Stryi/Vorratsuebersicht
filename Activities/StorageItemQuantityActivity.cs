@@ -133,9 +133,11 @@ namespace VorratsUebersicht
         {
             switch (StorageItemQuantityListViewAdapter.StepValue)
             {
-                case   1: StorageItemQuantityListViewAdapter.StepValue =  10; break;
-                case  10: StorageItemQuantityListViewAdapter.StepValue = 100; break;
-                case 100: StorageItemQuantityListViewAdapter.StepValue =   1; break;
+                case 0.01m: StorageItemQuantityListViewAdapter.StepValue =  0.1m; break;
+                case  0.1m: StorageItemQuantityListViewAdapter.StepValue =    1m; break;
+                case    1m: StorageItemQuantityListViewAdapter.StepValue =   10m; break;
+                case   10m: StorageItemQuantityListViewAdapter.StepValue =  100m; break;
+                case  100m: StorageItemQuantityListViewAdapter.StepValue = 0.01m; break;
                 
                 default: break;
             }

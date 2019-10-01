@@ -14,7 +14,7 @@ namespace VorratsUebersicht
         List<StorageItemQuantityListView> items;
         Activity context;
         bool actionButtonsVisible = false;
-        public static int StepValue = 1;
+        public static decimal StepValue = 1;
         
         public StorageItemQuantityListViewAdapter(Activity context, List<StorageItemQuantityListView> items) : base()
         {

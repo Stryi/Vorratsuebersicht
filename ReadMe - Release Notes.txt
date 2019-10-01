@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 3.14 (CodeVersion 50)
+==================================
+
+C098 - Lagerbestand jetzt auch mit 0.01 und 0.1 Schritten.
+
 Version 3.13 (CodeVersion 49)
 ==================================
 

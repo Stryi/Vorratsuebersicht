@@ -945,10 +945,10 @@ namespace VorratsUebersicht
         {
 			var storageItemBestList = Database.GetBestBeforeItemQuantity(article.ArticleId);
 
-            int bestand = 0;
-            int vorDemAblauf = 0;
-            int mitWarnung = 0;
-            int abgelaufen = 0;
+            decimal bestand = 0;
+            decimal vorDemAblauf = 0;
+            decimal mitWarnung = 0;
+            decimal abgelaufen = 0;
 
 			foreach(StorageItemQuantityResult result in storageItemBestList)
 			{

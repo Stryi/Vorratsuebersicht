@@ -6,24 +6,24 @@ namespace VorratsUebersicht
     public class StockStatistic
     {
         int count = 0;
-        int quantity = 0;
+        decimal quantity = 0;
         Dictionary<string, decimal> sum_menge = new Dictionary<string, decimal>();
-        int sum_warnung = 0;
-        int sum_abgelaufen = 0;
-        int sum_kcal = 0;
+        decimal sum_warnung = 0;
+        decimal sum_abgelaufen = 0;
+        decimal sum_kcal = 0;
         decimal sum_price = 0;
 
-        internal void AddWarningLevel1(int quantity)
+        internal void AddWarningLevel1(decimal quantity)
         {
             sum_warnung += quantity;
         }
 
-        internal void AddWarningLevel2(int quantity)
+        internal void AddWarningLevel2(decimal quantity)
         {
             sum_abgelaufen += quantity;
         }
         
-        private void AddUnitQuantity(string unit, decimal size, int quantity)
+        private void AddUnitQuantity(string unit, decimal size, decimal quantity)
         {
             if (string.IsNullOrEmpty(unit))
                 unit = string.Empty;
@@ -38,7 +38,7 @@ namespace VorratsUebersicht
             }
         }
 
-        private void AddCalorie(int quantity, int calorie)
+        private void AddCalorie(decimal quantity, int calorie)
         {
             sum_kcal += quantity * calorie;
         }
@@ -52,7 +52,7 @@ namespace VorratsUebersicht
             this.AddCosts(storegeItem.Quantity, storegeItem.Price);
         }
 
-        private void AddCosts(int quantity, decimal price)
+        private void AddCosts(decimal quantity, decimal price)
         {
             this.sum_price += quantity * price;
         }
@@ -65,7 +65,7 @@ namespace VorratsUebersicht
             else
                 status = string.Format("{0:n0} Positionen", this.count);
 
-            status += string.Format(", Anzahl: {0:n0} Stück", this.quantity);
+            status += string.Format(", Anzahl: {0:#,0.######} Stück", this.quantity);
 
             if (this.sum_menge.Count > 0)
             {
