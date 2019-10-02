@@ -36,8 +36,7 @@
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs5534.tmp\Debug\</IntermediateOutputPath>
-    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
+    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vsEF1E.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,8 +57,9 @@
     <Debugger>Xamarin</Debugger>
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
     <EnableProguard>False</EnableProguard>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs5534.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vsEF1E.tmp\Release\</IntermediateOutputPath>
     <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
+    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FastAndroidCamera, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
