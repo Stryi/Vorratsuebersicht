@@ -9,7 +9,13 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
-Version 3.14 (CodeVersion 50)
+
+Version 3.15 (CodeVersion 52)
+==================================
+
+C099 - Jetzt werden vorzugsweise die deutschen Namen von openfoodfacts.org genommen.
+
+Version 3.14 (CodeVersion 50, 51)
 ==================================
 
 C098 - Lagerbestand jetzt auch mit 0.01 und 0.1 Schritten.

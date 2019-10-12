@@ -78,7 +78,7 @@ namespace VorratsUebersicht
                     if (this.foodInfo?.status == 1)
                     {
                         Intent intent = new Intent();
-                        intent.PutExtra("Name",       this.foodInfo.product.product_name);
+                        intent.PutExtra("Name",       this.foodInfo.product.GetProduktName());
                         intent.PutExtra("Hersteller", this.foodInfo.product.brands);
                         if (this.foodSize != null)
                         {
@@ -147,7 +147,7 @@ namespace VorratsUebersicht
 
                     if (this.foodInfo.status == 1)
                     {
-                        info += string.Format("Produkt:\n{0}\n\n",    this.foodInfo.product.product_name);
+                        info += string.Format("Produkt:\n{0}\n\n",    this.foodInfo.product.GetProduktName());
                         info += string.Format("Hersteller:\n{0}\n\n", this.foodInfo.product.brands);
 
                         this.foodSize = QuantityAndUnit.Parse(this.foodInfo.product.quantity);
@@ -216,7 +216,7 @@ namespace VorratsUebersicht
         {
             string parameter = null;
             
-            parameter = "?fields=product_name,brands,quantity,nutriments,image_url,image_small_url";
+            parameter = "?fields=product_name,product_name_de,brands,quantity,nutriments,image_url,image_small_url";
 
             string server = "https://de.openfoodfacts.org/api/v0/product/";
             string request = string.Format("{0}{1}.json", server, eanCode);
@@ -296,6 +296,7 @@ namespace VorratsUebersicht
         public class Product
         {
             public string product_name;
+            public string product_name_de;
             public string brands;
             public string code;
             public string image_url;
@@ -306,6 +307,14 @@ namespace VorratsUebersicht
 
             // Nährstoffe
             public Nutriments nutriments;
+
+            internal string GetProduktName()
+            {
+                if (!string.IsNullOrEmpty(this.product_name_de))
+                    return this.product_name_de;
+
+                return this.product_name;
+            }
         }
 
         public class Nutriments
