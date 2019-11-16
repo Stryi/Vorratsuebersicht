@@ -98,7 +98,7 @@ namespace VorratsUebersicht
                 if (this.noImage)               // Kein Image definiert
                     return null;
 
-                byte[] image = Database.GetArticleImage(this.ArticleId, false).Image;
+                byte[] image = Database.GetArticleImage(this.ArticleId, false)?.ImageSmall;
                 if (image == null)
                 {
                     this.noImage = true;
@@ -108,7 +108,7 @@ namespace VorratsUebersicht
                 Bitmap unScaledBitmap = BitmapFactory.DecodeByteArray (image, 0, image.Length);
 
                 this.bitmp = unScaledBitmap;
-                TRACE("Article: {0}", this.ShoppingItem.Name);
+                //TRACE("Article: {0}", this.ShoppingItem.Name);
 
                 return this.bitmp;
             }

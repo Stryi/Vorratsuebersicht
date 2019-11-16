@@ -36,7 +36,7 @@
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vsEF1E.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vsC5CE.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,13 +53,12 @@
     <BundleAssemblies>false</BundleAssemblies>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <DebugSymbols>false</DebugSymbols>
-    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
     <Debugger>Xamarin</Debugger>
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
     <EnableProguard>False</EnableProguard>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vsEF1E.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vsC5CE.tmp\Release\</IntermediateOutputPath>
     <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
-    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FastAndroidCamera, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -141,6 +140,7 @@
     <Compile Include="Activities\SplashScreenActivity.cs" />
     <Compile Include="Activities\SubCategoryActivity.cs" />
     <Compile Include="Database\ArticleData.cs" />
+    <Compile Include="Database\ArticleImage.cs" />
     <Compile Include="Database\Results\Integrity_Check.cs" />
     <Compile Include="Database\Results\Journal_Mode.cs" />
     <Compile Include="Database\Results\ShoppingItemListResult.cs" />
@@ -150,6 +150,7 @@
     <None Include="KnowladgeBase\Datenbank_auf_ein_neues_Smartphone_übernehmen.md" />
     <None Include="KnowladgeBase\Fehler_beim_Zugriff_auf_die_Datenbank.md" />
     <None Include="KnowladgeBase\Mehrere_Datenbanken_betreiben.md" />
+    <None Include="KnowladgeBase\Mindestmenge.md" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

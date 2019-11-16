@@ -144,6 +144,9 @@ namespace VorratsUebersicht
                     var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_BackupAndRestore);
                     new Thread(new ThreadStart(delegate
                     {
+                        // Sich neu connecten;
+                        Android_Database.Instance.CloseConnection();
+
                         // Löschen von '*.db3-shn' und '*.db3-wal'
                         //string deleteFile1 = Path.ChangeExtension(fileDestination, "db3-shm");
                         //File.Delete(deleteFile1);
@@ -157,6 +160,29 @@ namespace VorratsUebersicht
 
                         // Sich neu connecten;
                         Android_Database.SQLiteConnection = null;
+
+                        var databaseConnection = Android_Database.Instance.GetConnection();
+
+                        var picturesToMove = Android_Database.Instance.GetArticlesToCopyImages(databaseConnection);
+
+                        if (picturesToMove.Count > 0)
+                        {
+
+                            RunOnUiThread(() =>
+                            {
+                                message = string.Format(
+                                    "Es müsen {0} Bilder übetragen werden. Beenden Sie die app ganz und starten Sie diese neu.",
+                                    picturesToMove.Count);
+
+                                var dialog = new AlertDialog.Builder(this);
+                                dialog.SetMessage(message);
+                                dialog.SetTitle(Resource.String.App_Name);
+                                dialog.SetIcon(Resource.Drawable.ic_launcher);
+                                dialog.SetPositiveButton("OK", (s1, e1) => { });
+                                dialog.Create().Show();
+                            });
+
+                        }
 
                         RunOnUiThread(() =>
                         {

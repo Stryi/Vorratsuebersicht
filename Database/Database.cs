@@ -245,26 +245,28 @@ namespace VorratsUebersicht
             return command.ExecuteQuery<ArticleData>().First();
         }
 
-        internal static Article GetArticleImage(int articleId, bool showLarge)
+        internal static ArticleImage GetArticleImage(int articleId, bool showLarge)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
                 return null;
 
             string cmd = string.Empty;
+            cmd += "SELECT ImageId, ArticleId, Type, ";
 
             if (showLarge)
-                cmd += "SELECT ImageLarge AS Image";
+                cmd += "ImageLarge";
             else
-                cmd += "SELECT Image";
+                cmd += "ImageSmall";
 
-            cmd += " FROM Article";
+            cmd += " FROM ArticleImage";
             cmd += " WHERE ArticleId = ?";
+            cmd += " AND Type = 0";
 
 
             var command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
 
-            return command.ExecuteQuery<Article>().First();
+            return command.ExecuteQuery<ArticleImage>().FirstOrDefault();
         }
 
         internal static void SaveArticleImages(int articleId, byte[] imageLarge, byte[] image)
@@ -603,7 +605,7 @@ namespace VorratsUebersicht
 
             string cmd = string.Empty;
             cmd += "SELECT ArticleId, Name, Manufacturer, Category, SubCategory, DurableInfinity, WarnInDays,";
-            cmd += " Size, Unit, Notes, EANCode"; // , Calorie, StorageName";
+            cmd += " Size, Unit, Notes, EANCode, Calorie, Price, StorageName";
             cmd += " FROM Article";
             cmd += filter;
             cmd += " ORDER BY Name COLLATE NOCASE";
@@ -733,7 +735,7 @@ namespace VorratsUebersicht
                 return result;
 
             string cmd = string.Empty;
-            cmd += "SELECT ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, "; // MinQuantity, PrefQuantity, Price, "; // Calorie, StorageName, 
+            cmd += "SELECT ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity, PrefQuantity, Price, Calorie, StorageName, ";
             cmd += " (SELECT SUM(Quantity) FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId) AS Quantity,";
             cmd += " (SELECT BestBefore FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId ORDER BY BestBefore ASC LIMIT 1) AS BestBefore";
             cmd += " FROM Article";

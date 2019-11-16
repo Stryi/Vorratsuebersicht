@@ -9,6 +9,10 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.00 (CodeVersion 53)
+==================================
+
+C100 - Performance optimierung: Zusätzliche Tabelle für Bilder erstellt.
 
 Version 3.15 (CodeVersion 52)
 ==================================

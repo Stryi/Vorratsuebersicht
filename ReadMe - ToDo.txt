@@ -6,6 +6,16 @@ Einkaufszettel
 
 Datenbank Laufzeit optimieren
 
+Lagerbestandsliste
+- Preis in der Lagerbestandsliste und im Lager anzeigen (pro Stück und * Menge) - von M. Pleuger
+
+Lagerbestand
+- Datum direkt eingeben (Martin T aus CH)
+
+Artikelstamm
+- Default Werte vorbelegen (Martin T aus CH)
+
+
 
 Prio 2
 ======

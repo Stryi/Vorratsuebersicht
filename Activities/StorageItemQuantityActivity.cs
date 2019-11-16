@@ -22,6 +22,7 @@ namespace VorratsUebersicht
 
         public static List<StorageItemQuantityListView> liste = null;
         public static Article article = null;
+        public static ArticleImage articleImage = null;
 
         int articleId;
         string text;
@@ -29,7 +30,7 @@ namespace VorratsUebersicht
         bool isChanged = false;
         bool isEditMode = false;
         bool noArticleDetails = false;
-   
+
         Toast toast;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -65,7 +66,7 @@ namespace VorratsUebersicht
             ImageView image = FindViewById<ImageView>(Resource.Id.StorageItemQuantity_Image);
             image.Click += delegate 
             {
-                if (StorageItemQuantityActivity.article.ImageLarge == null)
+                if (StorageItemQuantityActivity.articleImage.ImageSmall == null)
                    return;
 
                 var articleImage = new Intent (this, typeof(ArticleImageActivity));
@@ -150,6 +151,7 @@ namespace VorratsUebersicht
         {
             StorageItemQuantityActivity.liste = null;
             StorageItemQuantityActivity.article = null;
+            StorageItemQuantityActivity.articleImage = null;
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -164,7 +166,7 @@ namespace VorratsUebersicht
             menu.FindItem(Resource.Id.StorageItemQuantity_Cancel).SetVisible(this.isEditMode);
             menu.FindItem(Resource.Id.StorageItemQuantity_Save).SetVisible(this.isEditMode);
 
-            if (StorageItemQuantityActivity.article.ImageLarge == null)
+            if (StorageItemQuantityActivity.articleImage?.ImageSmall == null)
                 menu.FindItem(Resource.Id.StorageItemQuantity_EditPicture).SetVisible(false);
 
             menu.FindItem(Resource.Id.StorageItemQuantity_ToArticleDetails).SetVisible(!this.noArticleDetails);
@@ -287,7 +289,9 @@ namespace VorratsUebersicht
             if ((requestCode == ArticleDetailId) && (resultCode == Result.Ok))
             {
                 StorageItemQuantityActivity.article = null;
+                StorageItemQuantityActivity.articleImage = null;
                 this.ShowPictureAndDetails(this.articleId, this.text);
+                this.isChanged = true;
             }
 
         }
@@ -338,6 +342,11 @@ namespace VorratsUebersicht
             if (StorageItemQuantityActivity.article == null)
             {
                 StorageItemQuantityActivity.article = Database.GetArticle(articleId);
+            }
+
+            if (StorageItemQuantityActivity.articleImage == null)
+            {
+                StorageItemQuantityActivity.articleImage = Database.GetArticleImage(articleId, false);
             }
 
             Article article = StorageItemQuantityActivity.article;
@@ -417,11 +426,14 @@ namespace VorratsUebersicht
 
             detailView.Text = info;
 
-            if (article.ImageLarge != null)
+            if (StorageItemQuantityActivity.articleImage?.ImageSmall != null)
             {
                 try
                 {
-                    Bitmap image= BitmapFactory.DecodeByteArray (article.ImageLarge, 0, article.ImageLarge.Length);
+                    Bitmap image= BitmapFactory.DecodeByteArray (
+                        StorageItemQuantityActivity.articleImage.ImageSmall, 
+                        0, 
+                        articleImage.ImageSmall.Length);
 
                     imageView.SetImageBitmap(image);
                 }

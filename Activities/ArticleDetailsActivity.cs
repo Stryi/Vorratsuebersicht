@@ -30,6 +30,7 @@ namespace VorratsUebersicht
         internal static byte[] imageSmall;
 
         Article article;
+        ArticleImage articleImage;
         int articleId;
         bool isChanged = false;
         bool noStorageQuantity = false;
@@ -69,10 +70,10 @@ namespace VorratsUebersicht
         {
             get 
             {
-                if (this.article.Image != null)
+                if (this.articleImage.ImageSmall != null)
                     return true;
 
-                if (ArticleDetailsActivity.imageLarge != null)
+                if (ArticleDetailsActivity.imageSmall != null)
                     return true;
 
                 return false;
@@ -705,10 +706,10 @@ namespace VorratsUebersicht
             this.article.Notes           = FindViewById<EditText>(Resource.Id.ArticleDetails_Notes).Text;
 
             if (ArticleDetailsActivity.imageLarge != null)
-                this.article.ImageLarge = ArticleDetailsActivity.imageLarge;
+                this.articleImage.ImageLarge = ArticleDetailsActivity.imageLarge;
 
             if (ArticleDetailsActivity.imageSmall != null)
-                this.article.Image      = ArticleDetailsActivity.imageSmall;
+                this.articleImage.ImageSmall = ArticleDetailsActivity.imageSmall;
 
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
@@ -722,6 +723,21 @@ namespace VorratsUebersicht
             {
                 databaseConnection.Insert(this.article);
                 this.articleId = this.article.ArticleId;
+            }
+
+            if (this.articleImage.ImageLarge != null)   // Ein neues Bild wurde ausgewählt
+            {
+                if (this.articleImage.ImageId > 0)
+                {
+                    databaseConnection.Update(this.articleImage);
+                }
+                else
+                {
+                    this.articleImage.ArticleId = this.articleId;
+                    this.articleImage.Type = 0;
+                    this.articleImage.CreatedAt = DateTime.Now;
+                    databaseConnection.Insert(this.articleImage);
+                }
             }
 
             this.isChanged = true;
@@ -845,6 +861,10 @@ namespace VorratsUebersicht
             if (this.article == null)
                 this.article = new Article();
 
+            this.articleImage = Database.GetArticleImage(articleId, false);
+            if (this.articleImage == null)
+                this.articleImage = new ArticleImage();
+
             FindViewById<TextView>(Resource.Id.ArticleDetails_ArticleId).Text       = string.Format("ArticleId: {0}", article.ArticleId);
 
             FindViewById<EditText>(Resource.Id.ArticleDetails_Name).Text               = article.Name;
@@ -914,15 +934,22 @@ namespace VorratsUebersicht
             FindViewById<EditText>(Resource.Id.ArticleDetails_Storage).Text      = article.StorageName;
 
             this.ShowStoreQuantityInfo(article.ArticleId);
-            
-            if (article.Image != null)
+
+            if (this.articleImage.ImageSmall != null)
             {
                 this.imageView2.Visibility = ViewStates.Gone;
                 try
                 {
-                    Bitmap smallBitmap = BitmapFactory.DecodeByteArray(article.Image,      0, article.Image.Length);
+                    Bitmap smallBitmap = BitmapFactory.DecodeByteArray(this.articleImage.ImageSmall, 0, this.articleImage.ImageSmall.Length);
                 
                     this.imageView.SetImageBitmap(smallBitmap);
+                    /*
+                    string text = string.Empty;
+                    text += string.Format("Voransicht: {0:n0} X {1:n0}\n", smallBitmap.Height, smallBitmap.Width);
+                    text += string.Format("Größe: {0:n0}\n", Tools.ToFuzzyByteString(smallBitmap.ByteCount));
+                    text += string.Format("Komprimiert: {0:n0}\n", Tools.ToFuzzyByteString(this.articleImage.ImageSmall.Length));
+                    this.imageTextView.Text = text;
+                    */
                 }
                 catch(Exception ex)
                 {
@@ -949,7 +976,7 @@ namespace VorratsUebersicht
             decimal vorDemAblauf = 0;
             decimal mitWarnung = 0;
             decimal abgelaufen = 0;
-
+			
 			foreach(StorageItemQuantityResult result in storageItemBestList)
 			{
                 bestand += result.Quantity;
@@ -964,8 +991,8 @@ namespace VorratsUebersicht
 				if (result.WarningLevel == 2)
 				{
                     abgelaufen += result.Quantity;
-				}
-			}
+                }
+            }
 
 			string info    = string.Empty;
 			

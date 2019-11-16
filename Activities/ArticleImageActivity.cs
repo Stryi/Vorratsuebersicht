@@ -134,14 +134,14 @@ namespace VorratsUebersicht
                 return;
             }
 
-            Article article = Database.GetArticleImage(this.articleId, true);
+            ArticleImage article = Database.GetArticleImage(this.articleId, true);
             if (article == null)
             {
                 this.imageView.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
                 return;
             }
 
-            if (article.Image == null)
+            if (article.ImageLarge == null)
             {
                 this.imageView.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
                 return;
@@ -150,7 +150,7 @@ namespace VorratsUebersicht
             string message = string.Empty;
             try
             {
-                Bitmap image= BitmapFactory.DecodeByteArray (article.Image, 0, article.Image.Length);
+                Bitmap image= BitmapFactory.DecodeByteArray (article.ImageLarge, 0, article.ImageLarge.Length);
 
                 this.imageView.SetImageBitmap(image);
 
@@ -158,7 +158,7 @@ namespace VorratsUebersicht
                     image.Height, 
                     image.Width, 
                     Tools.ToFuzzyByteString(image.ByteCount),
-                    Tools.ToFuzzyByteString(article.Image.Length));
+                    Tools.ToFuzzyByteString(article.ImageLarge.Length));
 
                 image = null;
             }
@@ -183,15 +183,15 @@ namespace VorratsUebersicht
         {
             if (this.rotatedBitmap == null)
             {
-                Article article = Database.GetArticleImage(this.articleId, true);
+                ArticleImage article = Database.GetArticleImage(this.articleId, true);
                 if (article == null)
                     return;
 
-                if (article.Image == null)
+                if (article.ImageLarge == null)
                     return;
                 try
                 {
-                    this.rotatedBitmap = BitmapFactory.DecodeByteArray (article.Image, 0, article.Image.Length);
+                    this.rotatedBitmap = BitmapFactory.DecodeByteArray (article.ImageLarge, 0, article.ImageLarge.Length);
                     GC.Collect();
                 }
                 catch(Exception ex)

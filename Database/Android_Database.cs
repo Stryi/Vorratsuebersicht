@@ -3,7 +3,6 @@ using System.Linq;
 using System.IO;
 using System.Collections.Generic;
 using Android.App;
-using Android.Content.Res;
 
 namespace VorratsUebersicht
 {
@@ -343,7 +342,7 @@ namespace VorratsUebersicht
 
 			var conn = new SQLite.SQLiteConnection(path, false);
             //conn.Trace = true;
-  
+
 			string cmd = "PRAGMA journal_mode=MEMORY";
 			IList<JournalMode> tableInfo = conn.Query<JournalMode>(cmd);
             if (tableInfo.Count > 0)
@@ -421,6 +420,38 @@ namespace VorratsUebersicht
 
                 conn.Execute(cmd);
             }
+
+            // Update 3.10: Extra Tabelle für Bilder
+            if (!this.IsTableInDatabase(conn, "ArticleImage"))
+            {
+                string cmd = 
+                    "CREATE TABLE [ArticleImage] (" +
+                    " [ImageId] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                    " [ArticleId] INTEGER NOT NULL," +
+                    " [Type] INTEGER NOT NULL," +     // 0 - Artikelbild(-er), 1 - z.B. Rüchsicht, 3 - Zutaten
+                    " [CreatedAt] DATETIME NOT NULL," +   // Zum Sortieren gedacht
+                    " [ImageSmall] IMAGE," +
+                    " [ImageLarge] IMAGE);";
+
+                conn.Execute(cmd);
+            }
+        }
+
+        public IList<ArticleData> GetArticlesToCopyImages(SQLite.SQLiteConnection databaseConnection)
+        {
+            // Noch keine Datenbank angelegt?
+            if (databaseConnection == null)
+                return new List<ArticleData>();
+
+            // Artikelbilder ermitteln, die noch nicht übertragen wurden.
+            var articleImagesToCopy = databaseConnection.Query<ArticleData>(
+                "SELECT ArticleId, Name" +
+                " FROM Article" +
+                " WHERE Image IS NOT NULL" +
+                " AND ArticleId NOT IN (SELECT ArticleId FROM ArticleImage)" +
+                " ORDER BY Name");
+
+            return articleImagesToCopy;
         }
 
         private bool IsFieldInTheTable(SQLiteConnection conn, string tableName, string fieldName)

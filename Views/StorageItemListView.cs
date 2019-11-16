@@ -122,7 +122,7 @@ namespace VorratsUebersicht
                 if (this.noImage)               // Kein Image definiert
                     return null;
 
-                byte[] image = Database.GetArticleImage(this.Id, false).Image;
+                byte[] image = Database.GetArticleImage(this.Id, false)?.ImageSmall;
                 if (image == null)
                 {
                     this.noImage = true;

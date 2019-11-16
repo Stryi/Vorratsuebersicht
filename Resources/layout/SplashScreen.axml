@@ -8,17 +8,21 @@
       android:id="@+id/SplashScreen_ProgressText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:gravity="center"
       android:layout_above="@+id/SplashScreen_ProgressBar"
       android:background="@android:color/transparent"
       android:textColor="@color/Text_Color"
-      android:text="Bitte warten..." />
+      android:textSize="20dip"         
+      android:text="Bitte warten..." 
+      android:layout_marginRight="50dp"
+      android:layout_marginLeft="50dp" />
   <ProgressBar
         android:id="@+id/SplashScreen_ProgressBar"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:indeterminate="true"        
         style="@android:style/Widget.DeviceDefault.ProgressBar.Horizontal"
-        android:layout_marginRight="5dp" />
+        android:scaleY="2"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp" />
 </RelativeLayout>
