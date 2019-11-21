@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 4.00 (CodeVersion 53)
 ==================================
 
+C101 - Jetzt wieder: Zusätzliche Informationen in der Statuszeile der Kisten.
 C100 - Performance optimierung: Zusätzliche Tabelle für Bilder erstellt.
 
 Version 3.15 (CodeVersion 52)
