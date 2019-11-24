@@ -10,8 +10,10 @@ SET SD_Emulator_Path=/data/user/0/de.Stryi.Vorratsuebersicht/files
 SET App_Path=/data/data/de.Stryi.Vorratsuebersicht/files
 
 ECHO Meine Datenbank zum Emulator Åbertragen - SD Karte
-%adbCmd% -s emulator-5554   push Vorraete_Stryi.db3   %SD_Card_Path%/Vorraete.db3
-%adbCmd% -s emulator-5554   push Vorraete-Test.db3    %SD_Card_Path%/Vorraete-Test.db3
+%adbCmd% -s emulator-5554   push Vorraete_Stryi.db3        %SD_Card_Path%/Vorraete.db3
+%adbCmd% -s emulator-5554   push Vorraete-Test.db3         %SD_Card_Path%/Vorraete-Test.db3
+%adbCmd% -s emulator-5554   push Vorraete_Stryi_Kaputt.db3 %SD_Card_Path%/Vorraete_Stryi_Kaputt.db3
+
 
 REM ECHO Meine Datenbank zum Emulator Åbertragen - keine SD Karte
 REM %adbCmd% -s emulator-5554   push Vorraete_Stryi.db3  %SD_Emulator_Path%/Vorraete.db3

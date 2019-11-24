@@ -8,9 +8,10 @@ Datenbank Laufzeit optimieren
 
 Lagerbestandsliste
 - Preis in der Lagerbestandsliste und im Lager anzeigen (pro Stück und * Menge) - von M. Pleuger
+- Sortierung nach Ablaufdatum (Ines G)
 
 Lagerbestand
-- Datum direkt eingeben (Martin T aus CH)
+- Datum direkt eingeben (Martin T aus CH und Ines G)
 
 Artikelstamm
 - Default Werte vorbelegen (Martin T aus CH)

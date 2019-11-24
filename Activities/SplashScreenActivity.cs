@@ -125,7 +125,17 @@ namespace VorratsUebersicht
         //
         private bool CheckAndMoveArticleImages()
         {
-            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
+            SQLite.SQLiteConnection databaseConnection;
+
+            try
+            {
+                databaseConnection = Android_Database.Instance.GetConnection();
+
+            }
+            catch
+            {
+                return true;
+            }
 
             // Nur, wenn bereits eine Datenbank vorhanden ist
             if (databaseConnection == null)

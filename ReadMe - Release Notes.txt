@@ -9,6 +9,12 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.01 (CodeVersion 54)
+==================================
+
+C102 - Preis und Kalorie wird in den Listen jetzt immer angezeigt.
+C102 - Bessere Fehlerbehandlung beim Starten der App.
+
 Version 4.00 (CodeVersion 53)
 ==================================
 

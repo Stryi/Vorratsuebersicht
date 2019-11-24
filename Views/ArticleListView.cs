@@ -86,11 +86,15 @@ namespace VorratsUebersicht
 
                 // Preis
 
+				if (!string.IsNullOrEmpty(info)) info += "\n";
+                info += MainActivity.Strings_Price;
                 if (this.Article.Price.HasValue)
                 {
-				    if (!string.IsNullOrEmpty(info)) info += "\n";
-                    info += MainActivity.Strings_Price;
 					info += string.Format(" {0}", this.Article.Price.Value);
+                }
+                else
+                {
+					info += " -";
                 }
 
 				if (this.Article.Size.HasValue)
@@ -100,12 +104,16 @@ namespace VorratsUebersicht
 					info += string.Format(" {0} {1}", this.Article.Size.Value, this.Article.Unit).TrimEnd();
 				}
 
+				if (!string.IsNullOrEmpty(info)) info += "\n";
+                info += MainActivity.Strings_Calories;
 				if (this.Article.Calorie.HasValue)
 				{
-				    if (!string.IsNullOrEmpty(info)) info += "\n";
-                    info += MainActivity.Strings_Calories;
 					info += string.Format(" {0:n0}", this.Article.Calorie.Value);
 				}
+                else
+                {
+					info += " -";
+                }
 
                 if (!string.IsNullOrEmpty(this.Article.Notes))
                 {

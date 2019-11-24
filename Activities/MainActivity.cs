@@ -287,6 +287,10 @@ namespace VorratsUebersicht
                 lastRun = DateTime.ParseExact(lastRunDay, "yyyy.MM.dd", CultureInfo.InvariantCulture);
             }
 
+            // Zum Debuggen
+            // lastRun = new DateTime(1900,01,01);
+            // startInfoNr = 0;
+
             if (today != lastRun)
             {
                 startInfoNr++;
@@ -311,7 +315,7 @@ namespace VorratsUebersicht
 
             if (!string.IsNullOrEmpty(message))
             {
-                this.SetInfoText(message);
+                this.SetInfoText(message, false);
             }
 
             var prefEditor = prefs.Edit();
@@ -449,7 +453,7 @@ namespace VorratsUebersicht
             return null;
         }
 
-        private void SetInfoText(string text)
+        private void SetInfoText(string text, bool overrideText = true)
         {
             TextView textView = FindViewById<TextView>(Resource.Id.Main_TextInfo);
 
@@ -460,7 +464,24 @@ namespace VorratsUebersicht
             }
             else
             {
-                textView.Text = text;
+                if (overrideText)
+                {
+                    textView.Text = text;
+                }
+                else
+                {
+                    // Ggf. eine neue Zeile mit Abstand anfangen, wenn schon Text da ist.
+                    if (!string.IsNullOrEmpty(textView.Text))
+                    {
+                        if (!textView.Text.EndsWith("\n"))
+                            textView.Text += "\n\n";
+
+                        if (!textView.Text.EndsWith("\n\n"))
+                            textView.Text += "\n\n";
+                    }
+
+                    textView.Text += text;
+                }
                 textView.Visibility = ViewStates.Visible;
             }
         }
