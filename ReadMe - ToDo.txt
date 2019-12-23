@@ -4,7 +4,9 @@ Prio 1
 Einkaufszettel
 - Neues Menü "Gekauft, später ins Lager" oder auf eine Checkbox "Gekauft"
 
-Datenbank Laufzeit optimieren
+Einstellungen
+- Freie Datenbankauswahl (z.B. im DropBoy Verzeichnis) (vom R. Schmidt vorgeschlagen)
+
 
 Lagerbestandsliste
 - Preis in der Lagerbestandsliste und im Lager anzeigen (pro Stück und * Menge) - von M. Pleuger

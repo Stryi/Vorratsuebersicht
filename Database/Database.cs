@@ -60,7 +60,7 @@ namespace VorratsUebersicht
             string cmd = string.Empty;
             SQLiteCommand command;
 
-            cmd += "SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Supermarket, Size, Unit, Calorie, Quantity, Notes, Price";
+            cmd += "SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Supermarket, Size, Unit, Calorie, Quantity, Notes, Price, Bought";
             cmd += " FROM ShoppingList";
             cmd += " LEFT JOIN Article ON ShoppingList.ArticleId = Article.ArticleId";
 
@@ -96,6 +96,22 @@ namespace VorratsUebersicht
             command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());
 
             return command.ExecuteQuery<ShoppingItemListResult>();
+        }
+
+        internal static void SetShoppingItemBought(int articleId, bool isChecked)
+        {
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
+            if (databaseConnection == null)
+                return;
+
+            string cmd = string.Empty;
+            SQLiteCommand command;
+
+            command = databaseConnection.CreateCommand(
+                "UPDATE ShoppingList SET Bought = ? WHERE ArticleId = ?", 
+                new object[] { isChecked, articleId});
+
+            command.ExecuteNonQuery();
         }
 
         internal static int GetShoppingListQuantiy(int articleId)

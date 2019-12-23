@@ -43,4 +43,15 @@
             android:textSize="20dip"
             android:visibility="gone" />
     </LinearLayout>
+    <CheckBox
+        android:id="@+id/Bought"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dip"
+        android:textColor="#FF0000FF"
+        android:text="Gekauft"
+        android:layout_alignParentRight="true"
+        android:buttonTint="#FF0000FF"
+        android:onClick="onCheckboxClicked"
+        android:paddingRight="5.0dp" />
 </RelativeLayout>

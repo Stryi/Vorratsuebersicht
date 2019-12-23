@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace VorratsUebersicht
 {
     /// <summary>
     /// Einkaufsliste mit Artikelangaben
     /// </summary>
+    [DebuggerDisplay("{Name}, {Quantity}")]
     public class ShoppingItemListResult
     {
         public int ShoppingListId { get; set; }
@@ -18,5 +20,6 @@ namespace VorratsUebersicht
         public decimal Quantity { get; set; }
         public string Notes { get; set; }
         public decimal? Price { get; set; }
+        public bool? Bought { get; set; }
     }
 }

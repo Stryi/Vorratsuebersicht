@@ -43,6 +43,12 @@ namespace VorratsUebersicht
             view.FindViewById<TextView>(Resource.Id.Text2).Text = item.SubHeading;
             view.FindViewById<TextView>(Resource.Id.Text3).Text = item.Information;
             view.FindViewById<TextView>(Resource.Id.Text3).Visibility = ViewStates.Visible;
+            
+            CheckBox bought = view.FindViewById<CheckBox>(Resource.Id.Bought);
+            bought.Checked = item.Bought;
+            bought.Tag     = position;
+            bought.Click  -= OnBoughtClick;
+            bought.Click  += OnBoughtClick;
 
             ImageView image = view.FindViewById<ImageView>(Resource.Id.Image);
             if (item.Image != null)
@@ -58,7 +64,7 @@ namespace VorratsUebersicht
                 view.FindViewById<ImageView>(Resource.Id.Image).SetImageBitmap(item.Image);
 
             return view;
-       }
+        }
 
         private void OnImageClicked(object sender, EventArgs e)
         {
@@ -69,6 +75,17 @@ namespace VorratsUebersicht
             var articleImage = new Intent(context, typeof(ArticleImageActivity));
             articleImage.PutExtra("ArticleId", articleId);
             context.StartActivity(articleImage);
+        }
+
+        private void OnBoughtClick(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            int position = (int)checkBox.Tag;
+
+            ShoppingListView shoppingItem = this[position];
+            shoppingItem.Bought = checkBox.Checked;
+            
+            Database.SetShoppingItemBought(shoppingItem.ArticleId, shoppingItem.Bought);
         }
     }
 }

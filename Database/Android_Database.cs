@@ -421,7 +421,7 @@ namespace VorratsUebersicht
                 conn.Execute(cmd);
             }
 
-            // Update 3.10: Extra Tabelle für Bilder
+            // Update 4.00: Extra Tabelle für Bilder
             if (!this.IsTableInDatabase(conn, "ArticleImage"))
             {
                 string cmd = 
@@ -435,6 +435,13 @@ namespace VorratsUebersicht
 
                 conn.Execute(cmd);
             }
+
+            // Update 4.10: Gekauft in Einkaufsliste
+            if (!this.IsFieldInTheTable(conn, "ShoppingList", "Bought"))
+            {
+                conn.Execute("ALTER TABLE ShoppingList ADD COLUMN [Bought] BOOLEAN");
+            }
+
         }
 
         public IList<ArticleData> GetArticlesToCopyImages(SQLite.SQLiteConnection databaseConnection)

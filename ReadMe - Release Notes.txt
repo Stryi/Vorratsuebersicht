@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.10 (CodeVersion 55)
+==================================
+
+C103 - "Gekauft" Kennzeichen für Einkaufszettel.
+
 Version 4.01 (CodeVersion 54)
 ==================================
 
