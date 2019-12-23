@@ -90,7 +90,7 @@ namespace VorratsUebersicht
                 info += MainActivity.Strings_Price;
                 if (this.Article.Price.HasValue)
                 {
-					info += string.Format(" {0}", this.Article.Price.Value);
+					info += string.Format(" {0:n2}", this.Article.Price.Value);
                 }
                 else
                 {

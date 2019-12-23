@@ -12,7 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 4.01 (CodeVersion 54)
 ==================================
 
-C102 - Preis und Kalorie wird in den Listen jetzt immer angezeigt.
+C102 - Preis und Kalorie wird in den Listen jetzt immer angezeigt (für bessere Übersicht).
 C102 - Bessere Fehlerbehandlung beim Starten der App.
 
 Version 4.00 (CodeVersion 53)

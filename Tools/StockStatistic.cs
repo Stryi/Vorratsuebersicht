@@ -52,9 +52,12 @@ namespace VorratsUebersicht
             this.AddCosts(storegeItem.Quantity, storegeItem.Price);
         }
 
-        private void AddCosts(decimal quantity, decimal price)
+        private void AddCosts(decimal quantity, decimal? price)
         {
-            this.sum_price += quantity * price;
+            if (!price.HasValue)
+                return;
+
+            this.sum_price += quantity * price.Value;
         }
 
         internal string GetStatistic()

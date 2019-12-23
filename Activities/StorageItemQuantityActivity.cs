@@ -353,78 +353,10 @@ namespace VorratsUebersicht
 
             this.durableInfinity = article.DurableInfinity;
 
-            headerView.Text = article.Name;
-			string info = string.Empty;
+            ArticleListView articleView = new ArticleListView(article);
 
-			if (!string.IsNullOrEmpty(article.Manufacturer))
-			{
-				if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                info += MainActivity.Strings_Manufacturer;
-				info += string.Format(" {0}", article.Manufacturer);
-			}
-
-			if (article.Size.HasValue)
-			{
-				if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                info += MainActivity.Strings_Size;
-				info += string.Format(" {0} {1}", article.Size.Value, article.Unit).TrimEnd();
-			}
-			if (article.Calorie.HasValue)
-			{
-				if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                info += MainActivity.Strings_Calories;
-				info += string.Format(" {0:n0}", article.Calorie.Value);
-			}
-            if (article.DurableInfinity == false && article.WarnInDays.HasValue)
-			{
-				if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                info += MainActivity.Strings_WarnenInTagen;
-				info += string.Format(" {0}", article.WarnInDays.Value);
-			}
-
-			if (!string.IsNullOrEmpty(article.Category))
-			{
-				if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                info += MainActivity.Strings_Category;
-				info += string.Format(" {0}", article.Category);
-			}
-
-			if (!string.IsNullOrEmpty(article.SubCategory))
-			{
-				if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                info += MainActivity.Strings_SubCategory;
-				info += string.Format(" {0}", article.SubCategory);
-			}
-
-            if (!string.IsNullOrEmpty(article.StorageName))
-            {
-                if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                info += MainActivity.Strings_Storage;
-                info += string.Format(" {0}", article.StorageName);
-            }
-
-            if (article.MinQuantity.HasValue)
-            {
-                if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                info += MainActivity.Strings_MinQuantity;
-                info += string.Format(" {0}", article.MinQuantity);
-            }
-
-            if (article.PrefQuantity.HasValue)
-            {
-                if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                info += MainActivity.Strings_PrefQuantity;
-                info += string.Format(" {0}", article.PrefQuantity);
-            }
-
-            if (!string.IsNullOrEmpty(article.EANCode))
-			{
-				if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                info += MainActivity.Strings_EANCode;
-				info += string.Format(" {0}", article.EANCode);
-			}
-
-            detailView.Text = info;
+            headerView.Text = articleView.Heading;
+            detailView.Text = articleView.SubHeading;
 
             if (StorageItemQuantityActivity.articleImage?.ImageSmall != null)
             {

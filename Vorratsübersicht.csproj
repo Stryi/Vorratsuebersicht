@@ -36,7 +36,7 @@
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vsDAB5.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\StryiC\AppData\Local\Temp\vsA64C.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -57,7 +57,7 @@
     <Debugger>Xamarin</Debugger>
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
     <EnableProguard>False</EnableProguard>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vsDAB5.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\StryiC\AppData\Local\Temp\vsA64C.tmp\Release\</IntermediateOutputPath>
     <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>

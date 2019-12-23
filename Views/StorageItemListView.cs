@@ -67,6 +67,17 @@ namespace VorratsUebersicht
                     info += string.Format(" {0}", this.StorageItem.StorageName);
                 }
 
+                if (this.StorageItem.Price.HasValue)
+                {
+                    if (!string.IsNullOrEmpty(info)) info += "\r\n";
+                    info += string.Format("Preis: {0:n2}", this.StorageItem.Price.Value);
+
+                    if (this.StorageItem.Quantity > 1)
+                    {
+                        info += string.Format(" (Wert: {0:n2})", this.StorageItem.Quantity * this.StorageItem.Price.Value);
+                    }
+                }
+
                 return info;
 			}
         }
