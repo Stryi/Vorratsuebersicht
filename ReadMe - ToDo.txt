@@ -1,9 +1,6 @@
 Prio 1
 ======
 
-Einkaufszettel
-- Neues Menü "Gekauft, später ins Lager" oder auf eine Checkbox "Gekauft"
-
 Einstellungen
 - Freie Datenbankauswahl (z.B. im DropBoy Verzeichnis) (vom R. Schmidt vorgeschlagen)
 

@@ -45,6 +45,7 @@ namespace VorratsUebersicht
             view.FindViewById<TextView>(Resource.Id.Text3).Visibility = ViewStates.Visible;
             
             CheckBox bought = view.FindViewById<CheckBox>(Resource.Id.Bought);
+            bought.Visibility = ViewStates.Visible;
             bought.Checked = item.Bought;
             bought.Tag     = position;
             bought.Click  -= OnBoughtClick;

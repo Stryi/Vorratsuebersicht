@@ -88,11 +88,15 @@ namespace VorratsUebersicht
         public bool Bought
         {
             get 
-           {
+            {
                 if (!this.ShoppingItem.Bought.HasValue)
                     return false;
 
                 return this.ShoppingItem.Bought.Value;
+            }
+            set
+            {
+                this.ShoppingItem.Bought = value;
             }
         }
 

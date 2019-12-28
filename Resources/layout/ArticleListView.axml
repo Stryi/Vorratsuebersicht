@@ -52,6 +52,9 @@
         android:text="Gekauft"
         android:layout_alignParentRight="true"
         android:buttonTint="#FF0000FF"
-        android:onClick="onCheckboxClicked"
-        android:paddingRight="5.0dp" />
+        android:paddingRight="5.0dp" 
+        android:visibility="gone" 
+        android:focusable="false"
+        android:focusableInTouchMode="false"    
+    />
 </RelativeLayout>
