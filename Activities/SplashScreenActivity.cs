@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using System.Collections.Generic;
 using Android.Content;
 using Android.App;
 using Android.OS;
@@ -10,7 +11,7 @@ using Android.Widget;
 // http://www.c-sharpcorner.com/UploadFile/1e050f/creating-splash-screen-for-android-app-in-xamarin/
 // 
 namespace VorratsUebersicht  
-{  
+{
     using static Tools;
 
     [Activity(Label="Vorratsübersicht",MainLauncher=true,Theme="@style/Theme.Splash",NoHistory=true,Icon="@drawable/ic_launcher")]  
@@ -40,24 +41,45 @@ namespace VorratsUebersicht
         {
             if (Android_Database.SQLiteConnection != null)
                 return true;
+            
+            List<string> fileList;
 
-            string sdCardPath = Android_Database.Instance.GetSdCardPath();
+            try
+            {
+                fileList = this.GetFileList();
+            }
+            catch(Exception ex)
+            {
+                string text = ex.Message;
 
-            if (!Directory.Exists(sdCardPath))
+                text += "\n\nBitte ggf. den Eintrag 'Zusätzlicher Datenbankpfad' in den Einstellungen prüfen.";
+
+                var message = new AlertDialog.Builder(this);
+                message.SetMessage(text);
+                message.SetIcon(Resource.Drawable.ic_launcher);
+                message.SetPositiveButton("Ok", (s, e) => 
+                {
+                    this.ConvertAndStartMainScreen();
+                });
+                message.Create().Show();
+
+                return false;
+            }
+
+            if (fileList.Count == 1)
+            {
+                Android_Database.SelectedDatabaseName = fileList[0];
+                return true;
+            }
+
+            if (fileList.Count == 0)
             {
                 return true;
             }
 
-            string[] fileList = Directory.GetFiles(sdCardPath, "*.db3");
+            string[] databaseNames = new string[fileList.Count];
 
-            if (fileList.Length <= 1)
-            {
-                return true;
-            }
-
-            string[] databaseNames = new string[fileList.Length];
-
-            for(int i = 0; i < fileList.Length; i++)
+            for(int i = 0; i < fileList.Count; i++)
             {
                 databaseNames[i] = Path.GetFileNameWithoutExtension(fileList[i]);
             }
@@ -66,10 +88,7 @@ namespace VorratsUebersicht
             builder.SetTitle("Datenbank auswählen:");
             builder.SetItems(databaseNames, (sender2, args) =>
             {
-                string databaseName = fileList[args.Which];
-                databaseName = Path.GetFileName(databaseName);
-
-                Android_Database.SelectedDatabaseName = databaseName;
+                Android_Database.SelectedDatabaseName = fileList[args.Which];
 
                 this.ConvertAndStartMainScreen();
             });
@@ -109,6 +128,24 @@ namespace VorratsUebersicht
                 });
             }
             */
+        }
+
+        private List<string> GetFileList()
+        {
+            var fileList = new List<string>();
+
+            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
+            string addPath = prefs.GetString("AdditionslDatabasePath", string.Empty);
+            
+            fileList.AddRange(Directory.GetFiles(addPath, "*.db3"));
+            
+            string sdCardPath = Android_Database.Instance.GetSdCardPath();
+            if (Directory.Exists(sdCardPath))
+            {
+                fileList.AddRange(Directory.GetFiles(sdCardPath, "*.db3"));
+            }
+
+            return fileList;
         }
 
         private void ConvertAndStartMainScreen()

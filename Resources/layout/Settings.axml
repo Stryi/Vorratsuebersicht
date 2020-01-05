@@ -141,6 +141,21 @@
           android:gravity="left|center_vertical"
           android:paddingTop="0dp"
           android:drawablePadding="20dp" />
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="10dp"
+          android:text="Zusätzlicher Datenbankpfad:" />
+      <EditText
+          android:id="@+id/SettingsButton_AdditionalDatabasePath"
+          android:text=""
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAllCaps="false"
+          android:gravity="left|center_vertical"
+          android:textSize="15sp" />
+
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

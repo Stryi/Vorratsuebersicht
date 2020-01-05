@@ -80,13 +80,6 @@ namespace VorratsUebersicht
             backgroundPaint.SetBounds(0, 0, 10, 10);
             ActionBar.SetBackgroundDrawable(backgroundPaint);
 
-            string dbPath = Android_Database.Instance.GetDatabasePath();
-            string dbFileName = Path.GetFileNameWithoutExtension(dbPath);
-            if (dbFileName != "Vorraete")
-            {
-                ActionBar.Subtitle = "Datenbank: " + dbFileName;
-            }
-
             // Datenbanken erstellen
             Android_Database.Instance.RestoreSampleDatabaseFromResources();
 
@@ -104,6 +97,12 @@ namespace VorratsUebersicht
             {
                 this.SetInfoText("Keine Datenbank gefunden");
                 return;
+            }
+
+            string dbFileName = Path.GetFileNameWithoutExtension(databaseName);
+            if (dbFileName != "Vorraete")
+            {
+                ActionBar.Subtitle = "Datenbank: " + dbFileName;
             }
 
             if (Android_Database.IsDatabaseOnSdCard.HasValue && Android_Database.IsDatabaseOnSdCard.Value)

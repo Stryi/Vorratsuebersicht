@@ -22,6 +22,7 @@ namespace VorratsUebersicht
     {
         public static readonly int SelectBackupId = 1000;
         private bool userCategoriesChanged = false;
+        private bool additionalDatabasePathChanged = false;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -71,6 +72,20 @@ namespace VorratsUebersicht
             Button buttonRepairDb = FindViewById<Button>(Resource.Id.SettingsButton_Repair);
             buttonRepairDb.Click += ButtonRepairDb_Click;
 
+            EditText addDbPath = FindViewById<EditText>(Resource.Id.SettingsButton_AdditionalDatabasePath);
+            
+            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
+            string addPath = prefs.GetString("AdditionslDatabasePath", string.Empty);
+            if (string.IsNullOrEmpty(addPath))
+            {
+                addDbPath.Text = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+            }
+            else
+            {
+                addDbPath.Text = addPath;
+            }
+            addDbPath.TextChanged += delegate { this.additionalDatabasePathChanged = true; };
+
             Button buttonLicenses = FindViewById<Button>(Resource.Id.SettingsButton_Licenses);
             buttonLicenses.Click += delegate { StartActivity(new Intent(this, typeof(LicensesActivity))); };
 
@@ -108,7 +123,22 @@ namespace VorratsUebersicht
         public override void OnBackPressed()
         {
             this.SaveUserDefinedCategories();
+            this.SaveAdditionalDatabasePath();
             base.OnBackPressed();
+        }
+
+        private void SaveAdditionalDatabasePath()
+        {
+            if (!this.additionalDatabasePathChanged)
+                return;
+
+            EditText dbPath = this.FindViewById<EditText>(Resource.Id.SettingsButton_AdditionalDatabasePath);
+
+            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
+            var prefEditor = prefs.Edit();
+
+            prefEditor.PutString("AdditionslDatabasePath", dbPath.Text);
+            prefEditor.Commit();
         }
 
         private void SaveUserDefinedCategories()
@@ -464,7 +494,7 @@ namespace VorratsUebersicht
             {
                 var messageBox = new AlertDialog.Builder(this);
                 messageBox.SetTitle("Fehler aufgetreten!");
-                messageBox.SetMessage("Fehler beim Laden der benutzerspezifischen Kategorien\n\n" + e.Message);
+                messageBox.SetMessage("Fehler beim Laden der benutzerspezifischen Kategorien.\n\n" + e.Message);
                 messageBox.SetPositiveButton("OK", (s, evt) => { });
                 messageBox.Create().Show();
 
