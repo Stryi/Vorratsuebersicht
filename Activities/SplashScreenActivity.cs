@@ -137,7 +137,10 @@ namespace VorratsUebersicht
             var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
             string addPath = prefs.GetString("AdditionslDatabasePath", string.Empty);
             
-            fileList.AddRange(Directory.GetFiles(addPath, "*.db3"));
+            if (!string.IsNullOrEmpty(addPath))
+            {
+                fileList.AddRange(Directory.GetFiles(addPath, "*.db3"));
+            }
             
             string sdCardPath = Android_Database.Instance.GetSdCardPath();
             if (Directory.Exists(sdCardPath))
@@ -215,8 +218,6 @@ namespace VorratsUebersicht
 
             Exception exception = null;
             this.progressBar.Max = max;
-            this.progressBar.Indeterminate = false;
-
 
             foreach(ArticleData article in articleImagesToCopy)
             {

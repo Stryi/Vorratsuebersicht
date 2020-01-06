@@ -32,8 +32,11 @@ ECHO ----------------------------------------------------
 %adbCmd% -s emulator-5554   push ..\Assets\Vorraete_Demo.db3  %App_Path%/Vorraete_Test.db3
 
 
-REM Uebergabe Backup
-REM %adbCmd% -s emulator-5554   push Vue_2019-07-22_OLD_FORMAT.VueBak  /storage/sdcard/Download/Vue_2019-07-22_OLD_FORMAT.VueBak
+ECHO ----------------------------------------------------
+ECHO Backup uebertragen
+ECHO ----------------------------------------------------
+
+%adbCmd% -s emulator-5554   push Vue_2019-07-22_OLD_FORMAT.VueBak  %SD_Card_Path%/Download/Vue_2019-07-22_OLD_FORMAT.VueBak
 
 ECHO ----------------------------------------------------
 ECHO Bilder uebertragen

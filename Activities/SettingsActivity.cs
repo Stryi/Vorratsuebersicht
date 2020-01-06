@@ -76,14 +76,8 @@ namespace VorratsUebersicht
             
             var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
             string addPath = prefs.GetString("AdditionslDatabasePath", string.Empty);
-            if (string.IsNullOrEmpty(addPath))
-            {
-                addDbPath.Text = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
-            }
-            else
-            {
-                addDbPath.Text = addPath;
-            }
+            addDbPath.Text = addPath;
+
             addDbPath.TextChanged += delegate { this.additionalDatabasePathChanged = true; };
 
             Button buttonLicenses = FindViewById<Button>(Resource.Id.SettingsButton_Licenses);

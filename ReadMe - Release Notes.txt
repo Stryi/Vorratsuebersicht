@@ -13,6 +13,9 @@ Version 4.10 (CodeVersion 55)
 ==================================
 
 C104 - Zusätzlicher benutzerdefinierter Pfad für Datenbanken
+
+Datenbank sichern, zurückspielen
+
 C103 - "Gekauft" Kennzeichen für Einkaufszettel.
 
 Version 4.01 (CodeVersion 54)
