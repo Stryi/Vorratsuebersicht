@@ -66,7 +66,7 @@ namespace VorratsUebersicht
             ImageView image = FindViewById<ImageView>(Resource.Id.StorageItemQuantity_Image);
             image.Click += delegate 
             {
-                if (StorageItemQuantityActivity.articleImage.ImageSmall == null)
+                if (StorageItemQuantityActivity.articleImage?.ImageSmall == null)
                    return;
 
                 var articleImage = new Intent (this, typeof(ArticleImageActivity));
