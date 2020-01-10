@@ -2,6 +2,7 @@
 <resources>
   <color name="Text_Error"   type="color">#FF0000</color>
   <color name="Text_Warning" type="color">#0000FF</color>
+  <color name="Text_Info"    type="color">#006400</color>
   <color name="Text_Color"   type="color">#000000</color>
   <color name="Text_Color2"  type="color">#444444</color>
 

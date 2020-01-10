@@ -35,17 +35,24 @@
             android:text="Details"
             android:textSize="14dip" />
         <TextView
-            android:id="@+id/StorageItemListView_TextInfo"
+            android:id="@+id/StorageItemListView_TextError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/Text_Warning"
+            android:textColor="@color/Text_Error"
             android:visibility="visible"
             android:textSize="14dip" />
         <TextView
             android:id="@+id/StorageItemListView_TextWarning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/Text_Error"
+            android:textColor="@color/Text_Warning"
+            android:visibility="visible"
+            android:textSize="14dip" />
+        <TextView
+            android:id="@+id/StorageItemListView_TextInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Text_Info"
             android:visibility="visible"
             android:textSize="14dip" />
     </LinearLayout>

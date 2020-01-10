@@ -742,7 +742,14 @@ namespace VorratsUebersicht
             return result[0].Quantity;
         }
 
-        internal static IList<StorageItemQuantityResult> GetStorageItemQuantityListNoImage(string category, string subCategory, string eanCode, bool showNotInStorageArticles, string textFilter = null, string storageName = null)
+        internal static IList<StorageItemQuantityResult> GetStorageItemQuantityListNoImage(
+            string category, 
+            string subCategory, 
+            string eanCode, 
+            bool showNotInStorageArticles, 
+            string textFilter = null, 
+            string storageName = null,
+            bool oderByToConsumeDate = false)
         {
             var result = new List<StorageItemQuantityResult>();
 
@@ -753,7 +760,7 @@ namespace VorratsUebersicht
             string cmd = string.Empty;
             cmd += "SELECT ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity, PrefQuantity, Price, Calorie, StorageName, ";
             cmd += " (SELECT SUM(Quantity) FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId) AS Quantity,";
-            cmd += " (SELECT BestBefore FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId ORDER BY BestBefore ASC LIMIT 1) AS BestBefore";
+            cmd += " IFNULL((SELECT BestBefore FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId AND BestBefore IS NOT NULL ORDER BY BestBefore ASC LIMIT 1), '9999.12.31') AS BestBefore";
             cmd += " FROM Article";
 
             string filter = string.Empty;
@@ -804,7 +811,15 @@ namespace VorratsUebersicht
             }
             
             cmd += filter;
-            cmd += " ORDER BY Article.Name COLLATE NOCASE";
+
+            if (oderByToConsumeDate)
+            {
+                cmd += " ORDER BY BestBefore ASC, Article.Name COLLATE NOCASE";
+            }
+            else
+            {
+                cmd += " ORDER BY Article.Name COLLATE NOCASE";
+            }
 
             var command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());
 

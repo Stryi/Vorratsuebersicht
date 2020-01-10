@@ -3,10 +3,12 @@ using System.Diagnostics;
 
 namespace VorratsUebersicht
 {
+    using SQLite;
+
     /// <summary>
-    /// Lagerbestand mit Anzahl
+    /// Lagerbestand mit Anzahl und jüngstem Ablaufdatum
     /// </summary>
-    [DebuggerDisplay("{Name} {WarningLevel}, {Quantity}")]
+    [DebuggerDisplay("{Name}, Menge: {Quantity}, Warnung: {WarningLevel}, Ablaufdatum: {BestBefore_DebuggerDisplay}")]
     public class StorageItemQuantityResult
     {
         public int ArticleId {get; set;}
@@ -32,6 +34,7 @@ namespace VorratsUebersicht
 		/// <summary>
 		/// Ablaufdatum überschritten oder nur Warnung für Ablaufdatum
 		/// </summary>
+        [Ignore]
         public int WarningLevel
         {
             get
@@ -59,13 +62,39 @@ namespace VorratsUebersicht
         }
 
 		/// <summary>
-		/// Warnung für Ablaufdatum für...
+		/// Info für Mengen und Ablaufdatum...
 		/// </summary>
+        [Ignore]
 		public string BestBeforeInfoText { get; set; }
 
 		/// <summary>
-		/// Ablaufdatum überschritten für...
+		/// Warnung für Mengen und Ablaufdatum für...
 		/// </summary>
+        [Ignore]
 		public string BestBeforeWarningText { get; set; }
+
+		/// <summary>
+		/// Menge mit Ablaufdatum überschritten für...
+		/// </summary>
+        [Ignore]
+		public string BestBeforeErrorText { get; set; }
+
+        /// <summary>
+        /// Damit beim Debuggen das DateTime? angezeigt wird.
+        /// </summary>
+        [Ignore]
+        public string BestBefore_DebuggerDisplay
+        {
+            get 
+            {
+                if (this.BestBefore == null)
+                    return string.Empty;
+
+                if (this.BestBefore.Value == null)
+                    return string.Empty;
+
+                return this.BestBefore.Value.ToShortDateString();
+            }
+        }
     }
 }

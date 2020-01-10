@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 
@@ -267,45 +266,59 @@ namespace VorratsUebersicht
 
             StockStatistic statistic = new StockStatistic();
 
-            var storageItemQuantityList = Database.GetStorageItemQuantityListNoImage(this.category, this.subCategory, this.eanCode, this.showEmptyStorageArticles, filter, this.storageNameFilter);
+            var storageItemQuantityList = Database.GetStorageItemQuantityListNoImage(
+                this.category,
+                this.subCategory,
+                this.eanCode,
+                this.showEmptyStorageArticles,
+                filter, 
+                this.storageNameFilter,
+                this.showToConsumerOnly);
+            
             foreach(StorageItemQuantityResult storegeItem in storageItemQuantityList)
             {
-                if (storegeItem.WarningLevel == 0)
-                {
-                    if (this.showToConsumerOnly)
-                        continue;
-                }
+				// Informationen über die Mengen zum Ablaufdatum.
+				var storageItemBestList = Database.GetBestBeforeItemQuantity(storegeItem.ArticleId);
 
-                // Mindestens eine Position mit Ablaufdatum überschritten oder nur Warnung für Ablaufdatum.
-                if (storegeItem.WarningLevel > 0)
-				{
-					// Informationen über die Mengen zum Ablaufdatum.
-					var storageItemBestList = Database.GetBestBeforeItemQuantity(storegeItem.ArticleId);
-
-			        string info    = string.Empty;
-			        string warning = string.Empty;
+                string info    = string.Empty;
+			    string warning = string.Empty;
+			    string error   = string.Empty;
 			
-			        foreach(StorageItemQuantityResult result in storageItemBestList)
-			        {
-				        if (result.WarningLevel == 1)
-				        {
+			    foreach(StorageItemQuantityResult result in storageItemBestList)
+			    {
+				    if (result.WarningLevel == 0)
+				    {
+                        if (result.BestBefore == null)
+                        {
+					        if (!string.IsNullOrEmpty(info)) info += "\r\n";
+					        info += string.Format("{0} ohne Ablaufdatum", result.Quantity);
+                        }
+                        else
+                        {
 					        if (!string.IsNullOrEmpty(info)) info += "\r\n";
 					        info += string.Format("{0} mit Ablaufdatum {1}", result.Quantity, result.BestBefore.Value.ToShortDateString());
+                        }
+                    }
 
-                            statistic.AddWarningLevel1(result.Quantity);
-				        }
-				        if (result.WarningLevel == 2)
-				        {
-					        if (!string.IsNullOrEmpty(warning)) warning += "\r\n";
-					        warning += string.Format("{0} mit Ablaufdatum {1}", result.Quantity, result.BestBefore.Value.ToShortDateString());
+				    if (result.WarningLevel == 1)
+				    {
+					    if (!string.IsNullOrEmpty(warning)) warning += "\r\n";
+					    warning += string.Format("{0} mit Ablaufdatum {1}", result.Quantity, result.BestBefore.Value.ToShortDateString());
 
-                            statistic.AddWarningLevel2(result.Quantity);
-				        }
-			        }
+                        statistic.AddWarningLevel1(result.Quantity);
+				    }
+				    if (result.WarningLevel == 2)
+				    {
+					    if (!string.IsNullOrEmpty(error)) error += "\r\n";
+					    error += string.Format("{0} mit Ablaufdatum {1}", result.Quantity, result.BestBefore.Value.ToShortDateString());
 
-			        storegeItem.BestBeforeInfoText    = info;
-			        storegeItem.BestBeforeWarningText = warning;
-                }
+                        statistic.AddWarningLevel2(result.Quantity);
+				    }
+			    }
+
+			    storegeItem.BestBeforeInfoText    = info;
+			    storegeItem.BestBeforeWarningText = warning;
+			    storegeItem.BestBeforeErrorText   = error;
 
                 statistic.AddStorageItem(storegeItem);
 

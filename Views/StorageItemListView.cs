@@ -90,19 +90,27 @@ namespace VorratsUebersicht
 			}
 		}
 
-		public string WarningText
-        {
-            get
-            {
-                return this.StorageItem.BestBeforeWarningText;
-			}
-		}
-
 		public string InfoText
         {
             get
             {
                 return this.StorageItem.BestBeforeInfoText;
+			}
+		}
+
+		public string ErrorText
+        {
+            get
+            {
+                return this.StorageItem.BestBeforeErrorText;
+			}
+		}
+
+		public string WarningText
+        {
+            get
+            {
+                return this.StorageItem.BestBeforeWarningText;
 			}
 		}
 
@@ -139,7 +147,7 @@ namespace VorratsUebersicht
                     this.noImage = true;
                     return null;
                 }
-
+                
                 Bitmap unScaledBitmap = BitmapFactory.DecodeByteArray (image, 0, image.Length);
 
                 this.bitmp = unScaledBitmap;

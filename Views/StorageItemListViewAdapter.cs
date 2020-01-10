@@ -59,19 +59,20 @@ namespace VorratsUebersicht
             TextView  details = view.FindViewById<TextView>(Resource.Id.StorageItemListView_TextDetails);
             TextView  info    = view.FindViewById<TextView>(Resource.Id.StorageItemListView_TextInfo);
             TextView  warning = view.FindViewById<TextView>(Resource.Id.StorageItemListView_TextWarning);
+            TextView  error   = view.FindViewById<TextView>(Resource.Id.StorageItemListView_TextError);
 
             header.Text  = item.Heading;
             details.Text = item.SubHeading;
 
-			if (!string.IsNullOrEmpty(item.InfoText))
-			{
-	            info.Text    = item.InfoText;
-				info.Visibility = ViewStates.Visible;
-			}
-			else
-			{
-				info.Visibility = ViewStates.Gone;
-			}
+            if (!string.IsNullOrEmpty(item.InfoText))
+            {
+                info.Text    = item.InfoText;
+                info.Visibility = ViewStates.Visible;
+            }
+            else
+            {
+                info.Visibility = ViewStates.Gone;
+            }
 			if (!string.IsNullOrEmpty(item.WarningText))
 			{
 	            warning.Text    = item.WarningText;
@@ -81,17 +82,21 @@ namespace VorratsUebersicht
 			{
 				warning.Visibility = ViewStates.Gone;
 			}
+			if (!string.IsNullOrEmpty(item.ErrorText))
+			{
+	            error.Text    = item.ErrorText;
+				error.Visibility = ViewStates.Visible;
+			}
+			else
+			{
+				error.Visibility = ViewStates.Gone;
+			}
 
             if (item.Image == null)
                 image.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
             else
                 image.SetImageBitmap(item.Image);
 
-            //if (item.WarningLevel > 0)
-            //    details.SetTextColor(item.WarningColor);
-            //else
-            //    details.SetTextColor(Color.Gray);
-            
             return view;
        }
 

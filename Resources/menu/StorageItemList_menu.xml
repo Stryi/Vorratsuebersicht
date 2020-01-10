@@ -8,8 +8,8 @@
         android:actionViewClass="android.widget.SearchView" />
 
   <item android:id="@+id/StorageItemList_Filter"
-        android:icon="@drawable/outline_assignment_late_white_24"
-        android:title="Nur Warnungen anzeigen"
+        android:icon="@drawable/baseline_sort_white_24"
+        android:title="Sortierung (Alphabetisch oder nach Ablaufdatum)"
         android:showAsAction="always" />
 
   <item android:id="@+id/StorageItemList_Add"

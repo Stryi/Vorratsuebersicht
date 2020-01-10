@@ -9,6 +9,16 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.12 (CodeVersion 57)
+==================================
+
+C106 - Legerbestansliste wird jetzt nach Ablaufdatum sortiert (kein Filter mehr)
+
+Version 4.11 (CodeVersion 56)
+==================================
+
+C105 - BugFix: Absturz beim Klicken auf Foto im Lagerbestand
+
 Version 4.10 (CodeVersion 55)
 ==================================
 
