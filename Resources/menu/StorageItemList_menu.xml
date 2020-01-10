@@ -17,4 +17,8 @@
         android:title="Artikel hinzufügen"
         android:showAsAction="always" />
 
+  <item android:id="@+id/StorageItemList_Share"
+        android:icon="@drawable/baseline_share_white_24"
+        android:showAsAction="ifRoom"
+        android:title="Teilen" />
 </menu>

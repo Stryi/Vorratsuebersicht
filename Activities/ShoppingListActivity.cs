@@ -194,6 +194,11 @@ namespace VorratsUebersicht
             TextView footer = FindViewById<TextView>(Resource.Id.ShoppingItemList_Footer);
             text += footer.Text;
 
+            string subject = string.Format("{0} - {1} {2}",
+                Resources.GetString(Resource.String.Main_Button_Einkaufsliste),
+                DateTime.Now.ToShortDateString(),
+                DateTime.Now.ToShortTimeString());
+
             Intent intentsend = new Intent();
             intentsend.SetAction(Intent.ActionSend);
             intentsend.PutExtra(Intent.ExtraSubject, Resources.GetString(Resource.String.Main_Button_Einkaufsliste));

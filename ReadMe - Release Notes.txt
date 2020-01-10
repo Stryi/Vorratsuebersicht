@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 4.12 (CodeVersion 57)
 ==================================
 
+C107 - Artikel und Lagerliste kann jetzt auch als TXT exportiert werden (Sharen)
 C106 - Legerbestansliste wird jetzt nach Ablaufdatum sortiert (kein Filter mehr)
 
 Version 4.11 (CodeVersion 56)

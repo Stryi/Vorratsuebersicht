@@ -165,10 +165,41 @@ namespace VorratsUebersicht
                 case Resource.Id.ArticleList_Add:
                     // Create New Article
                     this.ShowArticleDetails(0, null);
+                    return true;
 
+                case Resource.Id.ArticleList_Share:
+                    this.ShareList();
                     return true;
             }
             return true;
+        }
+
+        private void ShareList()
+        {
+            string text = string.Empty;
+
+            foreach(ArticleListView view in this.liste)
+            {
+                if (!string.IsNullOrEmpty(view.Heading))     text += view.Heading     + "\n";
+                if (!string.IsNullOrEmpty(view.SubHeading))  text += view.SubHeading  + "\n";
+                text += "\n";
+            }
+
+            TextView footer = FindViewById<TextView>(Resource.Id.ArticleList_Footer);
+            text += footer.Text;
+
+            string subject = string.Format("{0} - {1} {2}",
+                Resources.GetString(Resource.String.Main_Button_Artikelangaben),
+                DateTime.Now.ToShortDateString(),
+                DateTime.Now.ToShortTimeString());
+
+            Intent intentsend = new Intent();
+            intentsend.SetAction(Intent.ActionSend);
+            intentsend.PutExtra(Intent.ExtraSubject, subject);
+            intentsend.PutExtra(Intent.ExtraText, text);
+            intentsend.SetType("text/plain");
+            
+            StartActivity(intentsend);
         }
 
         private void ShowArticleList(string text = null)

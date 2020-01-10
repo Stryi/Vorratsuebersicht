@@ -182,8 +182,42 @@ namespace VorratsUebersicht
 
                     return true;
 
+                case Resource.Id.StorageItemList_Share:
+                    this.ShareList();
+                    return true;
             }
             return true;
+        }
+
+        private void ShareList()
+        {
+            string text = string.Empty;
+
+            foreach(StorageItemListView view in this.liste)
+            {
+                if (!string.IsNullOrEmpty(view.Heading))     text += view.Heading     + "\n";
+                if (!string.IsNullOrEmpty(view.SubHeading))  text += view.SubHeading  + "\n";
+                if (!string.IsNullOrEmpty(view.ErrorText))   text += view.ErrorText   + "\n";
+                if (!string.IsNullOrEmpty(view.WarningText)) text += view.WarningText + "\n";
+                if (!string.IsNullOrEmpty(view.InfoText))    text += view.InfoText + "\n";
+                text += "\n";
+            }
+
+            TextView footer = FindViewById<TextView>(Resource.Id.StorageItemList_Footer);
+            text += footer.Text;
+
+            string subject = string.Format("{0} - {1} {2}",
+                Resources.GetString(Resource.String.Main_Button_Lagerbestand),
+                DateTime.Now.ToShortDateString(),
+                DateTime.Now.ToShortTimeString());
+
+            Intent intentsend = new Intent();
+            intentsend.SetAction(Intent.ActionSend);
+            intentsend.PutExtra(Intent.ExtraSubject, subject);
+            intentsend.PutExtra(Intent.ExtraText, text);
+            intentsend.SetType("text/plain");
+            
+            StartActivity(intentsend);
         }
 
         private void OnOpenArticleStorageItemQuentity(object sender, AdapterView.ItemClickEventArgs e)

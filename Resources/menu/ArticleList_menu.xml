@@ -12,4 +12,8 @@
         android:title="Neuen Artikel anlegen"
         android:showAsAction="always" />
 
+  <item android:id="@+id/ArticleList_Share"
+        android:icon="@drawable/baseline_share_white_24"
+        android:showAsAction="ifRoom"
+        android:title="Teilen" />
 </menu>
