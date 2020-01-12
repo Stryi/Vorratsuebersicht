@@ -11,9 +11,10 @@
 
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">Sie starten die Anwendung zum ersten Mal.\n\nZum Kennenlernen der Anwendung kann eine Testdatenbank aktiviert werden. Diese können Sie unter Optionen wieder deaktivieren.</string>
-  <string name="Start_TestVersionInfo1">Jetzt wieder: Zusätzliche Informationen in der Statuszeile der Kisten.</string>
-  <string name="Start_TestVersionInfo2"></string>
-  <string name="Start_TestVersionInfo3"></string>
+  <string name="Start_TestVersionInfo1">Menge erfassen jetzt auch in 0,25 und 0,5 Schritten möglich.</string>
+  <string name="Start_TestVersionInfo2">Artikel und Lagerliste kann jetzt auch als Text exportiert (geshared) werden.</string>
+  <string name="Start_TestVersionInfo3">Legerbestansliste kann jetzt nach Ablaufdatum sortiert werden (kein Ablauf-Filter mehr).</string>
+  <string name="Start_TestVersionInfo4">Neu: \'Gekauft\' Kennzeichen in der Einkaufsliste.</string>
 
   <!-- Hauptmaske -->
   <string name="Main_DemnaechstZuVerbrauchen">Demnächst zu verbrauchen:</string>

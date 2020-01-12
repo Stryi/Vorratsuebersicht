@@ -293,7 +293,7 @@ namespace VorratsUebersicht
             if (today != lastRun)
             {
                 startInfoNr++;
-                if (startInfoNr > 3)
+                if (startInfoNr > 4)
                     startInfoNr = 1;
 
                 switch(startInfoNr)
@@ -308,6 +308,10 @@ namespace VorratsUebersicht
 
                     case 3:
                         message = Resources.GetString(Resource.String.Start_TestVersionInfo3);
+                        break;
+
+                    case 4:
+                        message = Resources.GetString(Resource.String.Start_TestVersionInfo4);
                         break;
                 }
             }

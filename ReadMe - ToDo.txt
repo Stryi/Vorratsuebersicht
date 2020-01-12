@@ -6,6 +6,7 @@ Lagerbestandsliste
 
 Lagerbestand
 - Datum direkt eingeben (Martin T aus CH und Ines G)
+- Lagerbestand jetzt auch mit 0.5 und 0.25 Schritten. (Heike L)
 
 Artikelstamm
 - Default Werte vorbelegen (Martin T aus CH)

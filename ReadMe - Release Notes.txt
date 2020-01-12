@@ -9,11 +9,16 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.13 (CodeVersion 58)
+==================================
+
+C108 - Lagerbestand jetzt auch mit 0.5 und 0.25 Schritten.
+
 Version 4.12 (CodeVersion 57)
 ==================================
 
-C107 - Artikel und Lagerliste kann jetzt auch als Text exportiert werden (Sharen)
-C106 - Legerbestansliste wird jetzt nach Ablaufdatum sortiert (kein Filter mehr)
+C107 - Artikel und Lagerliste kann jetzt auch als Text exportiert werden (Sharen).
+C106 - Legerbestansliste wird jetzt nach Ablaufdatum sortiert (kein Filter mehr).
 
 Version 4.11 (CodeVersion 56)
 ==================================
