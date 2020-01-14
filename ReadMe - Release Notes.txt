@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.14 (CodeVersion 59)
+==================================
+
+C109 - Artikel löschen jetzt auch möglich, wenn auf Einkaufsliste (kommt Warnung).
+
 Version 4.13 (CodeVersion 58)
 ==================================
 

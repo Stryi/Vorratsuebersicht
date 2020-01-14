@@ -856,6 +856,26 @@ namespace VorratsUebersicht
             return command.ExecuteQuery<StorageItemQuantityResult>();
         }
 
+        internal static void DeleteArticle(int articleId)
+        {
+            var databaseConnection = Android_Database.Instance.GetConnection();
+            if (databaseConnection == null)
+                return;
+
+            databaseConnection.BeginTransaction();
+
+            databaseConnection.Execute("DELETE FROM ShoppingList WHERE ArticleId = ?", 
+                new object[] { articleId});
+
+            databaseConnection.Execute("DELETE FROM ArticleImage WHERE ArticleId = ?", 
+                new object[] { articleId});
+
+            databaseConnection.Execute("DELETE FROM Article WHERE ArticleId = ?", 
+                new object[] { articleId});
+
+            databaseConnection.Commit();
+        }
+
         internal static string GetSettingsString(string key)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();

@@ -1,16 +1,11 @@
 Prio 1
 ======
 
-Lagerbestandsliste
-- Sortierung nach Ablaufdatum (Ines G, Sibylle M.)
-
 Lagerbestand
 - Datum direkt eingeben (Martin T aus CH und Ines G)
-- Lagerbestand jetzt auch mit 0.5 und 0.25 Schritten. (Heike L)
 
 Artikelstamm
 - Default Werte vorbelegen (Martin T aus CH)
-- Warnung beim Löschen "Artikel ist noch im Lager" mit "Dennoch löschen?"
 
 
 Prio 2

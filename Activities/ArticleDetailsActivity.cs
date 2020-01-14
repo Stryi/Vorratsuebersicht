@@ -751,38 +751,34 @@ namespace VorratsUebersicht
             decimal anzahl = Database.GetArticleQuantityInStorage(this.articleId);
             if (anzahl > 0)
             {
-                string msg = string.Format("Dieser Artikel kann nicht gelöscht werden, da noch ein Bestand von {0} im Lager vorhanden ist.", anzahl);
+                string message = string.Format("Dieser Artikel kann nicht gelöscht werden, da noch ein Bestand von {0} im Lager vorhanden ist.", anzahl);
 
                 var builder1 = new AlertDialog.Builder(this);
-                builder1.SetMessage(msg);
+                builder1.SetMessage(message);
                 builder1.SetPositiveButton("OK", (s, e) => { });
                 builder1.Create().Show();
 
                 return;
             }
+
+            string msg = "Soll dieser Artikel wirklich gelöscht werden?";
 
             bool isInList = Database.IsArticleInShoppingList(articleId);
             if (isInList)
             {
-                string msg = string.Format("Dieser Artikel kann nicht gelöscht werden, da er sich noch auf der Einkaufsliste befinden.");
-
-                var builder1 = new AlertDialog.Builder(this);
-                builder1.SetMessage(msg);
-                builder1.SetPositiveButton("OK", (s, e) => { });
-                builder1.Create().Show();
-
-                return;
+                msg += "\n\n";
+                msg += "Achtung! Dieser Artikel befindet sich auch auf der Einkaufsliste.";
             }
 
             var builder = new AlertDialog.Builder(this);
-            builder.SetMessage("Soll dieser Artikel wirklich gelöscht werden?");
+            builder.SetMessage(msg);
             builder.SetNegativeButton("Nein", (s, e) => { });
             builder.SetPositiveButton("Ja", (s, e) => 
             { 
                 SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
                 if (this.article.ArticleId > 0)
                 {
-                    databaseConnection.Delete(this.article);
+                    Database.DeleteArticle(this.article.ArticleId);
                     this.SetResult(Result.Ok);
 
                     this.OnBackPressed();

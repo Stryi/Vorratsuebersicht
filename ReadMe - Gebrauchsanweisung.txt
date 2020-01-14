@@ -1,11 +1,24 @@
 ﻿Gebrauchsanweisung
 ==================
 
-Grundprinzip
-------------
+Funktionsweise
+---------------
 
-Zuerst muss ein Artikel erfasst werden.
-Danach kann man die Lagerpositionen erfassen.
+Jeder Artikel muss zuerst einmalig erfasst werden.
+Ein automatisches Laden der Angaben anhand des EAN Codes
+ist bis jetzt anhand OpenFoodFacts.org möglich.
+Es sind dort aber bis jetzt nicht alle Artiklen erfasst.
+
+    Manuelle Erfassung: Artikelliste  ->  (+)  -> Artikelangaben erfassen und "Häckchen" klicken.
+
+    Angaben aus dem Internet: Artikel scannen  ->  "Artikelangaben im Internet auf OpenFoodFacts.org suchen?" -> Ja
+
+Erst danach kann für jeden Artikel die Menge und das Mindesthaltbarkeitsdatum erfasst werden.
+
+    Lagerbestand -> (+) -> "Häckchen" klicken -> (+) auswählen, Mindesthaltbarkeitsdatum auswählen und Menge mit (+) erfassen.
+
+Hat ein Artikel ein EAN Code, so kann man nach "Artikel scannen" direkt die Artikeldaten bearbeiten,
+den Lagerbestand erfassen oder den Artikel auf die Einkaufsliste setzen.
 
 
 Vorgehensweise im Detail

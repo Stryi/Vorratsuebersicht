@@ -16,6 +16,8 @@ namespace VorratsUebersicht
     {
         public static readonly int SelectArticleId = 1001;
         public static readonly int EditStorageQuantity = 1002;
+        public static readonly int EditArticle = 1003;
+
         private IParcelable listViewState;
 
         List<ShoppingListView> liste = new List<ShoppingListView>();
@@ -129,7 +131,7 @@ namespace VorratsUebersicht
                     case 6: // Artikelangaben...
                         var articleDetails = new Intent (this, typeof(ArticleDetailsActivity));
                         articleDetails.PutExtra("ArticleId", item.ArticleId);
-                        StartActivity(articleDetails);
+                        this.StartActivityForResult(articleDetails, EditArticle);
 
                         break;
                 }
@@ -230,6 +232,12 @@ namespace VorratsUebersicht
 
                 Database.RemoveFromShoppingList(id);
                 ShowShoppingList();
+            }
+
+            if ((requestCode == EditArticle) && (resultCode == Result.Ok))
+            {
+                // Liste aktualisieren
+                this.ShowShoppingList();
             }
         }
 
