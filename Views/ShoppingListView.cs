@@ -89,10 +89,7 @@ namespace VorratsUebersicht
         {
             get 
             {
-                if (!this.ShoppingItem.Bought.HasValue)
-                    return false;
-
-                return this.ShoppingItem.Bought.Value;
+                return this.ShoppingItem.Bought;
             }
             set
             {

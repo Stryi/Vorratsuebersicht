@@ -117,22 +117,40 @@ namespace VorratsUebersicht
         public override void OnBackPressed()
         {
             this.SaveUserDefinedCategories();
-            this.SaveAdditionalDatabasePath();
+            if (!this.SaveAdditionalDatabasePath())
+            {
+                return;
+            }
             base.OnBackPressed();
         }
 
-        private void SaveAdditionalDatabasePath()
+        private bool SaveAdditionalDatabasePath()
         {
             if (!this.additionalDatabasePathChanged)
-                return;
+                return true;
 
             EditText dbPath = this.FindViewById<EditText>(Resource.Id.SettingsButton_AdditionalDatabasePath);
+
+            bool dirExists = Directory.Exists(dbPath.Text);
+            if (!dirExists)
+            {
+                string message = string.Format("Der eingegebene zusätzlicher Datenbankpfad '{0}' existiert nicht oder Sie haben kein Zugriff dadrauf.", dbPath.Text);
+
+                var messageBox = new AlertDialog.Builder(this);
+                messageBox.SetMessage(message);
+                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.Create().Show();
+
+                return false;
+            }
 
             var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
             var prefEditor = prefs.Edit();
 
             prefEditor.PutString("AdditionslDatabasePath", dbPath.Text);
             prefEditor.Commit();
+
+            return true;
         }
 
         private void SaveUserDefinedCategories()

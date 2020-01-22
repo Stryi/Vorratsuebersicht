@@ -91,7 +91,7 @@ namespace VorratsUebersicht
                 parameter.Add(supermarket);
             }
 
-            cmd += " ORDER BY Supermarket, Name";
+            cmd += " ORDER BY Bought, Supermarket, Name";
 
             command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());
 

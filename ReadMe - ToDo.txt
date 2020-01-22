@@ -7,6 +7,10 @@ Lagerbestand
 Artikelstamm
 - Default Werte vorbelegen (Martin T aus CH)
 
+Einkaufszettel
+- 'Zu zahlen' in der Statuszeile anzeigen (Martin P.)
+- Sortierung nach gekauft (soll nach unten rutschen) (Martin P.)
+
 
 Prio 2
 ======

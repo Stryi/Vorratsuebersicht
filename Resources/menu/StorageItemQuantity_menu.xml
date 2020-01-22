@@ -26,8 +26,8 @@
       android:showAsAction="always" />
 
   <item android:id="@+id/StorageItemQuantity_ToArticleDetails"
+      android:icon="@drawable/ic_local_offer_white_48dp"
       android:title="@string/StorageItemQuantity_Menu_Artikelangaben"
       android:showAsAction="never" />
 
-  
 </menu>

@@ -10,6 +10,8 @@ namespace VorratsUebersicht
 {
     public class ShoppingListViewAdapter : BaseAdapter<ShoppingListView>
     {
+        public event EventHandler CheckedChanged;
+
         List<ShoppingListView> items;
         Activity context;
 
@@ -87,6 +89,12 @@ namespace VorratsUebersicht
             shoppingItem.Bought = checkBox.Checked;
             
             Database.SetShoppingItemBought(shoppingItem.ArticleId, shoppingItem.Bought);
+
+            // CheckChanged hier aufrufen, da beim OnCheckChanged die CheckBox noch nicht gesetzt war.
+            if (this.CheckedChanged == null)
+                return;
+
+            this.CheckedChanged.Invoke(this, EventArgs.Empty);
         }
     }
 }

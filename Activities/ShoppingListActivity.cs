@@ -43,9 +43,23 @@ namespace VorratsUebersicht
             ListView listView = FindViewById<ListView>(Resource.Id.ShoppingItemList);
             listView.ItemClick += ListView_ItemClick;
 
+            this.LoadSupermarketList();
+        }
+
+        private void LoadSupermarketList()
+        {
             this.supermarketList = new List<string>();
             this.supermarketList.Add(Resources.GetString(Resource.String.ShoppingList_AllSupermarkets));
             this.supermarketList.AddRange(Database.GetSupermarketNames(true));
+
+            if (this.supermarketList.Count == 1)
+            {
+                // Mehr als ein Einkaufsladen: Auswahl anzeigen
+                var supermarketSelection = FindViewById<LinearLayout>(Resource.Id.ShoppingItemList_SelectSupermarket);
+                supermarketSelection.Visibility = ViewStates.Gone;
+
+                this.supermarket = null;
+            }
 
             if (this.supermarketList.Count > 1)
             {
@@ -59,7 +73,17 @@ namespace VorratsUebersicht
                 spinnerSupermarket.Adapter = dataAdapter;
 
                 spinnerSupermarket.ItemSelected += SpinnerSupermarket_ItemSelected;
-            }            
+
+                // Letzte Auswahl wieder aktivieren.
+                if (!string.IsNullOrEmpty(this.supermarket))
+                {
+                    int position = dataAdapter.GetPosition(this.supermarket);
+                    if (position >= 0)
+                    {
+                        spinnerSupermarket.SetSelection(position);
+                    }
+                }
+            }
         }
 
         private void SpinnerSupermarket_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
@@ -67,6 +91,9 @@ namespace VorratsUebersicht
             string newSupermarketName = string.Empty;
             if (e.Position > 0)
             {
+                if (this.supermarketList.Count < e.Position)
+                    return;
+
                 newSupermarketName = this.supermarketList[e.Position];
             }
 
@@ -98,27 +125,28 @@ namespace VorratsUebersicht
                 {
                     case 0: // +10
                         Database.AddToShoppingList(item.ArticleId, 10);
-                        ShowShoppingList();
+                        this.ShowShoppingList();
                         break;
 
                     case 1: // +1
                         Database.AddToShoppingList(item.ArticleId, 1);
-                        ShowShoppingList();
+                        this.ShowShoppingList();
                         break;
 
                     case 2: // -1
                         Database.AddToShoppingList(item.ArticleId, -1);
-                        ShowShoppingList();
+                        this.ShowShoppingList();
                         break;
 
                     case 3: // -10
                         Database.AddToShoppingList(item.ArticleId, -10);
-                        ShowShoppingList();
+                        this.ShowShoppingList();
                         break;
 
                     case 4: // Entfernen (gekauft)
                         Database.RemoveFromShoppingList(item.ArticleId);
-                        ShowShoppingList();
+                        this.LoadSupermarketList();
+                        this.ShowShoppingList();
                         break;
 
                     case 5: // Ins Lagerbestand
@@ -222,6 +250,7 @@ namespace VorratsUebersicht
 
                 Database.AddToShoppingList(id, 1);
                 this.ShowShoppingList();
+                this.LoadSupermarketList();
             }
 
             if ((requestCode == EditStorageQuantity) && (resultCode == Result.Ok) && (data != null))
@@ -231,33 +260,61 @@ namespace VorratsUebersicht
                     return;
 
                 Database.RemoveFromShoppingList(id);
-                ShowShoppingList();
+                this.ShowShoppingList();
+                this.LoadSupermarketList();
             }
 
             if ((requestCode == EditArticle) && (resultCode == Result.Ok))
             {
                 // Liste aktualisieren
                 this.ShowShoppingList();
+                this.LoadSupermarketList();
             }
         }
 
         private void ShowShoppingList(string filter = null)
         {
             this.liste = new List<ShoppingListView>();
-            decimal sum_quantity = 0;
-            decimal sum_amount = 0;
-            int sum_noPrice = 0;
 
             var shoppingList = Database.GetShoppingList(this.supermarket, filter);
 
             foreach (ShoppingItemListResult shoppingItem in shoppingList)
             {
                 this.liste.Add(new ShoppingListView(shoppingItem));
-                
+            }
+
+            ShoppingListViewAdapter listAdapter = new ShoppingListViewAdapter(this, this.liste);
+
+            listAdapter.CheckedChanged += ListAdapter_CheckedChanged;
+
+            ListView listView = FindViewById<ListView>(Resource.Id.ShoppingItemList);
+            this.listViewState = listView.OnSaveInstanceState();        // Zustand der Liste merken (wo der Anfang angezeigt wird)
+            listView.Adapter = listAdapter;
+            listView.OnRestoreInstanceState(this.listViewState);        // Zustand der Liste wiederherstellen
+        
+            this.UpdateStatistic();
+        }
+
+        private string GetStatistic()
+        {
+            decimal sum_quantity = 0;
+            decimal sum_amount = 0;
+            decimal to_pay = 0;
+            int sum_noPrice = 0;
+
+            foreach (ShoppingListView view in this.liste)
+            {
+                ShoppingItemListResult shoppingItem = view.ShoppingItem;
+
                 sum_quantity += shoppingItem.Quantity;
                 if (shoppingItem.Price != null)
                 {
                     sum_amount += shoppingItem.Quantity * shoppingItem.Price.Value;
+
+                    if (shoppingItem.Bought)
+                    {
+                        to_pay += shoppingItem.Quantity * shoppingItem.Price.Value;
+                    }
                 }
                 else
                 {
@@ -265,25 +322,31 @@ namespace VorratsUebersicht
                 }
             }
 
-            ShoppingListViewAdapter listAdapter = new ShoppingListViewAdapter(this, this.liste);
-
-            ListView listView = FindViewById<ListView>(Resource.Id.ShoppingItemList);
-            this.listViewState = listView.OnSaveInstanceState();        // Zustand der Liste merken (wo der Anfang angezeigt wird)
-            listView.Adapter = listAdapter;
-            listView.OnRestoreInstanceState(this.listViewState);        // Zustand der Liste wiederherstellen
-        
             string status;
-            if (shoppingList.Count == 1)
-                status = string.Format("{0:n0} Position", shoppingList.Count);
+            if (this.liste.Count == 1)
+                status = string.Format("{0:n0} Position", this.liste.Count);
             else
-                status = string.Format("{0:n0} Positionen", shoppingList.Count);
+                status = string.Format("{0:n0} Positionen", this.liste.Count);
 
             if (sum_quantity > 0) status += string.Format(", Anzahl {0:n0}",   sum_quantity);
             if (sum_amount   > 0) status += string.Format(", Betrag {0:n2} €", sum_amount);
             if (sum_noPrice  > 0) status += string.Format(", {0:n0} Artikel ohne Preisangabe", sum_noPrice);
+            if (to_pay > 0)       status += string.Format("\nZu zahlen: {0:n2} €", to_pay);
+
+            return status;
+        }
+
+        private void UpdateStatistic()
+        {
+            string status = this.GetStatistic();
 
             TextView footer = FindViewById<TextView>(Resource.Id.ShoppingItemList_Footer);
             footer.Text = status;
+        }
+
+        private void ListAdapter_CheckedChanged(object sender, EventArgs e)
+        {
+            this.UpdateStatistic();
         }
 
         public bool OnQueryTextChange(string filter)
