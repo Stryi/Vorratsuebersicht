@@ -13,7 +13,7 @@ Für die Warnung vor dem Ablaufdatum kann pro Artikel Anzahl Tage definieren wer
 
 Wird beim Artikel der EAN Code eingetragen (oder gescannt),
 so kann man über "Artikel scannen" direkt den Lagerbestand oder die Artikelangaben bearbeiten.
-Die Artikeldaten werden über den EAN Code nicht automatisch (z.B. über's Internet) ermittelt.
+Die Artikeldaten können anhand vom EAN Code aus OpenFoodFacts.org geladen werden.
 
 Testdatenbank:
 

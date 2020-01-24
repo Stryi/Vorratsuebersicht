@@ -9,11 +9,16 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.16 (CodeVersion 61)
+==================================
+
+C112 - Zusätzliches Kontextmenü 'Als Gekauft markieren' in der Einkaufsliste.
+
 Version 4.15 (CodeVersion 60)
 ==================================
 
 C111 - Zusätzlicher Datenbankpfad wird jetzt geprüft.
-C110 - 'Zu zahlen' in der Statuszeile vom Einkaufszettel.
+C110 - 'Zu zahlen' in der Statuszeile vom Einkaufszettel
 
 Version 4.14 (CodeVersion 59)
 ==================================

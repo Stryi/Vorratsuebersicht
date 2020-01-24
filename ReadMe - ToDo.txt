@@ -1,30 +1,20 @@
 Prio 1
 ======
 
+Besserer EAN Scanner.
+
+
 Lagerbestand
-- Datum direkt eingeben (Martin T aus CH und Ines G)
+- Datum direkt eingeben (Martin T aus CH, Ines G und M. Pleuge)
 
 Artikelstamm
 - Default Werte vorbelegen (Martin T aus CH)
-
-Einkaufszettel
-- 'Zu zahlen' in der Statuszeile anzeigen (Martin P.)
-- Sortierung nach gekauft (soll nach unten rutschen) (Martin P.)
 
 
 Prio 2
 ======
 
-Besserer EAN Scanner.
-
 Freie Sortierung der Kategorien. (M. Pleuger)
-
-Einstellungen
-- Alle Listen als SCV exportieren (Markus Neese)
-
-Lagerbestand
-- Datum ändern (M. Pleuge)
-
 
 Einstellungen
 - Automatischen Backup ("Alle X Tage...", "Y Kopien behalten")
@@ -52,7 +42,6 @@ Lagerliste
 
 Artikelliste
 - Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. vorgeschlagen)
-- Artielliste als TXT exportieren (Teilen)
 
 
 Einkaufszettel

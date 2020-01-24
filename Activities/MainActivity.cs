@@ -293,7 +293,7 @@ namespace VorratsUebersicht
             if (today != lastRun)
             {
                 startInfoNr++;
-                if (startInfoNr > 4)
+                if (startInfoNr > 2)
                     startInfoNr = 1;
 
                 switch(startInfoNr)

@@ -113,8 +113,9 @@ namespace VorratsUebersicht
             string removeText    = Resources.GetString(Resource.String.ShoppingList_Remove);
             string toStorage     = Resources.GetString(Resource.String.ShoppingList_ToStorage);
             string articleDetail = Resources.GetString(Resource.String.ShoppingList_Artikelangaben);
+            string gekauft       = Resources.GetString(Resource.String.ShoppingList_Gekauft);
 
-            string[] actions = { "+10", "+1", "-1", "-10", removeText, toStorage, articleDetail};
+            string[] actions = { "+10", "+1", "-1", "-10", removeText, toStorage, articleDetail, gekauft};
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle(item.Heading);
@@ -160,6 +161,12 @@ namespace VorratsUebersicht
                         var articleDetails = new Intent (this, typeof(ArticleDetailsActivity));
                         articleDetails.PutExtra("ArticleId", item.ArticleId);
                         this.StartActivityForResult(articleDetails, EditArticle);
+
+                        break;
+
+                    case 7: // Als 'Gekauft' markieren
+                        Database.SetShoppingItemBought(item.ArticleId, true);
+                        this.ShowShoppingList();
 
                         break;
                 }

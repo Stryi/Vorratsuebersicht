@@ -51,6 +51,7 @@
         android:textColor="#FF0000FF"
         android:text="Gekauft"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:buttonTint="#FF0000FF"
         android:paddingRight="5.0dp" 
         android:visibility="gone" 

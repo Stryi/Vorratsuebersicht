@@ -923,11 +923,14 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7f050014
 			public const int Settings_Title = 2131034132;
 			
-			// aapt resource value: 0x7f050049
-			public const int ShoppingList_AllSupermarkets = 2131034185;
+			// aapt resource value: 0x7f05004a
+			public const int ShoppingList_AllSupermarkets = 2131034186;
 			
 			// aapt resource value: 0x7f050048
 			public const int ShoppingList_Artikelangaben = 2131034184;
+			
+			// aapt resource value: 0x7f050049
+			public const int ShoppingList_Gekauft = 2131034185;
 			
 			// aapt resource value: 0x7f050046
 			public const int ShoppingList_Remove = 2131034182;
