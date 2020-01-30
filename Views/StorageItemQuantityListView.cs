@@ -17,12 +17,12 @@ namespace VorratsUebersicht
     {
         public StorageItemQuantityListView(StorageItemQuantityResult storageItem) : base(storageItem)  { }
 
-        public override string Heading
+        public string AnzahlText
         {
              get { return string.Format("{0} {1}", MainActivity.Strings_Amount, this.StorageItem.Quantity); }
         }
 
-        public override string SubHeading
+        public string BestBeforeText
         {
             get
 			{

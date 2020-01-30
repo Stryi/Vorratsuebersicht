@@ -14,6 +14,7 @@ using Android.Support.V4.Content;
 namespace VorratsUebersicht
 {
     using static Tools;
+    using static VorratsUebersicht.StorageItemQuantityListViewAdapter;
 
     [Activity(Label = "Artikelbestand", Icon = "@drawable/ic_assignment_white_48dp", ScreenOrientation = ScreenOrientation.Portrait)]
     public class StorageItemQuantityActivity : Activity
@@ -109,7 +110,7 @@ namespace VorratsUebersicht
 							        storageItemQuantity.BestBefore = null;
 
                                 listView.InvalidateViews();
-						    });
+						    }, DateTime.Today);
 				    frag.ShowsDialog = true;
 				    frag.Show(FragmentManager, DatePickerFragment.TAG);
                 }
@@ -316,13 +317,13 @@ namespace VorratsUebersicht
         {
             foreach(StorageItemQuantityListView item in StorageItemQuantityActivity.liste)
             {
-                if (item.StorageItem.QuantityDiff == 0)
-                    continue;
+                if ((item.StorageItem.QuantityDiff != 0) || (item.StorageItem.BestBeforeChanged))
+                {
+                    Database.UpdateStorageItemQuantity(item.StorageItem);
 
-                Database.UpdateStorageItemQuantity(
-					item.StorageItem);
-
-                item.StorageItem.QuantityDiff = 0;  // Änderung gespeichert.
+                    item.StorageItem.QuantityDiff = 0;  // Änderung gespeichert.
+                    item.StorageItem.BestBeforeChanged = false;  // Änderung gespeichert.
+                }
             }
         }
 
@@ -398,6 +399,30 @@ namespace VorratsUebersicht
             StorageItemQuantityListViewAdapter listAdapter = new StorageItemQuantityListViewAdapter(this, StorageItemQuantityActivity.liste);
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
             listView.Adapter = listAdapter;
+
+            listAdapter.DateClicked += ListAdapter_DateClicked;
+        }
+
+        private void ListAdapter_DateClicked(object sender, StorageItemEventArgs e)
+        {
+            DateTime? date = e.StorageItem.BestBefore;
+
+            var adapter = sender as StorageItemQuantityListViewAdapter;
+
+            // Haltbarkeitsdatum erfassen (kann aber auch weggelassen werden)
+			DatePickerFragment frag = DatePickerFragment.NewInstance(delegate(DateTime? time) 
+					{
+                        if (time.HasValue)
+							e.StorageItem.BestBefore = time.Value;
+                        else
+							e.StorageItem.BestBefore = null;
+
+                        e.StorageItem.BestBeforeChanged = true;
+                        adapter.NotifyDataSetInvalidated();
+                        // TODO: listView.InvalidateViews();
+					}, date);
+			frag.ShowsDialog = true;
+			frag.Show(FragmentManager, DatePickerFragment.TAG);
         }
 
         private void GotoArticleDetails(int articleId)

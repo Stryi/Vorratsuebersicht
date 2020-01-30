@@ -15,7 +15,16 @@ namespace VorratsUebersicht
         Activity context;
         bool actionButtonsVisible = false;
         public static decimal StepValue = 1;
-        
+
+        public event StorageItemQuantityListViewEventHandler DateClicked;
+
+        public delegate void StorageItemQuantityListViewEventHandler(object sender, StorageItemEventArgs e);
+
+        public class StorageItemEventArgs : EventArgs
+        {
+            public StorageItemQuantityResult StorageItem;
+        }
+
         public StorageItemQuantityListViewAdapter(Activity context, List<StorageItemQuantityListView> items) : base()
         {
             this.context = context;
@@ -58,26 +67,57 @@ namespace VorratsUebersicht
             buttonAdd.Click -= IncreaseQuantity;
             buttonAdd.Click += IncreaseQuantity;
 
-            view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Text).Text = item.Heading;
-            view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Details).Text = item.SubHeading;
+            TextView anzahl = view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Quantity);
+            anzahl.Tag = position;
+            anzahl.Click -= OnDatumChange;
+            anzahl.Click += OnDatumChange;
+
+            TextView datum = view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Date);
+            datum.Tag = position;
+            datum.Click -= OnDatumChange;
+            datum.Click += OnDatumChange;
+
+            anzahl.Text = item.AnzahlText;
+            datum.Text  = item.BestBeforeText;
 
             // TODO: Die Farbe aus der Resource oder auch inzwischen aus de Konfiguration auslesen.
             if (item.WarningLevel > 0)
-                view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Details).SetTextColor(item.WarningColor);
+                datum.SetTextColor(item.WarningColor);
             else
-                view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Details).SetTextColor(Color.Black);
+                datum.SetTextColor(Color.Black);
 
             if (this.actionButtonsVisible)
             {
-                view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Remove).Visibility = ViewStates.Visible;
-                view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Add)   .Visibility = ViewStates.Visible;
+                buttonRemove.Visibility = ViewStates.Visible;
+                buttonAdd   .Visibility = ViewStates.Visible;
             }
             else
             {
-                view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Remove).Visibility = ViewStates.Invisible;
-                view.FindViewById<ImageButton>(Resource.Id.StorageItemQuantityList_Add)   .Visibility = ViewStates.Invisible;
+                buttonRemove.Visibility = ViewStates.Invisible;
+                buttonAdd   .Visibility = ViewStates.Invisible;
             }
             return view;
+        }
+
+        private void OnDatumChange(object sender, EventArgs e)
+        {
+            if (!this.actionButtonsVisible)
+                return;
+
+            // CheckChanged hier aufrufen, da beim OnCheckChanged die CheckBox noch nicht gesetzt war.
+            if (this.DateClicked == null)
+                return;
+
+            TextView control = sender as TextView;
+            if (control == null)
+                return;
+
+            int position = (int)control.Tag;
+
+            var args = new StorageItemEventArgs();
+            args.StorageItem = items[position].StorageItem;
+
+            this.DateClicked.Invoke(this, args);
         }
 
         private void DecreaseQuantity(object sender, EventArgs e)

@@ -40,8 +40,8 @@ namespace VorratsUebersicht
                 }
                 else
                 {
-                    cmd += "UPDATE StorageItem SET Quantity = ? WHERE StorageItemId = ?";
-                    command = databaseConnection.CreateCommand(cmd, new object[] { storageItem.Quantity, storageItem.StorageItemId});
+                    cmd += "UPDATE StorageItem SET Quantity = ?, BestBefore = ? WHERE StorageItemId = ?";
+                    command = databaseConnection.CreateCommand(cmd, new object[] { storageItem.Quantity, storageItem.BestBefore, storageItem.StorageItemId});
                 }
             }
 

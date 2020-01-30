@@ -11,27 +11,36 @@ namespace VorratsUebersicht
 
 	public class DatePickerFragment : DialogFragment, DatePickerDialog.IOnDateSetListener
 	{
+        public DateTime? Date = null;
+
 		// TAG can be any string of your choice.
 		public static readonly string TAG = "X:" + typeof (DatePickerFragment).Name.ToUpper();
 
 		// Initialize this value to prevent NullReferenceExceptions.
 		Action<DateTime?> DateSelectedHandler = delegate { };
 
-		public static DatePickerFragment NewInstance(Action<DateTime?> onDateSelected)
+		public static DatePickerFragment NewInstance(Action<DateTime?> onDateSelected, DateTime? date)
 		{
 			DatePickerFragment frag = new DatePickerFragment();
+            if (date.HasValue)
+            {
+                frag.Date = date.Value.AddMonths(-1);
+            }
 			frag.DateSelectedHandler = onDateSelected;
 			return frag;
 		}
 
 		public override Dialog OnCreateDialog(Bundle savedInstanceState)
 		{
-			DateTime currently = DateTime.Now;
+            if (this.Date == null)
+            {
+			    this.Date = DateTime.Now;
+            }
 			DatePickerDialog dialog = new DatePickerDialog(Activity, 
-														   this, 
-														   currently.Year, 
-														   currently.Month,
-														   currently.Day);
+				this, 
+				this.Date.Value.Year, 
+				this.Date.Value.Month,
+				this.Date.Value.Day);
 
             dialog.SetButton("Ok",          OnOkEventHandling);
             dialog.SetButton2("Kein Datum", OnCancelEventHandling);
