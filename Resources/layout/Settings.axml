@@ -174,5 +174,11 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:textSize="15sp" />
+      <TextView
+          android:id="@+id/SettingsButton_Kontakt"
+          android:text="Kontakt E-Mail: cstryi@freenet.de"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textSize="15sp" />
     </LinearLayout>
 </ScrollView>

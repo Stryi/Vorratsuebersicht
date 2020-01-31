@@ -3,16 +3,14 @@ Prio 1
 
 Besserer EAN Scanner.
 
-
-Lagerbestand
-- Datum direkt eingeben (Martin T aus CH, Ines G und M. Pleuge)
-
-Artikelstamm
-- Default Werte vorbelegen (Martin T aus CH)
-
+Einkaufsliste
+- Sortierung: Alphabetisch, Kategorie und Gekauft. 
 
 Prio 2
 ======
+
+Artikelstamm
+- Default Werte vorbelegen (Martin T aus CH)
 
 Freie Sortierung der Kategorien. (M. Pleuger)
 

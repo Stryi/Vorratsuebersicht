@@ -74,7 +74,7 @@ namespace VorratsUebersicht
 			}
         }
 
-        public string Information
+        public string QuantityText
         {
             get
             {

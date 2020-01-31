@@ -15,7 +15,7 @@ namespace VorratsUebersicht
 {
     using static Tools;
 
-    public class ArticleListView : ListItemViewBase
+    public class ArticleListView
     {
         public ArticleListView(Article article)
         {
@@ -23,16 +23,17 @@ namespace VorratsUebersicht
         }
         public Article Article {set; get;}
 
-        public override int Id
+        public int Id
         {
             get { return this.Article.ArticleId; }
         }
 
-        public override string Heading
+        public string Heading
         {
              get { return this.Article.Name; }
         }
-        public override string SubHeading
+
+        public string SubHeading
         {
              get
 			{
@@ -126,10 +127,25 @@ namespace VorratsUebersicht
 			}
         }
 
+        private decimal? shoppingQuantity;
+
+        public bool IsOnShoppingList
+        {
+            get
+            {
+                if (this.shoppingQuantity == null)
+                {
+                    this.shoppingQuantity = Database.GetShoppingListQuantiy(this.Article.ArticleId, -1);
+                }
+
+                return this.shoppingQuantity >= 0;
+            }
+        }
+
         Bitmap bitmp;
         bool noImage = false;
 
-        public override Bitmap Image
+        public Bitmap Image
         {
             get
             {

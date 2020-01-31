@@ -222,9 +222,9 @@ namespace VorratsUebersicht
 
             foreach(ShoppingListView view in this.liste)
             {
-                if (!string.IsNullOrEmpty(view.Heading))     text += view.Heading     + "\n";
-                if (!string.IsNullOrEmpty(view.SubHeading))  text += view.SubHeading  + "\n";
-                if (!string.IsNullOrEmpty(view.Information)) text += view.Information + "\n";
+                if (!string.IsNullOrEmpty(view.Heading))      text += view.Heading      + "\n";
+                if (!string.IsNullOrEmpty(view.SubHeading))   text += view.SubHeading   + "\n";
+                if (!string.IsNullOrEmpty(view.QuantityText)) text += view.QuantityText + "\n";
                 text += "\n";
             }
 

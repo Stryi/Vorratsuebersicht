@@ -82,6 +82,17 @@ namespace VorratsUebersicht
 			}
         }
 
+        public bool IsOnShoppingList
+        {
+            get
+            {
+                if (this.StorageItem.ShoppingListQuantity == null)
+                    return false;
+
+                return true;
+            }
+        }
+
 		public override int WarningLevel
         {
             get

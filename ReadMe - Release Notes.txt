@@ -8,7 +8,12 @@ Vor dem Hochladen ins Google Play Store:
 
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
-  
+
+Version 4.21 (CodeVersion 63)
+==================================
+ 
+C114 - "Einkaufswagen" Icon bei Artikeln, die bereits auf Einkaufszettel stehen.
+
 Version 4.20 (CodeVersion 62)
 ==================================
 

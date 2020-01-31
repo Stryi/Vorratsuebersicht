@@ -37,20 +37,21 @@ namespace VorratsUebersicht
         }
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            var item = items[position];
+            ArticleListView item = items[position];
             View view = convertView;
             if (view == null) // no view to re-use, create new
                 view = context.LayoutInflater.Inflate(Resource.Layout.ArticleListView, null);
 
-            view.FindViewById<TextView>(Resource.Id.Text1).Text = item.Heading;
-            view.FindViewById<TextView>(Resource.Id.Text2).Text = item.SubHeading;
+            view.FindViewById<TextView> (Resource.Id.ArticleListView_Heading).Text    = item.Heading;
+            view.FindViewById<TextView> (Resource.Id.ArticleListView_SubHeading).Text = item.SubHeading;
+            view.FindViewById<ImageView>(Resource.Id.ArticleListView_OnShoppingList).Visibility = item.IsOnShoppingList ? ViewStates.Visible : ViewStates.Gone;
 
-            ImageView image = view.FindViewById<ImageView>(Resource.Id.Image);
+            ImageView image = view.FindViewById<ImageView>(Resource.Id.ArticleListView_Image);
 
             if (item.Image == null)
                 image.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
             else
-                view.FindViewById<ImageView>(Resource.Id.Image).SetImageBitmap(item.Image);
+                image.SetImageBitmap(item.Image);
 
             return view;
        }

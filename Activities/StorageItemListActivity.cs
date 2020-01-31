@@ -118,6 +118,11 @@ namespace VorratsUebersicht
 
                 case 2: // Auf Einkaufszettel
                     this.AddToShoppingListAutomatically(selectedItem.Id);
+
+                    this.SaveListState();
+                    this.ShowStorageItemList(this.lastSearchText);
+                    this.RestoreListState();
+
                     return true;
 
                 default:
@@ -245,7 +250,22 @@ namespace VorratsUebersicht
 
             ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
             this.listViewState = listView.OnSaveInstanceState();
+
+            this.SaveListState();
         }
+
+        private void SaveListState()
+        {
+            ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
+            this.listViewState = listView.OnSaveInstanceState();
+        }
+
+        private void RestoreListState()
+        {
+            ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
+            listView?.OnRestoreInstanceState(this.listViewState);
+        }
+
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
@@ -258,8 +278,7 @@ namespace VorratsUebersicht
                 if (this.listViewState == null)
                     return;
 
-                ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
-                listView?.OnRestoreInstanceState(this.listViewState);
+                this.RestoreListState();
             }
 
             if ((requestCode == ArticleDetailId) && (resultCode == Result.Ok))
@@ -269,8 +288,7 @@ namespace VorratsUebersicht
                 if (this.listViewState == null)
                     return;
 
-                ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
-                listView?.OnRestoreInstanceState(this.listViewState);
+                this.RestoreListState();
             }
 
             if ((requestCode == SelectArticleId) && (resultCode == Result.Ok) && (data != null))

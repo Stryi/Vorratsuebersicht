@@ -105,6 +105,11 @@ namespace VorratsUebersicht
 
                 case 2: // Auf Einkaufszettel
                     this.AddToShoppingListAutomatically(selectedItem.Id);
+
+                    this.SaveListState();
+                    this.ShowArticleList(this.lastSearchText);
+                    this.RestoreListState();
+
                     return true;
 
                 default:
@@ -251,6 +256,18 @@ namespace VorratsUebersicht
             this.ShowArticleDetails(item.Id, item.Heading);
         }
 
+        private void SaveListState()
+        {
+            ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
+            this.listViewState = listView.OnSaveInstanceState();
+        }
+
+        private void RestoreListState()
+        {
+            ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
+            listView?.OnRestoreInstanceState(this.listViewState);
+        }
+
         private void ShowArticleDetails(int articleId, string name)
         {
             var articleDetails = new Intent (this, typeof(ArticleDetailsActivity));
@@ -263,8 +280,7 @@ namespace VorratsUebersicht
 
             StartActivityForResult(articleDetails, 10);
 
-            ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
-            this.listViewState = listView.OnSaveInstanceState();
+            this.SaveListState();
         }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
@@ -275,9 +291,8 @@ namespace VorratsUebersicht
 
                 if (this.listViewState == null)
                     return;
-                    
-                ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
-                listView?.OnRestoreInstanceState(this.listViewState);
+
+                this.RestoreListState();    
             }
         }
 

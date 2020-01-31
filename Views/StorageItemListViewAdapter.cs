@@ -54,15 +54,17 @@ namespace VorratsUebersicht
             if (view == null) // no view to re-use, create new
                 view = context.LayoutInflater.Inflate(Resource.Layout.StorageItemListView, null);
 
-            ImageView image   = view.FindViewById<ImageView>(Resource.Id.Image);
+            ImageView image   = view.FindViewById<ImageView>(Resource.Id.StorageItemListView_Image);
             TextView  header  = view.FindViewById<TextView>(Resource.Id.StorageItemListView_TextHeader);
             TextView  details = view.FindViewById<TextView>(Resource.Id.StorageItemListView_TextDetails);
             TextView  info    = view.FindViewById<TextView>(Resource.Id.StorageItemListView_TextInfo);
             TextView  warning = view.FindViewById<TextView>(Resource.Id.StorageItemListView_TextWarning);
             TextView  error   = view.FindViewById<TextView>(Resource.Id.StorageItemListView_TextError);
+            ImageView inList  = view.FindViewById<ImageView>(Resource.Id.StorageItemListView_OnShoppingList);
 
             header.Text  = item.Heading;
             details.Text = item.SubHeading;
+            inList.Visibility = item.IsOnShoppingList ? ViewStates.Visible : ViewStates.Gone;
 
             if (!string.IsNullOrEmpty(item.InfoText))
             {

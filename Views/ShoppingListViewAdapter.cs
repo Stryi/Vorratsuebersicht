@@ -38,22 +38,22 @@ namespace VorratsUebersicht
             View view = convertView;
             if (view == null) // no view to re-use, create new
             {
-                view = context.LayoutInflater.Inflate(Resource.Layout.ArticleListView, null);
+                view = context.LayoutInflater.Inflate(Resource.Layout.ShoppingItemListView, null);
             }
 
-            view.FindViewById<TextView>(Resource.Id.Text1).Text = item.Heading;
-            view.FindViewById<TextView>(Resource.Id.Text2).Text = item.SubHeading;
-            view.FindViewById<TextView>(Resource.Id.Text3).Text = item.Information;
-            view.FindViewById<TextView>(Resource.Id.Text3).Visibility = ViewStates.Visible;
+            view.FindViewById<TextView>(Resource.Id.ShoppingItemListView_Heading).Text        = item.Heading;
+            view.FindViewById<TextView>(Resource.Id.ShoppingItemListView_SubHeading).Text     = item.SubHeading;
+            view.FindViewById<TextView>(Resource.Id.ShoppingItemListView_Quantity).Text       = item.QuantityText;
+            view.FindViewById<TextView>(Resource.Id.ShoppingItemListView_Quantity).Visibility = ViewStates.Visible;
             
-            CheckBox bought = view.FindViewById<CheckBox>(Resource.Id.Bought);
+            CheckBox bought = view.FindViewById<CheckBox>(Resource.Id.ShoppingItemListView_Bought);
             bought.Visibility = ViewStates.Visible;
             bought.Checked = item.Bought;
             bought.Tag     = position;
             bought.Click  -= OnBoughtClick;
             bought.Click  += OnBoughtClick;
 
-            ImageView image = view.FindViewById<ImageView>(Resource.Id.Image);
+            ImageView image = view.FindViewById<ImageView>(Resource.Id.ShoppingItemListView_Image);
             if (item.Image != null)
             {
                 image.Tag = item.ArticleId;
@@ -64,7 +64,7 @@ namespace VorratsUebersicht
             if (item.Image == null)
                 image.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
             else
-                view.FindViewById<ImageView>(Resource.Id.Image).SetImageBitmap(item.Image);
+                image.SetImageBitmap(item.Image);
 
             return view;
         }

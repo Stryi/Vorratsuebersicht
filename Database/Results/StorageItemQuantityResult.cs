@@ -29,6 +29,8 @@ namespace VorratsUebersicht
         public int? PrefQuantity { get; set; }
         public decimal? Price { get; set; }
 
+        public decimal? ShoppingListQuantity { get; set; }
+
         public decimal QuantityDiff;
         public bool    BestBeforeChanged;
 

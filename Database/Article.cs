@@ -1,8 +1,9 @@
 using System;
-using SQLite;
+using System.Diagnostics;
 
 namespace VorratsUebersicht
 {
+    [DebuggerDisplay("{ArticleId} - {Name}")]
     public class Article : ArticleData
     {
         //public byte[] Image {get; set;}

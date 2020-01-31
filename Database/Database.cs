@@ -114,7 +114,7 @@ namespace VorratsUebersicht
             command.ExecuteNonQuery();
         }
 
-        internal static int GetShoppingListQuantiy(int articleId)
+        internal static decimal GetShoppingListQuantiy(int articleId, decimal notFoundDefault = 0)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
@@ -122,11 +122,15 @@ namespace VorratsUebersicht
 
             string cmd = "SELECT Quantity FROM ShoppingList WHERE ArticleId = ?";
             SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
-            int isQuantity = command.ExecuteScalar<int>();
+            IList<QuantityResult> result = command.ExecuteQuery<QuantityResult>();
 
-            return isQuantity;
+            if (result.Count == 0)
+            {
+                return notFoundDefault;
+            }
+
+            return result[0].Quantity;
         }
-
 
         internal static double AddToShoppingList(int articleId, double addQuantity)
         {
@@ -137,7 +141,7 @@ namespace VorratsUebersicht
             SQLiteCommand command;
             string cmd = string.Empty;
 
-            double isQuantity = Database.GetShoppingListQuantiy(articleId);
+            double isQuantity = (double)Database.GetShoppingListQuantiy(articleId);
 
             double newQuantity = isQuantity + addQuantity;
 
@@ -204,7 +208,7 @@ namespace VorratsUebersicht
 
             int toBuyQuantity = ShoppingListHelper.GetToBuyQuantity(minQuantity, prefQuantity, isQuantity);
             
-            int shoppingListQuantiy = Database.GetShoppingListQuantiy(articleId);
+            int shoppingListQuantiy = (int)Database.GetShoppingListQuantiy(articleId);
 
             toBuyQuantity = toBuyQuantity - shoppingListQuantiy;
 
@@ -758,10 +762,12 @@ namespace VorratsUebersicht
                 return result;
 
             string cmd = string.Empty;
-            cmd += "SELECT ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity, PrefQuantity, Price, Calorie, StorageName, ";
+            cmd += "SELECT Article.ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity, PrefQuantity, Price, Calorie, StorageName, ";
             cmd += " (SELECT SUM(Quantity) FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId) AS Quantity,";
-            cmd += " IFNULL((SELECT BestBefore FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId AND BestBefore IS NOT NULL ORDER BY BestBefore ASC LIMIT 1), '9999.12.31') AS BestBefore";
+            cmd += " IFNULL((SELECT BestBefore FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId AND BestBefore IS NOT NULL ORDER BY BestBefore ASC LIMIT 1), '9999.12.31') AS BestBefore,";
+            cmd += " ShoppingList.Quantity AS ShoppingListQuantity";
             cmd += " FROM Article";
+            cmd += " LEFT JOIN ShoppingList ON ShoppingList.ArticleId = Article.ArticleId";
 
             string filter = string.Empty;
             IList<object> parameter = new List<object>();
@@ -769,7 +775,7 @@ namespace VorratsUebersicht
             if (!showNotInStorageArticles)
             {
                 if (string.IsNullOrEmpty(filter)) { filter += " WHERE "; } else { filter += " AND "; }
-                filter += "ArticleId IN (SELECT ArticleId FROM StorageItem)";
+                filter += "Article.ArticleId IN (SELECT StorageItem.ArticleId FROM StorageItem)";
             }
 
             if (category != null)
