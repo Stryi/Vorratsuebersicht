@@ -250,6 +250,7 @@ namespace VorratsUebersicht
                 toBuyQuantity = 1;
 
             double count = Database.AddToShoppingList(this.articleId, toBuyQuantity);
+            this.isChanged = true;
 
             string msg = string.Format("{0} Stück auf der Einkaufsliste.", count);
             if (this.toast != null)
@@ -280,6 +281,7 @@ namespace VorratsUebersicht
             builder.SetPositiveButton("Ja", (s, e) => 
             {
                 Database.AddToShoppingList(this.articleId, toBuy);
+                this.isChanged = true;
             });
             builder.Create().Show();
         }

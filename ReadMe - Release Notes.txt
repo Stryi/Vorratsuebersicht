@@ -9,10 +9,16 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.22 (CodeVersion 64)
+==================================
+
+C116 - Wenn Anzahl oder Größe nicht 1 ist, so wird die Menge im Lagerbestandsliste berechnet angezeigt (z.B. Anzahl 3, Größe 0,5, Menge 1,6)
+C115 - "Lagerbestand" Icon mit Menge bei Artikeln, die im Lager vorhanden sind.
+
 Version 4.21 (CodeVersion 63)
 ==================================
- 
-C114 - "Einkaufswagen" Icon bei Artikeln, die bereits auf Einkaufszettel stehen.
+
+C114 - "Einkaufswagen" Icon mit Menge bei Artikeln, die bereits auf Einkaufszettel stehen.
 
 Version 4.20 (CodeVersion 62)
 ==================================

@@ -44,7 +44,12 @@ namespace VorratsUebersicht
 
             view.FindViewById<TextView> (Resource.Id.ArticleListView_Heading).Text    = item.Heading;
             view.FindViewById<TextView> (Resource.Id.ArticleListView_SubHeading).Text = item.SubHeading;
-            view.FindViewById<ImageView>(Resource.Id.ArticleListView_OnShoppingList).Visibility = item.IsOnShoppingList ? ViewStates.Visible : ViewStates.Gone;
+            view.FindViewById<ImageView>(Resource.Id.ArticleListView_OnShoppingList).Visibility   = item.IsOnShoppingList ? ViewStates.Visible : ViewStates.Invisible;
+            view.FindViewById<TextView> (Resource.Id.ArticleListView_ShoppingQuantity).Visibility = item.IsOnShoppingList ? ViewStates.Visible : ViewStates.Invisible;
+            view.FindViewById<TextView> (Resource.Id.ArticleListView_ShoppingQuantity).Text       = item.ShoppingQuantity;
+            view.FindViewById<ImageView>(Resource.Id.ArticleListView_IsInStorage).Visibility      = item.IsInStorage ? ViewStates.Visible : ViewStates.Invisible;
+            view.FindViewById<TextView> (Resource.Id.ArticleListView_StorageQuantity).Visibility  = item.IsInStorage ? ViewStates.Visible : ViewStates.Invisible;
+            view.FindViewById<TextView> (Resource.Id.ArticleListView_StorageQuantity).Text        = item.StorageQuantity;
 
             ImageView image = view.FindViewById<ImageView>(Resource.Id.ArticleListView_Image);
 

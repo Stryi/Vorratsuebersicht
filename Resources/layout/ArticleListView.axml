@@ -43,16 +43,40 @@
             android:textSize="20dip"
             android:visibility="gone" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ArticleListView_IsInStorage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:alpha="0.25"
+        android:focusable="false"
+        android:src="@drawable/baseline_assignment_black_24"
+        android:focusableInTouchMode="false"    
+    />
+    <TextView
+        android:id="@+id/ArticleListView_StorageQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/ArticleListView_IsInStorage" />
+
     <ImageView
         android:id="@+id/ArticleListView_OnShoppingList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:alpha="0.5"
-        android:paddingRight="5.0dp" 
+        android:layout_toLeftOf="@id/ArticleListView_StorageQuantity"        
+        android:alpha="0.25"
         android:focusable="false"
         android:src="@drawable/baseline_shopping_cart_black_24"
         android:focusableInTouchMode="false"    
     />
+    <TextView
+        android:id="@+id/ArticleListView_ShoppingQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/ArticleListView_OnShoppingList" />
 </RelativeLayout>

@@ -127,7 +127,7 @@ namespace VorratsUebersicht
 			}
         }
 
-        private decimal? shoppingQuantity;
+        public decimal? shoppingQuantity;
 
         public bool IsOnShoppingList
         {
@@ -138,7 +138,48 @@ namespace VorratsUebersicht
                     this.shoppingQuantity = Database.GetShoppingListQuantiy(this.Article.ArticleId, -1);
                 }
 
-                return this.shoppingQuantity >= 0;
+                return this.shoppingQuantity >= 0;  // Menge 0 bedeutet: Auf EInkaufszettel, aber ohne Menge.
+            }
+        }
+
+        public string ShoppingQuantity
+        {
+            get
+            {
+                if (!this.IsOnShoppingList)
+                    return string.Empty;
+
+                if (this.shoppingQuantity.Value == 0)
+                    return string.Empty;
+
+                return string.Format("{0:#,0.######}", this.shoppingQuantity.Value);
+            }
+        }
+
+
+        private decimal? storageQuantity;
+
+        public bool IsInStorage
+        {
+            get
+            {
+                if (this.storageQuantity == null)
+                {
+                    this.storageQuantity = Database.GetArticleQuantityInStorage(this.Article.ArticleId);
+                }
+
+                return this.storageQuantity > 0;
+            }
+        }
+
+        public string StorageQuantity
+        {
+            get
+            {
+                if (!this.IsInStorage)
+                    return "0";
+
+                return string.Format("{0:#,0.######}", this.storageQuantity.Value);
             }
         }
 

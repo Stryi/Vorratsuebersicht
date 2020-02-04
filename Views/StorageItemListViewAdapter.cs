@@ -61,10 +61,13 @@ namespace VorratsUebersicht
             TextView  warning = view.FindViewById<TextView>(Resource.Id.StorageItemListView_TextWarning);
             TextView  error   = view.FindViewById<TextView>(Resource.Id.StorageItemListView_TextError);
             ImageView inList  = view.FindViewById<ImageView>(Resource.Id.StorageItemListView_OnShoppingList);
+            TextView  listQty = view.FindViewById<TextView >(Resource.Id.StorageItemListView_ShoppingQuantity);
 
             header.Text  = item.Heading;
             details.Text = item.SubHeading;
-            inList.Visibility = item.IsOnShoppingList ? ViewStates.Visible : ViewStates.Gone;
+            inList.Visibility  = item.IsOnShoppingList ? ViewStates.Visible : ViewStates.Invisible;
+            listQty.Visibility = item.IsOnShoppingList ? ViewStates.Visible : ViewStates.Invisible;
+            listQty.Text       = item.ShoppingQuantity;
 
             if (!string.IsNullOrEmpty(item.InfoText))
             {

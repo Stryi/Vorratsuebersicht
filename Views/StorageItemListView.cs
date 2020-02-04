@@ -44,6 +44,12 @@ namespace VorratsUebersicht
 					if (!string.IsNullOrEmpty(info)) info += ", ";
                     info += MainActivity.Strings_Size;
 					info += string.Format(" {0} {1}", this.StorageItem.Size, this.StorageItem.Unit).TrimEnd();
+                    if ((this.StorageItem.Quantity != 1) && (this.StorageItem.Size != 1))
+                    {
+                        // TODO: Menge ggf. umrechnen, z.B. "2.500 g" als "2,5 Kg"
+                        info += "\r\n";
+    					info += string.Format("Menge: {0:#,0.######} {1}", (this.StorageItem.Size * this.StorageItem.Quantity), this.StorageItem.Unit).TrimEnd();
+                    }
 				}
 
                 if (this.StorageItem.MinQuantity.HasValue)
@@ -92,6 +98,21 @@ namespace VorratsUebersicht
                 return true;
             }
         }
+
+        public string ShoppingQuantity
+        {
+            get
+            {
+                if (this.StorageItem.ShoppingListQuantity == null)
+                    return string.Empty;
+
+                if (this.StorageItem.ShoppingListQuantity.Value == 0)
+                    return string.Empty;
+
+                return string.Format("{0:#,0.######}", this.StorageItem.ShoppingListQuantity.Value);
+            }
+        }
+
 
 		public override int WarningLevel
         {
