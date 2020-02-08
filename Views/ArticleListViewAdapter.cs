@@ -52,13 +52,34 @@ namespace VorratsUebersicht
             view.FindViewById<TextView> (Resource.Id.ArticleListView_StorageQuantity).Text        = item.StorageQuantity;
 
             ImageView image = view.FindViewById<ImageView>(Resource.Id.ArticleListView_Image);
+            image.Click -= OnImageClicked;
 
             if (item.Image == null)
+            {
                 image.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
+                image.Alpha = 0.5f;
+            }
             else
+            {
                 image.SetImageBitmap(item.Image);
+                image.Alpha = 1f;
+
+                image.Tag = item.ArticleId;
+                image.Click += OnImageClicked;
+            }
 
             return view;
-       }
+        }
+
+        private void OnImageClicked(object sender, EventArgs e)
+        {
+            ImageView imageToView = (ImageView)sender;
+
+            int articleId = (int)imageToView.Tag;
+
+            var articleImage = new Intent(context, typeof(ArticleImageActivity));
+            articleImage.PutExtra("ArticleId", articleId);
+            context.StartActivity(articleImage);
+        }
     }
 }

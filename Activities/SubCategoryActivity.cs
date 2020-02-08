@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -32,13 +32,13 @@ namespace VorratsUebersicht
             this.noSubCategory_ItemEntry  = Resources.GetString(Resource.String.NoSubCategory_ItemEntry);
             this.anySubCategory_ItemEntry = Resources.GetString(Resource.String.AnySubCategory_ItemEntry);
 
-            string[] subCategories = Database.GetSubcategoriesOf(this.category);
+            List<string> subCategories = Database.GetSubcategoriesOf(this.category);
             
-            this.items = new string[subCategories.Length +1];
+            this.items = new string[subCategories.Count +1];
             
             this.items[0] = this.anySubCategory_ItemEntry;
 
-            for (int i = 1; i <= subCategories.Length; i++)
+            for (int i = 1; i <= subCategories.Count; i++)
             {
                 this.items[i] = subCategories[i-1];
 

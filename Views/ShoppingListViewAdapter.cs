@@ -54,17 +54,21 @@ namespace VorratsUebersicht
             bought.Click  += OnBoughtClick;
 
             ImageView image = view.FindViewById<ImageView>(Resource.Id.ShoppingItemListView_Image);
-            if (item.Image != null)
-            {
-                image.Tag = item.ArticleId;
-                image.Click -= OnImageClicked;
-                image.Click += OnImageClicked;
-            }
+            image.Click -= OnImageClicked;
 
             if (item.Image == null)
+            {
                 image.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
+                image.Alpha = 0.5f;
+            }
             else
+            {
                 image.SetImageBitmap(item.Image);
+                image.Alpha = 1f;
+
+                image.Tag = item.ArticleId;
+                image.Click += OnImageClicked;
+            }
 
             return view;
         }

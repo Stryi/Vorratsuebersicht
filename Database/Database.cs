@@ -1,7 +1,7 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 using SQLite;
 
@@ -73,7 +73,11 @@ namespace VorratsUebersicht
                 else
                     cmd += " WHERE ";
 
-                cmd += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ? OR Article.Notes LIKE ? OR Article.Supermarket LIKE ?)";
+                cmd += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ? OR Article.Notes LIKE ? OR Article.Supermarket LIKE ?";
+                cmd += " OR Article.StorageName LIKE ? OR Article.Category LIKE ? OR Article.SubCategory LIKE ?)";
+                parameter.Add("%" + textFilter + "%");
+                parameter.Add("%" + textFilter + "%");
+                parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
@@ -348,7 +352,7 @@ namespace VorratsUebersicht
             return stringList;
         }
 
-        internal static string[] GetSubcategoriesOf(string category = null)
+        internal static List<string> GetSubcategoriesOf(string category = null)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
 
@@ -357,6 +361,7 @@ namespace VorratsUebersicht
             cmd += "SELECT DISTINCT SubCategory AS Value";
             cmd += " FROM Article";
             cmd += " WHERE SubCategory IS NOT NULL";
+            cmd += " AND SubCategory <> ''";
             if (category != null)
             {
                 cmd += " AND Category = ?";
@@ -375,12 +380,12 @@ namespace VorratsUebersicht
                 command = databaseConnection.CreateCommand(cmd, new object[] { });
             }
 
-            IList<StringResult> result = command.ExecuteQuery<StringResult>();
+            List<StringResult> result = command.ExecuteQuery<StringResult>();
 
-            string[] stringList = new string[result.Count];
-            for(int i = 0; i < result.Count; i++)
+            List<string> stringList = new List<string>();
+            foreach(StringResult item in result)
             {
-                stringList[i] = result[i].Value;
+                stringList.Add(item.Value);
             }
 
             return stringList;
@@ -395,6 +400,7 @@ namespace VorratsUebersicht
             cmd += "SELECT DISTINCT StorageName AS Value";
             cmd += " FROM Article";
             cmd += " WHERE StorageName IS NOT NULL";
+            cmd += " AND StorageName <> ''";
             cmd += " ORDER BY StorageName";
 
             SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
@@ -406,13 +412,9 @@ namespace VorratsUebersicht
             Tools.TRACE("Dauer der Abfrage für DISTINCT StorageName: {0}", stopWatch.Elapsed.ToString());
 
             List<string> stringList = new List<string>();
-            for (int i = 0; i < result.Count; i++)
+            foreach(StringResult item in result)
             {
-                string storageName = result[i].Value;
-                if (string.IsNullOrEmpty(storageName))
-                    continue;
-
-                stringList.Add(storageName);
+                stringList.Add(item.Value);
             }
 
             return stringList;
@@ -438,13 +440,9 @@ namespace VorratsUebersicht
             Tools.TRACE("Dauer der Abfrage für DISTINCT Category: {0}", stopWatch.Elapsed.ToString());
 
             List<string> stringList = new List<string>();
-            for (int i = 0; i < result.Count; i++)
+            foreach(StringResult item in result)
             {
-                string category = result[i].Value;
-                if (string.IsNullOrEmpty(category))
-                    continue;
-
-                stringList.Add(category);
+                stringList.Add(item.Value);
             }
 
             return stringList;
@@ -498,7 +496,7 @@ namespace VorratsUebersicht
             return stringList;
         }
 
-        internal static string[] GetManufacturerNames()
+        internal static List<string> GetManufacturerNames()
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
 
@@ -507,6 +505,7 @@ namespace VorratsUebersicht
             cmd += "SELECT DISTINCT Manufacturer AS Value";
             cmd += " FROM Article";
             cmd += " WHERE Manufacturer IS NOT NULL";
+            cmd += " AND Manufacturer <> ''";
             cmd += " ORDER BY Manufacturer";
 
             SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
@@ -519,10 +518,11 @@ namespace VorratsUebersicht
             stopWatch.Stop();
             Tools.TRACE("Dauer der Abfrage für DISTINCT Manufacturer: {0}", stopWatch.Elapsed.ToString());
 
-            string[] stringList = new string[result.Count];
+            List<string> stringList = new List<string>();
             for (int i = 0; i < result.Count; i++)
             {
-                stringList[i] = result[i].Value;
+                string supermarketName = result[i].Value;
+                stringList.Add(supermarketName);
             }
 
             return stringList;
@@ -543,6 +543,7 @@ namespace VorratsUebersicht
             }
 
             cmd += " WHERE Supermarket IS NOT NULL";
+            cmd += " AND Supermarket <> ''";
             cmd += " ORDER BY Supermarket";
 
             SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
@@ -560,9 +561,6 @@ namespace VorratsUebersicht
             for (int i = 0; i < result.Count; i++)
             {
                 string supermarketName = result[i].Value;
-                if (string.IsNullOrEmpty(supermarketName))
-                    continue;
-
                 stringList.Add(supermarketName);
             }
 
@@ -605,7 +603,11 @@ namespace VorratsUebersicht
                 else
                     filter += " WHERE ";
 
-                filter += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ? OR Article.Notes LIKE ? OR Article.Supermarket LIKE ?)";
+                filter += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ? OR Article.Notes LIKE ? OR Article.Supermarket LIKE ?";
+                filter += " OR Article.StorageName LIKE ? OR Article.Category LIKE ? OR Article.SubCategory LIKE ?)";
+                parameter.Add("%" + textFilter + "%");
+                parameter.Add("%" + textFilter + "%");
+                parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
@@ -802,7 +804,11 @@ namespace VorratsUebersicht
             if (!string.IsNullOrEmpty(textFilter))
             {
                 if (string.IsNullOrEmpty(filter)) { filter += " WHERE "; } else { filter += " AND "; }
-                filter += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ? OR Article.Notes LIKE ? OR Article.Supermarket LIKE ?)";
+                filter += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ? OR Article.Notes LIKE ? OR Article.Supermarket LIKE ?";
+                filter += " OR Article.StorageName LIKE ? OR Article.Category LIKE ? OR Article.SubCategory LIKE ?)";
+                parameter.Add("%" + textFilter + "%");
+                parameter.Add("%" + textFilter + "%");
+                parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");

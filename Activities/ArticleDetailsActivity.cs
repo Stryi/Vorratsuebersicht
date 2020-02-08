@@ -49,11 +49,11 @@ namespace VorratsUebersicht
         EditText caloriePerUnit;
         bool ignoreTextChangeEvent;
 
-        IList<string> Manufacturers;
+        List<string> Manufacturers;
         CatalogItemSelectedListener catalogListener;
-        IList<string> SubCategories;
-        IList<string> Storages;
-        IList<string> Supermarkets;
+        List<string> SubCategories;
+        List<string> Storages;
+        List<string> Supermarkets;
 
         string category;
         string subCategory;
@@ -132,6 +132,7 @@ namespace VorratsUebersicht
             this.Manufacturers = new List<string>();
 
             var manufacturer = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Manufacturer);
+            manufacturer.FocusChange += MultiAutoCompleteTextView_FocusChange;
 
             ArrayAdapter<String> manufacturerAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, this.Manufacturers);
             manufacturer.Adapter = manufacturerAdapter;
@@ -167,6 +168,7 @@ namespace VorratsUebersicht
             this.SubCategories = new List<string>();
 
             var subCategory = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_SubCategory);
+            subCategory.FocusChange += MultiAutoCompleteTextView_FocusChange;
 
             ArrayAdapter<String> subCategoryAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, this.SubCategories);
             subCategory.Adapter = subCategoryAdapter;
@@ -178,6 +180,7 @@ namespace VorratsUebersicht
             this.Storages = new List<string>();
 
             var storage = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Storage);
+            storage.FocusChange += MultiAutoCompleteTextView_FocusChange;
 
             ArrayAdapter<String> storageAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, this.Storages);
             storage.Adapter = storageAdapter;
@@ -189,6 +192,7 @@ namespace VorratsUebersicht
             this.Supermarkets = new List<string>();
 
             var supermarket = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Supermarket);
+            supermarket.FocusChange += MultiAutoCompleteTextView_FocusChange;
 
             ArrayAdapter<String> supermarketAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, this.Supermarkets);
             supermarket.Adapter = supermarketAdapter;
@@ -220,6 +224,15 @@ namespace VorratsUebersicht
             {
                 this.SearchEanCodeOnInternetDb();
             }
+        }
+
+        private void MultiAutoCompleteTextView_FocusChange(object sender, View.FocusChangeEventArgs e)
+        {
+            if (!e.HasFocus)
+                return;
+
+            var manufacturer = sender as MultiAutoCompleteTextView;
+            manufacturer?.ShowDropDown();
         }
 
         private void BerechneCalPerUnit(object sender, Android.Text.TextChangedEventArgs e)
@@ -887,7 +900,7 @@ namespace VorratsUebersicht
             var manufacturer = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Manufacturer);
             var manufacturerAdapter = (ArrayAdapter<String>)(manufacturer.Adapter);
             manufacturerAdapter.Clear();
-            manufacturerAdapter.AddAll(this.Manufacturers.ToList<string>());
+            manufacturerAdapter.AddAll(this.Manufacturers);
             manufacturerAdapter.NotifyDataSetChanged();
 
 
@@ -898,30 +911,31 @@ namespace VorratsUebersicht
             int position = categoryAdapter.GetPosition(article.Category);
             categorySpinner.SetSelection(position);
 
+            // Unterkategorie
             this.SubCategories = Database.GetSubcategoriesOf();
 
             var subCategory = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_SubCategory);
             var subCategoryAdapter = (ArrayAdapter<String>)(subCategory.Adapter);
             subCategoryAdapter.Clear();
-            subCategoryAdapter.AddAll(this.SubCategories.ToList<string>());
+            subCategoryAdapter.AddAll(this.SubCategories);
             subCategoryAdapter.NotifyDataSetChanged();
 
-
+            // Lagerort
             this.Storages = Database.GetStorageNames();
 
             var storage = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Storage);
             var storageAdapter = (ArrayAdapter<String>)(storage.Adapter);
             storageAdapter.Clear();
-            storageAdapter.AddAll(this.Storages.ToList<string>());
+            storageAdapter.AddAll(this.Storages);
             storageAdapter.NotifyDataSetChanged();
 
-
+            // Einkaufsmarkt
             this.Supermarkets = Database.GetSupermarketNames();
 
             var supermarket = FindViewById<MultiAutoCompleteTextView>(Resource.Id.ArticleDetails_Supermarket);
             var supermarketAdapter = (ArrayAdapter<String>)(supermarket.Adapter);
             supermarketAdapter.Clear();
-            supermarketAdapter.AddAll(this.Supermarkets.ToList<string>());
+            supermarketAdapter.AddAll(this.Supermarkets);
             supermarketAdapter.NotifyDataSetChanged();
 
             FindViewById<EditText>(Resource.Id.ArticleDetails_Manufacturer).Text = article.Manufacturer;

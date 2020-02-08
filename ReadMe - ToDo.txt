@@ -6,8 +6,64 @@ Besserer EAN Scanner.
 Einkaufsliste
 - Sortierung: Alphabetisch, Kategorie und Gekauft. 
 
+Artikeldaten
+- Alle Einträge in Subkategorie, Einkaufsmarkt und Lagerort anzeigen (nicht erst beim ersten Buchstaben)
+  https://stackoverflow.com/questions/11284368/autocompletetextview-force-to-show-all-items
+  https://www.codota.com/code/java/methods/android.widget.AutoCompleteTextView/showDropDown
+
 Prio 2
 ======
+
+Preise oder Kalorien eintragen
+
+    ﻿Name	Manufacturer	EANCode	Notes	Price	Calorie
+    Schnellkoch Reis	Bonris	4316268374606	""		1735
+    Hefe	Dr. Oetker	4000521110314	0,99€ bei REWE im Angebot	0.99	
+    Haferflocken	Crownfield	20003166	""		1870
+    Ibu 400 akut - 1 A Phantom	""	-03045316	""		
+    Dolormin Migräne	""	-01754592	""		
+    Jodid ratiopharm	ratiopharm	-4620018	""		
+    Thomapyrin Intensiv	Thomapyrin	-00624605	""		
+    Hansaplast Classic	Hansaplast	40058054	Rewe 2,99	2.99	
+    octenisept	""	4032651214181	5,49 bei Müller Winnenden, 5,45 bei DM Fellbach	5.49	
+    Wodka Rachmaninow	""	20414535	""	4.99	
+    Ibuflam 800	""	-07520524	""		
+    Katadolon S ling	""	-00174295	""		
+    Czerwi Wodka	""	22111685	4,99 bei ALDI	4.99	
+    Ravioli in Tomatensoße	Combino	20725488	""		728
+    Gulaschsuppe mit Rindfleisch	Primana	22115799	""		233
+    Linseneintopf	Primana	22118035	""		321
+    Blütenhonig	Marlene	20940874	LIDL Winnenden 2,49		1510
+    Bienen Honig	Goldland	22112583	""		1590
+    Knäckebrot	Mühlengold	22115898	""		875
+    Heringsfilets	Armada	22162359	""		460
+    Heringsfilets geteilt in Tomaten Sauce	Armada	22133335	""		438
+    Kartoffeleintopf	Primana	22120649	""		624
+    Thunfisch Filets	Dreimaster	42286073	""		352
+    Ibuflam 600	""	-06313390	""		
+    Tomate in Dose	""	""	""		4000
+    Wund Spray	Hansaplast	4005800197277	4,49€ bei DM Fellbach	4.49	
+    Naturpark Quelle - Madium	""	4001325002911	""		
+    Zwiebelfleisch	""	23238879	""		121
+    Crown Yard	""	4388844188761	""	7.29	
+    Kernseife	""	4012400532841	""	1.25	
+    Zartbitter Kuvertüre	Backfee	4316268339377	""		1058
+    Heringsfilets	Armada	22125682	""		402
+    Zarte Heringsfilets	Leichter Genuss	42262619	""		141
+    Heringsfilets Tomaten-Creme	Dreimaster	42300984	""		416
+    Gurken	""	4061458004268	""		174
+    Campingaz	""	3138522082628	""	2.49	
+    Kaliskaya	""	4388844046726	""	5.49	
+    Gaskartusche	""	3138522069216	""	1.99	
+    Sesam	Wasa	7300400255905	""		802
+    Aqua Vitale medium	Aqua Vitale	4001428065417	""	0.49	
+    Hansaplast Classic	Hansaplast	4005800001833	""	1.65	
+    Thermometer	GIMA	8023279255867	""		
+    Benzin Kanister 95	""	""	""		
+    Kidney Bohnen	Gartenkrone	4061458016988	""		428
+    Oakheart	Bakardi	7610113003060	Angebot bei real	8.88	
+    Wodka	Gorbatschow	4003310013759	""	5.99	
+    Pott	""	4003310014190	Angebot EDEKA Winnenden	7.99	
 
 Artikelstamm
 - Default Werte vorbelegen (Martin T aus CH)

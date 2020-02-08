@@ -9,6 +9,14 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.23 (CodeVersion 65)
+==================================
+
+C120 - Alle Einträge in Subkategorie, Einkaufsmarkt und Lagerort werden jetzt beim Anklicken angezeigt (nicht erst beim ersten Buchstaben).
+C119 - Design der Masken etwas verbessert.
+C118 - Klick auf Icon zeit jetzt gleich das Bild in Vollansicht.
+C117 - Volltextsuche erweitern um Lagerort, Kategorie und Unterkategorie.  
+
 Version 4.22 (CodeVersion 64)
 ==================================
 

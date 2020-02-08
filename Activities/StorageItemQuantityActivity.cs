@@ -331,7 +331,7 @@ namespace VorratsUebersicht
 
         private void ShowPictureAndDetails(int articleId, string title)
         {
-            var headerView = FindViewById<TextView>  (Resource.Id.ArticleDetailHeader);
+            var headerView = FindViewById<TextView>  (Resource.Id.StorageItemQuantity_ArticleDetailHeader);
             var imageView  = FindViewById<ImageView> (Resource.Id.StorageItemQuantity_Image);
             var detailView = FindViewById<TextView>  (Resource.Id.StorageItemQuantity_ArticleDetail);
 
@@ -382,7 +382,10 @@ namespace VorratsUebersicht
                 }
             }
             else
+            {
                 imageView.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
+                imageView.Alpha = 0.5f;
+            }
         }
 
         private void ShowStorageListForArticle(int articleId)

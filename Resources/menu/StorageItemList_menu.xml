@@ -4,7 +4,7 @@
   <item android:id="@+id/StorageItemList_Search"
         android:title="Search"
         android:icon="@drawable/ic_search_white_24dp"
-        android:showAsAction="collapseActionView|always"
+        android:showAsAction="always"
         android:actionViewClass="android.widget.SearchView" />
 
   <item android:id="@+id/StorageItemList_Filter"

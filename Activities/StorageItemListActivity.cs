@@ -113,11 +113,11 @@ namespace VorratsUebersicht
             switch(item.ItemId)
             {
                 case 1: // Artikelangabe
-                    this.OnOpenArticleDetails(selectedItem.Id);
+                    this.OnOpenArticleDetails(selectedItem.ArticleId);
                     return true;
 
                 case 2: // Auf Einkaufszettel
-                    this.AddToShoppingListAutomatically(selectedItem.Id);
+                    this.AddToShoppingListAutomatically(selectedItem.ArticleId);
 
                     this.SaveListState();
                     this.ShowStorageItemList(this.lastSearchText);
@@ -235,7 +235,7 @@ namespace VorratsUebersicht
 
             var storageItemQuantity = new Intent (this, typeof(StorageItemQuantityActivity));
             storageItemQuantity.PutExtra("Heading",   item.Heading);
-            storageItemQuantity.PutExtra("ArticleId", item.Id);
+            storageItemQuantity.PutExtra("ArticleId", item.ArticleId);
             this.StartActivityForResult(storageItemQuantity, StorageItemQuantityId);
 
             ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);

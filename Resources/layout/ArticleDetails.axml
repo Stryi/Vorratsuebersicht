@@ -2,18 +2,17 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    android:paddingLeft="5dp">
+    android:layout_height="fill_parent">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        android:paddingBottom="5dp"
-        android:padding="5dp">
+        android:paddingBottom="5dp">
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:background="@color/Application_Background2"
             android:orientation="horizontal">
             <ImageView
@@ -30,9 +29,7 @@
                 android:id="@+id/ArticleDetails_ImageText"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:textColor="@color/Text_Color2"
                 android:layout_toRightOf="@+id/ArticleDetails_Image" />
         </LinearLayout>
@@ -48,47 +45,65 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:text="@string/ArticleDetails_ArticleName" />
         <EditText
             android:id="@+id/ArticleDetails_Name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:text="Artikelname" />
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:text="@string/ArticleDetails_Manufacturer" />
         <MultiAutoCompleteTextView
             android:id="@+id/ArticleDetails_Manufacturer"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:text="Hersteller" />
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:text="@string/ArticleDetails_Category" />
         <Spinner
             android:id="@+id/ArticleDetails_Category"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"            
             android:hint="@string/ArticleDetails_Category_Hint" />
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:text="@string/ArticleDetails_SubCategory" />
         <MultiAutoCompleteTextView
             android:id="@+id/ArticleDetails_SubCategory"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:hint="@string/ArticleDetails_SubCategory_Hint" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -101,7 +116,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,12 +134,16 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:checked="true"
             android:text="@string/ArticleDetails_EnduringlyDurable" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
             <TextView
                 android:id="@+id/ArticleDetails_WarnInDaysLabel"
                 android:layout_width="wrap_content"
@@ -134,9 +155,12 @@
                 android:layout_height="wrap_content"
                 android:inputType="number" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -150,7 +174,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -161,9 +187,12 @@
                 android:layout_height="wrap_content"
                 android:inputType="number|numberDecimal" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -174,10 +203,13 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/ArticleDetails_Unit_Hint" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ArticleDetails_CaloriesPerUnitSection"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
             <TextView
                 android:id="@+id/ArticleDetails_CaloriePerUnitLabel"
                 android:layout_width="wrap_content"
@@ -189,10 +221,13 @@
                 android:layout_height="wrap_content"
                 android:inputType="number" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ArticleDetails_CaloriesSection"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -203,9 +238,12 @@
                 android:layout_height="wrap_content"
                 android:inputType="number" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -219,7 +257,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -233,7 +273,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -249,16 +291,20 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:text="@string/ArticleDetails_Notes" />
         <EditText
             android:id="@+id/ArticleDetails_Notes"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
         <TextView
             android:id="@+id/ArticleDetails_ArticleId"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/Text_Color"
+            android:alpha="0.5"
             android:layout_margin="10dp" />
     </LinearLayout>
 </ScrollView>

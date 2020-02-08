@@ -13,7 +13,7 @@ namespace VorratsUebersicht
     {
         // http://err2solution.com/2016/05/sqlite-with-xamarin-forms-step-by-step-guide/
 
-		public static bool UseTestDatabase = false;
+        public static bool UseTestDatabase = false;
         public static bool UseAppFolderDatabase = false;
         public static bool? IsDatabaseOnSdCard = null;
 

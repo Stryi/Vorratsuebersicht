@@ -7,16 +7,15 @@
     <ImageView
         android:id="@+id/StorageItemListView_Image"
         android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:paddingTop="3dp"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
+        android:layout_height="59dp"
+        android:padding="3dp"
+        android:scaleType="fitCenter"
         android:background="@color/Application_Background"
         android:layout_alignParentLeft="true" />
     <LinearLayout
         android:id="@+id/SimpleImageViewText"
         android:orientation="vertical"
-        android:paddingLeft="50dip"
+        android:paddingLeft="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp">
@@ -73,6 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:textColor="@color/Text_Color2"
         android:layout_toLeftOf="@id/StorageItemListView_OnShoppingList" />
 
 </RelativeLayout>

@@ -79,6 +79,7 @@ namespace VorratsUebersicht
             var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
             backgroundPaint.SetBounds(0, 0, 10, 10);
             ActionBar.SetBackgroundDrawable(backgroundPaint);
+            ActionBar.SetDisplayShowHomeEnabled(true);
 
             // Datenbanken erstellen
             Android_Database.Instance.RestoreSampleDatabaseFromResources();

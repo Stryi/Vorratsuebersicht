@@ -20,7 +20,7 @@ namespace VorratsUebersicht
         }
         public StorageItemQuantityResult StorageItem {set; get;}
 
-        public override int Id
+        public int ArticleId
         {
             get { return this.StorageItem.ArticleId; }
         }
@@ -173,7 +173,7 @@ namespace VorratsUebersicht
                 if (this.noImage)               // Kein Image definiert
                     return null;
 
-                byte[] image = Database.GetArticleImage(this.Id, false)?.ImageSmall;
+                byte[] image = Database.GetArticleImage(this.ArticleId, false)?.ImageSmall;
                 if (image == null)
                 {
                     this.noImage = true;

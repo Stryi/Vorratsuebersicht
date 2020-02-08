@@ -19,6 +19,7 @@ namespace VorratsUebersicht
         int articleId;
         bool editMode;
         ImageView imageView;
+        TextView  imageInfo;
         Bitmap rotatedBitmap;
         bool isChanged = false;
 
@@ -42,6 +43,9 @@ namespace VorratsUebersicht
             string text    = Database.GetArticleName(this.articleId);
 
             this.imageView  = FindViewById<ImageView> (Resource.Id.ArticleImage_Image);
+            this.imageView.Click += OnClickImage;
+
+            this.imageInfo = FindViewById<TextView>(Resource.Id.ArticleImage_Info);
 
             ActionBar.Title = text;
             ActionBar.SetHomeButtonEnabled(true);
@@ -51,6 +55,18 @@ namespace VorratsUebersicht
                 this.ShowPictureFromBitmap();
             else
                 this.ShowPictureFromDatabase();
+        }
+
+        private void OnClickImage(object sender, EventArgs e)
+        {
+            if (this.imageInfo.Visibility != ViewStates.Visible)
+            {
+                this.imageInfo.Visibility = ViewStates.Visible;
+            }
+            else
+            {
+                this.imageInfo.Visibility = ViewStates.Gone;
+            }
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -131,6 +147,7 @@ namespace VorratsUebersicht
             if (this.articleId == 0)
             {
                 this.imageView.SetImageResource(Resource.Drawable.ic_photo_camera_white_24dp);
+                this.imageView.Alpha = 1f;
                 return;
             }
 
@@ -138,12 +155,16 @@ namespace VorratsUebersicht
             if (article == null)
             {
                 this.imageView.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
+                this.imageView.Alpha = 0.5f;
+
                 return;
             }
 
             if (article.ImageLarge == null)
             {
                 this.imageView.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
+                this.imageView.Alpha = 0.5f;
+
                 return;
             }
 
@@ -166,9 +187,10 @@ namespace VorratsUebersicht
             {
                 message = e.Message;
                 this.imageView.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
+                this.imageView.Alpha = 1f;
             }               
 
-            FindViewById<TextView> (Resource.Id.ArticleImage_Info).Text = message;
+            this.imageInfo.Text = message;
             article = null;
         }
 
@@ -198,7 +220,8 @@ namespace VorratsUebersicht
                 {
                     this.rotatedBitmap = null;
                     this.imageView.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
-                    FindViewById<TextView> (Resource.Id.ArticleImage_Info).Text = ex.Message;
+                    this.imageView.Alpha = 1f;
+                    this.imageInfo.Text = ex.Message;
                     return;
                 }
             }
@@ -218,20 +241,21 @@ namespace VorratsUebersicht
                     this.rotatedBitmap.Width, 
                     Tools.ToFuzzyByteString(this.rotatedBitmap.ByteCount));
 
-                FindViewById<TextView> (Resource.Id.ArticleImage_Info).Text = message;
+                this.imageInfo.Text = message;
 
             }
             catch(Exception ex)
             {
                 this.rotatedBitmap = null;
                 this.imageView.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
-                FindViewById<TextView> (Resource.Id.ArticleImage_Info).Text = ex.Message;
+                this.imageView.Alpha = 1f;
+                this.imageInfo.Text = ex.Message;
             }
         }
 
         private ProgressBar CreateProgressBar()
         {
-            var progressBar = FindViewById<ProgressBar>(Resource.Id.ProgressBar);
+            var progressBar = FindViewById<ProgressBar>(Resource.Id.ArticleImage_ProgressBar);
             progressBar.Visibility = ViewStates.Visible;
             this.Window.SetFlags(WindowManagerFlags.NotTouchable, WindowManagerFlags.NotTouchable);
             return progressBar;

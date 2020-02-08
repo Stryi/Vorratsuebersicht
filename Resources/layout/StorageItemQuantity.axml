@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     android:background="@color/Application_Background">
     <TextView
-        android:id="@+id/ArticleDetailHeader"
-        android:width="40dp"
+        android:id="@+id/StorageItemQuantity_ArticleDetailHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
         android:textColor="@color/Text_Color"
         android:textSize="20dip"
         android:text="Überschrift" />
@@ -22,13 +23,17 @@
         <ImageView
             android:id="@+id/StorageItemQuantity_Image"
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="fill_parent"
+            android:scaleType="fitCenter"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:background="@color/Application_Background2" />
         <TextView
             android:id="@+id/StorageItemQuantity_ArticleDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:padding="10dp"
             android:textColor="@color/Text_Color"
             android:background="@color/Application_Background2"
             android:text="Beschreibung des Artikels" />
@@ -43,16 +48,16 @@
         android:layout_marginBottom="1dp"
         android:layout_marginTop="1dp">
         <Button
+            android:id="@+id/StorageItemQuantity_StepButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/StorageItemQuantity_StepButton"
             android:layout_marginTop="0.0dp"
             android:layout_marginBottom="0.0dp"
             android:text = "Schritt:" />
         <TextView
+            android:id="@+id/StorageItemQuantity_StepText"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:id="@+id/StorageItemQuantity_StepText"
             android:layout_marginLeft="5.0dp"
             android:layout_marginTop="0.0dp"
             android:layout_marginBottom="0.0dp"
@@ -62,18 +67,21 @@
             android:textColor="@color/Text_Color"
             android:layout_toRightOf="@id/StorageItemQuantity_StepButton" />
         <ImageButton
+            android:id="@+id/StorageItemQuantity_AddArticle"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/StorageItemQuantity_AddArticle"
             android:layout_marginTop="0.0dp"
             android:layout_marginBottom="0.0dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_add_circle_outline_white_24dp" />
     </RelativeLayout>
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:dividerHeight="5dp"
         android:id="@+id/ArticleList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_margin="5dp"
+        android:dividerHeight="5dp"
+        android:background="@color/Application_Background2"
         android:layout_marginTop="0.0dp" />
 </LinearLayout>

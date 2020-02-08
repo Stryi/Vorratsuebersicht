@@ -98,13 +98,13 @@ namespace VorratsUebersicht
             {
                 case 1: // Lagerbestand
                     var storageDetails = new Intent(this, typeof(StorageItemQuantityActivity));
-                    storageDetails.PutExtra("ArticleId", selectedItem.Id);
+                    storageDetails.PutExtra("ArticleId", selectedItem.ArticleId);
 
                     this.StartActivity(storageDetails);
                     return true;
 
                 case 2: // Auf Einkaufszettel
-                    this.AddToShoppingListAutomatically(selectedItem.Id);
+                    this.AddToShoppingListAutomatically(selectedItem.ArticleId);
 
                     this.SaveListState();
                     this.ShowArticleList(this.lastSearchText);
@@ -245,7 +245,7 @@ namespace VorratsUebersicht
 			{
                 Intent intent = new Intent();
 				intent.PutExtra("Heading",   item.Heading);
-				intent.PutExtra("ArticleId", item.Id);
+				intent.PutExtra("ArticleId", item.ArticleId);
 
                 this.SetResult(Result.Ok, intent);
 
@@ -253,7 +253,7 @@ namespace VorratsUebersicht
 				return;
 			}
 
-            this.ShowArticleDetails(item.Id, item.Heading);
+            this.ShowArticleDetails(item.ArticleId, item.Heading);
         }
 
         private void SaveListState()

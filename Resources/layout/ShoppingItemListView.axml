@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/ShoppingItemListView_Image"
         android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_height="80dp"
         android:paddingTop="3dp"
         android:paddingLeft="3dp"
         android:paddingRight="3dp"

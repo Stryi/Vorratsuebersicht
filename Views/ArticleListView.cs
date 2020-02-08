@@ -17,13 +17,14 @@ namespace VorratsUebersicht
 
     public class ArticleListView
     {
+        private Article Article {set; get;}
+        
         public ArticleListView(Article article)
         {
             this.Article = article;
         }
-        public Article Article {set; get;}
 
-        public int Id
+        public int ArticleId
         {
             get { return this.Article.ArticleId; }
         }
@@ -196,7 +197,7 @@ namespace VorratsUebersicht
                 if (this.noImage)               // Kein Image definiert
                     return null;
 
-                byte[] image = Database.GetArticleImage(this.Id, false)?.ImageSmall;
+                byte[] image = Database.GetArticleImage(this.ArticleId, false)?.ImageSmall;
                 if (image == null)
                 {
                     this.noImage = true;
