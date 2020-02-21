@@ -68,6 +68,15 @@ namespace VorratsUebersicht
 				    info += string.Format(" {0}", categoryText);
 				}
 
+                // Einkaufsmarkt
+
+                if (!string.IsNullOrEmpty(this.Article.Supermarket))
+                {
+                    if (!string.IsNullOrEmpty(info)) info += "\n";
+                    info += MainActivity.Strings_Supermarket;
+                    info += string.Format(" {0}", this.Article.Supermarket);
+                }
+
                 // Lagert
 
                 if (!string.IsNullOrEmpty(this.Article.StorageName))
@@ -117,9 +126,18 @@ namespace VorratsUebersicht
 					info += " -";
                 }
 
+                return info;
+			}
+        }
+
+        public string Notes
+        {
+             get
+			{
+				string info = string.Empty;
+
                 if (!string.IsNullOrEmpty(this.Article.Notes))
                 {
-                    if (!string.IsNullOrEmpty(info)) info += "\n";
                     info += MainActivity.Strings_Notes;
                     info += string.Format(" {0}", this.Article.Notes);
                 }

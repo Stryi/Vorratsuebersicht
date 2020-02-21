@@ -9,6 +9,14 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.24 (CodeVersion 66)
+==================================
+
+E007 - FIX: Notizen überdecken jetzt nicht die Icons in der Artikelliste.
+C121 - Textgröße passt sich jetzt an die Systemeinstellungen an.
+E006 - FIX: Icon in der Artikelliste nach Lagerbestand wird jetzt aktualisiert.
+E005 - FIX: Anzahl "Abgelaufen" auf Startseite berücksichtigt nicht mehr "Unendlich Haltbar".
+
 Version 4.23 (CodeVersion 65)
 ==================================
 

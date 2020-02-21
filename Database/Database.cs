@@ -603,15 +603,29 @@ namespace VorratsUebersicht
                 else
                     filter += " WHERE ";
 
-                filter += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ? OR Article.Notes LIKE ? OR Article.Supermarket LIKE ?";
-                filter += " OR Article.StorageName LIKE ? OR Article.Category LIKE ? OR Article.SubCategory LIKE ?)";
-                parameter.Add("%" + textFilter + "%");
-                parameter.Add("%" + textFilter + "%");
-                parameter.Add("%" + textFilter + "%");
-                parameter.Add("%" + textFilter + "%");
-                parameter.Add("%" + textFilter + "%");
-                parameter.Add("%" + textFilter + "%");
-                parameter.Add("%" + textFilter + "%");
+                switch (textFilter.ToUpper())
+                {
+                    case "P-":
+                        filter += " Article.Price IS NULL";
+                        break;
+
+                    case "K-":
+                        filter += " Article.Calorie IS NULL";
+                        break;
+
+                    default:
+
+                        filter += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ? OR Article.Notes LIKE ? OR Article.Supermarket LIKE ?";
+                        filter += " OR Article.StorageName LIKE ? OR Article.Category LIKE ? OR Article.SubCategory LIKE ?)";
+                        parameter.Add("%" + textFilter + "%");
+                        parameter.Add("%" + textFilter + "%");
+                        parameter.Add("%" + textFilter + "%");
+                        parameter.Add("%" + textFilter + "%");
+                        parameter.Add("%" + textFilter + "%");
+                        parameter.Add("%" + textFilter + "%");
+                        parameter.Add("%" + textFilter + "%");
+                        break;
+                }
             }
 
             if (notInStorage)
@@ -627,7 +641,7 @@ namespace VorratsUebersicht
 
             string cmd = string.Empty;
             cmd += "SELECT ArticleId, Name, Manufacturer, Category, SubCategory, DurableInfinity, WarnInDays,";
-            cmd += " Size, Unit, Notes, EANCode, Calorie, Price, StorageName";
+            cmd += " Size, Unit, Notes, EANCode, Calorie, Price, StorageName, Supermarket";
             cmd += " FROM Article";
             cmd += filter;
             cmd += " ORDER BY Name COLLATE NOCASE";
@@ -713,7 +727,6 @@ namespace VorratsUebersicht
             cmd += " FROM StorageItem";
             cmd += " JOIN Article ON StorageItem.ArticleId = Article.ArticleId";
             cmd += " WHERE BestBefore < date('now')";
-            cmd += " AND Article.DurableInfinity = 0";
             //cmd += " AND 1 = 2";
 
 

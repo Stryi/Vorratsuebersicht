@@ -26,27 +26,27 @@
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color"
             android:text="Überschrift"
-            android:textSize="20dip" />
+            android:textSize="20sp" />
         <TextView
             android:id="@+id/ShoppingItemListView_SubHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color2"
             android:text="Details"
-            android:textSize="14dip" />
+            android:textSize="14sp" />
         <TextView
             android:id="@+id/ShoppingItemListView_Quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#FF0000FF"
-            android:textSize="20dip"
+            android:textSize="20sp"
             android:visibility="gone" />
     </LinearLayout>
     <CheckBox
         android:id="@+id/ShoppingItemListView_Bought"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14dip"
+        android:textSize="14sp"
         android:textColor="#FF0000FF"
         android:text="Gekauft"
         android:layout_alignParentRight="true"

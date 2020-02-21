@@ -11,7 +11,7 @@
       android:layout_above="@+id/SplashScreen_ProgressBar"
       android:background="@android:color/transparent"
       android:textColor="@color/Text_Color"
-      android:textSize="20dip"         
+      android:textSize="20sp"         
       android:text="Bitte warten..." 
       android:layout_marginRight="50dp"
       android:layout_marginLeft="50dp" />

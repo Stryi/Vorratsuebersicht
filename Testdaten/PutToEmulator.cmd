@@ -19,15 +19,15 @@ ECHO ----------------------------------------------------
 %adbCmd% -s emulator-5554   shell rm %SD_Card_Path%/Vorratsuebersicht/Vorraete-Test.db3
 %adbCmd% -s emulator-5554   shell rm %SD_Card_Path%/Vorratsuebersicht/Vorraete_Stryi_Kaputt.db3
 
-%adbCmd% -s emulator-5554   push Vorraete_Stryi.db3        %SD_Card_Path%/Vorratsuebersicht/Vorraete.db3
-%adbCmd% -s emulator-5554   push Vorraete-Test.db3         %SD_Card_Path%/Vorratsuebersicht/Vorraete-Test.db3
-%adbCmd% -s emulator-5554   push Vorraete_Stryi_Kaputt.db3 %SD_Card_Path%/Vorratsuebersicht/Vorraete_Stryi_Kaputt.db3
+%adbCmd% -s emulator-5554   push ..\..\Testdaten\Vorraete_Stryi.db3        %SD_Card_Path%/Vorratsuebersicht/Vorraete.db3
+%adbCmd% -s emulator-5554   push ..\..\Testdaten\Vorraete-Test.db3         %SD_Card_Path%/Vorratsuebersicht/Vorraete-Test.db3
+%adbCmd% -s emulator-5554   push ..\..\Testdaten\Vorraete_Stryi_Kaputt.db3 %SD_Card_Path%/Vorratsuebersicht/Vorraete_Stryi_Kaputt.db3
 
 ECHO ----------------------------------------------------
 ECHO DropBox Verzeichnis
 ECHO ----------------------------------------------------
 
-%adbCmd% -s emulator-5554   push Vorraete-DropBox.db3  %SD_Card_Path%/DropBox/Vorraete-DropBox.db3
+%adbCmd% -s emulator-5554   push ..\..\Testdaten\Vorraete-DropBox.db3  %SD_Card_Path%/DropBox/Vorraete-DropBox.db3
 
 
 ECHO ----------------------------------------------------
@@ -42,7 +42,7 @@ ECHO ----------------------------------------------------
 ECHO Backup uebertragen
 ECHO ----------------------------------------------------
 
-%adbCmd% -s emulator-5554   push Vue_2019-07-22_OLD_FORMAT.VueBak  %SD_Card_Path%/Download/Vue_2019-07-22_OLD_FORMAT.VueBak
+%adbCmd% -s emulator-5554   push ..\..\Testdaten\Vue_2019-07-22_OLD_FORMAT.VueBak  %SD_Card_Path%/Download/Vue_2019-07-22_OLD_FORMAT.VueBak
 
 ECHO ----------------------------------------------------
 ECHO Bilder uebertragen

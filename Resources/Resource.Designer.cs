@@ -363,19 +363,19 @@ namespace VorratsUebersicht
 			public const int ArticleListView_Image = 2131296291;
 			
 			// aapt resource value: 0x7f090027
-			public const int ArticleListView_Information = 2131296295;
-			
-			// aapt resource value: 0x7f090028
-			public const int ArticleListView_IsInStorage = 2131296296;
-			
-			// aapt resource value: 0x7f09002a
-			public const int ArticleListView_OnShoppingList = 2131296298;
+			public const int ArticleListView_IsInStorage = 2131296295;
 			
 			// aapt resource value: 0x7f09002b
-			public const int ArticleListView_ShoppingQuantity = 2131296299;
+			public const int ArticleListView_Notes = 2131296299;
 			
 			// aapt resource value: 0x7f090029
-			public const int ArticleListView_StorageQuantity = 2131296297;
+			public const int ArticleListView_OnShoppingList = 2131296297;
+			
+			// aapt resource value: 0x7f09002a
+			public const int ArticleListView_ShoppingQuantity = 2131296298;
+			
+			// aapt resource value: 0x7f090028
+			public const int ArticleListView_StorageQuantity = 2131296296;
 			
 			// aapt resource value: 0x7f090026
 			public const int ArticleListView_SubHeading = 2131296294;

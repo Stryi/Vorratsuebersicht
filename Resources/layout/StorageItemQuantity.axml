@@ -13,7 +13,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="5dp"
         android:textColor="@color/Text_Color"
-        android:textSize="20dip"
+        android:textSize="20sp"
         android:text="Überschrift" />
     <LinearLayout
         android:orientation="horizontal"
@@ -62,7 +62,7 @@
             android:layout_marginTop="0.0dp"
             android:layout_marginBottom="0.0dp"
             android:gravity="center"
-            android:textSize="20dip"
+            android:textSize="20sp"
             android:text = "1x"
             android:textColor="@color/Text_Color"
             android:layout_toRightOf="@id/StorageItemQuantity_StepButton" />

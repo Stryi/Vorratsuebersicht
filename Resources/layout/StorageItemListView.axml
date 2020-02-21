@@ -25,35 +25,35 @@
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color"
             android:text="Überschrift"
-            android:textSize="20dip" />
+            android:textSize="20sp" />
         <TextView
             android:id="@+id/StorageItemListView_TextDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color2"
             android:text="Details"
-            android:textSize="14dip" />
+            android:textSize="14sp" />
         <TextView
             android:id="@+id/StorageItemListView_TextError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Error"
             android:visibility="visible"
-            android:textSize="14dip" />
+            android:textSize="14sp" />
         <TextView
             android:id="@+id/StorageItemListView_TextWarning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Warning"
             android:visibility="visible"
-            android:textSize="14dip" />
+            android:textSize="14sp" />
         <TextView
             android:id="@+id/StorageItemListView_TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Info"
             android:visibility="visible"
-            android:textSize="14dip" />
+            android:textSize="14sp" />
     </LinearLayout>
     <ImageView
         android:id="@+id/StorageItemListView_OnShoppingList"

@@ -15,14 +15,14 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color"
-            android:textSize="18dip"
+            android:textSize="18sp"
             android:layout_alignParentLeft="true"
             android:text="Überschrift" />
         <TextView
             android:id="@+id/StorageItemQuantityList_Date"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="16dip"
+            android:textSize="16sp"
             android:layout_below="@+id/StorageItemQuantityList_Text"
             android:text="" />
     </LinearLayout>

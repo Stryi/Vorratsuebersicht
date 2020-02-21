@@ -1,15 +1,12 @@
 Prio 1
 ======
 
-Besserer EAN Scanner.
+EAN Scan
+- Besserer EAN Scanner suchen
 
 Einkaufsliste
-- Sortierung: Alphabetisch, Kategorie und Gekauft. 
+- Sortierung: Alphabetisch, Kategorie und Gekauft.
 
-Artikeldaten
-- Alle Einträge in Subkategorie, Einkaufsmarkt und Lagerort anzeigen (nicht erst beim ersten Buchstaben)
-  https://stackoverflow.com/questions/11284368/autocompletetextview-force-to-show-all-items
-  https://www.codota.com/code/java/methods/android.widget.AutoCompleteTextView/showDropDown
 
 Prio 2
 ======
@@ -63,7 +60,8 @@ Preise oder Kalorien eintragen
     Kidney Bohnen	Gartenkrone	4061458016988	""		428
     Oakheart	Bakardi	7610113003060	Angebot bei real	8.88	
     Wodka	Gorbatschow	4003310013759	""	5.99	
-    Pott	""	4003310014190	Angebot EDEKA Winnenden	7.99	
+    Pott	""	4003310014190	Angebot EDEKA Winnenden	7.99	
+
 
 Artikelstamm
 - Default Werte vorbelegen (Martin T aus CH)

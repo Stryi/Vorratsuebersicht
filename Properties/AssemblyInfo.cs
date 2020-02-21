@@ -3,9 +3,6 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Android.App;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
 [assembly: AssemblyTitle("Vorratsuebersicht")]
 [assembly: AssemblyDescription("Mindesthaltbarkeitsdatum von Vorräten überwachen")]
 [assembly: AssemblyConfiguration("")]
@@ -15,5 +12,6 @@ using Android.App;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion("4.22")]
-[assembly: AssemblyFileVersion("4.23.0.0")]
+[assembly: AssemblyVersion("4.24")]
+[assembly: AssemblyFileVersion("4.24.0.0")]
+

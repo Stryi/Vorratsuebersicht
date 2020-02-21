@@ -79,7 +79,6 @@ namespace VorratsUebersicht
             {
                 ListView listView = (ListView)view;
                 AdapterView.AdapterContextMenuInfo acmi = (AdapterContextMenuInfo) menuInfo;
-                //ArticleListView obj = (ArticleListView)listView.GetItemAtPosition(acmi.Position);
 
                 menu.Add(Menu.None, 1, Menu.None, Resource.String.ArticleList_Lagerbestand);    // Lagerbestand
                 menu.Add(Menu.None, 2, Menu.None, Resource.String.ArticleList_ToShoppingList);  // Auf Einkaufszettel
@@ -100,7 +99,9 @@ namespace VorratsUebersicht
                     var storageDetails = new Intent(this, typeof(StorageItemQuantityActivity));
                     storageDetails.PutExtra("ArticleId", selectedItem.ArticleId);
 
-                    this.StartActivity(storageDetails);
+                    this.SaveListState();
+                    this.StartActivityForResult(storageDetails, 20);
+
                     return true;
 
                 case 2: // Auf Einkaufszettel
@@ -187,6 +188,7 @@ namespace VorratsUebersicht
             {
                 if (!string.IsNullOrEmpty(view.Heading))     text += view.Heading     + "\n";
                 if (!string.IsNullOrEmpty(view.SubHeading))  text += view.SubHeading  + "\n";
+                if (!string.IsNullOrEmpty(view.Notes))       text += view.Notes + "\n";
                 text += "\n";
             }
 
