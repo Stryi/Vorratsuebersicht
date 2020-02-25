@@ -9,6 +9,13 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.25 (CodeVersion 67)
+==================================
+
+C123 - Hinweis auf Zusatzkosten beim OpenFoodFacts.org Aufruf jetzt nur einmal pro App-Start.
+E008 - 'Auf Einkaufszettel' Icon jetzt kleiner.
+C122 - Lagerliste: Sortier-Icon jetzt mit Datum oder Buchstabe.
+
 Version 4.24 (CodeVersion 66)
 ==================================
 

@@ -11,6 +11,7 @@ namespace VorratsUebersicht
     public class ShoppingListViewAdapter : BaseAdapter<ShoppingListView>
     {
         public event EventHandler CheckedChanged;
+        public event EventHandler QuantityClicked;
 
         List<ShoppingListView> items;
         Activity context;
@@ -43,8 +44,12 @@ namespace VorratsUebersicht
 
             view.FindViewById<TextView>(Resource.Id.ShoppingItemListView_Heading).Text        = item.Heading;
             view.FindViewById<TextView>(Resource.Id.ShoppingItemListView_SubHeading).Text     = item.SubHeading;
-            view.FindViewById<TextView>(Resource.Id.ShoppingItemListView_Quantity).Text       = item.QuantityText;
-            view.FindViewById<TextView>(Resource.Id.ShoppingItemListView_Quantity).Visibility = ViewStates.Visible;
+
+            TextView quantity = view.FindViewById<TextView>(Resource.Id.ShoppingItemListView_Quantity);
+            quantity.Text       = item.QuantityText;
+            quantity.Visibility = ViewStates.Visible;
+            quantity.Click -= OnQuantityClick;
+            quantity.Click += OnQuantityClick;
             
             CheckBox bought = view.FindViewById<CheckBox>(Resource.Id.ShoppingItemListView_Bought);
             bought.Visibility = ViewStates.Visible;
@@ -71,6 +76,15 @@ namespace VorratsUebersicht
             }
 
             return view;
+        }
+
+        private void OnQuantityClick(object sender, EventArgs e)
+        {
+            
+            if (this.QuantityClicked == null)
+                return;
+
+            this.QuantityClicked.Invoke(this, EventArgs.Empty);
         }
 
         private void OnImageClicked(object sender, EventArgs e)

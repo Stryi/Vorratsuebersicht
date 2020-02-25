@@ -4,8 +4,20 @@ Prio 1
 EAN Scan
 - Besserer EAN Scanner suchen
 
+Lagerbestand
+- Mehrere Lagerorte für einen Artikel (Stephan)
+
+Artikeldetails
+- CheckBox "[x] nicht mehr danach fragen" beim Aufruf von OpenFoodFacts.org (Laura D)
+
 Einkaufsliste
 - Sortierung: Alphabetisch, Kategorie und Gekauft.
+- Menge manuell eingeben.
+
+Sonstiges
+- Push Benachrichtigung über bald zu verbrauchende Artikel einmal pro Tag
+  https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/notifications/local-notifications-walkthrough
+  https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/services/service-notifications
 
 
 Prio 2
@@ -79,10 +91,6 @@ EAN Scanner aktualisieren
     https://github.com/journeyapps/zxing-android-embedded 
 
 
-Sonstiges
-- Push Benachrichtigung über bald zu verbrauchende Artikel einmal pro Tag
-  https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/notifications/local-notifications-walkthrough
-  https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/services/service-notifications
 
 
 Lagerliste
@@ -90,7 +98,6 @@ Lagerliste
   So das z.B die Unterkategorie Kaffee auf 5 Pack steht.
   Und nicht Hersteller A ein Pack, Hersteller B zwei Pack (vom Markus Neese vorgeschlagen)
 - Auswahl Lagerort auch an Subkategorie berücksichtigen
-- Lagebestand als TXT exportieren  (Sharen)
 
 Artikelliste
 - Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. vorgeschlagen)

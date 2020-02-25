@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
-          package="de.stryi.Vorratsuebersicht" 
+          package="de.stryi.Vorratsuebersicht"
           android:installLocation="auto"
-          android:versionCode="66"
-          android:versionName="4.24">
-	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="28" />
+          android:versionCode="67"
+          android:versionName="4.25">
+	<uses-sdk android:minSdkVersion="10" android:targetSdkVersion="28" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.FLASHLIGHT" />

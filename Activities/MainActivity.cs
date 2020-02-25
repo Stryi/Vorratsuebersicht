@@ -217,7 +217,7 @@ namespace VorratsUebersicht
         private void ArticlesNearExpiryDate_Click(object sender, EventArgs e)
         {
             var storageitemList = new Intent(this, typeof(StorageItemListActivity));
-            storageitemList.PutExtra("ShowToConsumerOnly", true);
+            storageitemList.PutExtra("OderByToConsumeDate", true);
             StartActivity(storageitemList);
         }
 

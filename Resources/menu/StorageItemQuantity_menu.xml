@@ -21,7 +21,7 @@
         android:showAsAction="always" />
 
   <item android:id="@+id/StorageItemQuantity_ToShoppingList"
-      android:icon="@drawable/ic_shopping_cart_white_48dp"
+      android:icon="@drawable/baseline_shopping_cart_white_24"
       android:title="@string/StorageItemQuantity_Menu_ToShoppingList"
       android:showAsAction="always" />
 

@@ -15,13 +15,14 @@ namespace VorratsUebersicht
     [Activity(Label = "@string/Main_Button_Lagerbestand", Icon = "@drawable/ic_assignment_white_48dp")]
     public class StorageItemListActivity : Activity, SearchView.IOnQueryTextListener
     {
+        private static bool oderByToConsumeDate;
+
         List<StorageItemListView> liste = new List<StorageItemListView>();
         private IParcelable listViewState;
         private List<string> storageList;
 
         private string category;
         private string subCategory;
-        private bool   showToConsumerOnly;
         private string eanCode;
         private bool   showEmptyStorageArticles;
         private string storageNameFilter = string.Empty;
@@ -52,9 +53,14 @@ namespace VorratsUebersicht
 
             this.category                 = Intent.GetStringExtra ("Category");
             this.subCategory              = Intent.GetStringExtra ("SubCategory");
-            this.showToConsumerOnly       = Intent.GetBooleanExtra("ShowToConsumerOnly", false);
+            bool oderByDate               = Intent.GetBooleanExtra("OderByToConsumeDate", false);
             this.eanCode                  = Intent.GetStringExtra("EANCode") ?? string.Empty;
             this.showEmptyStorageArticles = Intent.GetBooleanExtra("ShowEmptyStorageArticles", false); // Auch Artikel ohne Lagerbestand anzeigen
+
+            if (oderByDate)
+            {
+                StorageItemListActivity.oderByToConsumeDate = true;
+            }
 
             if (!string.IsNullOrEmpty(this.subCategory))
             {
@@ -149,6 +155,17 @@ namespace VorratsUebersicht
         {
             MenuInflater.Inflate(Resource.Menu.StorageItemList_menu, menu);
 
+            var sortMenuItem = menu.FindItem(Resource.Id.StorageItemList_Sort);
+
+            if (StorageItemListActivity.oderByToConsumeDate)
+            {
+                sortMenuItem.SetIcon(Resource.Drawable.baseline_sort_DATE_white_24);
+            }
+            else
+            {
+                sortMenuItem.SetIcon(Resource.Drawable.baseline_sort_AZ_white_24);
+            }
+
             var searchMenuItem = menu.FindItem(Resource.Id.StorageItemList_Search);
             var searchView = (SearchView)searchMenuItem.ActionView;
 
@@ -180,10 +197,11 @@ namespace VorratsUebersicht
 
                     return true;
 
-                case Resource.Id.StorageItemList_Filter:
+                case Resource.Id.StorageItemList_Sort:
 
-                    this.showToConsumerOnly = !this.showToConsumerOnly;
+                    StorageItemListActivity.oderByToConsumeDate = !StorageItemListActivity.oderByToConsumeDate;
                     this.ShowStorageItemList(this.lastSearchText);
+                    this.InvalidateOptionsMenu();
 
                     return true;
 
@@ -325,7 +343,7 @@ namespace VorratsUebersicht
                 this.showEmptyStorageArticles,
                 filter, 
                 this.storageNameFilter,
-                this.showToConsumerOnly);
+                StorageItemListActivity.oderByToConsumeDate);
             
             foreach(StorageItemQuantityResult storegeItem in storageItemQuantityList)
             {

@@ -293,6 +293,7 @@ namespace VorratsUebersicht
             ShoppingListViewAdapter listAdapter = new ShoppingListViewAdapter(this, this.liste);
 
             listAdapter.CheckedChanged += ListAdapter_CheckedChanged;
+            listAdapter.QuantityClicked += ListAdapter_QuantityClicked;
 
             ListView listView = FindViewById<ListView>(Resource.Id.ShoppingItemList);
             this.listViewState = listView.OnSaveInstanceState();        // Zustand der Liste merken (wo der Anfang angezeigt wird)
@@ -354,6 +355,26 @@ namespace VorratsUebersicht
         private void ListAdapter_CheckedChanged(object sender, EventArgs e)
         {
             this.UpdateStatistic();
+        }
+
+        private void ListAdapter_QuantityClicked(object sender, EventArgs ea)
+        {
+            // TODO: Menge direkt eingeben
+            /*
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle("Menge eingeben");
+            EditText input = new EditText(this);
+            input.InputType = InputTypes.NumberFlagDecimal;
+            //input.SetRawInputType(InputTypes.ClassNumber);
+            alert.SetView(input);  
+            alert.SetPositiveButton("OK", (dialog, whichButton) =>
+                {
+                    string number = input.Text;
+                });
+
+            alert.SetNegativeButton("Cancel", (s, e) => {});
+            alert.Show();
+            */
         }
 
         public bool OnQueryTextChange(string filter)

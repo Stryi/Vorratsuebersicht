@@ -7,7 +7,7 @@
         android:showAsAction="always"
         android:actionViewClass="android.widget.SearchView" />
 
-  <item android:id="@+id/StorageItemList_Filter"
+  <item android:id="@+id/StorageItemList_Sort"
         android:icon="@drawable/baseline_sort_white_24"
         android:title="Sortierung (Alphabetisch oder nach Ablaufdatum)"
         android:showAsAction="always" />

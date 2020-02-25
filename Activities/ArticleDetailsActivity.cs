@@ -407,12 +407,23 @@ namespace VorratsUebersicht
             return false;
         }
 
+        public static bool showCostMessage = true;
+
         private void SearchEanCodeOnInternetDb()
         {
             string EANCode = FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text;
 
             if (string.IsNullOrEmpty(EANCode))
                 return;
+
+            // API aufrufen, ohne auf die Kosten zu verweisen.
+            if (!ArticleDetailsActivity.showCostMessage)
+            {
+                var internetDB = new Intent(this, typeof(InternetDatabaseSearchActivity));
+                internetDB.PutExtra("EANCode", EANCode);
+                this.StartActivityForResult(internetDB, InternetDB);
+                return;
+            }
 
             var message = new AlertDialog.Builder(this);
             message.SetTitle("EAN Suche...");
@@ -423,6 +434,8 @@ namespace VorratsUebersicht
                 var internetDB = new Intent(this, typeof(InternetDatabaseSearchActivity));
                 internetDB.PutExtra("EANCode", EANCode);
                 this.StartActivityForResult(internetDB, InternetDB);
+
+                ArticleDetailsActivity.showCostMessage = false;
             });
             message.SetNegativeButton("Nein", (s, e) => { });
             message.Create().Show();
