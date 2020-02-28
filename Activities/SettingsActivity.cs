@@ -60,6 +60,10 @@ namespace VorratsUebersicht
                 switchToAppDB.Enabled = false;
             }
 
+            Switch switchCostMessage = FindViewById<Switch>(Resource.Id.SettingsButton_ShowOFFCostMessage);
+            switchCostMessage.Click += SwitchCostMessage_Click;
+            switchCostMessage.Checked = ArticleDetailsActivity.showCostMessage;
+
             Button buttonRestoreSampleDb = FindViewById<Button>(Resource.Id.SettingsButton_RestoreSampleDb);
             buttonRestoreSampleDb.Click += ButtonRestoreSampleDb_Click;
 
@@ -74,9 +78,7 @@ namespace VorratsUebersicht
 
             EditText addDbPath = FindViewById<EditText>(Resource.Id.SettingsButton_AdditionalDatabasePath);
             
-            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
-            string addPath = prefs.GetString("AdditionslDatabasePath", string.Empty);
-            addDbPath.Text = addPath;
+            addDbPath.Text = Settings.GetString("AdditionslDatabasePath", string.Empty);
 
             addDbPath.TextChanged += delegate { this.additionalDatabasePathChanged = true; };
 
@@ -144,11 +146,7 @@ namespace VorratsUebersicht
                 return false;
             }
 
-            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
-            var prefEditor = prefs.Edit();
-
-            prefEditor.PutString("AdditionslDatabasePath", dbPath.Text);
-            prefEditor.Commit();
+            Settings.PutString("AdditionslDatabasePath", dbPath.Text);
 
             return true;
         }
@@ -393,6 +391,13 @@ namespace VorratsUebersicht
             this.ShowDatabaseInfo();
             this.ShowUserDefinedCategories();
             this.EnableButtons();
+        }
+
+        private void SwitchCostMessage_Click(object sender, EventArgs e)
+        {
+            var switchCostMessage = sender as Switch;
+            ArticleDetailsActivity.showCostMessage = switchCostMessage.Checked;
+            Settings.PutBoolean("ShowOpenFoodFactsInternetCostsMessage", ArticleDetailsActivity.showCostMessage);
         }
 
         private void ButtonRestore_Click(object sender, EventArgs e)

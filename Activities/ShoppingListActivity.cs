@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Globalization;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V4.Content;
+using Android.Text;
 using Android.Views;
 using Android.Widget;
 
@@ -357,24 +358,27 @@ namespace VorratsUebersicht
             this.UpdateStatistic();
         }
 
-        private void ListAdapter_QuantityClicked(object sender, EventArgs ea)
+        private void ListAdapter_QuantityClicked(object sender, ShoppingListViewEventArgs ea)
         {
-            // TODO: Menge direkt eingeben
-            /*
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.SetTitle("Menge eingeben");
+            var shoppingListView = ea.ShoppingListView;
+
+            var quantityDialog = new AlertDialog.Builder(this);
+            quantityDialog.SetTitle("Anzahl für '" + shoppingListView.Heading + "'");
             EditText input = new EditText(this);
             input.InputType = InputTypes.NumberFlagDecimal;
-            //input.SetRawInputType(InputTypes.ClassNumber);
-            alert.SetView(input);  
-            alert.SetPositiveButton("OK", (dialog, whichButton) =>
+            input.Text = shoppingListView.ShoppingItem.Quantity.ToString();
+            quantityDialog.SetView(input);  
+            quantityDialog.SetPositiveButton("OK", (dialog, whichButton) =>
                 {
-                    string number = input.Text;
-                });
+                    if (string.IsNullOrEmpty(input.Text))
+                        input.Text = "0";
 
-            alert.SetNegativeButton("Cancel", (s, e) => {});
-            alert.Show();
-            */
+                    var neueAnzahl = Convert.ToDecimal(input.Text, CultureInfo.InvariantCulture);
+                    shoppingListView.ShoppingItem.Quantity = neueAnzahl;
+                    Database.SetShoppingItemQuantity(shoppingListView.ArticleId, neueAnzahl);
+                });
+            quantityDialog.SetNegativeButton("Cancel", (s, e) => {});
+            quantityDialog.Show();
         }
 
         public bool OnQueryTextChange(string filter)

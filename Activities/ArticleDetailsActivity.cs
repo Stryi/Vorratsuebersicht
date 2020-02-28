@@ -429,13 +429,23 @@ namespace VorratsUebersicht
             message.SetTitle("EAN Suche...");
             message.SetMessage("Artikelangaben im Internet auf OpenFoodFacts.org suchen?\n\nInternetzugriff kann zusätzliche Kosten verursachen.");
             message.SetIcon(Resource.Drawable.ic_launcher);
+
+            Switch checkBox = new Switch(this);
+            checkBox.Text = "Warnung nicht mehr zeigen";
+            checkBox.TextSize = 14;
+            checkBox.SetPadding(0, 50, 0, 0);
+            message.SetView(checkBox);
             message.SetPositiveButton("Ja", (s, e) => 
             {
                 var internetDB = new Intent(this, typeof(InternetDatabaseSearchActivity));
                 internetDB.PutExtra("EANCode", EANCode);
                 this.StartActivityForResult(internetDB, InternetDB);
 
-                ArticleDetailsActivity.showCostMessage = false;
+                if (checkBox.Checked)
+                {
+                    Settings.PutBoolean("ShowOpenFoodFactsInternetCostsMessage", false);
+                    ArticleDetailsActivity.showCostMessage = false;
+                }
             });
             message.SetNegativeButton("Nein", (s, e) => { });
             message.Create().Show();

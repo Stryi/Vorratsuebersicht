@@ -134,8 +134,7 @@ namespace VorratsUebersicht
         {
             var fileList = new List<string>();
 
-            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
-            string addPath = prefs.GetString("AdditionslDatabasePath", string.Empty);
+            string addPath = Settings.GetString("AdditionslDatabasePath", string.Empty);
             
             if (!string.IsNullOrEmpty(addPath))
             {

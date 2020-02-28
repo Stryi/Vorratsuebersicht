@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace VorratsUebersicht
 {
     using static Tools;
 
+    [DebuggerDisplay("{ShoppingItem}")]
     public class ShoppingListView : ListItemViewBase
     {
         public ShoppingListView(ShoppingItemListResult article)

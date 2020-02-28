@@ -424,7 +424,6 @@ namespace VorratsUebersicht
 
                         e.StorageItem.BestBeforeChanged = true;
                         adapter.NotifyDataSetInvalidated();
-                        // TODO: listView.InvalidateViews();
 					}, date);
 			frag.ShowsDialog = true;
 			frag.Show(FragmentManager, DatePickerFragment.TAG);

@@ -114,6 +114,8 @@ namespace VorratsUebersicht
             // Initialisierung für EAN Scanner
             ZXing.Mobile.MobileBarcodeScanner.Initialize (Application);
 
+            ArticleDetailsActivity.showCostMessage = Settings.GetBoolean("ShowOpenFoodFactsInternetCostsMessage", true);
+
             string error = this.ShowStorageInfoText();
             this.ShowDatabaseError(error);
 
@@ -275,9 +277,8 @@ namespace VorratsUebersicht
                 return;
             }
 
-            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
-            string lastRunDay = prefs.GetString("LastRunDay", string.Empty);
-            int startInfoNr   = prefs.GetInt("StartInfoNumber", 0);
+            string lastRunDay = Settings.GetString("LastRunDay", string.Empty);
+            int startInfoNr   = Settings.GetInt("StartInfoNumber", 0);
 
             DateTime lastRun = new DateTime();
             DateTime today = DateTime.Today;
@@ -322,16 +323,13 @@ namespace VorratsUebersicht
                 this.SetInfoText(message, false);
             }
 
-            var prefEditor = prefs.Edit();
-            prefEditor.PutString("LastRunDay",   today.ToString("yyyy.MM.dd"));
-            prefEditor.PutInt("StartInfoNumber", startInfoNr);
-            prefEditor.Commit();
+            Settings.PutString("LastRunDay",   today.ToString("yyyy.MM.dd"));
+            Settings.PutInt("StartInfoNumber", startInfoNr);
         }
 
         private void ShowInfoAufTestdatenbank()
         {
-            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
-            bool firstRun = prefs.GetBoolean("FirstRun", true);
+            bool firstRun = Settings.GetBoolean("FirstRun", true);
 
             if (firstRun)
             {
@@ -356,9 +354,7 @@ namespace VorratsUebersicht
                 message.Create().Show();
             }
 
-            var prefEditor = prefs.Edit();
-            prefEditor.PutBoolean("FirstRun", false);
-            prefEditor.Commit();
+            Settings.PutBoolean("FirstRun", false);
         }
 
         void ShowExceptionMessage(Exception exception)

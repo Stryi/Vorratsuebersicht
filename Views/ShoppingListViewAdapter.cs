@@ -8,10 +8,22 @@ using Android.Widget;
 
 namespace VorratsUebersicht
 {
+    public delegate void ShoppingListViewHandler(object sender, ShoppingListViewEventArgs e);
+
+    public class ShoppingListViewEventArgs : EventArgs
+    {
+        public ShoppingListView ShoppingListView;
+
+        public ShoppingListViewEventArgs(ShoppingListView view)
+        {
+            this.ShoppingListView = view;
+        }
+    }
+
     public class ShoppingListViewAdapter : BaseAdapter<ShoppingListView>
     {
         public event EventHandler CheckedChanged;
-        public event EventHandler QuantityClicked;
+        public event ShoppingListViewHandler QuantityClicked;
 
         List<ShoppingListView> items;
         Activity context;
@@ -48,6 +60,7 @@ namespace VorratsUebersicht
             TextView quantity = view.FindViewById<TextView>(Resource.Id.ShoppingItemListView_Quantity);
             quantity.Text       = item.QuantityText;
             quantity.Visibility = ViewStates.Visible;
+            quantity.Tag   =  position;
             quantity.Click -= OnQuantityClick;
             quantity.Click += OnQuantityClick;
             
@@ -80,11 +93,15 @@ namespace VorratsUebersicht
 
         private void OnQuantityClick(object sender, EventArgs e)
         {
-            
+            TextView quantityView = (TextView)sender;
+            int position = (int)quantityView.Tag;
+
+            ShoppingListView shoppingItem = this[position];
+
             if (this.QuantityClicked == null)
                 return;
 
-            this.QuantityClicked.Invoke(this, EventArgs.Empty);
+            this.QuantityClicked.Invoke(this, new ShoppingListViewEventArgs(shoppingItem));
         }
 
         private void OnImageClicked(object sender, EventArgs e)

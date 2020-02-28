@@ -12,15 +12,17 @@ Vor dem Hochladen ins Google Play Store:
 Version 4.25 (CodeVersion 67)
 ==================================
 
-C123 - Hinweis auf Zusatzkosten beim OpenFoodFacts.org Aufruf jetzt nur einmal pro App-Start.
+E009 - Umrechnung Kalorien und Menge jetzt auch bei Großbuchstaben möglich.
+C124 - Menge auf dem Einkaufszettel kann jetzt direkt eingegeben werden.
+C123 - Hinweis auf mögliche Zusatzkosten beim Zugriff auf OpenFoodFacts.org kann jetzt unterdrückt werden.
+C122 - Lagerliste: Sortier-Icon jetzt mit Kalender oder Buchstabe.
 E008 - 'Auf Einkaufszettel' Icon jetzt kleiner.
-C122 - Lagerliste: Sortier-Icon jetzt mit Datum oder Buchstabe.
 
 Version 4.24 (CodeVersion 66)
 ==================================
 
-E007 - FIX: Notizen überdecken jetzt nicht die Icons in der Artikelliste.
 C121 - Textgröße passt sich jetzt an die Systemeinstellungen an.
+E007 - FIX: Notizen überdecken jetzt nicht die Icons in der Artikelliste.
 E006 - FIX: Icon in der Artikelliste nach Lagerbestand wird jetzt aktualisiert.
 E005 - FIX: Anzahl "Abgelaufen" auf Startseite berücksichtigt nicht mehr "Unendlich Haltbar".
 
@@ -32,7 +34,7 @@ C119 - Design der Masken etwas verbessert.
 C118 - Klick auf Icon zeit jetzt gleich das Bild in Vollansicht.
 C117 - Volltextsuche erweitern um Lagerort, Kategorie und Unterkategorie.  
 
-Version 4.22 (CodeVersion 64)
+Version 4.22 (CodeVersion 64)      - Produktiv genommen am: 17.02.2020
 ==================================
 
 C116 - Wenn Anzahl oder Größe nicht 1 ist, so wird die Menge im Lagerbestandsliste berechnet angezeigt (z.B. Anzahl 3, Größe 0,5, Menge 1,6)

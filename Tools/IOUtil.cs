@@ -37,8 +37,6 @@ namespace VorratsUebersicht
                     {
                         return Android.OS.Environment.ExternalStorageDirectory + "/" + split[1];
                     }
-
-                    // TODO handle non-primary volumes
                 }
                 // DownloadsProvider
                 else if (isDownloadsDocument(uri))

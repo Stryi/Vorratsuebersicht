@@ -49,6 +49,8 @@ namespace VorratsUebersicht
 
         }
 
+        #region Shopping List
+
         internal static IList<ShoppingItemListResult> GetShoppingList(string supermarket, string textFilter = null)
         {
             List<ShoppingItemListResult> result = new List<ShoppingItemListResult>();
@@ -169,6 +171,30 @@ namespace VorratsUebersicht
             return newQuantity;
         }
 
+        internal static void SetShoppingItemQuantity(int articleId, decimal newdQuantity)
+        {
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
+            if (databaseConnection == null)
+                return;
+
+            SQLiteCommand command;
+            string cmd = string.Empty;
+
+            bool isInList = Database.IsArticleInShoppingList(articleId);
+            if (!isInList)
+            {
+                cmd = "INSERT INTO ShoppingList (ArticleId, Quantity) VALUES (?, ?)";
+                command = databaseConnection.CreateCommand(cmd, new object[] { articleId, newdQuantity });
+            }
+            else
+            {
+                cmd = "UPDATE ShoppingList SET Quantity = ? WHERE ArticleId = ?";
+                command = databaseConnection.CreateCommand(cmd, new object[] { newdQuantity, articleId });
+            }
+
+            command.ExecuteNonQuery();
+        }
+
         internal static void RemoveFromShoppingList(int articleId)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
@@ -221,6 +247,8 @@ namespace VorratsUebersicht
 
             return toBuyQuantity;
         }
+
+        #endregion
 
         internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(int articleId)
         {
