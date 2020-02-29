@@ -363,19 +363,30 @@ namespace VorratsUebersicht
             var shoppingListView = ea.ShoppingListView;
 
             var quantityDialog = new AlertDialog.Builder(this);
-            quantityDialog.SetTitle("Anzahl für '" + shoppingListView.Heading + "'");
+            quantityDialog.SetTitle(shoppingListView.Heading);
+            quantityDialog.SetMessage("Anzahl eingeben:");
             EditText input = new EditText(this);
-            input.InputType = InputTypes.NumberFlagDecimal;
-            input.Text = shoppingListView.ShoppingItem.Quantity.ToString();
-            quantityDialog.SetView(input);  
+            input.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
+
+            if (shoppingListView.ShoppingItem.Quantity > 0)
+            {
+                input.Text = shoppingListView.ShoppingItem.Quantity.ToString();
+            }
+            input.SetSelection(input.Text.Length);
+            quantityDialog.SetView(input);
             quantityDialog.SetPositiveButton("OK", (dialog, whichButton) =>
                 {
                     if (string.IsNullOrEmpty(input.Text))
                         input.Text = "0";
 
-                    var neueAnzahl = Convert.ToDecimal(input.Text, CultureInfo.InvariantCulture);
-                    shoppingListView.ShoppingItem.Quantity = neueAnzahl;
-                    Database.SetShoppingItemQuantity(shoppingListView.ArticleId, neueAnzahl);
+                    decimal neueAnzahl = 0;
+
+                    bool decialOk = Decimal.TryParse(input.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out neueAnzahl);
+                    if (decialOk)
+                    {
+                        shoppingListView.ShoppingItem.Quantity = neueAnzahl;
+                        Database.SetShoppingItemQuantity(shoppingListView.ArticleId, neueAnzahl);
+                    }
                 });
             quantityDialog.SetNegativeButton("Cancel", (s, e) => {});
             quantityDialog.Show();

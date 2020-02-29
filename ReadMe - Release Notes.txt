@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.26 (CodeVersion 68)      - Google Play Beta am 29.02.2020
+==================================
+
+E010 - Eingabe 'Anzahl' im Einkaufszettel erlaub jetzt nur Zahlen.
+
 Version 4.25 (CodeVersion 67)      - Google Play Beta am 29.02.2020
 ==================================
 

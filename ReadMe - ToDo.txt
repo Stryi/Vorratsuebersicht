@@ -1,6 +1,9 @@
 Prio 1
 ======
 
+- Inhalte als CSV exportieren (Jörg Eggebrecht und firefighter288 als Rezensionen) 
+  https://www.youtube.com/watch?v=VDAwbgHoYEA - Exporting CSV in Android - Android Studio Programming Tutorial
+
 EAN Scan
 - Besseren EAN Scanner suchen 
   Die Java Variante. Da wir noch ältere Android Versionen unterstützen so:
@@ -15,18 +18,16 @@ Artikeldetails
 - Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. und Rolf Buehler (Rezession) vorgeschlagen)
 - Texteingabe bei Kallorien als Kleinbuchstaben (Johann K.)
 	https://riptutorial.com/de/android/example/22734/-inputype-%E5%B1%9E%E6%80%A7
+- "Auf Einkaufsliste" mit Eingabe-Dialog für die Menge (nach Mindestbestand schon vorgeblendet)
 
 Einkaufsliste
 - Sortierung: Alphabetisch, Kategorie und Gekauft.
-- Menge manuell eingeben.
 
 Sonstiges
 - Push Benachrichtigung über bald zu verbrauchende Artikel einmal pro Tag
   Gewünscht von Frank (E-Mail), und von Eva (?)
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/notifications/local-notifications-walkthrough
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/services/service-notifications
-
-- Inhalte als CSV exportieren
 
 Prio 2
 ======

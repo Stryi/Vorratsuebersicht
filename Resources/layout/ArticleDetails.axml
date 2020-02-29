@@ -169,7 +169,7 @@
                 android:id="@+id/ArticleDetails_Price"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number|numberDecimal" />
+                android:inputType="numberDecimal" />
         </LinearLayout>
 
         <LinearLayout
@@ -201,6 +201,7 @@
                 android:id="@+id/ArticleDetails_Unit"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textShortMessage"
                 android:hint="@string/ArticleDetails_Unit_Hint" />
         </LinearLayout>
 

@@ -433,7 +433,7 @@ namespace VorratsUebersicht
             Switch checkBox = new Switch(this);
             checkBox.Text = "Warnung nicht mehr zeigen";
             checkBox.TextSize = 14;
-            checkBox.SetPadding(0, 50, 0, 0);
+            checkBox.SetPadding(20, 50, 20, 20);
             message.SetView(checkBox);
             message.SetPositiveButton("Ja", (s, e) => 
             {
