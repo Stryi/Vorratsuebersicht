@@ -9,8 +9,8 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
-Version 4.30 (CodeVersion 69)
-==================================
+Version 4.30 (CodeVersion 69) - Google Play Beta 09.03.2020
+=============================
 
 C125 - Lagername jetzt auch pro Lagerposition definierbar.
 
