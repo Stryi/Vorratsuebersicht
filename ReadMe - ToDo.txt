@@ -1,6 +1,13 @@
 Prio 1
 ======
 
+Lagerbestand
+- Done: Mehrere Lagerorte für einen Artikel (Stephan)
+
+Artikeldetails
+- Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. und Rolf Buehler (Rezession), Tiziano P. vorgeschlagen)
+- "Auf Einkaufsliste" mit Eingabe-Dialog für die Menge (nach Mindestbestand schon vorgeblendet)
+
 - Inhalte als CSV exportieren (Jörg Eggebrecht und firefighter288 als Rezensionen) 
   https://www.youtube.com/watch?v=VDAwbgHoYEA - Exporting CSV in Android - Android Studio Programming Tutorial
 
@@ -11,14 +18,6 @@ EAN Scan
   implementation 'com.google.zxing:core:3.3.0' 
   https://github.com/journeyapps/zxing-android-embedded 
 
-Lagerbestand
-- Mehrere Lagerorte für einen Artikel (Stephan)
-
-Artikeldetails
-- Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. und Rolf Buehler (Rezession) vorgeschlagen)
-- Texteingabe bei Kallorien als Kleinbuchstaben (Johann K.)
-	https://riptutorial.com/de/android/example/22734/-inputype-%E5%B1%9E%E6%80%A7
-- "Auf Einkaufsliste" mit Eingabe-Dialog für die Menge (nach Mindestbestand schon vorgeblendet)
 
 Einkaufsliste
 - Sortierung: Alphabetisch, Kategorie und Gekauft.
@@ -74,83 +73,27 @@ Lagerbestand
 - Lagerbewegung in einer Tabelle speichern
 
 
-
-
 Gemeldete Abstürze:
 ===================
 
-
-18. März 19:00 in der App-Version 41
-Sony Xperia XZ1 (G8341), Android 9
-Bericht 1 von 1
-android.runtime.JavaProxyThrowable: at System.IO.__Error.WinIOError (System.Int32 errorCode, System.String maybeFullPath) [0x00129] in <fe08c003e91342eb83df1ca48302ddbb>:0
-at System.IO.FileSystemEnumerableIterator`1[TSource].HandleError (System.Int32 hr, System.String path) [0x00006] in <fe08c003e91342eb83df1ca48302ddbb>:0
-at System.IO.FileSystemEnumerableIterator`1[TSource].CommonInit () [0x00054] in <fe08c003e91342eb83df1ca48302ddbb>:0
-at System.IO.FileSystemEnumerableIterator`1[TSource]..ctor (System.String path, System.String originalUserPath, System.String searchPattern, System.IO.SearchOption searchOption, System.IO.SearchResultHandler`1[TSource] resultHandler, System.Boolean checkHost) [0x000d6] in <fe08c003e91342eb83df1ca48302ddbb>:0
-at System.IO.FileSystemEnumerableFactory.CreateFileNameIterator (System.String path, System.String originalUserPath, System.String searchPattern, System.Boolean includeFiles, System.Boolean includeDirs, System.IO.SearchOption searchOption, System.Boolean checkHost) [0x00009] in <fe08c003e91342eb83df1ca48302ddbb>:0
-at System.IO.Directory.InternalGetFileDirectoryNames (System.String path, System.String userPathOriginal, System.String searchPattern, System.Boolean includeFiles, System.Boolean includeDirs, System.IO.SearchOption searchOption, System.Boolean checkHost) [0x00000] in <fe08c003e91342eb83df1ca48302ddbb>:0
-at System.IO.Directory.InternalGetFiles (System.String path, System.String searchPattern, System.IO.SearchOption searchOption) [0x00000] in <fe08c003e91342eb83df1ca48302ddbb>:0
-at System.IO.Directory.GetFiles (System.String path, System.String searchPattern) [0x0001c] in <fe08c003e91342eb83df1ca48302ddbb>:0
-at System.IO.DirectoryInfo.GetFiles (System.String searchPattern) [0x0000e] in <fe08c003e91342eb83df1ca48302ddbb>:0
-at VorratsUebersicht.SelectFileActivity.ShowFileList () [0x0000c] in <399c20d519f74e46a4196a802d43cada>:0
-at VorratsUebersicht.SelectFileActivity.OnRequestPermissionsResult (System.Int32 requestCode, System.String[] permissions, Android.Content.PM.Permission[] grantResults) [0x00001] in <399c20d519f74e46a4196a802d43cada>:0
-at Android.App.Activity.n_OnRequestPermissionsResult_IarrayLjava_lang_String_arrayI (System.IntPtr jnienv, System.IntPtr native__this, System.Int32 requestCode, System.IntPtr native_permissions, System.IntPtr native_grantResults) [0x00038] in <ad2f15102b3a4d36b40e9b0cbc11c376>:0
-at (wrapper dynamic-method) System.Object.4(intptr,intptr,int,intptr,intptr)
-  at md56c9fe683bd4750f69443fa5376e732f4.SelectFileActivity.n_onRequestPermissionsResult (Native Method)
-  at md56c9fe683bd4750f69443fa5376e732f4.SelectFileActivity.onRequestPermissionsResult (SelectFileActivity.java:39)
-  at android.app.Activity.dispatchRequestPermissionsResult (Activity.java:7608)
-  at android.app.Activity.dispatchActivityResult (Activity.java:7458)
-  at android.app.ActivityThread.deliverResults (ActivityThread.java:4375)
-  at android.app.ActivityThread.handleSendResult (ActivityThread.java:4424)
-  at android.app.servertransaction.ActivityResultItem.execute (ActivityResultItem.java:49)
-  at android.app.servertransaction.TransactionExecutor.executeCallbacks (TransactionExecutor.java:108)
-  at android.app.servertransaction.TransactionExecutor.execute (TransactionExecutor.java:68)
-  at android.app.ActivityThread$H.handleMessage (ActivityThread.java:1814)
-  at android.os.Handler.dispatchMessage (Handler.java:106)
-  at android.os.Looper.loop (Looper.java:280)
-  at android.app.ActivityThread.main (ActivityThread.java:6706)
-  at java.lang.reflect.Method.invoke (Native Method)
-  at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run (RuntimeInit.java:493)
-  at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:858)
-  
-
-1. Okt. 13:16 in der App-Version 31
-LGE LG G6 (lucye), Android 8.0
-Bericht 1 von 1
-android.runtime.JavaProxyThrowable: at System.IO.File.Delete (System.String path) [0x00078] in <f32579baafc1404fa37ba3ec1abdc0bd>:0
-at VorratsUebersicht.Android_Database.DeleteDatabase () [0x00008] in <1510bfb8da6c4598984cdc2b75c68e63>:0
-at VorratsUebersicht.SettingsActivity+<>c.<ButtonDeleteDb_Click>b__5_0 (System.Object s, Android.Content.DialogClickEventArgs ev) [0x00006] in <1510bfb8da6c4598984cdc2b75c68e63>:0
-at Android.Content.IDialogInterfaceOnClickListenerImplementor.OnClick (Android.Content.IDialogInterface dialog, System.Int32 which) [0x00012] in <263adecfa58f4c449f1ff56156d886fd>:0
-at Android.Content.IDialogInterfaceOnClickListenerInvoker.n_OnClick_Landroid_content_DialogInterface_I (System.IntPtr jnienv, System.IntPtr native__this, System.IntPtr native_dialog, System.Int32 which) [0x0000f] in <263adecfa58f4c449f1ff56156d886fd>:0
-at (wrapper dynamic-method) System.Object.b89e0aed-5b9f-4cb1-b2df-da0c2d713d76(intptr,intptr,intptr,int)
-  at mono.android.content.DialogInterface_OnClickListenerImplementor.n_onClick (Native Method)
-  at mono.android.content.DialogInterface_OnClickListenerImplementor.onClick (DialogInterface_OnClickListenerImplementor.java:30)
-  at com.android.internal.app.AlertController$ButtonHandler.handleMessage (AlertController.java:166)
-  at android.os.Handler.dispatchMessage (Handler.java:105)
-  at android.os.Looper.loop (Looper.java:164)
-  at android.app.ActivityThread.main (ActivityThread.java:6710)
-  at java.lang.reflect.Method.invoke (Native Method)
-  at com.android.internal.os.Zygote$MethodAndArgsCaller.run (Zygote.java:240)
-  at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:770)
-
-  
-3. Okt. 19:02 in der App-Version 31
-Huawei Honor 5X (HNKIW-Q), Android 5.1
-Bericht 1 von 1
-android.runtime.JavaProxyThrowable: at VorratsUebersicht.StorageItemQuantityActivity.OnPrepareOptionsMenu (Android.Views.IMenu menu) [0x00049] in <1510bfb8da6c4598984cdc2b75c68e63>:0
-at Android.App.Activity.n_OnPrepareOptionsMenu_Landroid_view_Menu_ (System.IntPtr jnienv, System.IntPtr native__this, System.IntPtr native_menu) [0x0000f] in <263adecfa58f4c449f1ff56156d886fd>:0
-at (wrapper dynamic-method) System.Object.4d48c13c-d765-44ad-bef6-031a8ded5cfc(intptr,intptr,intptr)
-  at md56c9fe683bd4750f69443fa5376e732f4.StorageItemQuantityActivity.n_onPrepareOptionsMenu (Native Method)
-  at md56c9fe683bd4750f69443fa5376e732f4.StorageItemQuantityActivity.onPrepareOptionsMenu (StorageItemQuantityActivity.java:50)
-  at android.app.Activity.onPreparePanel (Activity.java:2932)
-  at com.android.internal.policy.impl.PhoneWindow.preparePanel (PhoneWindow.java:579)
-  at com.android.internal.policy.impl.PhoneWindow.doInvalidatePanelMenu (PhoneWindow.java:927)
-  at com.android.internal.policy.impl.PhoneWindow$1.run (PhoneWindow.java:261)
-  at android.os.Handler.handleCallback (Handler.java:739)
-  at android.os.Handler.dispatchMessage (Handler.java:95)
-  at android.os.Looper.loop (Looper.java:135)
-  at android.app.ActivityThread.main (ActivityThread.java:5669)
-  at java.lang.reflect.Method.invoke (Native Method)
-  at java.lang.reflect.Method.invoke (Method.java:372)
-  at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run (ZygoteInit.java:960)
-  at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:755)
+Huawei HUAWEI P30 lite (HWMAR), 3840MB RAM, Android 9
+Bericht 1
+android.runtime.JavaProxyThrowable: at VorratsUebersicht.StorageItemQuantityActivity.ShowPictureAndDetails (System.Int32 articleId, System.String title) [0x00098] in <ab43b9b3430149ab83a338ec4cdd50b2>:0
+at VorratsUebersicht.StorageItemQuantityActivity.OnActivityResult (System.Int32 requestCode, Android.App.Result resultCode, Android.Content.Intent data) [0x0002b] in <ab43b9b3430149ab83a338ec4cdd50b2>:0
+at Android.App.Activity.n_OnActivityResult_IILandroid_content_Intent_ (System.IntPtr jnienv, System.IntPtr native__this, System.Int32 requestCode, System.Int32 native_resultCode, System.IntPtr native_data) [0x00014] in <b781ed64f1d743e7881ac038e0fbdf85>:0
+at (wrapper dynamic-method) System.Object.7(intptr,intptr,int,int,intptr)
+at md56c9fe683bd4750f69443fa5376e732f4.StorageItemQuantityActivity.n_onActivityResult (Native Method)
+at md56c9fe683bd4750f69443fa5376e732f4.StorageItemQuantityActivity.onActivityResult (StorageItemQuantityActivity.java:66)
+at android.app.Activity.dispatchActivityResult (Activity.java:7797)
+at android.app.ActivityThread.deliverResults (ActivityThread.java:5071)
+at android.app.ActivityThread.handleSendResult (ActivityThread.java:5120)
+at android.app.servertransaction.ActivityResultItem.execute (ActivityResultItem.java:49)
+at android.app.servertransaction.TransactionExecutor.executeCallbacks (TransactionExecutor.java:108)
+at android.app.servertransaction.TransactionExecutor.execute (TransactionExecutor.java:68)
+at android.app.ActivityThread$H.handleMessage (ActivityThread.java:2199)
+at android.os.Handler.dispatchMessage (Handler.java:112)
+at android.os.Looper.loop (Looper.java:216)
+at android.app.ActivityThread.main (ActivityThread.java:7625)
+at java.lang.reflect.Method.invoke (Native Method)
+at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run (RuntimeInit.java:524)
+at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:987)  

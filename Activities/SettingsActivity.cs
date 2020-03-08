@@ -91,6 +91,10 @@ namespace VorratsUebersicht
             Button buttonRestore = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
             buttonRestore.Click += ButtonRestore_Click;
 
+            // TODO: CSV Export funktioniert noch nicht
+            Button buttonCsvExport =FindViewById<Button>(Resource.Id.SettingsButton_CsvExport);
+            buttonCsvExport.Click += ButtonCsvExport_Click;
+
             this.ShowUserDefinedCategories();
 
             EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
@@ -480,6 +484,11 @@ namespace VorratsUebersicht
             })).Start();
 
             return;
+        }
+
+        private void ButtonCsvExport_Click(object sender, EventArgs e)
+        {
+            CsvExport.Share(this.ApplicationContext);
         }
 
         private void EnableButtons()

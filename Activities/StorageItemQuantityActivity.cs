@@ -31,6 +31,7 @@ namespace VorratsUebersicht
         bool isChanged = false;
         bool isEditMode = false;
         bool noArticleDetails = false;
+        List<string> Storages;
 
         Toast toast;
 
@@ -64,6 +65,19 @@ namespace VorratsUebersicht
             this.ShowPictureAndDetails(this.articleId, this.text);
             this.ShowStorageListForArticle(this.articleId);
 
+            // Lagerort Eingabe
+            this.Storages = Database.GetStorageNames();
+
+            var storage = FindViewById<MultiAutoCompleteTextView>(Resource.Id.StorageItemQuantity_StorageText);
+            storage.FocusChange += MultiAutoCompleteTextView_FocusChange;
+            storage.Text = StorageItemQuantityActivity.article.StorageName;
+
+            ArrayAdapter<String> storageAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, this.Storages);
+            storage.Adapter = storageAdapter;
+            storage.Threshold = 1;
+            storage.SetTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+            storage.SetTokenizer(new SpaceTokenizer());
+
             ImageView image = FindViewById<ImageView>(Resource.Id.StorageItemQuantity_Image);
             image.Click += delegate 
             {
@@ -84,14 +98,17 @@ namespace VorratsUebersicht
             Button stepButton = FindViewById<Button>(Resource.Id.StorageItemQuantity_StepButton);
             stepButton.Click += StepButton_Click;
 
-            ImageButton addRemove = FindViewById<ImageButton>(Resource.Id.StorageItemQuantity_AddArticle);
-            addRemove.Click += delegate 
+            ImageButton addArticle = FindViewById<ImageButton>(Resource.Id.StorageItemQuantity_AddArticle);
+            addArticle.Click += delegate 
             {
+                var storageName = FindViewById<EditText>(Resource.Id.StorageItemQuantity_StorageText).Text;
+
                 StorageItemQuantityResult storageItemQuantity = new StorageItemQuantityResult();
 				storageItemQuantity.ArticleId    = this.articleId;
                 storageItemQuantity.Quantity     = 1;
                 storageItemQuantity.QuantityDiff = 1;
-                storageItemQuantity.BestBefore    = DateTime.Today;
+                storageItemQuantity.BestBefore   = DateTime.Today;
+                storageItemQuantity.StorageName  = storageName;
 
                 StorageItemQuantityListView itemView = new StorageItemQuantityListView(storageItemQuantity);
 
@@ -231,12 +248,14 @@ namespace VorratsUebersicht
 
 			if (editMode)
             {
-                FindViewById(Resource.Id.StorageItemQuantity).Visibility = ViewStates.Visible;
+                FindViewById(Resource.Id.StorageItemQuantity_Storage).Visibility = ViewStates.Visible;
+                FindViewById(Resource.Id.StorageItemQuantity_Step).Visibility = ViewStates.Visible;
                 adapter.ActivateButtons();
             }
             else
             {
-                FindViewById(Resource.Id.StorageItemQuantity).Visibility = ViewStates.Gone;
+                FindViewById(Resource.Id.StorageItemQuantity_Storage).Visibility = ViewStates.Gone;
+                FindViewById(Resource.Id.StorageItemQuantity_Step).Visibility = ViewStates.Gone;
                 adapter.DeactivateButtons();
             }
 
@@ -363,6 +382,13 @@ namespace VorratsUebersicht
             headerView.Text = articleView.Heading;
             detailView.Text = articleView.SubHeading;
 
+            this.ShowPicture(detailView, imageView);
+        }
+
+        // Zusätzlich in eine Methode ausgelager,
+        // damit der Absturz besser untersucht werden kann.
+        private void ShowPicture(TextView detailView, ImageView imageView)
+        {
             if (StorageItemQuantityActivity.articleImage?.ImageSmall != null)
             {
                 try
@@ -438,6 +464,15 @@ namespace VorratsUebersicht
             articleDetails.PutExtra("ArticleId", this.articleId);
             articleDetails.PutExtra("NoStorageQuantity", true);
             this.StartActivityForResult(articleDetails, ArticleDetailId);
+        }
+
+        private void MultiAutoCompleteTextView_FocusChange(object sender, View.FocusChangeEventArgs e)
+        {
+            if (!e.HasFocus)
+                return;
+
+            var manufacturer = sender as MultiAutoCompleteTextView;
+            manufacturer?.ShowDropDown();
         }
     }
 }

@@ -12,5 +12,6 @@ namespace VorratsUebersicht
         public int ArticleId {get; set;}
         public decimal Quantity {get; set; }
         public string BestBefore {get; set;}
+        public string StorageName {get; set;}        
     }
 }

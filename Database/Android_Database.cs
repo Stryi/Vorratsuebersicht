@@ -459,6 +459,11 @@ namespace VorratsUebersicht
                 conn.Execute("ALTER TABLE ShoppingList ADD COLUMN [Bought] BOOLEAN");
             }
 
+            // Update 4.30
+            if (!this.IsFieldInTheTable(conn, "StorageItem", "StorageName"))
+            {
+                conn.Execute("ALTER TABLE StorageItem ADD COLUMN [StorageName] TEXT");
+            }
         }
 
         public IList<ArticleData> GetArticlesToCopyImages(SQLite.SQLiteConnection databaseConnection)

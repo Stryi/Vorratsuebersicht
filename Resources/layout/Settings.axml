@@ -92,6 +92,18 @@
           android:textAllCaps="false"
           android:gravity="left|center_vertical"
           android:drawablePadding="10dp" />
+
+      <Button
+          android:id="@+id/SettingsButton_CsvExport"
+          android:text="CSV Export Artikelstamm"
+          android:textSize="15sp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAllCaps="false"
+          android:gravity="left|center_vertical"
+          android:visibility="gone"
+          android:drawablePadding="10dp" />
+
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

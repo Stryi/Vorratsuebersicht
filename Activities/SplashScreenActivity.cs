@@ -54,6 +54,13 @@ namespace VorratsUebersicht
 
                 text += "\n\nBitte ggf. den Eintrag 'Zusätzlicher Datenbankpfad' in den Einstellungen prüfen.";
 
+                Toast.MakeText(this, text, ToastLength.Long).Show();
+
+                this.ConvertAndStartMainScreen();
+                
+                /*
+                 * Die Meldung kam bei Neuinstallation und könnte den Benutzer verwirren.
+                 * 
                 var message = new AlertDialog.Builder(this);
                 message.SetMessage(text);
                 message.SetIcon(Resource.Drawable.ic_launcher);
@@ -62,7 +69,7 @@ namespace VorratsUebersicht
                     this.ConvertAndStartMainScreen();
                 });
                 message.Create().Show();
-
+                */
                 return false;
             }
 

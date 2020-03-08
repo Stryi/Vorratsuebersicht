@@ -22,6 +22,16 @@ namespace VorratsUebersicht
              get { return string.Format("{0} {1}", MainActivity.Strings_Amount, this.StorageItem.Quantity); }
         }
 
+        public string LagerText
+        {
+             get 
+             {
+                if (string.IsNullOrEmpty(this.StorageItem.StorageName))
+                    return string.Empty;
+
+                return string.Format("Lager: {0}", this.StorageItem.StorageName); }
+        }
+
         public string BestBeforeText
         {
             get

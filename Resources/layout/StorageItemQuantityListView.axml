@@ -2,29 +2,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/Application_Background"
-    android:padding="0dp">
+    android:background="@color/Application_Background" >
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"                
+        android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/StorageItemQuantityList_Add">            
         <TextView
             android:id="@+id/StorageItemQuantityList_Quantity"
+            android:text="Überschrift"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color"
             android:textSize="18sp"
-            android:layout_alignParentLeft="true"
-            android:text="Überschrift" />
+            android:layout_alignParentLeft="true" />
         <TextView
             android:id="@+id/StorageItemQuantityList_Date"
+            android:text="Datum"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_below="@+id/StorageItemQuantityList_Text"
-            android:text="" />
+            android:textColor="@color/Text_Color"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/StorageItemQuantityList_Storage"
+            android:text="Lager"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Text_Color2"
+            android:visibility="visible"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <ImageButton
@@ -35,8 +42,7 @@
         android:visibility="visible"
         android:focusable="false"
         android:src="@drawable/baseline_add_circle_outline_black_36" 
-        android:background="?android:selectableItemBackground"
-    />
+        android:background="?android:selectableItemBackground" />
 
     <ImageButton
         android:id="@+id/StorageItemQuantityList_Remove"
@@ -46,6 +52,5 @@
         android:visibility="visible"
         android:focusable="false"
         android:src="@drawable/baseline_remove_circle_outline_black_36"
-        android:background="?android:selectableItemBackground"
-    />
+        android:background="?android:selectableItemBackground" />
 </RelativeLayout>

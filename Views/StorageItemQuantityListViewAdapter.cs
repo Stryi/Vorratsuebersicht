@@ -77,9 +77,18 @@ namespace VorratsUebersicht
             datum.Click -= OnDatumChange;
             datum.Click += OnDatumChange;
 
+            TextView lager = view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Storage);
+            lager.Tag = position;
+
             anzahl.Text = item.AnzahlText;
             datum.Text  = item.BestBeforeText;
+            lager.Text  = item.LagerText;
 
+            if (string.IsNullOrEmpty(lager.Text))
+                lager.Visibility = ViewStates.Gone;
+            else
+                lager.Visibility = ViewStates.Visible;
+            
             // TODO: Die Farbe aus der Resource oder auch inzwischen aus de Konfiguration auslesen.
             if (item.WarningLevel > 0)
                 datum.SetTextColor(item.WarningColor);
@@ -93,8 +102,8 @@ namespace VorratsUebersicht
             }
             else
             {
-                buttonRemove.Visibility = ViewStates.Invisible;
-                buttonAdd   .Visibility = ViewStates.Invisible;
+                buttonRemove.Visibility = ViewStates.Gone;
+                buttonAdd   .Visibility = ViewStates.Gone;
             }
             return view;
         }

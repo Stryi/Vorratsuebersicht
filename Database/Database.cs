@@ -28,8 +28,15 @@ namespace VorratsUebersicht
                     return;
                 }
 
-                cmd += "INSERT INTO StorageItem (StorageId, ArticleId, Quantity, BestBefore) VALUES (?, ?, ?, ?)";
-                command = databaseConnection.CreateCommand(cmd, new object[] { defaultStorageId, storageItem.ArticleId, storageItem.Quantity, storageItem.BestBefore});
+                cmd += "INSERT INTO StorageItem (StorageId, ArticleId, Quantity, BestBefore, StorageName) VALUES (?, ?, ?, ?, ?)";
+                command = databaseConnection.CreateCommand(cmd, new object[] 
+                {
+                    defaultStorageId,
+                    storageItem.ArticleId,
+                    storageItem.Quantity,
+                    storageItem.BestBefore,
+                    storageItem.StorageName
+                });
             }
             else
             {
@@ -40,8 +47,14 @@ namespace VorratsUebersicht
                 }
                 else
                 {
-                    cmd += "UPDATE StorageItem SET Quantity = ?, BestBefore = ? WHERE StorageItemId = ?";
-                    command = databaseConnection.CreateCommand(cmd, new object[] { storageItem.Quantity, storageItem.BestBefore, storageItem.StorageItemId});
+                    cmd += "UPDATE StorageItem SET Quantity = ?, BestBefore = ?, StorageName = ? WHERE StorageItemId = ?";
+                    command = databaseConnection.CreateCommand(cmd, new object[]
+                    {
+                        storageItem.Quantity,
+                        storageItem.BestBefore,
+                        storageItem.StorageName,
+                        storageItem.StorageItemId
+                    });
                 }
             }
 
@@ -427,9 +440,12 @@ namespace VorratsUebersicht
             string cmd = string.Empty;
             cmd += "SELECT DISTINCT StorageName AS Value";
             cmd += " FROM Article";
-            cmd += " WHERE StorageName IS NOT NULL";
-            cmd += " AND StorageName <> ''";
-            cmd += " ORDER BY StorageName";
+            cmd += " WHERE StorageName IS NOT NULL AND StorageName <> ''";
+            cmd += " UNION";
+            cmd += " SELECT StorageName AS Value";
+            cmd += " FROM StorageItem";
+            cmd += " WHERE StorageName IS NOT NULL AND StorageName <> ''";
+            cmd += " ORDER BY 1";
 
             SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
 
@@ -805,7 +821,7 @@ namespace VorratsUebersicht
                 return result;
 
             string cmd = string.Empty;
-            cmd += "SELECT Article.ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity, PrefQuantity, Price, Calorie, StorageName, ";
+            cmd += "SELECT Article.ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity, PrefQuantity, Price, Calorie, Article.StorageName, ";
             cmd += " (SELECT SUM(Quantity) FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId) AS Quantity,";
             cmd += " IFNULL((SELECT BestBefore FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId AND BestBefore IS NOT NULL ORDER BY BestBefore ASC LIMIT 1), '9999.12.31') AS BestBefore,";
             cmd += " ShoppingList.Quantity AS ShoppingListQuantity";
