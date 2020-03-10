@@ -1,15 +1,13 @@
 Prio 1
 ======
 
-Lagerbestand
-- Done: Mehrere Lagerorte für einen Artikel (Stephan)
-
 Artikeldetails
 - Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. und Rolf Buehler (Rezession), Tiziano P. vorgeschlagen)
 - "Auf Einkaufsliste" mit Eingabe-Dialog für die Menge (nach Mindestbestand schon vorgeblendet)
 
-- Inhalte als CSV exportieren (Jörg Eggebrecht und firefighter288 als Rezensionen) 
+- Gemacht: Inhalte als CSV exportieren (Jörg Eggebrecht und firefighter288 als Rezensionen) 
   https://www.youtube.com/watch?v=VDAwbgHoYEA - Exporting CSV in Android - Android Studio Programming Tutorial
+  https://github.com/techtribeyt/androidcsv/tree/master
 
 EAN Scan
 - Besseren EAN Scanner suchen 

@@ -71,3 +71,8 @@ Probleme:
     Erneut alles neu Übersetzen.
     App auf dem Device (Emulator) deinstallieren.
 
+5. Couldn't connect debugger. You can see more details in Xamarin Diagnostic output and the full exception on logs.
+
+    App deinstallieren und vom Google Play Store installieren
+
+

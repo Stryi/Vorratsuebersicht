@@ -21,6 +21,7 @@ namespace VorratsUebersicht
         public int WarnInDays {get; set;}
         public decimal Size {get; set; }
         public string Unit {get; set;}
+        public string ArticleStorageName {get; set;}
         public decimal Quantity {get; set;}
         public int Calorie {get; set;}
         public DateTime? BestBefore {get; set;}

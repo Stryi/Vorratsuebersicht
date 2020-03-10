@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="5dp">
@@ -9,9 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        android:paddingTop="0dp"
         android:paddingLeft="5dp">
-      <TextView
+        <TextView
           android:id="@+id/SettingsButton_DatabasePath"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -31,175 +29,195 @@
       <Button
           android:id="@+id/SettingsButton_Compress"
           android:text="@string/Settings_DatenbankKomprimieren"
-          android:textSize="15sp"
+          android:textSize="16dp"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:textAllCaps="false"
           android:gravity="left|center_vertical"
           android:drawablePadding="10dp" />
-      <Button
-          android:id="@+id/SettingsButton_Repair"
-          android:text="@string/Settings_DatenbankReparieren"
-          android:textSize="15sp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAllCaps="false"
-          android:gravity="left|center_vertical"
-          android:drawablePadding="10dp" />
-      <TextView
-          android:id="@+id/Settings_Categories_Text"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingTop="10dp"
-          android:text="Zusätzliche Kategorien (mit Komma getrennt definieren)" />
-      <EditText
+        <Button
+            android:id="@+id/SettingsButton_Repair"
+            android:text="@string/Settings_DatenbankReparieren"
+            android:textSize="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical"
+            android:drawablePadding="10dp" />
+        <TextView
+            android:id="@+id/Settings_Categories_Text"
+            android:text="Zusätzliche Kategorien (mit Komma getrennt definieren)" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp" />
+        <EditText
             android:id="@+id/Settings_Categories"
             android:inputType="textMultiLine"
             android:gravity="top|left"
             android:scrollbars="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingTop="10dp"
-          android:text="Backup und Restore (auf eigene Verantwortung)" />
-      <ProgressBar
-          android:id="@+id/ProgressBar_BackupAndRestore"
-          style="?android:attr/progressBarStyleHorizontal"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:indeterminate="true"
-          android:max="100"
-          android:layout_marginTop="-5dp"
-          android:layout_marginBottom="-5dp"
-          android:visibility="invisible"/>
-      <Button
-          android:id="@+id/SettingsButton_Backup"
-          android:text="@string/Settings_CreateBackup"
-          android:textSize="15sp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAllCaps="false"
-          android:gravity="left|center_vertical"
-          android:drawablePadding="10dp" />
-      <Button
-          android:id="@+id/SettingsButton_Restore"
-          android:text="@string/Settings_RestoreBackup"
-          android:textSize="15sp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAllCaps="false"
-          android:gravity="left|center_vertical"
-          android:drawablePadding="10dp" />
+        <TextView
+            android:text="Backup und Restore (auf eigene Verantwortung)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp" />
+        <ProgressBar
+            android:id="@+id/ProgressBar_BackupAndRestore"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:max="100"
+            android:layout_marginTop="-5dp"
+            android:layout_marginBottom="-5dp"
+            android:visibility="invisible"/>
+        <Button
+            android:id="@+id/SettingsButton_Backup"
+            android:text="@string/Settings_CreateBackup"
+            android:textSize="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical"
+            android:drawablePadding="10dp" />
+        <Button
+            android:id="@+id/SettingsButton_Restore"
+            android:text="@string/Settings_RestoreBackup"
+            android:textSize="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical"
+            android:drawablePadding="10dp" />
 
-      <Button
-          android:id="@+id/SettingsButton_CsvExport"
-          android:text="CSV Export Artikelstamm"
-          android:textSize="15sp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAllCaps="false"
-          android:gravity="left|center_vertical"
-          android:visibility="gone"
-          android:drawablePadding="10dp" />
+        <TextView
+            android:text="Zum Kennenlernen oder Testen neuer Funktionalität"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp" />
+        <Switch
+            android:id="@+id/SettingsButton_SwitchToTestDB"
+            android:text="@string/Settings_TestDatenbank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:drawablePadding="20dp" />
+        <ProgressBar
+            android:id="@+id/ProgressBar_RestoreSampleDb"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:max="100"
+            android:layout_marginTop="-5dp"
+            android:layout_marginBottom="-5dp"
+            android:visibility="invisible"/>
+        <Button
+            android:id="@+id/SettingsButton_RestoreSampleDb"
+            android:text="@string/Settings_TestDatenbankZuruecksetzen"
+            android:textSize="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical"
+            android:drawablePadding="10dp" />
+        <Button
+            android:id="@+id/SettingsButton_RestoreDb0"
+            android:text="@string/Settings_TestDatenbankLeeren"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical"
+            android:drawablePadding="10dp" />
 
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingTop="10dp"
-          android:text="Zum Kennenlernen oder Testen neuer Funktionalität" />
-      <Switch
-          android:id="@+id/SettingsButton_SwitchToTestDB"
-          android:text="@string/Settings_TestDatenbank"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:gravity="left|center_vertical"
-          android:paddingTop="0dp"
-          android:drawablePadding="20dp" />
-      <ProgressBar
-          android:id="@+id/ProgressBar_RestoreSampleDb"
-          style="?android:attr/progressBarStyleHorizontal"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:indeterminate="true"
-          android:max="100"
-          android:layout_marginTop="-5dp"
-          android:layout_marginBottom="-5dp"
-          android:visibility="invisible"/>
-      <Button
-          android:id="@+id/SettingsButton_RestoreSampleDb"
-          android:text="@string/Settings_TestDatenbankZuruecksetzen"
-          android:textSize="15sp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAllCaps="false"
-          android:gravity="left|center_vertical"
-          android:drawablePadding="10dp" />
-      <Button
-          android:id="@+id/SettingsButton_RestoreDb0"
-          android:text="@string/Settings_TestDatenbankLeeren"
-          android:textSize="15sp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAllCaps="false"
-          android:gravity="left|center_vertical"
-          android:drawablePadding="10dp" />
-      <Switch
-          android:id="@+id/SettingsButton_SwitchToAppDb"
-          android:text="Benutze Applikationsverzeichnis statt SD-Karte"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:gravity="left|center_vertical"
-          android:paddingTop="10dp"
-          android:drawablePadding="20dp" />
+        <TextView
+            android:text="CSV Export (Beta)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:scrollbars="vertical">
+            <Button
+                android:id="@+id/SettingsButton_CsvExportArticles"
+                android:text="Artikelstamm"
+                android:textSize="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:gravity="left|center_vertical"
+                android:drawablePadding="10dp" />
+            <Button
+                android:id="@+id/SettingsButton_CsvExportStorageItems"
+                android:text="Lagerbestand"
+                android:textSize="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:gravity="left|center_vertical"
+                android:drawablePadding="10dp" />
+        </LinearLayout>
 
-      <Switch
-          android:id="@+id/SettingsButton_ShowOFFCostMessage"
-          android:text="Kostenhinweis bei OpenFoodFacts.org anzeigen"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:gravity="left|center_vertical"
-          android:paddingTop="10dp"
-          android:drawablePadding="20dp" />
+        <Switch
+            android:id="@+id/SettingsButton_SwitchToAppDb"
+            android:text="Benutze Applikationsverzeichnis statt SD-Karte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:paddingTop="10dp"
+            android:drawablePadding="20dp" />
 
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingTop="10dp"
-          android:text="Zusätzlicher Datenbankpfad:" />
-      <EditText
-          android:id="@+id/SettingsButton_AdditionalDatabasePath"
-          android:text=""
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAllCaps="false"
-          android:gravity="left|center_vertical"
-          android:textSize="15sp" />
+        <Switch
+            android:id="@+id/SettingsButton_ShowOFFCostMessage"
+            android:text="Kostenhinweis bei OpenFoodFacts.org anzeigen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:paddingTop="10dp"
+            android:drawablePadding="20dp" />
 
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingTop="10dp"
-          android:text="Lizenzbedingungen" />
-      <Button
-          android:id="@+id/SettingsButton_Licenses"
-          android:text="@string/Settings_OpenSourceLizenzen"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAllCaps="false"
-          android:gravity="left|center_vertical"
-          android:textSize="15sp" />
-      <TextView
-          android:id="@+id/SettingsButton_Version"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textSize="15sp" />
-      <TextView
-          android:id="@+id/SettingsButton_Kontakt"
-          android:text="Kontakt E-Mail: cstryi@freenet.de"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textSize="15sp" />
+        <TextView
+            android:text="Zusätzlicher Datenbankpfad:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp" />
+        <EditText
+            android:id="@+id/SettingsButton_AdditionalDatabasePath"
+            android:text=""
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical"
+            android:textSize="15dp" />
+
+        <TextView
+            android:text="Lizenzbedingungen" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp" />
+        <Button
+            android:id="@+id/SettingsButton_Licenses"
+            android:text="@string/Settings_OpenSourceLizenzen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical"
+            android:textSize="16dp" />
+        <TextView
+            android:id="@+id/SettingsButton_Version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp" />
+        <TextView
+            android:id="@+id/SettingsButton_Kontakt"
+            android:text="Kontakt E-Mail: cstryi@freenet.de"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp" />
     </LinearLayout>
 </ScrollView>

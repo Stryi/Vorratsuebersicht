@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
           package="de.stryi.Vorratsuebersicht"
           android:installLocation="auto"
-          android:versionCode="69"
-          android:versionName="4.30">
+          android:versionCode="70"
+          android:versionName="4.31">
 	<uses-sdk android:minSdkVersion="10" android:targetSdkVersion="28" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,7 +14,7 @@
     android:label="Vorratsübersicht"
     android:icon="@drawable/ic_launcher">
 
-    <!-- provider
+    <provider
       android:name="android.support.v4.content.FileProvider"
       android:authorities="de.stryi.exportcsv.fileprovider"
       android:grantUriPermissions="true"
@@ -22,7 +22,7 @@
       <meta-data
           android:name="android.support.FILE_PROVIDER_PATHS"
           android:resource="@xml/provider_paths"/>
-    </provider -->
+    </provider>
     
   </application>
   

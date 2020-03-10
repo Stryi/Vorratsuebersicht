@@ -29,14 +29,14 @@
 
   <!-- Maske Optionen -->
   <string name="Settings_Title">Einstellungen</string>
-  <string name="Settings_TestDatenbank">Test Datenbank</string>
+  <string name="Settings_TestDatenbank">Test Datenbank aktivieren</string>
   <string name="Settings_Datenbank">Datenbank: {0}\r\nGröße: {1} ({2:n0} Bytes)</string>
   <string name="Settings_TestDatenbankZuruecksetzen">Test Datenbank zurücksetzen</string>
   <string name="Settings_TestDatenbankLeeren">Test Datenbank leeren</string>
   <string name="Settings_DatenbankKomprimieren">Datenbank komprimieren</string>
-  <string name="Settings_DatenbankReparieren">Datenbank reparieren/checken (Beta)</string>
-  <string name="Settings_CreateBackup">Backup erstellen (Beta)</string>
-  <string name="Settings_RestoreBackup">Backup zurückspielen (Beta)</string>
+  <string name="Settings_DatenbankReparieren">Datenbank reparieren/checken</string>
+  <string name="Settings_CreateBackup">Backup erstellen</string>
+  <string name="Settings_RestoreBackup">Backup zurückspielen</string>
   <string name="Settings_OpenSourceLizenzen">Open-Source-Lizenzen</string>
 
   <!-- Artikelliste -->

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading;
 
 using Android.App;
@@ -9,13 +10,9 @@ using Android.Widget;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Runtime;
-using Android.Provider;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace VorratsUebersicht
 {
-    using static Tools;
 
     [Activity(Label = "@string/Settings_Title")]
     public class SettingsActivity : Activity
@@ -91,9 +88,11 @@ namespace VorratsUebersicht
             Button buttonRestore = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
             buttonRestore.Click += ButtonRestore_Click;
 
-            // TODO: CSV Export funktioniert noch nicht
-            Button buttonCsvExport =FindViewById<Button>(Resource.Id.SettingsButton_CsvExport);
-            buttonCsvExport.Click += ButtonCsvExport_Click;
+            Button buttonCsvExportArticles = FindViewById<Button>(Resource.Id.SettingsButton_CsvExportArticles);
+            buttonCsvExportArticles.Click += delegate { CsvExport.ExportArticles(this); };
+
+            Button buttonCsvExportStorageItems = FindViewById<Button>(Resource.Id.SettingsButton_CsvExportStorageItems);
+            buttonCsvExportStorageItems.Click += delegate { CsvExport.ExportStorageItems(this); };
 
             this.ShowUserDefinedCategories();
 
@@ -484,11 +483,6 @@ namespace VorratsUebersicht
             })).Start();
 
             return;
-        }
-
-        private void ButtonCsvExport_Click(object sender, EventArgs e)
-        {
-            CsvExport.Share(this.ApplicationContext);
         }
 
         private void EnableButtons()
