@@ -11,9 +11,9 @@
 
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">Sie starten die Anwendung zum ersten Mal.\n\nZum Kennenlernen der Anwendung kann eine Testdatenbank aktiviert werden. Diese können Sie unter Optionen wieder deaktivieren.</string>
-  <string name="Start_TestVersionInfo1">Neu: \'Zu zahlen\' in der Statuszeile vom Einkaufszettel</string>
-  <string name="Start_TestVersionInfo2">Schon gemerkt? Nein? Dann lange auf einen Eintrag in der Artikel- oder Lagerliste drücken.</string>
-  <string name="Start_TestVersionInfo3">Datum im Lagerbestand kann jetzt geändert werden.</string>
+  <string name="Start_TestVersionInfo1">Alle Angaben im Lager können jetzt geändert werden.</string>
+  <string name="Start_TestVersionInfo2">CSV Export für Artikel und Lagerbestand jetzt in Einstellungen möglich.</string>
+  <string name="Start_TestVersionInfo3">Bitte Backup machen nicht vergessen!!!</string>
   <string name="Start_TestVersionInfo4"></string>
 
   <!-- Hauptmaske -->

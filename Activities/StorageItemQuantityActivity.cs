@@ -1,7 +1,9 @@
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 
 using Android.App;
+using Android.Text;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
@@ -13,7 +15,6 @@ using Android.Support.V4.Content;
 
 namespace VorratsUebersicht
 {
-    using static Tools;
     using static VorratsUebersicht.StorageItemQuantityListViewAdapter;
 
     [Activity(Label = "Artikelbestand", Icon = "@drawable/ic_assignment_white_48dp", ScreenOrientation = ScreenOrientation.Portrait)]
@@ -106,9 +107,9 @@ namespace VorratsUebersicht
                 StorageItemQuantityResult storageItemQuantity = new StorageItemQuantityResult();
 				storageItemQuantity.ArticleId    = this.articleId;
                 storageItemQuantity.Quantity     = 1;
-                storageItemQuantity.QuantityDiff = 1;
                 storageItemQuantity.BestBefore   = DateTime.Today;
                 storageItemQuantity.StorageName  = storageName;
+                storageItemQuantity.IsChanged    = true;
 
                 StorageItemQuantityListView itemView = new StorageItemQuantityListView(storageItemQuantity);
 
@@ -209,7 +210,7 @@ namespace VorratsUebersicht
 
                 case Resource.Id.StorageItemQuantity_Save:
 					this.isChanged = true;
-                    this.SaveNewQuantity();
+                    this.SaveChanges();
 					this.SetEditMode(false);
                     this.AddToShoppingList();
                     break;
@@ -334,16 +335,14 @@ namespace VorratsUebersicht
             StorageItemQuantityActivity.Reload();
         }
 
-        private void SaveNewQuantity()
+        private void SaveChanges()
         {
             foreach(StorageItemQuantityListView item in StorageItemQuantityActivity.liste)
             {
-                if ((item.StorageItem.QuantityDiff != 0) || (item.StorageItem.BestBeforeChanged))
+                if ((item.StorageItem.IsChanged))
                 {
                     Database.UpdateStorageItemQuantity(item.StorageItem);
-
-                    item.StorageItem.QuantityDiff = 0;  // Änderung gespeichert.
-                    item.StorageItem.BestBeforeChanged = false;  // Änderung gespeichert.
+                    item.StorageItem.IsChanged = false;
                 }
             }
         }
@@ -431,28 +430,38 @@ namespace VorratsUebersicht
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
             listView.Adapter = listAdapter;
 
-            listAdapter.DateClicked += ListAdapter_DateClicked;
+            listAdapter.ItemClicked += ListAdapter_ItemClicked;
         }
 
-        private void ListAdapter_DateClicked(object sender, StorageItemEventArgs e)
+        private void ListAdapter_ItemClicked(object sender, StorageItemEventArgs e)
         {
-            DateTime? date = e.StorageItem.BestBefore;
-
             var adapter = sender as StorageItemQuantityListViewAdapter;
 
-            // Haltbarkeitsdatum erfassen (kann aber auch weggelassen werden)
-			DatePickerFragment frag = DatePickerFragment.NewInstance(delegate(DateTime? time) 
-					{
-                        if (time.HasValue)
-							e.StorageItem.BestBefore = time.Value;
-                        else
-							e.StorageItem.BestBefore = null;
+            string[] actions = { "Anzahl", "Ablaufdatum", "Lagerort"};
 
-                        e.StorageItem.BestBeforeChanged = true;
-                        adapter.NotifyDataSetInvalidated();
-					}, date);
-			frag.ShowsDialog = true;
-			frag.Show(FragmentManager, DatePickerFragment.TAG);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle("Angaben ändern");
+            builder.SetItems(actions, (sender2, args) =>
+            {
+
+                switch (args.Which)
+                {
+                    case 0: // Anzahl
+                        this.ChangeQuantity(e.StorageItem, adapter);
+                        break;
+
+                    case 1: // Datum
+                        this.ChangeBestBeforeDate(e.StorageItem, adapter);
+                        break;
+
+                    case 2: // Lagerort
+                        this.ChangeStorage(e.StorageItem, adapter);
+                        break;
+                }
+
+                return;
+            });
+            builder.Show();
         }
 
         private void GotoArticleDetails(int articleId)
@@ -464,6 +473,84 @@ namespace VorratsUebersicht
             articleDetails.PutExtra("ArticleId", this.articleId);
             articleDetails.PutExtra("NoStorageQuantity", true);
             this.StartActivityForResult(articleDetails, ArticleDetailId);
+        }
+
+        private void ChangeBestBeforeDate(StorageItemQuantityResult storageItem, StorageItemQuantityListViewAdapter adapter)
+        {
+            DateTime? date = storageItem.BestBefore;
+
+            // Haltbarkeitsdatum erfassen (kann aber auch weggelassen werden)
+			DatePickerFragment frag = DatePickerFragment.NewInstance(delegate(DateTime? time) 
+					{
+                        if (time.HasValue)
+							storageItem.BestBefore = time.Value;
+                        else
+							storageItem.BestBefore = null;
+
+                        storageItem.IsChanged = true;
+                        adapter.NotifyDataSetInvalidated();
+					}, date);
+			frag.ShowsDialog = true;
+			frag.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void ChangeQuantity(StorageItemQuantityResult storageItem, StorageItemQuantityListViewAdapter adapter)
+        {
+            var dialog = new AlertDialog.Builder(this);
+            dialog.SetMessage("Anzahl eingeben:");
+            EditText input = new EditText(this);
+            input.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
+
+            if (storageItem.Quantity > 0)
+            {
+                input.Text = storageItem.Quantity.ToString();
+            }
+            input.SetSelection(input.Text.Length);
+            dialog.SetView(input);
+            dialog.SetPositiveButton("OK", (sender, whichButton) =>
+                {
+                    if (string.IsNullOrEmpty(input.Text))
+                        input.Text = "0";
+
+                    decimal neueAnzahl = 0;
+
+                    bool decialOk = Decimal.TryParse(input.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out neueAnzahl);
+                    if (decialOk)
+                    {
+                        storageItem.Quantity = neueAnzahl;
+                        storageItem.IsChanged = true;
+                        adapter.NotifyDataSetChanged();
+                    }
+                });
+            dialog.SetNegativeButton("Cancel", (s, e) => {});
+            dialog.Show();
+        }
+
+        private void ChangeStorage(StorageItemQuantityResult storageItem, StorageItemQuantityListViewAdapter adapter)
+        {
+            var storages = Database.GetStorageNames();
+            if (storages.Count == 0)
+                return;
+
+            storages.Insert(0, "[Kein Lagerort]");
+
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.SetTitle("Lagerort auswählen");
+            dialog.SetItems(storages.ToArray(), (sender, args) =>
+            {
+                if (args.Which == 0)
+                {
+                    storageItem.StorageName = null;
+                }
+                else
+                {
+                    storageItem.StorageName = storages[args.Which];
+                }
+                storageItem.IsChanged = true;
+                adapter.NotifyDataSetChanged();
+                return;
+            });
+            dialog.Show();
         }
 
         private void MultiAutoCompleteTextView_FocusChange(object sender, View.FocusChangeEventArgs e)

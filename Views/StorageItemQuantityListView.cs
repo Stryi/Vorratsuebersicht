@@ -29,7 +29,7 @@ namespace VorratsUebersicht
                 if (string.IsNullOrEmpty(this.StorageItem.StorageName))
                     return string.Empty;
 
-                return string.Format("Lager: {0}", this.StorageItem.StorageName); }
+                return string.Format("Lagerort: {0}", this.StorageItem.StorageName); }
         }
 
         public string BestBeforeText

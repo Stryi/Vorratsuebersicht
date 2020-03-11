@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/StorageItemQuantityListView"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@color/Application_Background" >
@@ -11,7 +12,7 @@
         android:layout_toLeftOf="@+id/StorageItemQuantityList_Add">            
         <TextView
             android:id="@+id/StorageItemQuantityList_Quantity"
-            android:text="Überschrift"
+            android:text="Anzahl:"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color"
@@ -19,14 +20,14 @@
             android:layout_alignParentLeft="true" />
         <TextView
             android:id="@+id/StorageItemQuantityList_Date"
-            android:text="Datum"
+            android:text="Ablaufdatum:"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color"
             android:textSize="16sp" />
         <TextView
             android:id="@+id/StorageItemQuantityList_Storage"
-            android:text="Lager"
+            android:text="Lagerort:"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color2"

@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:textColor="@color/Text_Color"
-            android:textSize="20sp" />
+            android:textSize="18dp" />
         <MultiAutoCompleteTextView
             android:id="@+id/StorageItemQuantity_StorageText"
             android:layout_width="fill_parent"
@@ -62,7 +62,7 @@
             android:layout_margin="5dp"
             android:textColor="@color/Text_Color"
             android:background="@color/Application_Background"
-            android:textSize="20sp" />
+            android:textSize="18dp" />
     </LinearLayout>
 
     <RelativeLayout
@@ -77,7 +77,9 @@
             android:id="@+id/StorageItemQuantity_StepButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "Schritt:" />
+            android:text = "Schritt:" 
+            android:textSize="16dp"
+            android:textAllCaps="false" />
         <TextView
             android:id="@+id/StorageItemQuantity_StepText"
             android:layout_width="wrap_content"

@@ -32,8 +32,7 @@ namespace VorratsUebersicht
 
         public decimal? ShoppingListQuantity { get; set; }
 
-        public decimal QuantityDiff;
-        public bool    BestBeforeChanged;
+        public bool IsChanged;
 
 		/// <summary>
 		/// Ablaufdatum überschritten oder nur Warnung für Ablaufdatum

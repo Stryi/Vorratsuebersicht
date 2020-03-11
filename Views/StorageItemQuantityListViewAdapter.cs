@@ -16,7 +16,7 @@ namespace VorratsUebersicht
         bool actionButtonsVisible = false;
         public static decimal StepValue = 1;
 
-        public event StorageItemQuantityListViewEventHandler DateClicked;
+        public event StorageItemQuantityListViewEventHandler ItemClicked;
 
         public delegate void StorageItemQuantityListViewEventHandler(object sender, StorageItemEventArgs e);
 
@@ -69,26 +69,41 @@ namespace VorratsUebersicht
 
             TextView anzahl = view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Quantity);
             anzahl.Tag = position;
-            anzahl.Click -= OnDatumChange;
-            anzahl.Click += OnDatumChange;
+            anzahl.Click -= OnItemClicked;
+            anzahl.Click += OnItemClicked;
 
             TextView datum = view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Date);
             datum.Tag = position;
-            datum.Click -= OnDatumChange;
-            datum.Click += OnDatumChange;
+            datum.Click -= OnItemClicked;
+            datum.Click += OnItemClicked;
 
             TextView lager = view.FindViewById<TextView>(Resource.Id.StorageItemQuantityList_Storage);
             lager.Tag = position;
+            lager.Click -= OnItemClicked;
+            lager.Click += OnItemClicked;
 
             anzahl.Text = item.AnzahlText;
             datum.Text  = item.BestBeforeText;
             lager.Text  = item.LagerText;
 
             if (string.IsNullOrEmpty(lager.Text))
+            {
                 lager.Visibility = ViewStates.Gone;
+            }
             else
+            {
                 lager.Visibility = ViewStates.Visible;
+            }
             
+            if ((lager.Visibility == ViewStates.Visible) && string.IsNullOrEmpty(datum.Text))
+            {
+                datum.Visibility = ViewStates.Gone;
+            }
+            else
+            {
+                datum.Visibility = ViewStates.Visible;
+            }
+
             // TODO: Die Farbe aus der Resource oder auch inzwischen aus de Konfiguration auslesen.
             if (item.WarningLevel > 0)
                 datum.SetTextColor(item.WarningColor);
@@ -108,13 +123,13 @@ namespace VorratsUebersicht
             return view;
         }
 
-        private void OnDatumChange(object sender, EventArgs e)
+        private void OnItemClicked(object sender, EventArgs e)
         {
             if (!this.actionButtonsVisible)
                 return;
 
             // CheckChanged hier aufrufen, da beim OnCheckChanged die CheckBox noch nicht gesetzt war.
-            if (this.DateClicked == null)
+            if (this.ItemClicked == null)
                 return;
 
             TextView control = sender as TextView;
@@ -126,7 +141,7 @@ namespace VorratsUebersicht
             var args = new StorageItemEventArgs();
             args.StorageItem = items[position].StorageItem;
 
-            this.DateClicked.Invoke(this, args);
+            this.ItemClicked.Invoke(this, args);
         }
 
         private void DecreaseQuantity(object sender, EventArgs e)
@@ -139,8 +154,8 @@ namespace VorratsUebersicht
             if (item.StorageItem.Quantity - StorageItemQuantityListViewAdapter.StepValue < 0)
                 return;
 
-            item.StorageItem.Quantity     -= StorageItemQuantityListViewAdapter.StepValue;
-            item.StorageItem.QuantityDiff -= StorageItemQuantityListViewAdapter.StepValue;
+            item.StorageItem.Quantity -= StorageItemQuantityListViewAdapter.StepValue;
+            item.StorageItem.IsChanged = true;
 
             this.NotifyDataSetChanged();
         }
@@ -152,8 +167,8 @@ namespace VorratsUebersicht
 
             var item = items[position];
 
-            item.StorageItem.Quantity     += StorageItemQuantityListViewAdapter.StepValue;
-            item.StorageItem.QuantityDiff += StorageItemQuantityListViewAdapter.StepValue;
+            item.StorageItem.Quantity += StorageItemQuantityListViewAdapter.StepValue;
+            item.StorageItem.IsChanged = true;
             this.NotifyDataSetChanged();
         }
 

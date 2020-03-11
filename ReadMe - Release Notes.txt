@@ -12,7 +12,8 @@ Vor dem Hochladen ins Google Play Store:
 Version 4.30 (CodeVersion 69) - Google Play Beta 09.03.2020
 =============================
 
-C126 - CSV Export der Artikel und Lagerbestände (unter Einstellungen)
+C127 - Alle Angaben vom Lagerbestand kann jetzt geändert werden.
+C126 - CSV Export der Artikel und Lagerbestände (in Einstellungen)
 C125 - Lagername jetzt auch pro Lagerposition definierbar.
 
 Version 4.26 (CodeVersion 68)      - Google Play Beta am 29.02.2020

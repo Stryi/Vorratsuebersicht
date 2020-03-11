@@ -5,7 +5,7 @@ Artikeldetails
 - Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. und Rolf Buehler (Rezession), Tiziano P. vorgeschlagen)
 - "Auf Einkaufsliste" mit Eingabe-Dialog für die Menge (nach Mindestbestand schon vorgeblendet)
 
-- Gemacht: Inhalte als CSV exportieren (Jörg Eggebrecht und firefighter288 als Rezensionen) 
+- Gemacht: Inhalte als CSV exportieren (Jörg Eggebrecht und firefighter288 als Rezensionen, Jörg E) 
   https://www.youtube.com/watch?v=VDAwbgHoYEA - Exporting CSV in Android - Android Studio Programming Tutorial
   https://github.com/techtribeyt/androidcsv/tree/master
 
@@ -28,6 +28,9 @@ Sonstiges
 
 Prio 2
 ======
+
+Lagerbestand
+- Wird ein Datum < Heute eingegeben, so wird die Farbe nicht auf blau oder rot gesetzt.
 
 Artikelstamm
 - Default Werte vorbelegen (Martin T aus CH)
