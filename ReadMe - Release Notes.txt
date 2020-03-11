@@ -9,7 +9,7 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
-Version 4.30 (CodeVersion 69) - Google Play Beta 09.03.2020
+Version 4.30 (CodeVersion 69) - Google Play Beta 11.03.2020
 =============================
 
 C127 - Alle Angaben vom Lagerbestand kann jetzt geändert werden.
