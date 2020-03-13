@@ -9,11 +9,21 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
-Version 4.30 (CodeVersion 69) - Google Play Beta 11.03.2020
+Version 4.32 (CodeVersion 71)
 =============================
 
-C127 - Alle Angaben vom Lagerbestand kann jetzt geändert werden.
+E011 - FIX: Neuanlage der Lagerposition 2x bearbeiten verdoppelt die Position.
+E011 - FIX: Lager-Filter in der Bestandsliste berücksichtigt jetzt auch das Lager der Positionen.
+
+Version 4.31 (CodeVersion 70) - Google Play Beta 11.03.2020
+=============================
+
+C127 - Alle Angaben vom Lagerbestand können jetzt geändert werden.
 C126 - CSV Export der Artikel und Lagerbestände (in Einstellungen)
+
+Version 4.30 (CodeVersion 69)
+=============================
+
 C125 - Lagername jetzt auch pro Lagerposition definierbar.
 
 Version 4.26 (CodeVersion 68)      - Google Play Beta am 29.02.2020

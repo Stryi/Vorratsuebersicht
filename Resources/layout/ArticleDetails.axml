@@ -43,54 +43,54 @@
             android:layout_marginTop="-7dp"
             android:visibility="invisible"/>
         <TextView
+            android:text="@string/ArticleDetails_ArticleName" 
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="@string/ArticleDetails_ArticleName" />
+            android:layout_marginRight="10dp" />
         <EditText
             android:id="@+id/ArticleDetails_Name"
+            android:text="Artikelname"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Artikelname" />
+            android:layout_marginRight="10dp" />
         <TextView
+            android:text="@string/ArticleDetails_Manufacturer"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="@string/ArticleDetails_Manufacturer" />
+            android:layout_marginRight="10dp" />
         <MultiAutoCompleteTextView
             android:id="@+id/ArticleDetails_Manufacturer"
+            android:text="Hersteller"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Hersteller" />
+            android:layout_marginRight="10dp" />
         <TextView
+            android:text="@string/ArticleDetails_Category"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="@string/ArticleDetails_Category" />
+            android:layout_marginRight="10dp" />
         <Spinner
             android:id="@+id/ArticleDetails_Category"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="0dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"            
+            android:layout_marginRight="10dp"
             android:hint="@string/ArticleDetails_Category_Hint" />
         <TextView
+            android:text="@string/ArticleDetails_SubCategory"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="@string/ArticleDetails_SubCategory" />
+            android:layout_marginRight="10dp" />
         <MultiAutoCompleteTextView
             android:id="@+id/ArticleDetails_SubCategory"
             android:layout_width="fill_parent"
@@ -105,9 +105,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
             <TextView
+                android:text="@string/ArticleDetails_SupermarketLabel"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ArticleDetails_SupermarketLabel" />
+                android:layout_height="wrap_content" />
             <MultiAutoCompleteTextView
                 android:id="@+id/ArticleDetails_Supermarket"
                 android:layout_width="fill_parent"
@@ -120,9 +120,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
             <TextView
+                android:text="@string/ArticleDetails_StorageLabel"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ArticleDetails_StorageLabel" />
+                android:layout_height="wrap_content" />
             <MultiAutoCompleteTextView
                 android:id="@+id/ArticleDetails_Storage"
                 android:layout_width="fill_parent"
@@ -131,13 +131,13 @@
 
         <Switch
             android:id="@+id/ArticleDetails_DurableInfinity"
+            android:text="@string/ArticleDetails_EnduringlyDurable"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:checked="true"
-            android:text="@string/ArticleDetails_EnduringlyDurable" />
+            android:checked="true" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -146,9 +146,9 @@
             android:layout_marginRight="10dp">
             <TextView
                 android:id="@+id/ArticleDetails_WarnInDaysLabel"
+                android:text="@string/ArticleDetails_WarningInDays"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ArticleDetails_WarningInDays" />
+                android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/ArticleDetails_WarnInDays"
                 android:layout_width="fill_parent"
@@ -162,9 +162,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
             <TextView
+                android:text="Preis:"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Preis:" />
+                android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/ArticleDetails_Price"
                 android:layout_width="fill_parent"
@@ -178,9 +178,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
             <TextView
+                android:text="@string/ArticleDetails_Size"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ArticleDetails_Size" />
+                android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/ArticleDetails_Size"
                 android:layout_width="fill_parent"
@@ -194,9 +194,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
             <TextView
+                android:text="@string/ArticleDetails_Unit"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ArticleDetails_Unit" />
+                android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/ArticleDetails_Unit"
                 android:layout_width="fill_parent"
@@ -212,10 +212,10 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
             <TextView
+                android:text="@string/ArticleDetails_CaloriesPerUnit"
                 android:id="@+id/ArticleDetails_CaloriePerUnitLabel"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ArticleDetails_CaloriesPerUnit" />
+                android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/ArticleDetails_CaloriePerUnit"
                 android:layout_width="fill_parent"
@@ -230,9 +230,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
             <TextView
+                android:text="@string/ArticleDetails_Calories" 
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ArticleDetails_Calories" />
+                android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/ArticleDetails_Calorie"
                 android:layout_width="fill_parent"
@@ -246,9 +246,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
             <TextView
+                android:text="@string/ArticleDetails_MinQuantityLabel"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ArticleDetails_MinQuantityLabel" />
+                android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/ArticleDetails_MinQuantity"
                 android:layout_width="fill_parent"
@@ -262,9 +262,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
             <TextView
+                android:text="@string/ArticleDetails_PrefQuantityLabel"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ArticleDetails_PrefQuantityLabel" />
+                android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/ArticleDetails_PrefQuantity"
                 android:layout_width="fill_parent"
@@ -272,29 +272,28 @@
                 android:inputType="number" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ArticleDetails_EANCode" />
-            <EditText
-                android:id="@+id/ArticleDetails_EANCode"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textVisiblePassword" />
-        </LinearLayout>
-
         <TextView
+            android:text="@string/ArticleDetails_EANCode"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="@string/ArticleDetails_Notes" />
+            android:layout_marginRight="10dp" />
+        <EditText
+            android:id="@+id/ArticleDetails_EANCode"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textVisiblePassword"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:text="@string/ArticleDetails_Notes"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
         <EditText
             android:id="@+id/ArticleDetails_Notes"
             android:layout_width="fill_parent"

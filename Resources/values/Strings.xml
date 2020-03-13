@@ -72,7 +72,7 @@
   <string name="ArticleDetails_PrefQuantityLabel">Bevorzugte Menge:</string>
   <string name="ArticleDetails_SupermarketLabel">Einkaufsmarkt:</string>
   <string name="ArticleDetails_Price">Preis:</string>
-  <string name="ArticleDetails_EANCode">EAN Code:</string>
+  <string name="ArticleDetails_EANCode">EAN Code (Komma getrennt, wenn mehrere):</string>
   <string name="ArticleDetails_Notes">Notizen:</string>
   <string name="ArticleDetails_Amount">Anzahl:</string>
 

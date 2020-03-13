@@ -75,4 +75,31 @@ Probleme:
 
     App deinstallieren und vom Google Play Store installieren
 
+6.  Error Starting Application: Failed to forward ports.
+    Couldn't connect debugger. You can see more details in Xamarin Diagnostic output and the full exception on logs.
 
+    [D:NotifyPhase]:          Uploading files
+    [D:NotifyPhase]:          Upload completed
+    [D:RunShellCommand]:      emulator-5554 "echo" "-n" "${EMULATED_STORAGE_SOURCE}"
+    [D:RunShellCommand]:      emulator-5554 "echo" "-n" "${EMULATED_STORAGE_TARGET}"
+    [D:RunShellCommand]:      emulator-5554 am broadcast -a "mono.android.intent.action.EXTERNAL_STORAGE_DIRECTORY" -n "Mono.Android.DebugRuntime/com.xamarin.mono.android.ExternalStorageDirectory"
+    [D:RunShellCommand]:      emulator-5554 am force-stop de.stryi.Vorratsuebersicht
+    [D:RunShellCommand]:      emulator-5554 setprop "debug.mono.connect" ""
+    [I:]:                     Looking for Android SDK...
+    [D:]:                     ValidateAndroidSdkLocation: `C:\Program Files (x86)\Android\android-sdk`, result=True
+    [D:]:                     ValidateAndroidSdkLocation: `C:\Program Files (x86)\Android\android-sdk`, result=True
+    [D:RunShellCommand]:      emulator-5554 "pm" "path" "com.android.shell"
+    [D:RunShellCommand]:      emulator-5554 "echo" "-n" "${EMULATED_STORAGE_SOURCE}"
+    [D:RunShellCommand]:      emulator-5554 "echo" "-n" "${EMULATED_STORAGE_TARGET}"
+    [D:RunShellCommand]:      emulator-5554 am broadcast -a "mono.android.intent.action.EXTERNAL_STORAGE_DIRECTORY" -n "Mono.Android.DebugRuntime/com.xamarin.mono.android.ExternalStorageDirectory"
+    [D:RunShellCommand]:      emulator-5554 am force-stop de.stryi.Vorratsuebersicht
+    [D:RunShellCommand]:      emulator-5554 setprop "debug.mono.connect" ""
+    [D:]:                     TrackDeviceTask got: 
+    [I:]:                     Got new device list from adb with 0 devices
+    [W:]:                     Adb connection reset
+    [I:]:                     Starting Adb server (adb start-server)
+    [I:]:                     Adb start-server operation completed
+    [D:]:                     TrackDeviceTask got: emulator-5554	offline
+    [I:]:                     Got new device list from adb with 1 devices
+    [D:]:                     TrackDeviceTask got: 
+    [I:]:                     Got new device list from adb with 0 devices

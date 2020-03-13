@@ -27,6 +27,7 @@ namespace VorratsUebersicht
         private bool   showEmptyStorageArticles;
         private string storageNameFilter = string.Empty;
         private string lastSearchText = string.Empty;
+
         Toast toast;
 
         public static readonly int StorageItemQuantityId = 1000;
@@ -76,6 +77,13 @@ namespace VorratsUebersicht
                 this.Title = string.Format("{0} - {1}", this.Title, this.eanCode);
             }
 
+            this.InitializeStorageFilter();
+
+            this.ShowStorageItemList();
+        }
+
+        private void InitializeStorageFilter()
+        {
             this.storageList = new List<string>();
             this.storageList.Add(Resources.GetString(Resource.String.StorageItem_AllStoragesStorage));
             this.storageList.AddRange(Database.GetStorageNames());
@@ -90,10 +98,23 @@ namespace VorratsUebersicht
                 dataAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
                 spinnerStorage.Adapter = dataAdapter;
 
+                if (!string.IsNullOrEmpty(this.storageNameFilter))
+                {
+                    int index = this.storageList.IndexOf(this.storageNameFilter);
+                    if (index > -1)
+                    {
+                        spinnerStorage.SetSelection(index);
+                    }
+                }
+
+                spinnerStorage.ItemSelected -= SpinnerStorage_ItemSelected;
                 spinnerStorage.ItemSelected += SpinnerStorage_ItemSelected;
             }
-
-            this.ShowStorageItemList();
+            else
+            {
+                var storageSelection = FindViewById<LinearLayout>(Resource.Id.StorageItemList_SelectStorageSection);
+                storageSelection.Visibility = ViewStates.Gone;
+            }
         }
 
         public override void OnCreateContextMenu(IContextMenu menu, View view, IContextMenuContextMenuInfo menuInfo)
@@ -280,6 +301,9 @@ namespace VorratsUebersicht
 
         private void RestoreListState()
         {
+            if (this.listViewState == null)
+                return;
+
             ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
             listView?.OnRestoreInstanceState(this.listViewState);
         }
@@ -292,21 +316,16 @@ namespace VorratsUebersicht
             if ((requestCode == StorageItemQuantityId) && (resultCode == Result.Ok))
             {
                 this.ShowStorageItemList(this.lastSearchText);
-
-                if (this.listViewState == null)
-                    return;
-
                 this.RestoreListState();
+
+                this.InitializeStorageFilter();
             }
 
             if ((requestCode == ArticleDetailId) && (resultCode == Result.Ok))
             {
                 this.ShowStorageItemList(this.lastSearchText);
-
-                if (this.listViewState == null)
-                    return;
-
                 this.RestoreListState();
+                this.InitializeStorageFilter();
             }
 
             if ((requestCode == SelectArticleId) && (resultCode == Result.Ok) && (data != null))
@@ -348,7 +367,9 @@ namespace VorratsUebersicht
             foreach(StorageItemQuantityResult storegeItem in storageItemQuantityList)
             {
 				// Informationen über die Mengen zum Ablaufdatum.
-				var storageItemBestList = Database.GetBestBeforeItemQuantity(storegeItem.ArticleId);
+				var storageItemBestList = Database.GetBestBeforeItemQuantity(
+                    storegeItem.ArticleId,
+                    this.storageNameFilter);
 
                 string info    = string.Empty;
 			    string warning = string.Empty;

@@ -2,12 +2,7 @@ Prio 1
 ======
 
 Artikeldetails
-- Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. und Rolf Buehler (Rezession), Tiziano P. vorgeschlagen)
 - "Auf Einkaufsliste" mit Eingabe-Dialog für die Menge (nach Mindestbestand schon vorgeblendet)
-
-- Gemacht: Inhalte als CSV exportieren (Jörg Eggebrecht und firefighter288 als Rezensionen, Jörg E) 
-  https://www.youtube.com/watch?v=VDAwbgHoYEA - Exporting CSV in Android - Android Studio Programming Tutorial
-  https://github.com/techtribeyt/androidcsv/tree/master
 
 EAN Scan
 - Besseren EAN Scanner suchen 
@@ -17,8 +12,6 @@ EAN Scan
   https://github.com/journeyapps/zxing-android-embedded 
 
 
-Einkaufsliste
-- Sortierung: Alphabetisch, Kategorie und Gekauft.
 
 Sonstiges
 - Push Benachrichtigung über bald zu verbrauchende Artikel einmal pro Tag
@@ -26,8 +19,20 @@ Sonstiges
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/notifications/local-notifications-walkthrough
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/services/service-notifications
 
+
+Artikeldetails
+- Abgelehnt: Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. und Rolf Buehler (Rezession), Tiziano P. vorgeschlagen)
+- Gemacht: Inhalte als CSV exportieren (Jörg Eggebrecht und firefighter288 als Rezensionen, Jörg E) 
+
+
 Prio 2
 ======
+
+Einkaufszettel
+- Liste automatisch anhand der Mindestmenge erstellen.
+
+Einkaufsliste
+- Sortierung: Alphabetisch, Kategorie und Gekauft.
 
 Lagerbestand
 - Wird ein Datum < Heute eingegeben, so wird die Farbe nicht auf blau oder rot gesetzt.
@@ -45,10 +50,6 @@ Lagerliste
   So das z.B die Unterkategorie Kaffee auf 5 Pack steht.
   Und nicht Hersteller A ein Pack, Hersteller B zwei Pack (vom Markus Neese vorgeschlagen)
 - Auswahl Lagerort auch an Subkategorie berücksichtigen
-
-
-Einkaufszettel
-- Liste automatisch anhand der Mindestmenge erstellen.
 
 
 Sonstiges

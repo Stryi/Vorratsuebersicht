@@ -7,6 +7,8 @@ using SQLite;
 
 namespace VorratsUebersicht
 {
+    using static Tools;
+
     public static class Database
     {
         internal static void UpdateStorageItemQuantity(StorageItemQuantityResult storageItem)
@@ -28,6 +30,7 @@ namespace VorratsUebersicht
                     return;
                 }
 
+                TRACE("Lagerposition Neuanlage: {0}, {1}, {2}", storageItem.Quantity, storageItem.BestBefore_DebuggerDisplay, storageItem.StorageName);
                 cmd += "INSERT INTO StorageItem (StorageId, ArticleId, Quantity, BestBefore, StorageName) VALUES (?, ?, ?, ?, ?)";
                 command = databaseConnection.CreateCommand(cmd, new object[] 
                 {
@@ -37,16 +40,25 @@ namespace VorratsUebersicht
                     storageItem.BestBefore,
                     storageItem.StorageName
                 });
+
+                command.ExecuteNonQuery();
+
+                // Neue Lagerposition-Id übernehmen.
+                command = databaseConnection.CreateCommand("SELECT last_insert_rowid()");
+                storageItem.StorageItemId = command.ExecuteScalar<int>();
             }
             else
             {
                 if (storageItem.Quantity == 0)
                 {
+                    TRACE("Lagerposition Löschung: {0}, {1}, {2}", storageItem.StorageItemId, storageItem.BestBefore_DebuggerDisplay, storageItem.StorageName);
                     cmd += "DELETE FROM StorageItem WHERE StorageItemId = ?";
                     command = databaseConnection.CreateCommand(cmd, new object[] { storageItem.StorageItemId});
+                    storageItem.StorageItemId = 0;
                 }
                 else
                 {
+                    TRACE("Lagerposition Änderung: {0}, {1}, {2}", storageItem.Quantity, storageItem.BestBefore_DebuggerDisplay, storageItem.StorageName);
                     cmd += "UPDATE StorageItem SET Quantity = ?, BestBefore = ?, StorageName = ? WHERE StorageItemId = ?";
                     command = databaseConnection.CreateCommand(cmd, new object[]
                     {
@@ -56,10 +68,8 @@ namespace VorratsUebersicht
                         storageItem.StorageItemId
                     });
                 }
+                command.ExecuteNonQuery();
             }
-
-            int result = command.ExecuteNonQuery();
-
         }
 
         #region Shopping List
@@ -263,7 +273,7 @@ namespace VorratsUebersicht
 
         #endregion
 
-        internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(int articleId)
+        internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(int articleId, string storageName = null)
         {
             IList<StorageItemQuantityResult> result = new List<StorageItemQuantityResult>();
 
@@ -272,16 +282,32 @@ namespace VorratsUebersicht
                 return result;
 
             string cmd = string.Empty;
+            string filter = string.Empty;
             SQLiteCommand command;
+
+            IList<object> parameter = new List<object>();
+
+            filter = " WHERE StorageItem.ArticleId = ?";
+            parameter.Add(articleId);
+
+            if (!string.IsNullOrEmpty(storageName))
+            {
+                // Positionen direkt mit dem Lager oder Positionen ohne Lager, aber wenn der Artikel das Lager hat.
+                filter += " AND (StorageItem.StorageName = ?";
+                filter += "  OR (StorageItem.StorageName IS NULL) AND StorageItem.ArticleId IN (SELECT ArticleId FROM Article WHERE Article.StorageName = ?))";
+
+                parameter.Add(storageName);
+                parameter.Add(storageName);
+            }
 
             cmd += "SELECT BestBefore, SUM(Quantity) AS Quantity, Article.WarnInDays";
             cmd += " FROM StorageItem";
             cmd += " LEFT JOIN Article ON StorageItem.ArticleId = Article.ArticleId";
-            cmd += " WHERE StorageItem.ArticleId = ?";
+            cmd += filter;
             cmd += " GROUP BY BestBefore";
             cmd += " ORDER BY BestBefore";
 
-            command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
+            command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());
 
             return command.ExecuteQuery<StorageItemQuantityResult>();
         }
@@ -820,16 +846,52 @@ namespace VorratsUebersicht
             if (databaseConnection == null)
                 return result;
 
+            IList<object> parameter = new List<object>();
+
+            string bestBeforeFilter = string.Empty;
+
+            if (!string.IsNullOrEmpty(storageName))
+            {
+                // Positionen direkt mit dem Lager oder Positionen ohne Lager, aber wenn der Artikel das Lager hat.
+                bestBeforeFilter += " AND (StorageItem.StorageName = ?";
+                bestBeforeFilter += "  OR (StorageItem.StorageName IS NULL) AND StorageItem.ArticleId IN (SELECT ArticleId FROM Article WHERE Article.StorageName = ?))";
+
+                parameter.Add(storageName);
+                parameter.Add(storageName);
+            }
+
+            string bestBeforeSelect = "SELECT BestBefore" +
+                " FROM StorageItem" +
+                " WHERE StorageItem.ArticleId = Article.ArticleId" +
+                bestBeforeFilter +
+                " AND BestBefore IS NOT NULL" +
+                " ORDER BY BestBefore ASC LIMIT 1";
+
+            string sumQuantityFilter = string.Empty;
+
+            if (!string.IsNullOrEmpty(storageName))
+            {
+                sumQuantityFilter += " AND (StorageItem.StorageName = ?";
+                sumQuantityFilter += "  OR (StorageItem.StorageName IS NULL) AND StorageItem.ArticleId IN (SELECT ArticleId FROM Article WHERE Article.StorageName = ?))";
+
+                parameter.Add(storageName);
+                parameter.Add(storageName);
+            }
+
+            string sumQuantitySelect = "SELECT SUM(Quantity)" +
+                " FROM StorageItem" +
+                " WHERE StorageItem.ArticleId = Article.ArticleId" +
+                sumQuantityFilter;
+
             string cmd = string.Empty;
             cmd += "SELECT Article.ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity, PrefQuantity, Price, Calorie, Article.StorageName, ";
-            cmd += " (SELECT SUM(Quantity) FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId) AS Quantity,";
-            cmd += " IFNULL((SELECT BestBefore FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId AND BestBefore IS NOT NULL ORDER BY BestBefore ASC LIMIT 1), '9999.12.31') AS BestBefore,";
+            cmd += " (" + sumQuantitySelect + ") AS Quantity,";
+            cmd += " IFNULL((" + bestBeforeSelect + "), '9999.12.31') AS BestBefore,";
             cmd += " ShoppingList.Quantity AS ShoppingListQuantity";
             cmd += " FROM Article";
             cmd += " LEFT JOIN ShoppingList ON ShoppingList.ArticleId = Article.ArticleId";
 
             string filter = string.Empty;
-            IList<object> parameter = new List<object>();
 
             if (!showNotInStorageArticles)
             {
@@ -875,7 +937,8 @@ namespace VorratsUebersicht
             if (!string.IsNullOrEmpty(storageName))
             {
                 if (string.IsNullOrEmpty(filter)) { filter += " WHERE "; } else { filter += " AND "; }
-                filter += " Article.StorageName = ?";
+                filter += " (Article.StorageName = ? OR Article.ArticleId IN (SELECT ArticleId FROM StorageItem WHERE StorageName = ?))";
+                parameter.Add(storageName);
                 parameter.Add(storageName);
             }
             
