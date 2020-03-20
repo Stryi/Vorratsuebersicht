@@ -9,6 +9,12 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.40 (CodeVersion 72)
+=============================
+
+E012 - FIX: Absicherung vom Absturz StorageItemQuantityActivity.ShowPictureAndDetails
+
+
 Version 4.32 (CodeVersion 71)
 =============================
 

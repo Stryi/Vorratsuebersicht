@@ -71,7 +71,7 @@ namespace VorratsUebersicht
 
             var storage = FindViewById<MultiAutoCompleteTextView>(Resource.Id.StorageItemQuantity_StorageText);
             storage.FocusChange += MultiAutoCompleteTextView_FocusChange;
-            storage.Text = StorageItemQuantityActivity.article.StorageName;
+            storage.Text = StorageItemQuantityActivity.article?.StorageName;
 
             ArrayAdapter<String> storageAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, this.Storages);
             storage.Adapter = storageAdapter;
@@ -361,27 +361,37 @@ namespace VorratsUebersicht
 
                 return;
             }
-
-            if (StorageItemQuantityActivity.article == null)
+            try
             {
-                StorageItemQuantityActivity.article = Database.GetArticle(articleId);
-            }
+                if (StorageItemQuantityActivity.article == null)
+                {
+                    StorageItemQuantityActivity.article = Database.GetArticle(articleId);
+                }
 
-            if (StorageItemQuantityActivity.articleImage == null)
+                if (StorageItemQuantityActivity.articleImage == null)
+                {
+                    StorageItemQuantityActivity.articleImage = Database.GetArticleImage(articleId, false);
+                }
+                
+                StorageItemQuantityActivity.article = null;
+
+                Article article = StorageItemQuantityActivity.article;
+
+                this.durableInfinity = article.DurableInfinity;
+
+                ArticleListView articleView = new ArticleListView(article);
+
+                headerView.Text = articleView.Heading;
+                detailView.Text = articleView.SubHeading;
+
+                this.ShowPicture(detailView, imageView);
+            }
+            catch(Exception ex)
             {
-                StorageItemQuantityActivity.articleImage = Database.GetArticleImage(articleId, false);
+                imageView.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
+                headerView.Text = ex.Message;
+                detailView.Text = ex.StackTrace;
             }
-
-            Article article = StorageItemQuantityActivity.article;
-
-            this.durableInfinity = article.DurableInfinity;
-
-            ArticleListView articleView = new ArticleListView(article);
-
-            headerView.Text = articleView.Heading;
-            detailView.Text = articleView.SubHeading;
-
-            this.ShowPicture(detailView, imageView);
         }
 
         // Zusätzlich in eine Methode ausgelager,
