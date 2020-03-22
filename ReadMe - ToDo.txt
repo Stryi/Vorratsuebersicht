@@ -4,6 +4,10 @@ Prio 1
 Artikeldetails
 - "Auf Einkaufsliste" mit Eingabe-Dialog für die Menge (nach Mindestbestand schon vorgeblendet)
 
+Lagerbestand
+- Manuelle Datumseingabe (ohne scrollen zu müssen), z.B. mit Buttons "2020", "2021", Monat "1", "2",...
+
+
 EAN Scan
 - Besseren EAN Scanner suchen 
   Die Java Variante. Da wir noch ältere Android Versionen unterstützen so:
@@ -22,7 +26,6 @@ Sonstiges
 
 Artikeldetails
 - Abgelehnt: Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. und Rolf Buehler (Rezession), Tiziano P. vorgeschlagen)
-- Gemacht: Inhalte als CSV exportieren (Jörg Eggebrecht und firefighter288 als Rezensionen, Jörg E) 
 
 
 Prio 2

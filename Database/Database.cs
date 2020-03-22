@@ -460,7 +460,11 @@ namespace VorratsUebersicht
 
         internal static List<string> GetStorageNames()
         {
+            List<string> stringList = new List<string>();
+
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
+            if (databaseConnection == null)
+                return stringList;
 
             // Artikel suchen, die schon abgelaufen sind.
             string cmd = string.Empty;
@@ -481,7 +485,6 @@ namespace VorratsUebersicht
             stopWatch.Stop();
             Tools.TRACE("Dauer der Abfrage für DISTINCT StorageName: {0}", stopWatch.Elapsed.ToString());
 
-            List<string> stringList = new List<string>();
             foreach(StringResult item in result)
             {
                 stringList.Add(item.Value);
@@ -822,7 +825,6 @@ namespace VorratsUebersicht
             cmd += " JOIN Article ON StorageItem.ArticleId = Article.ArticleId";
             cmd += " WHERE (date(BestBefore,  (-WarnInDays || ' day')) <= date('now'))";
             cmd += " AND BestBefore >= date('now')";
-            cmd += " AND Article.DurableInfinity = 0";
             cmd += " AND WarnInDays <> 0";
             //cmd += " OR 1 = 1";
             

@@ -48,15 +48,6 @@ namespace VorratsUebersicht
                 switchToTestDB.Enabled = false;
             }
 
-            Switch switchToAppDB = FindViewById<Switch>(Resource.Id.SettingsButton_SwitchToAppDb);
-            switchToAppDB.Click += SwitchToAppDb_Click;
-            switchToAppDB.Checked = Android_Database.UseAppFolderDatabase;
-
-            if (MainActivity.IsGooglePlayPreLaunchTestMode)
-            {
-                switchToAppDB.Enabled = false;
-            }
-
             Switch switchCostMessage = FindViewById<Switch>(Resource.Id.SettingsButton_ShowOFFCostMessage);
             switchCostMessage.Click += SwitchCostMessage_Click;
             switchCostMessage.Checked = ArticleDetailsActivity.showCostMessage;
@@ -359,43 +350,6 @@ namespace VorratsUebersicht
             this.EnableButtons();
         }
 
-        private void SwitchToAppDb_Click(object sender, System.EventArgs e)
-        {
-            this.SaveUserDefinedCategories();
-
-            Android_Database.UseAppFolderDatabase = !Android_Database.UseAppFolderDatabase;
-
-            Android_Database.Instance.GetDatabasePath();
-
-            if (Android_Database.UseAppFolderDatabase)
-            {
-                // Ist stattdessen die SD Karten Datenbank?
-                if ((Android_Database.IsDatabaseOnSdCard == null) ||(Android_Database.IsDatabaseOnSdCard == true))
-                {
-                    Android_Database.UseAppFolderDatabase = !Android_Database.UseAppFolderDatabase;
-                }
-            }
-            else
-            {
-                // Ist stattdessen die SD Karten Datenbank?
-                if ((Android_Database.IsDatabaseOnSdCard == null) ||(Android_Database.IsDatabaseOnSdCard == false))
-                {
-                    Android_Database.UseAppFolderDatabase = !Android_Database.UseAppFolderDatabase;
-                }
-            }
-
-
-            Switch switchToAppDb = FindViewById<Switch>(Resource.Id.SettingsButton_SwitchToAppDb);
-            switchToAppDb.Checked = Android_Database.UseAppFolderDatabase;
-
-            // Sich neu connecten;
-            Android_Database.SQLiteConnection = null;
-
-            this.ShowDatabaseInfo();
-            this.ShowUserDefinedCategories();
-            this.EnableButtons();
-        }
-
         private void SwitchCostMessage_Click(object sender, EventArgs e)
         {
             var switchCostMessage = sender as Switch;
@@ -489,11 +443,9 @@ namespace VorratsUebersicht
         {
             Button buttonBackup  = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
             Button buttonRestore = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
-            Switch switchToAppDB = FindViewById<Switch>(Resource.Id.SettingsButton_SwitchToAppDb);
 
             buttonBackup.Enabled  = !Android_Database.UseTestDatabase;
             buttonRestore.Enabled = !Android_Database.UseTestDatabase;
-            switchToAppDB.Enabled = !Android_Database.UseTestDatabase;
         }
 
         private void ShowUserDefinedCategories()

@@ -10,9 +10,11 @@ REM Ab Android 6.0
 REM SET SD_Card_Path=/storage/emulated/0
 REM SET App_Path=/data/user/0/de.Stryi.Vorratsuebersicht/files
 
+SET EmulatorName=emulator-5554
+
 ECHO Datenbank vom Emulator loeschen - SD Karte (emuliert)
-%adbCmd% -s emulator-5554 shell rm %SD_Card_Path%/Vorratsuebersicht/Vorraete.db3
-%adbCmd% -s emulator-5554 shell rm %SD_Card_Path%/Vorratsuebersicht/Vorraete-Test.db3
-%adbCmd% -s emulator-5554 shell rm %SD_Card_Path%/Vorratsuebersicht/Vorraete_Stryi_Kaputt.db3
+%adbCmd% -s %EmulatorName% shell rm %SD_Card_Path%/Vorratsuebersicht/Vorraete.db3
+%adbCmd% -s %EmulatorName% shell rm %SD_Card_Path%/Vorratsuebersicht/Vorraete-Test.db3
+%adbCmd% -s %EmulatorName% shell rm %SD_Card_Path%/Vorratsuebersicht/Vorraete_Stryi_Kaputt.db3
 
 pause 

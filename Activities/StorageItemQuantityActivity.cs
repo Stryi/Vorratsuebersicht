@@ -373,8 +373,6 @@ namespace VorratsUebersicht
                     StorageItemQuantityActivity.articleImage = Database.GetArticleImage(articleId, false);
                 }
                 
-                StorageItemQuantityActivity.article = null;
-
                 Article article = StorageItemQuantityActivity.article;
 
                 this.durableInfinity = article.DurableInfinity;
@@ -389,8 +387,8 @@ namespace VorratsUebersicht
             catch(Exception ex)
             {
                 imageView.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
-                headerView.Text = ex.Message;
-                detailView.Text = ex.StackTrace;
+                headerView.Text = null;
+                detailView.Text = ex.Message + ex.StackTrace;
             }
         }
 

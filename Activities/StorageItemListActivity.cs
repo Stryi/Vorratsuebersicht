@@ -330,13 +330,13 @@ namespace VorratsUebersicht
 
             if ((requestCode == SelectArticleId) && (resultCode == Result.Ok) && (data != null))
             {
-				// Anzeige Menge prü Artikel
-				var storageItemQuantity = new Intent (this, typeof(StorageItemQuantityActivity));
 				string heading = data.GetStringExtra("Heading");
 				int id         = data.GetIntExtra("ArticleId", -1);
 				if (id == -1)
 					return;
 
+				// Anzeige Menge prü Artikel
+				var storageItemQuantity = new Intent (this, typeof(StorageItemQuantityActivity));
 				storageItemQuantity.PutExtra("Heading",   heading);
 				storageItemQuantity.PutExtra("ArticleId", id);
 				storageItemQuantity.PutExtra("EditMode",  true);
@@ -344,7 +344,7 @@ namespace VorratsUebersicht
 				this.StartActivityForResult(storageItemQuantity, StorageItemQuantityId);
 
 				ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
-				this.listViewState = listView.OnSaveInstanceState();
+				this.listViewState = listView?.OnSaveInstanceState();
 			}
 
         }

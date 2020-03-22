@@ -12,8 +12,9 @@ Vor dem Hochladen ins Google Play Store:
 Version 4.40 (CodeVersion 72)
 =============================
 
+C128 - Keine "Zwischendatenbank" im Applikationsverzeichnis mehr (Es gab immer wieder Fehler beim Kopieren auf die SD Karte)
+E013 - FIX: Anzahl "Warnungen" auf Startseite berücksichtigt nicht mehr "Unendlich Haltbar".
 E012 - FIX: Absicherung vom Absturz StorageItemQuantityActivity.ShowPictureAndDetails
-
 
 Version 4.32 (CodeVersion 71)
 =============================

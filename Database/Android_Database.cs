@@ -14,8 +14,6 @@ namespace VorratsUebersicht
         // http://err2solution.com/2016/05/sqlite-with-xamarin-forms-step-by-step-guide/
 
         public static bool UseTestDatabase = false;
-        public static bool UseAppFolderDatabase = false;
-        public static bool? IsDatabaseOnSdCard = null;
 
         public static string SelectedDatabaseName = string.Empty;
 
@@ -53,33 +51,6 @@ namespace VorratsUebersicht
             return path;
         }
 
-        public string GetSdCardDatabasePath()
-        {
-            string databaseFileName = Path.Combine(this.GetSdCardPath(), 
-                                        Android_Database.SelectedDatabaseName);
-
-            if (!File.Exists(databaseFileName))
-            {
-                return null;
-            }
-
-            return databaseFileName;
-        }
-
-        public string GetAppFolderDatabasePath()
-        {
-            string databaseFileName = Path.Combine(
-                Environment.GetFolderPath (Environment.SpecialFolder.Personal),
-                Android_Database.sqliteFilename_Prod);
-
-            if (!File.Exists(databaseFileName))
-            {
-                return null;
-            }
-
-            return databaseFileName;
-        }
-
 		public string GetDatabasePath()
 		{
             string databasePath;
@@ -93,19 +64,6 @@ namespace VorratsUebersicht
                 databasePath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
                 databaseFileName = Path.Combine(databasePath, Android_Database.sqliteFilename_Test);
 
-                Android_Database.IsDatabaseOnSdCard = false;
-                return databaseFileName;
-            }
-
-            //
-            // App Datenbank in Optionen ausgewählt?
-            //
-            if (Android_Database.UseAppFolderDatabase)
-            {
-                databasePath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
-                databaseFileName = Path.Combine(databasePath, Android_Database.sqliteFilename_Prod);
-
-                Android_Database.IsDatabaseOnSdCard = false;
                 return databaseFileName;
             }
 
@@ -116,7 +74,6 @@ namespace VorratsUebersicht
             {
                 databaseFileName = Android_Database.SelectedDatabaseName;
 
-                Android_Database.IsDatabaseOnSdCard = true;   // Ja, ist nicht so eindeutig...
                 return databaseFileName;
             }    
 
@@ -128,18 +85,10 @@ namespace VorratsUebersicht
 
             if (File.Exists(databaseFileName))
             {
-                Android_Database.IsDatabaseOnSdCard = true;
                 return databaseFileName;
             }
 
-            //
-            // Die App Datenbank auswählen.
-            //
-            databasePath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
-            databaseFileName = Path.Combine(databasePath, Android_Database.sqliteFilename_Prod);
-
-            Android_Database.IsDatabaseOnSdCard = false;
-            return databaseFileName;
+            return null;
 		}
 
         public string GetDatabaseInfoText(string format)
@@ -192,30 +141,21 @@ namespace VorratsUebersicht
 			return File.Exists(path);
 		}
 
-		public Exception CopyDatabaseToSDCard(bool overrideDatabase)
+		public Exception CreateDatabaseOnExternalStorage()
         {
 			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
 			string sdCardPath    = this.CreateAndGetSdCardPath();
 
-			string source      = Path.Combine(documentsPath, Android_Database.sqliteFilename_Prod);
+			string source      = Path.Combine(documentsPath, Android_Database.sqliteFilename_New);
             string destination = Path.Combine(sdCardPath,    Android_Database.sqliteFilename_Prod);
 
-            if (File.Exists(destination) && !overrideDatabase)
+            if (File.Exists(destination))
             {
                 return null;
             }
 
-
 			try
 			{
-                // Test eines Absturzes
-                //Activity test = null; test.GetType();
-
-                if (overrideDatabase)
-                {
-                    File.Delete(destination);
-                }
-
                 File.Copy(source, destination);
 
                 // Datenbankverbindung neu öffnen
@@ -308,7 +248,6 @@ namespace VorratsUebersicht
 		{
 			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
 
-            this.CreateDatabaseIfNotExists(documentsPath,  Android_Database.sqliteFilename_New,  Android_Database.sqliteFilename_Prod, false);
             this.CreateDatabaseIfNotExists(documentsPath,  Android_Database.sqliteFilename_Demo, Android_Database.sqliteFilename_Test, true);
             this.CreateDatabaseIfNotExists(documentsPath,  Android_Database.sqliteFilename_Demo, Android_Database.sqliteFilename_Demo, false);
             this.CreateDatabaseIfNotExists(documentsPath,  Android_Database.sqliteFilename_New,  Android_Database.sqliteFilename_New,  false);
@@ -316,7 +255,7 @@ namespace VorratsUebersicht
 			string sdCardPath = this.CreateAndGetSdCardPath();
             if (!string.IsNullOrEmpty(sdCardPath))
             {
-                this.CopyDatabaseToSDCard(false);
+                this.CreateDatabaseOnExternalStorage();
             }
         }
 
@@ -529,61 +468,5 @@ namespace VorratsUebersicht
 
             return;
         }
-
-        public bool CheckWrongDatabase() 
-        {
-
-            try
-            {
-                int? sdArticleCount  = null;
-                int? appArticleCount = null;
-
-                // SD Karten Datenbank Pfad (falls vorhanden)
-                string dbFileName = Android_Database.Instance.GetSdCardDatabasePath();
-                if ((dbFileName == null) || !Android.OS.Environment.ExternalStorageDirectory.CanWrite())
-                {
-                    // Keine Datenbank oder kein Zugriff auf die SD Karte.
-                    return false;
-                }
-                
-                // Anzahl Artikel auf der SD Karte.
-                var conn = new SQLite.SQLiteConnection(dbFileName, false);
-                sdArticleCount = conn.ExecuteScalar<int>("SELECT COUNT(*) FROM Article");
-
-                if (sdArticleCount > 0)
-                {
-                    // Auf der SD Karte sind schon Daten erfasst. => Alles OK.
-                    return false;
-                }
-
-                // DB im Applikationsverzeichnis?
-                dbFileName = Android_Database.Instance.GetAppFolderDatabasePath();
-                if (dbFileName == null)
-                {
-                    // Noch keine Datenbank angelegt (Erstaufruf?).
-                    return false;
-                }
-                
-                // Anzahl Artikel im App-Verzeichnis.
-                conn = new SQLite.SQLiteConnection(dbFileName, false);
-                appArticleCount = conn.ExecuteScalar<int>("SELECT COUNT(*) FROM Article");
-
-                if (appArticleCount == 0)
-                {
-                    // Keine Artikel für die Übernahme
-                    return false;
-                }
-
-                // Fehlerfall entdeckt
-                return true;
-            }
-            catch(Exception e)
-            {
-                TRACE(e);
-            }
-
-            return false;
-        }
-
     }
 }

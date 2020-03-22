@@ -63,7 +63,7 @@ namespace VorratsUebersicht
             // Damit Pre-Launch von Google Play Store nicht immer wieder
             // in die EAN Scan "Falle" tappt und da nicht wieder rauskommt.
             // (meistens nächster Tag)
-            MainActivity.preLaunchTestEndDay = new DateTime(2020, 3, 14);
+            MainActivity.preLaunchTestEndDay = new DateTime(2020, 3, 22);
 
             base.OnCreate(bundle);
 
@@ -84,40 +84,11 @@ namespace VorratsUebersicht
             // Datenbanken erstellen
             Android_Database.Instance.RestoreSampleDatabaseFromResources();
 
-            if (MainActivity.IsGooglePlayPreLaunchTestMode)
-            {
-			    Android_Database.UseTestDatabase = true;
-            }
-            else
-            {
-                this.ShowInfoAufTestdatenbank();
-            }
-
-            string databaseName = Android_Database.Instance.GetDatabasePath();
-            if (databaseName == null)
-            {
-                this.SetInfoText("Keine Datenbank gefunden");
-                return;
-            }
-
-            string dbFileName = Path.GetFileNameWithoutExtension(databaseName);
-            if (dbFileName != "Vorraete")
-            {
-                ActionBar.Subtitle = "Datenbank: " + dbFileName;
-            }
-
-            if (Android_Database.IsDatabaseOnSdCard.HasValue && Android_Database.IsDatabaseOnSdCard.Value)
-            {
-                new SdCardAccess().Grand(this);
-            }
-
             // Initialisierung für EAN Scanner
             ZXing.Mobile.MobileBarcodeScanner.Initialize (Application);
 
-            ArticleDetailsActivity.showCostMessage = Settings.GetBoolean("ShowOpenFoodFactsInternetCostsMessage", true);
-
-            string error = this.ShowStorageInfoText();
-            this.ShowDatabaseError(error);
+            // Zugriff auf die SD Karte anfordern
+            new SdCardAccess().Grand(this);
 
             // Klick auf den "abgelaufen" Text bringt die Liste der (bald) abgelaufender Artieln.
             FindViewById<TextView>(Resource.Id.Main_Text).Click  += ArticlesNearExpiryDate_Click;
@@ -144,57 +115,74 @@ namespace VorratsUebersicht
             Button buttonBarcode = FindViewById<Button>(Resource.Id.MainButton_Barcode);
             buttonBarcode.Click += ButtonBarcode_Click;
 
-            this.EnableButtons(string.IsNullOrEmpty(error));
+            // Einstellungen für Warnhinweis beim OpenFoodFacts.org
+            ArticleDetailsActivity.showCostMessage = Settings.GetBoolean("ShowOpenFoodFactsInternetCostsMessage", true);
 
-            this.ShowInfoAufTestversion();
 
-            // Prüfe, ob in der App-DB Daten sind und auf der SD nicht.
-            if (Android_Database.Instance.CheckWrongDatabase())
+            if (MainActivity.IsGooglePlayPreLaunchTestMode)
             {
-                var message = new AlertDialog.Builder(this);
-                message.SetMessage("Die Datenbank auf der SD Karte enthält keine Daten.\n\nSollen die Daten vom Applikationsverzeichnis übernommen werden?");
-                message.SetTitle("Datenverlust erkannt!");
-                message.SetIcon(Resource.Drawable.ic_launcher);
-                message.SetPositiveButton("Ja", (s, e) => 
-                    {
-                        // Unbekannter Fehlerfall ist aufgetreten.
-                        // Datenbank von App-Verzeichnis auf SD Karte (erneut) kopieren.
-                        Exception exception = Android_Database.Instance.CopyDatabaseToSDCard(true);
-                        if (exception != null)
-                        {
-                            ShowExceptionMessage(exception);
-                        }
-                    });
-                message.SetNegativeButton("Keine Ahnung. Mache lieber nichts.", (s, e) => { });
-                message.Create().Show();
+			    Android_Database.UseTestDatabase = true;
             }
-            
-            // SetAlarmForBackgroundServices(this);
+            else
+            {
+                this.ShowInfoAufTestdatenbank();
+            }
+
+            // Datenbankverbindung initialisieren
+            this.InitializeDatabase();
+
+            // Hinweis bei Pre-Launch Untersuchung
+            this.ShowInfoAufTestversion();
         }
 
-        /*
-		public static void SetAlarmForBackgroundServices(Context context)
-		{
-			var alarmIntent = new Intent(context.ApplicationContext, typeof(AlarmReceiver));
-			var broadcast = PendingIntent.GetBroadcast(context.ApplicationContext, 0, alarmIntent, PendingIntentFlags.NoCreate);
-			if (broadcast == null)
-			{
-				var pendingIntent = PendingIntent.GetBroadcast(context.ApplicationContext, 0, alarmIntent, 0);
-				var alarmManager = (AlarmManager)context.GetSystemService(Context.AlarmService);
-				alarmManager.SetRepeating(AlarmType.ElapsedRealtimeWakeup, SystemClock.ElapsedRealtime(), 15000, pendingIntent);
-			}
-		}
-        */
-
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        private void InitializeDatabase()
         {
+            string databaseName = Android_Database.Instance.GetDatabasePath();
+            if (databaseName == null)
+            {
+                this.SetInfoText("Keine Datenbank gefunden!");
+                this.SetInfoText("Bitte erlauben Sie den Zugriff auf den Speicher beim Starten der App, damit die Datenbank dort sicher angelegt werden kann.", false);
+                this.EnableButtons(false);
+                return;
+            }
+
             // Sich neu connecten;
             Android_Database.SQLiteConnection = null;
 
             string error = this.ShowStorageInfoText();
             this.ShowDatabaseError(error);
+            this.ShowDatabaseName();
 
             this.EnableButtons(string.IsNullOrEmpty(error));
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            bool canWriteExternalStorage = false;
+
+            for(int i = 0; i < permissions.Length; i++)
+            {
+                string permission      = permissions[i];
+                Permission grantResult = grantResults[i];
+
+                if (permission.Equals(Android.Manifest.Permission.WriteExternalStorage)
+                    && grantResult == Permission.Granted)
+                {
+                    canWriteExternalStorage = true;
+                }
+            }
+
+            if (!canWriteExternalStorage)
+                return;
+
+            var exception = Android_Database.Instance.CreateDatabaseOnExternalStorage();
+            if (exception != null)
+            {
+                Toast.MakeText(this, exception.Message, ToastLength.Long);
+                return;
+            }
+
+            this.InitializeDatabase();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -340,50 +328,14 @@ namespace VorratsUebersicht
                 message.SetPositiveButton("Test starten", (s, e) => 
                     { 
                         Android_Database.UseTestDatabase = true;
-                        Android_Database.SQLiteConnection = null;   // Sich neu connecten;
-                        string error = this.ShowStorageInfoText();
-                        this.ShowDatabaseError(error);
+
+                        this.InitializeDatabase();
                     });
-                message.SetNegativeButton("OK", (s, e) => 
-                    {
-                        if (Android_Database.IsDatabaseOnSdCard.HasValue && Android_Database.IsDatabaseOnSdCard.Value)
-                        {
-                            new SdCardAccess().Grand(this);
-                        }
-                    });
+                message.SetNegativeButton("OK", (s, e) => { });
                 message.Create().Show();
             }
 
             Settings.PutBoolean("FirstRun", false);
-        }
-
-        void ShowExceptionMessage(Exception exception)
-        {
-            string text = "Es ist ein Fehler aufgetreten. Soll eine E-Mail mit den Fehlerdetails an den Entwickler geschickt werden?";
-            text += "\n\n(Ihre E-Mail Adresse wird dem Entwickler angezeigt)?";
-
-            var message = new AlertDialog.Builder(this);
-            message.SetMessage(text);
-            message.SetTitle("Fehler aufgetreten!");
-            message.SetIcon(Resource.Drawable.ic_launcher);
-            message.SetPositiveButton("Ja", (s, e) => 
-                {
-                    // E-Mail an den Entwickler
-                    this.SendEmailToDeveloper("Vorratsübersicht: Absturzbericht beim Kopieren der Datenbank",
-                        exception.ToString());
-                });
-            message.SetNegativeButton("Nein", (s, e) => {});
-            message.Create().Show();
-        }
-
-        private void SendEmailToDeveloper(string subject, string errorText)
-        {
-            var emailIntent = new Intent(Intent.ActionSend);
-            emailIntent.PutExtra(Android.Content.Intent.ExtraEmail, new[] { "cstryi@freenet.de" });
-            emailIntent.PutExtra(Android.Content.Intent.ExtraSubject, subject);
-            emailIntent.SetType("message/rfc822");
-            emailIntent.PutExtra(Android.Content.Intent.ExtraText, errorText);
-            StartActivity(Intent.CreateChooser(emailIntent, "E-Mail an Entwickler senden mit..."));
         }
 
         /// <summary>
@@ -486,6 +438,24 @@ namespace VorratsUebersicht
             }
         }
 
+        private void ShowDatabaseName()
+        {
+            string databaseName = Android_Database.Instance.GetDatabasePath();
+            if (databaseName == null)
+            {
+                ActionBar.Subtitle = "Keine Datenbank ausgewählt";
+                return;
+            }
+
+            string dbFileName = Path.GetFileNameWithoutExtension(databaseName);
+            if (dbFileName != "Vorraete")
+            {
+                ActionBar.Subtitle = "Datenbank: " + dbFileName;
+                return;
+            }
+            ActionBar.Subtitle = null;
+        }
+
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
 		{
 			base.OnActivityResult(requestCode, resultCode, data);
@@ -499,12 +469,7 @@ namespace VorratsUebersicht
             if (requestCode == OptionsId)
             {
                 // Sich neu connecten;
-                Android_Database.SQLiteConnection = null;
-
-                string error = this.ShowStorageInfoText();
-                this.ShowDatabaseError(error);
-
-                this.EnableButtons(string.IsNullOrEmpty(error));
+                this.InitializeDatabase();
             }
         }
 

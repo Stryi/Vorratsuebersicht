@@ -164,15 +164,6 @@
         </LinearLayout>
 
         <Switch
-            android:id="@+id/SettingsButton_SwitchToAppDb"
-            android:text="Benutze Applikationsverzeichnis statt SD-Karte"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
-            android:paddingTop="10dp"
-            android:drawablePadding="20dp" />
-
-        <Switch
             android:id="@+id/SettingsButton_ShowOFFCostMessage"
             android:text="Kostenhinweis bei OpenFoodFacts.org anzeigen"
             android:layout_width="match_parent"
