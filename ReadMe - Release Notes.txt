@@ -9,12 +9,17 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.41 (CodeVersion 73)
+=============================
+
+E014 - Absturz beim Erfassen der Lagermengen (wenn kein Lager?)
+
 Version 4.40 (CodeVersion 72)
 =============================
 
 C128 - Keine "Zwischendatenbank" im Applikationsverzeichnis mehr (Es gab immer wieder Fehler beim Kopieren auf die SD Karte)
 E013 - FIX: Anzahl "Warnungen" auf Startseite berücksichtigt nicht mehr "Unendlich Haltbar".
-E012 - FIX: Absicherung vom Absturz StorageItemQuantityActivity.ShowPictureAndDetails
+E012 - FIX: Absicherung vom Absturz beim Hinzufügen vom Artikel ins Lager
 
 Version 4.32 (CodeVersion 71)
 =============================

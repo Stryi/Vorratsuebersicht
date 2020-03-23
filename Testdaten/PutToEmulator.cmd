@@ -29,6 +29,7 @@ REM Daten kopieren
 REM %adbCmd% -s %EmulatorName%   push ..\..\Testdaten\Vorraete_Stryi.db3        %SD_Card_Path%/Vorratsuebersicht/Vorraete.db3
 REM %adbCmd% -s %EmulatorName%   push ..\..\Testdaten\Vorraete-Test.db3         %SD_Card_Path%/Vorratsuebersicht/Vorraete-Test.db3
 REM %adbCmd% -s %EmulatorName%   push ..\..\Testdaten\Vorraete_Stryi_Kaputt.db3 %SD_Card_Path%/Vorratsuebersicht/Vorraete_Stryi_Kaputt.db3
+%adbCmd% -s %EmulatorName%   push "..\..\Testdaten\Vue_2020-03-23 11.59.14.db3" "%SD_Card_Path%/Vorratsuebersicht/Vue_2020-03-23 11.59.14.db3"
 
 ECHO ----------------------------------------------------
 ECHO db0 und Testdatenbank uebertragen

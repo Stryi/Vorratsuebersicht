@@ -70,7 +70,7 @@ namespace VorratsUebersicht
             this.Storages = Database.GetStorageNames();
 
             var storage = FindViewById<MultiAutoCompleteTextView>(Resource.Id.StorageItemQuantity_StorageText);
-            storage.FocusChange += MultiAutoCompleteTextView_FocusChange;
+            //storage.FocusChange += MultiAutoCompleteTextView_FocusChange;
             storage.Text = StorageItemQuantityActivity.article?.StorageName;
 
             ArrayAdapter<String> storageAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, this.Storages);
