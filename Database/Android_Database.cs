@@ -88,6 +88,17 @@ namespace VorratsUebersicht
                 return databaseFileName;
             }
 
+            //
+            // Die App Datenbank auswählen.
+            // Für diejenigen, die gar keine SD-Karte haben(?)
+            //
+            databasePath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
+            databaseFileName = Path.Combine(databasePath, Android_Database.sqliteFilename_Prod);
+
+            if (File.Exists(databaseFileName))
+            {
+                return databaseFileName;
+            }
             return null;
 		}
 

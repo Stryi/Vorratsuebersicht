@@ -96,50 +96,14 @@ namespace VorratsUebersicht
                 this.GotoArticleDetails(this.articleId);
             };
 
+            Button selectStorage = FindViewById<Button>(Resource.Id.StorageItemQuantity_SelectStorage);
+            selectStorage.Click += SelectStorage_Click;
+
             Button stepButton = FindViewById<Button>(Resource.Id.StorageItemQuantity_StepButton);
             stepButton.Click += StepButton_Click;
 
             ImageButton addArticle = FindViewById<ImageButton>(Resource.Id.StorageItemQuantity_AddArticle);
-            addArticle.Click += delegate 
-            {
-                var storageName = FindViewById<EditText>(Resource.Id.StorageItemQuantity_StorageText).Text;
-
-                StorageItemQuantityResult storageItemQuantity = new StorageItemQuantityResult();
-				storageItemQuantity.ArticleId    = this.articleId;
-                storageItemQuantity.Quantity     = 1;
-                storageItemQuantity.BestBefore   = DateTime.Today;
-                storageItemQuantity.StorageName  = storageName;
-                storageItemQuantity.IsChanged    = true;
-
-                StorageItemQuantityListView itemView = new StorageItemQuantityListView(storageItemQuantity);
-
-                ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
-                ((StorageItemQuantityListViewAdapter)listView.Adapter).Add(itemView);
-                listView.InvalidateViews();
-
-                if (!this.durableInfinity)
-                {
-                    // Haltbarkeitsdatum erfassen (kann aber auch weggelassen werden)
-				    DatePickerFragment frag = DatePickerFragment.NewInstance(delegate(DateTime? time) 
-						    {
-                                if (time.HasValue)
-							        storageItemQuantity.BestBefore = time.Value;
-                                else
-							        storageItemQuantity.BestBefore = null;
-
-                                listView.InvalidateViews();
-						    }, DateTime.Today);
-				    frag.ShowsDialog = true;
-				    frag.Show(FragmentManager, DatePickerFragment.TAG);
-                }
-                else
-                {
-                    // Ist ohne Haltbarkeitsdatum (unendlich haltbar)
-                    // Datum muss nicht erfasst werden.
-                    storageItemQuantity.BestBefore = null;
-                    listView.InvalidateViews();
-                }
-            };
+            addArticle.Click += AddArticle_Click;
 
             if (editMode)
             {
@@ -147,6 +111,47 @@ namespace VorratsUebersicht
             }
 
             StorageItemQuantityListViewAdapter.StepValue = 1;
+        }
+
+        private void AddArticle_Click(object sender, EventArgs e)
+        {
+            var storageName = FindViewById<EditText>(Resource.Id.StorageItemQuantity_StorageText).Text;
+
+            StorageItemQuantityResult storageItemQuantity = new StorageItemQuantityResult();
+			storageItemQuantity.ArticleId    = this.articleId;
+            storageItemQuantity.Quantity     = 1;
+            storageItemQuantity.BestBefore   = DateTime.Today;
+            storageItemQuantity.StorageName  = storageName;
+            storageItemQuantity.IsChanged    = true;
+
+            StorageItemQuantityListView itemView = new StorageItemQuantityListView(storageItemQuantity);
+
+            ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
+            ((StorageItemQuantityListViewAdapter)listView.Adapter).Add(itemView);
+            listView.InvalidateViews();
+
+            if (!this.durableInfinity)
+            {
+                // Haltbarkeitsdatum erfassen (kann aber auch weggelassen werden)
+				DatePickerFragment frag = DatePickerFragment.NewInstance(delegate(DateTime? time) 
+						{
+                            if (time.HasValue)
+							    storageItemQuantity.BestBefore = time.Value;
+                            else
+							    storageItemQuantity.BestBefore = null;
+
+                            listView.InvalidateViews();
+						}, DateTime.Today);
+				frag.ShowsDialog = true;
+				frag.Show(FragmentManager, DatePickerFragment.TAG);
+            }
+            else
+            {
+                // Ist ohne Haltbarkeitsdatum (unendlich haltbar)
+                // Datum muss nicht erfasst werden.
+                storageItemQuantity.BestBefore = null;
+                listView.InvalidateViews();
+                }
         }
 
         private void StepButton_Click(object sender, EventArgs e)
@@ -166,6 +171,19 @@ namespace VorratsUebersicht
 
             TextView text = FindViewById<TextView>(Resource.Id.StorageItemQuantity_StepText);
             text.Text = string.Format("{0}x", StorageItemQuantityListViewAdapter.StepValue);
+        }
+
+        private void SelectStorage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var storage = FindViewById<MultiAutoCompleteTextView>(Resource.Id.StorageItemQuantity_StorageText);
+                storage.ShowDropDown();
+            }
+            catch(Exception ex)
+            {
+                Toast.MakeText(this, ex.Message, ToastLength.Long);
+            }
         }
 
         public static void Reload()
@@ -252,6 +270,7 @@ namespace VorratsUebersicht
                 FindViewById(Resource.Id.StorageItemQuantity_Storage).Visibility = ViewStates.Visible;
                 FindViewById(Resource.Id.StorageItemQuantity_Step).Visibility = ViewStates.Visible;
                 adapter.ActivateButtons();
+                this.Window.SetSoftInputMode(SoftInput.StateHidden);
             }
             else
             {

@@ -9,10 +9,16 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.42 (CodeVersion 74)
+=============================
+
+C129 - Datenbank im Applikationsverzeichnis wird als letztes Fallback verwendet.
+E015 - FIX: Anzahl beim leeren Lager in der Position (NULL und '' Problematik)
+
 Version 4.41 (CodeVersion 73)
 =============================
 
-E014 - Absturz beim Erfassen der Lagermengen (wenn kein Lager?)
+E014 - FIX: Absturz beim Erfassen der Lagermengen, wenn kein Lagername im Artikelstamm
 
 Version 4.40 (CodeVersion 72)
 =============================

@@ -39,7 +39,7 @@
             android:text="Beschreibung des Artikels" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/StorageItemQuantity_Storage"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -49,21 +49,34 @@
         android:layout_marginTop="2dp">
         <TextView
             android:id="@+id/StorageItemQuantity_StorageLabel"
-            android:text="Lagerort:"
+            android:text="Lager für Neu.:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:textColor="@color/Text_Color"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
         <MultiAutoCompleteTextView
             android:id="@+id/StorageItemQuantity_StorageText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="55dp"
             android:textColor="@color/Text_Color"
             android:background="@color/Application_Background"
-            android:textSize="18dp" />
-    </LinearLayout>
+            android:textSize="18dp" 
+            android:layout_toRightOf="@id/StorageItemQuantity_StorageLabel" />
+        <Button
+            android:id="@+id/StorageItemQuantity_SelectStorage"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:text = "..." 
+            android:textSize="16dp"
+            android:textAllCaps="false"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/StorageItemQuantity_Step"
@@ -76,14 +89,14 @@
         <Button
             android:id="@+id/StorageItemQuantity_StepButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text = "Schritt:" 
             android:textSize="16dp"
             android:textAllCaps="false" />
         <TextView
             android:id="@+id/StorageItemQuantity_StepText"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="5dp"
             android:gravity="center"
             android:textSize="20sp"
@@ -93,7 +106,7 @@
         <ImageButton
             android:id="@+id/StorageItemQuantity_AddArticle"
             android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_add_circle_outline_white_24dp" />
     </RelativeLayout>

@@ -294,7 +294,7 @@ namespace VorratsUebersicht
             {
                 // Positionen direkt mit dem Lager oder Positionen ohne Lager, aber wenn der Artikel das Lager hat.
                 filter += " AND (StorageItem.StorageName = ?";
-                filter += "  OR (StorageItem.StorageName IS NULL) AND StorageItem.ArticleId IN (SELECT ArticleId FROM Article WHERE Article.StorageName = ?))";
+                filter += "  OR (IFNULL(StorageItem.StorageName, '') = '') AND StorageItem.ArticleId IN (SELECT ArticleId FROM Article WHERE Article.StorageName = ?))";
 
                 parameter.Add(storageName);
                 parameter.Add(storageName);
@@ -466,11 +466,12 @@ namespace VorratsUebersicht
             if (databaseConnection == null)
                 return stringList;
 
-            // Artikel suchen, die schon abgelaufen sind.
+            // Lagernamen aus dem Artikelstamm und den Positionen ermitteln.
             string cmd = string.Empty;
-            cmd += "SELECT DISTINCT StorageName AS Value";
+            cmd += "SELECT DISTINCT Article.StorageName AS Value";
             cmd += " FROM Article";
-            cmd += " WHERE StorageName IS NOT NULL AND StorageName <> ''";
+            cmd += " WHERE Article.StorageName IS NOT NULL AND Article.StorageName <> ''";
+            cmd += " AND Article.ArticleId IN (SELECT StorageItem.ArticleId FROM StorageItem)";
             cmd += " UNION";
             cmd += " SELECT StorageName AS Value";
             cmd += " FROM StorageItem";
@@ -856,7 +857,7 @@ namespace VorratsUebersicht
             {
                 // Positionen direkt mit dem Lager oder Positionen ohne Lager, aber wenn der Artikel das Lager hat.
                 bestBeforeFilter += " AND (StorageItem.StorageName = ?";
-                bestBeforeFilter += "  OR (StorageItem.StorageName IS NULL) AND StorageItem.ArticleId IN (SELECT ArticleId FROM Article WHERE Article.StorageName = ?))";
+                bestBeforeFilter += "  OR (IFNULL(StorageItem.StorageName, '') = '') AND StorageItem.ArticleId IN (SELECT Art1.ArticleId FROM Article AS Art1 WHERE Art1.StorageName = ?))";
 
                 parameter.Add(storageName);
                 parameter.Add(storageName);
@@ -874,7 +875,7 @@ namespace VorratsUebersicht
             if (!string.IsNullOrEmpty(storageName))
             {
                 sumQuantityFilter += " AND (StorageItem.StorageName = ?";
-                sumQuantityFilter += "  OR (StorageItem.StorageName IS NULL) AND StorageItem.ArticleId IN (SELECT ArticleId FROM Article WHERE Article.StorageName = ?))";
+                sumQuantityFilter += "  OR (IFNULL(StorageItem.StorageName, '') = '') AND StorageItem.ArticleId IN (SELECT Art2.ArticleId FROM Article AS Art2 WHERE Art2.StorageName = ?))";
 
                 parameter.Add(storageName);
                 parameter.Add(storageName);

@@ -80,10 +80,10 @@ namespace VorratsUebersicht
             buttonRestore.Click += ButtonRestore_Click;
 
             Button buttonCsvExportArticles = FindViewById<Button>(Resource.Id.SettingsButton_CsvExportArticles);
-            buttonCsvExportArticles.Click += delegate { CsvExport.ExportArticles(this); };
+            buttonCsvExportArticles.Click += ButtonCsvExportArticles_Click;
 
             Button buttonCsvExportStorageItems = FindViewById<Button>(Resource.Id.SettingsButton_CsvExportStorageItems);
-            buttonCsvExportStorageItems.Click += delegate { CsvExport.ExportStorageItems(this); };
+            buttonCsvExportStorageItems.Click += ButtonCsvExportStorageItems_Click;
 
             this.ShowUserDefinedCategories();
 
@@ -97,6 +97,38 @@ namespace VorratsUebersicht
             // Artikelname ist eingetragen. Tastatus anfänglich ausblenden.
             this.Window.SetSoftInputMode(SoftInput.StateHidden);
         }
+        private void ButtonCsvExportArticles_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CsvExport.ExportArticles(this);
+            }
+            catch(Exception ex)
+            {
+                var messageBox = new AlertDialog.Builder(this);
+                messageBox.SetTitle("Fehler aufgetreten!");
+                messageBox.SetMessage(ex.Message);
+                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.Create().Show();
+            }
+        }
+
+        private void ButtonCsvExportStorageItems_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CsvExport.ExportStorageItems(this);
+            }
+            catch(Exception ex)
+            {
+                var messageBox = new AlertDialog.Builder(this);
+                messageBox.SetTitle("Fehler aufgetreten!");
+                messageBox.SetMessage(ex.Message);
+                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.Create().Show();
+            }
+        }
+
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
