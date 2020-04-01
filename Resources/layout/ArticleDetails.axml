@@ -62,13 +62,28 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp" />
-        <MultiAutoCompleteTextView
-            android:id="@+id/ArticleDetails_Manufacturer"
-            android:text="Hersteller"
-            android:layout_width="fill_parent"
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="10dp">
+            <MultiAutoCompleteTextView
+                android:id="@+id/ArticleDetails_Manufacturer"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp" />
+            <Button
+                android:id="@+id/ArticleDetails_SelectManufacturer"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text = "..." 
+                android:textSize="16dp"
+                android:textAllCaps="false"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
         <TextView
             android:text="@string/ArticleDetails_Category"
             android:layout_width="fill_parent"
@@ -84,6 +99,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:hint="@string/ArticleDetails_Category_Hint" />
+
         <TextView
             android:text="@string/ArticleDetails_SubCategory"
             android:layout_width="fill_parent"
@@ -91,43 +107,86 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp" />
-        <MultiAutoCompleteTextView
-            android:id="@+id/ArticleDetails_SubCategory"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:hint="@string/ArticleDetails_SubCategory_Hint" />
 
-        <LinearLayout
+        <RelativeLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
-            <TextView
-                android:text="@string/ArticleDetails_SupermarketLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <MultiAutoCompleteTextView
+                android:id="@+id/ArticleDetails_SubCategory"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp" />
+            <Button
+                android:id="@+id/ArticleDetails_SelectSubCategory"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text = "..." 
+                android:tag="@id/ArticleDetails_SubCategory"
+                android:textSize="16dp"
+                android:textAllCaps="false"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
+        <TextView
+            android:text="@string/ArticleDetails_SupermarketLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
             <MultiAutoCompleteTextView
                 android:id="@+id/ArticleDetails_Supermarket"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp" />
+            <Button
+                android:id="@+id/ArticleDetails_SelectSupermarket"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text = "..." 
+                android:textSize="16dp"
+                android:textAllCaps="false"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
 
-        <LinearLayout
+        <TextView
+            android:text="@string/ArticleDetails_StorageLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <RelativeLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
-            <TextView
-                android:text="@string/ArticleDetails_StorageLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
             <MultiAutoCompleteTextView
                 android:id="@+id/ArticleDetails_Storage"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp" />
+            <Button
+                android:id="@+id/ArticleDetails_SelectStorage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text = "..." 
+                android:textSize="16dp"
+                android:textAllCaps="false"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
 
         <Switch
             android:id="@+id/ArticleDetails_DurableInfinity"

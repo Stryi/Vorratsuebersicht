@@ -125,8 +125,8 @@ namespace VorratsUebersicht
 
             if (sum_kcal        > 0) status += string.Format(", Kalorien: {0:n0}",   sum_kcal);
             if (sum_price       > 0) status += string.Format(", Wert: {0:n2} €",       sum_price);
-            if (sum_warnung     > 0) status += string.Format(", {0:n0} Warnung(en)", sum_warnung);
-            if (sum_abgelaufen  > 0) status += string.Format(", {0:n0} Abgelaufen",  sum_abgelaufen);
+            if (sum_warnung     > 0) status += string.Format(", {0:#,0.######} Warnung(en)", sum_warnung);
+            if (sum_abgelaufen  > 0) status += string.Format(", {0:#,0.######} Abgelaufen",  sum_abgelaufen);
             
             return status;
         }

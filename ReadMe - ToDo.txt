@@ -7,6 +7,8 @@ Artikeldetails
 Lagerbestand
 - Manuelle Datumseingabe (ohne scrollen zu müssen), z.B. mit Buttons "2020", "2021", Monat "1", "2",...
 
+Artikelliste
+- Neue Unterkategorie wird in der Auswahlliste nicht angezeigt???
 
 EAN Scan
 - Besseren EAN Scanner suchen 

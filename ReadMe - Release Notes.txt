@@ -9,6 +9,13 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.43 (CodeVersion 75)
+=============================
+
+C130 - Autovervollständigung jetzt über "..." abrufbar.
+E017 - Text bei Autovervollständigung werden jetzt ohne Leerzeichen am ende abgespeichert.
+E016 - Summer der Listen bei Warnungen und Abgelaufen jetzt auch mit Komma-Stellen.
+
 Version 4.42 (CodeVersion 74)
 =============================
 
