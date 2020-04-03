@@ -13,8 +13,9 @@ Version 4.43 (CodeVersion 75)
 =============================
 
 C130 - Autovervollständigung jetzt über "..." abrufbar.
-E017 - Text bei Autovervollständigung werden jetzt ohne Leerzeichen am ende abgespeichert.
-E016 - Summer der Listen bei Warnungen und Abgelaufen jetzt auch mit Komma-Stellen.
+E018 - Artikelangaben: Auswahllisten für Unterkategorie und "Standard Lagerort" zeigen jetzt sortiert alle Einträge (nicht nur von Artilen mit Lagerbestand).
+E017 - Artikelangaben: Texte bei Autovervollständigung werden jetzt ohne Leerzeichen am Ende abgespeichert.
+E016 - Summe der Lagerbestandsliste bei Warnungen und Abgelaufen jetzt auch mit Komma-Stellen.
 
 Version 4.42 (CodeVersion 74)
 =============================

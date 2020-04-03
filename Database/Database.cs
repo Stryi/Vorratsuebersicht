@@ -120,7 +120,7 @@ namespace VorratsUebersicht
                 parameter.Add(supermarket);
             }
 
-            cmd += " ORDER BY Bought, Supermarket, Name";
+            cmd += " ORDER BY Bought, Supermarket COLLATE NOCASE, Name COLLATE NOCASE";
 
             command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());
 
@@ -405,7 +405,7 @@ namespace VorratsUebersicht
             cmd += " FROM Article";
             cmd += " WHERE Category IS NOT NULL";
             cmd += " AND ArticleId IN (SELECT ArticleId FROM StorageItem)";
-            cmd += " ORDER BY Category";
+            cmd += " ORDER BY Category COLLATE NOCASE";
 
             var command = databaseConnection.CreateCommand(cmd);
             IList<StringResult> result = command.ExecuteQuery<StringResult>();
@@ -419,7 +419,7 @@ namespace VorratsUebersicht
             return stringList;
         }
 
-        internal static List<string> GetSubcategoriesOf(string category = null)
+        internal static List<string> GetSubcategoriesOf(string category = null, bool inStorageArticlesOnly = false)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
 
@@ -433,8 +433,11 @@ namespace VorratsUebersicht
             {
                 cmd += " AND Category = ?";
             }
-            cmd += " AND ArticleId IN (SELECT ArticleId FROM StorageItem)";
-            cmd += " ORDER BY SubCategory";
+            if (inStorageArticlesOnly)
+            {
+                cmd += " AND ArticleId IN (SELECT StorageItem.ArticleId FROM StorageItem)";
+            }
+            cmd += " ORDER BY SubCategory COLLATE NOCASE";
 
             SQLiteCommand command;
 
@@ -458,7 +461,7 @@ namespace VorratsUebersicht
             return stringList;
         }
 
-        internal static List<string> GetStorageNames()
+        internal static List<string> GetStorageNames(bool inStorageArticlesOnly = false)
         {
             List<string> stringList = new List<string>();
 
@@ -471,12 +474,15 @@ namespace VorratsUebersicht
             cmd += "SELECT DISTINCT Article.StorageName AS Value";
             cmd += " FROM Article";
             cmd += " WHERE Article.StorageName IS NOT NULL AND Article.StorageName <> ''";
-            cmd += " AND Article.ArticleId IN (SELECT StorageItem.ArticleId FROM StorageItem)";
+            if (inStorageArticlesOnly)
+            {
+                cmd += " AND Article.ArticleId IN (SELECT StorageItem.ArticleId FROM StorageItem)";
+            }
             cmd += " UNION";
             cmd += " SELECT StorageName AS Value";
             cmd += " FROM StorageItem";
             cmd += " WHERE StorageName IS NOT NULL AND StorageName <> ''";
-            cmd += " ORDER BY 1";
+            cmd += " ORDER BY 1 COLLATE NOCASE";
 
             SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
 
@@ -503,7 +509,7 @@ namespace VorratsUebersicht
             cmd += "SELECT DISTINCT Category AS Value";
             cmd += " FROM Article";
             cmd += " WHERE Category IS NOT NULL";
-            cmd += " ORDER BY Category";
+            cmd += " ORDER BY Category COLLATE NOCASE";
 
             SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
 
@@ -531,7 +537,7 @@ namespace VorratsUebersicht
             cmd += "SELECT DISTINCT Category AS Value1, Subcategory AS Value2";
             cmd += " FROM Article";
             cmd += " WHERE Category IS NOT NULL";
-            cmd += " ORDER BY Category, Subcategory";
+            cmd += " ORDER BY Category COLLATE NOCASE, Subcategory COLLATE NOCASE";
 
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -580,7 +586,7 @@ namespace VorratsUebersicht
             cmd += " FROM Article";
             cmd += " WHERE Manufacturer IS NOT NULL";
             cmd += " AND Manufacturer <> ''";
-            cmd += " ORDER BY Manufacturer";
+            cmd += " ORDER BY Manufacturer COLLATE NOCASE";
 
             SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
 
@@ -618,7 +624,7 @@ namespace VorratsUebersicht
 
             cmd += " WHERE Supermarket IS NOT NULL";
             cmd += " AND Supermarket <> ''";
-            cmd += " ORDER BY Supermarket";
+            cmd += " ORDER BY Supermarket COLLATE NOCASE";
 
             SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
 

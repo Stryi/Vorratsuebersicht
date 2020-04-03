@@ -86,7 +86,7 @@ namespace VorratsUebersicht
         {
             this.storageList = new List<string>();
             this.storageList.Add(Resources.GetString(Resource.String.StorageItem_AllStoragesStorage));
-            this.storageList.AddRange(Database.GetStorageNames());
+            this.storageList.AddRange(Database.GetStorageNames(true));
 
             if (storageList.Count > 1)
             {

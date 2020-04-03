@@ -193,7 +193,7 @@ namespace VorratsUebersicht
                 " FROM Article" +
                 " WHERE Image IS NOT NULL" +
                 " AND ArticleId NOT IN (SELECT ArticleId FROM ArticleImage)" +
-                " ORDER BY Name");
+                " ORDER BY Name COLLATE NOCASE");
 
             if (articleImagesToCopy.Count == 0)
                 return true;
