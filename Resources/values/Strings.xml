@@ -12,8 +12,8 @@
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">Sie starten die Anwendung zum ersten Mal.\n\nZum Kennenlernen der Anwendung kann eine Testdatenbank aktiviert werden. Diese können Sie unter Optionen wieder deaktivieren.</string>
   <string name="Start_TestVersionInfo1">Bitte BACKUP machen nicht vergessen!!!</string>
-  <string name="Start_TestVersionInfo2"></string>
-  <string name="Start_TestVersionInfo3"></string>
+  <string name="Start_TestVersionInfo2">Artikelsuche mit "p-" zeigt nur Artikel ohne Preise.</string>
+  <string name="Start_TestVersionInfo3">Artikelsuche mit "k-" zeigt nur Artikel ohne Kalorienangaben.</string>
   <string name="Start_TestVersionInfo4"></string>
 
   <!-- Hauptmaske -->

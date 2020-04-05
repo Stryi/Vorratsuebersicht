@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.44 (CodeVersion 76)
+=============================
+
+C131 - Kategorien werden jetzt sortiert angezeigt.
+
 Version 4.43 (CodeVersion 75)
 =============================
 

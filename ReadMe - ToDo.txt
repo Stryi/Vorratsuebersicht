@@ -62,6 +62,8 @@ Sonstiges
 - Spracheingabe, https://docs.microsoft.com/de-de/xamarin/android/platform/speech
 - Absturz protokollieren (LOG-Datei)
 
+Synchronisierung
+- https://syncthing.net
 
 Prio 3
 ======
