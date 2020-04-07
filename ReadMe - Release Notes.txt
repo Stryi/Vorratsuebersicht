@@ -9,9 +9,10 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
-Version 4.44 (CodeVersion 76)
+Version 4.44 (Code Version 76)
 =============================
 
+C132 - Datenbank aus dem App-verzeichnis kann jetzt auf Internen Speicher kopiert werden (Datenrettung)
 C131 - Kategorien werden jetzt sortiert angezeigt.
 
 Version 4.43 (CodeVersion 75)

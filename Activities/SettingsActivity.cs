@@ -64,6 +64,9 @@ namespace VorratsUebersicht
             Button buttonRepairDb = FindViewById<Button>(Resource.Id.SettingsButton_Repair);
             buttonRepairDb.Click += ButtonRepairDb_Click;
 
+            Button buttonCopyAddDb =  FindViewById<Button>(Resource.Id.SettingsButton_CopyAppDbToSdCard);
+            buttonCopyAddDb.Click += ButtonCopyAddDb_Click;
+            
             EditText addDbPath = FindViewById<EditText>(Resource.Id.SettingsButton_AdditionalDatabasePath);
             
             addDbPath.Text = Settings.GetString("AdditionslDatabasePath", string.Empty);
@@ -97,6 +100,7 @@ namespace VorratsUebersicht
             // Artikelname ist eingetragen. Tastatus anfänglich ausblenden.
             this.Window.SetSoftInputMode(SoftInput.StateHidden);
         }
+
         private void ButtonCsvExportArticles_Click(object sender, EventArgs e)
         {
             try
@@ -381,6 +385,59 @@ namespace VorratsUebersicht
             this.ShowUserDefinedCategories();
             this.EnableButtons();
         }
+
+        private void ButtonCopyAddDb_Click(object sender, EventArgs e)
+        {
+            Android_Database.Instance.CloseConnection();
+
+            try
+            {
+                //
+                // App-DB Pfad
+                //
+                var databasePath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
+                var appDbFileName = Path.Combine(databasePath, Android_Database.sqliteFilename_Prod);
+                if (!File.Exists(appDbFileName))
+                {
+                    throw new Exception($"Quelldatei '{appDbFileName}' nicht gefunden.");
+                }
+                //
+                // Datenbank auf der SD Karte?
+                //
+                string sdCardPath = Android_Database.Instance.GetSdCardPath();
+                string sdDbFileName = Path.Combine(sdCardPath, "Vorraete_App.db3");
+
+                if (File.Exists(sdDbFileName))
+                {
+                    throw new Exception($"Zieldatei '{sdDbFileName}' existiert bereits und wird NICHT überschrieben.");
+                }
+
+                File.Copy(appDbFileName, sdDbFileName);
+
+                string message = $"Die Datei\n\n{appDbFileName}\n\nwurde kopiert als\n\n{sdDbFileName}\n\n";
+                message += "Bitte beenden Sie die App jetzt richtig. ";
+                message += "Beim Starten kann jetzt die Datenbank 'Vorraete_App' ausgewählt werden.";
+
+                var messageBox = new AlertDialog.Builder(this);
+                messageBox.SetMessage(message);
+                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.Create().Show();
+            }
+            catch(Exception ex)
+            {
+                var messageBox = new AlertDialog.Builder(this);
+                messageBox.SetTitle("Fehler aufgetreten!");
+                messageBox.SetMessage(ex.Message);
+                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.Create().Show();
+            }
+
+            // Sich neu connecten;
+            Android_Database.SQLiteConnection = null;
+
+            var databaseConnection = Android_Database.Instance.GetConnection();
+        }
+
 
         private void SwitchCostMessage_Click(object sender, EventArgs e)
         {
