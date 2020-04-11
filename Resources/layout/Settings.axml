@@ -186,9 +186,25 @@
             android:gravity="left|center_vertical"
             android:textSize="15dp" />
 
+        <TextView
+            android:text="Support" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp" />
+
         <Button
             android:id="@+id/SettingsButton_CopyAppDbToSdCard"
-            android:text="App-DB auf die Interner Speicher kopieren"
+            android:text="App-DB auf den Internen Speicher kopieren"
+            android:textSize="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical"
+            android:drawablePadding="10dp" />
+
+        <Button
+            android:id="@+id/SettingsButton_SendLogFile"
+            android:text="LOG Einträge an Entwickler schicken"
             android:textSize="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

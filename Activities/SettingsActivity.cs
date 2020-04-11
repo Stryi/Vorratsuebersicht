@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using System.Text;
 using System.Threading;
+using System.Globalization;
 
 using Android.App;
 using Android.Content;
@@ -66,7 +68,10 @@ namespace VorratsUebersicht
 
             Button buttonCopyAddDb =  FindViewById<Button>(Resource.Id.SettingsButton_CopyAppDbToSdCard);
             buttonCopyAddDb.Click += ButtonCopyAddDb_Click;
-            
+
+            Button buttonSendLogFile =  FindViewById<Button>(Resource.Id.SettingsButton_SendLogFile);
+            buttonSendLogFile.Click += ButtonSendLogFile_Click;
+                        
             EditText addDbPath = FindViewById<EditText>(Resource.Id.SettingsButton_AdditionalDatabasePath);
             
             addDbPath.Text = Settings.GetString("AdditionslDatabasePath", string.Empty);
@@ -163,17 +168,20 @@ namespace VorratsUebersicht
 
             EditText dbPath = this.FindViewById<EditText>(Resource.Id.SettingsButton_AdditionalDatabasePath);
 
-            bool dirExists = Directory.Exists(dbPath.Text);
-            if (!dirExists)
+            if (!string.IsNullOrEmpty(dbPath.Text))
             {
-                string message = string.Format("Der eingegebene zusätzlicher Datenbankpfad '{0}' existiert nicht oder Sie haben kein Zugriff dadrauf.", dbPath.Text);
+                bool dirExists = Directory.Exists(dbPath.Text);
+                if (!dirExists)
+                {
+                    string message = string.Format("Der eingegebene zusätzlicher Datenbankpfad '{0}' existiert nicht oder Sie haben kein Zugriff dadrauf.", dbPath.Text);
 
-                var messageBox = new AlertDialog.Builder(this);
-                messageBox.SetMessage(message);
-                messageBox.SetPositiveButton("OK", (s, evt) => { });
-                messageBox.Create().Show();
+                    var messageBox = new AlertDialog.Builder(this);
+                    messageBox.SetMessage(message);
+                    messageBox.SetPositiveButton("OK", (s, evt) => { });
+                    messageBox.Create().Show();
 
-                return false;
+                    return false;
+                }
             }
 
             Settings.PutString("AdditionslDatabasePath", dbPath.Text);
@@ -438,6 +446,50 @@ namespace VorratsUebersicht
             var databaseConnection = Android_Database.Instance.GetConnection();
         }
 
+        private void ButtonSendLogFile_Click(object sender, EventArgs eventArgs)
+        {
+            string message = "LOG Einträge an den Entwickler schicken?";
+            message += "\n\nIhre E-Mail Adresse wird dem Entwickler als 'Absender' angezeigt. ";
+            message += "Es werden keine private Daten versendet. ";
+            message += "Vor dem Senden können Sie die Daten noch betrachten.";
+
+            var dialog = new AlertDialog.Builder(this);
+            dialog.SetMessage(message);
+            dialog.SetPositiveButton("Ja", (s, e) => 
+                {
+                    Context context = this.ApplicationContext;
+                    PackageInfo info = context.PackageManager.GetPackageInfo(context.PackageName, 0);
+
+                    var build = Build.RadioVersion;
+
+                    StringBuilder text = new StringBuilder();
+                    text.AppendFormat("App Version: {0} (Code Version {1})\n", info.VersionName, info.VersionCode);
+                    text.AppendFormat("Current Database: {0}\n", Android_Database.SQLiteConnection?.DatabasePath);
+                    text.AppendFormat("Android Version: {0}\n",  Build.VERSION.Release);
+                    text.AppendFormat("Android SDK: {0}\n",      Build.VERSION.Sdk);
+                    text.AppendFormat("Hersteller: {0}\n",       Build.Manufacturer);
+                    text.AppendFormat("Modell: {0}\n",           Build.Model);
+                    text.AppendFormat("CurrentCulture: {0}\n",   CultureInfo.CurrentCulture.DisplayName);
+                    text.AppendFormat("CurrentUICulture: {0}\n", CultureInfo.CurrentUICulture.DisplayName);
+                    
+                    text.AppendLine();
+                    text.AppendFormat(Logging.GetLogFileText());
+
+                    System.Diagnostics.Trace.WriteLine(text.ToString());
+
+                    string subject = "Vue_LOG_" + DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss");
+
+                    var emailIntent = new Intent(Intent.ActionSend);
+                    emailIntent.PutExtra(Android.Content.Intent.ExtraEmail,   new[] { "cstryi@freenet.de" });
+                    emailIntent.PutExtra(Android.Content.Intent.ExtraSubject, subject);
+                    emailIntent.PutExtra(Android.Content.Intent.ExtraText,    text.ToString());
+                    //emailIntent.SetType("message/rfc822");
+                    emailIntent.SetType("text/plain");
+                    StartActivity(Intent.CreateChooser(emailIntent, "E-Mail an Entwickler senden mit..."));
+                });
+            dialog.SetNegativeButton("Nein", (s, e) => { });
+            dialog.Create().Show();
+        }
 
         private void SwitchCostMessage_Click(object sender, EventArgs e)
         {

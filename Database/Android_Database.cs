@@ -303,9 +303,16 @@ namespace VorratsUebersicht
                 return null;
 
 			// This is where we copy in the prepopulated database
-			TRACE("Database Path: {0}", path);
 			if (!File.Exists(path))
+            {
+			    TRACE("Database not exists: {0}", path);
 				return null;
+            }
+
+            TRACE("Database Path: {0}", path);
+
+            FileInfo fileInfo = new FileInfo(path);
+            TRACE("Database Size: {0} ({1:n0} Bytes)", Tools.ToFuzzyByteString(fileInfo.Length), fileInfo.Length);
 
 			var conn = new SQLite.SQLiteConnection(path, false);
             //conn.Trace = true;
@@ -314,7 +321,7 @@ namespace VorratsUebersicht
 			IList<JournalMode> tableInfo = conn.Query<JournalMode>(cmd);
             if (tableInfo.Count > 0)
             {
-                TRACE("PRAGMA journal_mode={0}", tableInfo[0].journal_mode);
+                //TRACE("PRAGMA journal_mode={0}", tableInfo[0].journal_mode);
             }
 
 			this.UpdateDatabase(conn);

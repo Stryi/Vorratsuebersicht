@@ -1,11 +1,13 @@
 using System;
-
+using System.IO;
 using Android.Util;
 
 namespace VorratsUebersicht
 {
     public static class Tools
     {
+        private static string logFileName;
+
         public static T Cast<T>(this Java.Lang.Object obj) where T : class
         {
             var propertyInfo = obj.GetType().GetProperty("Instance");
@@ -32,11 +34,12 @@ namespace VorratsUebersicht
             return string.Format(format[i], s);  
         }
 
-
         public static void TRACE(string text)
         {
             Log.WriteLine(LogPriority.Debug, "stryi", text);
+            Tools.LogToFile(text);
         }
+
         public static void TRACE(string format, params object[] args)
         {
             TRACE(string.Format(format, args));
@@ -45,6 +48,35 @@ namespace VorratsUebersicht
         public static void TRACE(Exception e)
         {
             Log.WriteLine(LogPriority.Error, "stryi", e.ToString());
+            Tools.LogToFile(e.ToString());
+        }
+
+        private static void LogToFile(string text)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(Tools.logFileName))
+                {
+                    Logging.ClearOldLogFiles();
+
+                    Tools.logFileName = Logging.GetCurrentLogFileName();
+                }
+
+                string[] lines = text.Split("\n");
+                foreach(string line in lines)
+                {
+                    if (string.IsNullOrEmpty(line))
+                        continue;
+
+                    var lineText = DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss - ") + line + "\r\n";
+                    File.AppendAllText(Tools.logFileName, lineText);
+                }
+
+            }
+            catch(Exception e)
+            {
+                Log.WriteLine(LogPriority.Error, "stryi", e.ToString());
+            }
         }
     }
 }

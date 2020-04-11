@@ -50,9 +50,11 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
-                string text = ex.Message;
+                string text = "Bitte ggf. den Eintrag 'Zusätzlicher Datenbankpfad' in den Einstellungen prüfen.";
+                TRACE("SplashScreen: {0}", ex.Message);
+                TRACE("SplashScreen: {0}", text);
 
-                text += "\n\nBitte ggf. den Eintrag 'Zusätzlicher Datenbankpfad' in den Einstellungen prüfen.";
+                text = ex.Message + "\n\n" + text;
 
                 Toast.MakeText(this, text, ToastLength.Long).Show();
 
@@ -199,7 +201,7 @@ namespace VorratsUebersicht
                 return true;
 
             string message = string.Format("Übertrage {0} Artikelbilder...", articleImagesToCopy.Count);
-
+            TRACE(message);
             RunOnUiThread(() =>
             {
                 this.progressText.SetText(message, TextView.BufferType.Normal);

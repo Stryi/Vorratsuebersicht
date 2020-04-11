@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 
 namespace VorratsUebersicht
 {
+    using static Tools;
+
     public class SdCardAccess
     {
         private Context context;
@@ -34,6 +30,7 @@ namespace VorratsUebersicht
                 return true;
             }
 
+            TRACE("Request permissions on storage.");
             ((Activity)context).RequestPermissions(new string[] {storageWritePermission }, 20010);
 
             return false;

@@ -17,14 +17,14 @@ EAN Scan
   implementation 'com.google.zxing:core:3.3.0' 
   https://github.com/journeyapps/zxing-android-embedded 
 
-
-
 Sonstiges
 - Push Benachrichtigung über bald zu verbrauchende Artikel einmal pro Tag
   Gewünscht von Frank (E-Mail), und von Eva (?)
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/notifications/local-notifications-walkthrough
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/services/service-notifications
-
+- Backup Dateien komprimieren
+- Datenbankauswahl am Anfang mit "Zurück" Taste soll nicht die "Vorraete.db3" erstellen sondern die erste Datenbank nehmen.
+  (Freie Auswahl des Datenbanknamens)
 
 Artikeldetails
 - Abgelehnt: Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. und Rolf Buehler (Rezession), Tiziano P. vorgeschlagen)

@@ -1,12 +1,13 @@
 ------------------------------------------------------------------------
 Projektname: Vorratsübersicht - Mindesthaltbarkeitsdatum der Vorräte überwachen.
 
-Play Store  : https://play.google.com/store/apps/details?id=de.stryi.Vorratsuebersicht&hl=de
-Beta Test   : https://play.google.com/apps/testing/de.stryi.Vorratsuebersicht
+Play Store    : https://play.google.com/store/apps/details?id=de.stryi.Vorratsuebersicht&hl=de
+Beta Test     : https://play.google.com/apps/testing/de.stryi.Vorratsuebersicht
+Interner Test : https://play.google.com/apps/internaltest/4697556532584863618
 
-Web Seite   : https://sites.google.com/site/vorratsuebersicht
+Web Seite     : https://sites.google.com/site/vorratsuebersicht
 
-GitHub      : https://github.com/Stryi/Vorratsuebersicht
+GitHub        : https://github.com/Stryi/Vorratsuebersicht
 ------------------------------------------------------------------------
 
 

@@ -183,7 +183,6 @@ namespace VorratsUebersicht
                 Bitmap unScaledBitmap = BitmapFactory.DecodeByteArray (image, 0, image.Length);
 
                 this.bitmp = unScaledBitmap;
-                TRACE("StorageItem Name {0}", this.StorageItem.Name);
 
                 return this.bitmp;
             }

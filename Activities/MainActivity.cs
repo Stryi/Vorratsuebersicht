@@ -19,7 +19,7 @@ namespace VorratsUebersicht
     using System.Collections.ObjectModel;
     using static Tools;
 
-    [Activity(Label = "Vorratsübersicht", Icon = "@drawable/ic_launcher")]
+    [Activity(Label = " Vorratsübersicht", Icon = "@drawable/ic_launcher")]
     public class MainActivity : Activity
     {
         public static readonly int EditStorageItemQuantityId = 1001;
@@ -173,7 +173,12 @@ namespace VorratsUebersicht
             }
 
             if (!canWriteExternalStorage)
+            {
+                TRACE("Permission to external storage is not granted.");
                 return;
+            }
+
+            TRACE("Permission granted to external storage.");
 
             var exception = Android_Database.Instance.CreateDatabaseOnExternalStorage();
             if (exception != null)
@@ -240,7 +245,7 @@ namespace VorratsUebersicht
 
             if (!string.IsNullOrEmpty(error))
                 text = "Fehler beim Zugriff auf die Datenbank:\n\n" + error;
-
+            
             this.SetInfoText(text);
         }
 
@@ -416,6 +421,8 @@ namespace VorratsUebersicht
             }
             else
             {
+                TRACE(text);
+
                 if (overrideText)
                 {
                     textView.Text = text;

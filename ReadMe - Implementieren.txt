@@ -75,3 +75,35 @@ Probleme:
 
     App deinstallieren und vom Google Play Store installieren
 
+6. Couldn't connect to logcat, GetProcessId returned: 0
+   Couldn't connect debugger. You can see more details in Xamarin Diagnostic output and the full exception on logs.
+
+   Xamarin Diagnostic:
+
+        [D:RunShellCommand]:      c4072f55556b date +%s
+        [D:RunShellCommand]:      c4072f55556b setprop "debug.mono.extra" "debug=127.0.0.1:29282:29283,timeout=1586421326,loglevel=0,server=y"
+        [D:RunShellCommand]:      c4072f55556b getprop
+        [D:RunShellCommand]:      c4072f55556b "echo" "-n" "${EMULATED_STORAGE_SOURCE}"
+        [D:RunShellCommand]:      c4072f55556b "echo" "-n" "${EMULATED_STORAGE_TARGET}"
+        [D:RunShellCommand]:      c4072f55556b am broadcast -a "mono.android.intent.action.EXTERNAL_STORAGE_DIRECTORY" -n "Mono.Android.DebugRuntime/com.xamarin.mono.android.ExternalStorageDirectory"
+        [D:RunShellCommand]:      c4072f55556b "echo" "-n" "${EXTERNAL_STORAGE}"
+        [D:RunShellCommand]:      c4072f55556b am start -a "android.intent.action.MAIN" -c "android.intent.category.LAUNCHER" -n "de.stryi.Vorratsuebersicht/md56c9fe683bd4750f69443fa5376e732f4.SplashScreenActivity"
+        [D:RunShellCommand]:      c4072f55556b ps
+        [D:RunShellCommand]:      c4072f55556b am force-stop de.stryi.Vorratsuebersicht
+        [D:RunShellCommand]:      c4072f55556b setprop "debug.mono.connect" ""
+
+    Lösung:
+
+    - App auf dem Smartphine deinstalliert
+    - Nach dem Start kam dann
+
+        Error: Device could not find component named: de.stryi.Vorratsuebersicht/md56c9fe683bd4750f69443fa5376e732f4.SplashScreenActivity
+        The application could not be started. Ensure that the application has been installed to the target device and has a launchable activity (MainLauncher = true).
+        Additionally, check Build->Configuration Manager to ensure this project is set to Deploy for this configuration.
+        Couldn't connect debugger. You can see more details in Xamarin Diagnostic output and the full exception on logs.
+
+     -  Rebuild -> Deploy -> Start
+     -  Funktioniert!!!
+
+
+

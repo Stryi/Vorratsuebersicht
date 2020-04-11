@@ -9,6 +9,8 @@ using Android.Provider;
 
 namespace VorratsUebersicht
 {
+    using static Tools;
+
     internal class ImageCaptureHelper
     {
         const int TakePhotoId = 1001;
@@ -58,10 +60,12 @@ namespace VorratsUebersicht
                 if (this.context.CheckSelfPermission(cameraPermission) == (int)Permission.Granted &&
                         this.context.CheckSelfPermission(storageWritePermission) == (int)Permission.Granted)
                 {
+                    TRACE("Permission on camera and storage granted.");
                     StartCameraActivity();
                 }
                 else
                 {
+                    TRACE("Request permissions on camera and storage.");
                     ((Activity)this.context).RequestPermissions(new string[] { cameraPermission, storageWritePermission }, TakePhotoId);
                 }
             }
