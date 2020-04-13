@@ -7,9 +7,6 @@ Artikeldetails
 Lagerbestand
 - Manuelle Datumseingabe (ohne scrollen zu müssen), z.B. mit Buttons "2020", "2021", Monat "1", "2",...
 
-Artikelliste
-- Neue Unterkategorie wird in der Auswahlliste nicht angezeigt???
-
 EAN Scan
 - Besseren EAN Scanner suchen 
   Die Java Variante. Da wir noch ältere Android Versionen unterstützen so:
@@ -22,12 +19,9 @@ Sonstiges
   Gewünscht von Frank (E-Mail), und von Eva (?)
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/notifications/local-notifications-walkthrough
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/services/service-notifications
-- Backup Dateien komprimieren
 - Datenbankauswahl am Anfang mit "Zurück" Taste soll nicht die "Vorraete.db3" erstellen sondern die erste Datenbank nehmen.
   (Freie Auswahl des Datenbanknamens)
 
-Artikeldetails
-- Abgelehnt: Die Möglichkeit Artikel zu kopieren/duplizieren (vom Michi H. und Rolf Buehler (Rezession), Tiziano P. vorgeschlagen)
 
 
 Prio 2
@@ -64,9 +58,19 @@ Sonstiges
 
 Synchronisierung
 - https://syncthing.net
+- https://github.com/rqlite/rqlite - ...distributed relational database, which uses SQLite
+- http://litesync.io
 
 Prio 3
 ======
+
+Von Rezension Soe Ungezähmt am 11.04.2020 um 20:58
+
+    Was cool wäre, wäre eine Option für geöffnete Produkte bei deren Aktivierung
+    das MHD/zu verbrauchen bis-Datum auf eine, je nach Produkt, 
+    bestimmte Anzahl von Tagen reduziert wird. Ggf. nach Ablauf,
+    wird das geöffnete Produkt dann automatisch aus der Datenbank entfernt. :)
+
 
 Bilder
 - Bild entfernen programmieren

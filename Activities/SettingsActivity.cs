@@ -66,8 +66,8 @@ namespace VorratsUebersicht
             Button buttonRepairDb = FindViewById<Button>(Resource.Id.SettingsButton_Repair);
             buttonRepairDb.Click += ButtonRepairDb_Click;
 
-            Button buttonCopyAddDb =  FindViewById<Button>(Resource.Id.SettingsButton_CopyAppDbToSdCard);
-            buttonCopyAddDb.Click += ButtonCopyAddDb_Click;
+            Button buttonCopyAppDb =  FindViewById<Button>(Resource.Id.SettingsButton_CopyAppDbToSdCard);
+            buttonCopyAppDb.Click += ButtonCopyAppDb_Click;
 
             Button buttonSendLogFile =  FindViewById<Button>(Resource.Id.SettingsButton_SendLogFile);
             buttonSendLogFile.Click += ButtonSendLogFile_Click;
@@ -394,7 +394,7 @@ namespace VorratsUebersicht
             this.EnableButtons();
         }
 
-        private void ButtonCopyAddDb_Click(object sender, EventArgs e)
+        private void ButtonCopyAppDb_Click(object sender, EventArgs e)
         {
             Android_Database.Instance.CloseConnection();
 
@@ -412,7 +412,7 @@ namespace VorratsUebersicht
                 //
                 // Datenbank auf der SD Karte?
                 //
-                string sdCardPath = Android_Database.Instance.GetSdCardPath();
+                string sdCardPath = Android_Database.Instance.CreateAndGetSdCardPath();
                 string sdDbFileName = Path.Combine(sdCardPath, "Vorraete_App.db3");
 
                 if (File.Exists(sdDbFileName))

@@ -104,6 +104,8 @@ namespace VorratsUebersicht
 
             builder.SetOnCancelListener(new OnDismissListener(() =>
             {
+                Android_Database.SelectedDatabaseName = fileList[0];        // Ersten Eintrag auswählen
+
                 this.ConvertAndStartMainScreen();
             }));
 

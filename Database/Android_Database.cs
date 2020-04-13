@@ -154,6 +154,11 @@ namespace VorratsUebersicht
 
 		public Exception CreateDatabaseOnExternalStorage()
         {
+            if (!string.IsNullOrEmpty(Android_Database.SelectedDatabaseName))
+            {
+                return null;
+            }
+
 			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
 			string sdCardPath    = this.CreateAndGetSdCardPath();
 
@@ -278,7 +283,7 @@ namespace VorratsUebersicht
             return sdCardPath;
         }
 
-        private string CreateAndGetSdCardPath()
+        internal string CreateAndGetSdCardPath()
         {
             if (!Android.OS.Environment.ExternalStorageDirectory.CanWrite())
                 return null;

@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 4.45 (Code Version 77)
 ==============================
 
+C133 - Vorraete.db3 wird jetzt nicht zwingend angelegt (wenn sie umbenannt wurde).
 C132 - LOG Datei wird jetzt geschrieben und kann an den Entwickler geschickt werden.
 
 Version 4.44 (Code Version 76)

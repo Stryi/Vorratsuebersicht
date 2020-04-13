@@ -457,7 +457,7 @@ namespace VorratsUebersicht
             string dbFileName = Path.GetFileNameWithoutExtension(databaseName);
             if (dbFileName != "Vorraete")
             {
-                ActionBar.Subtitle = "Datenbank: " + dbFileName;
+                ActionBar.Subtitle = " Datenbank: " + dbFileName;
                 return;
             }
             ActionBar.Subtitle = null;
