@@ -118,6 +118,7 @@ namespace VorratsUebersicht
             // Einstellungen für Warnhinweis beim OpenFoodFacts.org
             ArticleDetailsActivity.showCostMessage = Settings.GetBoolean("ShowOpenFoodFactsInternetCostsMessage", true);
 
+            StorageItemQuantityActivity.UseAltDatePicker = Settings.GetBoolean("UseAltDatePicker", false);
 
             if (MainActivity.IsGooglePlayPreLaunchTestMode)
             {

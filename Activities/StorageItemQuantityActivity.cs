@@ -25,6 +25,7 @@ namespace VorratsUebersicht
         public static List<StorageItemQuantityListView> liste = null;
         public static Article article = null;
         public static ArticleImage articleImage = null;
+        public static bool UseAltDatePicker;
 
         int articleId;
         string text;
@@ -133,17 +134,35 @@ namespace VorratsUebersicht
             if (!this.durableInfinity)
             {
                 // Haltbarkeitsdatum erfassen (kann aber auch weggelassen werden)
-				DatePickerFragment frag = DatePickerFragment.NewInstance(delegate(DateTime? time) 
-						{
+                listView.InvalidateViews();
+                if (!UseAltDatePicker)
+                {
+                    DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime? time)
+                        {
                             if (time.HasValue)
-							    storageItemQuantity.BestBefore = time.Value;
+                                storageItemQuantity.BestBefore = time.Value;
                             else
-							    storageItemQuantity.BestBefore = null;
+                                storageItemQuantity.BestBefore = null;
 
                             listView.InvalidateViews();
-						}, DateTime.Today);
-				frag.ShowsDialog = true;
-				frag.Show(FragmentManager, DatePickerFragment.TAG);
+                        }, DateTime.Today);
+                    frag.ShowsDialog = true;
+                    frag.Show(FragmentManager, DatePickerFragment.TAG);
+                } else
+                {
+                    AltDatePickerFragment frag = AltDatePickerFragment.NewInstance(delegate (DateTime? time)
+                    {
+                        if (time.HasValue)
+                            storageItemQuantity.BestBefore = time.Value;
+                        else
+                            storageItemQuantity.BestBefore = null;
+
+                        listView.InvalidateViews();
+                    }, DateTime.Today);
+                    frag.ShowsDialog = true;
+                    frag.Show(FragmentManager, AltDatePickerFragment.TAG);
+
+                }
             }
             else
             {
@@ -507,18 +526,40 @@ namespace VorratsUebersicht
             DateTime? date = storageItem.BestBefore;
 
             // Haltbarkeitsdatum erfassen (kann aber auch weggelassen werden)
-			DatePickerFragment frag = DatePickerFragment.NewInstance(delegate(DateTime? time) 
-					{
-                        if (time.HasValue)
-							storageItem.BestBefore = time.Value;
-                        else
-							storageItem.BestBefore = null;
+            storageItem.IsChanged = true;
+            adapter.NotifyDataSetInvalidated();
 
-                        storageItem.IsChanged = true;
-                        adapter.NotifyDataSetInvalidated();
-					}, date);
-			frag.ShowsDialog = true;
-			frag.Show(FragmentManager, DatePickerFragment.TAG);
+
+            if (!UseAltDatePicker)
+            {
+                DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime? time)
+                {
+                    if (time.HasValue)
+                        storageItem.BestBefore = time.Value;
+                    else
+                        storageItem.BestBefore = null;
+
+                    storageItem.IsChanged = true;
+                    adapter.NotifyDataSetInvalidated();
+                }, date);
+                frag.ShowsDialog = true;
+                frag.Show(FragmentManager, DatePickerFragment.TAG);
+            }
+            else
+            {
+                AltDatePickerFragment frag = AltDatePickerFragment.NewInstance(delegate (DateTime? time)
+                {
+                    if (time.HasValue)
+                        storageItem.BestBefore = time.Value;
+                    else
+                        storageItem.BestBefore = null;
+
+                    storageItem.IsChanged = true;
+                    adapter.NotifyDataSetInvalidated();
+                }, date);
+                frag.ShowsDialog = true;
+                frag.Show(FragmentManager, AltDatePickerFragment.TAG);
+            }
         }
 
         private void ChangeQuantity(StorageItemQuantityResult storageItem, StorageItemQuantityListViewAdapter adapter)
