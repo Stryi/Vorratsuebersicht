@@ -5,102 +5,103 @@
     android:layout_height="match_parent"
     android:paddingLeft="5dp"
     android:background="@drawable/Background">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:paddingLeft="5dp"
-        android:paddingTop="5dp">
-        <TextView
-            android:id="@+id/Main_Text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:textSize="20sp"
-            android:textColor="@color/Text_Color"
-            android:text="@string/Main_DemnaechstZuVerbrauchen"
-            android:tooltipText="@android:string/no"
-            android:visibility="gone" />
-        <TextView
-            android:id="@+id/Main_Text1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:textSize="16sp"
-            android:textColor="@color/Text_Error"
-            android:text="@string/Main_ArticlesNearExpiryDate"
-            android:visibility="gone" />
-        <TextView
-            android:id="@+id/Main_Text2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:textSize="16sp"
-            android:textColor="@color/Text_Warning"
-            android:text="@string/Main_ArticlesWithExpiryDate"
-            android:visibility="gone" />
-      <TextView
-          android:id="@+id/Main_TextInfo"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textColor="#FFFFFF"
-          android:paddingLeft="5dp"
-          android:visibility="gone" />
-      <Button
-            android:id="@+id/MainButton_Kategorie"
-            android:text="@string/Main_Button_BestandNachKategorie"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:drawableLeft="@drawable/ic_storage_white_48dp"
-            android:gravity="left|center_vertical"
-            android:enabled="false"
-            android:drawablePadding="20dp" />
-      <Button
-            android:id="@+id/MainButton_Lagerbestand"
-            android:text="@string/Main_Button_Lagerbestand"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:drawableLeft="@drawable/ic_assignment_white_48dp"
-            android:gravity="left|center_vertical"
-            android:enabled="false"
-            android:drawablePadding="20dp" />
-        <Button
-            android:id="@+id/MainButton_Artikeldaten"
-            android:text="@string/Main_Button_ArtikelListe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:drawableLeft="@drawable/ic_local_offer_white_48dp"
-            android:gravity="left|center_vertical"
-            android:enabled="false"
-            android:drawablePadding="20dp" />
-        <Button
-            android:id="@+id/MainButton_Barcode"
-            android:text="@string/Main_Button_ArtikelScannen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:drawableLeft="@drawable/Barcode"
-            android:gravity="left|center_vertical"
-            android:enabled="false"
-            android:drawablePadding="20dp" />
-        <Button
-            android:id="@+id/MainButton_ShoppingList"
-            android:text="@string/Main_Button_Einkaufsliste"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:drawableLeft="@drawable/ic_shopping_cart_white_48dp"
-            android:gravity="left|center_vertical"
-            android:enabled="false"
-            android:drawablePadding="20dp" />
-    </LinearLayout>
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    android:paddingLeft="5dp"
+    android:paddingTop="5dp"
+    android:id="@+id/MainLinearLayout">
+    <TextView
+      android:id="@+id/Main_Text"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingLeft="5dp"
+      android:textSize="20sp"
+      android:textColor="@color/Text_Color"
+      android:text="@string/Main_DemnaechstZuVerbrauchen"
+      android:tooltipText="@android:string/no"
+      android:visibility="gone" />
+    <TextView
+      android:id="@+id/Main_Text1"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingLeft="5dp"
+      android:textSize="16sp"
+      android:textColor="@color/Text_Error"
+      android:text="@string/Main_ArticlesNearExpiryDate"
+      android:visibility="gone" />
+    <TextView
+      android:id="@+id/Main_Text2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingLeft="5dp"
+      android:textSize="16sp"
+      android:textColor="@color/Text_Warning"
+      android:text="@string/Main_ArticlesWithExpiryDate"
+      android:visibility="gone" />
+    <TextView
+      android:id="@+id/Main_TextInfo"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="#FFFFFF"
+      android:paddingLeft="5dp"
+      android:visibility="gone" />
+    <Button
+      android:id="@+id/MainButton_Kategorie"
+      android:text="@string/Main_Button_BestandNachKategorie"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAllCaps="false"
+      android:textSize="18sp"
+      android:drawableLeft="@drawable/ic_storage_white_48dp"
+      android:gravity="left|center_vertical"
+      android:enabled="false"
+      android:drawablePadding="20dp" />
+    <Button
+      android:id="@+id/MainButton_Lagerbestand"
+      android:text="@string/Main_Button_Lagerbestand"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAllCaps="false"
+      android:textSize="18sp"
+      android:drawableLeft="@drawable/ic_assignment_white_48dp"
+      android:gravity="left|center_vertical"
+      android:enabled="false"
+      android:drawablePadding="20dp" />
+    <Button
+      android:id="@+id/MainButton_Artikeldaten"
+      android:text="@string/Main_Button_ArtikelListe"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAllCaps="false"
+      android:textSize="18sp"
+      android:drawableLeft="@drawable/ic_local_offer_white_48dp"
+      android:gravity="left|center_vertical"
+      android:enabled="false"
+      android:drawablePadding="20dp" />
+    <Button
+      android:id="@+id/MainButton_Barcode"
+      android:text="@string/Main_Button_ArtikelScannen"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAllCaps="false"
+      android:textSize="18sp"
+      android:drawableLeft="@drawable/Barcode"
+      android:gravity="left|center_vertical"
+      android:enabled="false"
+      android:drawablePadding="20dp" />
+    <Button
+      android:id="@+id/MainButton_ShoppingList"
+      android:text="@string/Main_Button_Einkaufsliste"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAllCaps="false"
+      android:textSize="18sp"
+      android:drawableLeft="@drawable/ic_shopping_cart_white_48dp"
+      android:gravity="left|center_vertical"
+      android:enabled="false"
+      android:drawablePadding="20dp" />
+  </LinearLayout>
 </ScrollView>

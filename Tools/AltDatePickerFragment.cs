@@ -10,10 +10,10 @@ namespace VorratsUebersicht
 {
     public class AltDatePickerFragment : DialogFragment
     {
-        private const int BTN_HEIGHT = 50;
         private View view;
         private LinearLayout root;
         private bool DayWasPicked;
+        private string last_clicked_tag = "";
 
         private TextView date_textview = null;
         private int max_days = 31;
@@ -72,8 +72,8 @@ namespace VorratsUebersicht
                 this.Date = DateTime.Now;
 
             // Mit oder ohne Titel
-            //Dialog.Window.RequestFeature(WindowFeatures.NoTitle);
-            Dialog.SetTitle("Jahr/Monat/Tag wählen");
+            Dialog.Window.RequestFeature(WindowFeatures.NoTitle);
+            //Dialog.SetTitle("Jahr/Monat/Tag wählen");
 
             this.view = inflater.Inflate(Resource.Layout.AltDatePickerFragment, container, false);
             this.root = this.view.FindViewById<LinearLayout>(Resource.Id.pd_root);
@@ -91,12 +91,45 @@ namespace VorratsUebersicht
             this.base_year = base_year;
             this.root.RemoveAllViews();
 
-            ll = BuildGrid("Y", 5);
+            /*
+                        // Überschrift und 'Kein Datum' in die oberste Zeile
+                        ll = new LinearLayout(this.view.Context);
+                        lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
+                        ll.Orientation = Orientation.Horizontal;
+                        ll.WeightSum = 10;
+                        this.root.AddView(ll);
+                        TextView tv = new TextView(this.view.Context);
+                        tv.Text = "Jahr / Monat / Tag wählen";
+                        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
+                        lp.Width = 0;
+                        lp.Weight = 7;
+                        lp.Gravity = GravityFlags.Center;
+                        lp.SetMargins(1, 1, 1, 1);
+                        tv.Gravity = GravityFlags.Center;
+                        tv.SetTextSize(Android.Util.ComplexUnitType.Dip, 20f);
+                        tv.LayoutParameters = lp;
+                        ll.AddView(tv);
+
+                        b = new Button(this.view.Context);
+                        b.Text = "Kein Datum";
+                        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
+                        lp.Width = 0;
+                        lp.Weight = 3;
+                        lp.SetMargins(1, 1, 1, 1);
+                        b.SetBackgroundColor(Android.Graphics.Color.OrangeRed);
+                        b.SetTextColor(Android.Graphics.Color.Black);
+                        b.SetPadding(0, 0, 0, 0);
+                        b.LayoutParameters = lp;
+                        b.Click += delegate { DateSelectedHandler(null); Dismiss(); };
+                        ll.AddView(b);
+            */
+
+            ll = BuildGrid("Y", 10);
             b = new Button(this.view.Context);
             b.Text = ">";
             lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
             lp.Width = 0;
-            lp.Weight = 0.5f;
+            lp.Weight = 1;
             lp.SetMargins(1, 1, 1, 1);
             b.SetBackgroundColor(Android.Graphics.Color.LightGray);
             b.SetTextColor(Android.Graphics.Color.Black);
@@ -109,7 +142,7 @@ namespace VorratsUebersicht
             b.Text = "<";
             lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
             lp.Width = 0;
-            lp.Weight = 0.5f;
+            lp.Weight = 1;
             lp.SetMargins(1, 1, 1, 1);
             b.SetBackgroundColor(Android.Graphics.Color.LightGray);
             b.SetTextColor(Android.Graphics.Color.Black);
@@ -125,24 +158,36 @@ namespace VorratsUebersicht
             this.date_textview = new TextView(this.view.Context);
             lp= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
             lp.Width = 0;
-            lp.Weight = 3;
+            lp.Weight = 2;
             lp.Gravity = GravityFlags.Center;
             lp.SetMargins(1, 1, 1, 1);
 
             this.date_textview.Gravity = GravityFlags.Center;
-            this.date_textview.SetTextSize(Android.Util.ComplexUnitType.Dip, 20f);
+            //this.date_textview.SetTextSize(Android.Util.ComplexUnitType.Dip, 20f);
             //this.date_textview.SetBackgroundColor(Android.Graphics.Color.Aquamarine);
             //this.date_textview.SetTextAppearance(Android.Resource.Style.TextAppearanceDeviceDefaultLarge);
             this.date_textview.LayoutParameters = lp;
             ll.AddView(this.date_textview);
 
             b = new Button(this.view.Context);
+            b.Text = "Kein Datum";
+            lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
+            lp.Width = 0;
+            lp.Weight = 3;
+            lp.SetMargins(1, 1, 1, 1);
+            b.SetBackgroundColor(Android.Graphics.Color.OrangeRed);
+            b.SetTextColor(Android.Graphics.Color.Black);
+            b.SetPadding(0, 0, 0, 0);
+            b.LayoutParameters = lp;
+            b.Click += delegate { DateSelectedHandler(null); Dismiss(); };
+            ll.AddView(b);
+
+            b = new Button(this.view.Context);
             b.Text = "OK";
             lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
             lp.Width = 0;
-            lp.Weight = 1;
+            lp.Weight = 3;
             lp.SetMargins(1, 1, 1, 1);
-            //            lp.Height = BTN_HEIGHT;
             b.SetBackgroundColor(Android.Graphics.Color.LightGreen);
             b.SetPadding(0, 0, 0, 0);
             b.LayoutParameters = lp;
@@ -157,7 +202,7 @@ namespace VorratsUebersicht
             ShowDate();
         }
 
-        private LinearLayout BuildGrid(string tag_prefix, int weight_sum=0)
+        private LinearLayout BuildGrid(string tag_prefix, int weight_sum=0, int button_weight=1)
         {
             DateParams par = new DateParams(tag_prefix, this.base_year);
 
@@ -178,7 +223,7 @@ namespace VorratsUebersicht
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
                 llc.Orientation = Orientation.Horizontal;
                 //llc.SetPadding(0, 0, 0, 0);
-                llc.WeightSum = weight_sum == 0 ? par.columns : weight_sum;
+                llc.WeightSum = weight_sum == 0 ? par.columns*2 : weight_sum;
                 ll.AddView(llc);
                 for (int c = 0; c < par.columns; c++)
                 {
@@ -200,6 +245,15 @@ namespace VorratsUebersicht
             string tag = (string)b.Tag;
             int val = Int32.Parse(tag.Substring(1, tag.Length - 1));
 
+            if (tag == this.last_clicked_tag)
+            {
+                DateSelectedHandler(this.Date);
+                this.Dismiss();
+                return;
+            }
+            this.last_clicked_tag = tag;
+
+            /*
             // Doppelclick
             if ((tag.Substring(0, 1) == "M" && val == this.Date.Value.Month) || (tag.Substring(0, 1) == "D" && val == this.Date.Value.Day)
                 || (DayWasPicked && tag.Substring(0, 1) == "Y" && val == this.Date.Value.Year))
@@ -208,6 +262,7 @@ namespace VorratsUebersicht
                 this.Dismiss();
                 return;
             }
+            */
             UpdateGrid(tag.Substring(0, 1), val, true);
         }
 
@@ -225,10 +280,9 @@ namespace VorratsUebersicht
                     b.SetBackgroundColor(Android.Graphics.Color.LightGray);// new Android.Graphics.Color(Resource.Color.Text_Warning));
                 b.SetTextColor(Android.Graphics.Color.Black);
                 lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
-                lp.Weight = 1;
+                lp.Weight = 2;
                 lp.Width = 0;
                 lp.SetMargins(1, 1, 1, 1);
-//                lp.Height = BTN_HEIGHT;
                 b.SetPadding(0, 0, 0, 0);
                 b.Visibility = (tag_prefix != "D" || i < max_days) ? ViewStates.Visible : ViewStates.Invisible;
                 b.LayoutParameters = lp;
@@ -279,7 +333,11 @@ namespace VorratsUebersicht
         private void ShowDate()
         {
             if (this.date_textview != null)
-                this.date_textview.Text = this.Date.Value.ToShortDateString();
+            {
+                string s = this.Date.Value.ToShortDateString();
+                s = s.Insert(s.Length-4,"\n");
+                this.date_textview.Text = s;
+            }
         }
         private void OnCloseCLicked(object sender, EventArgs e)
         {

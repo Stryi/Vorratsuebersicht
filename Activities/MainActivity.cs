@@ -22,6 +22,9 @@ namespace VorratsUebersicht
     [Activity(Label = " Vorratsübersicht", Icon = "@drawable/ic_launcher")]
     public class MainActivity : Activity
     {
+        // Debug-Konstanten
+        private static bool debug_date_picker = false;
+
         public static readonly int EditStorageItemQuantityId = 1001;
         public static readonly int OptionsId = 1002;
         public static readonly int ArticleListId = 1003;
@@ -119,6 +122,25 @@ namespace VorratsUebersicht
             ArticleDetailsActivity.showCostMessage = Settings.GetBoolean("ShowOpenFoodFactsInternetCostsMessage", true);
 
             StorageItemQuantityActivity.UseAltDatePicker = Settings.GetBoolean("UseAltDatePicker", false);
+
+            // DatePicker-DEBUG
+            if (debug_date_picker)
+            {
+                Android_Database.UseTestDatabase = true;
+                Button b = new Button(this.ApplicationContext);
+                b.Text = "Test DP";
+                b.Click += delegate
+                {
+                    AltDatePickerFragment frag = AltDatePickerFragment.NewInstance(delegate (DateTime? time) { b.Text = time!=null ? time.Value.ToShortDateString() : "Kein Datum"; }, DateTime.Today);
+                    frag.ShowsDialog = true;
+                    frag.Show(FragmentManager, AltDatePickerFragment.TAG);
+                };
+                FindViewById<LinearLayout>(Resource.Id.MainLinearLayout).AddView(b);
+                AltDatePickerFragment frag2 = AltDatePickerFragment.NewInstance(delegate (DateTime? time) { b.Text = time != null ? time.Value.ToShortDateString() : "Kein Datum"; }, DateTime.Today);
+                frag2.ShowsDialog = true;
+                frag2.Show(FragmentManager, AltDatePickerFragment.TAG);
+            }
+
 
             if (MainActivity.IsGooglePlayPreLaunchTestMode)
             {
