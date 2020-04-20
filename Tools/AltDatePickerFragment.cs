@@ -37,8 +37,8 @@ namespace VorratsUebersicht
                 {
                     case "Y":
                         this.rows = 1;
-                        this.columns = 5;
-                        this.amount = 5;
+                        this.columns = 4;
+                        this.amount = 4;
                         this.val_base = base_year;
                         break;
                     case "M":
@@ -85,57 +85,64 @@ namespace VorratsUebersicht
         {
             LinearLayout.LayoutParams lp;
             LinearLayout ll;
+            Button b;
 
             this.DayWasPicked = false;
             this.base_year = base_year;
             this.root.RemoveAllViews();
 
-            BuildGrid("Y");
+            ll = BuildGrid("Y", 5);
+            b = new Button(this.view.Context);
+            b.Text = ">";
+            lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
+            lp.Width = 0;
+            lp.Weight = 0.5f;
+            lp.SetMargins(1, 1, 1, 1);
+            b.SetBackgroundColor(Android.Graphics.Color.LightGray);
+            b.SetTextColor(Android.Graphics.Color.Black);
+            b.SetPadding(0, 0, 0, 0);
+            b.LayoutParameters = lp;
+            b.Click += OnNextYearCLicked;
+            ll.AddView(b);
+
+            b = new Button(this.view.Context);
+            b.Text = "<";
+            lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
+            lp.Width = 0;
+            lp.Weight = 0.5f;
+            lp.SetMargins(1, 1, 1, 1);
+            b.SetBackgroundColor(Android.Graphics.Color.LightGray);
+            b.SetTextColor(Android.Graphics.Color.Black);
+            b.SetPadding(0, 0, 0, 0);
+            b.LayoutParameters = lp;
+            b.Click += OnPrevYearCLicked;
+            ll.AddView(b, 0);
+
+
             BuildGrid("M");
             ll = BuildGrid("D");
 
-
-
-            // Kein vernünftiges Layout für die Datumsanzeige gefunden. 
-            // Dieser TextView sollte eigentlich zwischen die Buttons "31" und "OK" mit dem Gewicht von 4 (das LinearLayout hat ein
             this.date_textview = new TextView(this.view.Context);
             lp= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
             lp.Width = 0;
             lp.Weight = 3;
             lp.Gravity = GravityFlags.Center;
-            lp.SetMargins(2, 2, 2, 2);
+            lp.SetMargins(1, 1, 1, 1);
 
             this.date_textview.Gravity = GravityFlags.Center;
-            //this.date_textview.SetTextSize(Android.Util.ComplexUnitType.Dip, 10f);
+            this.date_textview.SetTextSize(Android.Util.ComplexUnitType.Dip, 20f);
             //this.date_textview.SetBackgroundColor(Android.Graphics.Color.Aquamarine);
-            this.date_textview.SetTextAppearance(Android.Resource.Style.TextAppearanceDeviceDefaultLarge);
+            //this.date_textview.SetTextAppearance(Android.Resource.Style.TextAppearanceDeviceDefaultLarge);
             this.date_textview.LayoutParameters = lp;
             ll.AddView(this.date_textview);
 
-            // Space verhällt sich beim Stretch anders als Button
-            for (int i = 0; i < 0; i++)
-            {
-                //Space sp = new Space(this.view.Context);
-                Button sp = new Button(this.view.Context);
-                sp.Text = "SP";
-                lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
-                lp.Width = 0;
-                lp.Weight = 2;
-                lp.SetMargins(2, 2, 2, 2);
-//                lp.Height = BTN_HEIGHT;
-                sp.SetPadding(0, 0, 0, 0);
-                sp.SetBackgroundColor(Android.Graphics.Color.Transparent);
-                sp.LayoutParameters = lp;
-                ll.AddView(sp);
-            }
-
-            Button b = new Button(this.view.Context);
+            b = new Button(this.view.Context);
             b.Text = "OK";
             lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
             lp.Width = 0;
             lp.Weight = 1;
-            lp.SetMargins(2, 2, 2, 2);
-//            lp.Height = BTN_HEIGHT;
+            lp.SetMargins(1, 1, 1, 1);
+            //            lp.Height = BTN_HEIGHT;
             b.SetBackgroundColor(Android.Graphics.Color.LightGreen);
             b.SetPadding(0, 0, 0, 0);
             b.LayoutParameters = lp;
@@ -150,7 +157,7 @@ namespace VorratsUebersicht
             ShowDate();
         }
 
-        private LinearLayout BuildGrid(string tag_prefix)
+        private LinearLayout BuildGrid(string tag_prefix, int weight_sum=0)
         {
             DateParams par = new DateParams(tag_prefix, this.base_year);
 
@@ -171,7 +178,7 @@ namespace VorratsUebersicht
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
                 llc.Orientation = Orientation.Horizontal;
                 //llc.SetPadding(0, 0, 0, 0);
-                llc.WeightSum = par.columns;
+                llc.WeightSum = weight_sum == 0 ? par.columns : weight_sum;
                 ll.AddView(llc);
                 for (int c = 0; c < par.columns; c++)
                 {
@@ -216,6 +223,7 @@ namespace VorratsUebersicht
                     b.SetBackgroundColor(Android.Graphics.Color.LightGoldenrodYellow);
                 else
                     b.SetBackgroundColor(Android.Graphics.Color.LightGray);// new Android.Graphics.Color(Resource.Color.Text_Warning));
+                b.SetTextColor(Android.Graphics.Color.Black);
                 lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
                 lp.Weight = 1;
                 lp.Width = 0;
@@ -277,6 +285,14 @@ namespace VorratsUebersicht
         {
             DateSelectedHandler(this.Date);
             this.Dismiss();
+        }
+        private void OnNextYearCLicked(object sender, EventArgs e)
+        {
+            this.InitBase(this.base_year + 1);
+        }
+        private void OnPrevYearCLicked(object sender, EventArgs e)
+        {
+            this.InitBase(this.base_year - 1);
         }
     }
 }
