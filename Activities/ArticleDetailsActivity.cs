@@ -237,7 +237,7 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
-                Toast.MakeText(this, ex.Message, ToastLength.Long);
+                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
             }
         }
 
@@ -250,7 +250,7 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
-                Toast.MakeText(this, ex.Message, ToastLength.Long);
+                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
             }
         }
         private void SelectSupermarket_Click(object sender, EventArgs e)
@@ -262,7 +262,7 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
-                Toast.MakeText(this, ex.Message, ToastLength.Long);
+                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
             }
         }
         private void SelectStorage_Click(object sender, EventArgs e)
@@ -274,7 +274,7 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
-                Toast.MakeText(this, ex.Message, ToastLength.Long);
+                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
             }
         }
 
@@ -615,7 +615,7 @@ namespace VorratsUebersicht
                         RunOnUiThread(() =>
                         {
                             string message = string.Format("Fotodatei '{0}' nicht gefunden.", path);
-                            Toast.MakeText(this, message, ToastLength.Long);
+                            Toast.MakeText(this, message, ToastLength.Long).Show();
                         });
                     }
 

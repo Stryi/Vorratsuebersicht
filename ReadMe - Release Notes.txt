@@ -12,7 +12,8 @@ Vor dem Hochladen ins Google Play Store:
 Version 4.50 (Code Version 78)
 ==============================
 
-C134 - Alternativer Datumsauswahl-Dialog für Lagerbestand (unter Einstellungen zu aktivieren)
+C134 - Alternativer Datumsauswahl-Dialog für Lagerbestand (unter Einstellungen zu aktivieren). (Impl. von 'wolpos').
+E019 - FIX: Aus Lagerbestand auf Einkaufsliste (Fehler laut Absturzbericht vom Google)
 
 
 Version 4.45 (Code Version 77)

@@ -201,7 +201,7 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
-                Toast.MakeText(this, ex.Message, ToastLength.Long);
+                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
             }
         }
 
@@ -307,20 +307,25 @@ namespace VorratsUebersicht
             if (toBuyQuantity == 0)
                 toBuyQuantity = 1;
 
-            double count = Database.AddToShoppingList(this.articleId, toBuyQuantity);
-            this.isChanged = true;
-
-            string msg = string.Format("{0} Stück auf der Einkaufsliste.", count);
             if (this.toast != null)
             {
                 this.toast.Cancel();
-                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
-            }
-            else
-            {
-                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
             }
 
+            if (toBuyQuantity == -1)
+            {
+                this.toast = Toast.MakeText(this, "Artikel in der Datenbank nicht gefunden!", ToastLength.Long);
+                this.toast.Show();
+                return;
+            }
+
+
+            double count = Database.AddToShoppingList(this.articleId, toBuyQuantity);
+            this.isChanged = true;
+
+
+            string msg = string.Format("{0} Stück auf der Einkaufsliste.", count);
+            this.toast = Toast.MakeText(this, msg, ToastLength.Short);
             this.toast.Show();
         }
 

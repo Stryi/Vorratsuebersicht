@@ -206,7 +206,7 @@ namespace VorratsUebersicht
             var exception = Android_Database.Instance.CreateDatabaseOnExternalStorage();
             if (exception != null)
             {
-                Toast.MakeText(this, exception.Message, ToastLength.Long);
+                Toast.MakeText(this, exception.Message, ToastLength.Long).Show();
                 return;
             }
 
