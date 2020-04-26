@@ -53,5 +53,6 @@
         android:visibility="visible"
         android:focusable="false"
         android:src="@drawable/baseline_remove_circle_outline_black_36"
+        android:layout_marginLeft="8sp"
         android:background="?android:selectableItemBackground" />
 </RelativeLayout>

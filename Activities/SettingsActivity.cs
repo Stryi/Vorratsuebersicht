@@ -54,6 +54,10 @@ namespace VorratsUebersicht
             switchCostMessage.Click += SwitchCostMessage_Click;
             switchCostMessage.Checked = ArticleDetailsActivity.showCostMessage;
 
+            Switch switchAltDatePicker = FindViewById<Switch>(Resource.Id.SettingsButton_AltDatePicker);
+            switchAltDatePicker.Click += switchAltDatePicker_Click;
+            switchAltDatePicker.Checked = StorageItemQuantityActivity.UseAltDatePicker;
+
             Button buttonRestoreSampleDb = FindViewById<Button>(Resource.Id.SettingsButton_RestoreSampleDb);
             buttonRestoreSampleDb.Click += ButtonRestoreSampleDb_Click;
 
@@ -498,6 +502,13 @@ namespace VorratsUebersicht
             Settings.PutBoolean("ShowOpenFoodFactsInternetCostsMessage", ArticleDetailsActivity.showCostMessage);
         }
 
+        private void switchAltDatePicker_Click(object sender, EventArgs e)
+        {
+            var switchAltDatePicker = sender as Switch;
+            StorageItemQuantityActivity.UseAltDatePicker = switchAltDatePicker.Checked;
+            Settings.PutBoolean("UseAltDatePicker", StorageItemQuantityActivity.UseAltDatePicker);
+        }
+        
         private void ButtonRestore_Click(object sender, EventArgs e)
         {
             // Backups müssen sich im Download Verzeichnis befinden.

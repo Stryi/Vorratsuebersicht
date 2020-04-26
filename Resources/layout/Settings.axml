@@ -186,6 +186,14 @@
             android:gravity="left|center_vertical"
             android:textSize="15dp" />
 
+        <Switch
+            android:id="@+id/SettingsButton_AltDatePicker"
+            android:text="Alternativer Datumsauswahl-Dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:paddingTop="10dp"
+            android:drawablePadding="20dp" />
         <TextView
             android:text="Support" 
             android:layout_width="match_parent"
