@@ -333,6 +333,10 @@ namespace VorratsUebersicht
 
             var command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
 
+            // TODO: Gemeldeter Fehler: 
+            // android.runtime.JavaProxyThrowable: at System.Linq.Enumerable.First[TSource] (System.Collections.Generic.IEnumerable`1[T] source) [0x00010] in <715c2ff6913942e6aa8535593b3ef35a>:0
+            // at VorratsUebersicht.Database.GetArticleData (System.Int32 articleId) [0x00078] in <8f65cfdb5fac4bad9251caa1b2de7fec>:0
+
             return command.ExecuteQuery<ArticleData>().First();
         }
 

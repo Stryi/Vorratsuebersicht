@@ -6,13 +6,13 @@
     android:paddingLeft="5dp"
     android:background="@drawable/Background">
   <LinearLayout
+    android:id="@+id/Main_LinearLayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
     android:paddingLeft="5dp"
-    android:paddingTop="5dp"
-    android:id="@+id/MainLinearLayout">
+    android:paddingTop="5dp">
     <TextView
       android:id="@+id/Main_Text"
       android:layout_width="match_parent"

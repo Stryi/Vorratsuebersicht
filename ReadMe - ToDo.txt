@@ -37,6 +37,7 @@ Lagerbestand
 - Wird ein Datum < Heute eingegeben, so wird die Farbe nicht auf blau oder rot gesetzt.
 
 Artikelstamm
+- Unter-Unterkategorie (Rezension vom Jessica K. am 24.04.2020 um 15:37)
 - Default Werte vorbelegen (Martin T aus CH)
 - Mehrere Bilder Pro Artikel
 
@@ -86,27 +87,36 @@ Lagerbestand
 - Lagerbewegung in einer Tabelle speichern
 
 
-Gemeldete Abstürze:
-===================
+Gemeldete Abstürze (die ich mir ansehen sollte):
+================================================
 
-Huawei HUAWEI P30 lite (HWMAR), 3840MB RAM, Android 9
+Huawei Mate 20 Pro (HWLYA), 5632MB RAM, Android 10
 Bericht 1
-android.runtime.JavaProxyThrowable: at VorratsUebersicht.StorageItemQuantityActivity.ShowPictureAndDetails (System.Int32 articleId, System.String title) [0x00098] in <ab43b9b3430149ab83a338ec4cdd50b2>:0
-at VorratsUebersicht.StorageItemQuantityActivity.OnActivityResult (System.Int32 requestCode, Android.App.Result resultCode, Android.Content.Intent data) [0x0002b] in <ab43b9b3430149ab83a338ec4cdd50b2>:0
-at Android.App.Activity.n_OnActivityResult_IILandroid_content_Intent_ (System.IntPtr jnienv, System.IntPtr native__this, System.Int32 requestCode, System.Int32 native_resultCode, System.IntPtr native_data) [0x00014] in <b781ed64f1d743e7881ac038e0fbdf85>:0
-at (wrapper dynamic-method) System.Object.7(intptr,intptr,int,int,intptr)
-at md56c9fe683bd4750f69443fa5376e732f4.StorageItemQuantityActivity.n_onActivityResult (Native Method)
-at md56c9fe683bd4750f69443fa5376e732f4.StorageItemQuantityActivity.onActivityResult (StorageItemQuantityActivity.java:66)
-at android.app.Activity.dispatchActivityResult (Activity.java:7797)
-at android.app.ActivityThread.deliverResults (ActivityThread.java:5071)
-at android.app.ActivityThread.handleSendResult (ActivityThread.java:5120)
-at android.app.servertransaction.ActivityResultItem.execute (ActivityResultItem.java:49)
-at android.app.servertransaction.TransactionExecutor.executeCallbacks (TransactionExecutor.java:108)
-at android.app.servertransaction.TransactionExecutor.execute (TransactionExecutor.java:68)
-at android.app.ActivityThread$H.handleMessage (ActivityThread.java:2199)
-at android.os.Handler.dispatchMessage (Handler.java:112)
-at android.os.Looper.loop (Looper.java:216)
-at android.app.ActivityThread.main (ActivityThread.java:7625)
+android.runtime.JavaProxyThrowable: at System.Linq.Enumerable.First[TSource] (System.Collections.Generic.IEnumerable`1[T] source) [0x00010] in <715c2ff6913942e6aa8535593b3ef35a>:0
+at VorratsUebersicht.Database.GetArticleData (System.Int32 articleId) [0x00078] in <8f65cfdb5fac4bad9251caa1b2de7fec>:0
+at VorratsUebersicht.Database.GetToShoppingListQuantity (System.Int32 articleId) [0x00001] in <8f65cfdb5fac4bad9251caa1b2de7fec>:0
+at VorratsUebersicht.StorageItemQuantityActivity.AddToShoppingList () [0x0000e] in <8f65cfdb5fac4bad9251caa1b2de7fec>:0
+at VorratsUebersicht.StorageItemQuantityActivity.OnOptionsItemSelected (Android.Views.IMenuItem item) [0x0006e] in <8f65cfdb5fac4bad9251caa1b2de7fec>:0
+at Android.App.Activity.n_OnOptionsItemSelected_Landroid_view_MenuItem_ (System.IntPtr jnienv, System.IntPtr native__this, System.IntPtr native_item) [0x00011] in <b781ed64f1d743e7881ac038e0fbdf85>:0
+at (wrapper dynamic-method) System.Object.7(intptr,intptr,intptr)
+at md56c9fe683bd4750f69443fa5376e732f4.StorageItemQuantityActivity.n_onOptionsItemSelected (Native Method)
+at md56c9fe683bd4750f69443fa5376e732f4.StorageItemQuantityActivity.onOptionsItemSelected (StorageItemQuantityActivity.java:58)
+at android.app.Activity.onMenuItemSelected (Activity.java:4271)
+at com.android.internal.policy.PhoneWindow.onMenuItemSelected (PhoneWindow.java:1339)
+at com.android.internal.view.menu.MenuBuilder.dispatchMenuItemSelected (MenuBuilder.java:787)
+at com.android.internal.view.menu.MenuItemImpl.invoke (MenuItemImpl.java:164)
+at com.android.internal.view.menu.MenuBuilder.performItemAction (MenuBuilder.java:934)
+at com.android.internal.view.menu.MenuBuilder.performItemAction (MenuBuilder.java:924)
+at android.widget.ActionMenuView.invokeItem (ActionMenuView.java:626)
+at com.android.internal.view.menu.ActionMenuItemView.onClick (ActionMenuItemView.java:148)
+at android.view.View.performClick (View.java:7189)
+at android.view.View.performClickInternal (View.java:7163)
+at android.view.View.access$3500 (View.java:821)
+at android.view.View$PerformClick.run (View.java:27579)
+at android.os.Handler.handleCallback (Handler.java:888)
+at android.os.Handler.dispatchMessage (Handler.java:100)
+at android.os.Looper.loop (Looper.java:213)
+at android.app.ActivityThread.main (ActivityThread.java:8147)
 at java.lang.reflect.Method.invoke (Native Method)
-at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run (RuntimeInit.java:524)
-at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:987)  
+at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run (RuntimeInit.java:513)
+at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:1101)

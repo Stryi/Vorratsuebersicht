@@ -9,6 +9,12 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.50 (Code Version 78)
+==============================
+
+C134 - Alternativer Datumsauswahl-Dialog für Lagerbestand (unter Einstellungen zu aktivieren)
+
+
 Version 4.45 (Code Version 77)
 ==============================
 

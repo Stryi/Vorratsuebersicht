@@ -135,7 +135,7 @@ namespace VorratsUebersicht
                     frag.ShowsDialog = true;
                     frag.Show(FragmentManager, AltDatePickerFragment.TAG);
                 };
-                FindViewById<LinearLayout>(Resource.Id.MainLinearLayout).AddView(b);
+                FindViewById<LinearLayout>(Resource.Id.Main_LinearLayout).AddView(b);
                 AltDatePickerFragment frag2 = AltDatePickerFragment.NewInstance(delegate (DateTime? time) { b.Text = time != null ? time.Value.ToShortDateString() : "Kein Datum"; }, DateTime.Today);
                 frag2.ShowsDialog = true;
                 frag2.Show(FragmentManager, AltDatePickerFragment.TAG);

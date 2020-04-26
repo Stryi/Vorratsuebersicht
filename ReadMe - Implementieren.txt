@@ -6,6 +6,13 @@ Implementiert anhand vom Beispiel:
 
 https://developer.xamarin.com/guides/xamarin-forms/working-with/databases/
 
+Ausgabeverzeichnis ist: 
+
+    ..\..\..\..\Builds\Vorratsübersicht\bin\Debug\
+
+da ich den Quellcode über OneDrive auf meinen zweiten Computer "verteile". Damit werden keine MByte Dateien in OneDrive übertragen.
+
+
 NuGet Packages:
 
 - FastAndroidCamera by James Athey
@@ -105,5 +112,42 @@ Probleme:
      -  Rebuild -> Deploy -> Start
      -  Funktioniert!!!
 
+7. Error Starting Application: Failed to forward ports.
+   Couldn't connect debugger. You can see more details in Xamarin Diagnostic output and the full exception on logs.
 
+
+    [D:NotifyPhase]:          Creating directories
+    [D:NotifySync]:           SkipCreateDirectory  /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/.__override__ 0
+    [D:NotifyPhase]:          Uploading files
+    [D:NotifyPhase]:          Upload completed
+    [D:NotifyPhase]:          Enumerating remote files
+    [D:NotifyPhase]:          Determining required operations
+    [D:NotifyPhase]:          Creating directories
+    [D:NotifySync]:           SkipCreateDirectory  /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/.__override__ 0
+    [D:NotifySync]:           SkipCreateDirectory  /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/.__override__/resources 0
+    [D:NotifyPhase]:          Uploading files
+    [D:NotifyPhase]:          Upload completed
+    [D:RunShellCommand]:      emulator-5554 "echo" "-n" "${EMULATED_STORAGE_SOURCE}"
+    [D:RunShellCommand]:      emulator-5554 "echo" "-n" "${EMULATED_STORAGE_TARGET}"
+    [D:RunShellCommand]:      emulator-5554 am broadcast -a "mono.android.intent.action.EXTERNAL_STORAGE_DIRECTORY" -n "Mono.Android.DebugRuntime/com.xamarin.mono.android.ExternalStorageDirectory"
+    [D:RunShellCommand]:      emulator-5554 am force-stop de.stryi.Vorratsuebersicht
+    [D:RunShellCommand]:      emulator-5554 setprop "debug.mono.connect" ""
+
+
+    - App Deinstallieren
+    - Restart adb Server
+    
+    Danach:
+
+        Error: Device could not find component named: de.stryi.Vorratsuebersicht/md56c9fe683bd4750f69443fa5376e732f4.SplashScreenActivity
+        The application could not be started. Ensure that the application has been installed to the target device and has a launchable activity (MainLauncher = true).
+        Additionally, check Build->Configuration Manager to ensure this project is set to Deploy for this configuration.
+        Couldn't connect debugger. You can see more details in Xamarin Diagnostic output and the full exception on logs.
+
+    - Build -> Deploy Solution
+
+        Irgendwas mit VorratsUebersicht.VorratsUebersicht/md5ec161f59b77d527a9195ed0174d46a11.SplashScreen
+
+    - Build -> Rebuild Solution
+      Erneut Starten
 

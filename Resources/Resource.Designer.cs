@@ -432,7 +432,7 @@ namespace VorratsUebersicht
 			public const int MainButton_ShoppingList = 2131361857;
 			
 			// aapt resource value: 0x7f0a0038
-			public const int MainLinearLayout = 2131361848;
+			public const int Main_LinearLayout = 2131361848;
 			
 			// aapt resource value: 0x7f0a0099
 			public const int Main_Menu_Options = 2131361945;
