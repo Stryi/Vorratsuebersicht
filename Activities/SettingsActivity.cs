@@ -91,6 +91,13 @@ namespace VorratsUebersicht
             Button buttonRestore = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
             buttonRestore.Click += ButtonRestore_Click;
 
+            EditText backupPath = FindViewById<EditText>(Resource.Id.SettingsButton_BackupPath);
+            backupPath.Text = Settings.GetString("BackupPath", Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads).AbsolutePath);
+            backupPath.TextChanged += delegate {
+                EditText _backupPath = FindViewById<EditText>(Resource.Id.SettingsButton_BackupPath);
+                Settings.PutString("BackupPath", _backupPath.Text);
+            };
+
             Button buttonCsvExportArticles = FindViewById<Button>(Resource.Id.SettingsButton_CsvExportArticles);
             buttonCsvExportArticles.Click += ButtonCsvExportArticles_Click;
 
@@ -512,8 +519,8 @@ namespace VorratsUebersicht
         private void ButtonRestore_Click(object sender, EventArgs e)
         {
             // Backups müssen sich im Download Verzeichnis befinden.
-            var downloadFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(
-                                    Android.OS.Environment.DirectoryDownloads).AbsolutePath;
+            var downloadFolder = Settings.GetString("BackupPath", Android.OS.Environment.GetExternalStoragePublicDirectory(
+                Android.OS.Environment.DirectoryDownloads).AbsolutePath);
 
             var selectFile = new Intent(this, typeof(SelectFileActivity));
             selectFile.PutExtra("Text",         "Backup auswählen:");
@@ -538,8 +545,8 @@ namespace VorratsUebersicht
 
             var databaseFilePath = Android_Database.Instance.GetProductiveDatabasePath();
 
-            var downloadFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(
-                                    Android.OS.Environment.DirectoryDownloads).AbsolutePath;
+            var downloadFolder = Settings.GetString("BackupPath", Android.OS.Environment.GetExternalStoragePublicDirectory(
+                Android.OS.Environment.DirectoryDownloads).AbsolutePath);
 
             string backupFileName;
             string databaseFileName = Path.GetFileNameWithoutExtension(databaseFilePath);

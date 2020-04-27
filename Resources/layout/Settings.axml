@@ -90,6 +90,19 @@
             android:textAllCaps="false"
             android:gravity="left|center_vertical"
             android:drawablePadding="10dp" />
+        <TextView
+            android:text="Backup-Pfad:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp" />
+        <EditText
+            android:id="@+id/SettingsButton_BackupPath"
+            android:text=""
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical"
+            android:textSize="15dp" />
 
         <TextView
             android:text="Zum Kennenlernen oder Testen neuer Funktionalität"
