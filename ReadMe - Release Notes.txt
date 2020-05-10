@@ -9,6 +9,12 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.51 (Code Version 79)
+==============================
+
+C136 - Backup Pfad jetzt anpassbar. (Impl. von 'wolpos').
+C135 - Im Barcode Scann Modus bleiben. (Impl. von 'wolpos').
+
 Version 4.50 (Code Version 78)
 ==============================
 
