@@ -28,6 +28,7 @@ namespace VorratsUebersicht
         public static readonly int EditStorageItemQuantityId = 1001;
         public static readonly int OptionsId = 1002;
         public static readonly int ArticleListId = 1003;
+        public static readonly int ContinueScanMode = 1004;
 
         public static string Strings_Manufacturer;
         public static string Strings_Size;
@@ -501,6 +502,13 @@ namespace VorratsUebersicht
                 // Sich neu connecten;
                 this.InitializeDatabase();
             }
+
+            if (requestCode == ContinueScanMode)
+            {
+                Button buttonBarcode = FindViewById<Button>(Resource.Id.MainButton_Barcode);
+                buttonBarcode.PerformClick();
+            }
+
         }
 
         private void EnableButtons(bool enable)
@@ -554,7 +562,7 @@ namespace VorratsUebersicht
                 // Neuanlage Artikel
                 var articleDetails = new Intent (this, typeof(ArticleDetailsActivity));
                 articleDetails.PutExtra("EANCode", eanCode);
-                StartActivityForResult(articleDetails, 10);
+                StartActivityForResult(articleDetails, ContinueScanMode);
                 return;
             }
             if (result.Count == 1)          // Artikel eindeutig gefunden
@@ -579,14 +587,14 @@ namespace VorratsUebersicht
                             storageDetails.PutExtra("ArticleId", artickeId);
                             storageDetails.PutExtra("EditMode",  true);
 
-                            this.StartActivityForResult(storageDetails, 1000);
+                            this.StartActivityForResult(storageDetails, ContinueScanMode);
                             break;
 
                         case 1:
                             // Artikelstamm bearbeiten
                             var articleDetails = new Intent(this, typeof(ArticleDetailsActivity));
                             articleDetails.PutExtra("ArticleId", artickeId);
-                            StartActivityForResult(articleDetails, 10);
+                            StartActivityForResult(articleDetails, ContinueScanMode);
                             break;
                         case 2:
                             // Auf die Einkaufsliste
@@ -605,7 +613,7 @@ namespace VorratsUebersicht
             var storageitemList = new Intent(this, typeof(StorageItemListActivity));
             storageitemList.PutExtra("EANCode", eanCode);
             storageitemList.PutExtra("ShowEmptyStorageArticles", true); // Auch Artikel ohne Lagerbestand anzeigen
-            StartActivity(storageitemList);
+            StartActivityForResult(storageitemList, ContinueScanMode);
         }
 
         public static bool IsGooglePlayPreLaunchTestMode
