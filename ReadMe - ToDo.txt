@@ -38,12 +38,14 @@ Lagerbestand
 
 Artikelstamm
 - Unter-Unterkategorie (Rezension vom Jessica K. am 24.04.2020 um 15:37)
+- Zweiter Preis (Angebot). (vom Scare C. per E-Mail) 
 - Default Werte vorbelegen (Martin T aus CH)
 - Mehrere Bilder Pro Artikel
 
 Einstellungen
 - Automatischen Backup ("Alle X Tage...", "Y Kopien behalten")
 - Freie Sortierung der Kategorien. (M. Pleuger)
+- Bilder Komprimierung einstellbar (Ein- Ausschaltbar). Vom Adri 123 Rezension vom02.05.2020 um 21:13.
 
 Lagerliste
 - Zusammenfügen von Unterkategorien bei der Mindestmenge. 
@@ -51,8 +53,8 @@ Lagerliste
   Und nicht Hersteller A ein Pack, Hersteller B zwei Pack (vom Markus Neese vorgeschlagen)
 - Auswahl Lagerort auch an Subkategorie berücksichtigen
 
-
 Sonstiges
+- CSV Import (vom Scare C. per E-Mail) 
 - Release Notes der App anzeigen
 - Spracheingabe, https://docs.microsoft.com/de-de/xamarin/android/platform/speech
 - Absturz protokollieren (LOG-Datei)
