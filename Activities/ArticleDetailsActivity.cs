@@ -1114,15 +1114,20 @@ namespace VorratsUebersicht
 
                 text += string.Format("Org.: {0:n0} x {1:n0} ({2:n0})\r\n",  newBitmap.Height,  newBitmap.Width, Tools.ToFuzzyByteString(newBitmap.ByteCount));
 
-                resizedImage = ImageResizer.ResizeImageAndroid(newBitmap, 480*1, 854*1);
+                Bitmap largeBitmap = newBitmap;
 
-                Bitmap largeBitmap = BitmapFactory.DecodeByteArray(resizedImage, 0, resizedImage.Length);
+                var compress = Settings.GetBoolean("CompressPictures", true);
+                if (compress)
+                {
+                    resizedImage = ImageResizer.ResizeImageAndroid(newBitmap, 480*1, 854*1);
+                    largeBitmap = BitmapFactory.DecodeByteArray(resizedImage, 0, resizedImage.Length);
+                }
 
                 stream = new MemoryStream();
                 largeBitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
                 ArticleDetailsActivity.imageLarge = stream.ToArray();
 
-                text += string.Format("Bild: {0:n0} x {1:n0} ({2:n0}, {3:n0})\r\n", largeBitmap.Height, largeBitmap.Width, Tools.ToFuzzyByteString(largeBitmap.ByteCount), Tools.ToFuzzyByteString(ArticleDetailsActivity.imageLarge.Length));
+                text += string.Format("Bild: {0:n0} x {1:n0} ({2:n0})\r\n", largeBitmap.Height, largeBitmap.Width, Tools.ToFuzzyByteString(largeBitmap.ByteCount));
 
                 resizedImage = ImageResizer.ResizeImageAndroid(newBitmap, 48*2, 85*2);
 
@@ -1132,7 +1137,7 @@ namespace VorratsUebersicht
                 smallBitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
                 ArticleDetailsActivity.imageSmall = stream.ToArray();
 
-                text += string.Format("Thn.: {0:n0} x {1:n0} ({2:n0}, {3:n0})", smallBitmap.Height, smallBitmap.Width, Tools.ToFuzzyByteString(smallBitmap.ByteCount), Tools.ToFuzzyByteString(ArticleDetailsActivity.imageSmall.Length));
+                text += string.Format("Thn.: {0:n0} x {1:n0} ({2:n0})", smallBitmap.Height, smallBitmap.Width, Tools.ToFuzzyByteString(smallBitmap.ByteCount));
 
                 RunOnUiThread(() => this.imageView.SetImageBitmap(smallBitmap));
                 RunOnUiThread(() => this.imageView2.Visibility = ViewStates.Gone);

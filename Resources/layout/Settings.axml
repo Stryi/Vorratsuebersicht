@@ -207,6 +207,16 @@
             android:gravity="left|center_vertical"
             android:paddingTop="10dp"
             android:drawablePadding="20dp" />
+
+        <Switch
+            android:id="@+id/SettingsButton_CompressPictures"
+            android:text="Bilder komprimieren"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:paddingTop="10dp"
+            android:drawablePadding="20dp" />
+
         <TextView
             android:text="Support" 
             android:layout_width="match_parent"

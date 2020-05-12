@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 4.52 (Code Version 80)
 ==============================
 
+C138 - Bilder komprimieren ausschaltbar
 C137 - Intern: Backup Pfad wird restauriert, wenn gelöscht.
 
 Version 4.51 (Code Version 79)

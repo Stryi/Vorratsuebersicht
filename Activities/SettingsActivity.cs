@@ -58,6 +58,10 @@ namespace VorratsUebersicht
             switchAltDatePicker.Click += switchAltDatePicker_Click;
             switchAltDatePicker.Checked = StorageItemQuantityActivity.UseAltDatePicker;
 
+            Switch compressPictures = FindViewById<Switch>(Resource.Id.SettingsButton_CompressPictures);
+            compressPictures.Click += compressPictures_Click;
+            compressPictures.Checked = Settings.GetBoolean("CompressPictures", true);
+
             Button buttonRestoreSampleDb = FindViewById<Button>(Resource.Id.SettingsButton_RestoreSampleDb);
             buttonRestoreSampleDb.Click += ButtonRestoreSampleDb_Click;
 
@@ -527,6 +531,12 @@ namespace VorratsUebersicht
             var switchAltDatePicker = sender as Switch;
             StorageItemQuantityActivity.UseAltDatePicker = switchAltDatePicker.Checked;
             Settings.PutBoolean("UseAltDatePicker", StorageItemQuantityActivity.UseAltDatePicker);
+        }
+
+        private void compressPictures_Click(object sender, EventArgs e)
+        {
+            var switchCompressPictures = sender as Switch;
+            Settings.PutBoolean("CompressPictures", switchCompressPictures.Checked);
         }
         
         private void ButtonRestore_Click(object sender, EventArgs e)
