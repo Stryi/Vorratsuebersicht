@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.52 (Code Version 80)
+==============================
+
+C137 - Intern: Backup Pfad wird restauriert, wenn gelöscht.
+
 Version 4.51 (Code Version 79)
 ==============================
 

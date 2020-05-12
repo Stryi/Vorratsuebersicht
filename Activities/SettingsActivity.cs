@@ -91,11 +91,11 @@ namespace VorratsUebersicht
             Button buttonRestore = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
             buttonRestore.Click += ButtonRestore_Click;
 
-            EditText backupPath = FindViewById<EditText>(Resource.Id.SettingsButton_BackupPath);
-            backupPath.Text = Settings.GetString("BackupPath", Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads).AbsolutePath);
-            backupPath.TextChanged += delegate {
-                EditText _backupPath = FindViewById<EditText>(Resource.Id.SettingsButton_BackupPath);
-                Settings.PutString("BackupPath", _backupPath.Text);
+            EditText editTextBackupPath = FindViewById<EditText>(Resource.Id.SettingsButton_BackupPath);
+            editTextBackupPath.Text = this.GetBackupPath();
+            editTextBackupPath.TextChanged += delegate
+            {
+                Settings.PutString("BackupPath", editTextBackupPath.Text);
             };
 
             Button buttonCsvExportArticles = FindViewById<Button>(Resource.Id.SettingsButton_CsvExportArticles);
@@ -207,6 +207,19 @@ namespace VorratsUebersicht
 
             EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
             MainActivity.SetUserDefinedCategories(catEdit?.Text);
+        }
+
+        private string GetBackupPath()
+        {
+            string downloadFolder = Settings.GetString("BackupPath", string.Empty);
+
+            if (string.IsNullOrEmpty(downloadFolder))
+            {
+                downloadFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(
+                                    Android.OS.Environment.DirectoryDownloads).AbsolutePath;
+            }
+
+            return downloadFolder;
         }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
@@ -519,8 +532,7 @@ namespace VorratsUebersicht
         private void ButtonRestore_Click(object sender, EventArgs e)
         {
             // Backups müssen sich im Download Verzeichnis befinden.
-            var downloadFolder = Settings.GetString("BackupPath", Android.OS.Environment.GetExternalStoragePublicDirectory(
-                Android.OS.Environment.DirectoryDownloads).AbsolutePath);
+            var downloadFolder = this.GetBackupPath();
 
             var selectFile = new Intent(this, typeof(SelectFileActivity));
             selectFile.PutExtra("Text",         "Backup auswählen:");
@@ -545,8 +557,7 @@ namespace VorratsUebersicht
 
             var databaseFilePath = Android_Database.Instance.GetProductiveDatabasePath();
 
-            var downloadFolder = Settings.GetString("BackupPath", Android.OS.Environment.GetExternalStoragePublicDirectory(
-                Android.OS.Environment.DirectoryDownloads).AbsolutePath);
+            var downloadFolder = this.GetBackupPath();
 
             string backupFileName;
             string databaseFileName = Path.GetFileNameWithoutExtension(databaseFilePath);

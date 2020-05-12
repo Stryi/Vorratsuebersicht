@@ -4,8 +4,6 @@ Prio 1
 Artikeldetails
 - "Auf Einkaufsliste" mit Eingabe-Dialog für die Menge (nach Mindestbestand schon vorgeblendet)
 
-Lagerbestand
-- Manuelle Datumseingabe (ohne scrollen zu müssen), z.B. mit Buttons "2020", "2021", Monat "1", "2",...
 
 EAN Scan
 - Besseren EAN Scanner suchen 
@@ -22,6 +20,9 @@ Sonstiges
 - Datenbankauswahl am Anfang mit "Zurück" Taste soll nicht die "Vorraete.db3" erstellen sondern die erste Datenbank nehmen.
   (Freie Auswahl des Datenbanknamens)
 
+
+Einstellungen
+- Bilder Komprimierung einstellbar (Ein- Ausschaltbar). Vom Adri 123 Rezension vom 02.05.2020 um 21:13.
 
 
 Prio 2
@@ -45,7 +46,6 @@ Artikelstamm
 Einstellungen
 - Automatischen Backup ("Alle X Tage...", "Y Kopien behalten")
 - Freie Sortierung der Kategorien. (M. Pleuger)
-- Bilder Komprimierung einstellbar (Ein- Ausschaltbar). Vom Adri 123 Rezension vom02.05.2020 um 21:13.
 
 Lagerliste
 - Zusammenfügen von Unterkategorien bei der Mindestmenge. 
