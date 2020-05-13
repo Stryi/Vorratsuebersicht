@@ -151,3 +151,5 @@ Probleme:
     - Build -> Rebuild Solution
       Erneut Starten
 
+    - Ggf. am Quellcode was ändern und neu übersetzen.
+    - Platz auf dem Smartphone schaffen.

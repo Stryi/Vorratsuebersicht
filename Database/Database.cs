@@ -763,10 +763,10 @@ namespace VorratsUebersicht
             cmd = string.Empty;
             cmd += "SELECT ArticleId";
             cmd += " FROM Article";
-            cmd += " WHERE EANCode = ?";
+            cmd += " WHERE EANCode LIKE ?";
             
 
-            var command = databaseConnection.CreateCommand(cmd, new object[] { eanCode });
+            var command = databaseConnection.CreateCommand(cmd, new object[] { "%" + eanCode + "%" });
 
             return command.ExecuteQuery<Article>();
         }

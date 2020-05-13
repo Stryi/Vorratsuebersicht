@@ -12,6 +12,6 @@ using Android.App;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion("4.52")]
-[assembly: AssemblyFileVersion("4.52.0.0")]
+[assembly: AssemblyVersion("4.53")]
+[assembly: AssemblyFileVersion("4.53.0.0")]
 
