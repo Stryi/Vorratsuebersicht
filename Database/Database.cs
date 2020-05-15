@@ -658,7 +658,7 @@ namespace VorratsUebersicht
             return stringList;
         }
 
-        internal static IList<Article> GetArticleListNoImages(string category, string subCategory, bool notInStorage, string textFilter = null)
+        internal static IList<Article> GetArticleListNoImages(string category, string subCategory, string eanCode, bool notInStorage, string textFilter = null)
         {
             IList<Article> result = new Article[0];
 
@@ -685,6 +685,17 @@ namespace VorratsUebersicht
 
                 filter += " Article.SubCategory = ?";
                 parameter.Add(subCategory);
+            }
+
+            if (!string.IsNullOrEmpty(eanCode))
+            {
+                if (!string.IsNullOrEmpty(filter))
+                    filter += " AND ";
+                else
+                    filter += " WHERE ";
+
+                filter += " Article.EANCode LIKE ?";
+                parameter.Add("%" + eanCode + "%");
             }
 
             if (!string.IsNullOrEmpty(textFilter))
@@ -936,8 +947,8 @@ namespace VorratsUebersicht
             if (!string.IsNullOrEmpty(eanCode))
             {
                 if (string.IsNullOrEmpty(filter)) { filter += " WHERE "; } else { filter += " AND "; }
-                filter += "Article.EANCode = ?";
-                parameter.Add(eanCode);
+                filter += "Article.EANCode LIKE ?";
+                parameter.Add("%" + eanCode + "%");
             }
 
             if (!string.IsNullOrEmpty(textFilter))

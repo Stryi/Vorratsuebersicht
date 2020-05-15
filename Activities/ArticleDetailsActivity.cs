@@ -567,7 +567,36 @@ namespace VorratsUebersicht
                 return;
 
             TRACE("Scanned Barcode: {0}", scanResult.Text);
-            FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text = scanResult.Text;
+            EditText editTextEanCode = FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode);
+            if (string.IsNullOrEmpty(editTextEanCode.Text))
+            {
+                editTextEanCode.Text = scanResult.Text;
+                return;
+            }
+
+            var message = new AlertDialog.Builder(this);
+            message.SetIcon(Resource.Drawable.ic_launcher);
+
+            if (editTextEanCode.Text.Contains(scanResult.Text))
+            {
+                message.SetMessage("Der EAN Code ist bereits eingetragen.");
+                message.SetPositiveButton("Ok", (s, e) => {});
+                message.Create().Show();
+
+                return;
+            }
+
+            message.SetMessage("Den EAN Code ersetzen oder zusätzlich hinzufügen?");
+            message.SetPositiveButton("Ersetzen", (s, e) => 
+            {
+                editTextEanCode.Text = scanResult.Text;
+            });
+            message.SetNegativeButton("Hinzufügen", (s, e) => 
+            { 
+                editTextEanCode.Text = editTextEanCode.Text +  "," + scanResult.Text;
+            });
+            message.Create().Show();
+
         }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)

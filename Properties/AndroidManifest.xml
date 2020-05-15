@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
           package="de.stryi.Vorratsuebersicht"
           android:installLocation="auto"
-          android:versionCode="81"
-          android:versionName="4.53">
+          android:versionCode="82"
+          android:versionName="4.54">
 	<uses-sdk android:minSdkVersion="10" android:targetSdkVersion="28" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

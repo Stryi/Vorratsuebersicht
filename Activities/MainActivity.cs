@@ -540,21 +540,14 @@ namespace VorratsUebersicht
         {
             string eanCode;
             
-            if (Debugger.IsAttached)
-            {
-                eanCode = "4005500339403";
-            }
-            else
-            {
-                var scanner = new ZXing.Mobile.MobileBarcodeScanner();
-                var scanResult = await scanner.Scan();
+            var scanner = new ZXing.Mobile.MobileBarcodeScanner();
+            var scanResult = await scanner.Scan();
 
-                if (scanResult == null)
-                    return;
+            if (scanResult == null)
+                return;
 
-                TRACE("Scanned Barcode: {0}", scanResult.Text);
-                eanCode = scanResult.Text;
-            }
+            TRACE("Scanned Barcode: {0}", scanResult.Text);
+            eanCode = scanResult.Text;
 
             var result = Database.GetArticlesByEanCode(eanCode);
             if (result.Count == 0)
@@ -565,20 +558,23 @@ namespace VorratsUebersicht
                 StartActivityForResult(articleDetails, ContinueScanMode);
                 return;
             }
+
+            string[] actions;
+            AlertDialog.Builder selectDialog = new AlertDialog.Builder(this);
+
             if (result.Count == 1)          // Artikel eindeutig gefunden
             {                
                 int artickeId = result[0].ArticleId;
 
-                string[] actions = 
+                actions =  new string[]
                     {
                         Resources.GetString(Resource.String.Main_Button_Lagerbestand),
                         Resources.GetString(Resource.String.Main_Button_Artikelangaben),
                         Resources.GetString(Resource.String.Main_Button_Einkaufsliste)
                     };
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.SetTitle("Aktion wählen...");
-                builder.SetItems(actions, (sender2, args) =>
+                selectDialog.SetTitle("Aktion wählen...");
+                selectDialog.SetItems(actions, (sender2, args) =>
                 {
                     switch(args.Which)
                     {
@@ -605,15 +601,40 @@ namespace VorratsUebersicht
                     }
                     return;
                 });
-                builder.Show();
+                selectDialog.Show();
 
                 return;
             }
 
-            var storageitemList = new Intent(this, typeof(StorageItemListActivity));
-            storageitemList.PutExtra("EANCode", eanCode);
-            storageitemList.PutExtra("ShowEmptyStorageArticles", true); // Auch Artikel ohne Lagerbestand anzeigen
-            StartActivityForResult(storageitemList, ContinueScanMode);
+            actions = new string[]
+                {
+                    Resources.GetString(Resource.String.Main_Button_LagerbestandListe),
+                    Resources.GetString(Resource.String.Main_Button_ArtikelListe)
+                };
+
+            selectDialog.SetTitle("Aktion wählen...");
+            selectDialog.SetItems(actions, (sender2, args) =>
+            {
+                switch(args.Which)
+                {
+                    case 0: // Lagerbestand Liste
+                        var storageDetails = new Intent(this, typeof(StorageItemListActivity));
+                        storageDetails.PutExtra("EANCode", scanResult.Text);
+                        this.StartActivityForResult(storageDetails, ContinueScanMode);
+                        break;
+
+                    case 1:
+                        // Artikel Liste
+                        var articleDetails = new Intent(this, typeof(ArticleListActivity));
+                        articleDetails.PutExtra("EANCode", scanResult.Text);
+                        this.StartActivityForResult(articleDetails, ContinueScanMode);
+                        break;
+                }
+                return;
+            });
+            selectDialog.Show();
+
+            return;
         }
 
         public static bool IsGooglePlayPreLaunchTestMode

@@ -9,10 +9,16 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.60 (Code Version 82)
+==============================
+
+C139 - Artikelstamm: Frage, ob EAN Code hinzugefügt oder ersetzt werden soll.
+E021 - FIX: EAN Scannen von Artikeln mit mehreren EAN Codes funktioniert jetzt auch.
+
 Version 4.53 (Code Version 81)
 ==============================
 
-C137 - FIX: Artikel mit mehreren EAN Codes.
+E020 - FIX: Artikel mit mehreren EAN Codes.
 
 Version 4.52 (Code Version 80)
 ==============================

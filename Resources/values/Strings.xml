@@ -23,10 +23,11 @@
   <string name="Main_Button_BestandNachKategorie">Bestand nach Kategorie</string>
   <string name="Main_Button_Lagerbestand">Lagerbestand</string>
   <string name="Main_Button_Artikelangaben">Artikelangaben</string>
+  <string name="Main_Button_LagerbestandListe">Lagerbestandsliste</string>
   <string name="Main_Button_ArtikelListe">Artikelliste</string>
   <string name="Main_Button_ArtikelScannen">Artikel scannen</string>
   <string name="Main_Button_Einkaufsliste">Einkaufsliste</string>
-
+  
   <!-- Maske Optionen -->
   <string name="Settings_Title">Einstellungen</string>
   <string name="Settings_TestDatenbank">Test Datenbank aktivieren</string>
