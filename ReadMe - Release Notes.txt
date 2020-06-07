@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 4.55 (Code Version 83)
 ==============================
 
+E022 - FIX: Auswahl "..." überschreibt jetzt die Einträge, statt sie hinzuzufügen.
 C140 - Einkaufszettel: Liste jetzt Zettel sortiert nach Einkaufsmarkt und (neu) Kategorie.
 
 Version 4.54 (Code Version 82)

@@ -57,7 +57,7 @@
             android:layout_marginRight="5dp"
             android:textColor="@color/Text_Color"
             android:textSize="16dp" />
-        <MultiAutoCompleteTextView
+        <AutoCompleteTextView
             android:id="@+id/StorageItemQuantity_StorageText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

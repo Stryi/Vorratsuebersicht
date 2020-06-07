@@ -5,7 +5,7 @@ using Android.Widget;
 
 namespace VorratsUebersicht
 {
-    public class SpaceTokenizer : Java.Lang.Object, MultiAutoCompleteTextView.ITokenizer, IJavaObject, IDisposable
+    public class SpaceTokenizer : Java.Lang.Object, AutoCompleteTextView.ITokenizer, IJavaObject, IDisposable
     {
         public int FindTokenStart(Java.Lang.ICharSequence text, int cursor)
         {

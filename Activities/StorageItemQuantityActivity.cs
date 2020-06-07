@@ -70,15 +70,12 @@ namespace VorratsUebersicht
             // Lagerort Eingabe
             this.Storages = Database.GetStorageNames();
 
-            var storage = FindViewById<MultiAutoCompleteTextView>(Resource.Id.StorageItemQuantity_StorageText);
-            //storage.FocusChange += MultiAutoCompleteTextView_FocusChange;
+            var storage = FindViewById<AutoCompleteTextView>(Resource.Id.StorageItemQuantity_StorageText);
             storage.Text = StorageItemQuantityActivity.article?.StorageName;
 
             ArrayAdapter<String> storageAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, this.Storages);
             storage.Adapter = storageAdapter;
             storage.Threshold = 1;
-            storage.SetTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-            storage.SetTokenizer(new SpaceTokenizer());
 
             ImageView image = FindViewById<ImageView>(Resource.Id.StorageItemQuantity_Image);
             image.Click += delegate 
@@ -196,7 +193,7 @@ namespace VorratsUebersicht
         {
             try
             {
-                var storage = FindViewById<MultiAutoCompleteTextView>(Resource.Id.StorageItemQuantity_StorageText);
+                var storage = FindViewById<AutoCompleteTextView>(Resource.Id.StorageItemQuantity_StorageText);
                 storage.ShowDropDown();
             }
             catch(Exception ex)
@@ -624,15 +621,6 @@ namespace VorratsUebersicht
                 return;
             });
             dialog.Show();
-        }
-
-        private void MultiAutoCompleteTextView_FocusChange(object sender, View.FocusChangeEventArgs e)
-        {
-            if (!e.HasFocus)
-                return;
-
-            var manufacturer = sender as MultiAutoCompleteTextView;
-            manufacturer?.ShowDropDown();
         }
     }
 }

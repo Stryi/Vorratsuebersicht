@@ -183,7 +183,6 @@
     <Compile Include="Tools\IOUtil.cs" />
     <Compile Include="Tools\SdCardAccess.cs" />
     <Compile Include="Tools\ShoppingListHelper.cs" />
-    <Compile Include="Tools\SpaceTokenizer.cs" />
     <Compile Include="Tools\Tools.cs" />
     <Compile Include="Activities\StorageItemQuantityActivity.cs" />
     <Compile Include="Views\ArticleListViewAdapter.cs" />

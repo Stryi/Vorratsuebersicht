@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
-            <MultiAutoCompleteTextView
+            <AutoCompleteTextView
                 android:id="@+id/ArticleDetails_Manufacturer"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
-            <MultiAutoCompleteTextView
+            <AutoCompleteTextView
                 android:id="@+id/ArticleDetails_SubCategory"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
-            <MultiAutoCompleteTextView
+            <AutoCompleteTextView
                 android:id="@+id/ArticleDetails_Supermarket"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -173,7 +173,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
-            <MultiAutoCompleteTextView
+            <AutoCompleteTextView
                 android:id="@+id/ArticleDetails_Storage"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
