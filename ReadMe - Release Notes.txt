@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.55 (Code Version 83)
+==============================
+
+C140 - Einkaufszettel: Liste jetzt Zettel sortiert nach Einkaufsmarkt und (neu) Kategorie.
+
 Version 4.54 (Code Version 82)
 ==============================
 

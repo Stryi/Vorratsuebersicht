@@ -85,7 +85,7 @@ namespace VorratsUebersicht
             string cmd = string.Empty;
             SQLiteCommand command;
 
-            cmd += "SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Supermarket, Size, Unit, Calorie, Quantity, Notes, Price, Bought";
+            cmd += "SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Supermarket, Size, Unit, Calorie, Quantity, Notes, Price, Bought, Category";
             cmd += " FROM ShoppingList";
             cmd += " LEFT JOIN Article ON ShoppingList.ArticleId = Article.ArticleId";
 
@@ -120,7 +120,7 @@ namespace VorratsUebersicht
                 parameter.Add(supermarket);
             }
 
-            cmd += " ORDER BY Bought, Supermarket COLLATE NOCASE, Name COLLATE NOCASE";
+            cmd += " ORDER BY Bought, Supermarket COLLATE NOCASE, Category COLLATE NOCASE, Name COLLATE NOCASE";
 
             command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());
 

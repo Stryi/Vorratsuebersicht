@@ -1,6 +1,9 @@
 Prio 1
 ======
 
+- Leerzeichen am Ende vom Lagername (Artikel und Lagerbestand) und Unterkategorie beim SELECT DISTINCT entfernen.
+- Auswahldialoge mit "..." bei Auswahl immer überschreiben.
+
 Artikeldetails
 - "Auf Einkaufsliste" mit Eingabe-Dialog für die Menge (nach Mindestbestand schon vorgeblendet)
 
