@@ -121,6 +121,13 @@ namespace VorratsUebersicht
             if (databaseConnection == null)
                 return;
 
+            databaseConnection.Execute("UPDATE Article SET Manufacturer = RTRIM(Manufacturer) WHERE LENGTH(Manufacturer) <> LENGTH(TRIM(Manufacturer))");
+            databaseConnection.Execute("UPDATE Article SET SubCategory  = RTRIM(SubCategory)  WHERE LENGTH(SubCategory)  <> LENGTH(TRIM(SubCategory))");
+            databaseConnection.Execute("UPDATE Article SET StorageName  = RTRIM(StorageName)  WHERE LENGTH(StorageName)  <> LENGTH(TRIM(StorageName))");       
+            databaseConnection.Execute("UPDATE Article SET Supermarket  = RTRIM(Supermarket)  WHERE LENGTH(Supermarket)  <> LENGTH(TRIM(Supermarket))");
+
+            databaseConnection.Execute("UPDATE StorageItem SET StorageName = RTRIM(StorageName) WHERE LENGTH(StorageName) <> LENGTH(TRIM(StorageName))");
+
             databaseConnection.Execute("VACUUM");
         }
 
