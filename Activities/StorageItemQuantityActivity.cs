@@ -246,7 +246,7 @@ namespace VorratsUebersicht
 					this.isChanged = true;
                     this.SaveChanges();
 					this.SetEditMode(false);
-                    this.AddToShoppingList();
+                    this.AddToShoppingListManually();
                     break;
 
                 case Resource.Id.StorageItemQuantity_Cancel:
@@ -255,7 +255,7 @@ namespace VorratsUebersicht
                     break;
 
                 case Resource.Id.StorageItemQuantity_ToShoppingList:
-                    this.AddToShoppingListAutomatically();
+                    this.AddToShoppingListManually();
                     return true;
 
                 case Resource.Id.StorageItemQuantity_ToArticleDetails:
@@ -298,32 +298,14 @@ namespace VorratsUebersicht
             listView.InvalidateViews();
 		}
 
-        private void AddToShoppingListAutomatically()
+        private void AddToShoppingListManually()
         {
-            int toBuyQuantity = Database.GetToShoppingListQuantity(this.articleId);
-            if (toBuyQuantity == 0)
-                toBuyQuantity = 1;
+            int? minQuantity  = StorageItemQuantityActivity.article.MinQuantity;
+            int? prefQuantity = StorageItemQuantityActivity.article.PrefQuantity;
 
-            if (this.toast != null)
-            {
-                this.toast.Cancel();
-            }
+            AddToShoppingListDialog.ShowDialog(this, articleId, minQuantity, prefQuantity);
 
-            if (toBuyQuantity == -1)
-            {
-                this.toast = Toast.MakeText(this, "Artikel in der Datenbank nicht gefunden!", ToastLength.Long);
-                this.toast.Show();
-                return;
-            }
-
-
-            double count = Database.AddToShoppingList(this.articleId, toBuyQuantity);
-            this.isChanged = true;
-
-
-            string msg = string.Format("{0} Stück auf der Einkaufsliste.", count);
-            this.toast = Toast.MakeText(this, msg, ToastLength.Short);
-            this.toast.Show();
+            return;
         }
 
         private void AddToShoppingList()

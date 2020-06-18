@@ -245,28 +245,27 @@ namespace VorratsUebersicht
             return count > 0;
         }
 
-        internal static int GetToShoppingListQuantity(int articleId)
+        internal static int GetToShoppingListQuantity(int articleId, int? minQuantity = null, int? prefQuantity = null)
         {
-            ArticleData article = Database.GetArticleData(articleId);
 
-            // Artikle ist noch (gar) nicht angelegt?
-            // (Laut Absturzbericht ist so ein Fall vorhanden, konnte aber nicht reproduziert werden.)
-            if (article == null)
+            if ((minQuantity == null) || (prefQuantity == null))
             {
-                return -1;
+                ArticleData article = Database.GetArticleData(articleId);
+
+                // Artikle ist noch (gar) nicht angelegt?
+                // (Laut Absturzbericht ist so ein Fall vorhanden, konnte aber nicht reproduziert werden.)
+                if (article == null)
+                {
+                    return -1;
+                }
+
+                minQuantity  = article.MinQuantity.HasValue  ? article.MinQuantity.Value  : 0;
+                prefQuantity = article.PrefQuantity.HasValue ? article.PrefQuantity.Value : 0;
             }
 
-            int minQuantity  = article.MinQuantity.HasValue  ? article.MinQuantity.Value  : 0;
-            int prefQuantity = article.PrefQuantity.HasValue ? article.PrefQuantity.Value : 0;
+            int isQuantityInStorage  = (int)Database.GetArticleQuantityInStorage(articleId);
 
-            return Database.GetToShoppingListQuantity(articleId, minQuantity, prefQuantity);
-        }
-
-        internal static int GetToShoppingListQuantity(int articleId, int minQuantity, int prefQuantity)
-        {
-            int isQuantity  = (int)Database.GetArticleQuantityInStorage(articleId);
-
-            int toBuyQuantity = ShoppingListHelper.GetToBuyQuantity(minQuantity, prefQuantity, isQuantity);
+            int toBuyQuantity = ShoppingListHelper.GetToBuyQuantity(minQuantity.Value, prefQuantity.Value, isQuantityInStorage);
             
             int shoppingListQuantiy = (int)Database.GetShoppingListQuantiy(articleId);
 

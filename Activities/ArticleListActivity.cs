@@ -107,7 +107,7 @@ namespace VorratsUebersicht
                     return true;
 
                 case 2: // Auf Einkaufszettel
-                    this.AddToShoppingListAutomatically(selectedItem.ArticleId);
+                    AddToShoppingListDialog.ShowDialog(this, selectedItem.ArticleId);
 
                     this.SaveListState();
                     this.ShowArticleList(this.lastSearchText);
@@ -320,28 +320,6 @@ namespace VorratsUebersicht
             ShowArticleList(filter);
             this.lastSearchText = filter;
             return true;
-        }
-
-        private void AddToShoppingListAutomatically(int articleId)
-        {
-            int toBuyQuantity = Database.GetToShoppingListQuantity(articleId);
-            if (toBuyQuantity == 0)
-                toBuyQuantity = 1;
-
-            double count = Database.AddToShoppingList(articleId, toBuyQuantity);
-
-            string msg = string.Format("{0} Stück auf der Einkaufsliste.", count);
-            if (this.toast != null)
-            {
-                this.toast.Cancel();
-                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
-            }
-            else
-            {
-                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
-            }
-
-            this.toast.Show();
         }
 
     }

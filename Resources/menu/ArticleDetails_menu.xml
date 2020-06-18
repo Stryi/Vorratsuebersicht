@@ -9,10 +9,10 @@
         android:icon="@drawable/ic_check_white_24dp"
         android:title="@string/App_Save"
         android:showAsAction="always" />
-  
-  <item android:id="@+id/ArticleDetailsMenu_Delete"
-        android:icon="@drawable/ic_delete_white_24dp"
-        android:title="@string/ArticleDetails_Menu_DeleteArticle"
+
+  <item android:id="@+id/ArticleDetailsMenu_ToShoppingList"
+        android:icon="@drawable/ic_shopping_cart_white_48dp"
+        android:title="@string/ArticleDetails_Menu_ToShoppingList"
         android:showAsAction="always" />
 
   <item android:id="@+id/ArticleDetailsMenu_MakeAPhoto"
@@ -31,9 +31,9 @@
         android:icon="@drawable/Barcode"
         android:title="@string/ArticleDetails_Menu_EAN_Scannen" />
 
-  <item android:id="@+id/ArticleDetailsMenu_ToShoppingList"
-      android:icon="@drawable/ic_shopping_cart_white_48dp"
-      android:title="@string/ArticleDetails_Menu_ToShoppingList" />
+  <item android:id="@+id/ArticleDetailsMenu_Delete"
+        android:icon="@drawable/ic_delete_white_24dp"
+        android:title="@string/ArticleDetails_Menu_DeleteArticle" />
 
   <item android:id="@+id/ArticleDetailsMenu_ToStorageQuantity"
       android:icon="@drawable/ic_assignment_white_48dp"

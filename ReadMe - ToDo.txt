@@ -1,11 +1,9 @@
 Prio 1
 ======
 
-- Leerzeichen am Ende vom Lagername (Artikel und Lagerbestand) und Unterkategorie beim SELECT DISTINCT entfernen.
-
-
 Artikeldetails
 - "Auf Einkaufsliste" mit Eingabe-Dialog für die Menge (nach Mindestbestand schon vorgeblendet)
+- Kalorien umrechnen auch von "cl"
 
 
 EAN Scan

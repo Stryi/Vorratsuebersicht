@@ -11,10 +11,10 @@
 
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">Sie starten die Anwendung zum ersten Mal.\n\nZum Kennenlernen der Anwendung kann eine Testdatenbank aktiviert werden. Diese können Sie unter Optionen wieder deaktivieren.</string>
-  <string name="Start_TestVersionInfo1">Alternative Datumserfassung im Lagerbestand jetzt möglich (unter Einstellungen zu aktivieren).</string>
-  <string name="Start_TestVersionInfo2">Artikelsuche mit "p-" zeigt nur Artikel ohne Preise ("p" steht für Preis).</string>
-  <string name="Start_TestVersionInfo3">Artikelsuche mit "k-" zeigt nur Artikel ohne Kalorienangaben ("k" steht für Kalorien).</string>
-  <string name="Start_TestVersionInfo4">BACKUP machen nicht vergessen!</string>
+  <string name="Start_TestVersionInfo1">Aus Haftungsgründen, darf diese App nicht geschäftlich eingesetzt werden.</string>
+  <string name="Start_TestVersionInfo2">BACKUP machen nicht vergessen!</string>
+  <string name="Start_TestVersionInfo3"></string>
+  <string name="Start_TestVersionInfo4"></string>
 
   <!-- Hauptmaske -->
   <string name="Main_DemnaechstZuVerbrauchen">Demnächst zu verbrauchen:</string>
@@ -42,7 +42,7 @@
 
   <!-- Artikelliste -->
   <string name="ArticleList_AllCategories">[Alle Kategorien]</string>
-  <string name="ArticleList_ToShoppingList">Auf Einkaufsliste</string>
+  <string name="ArticleList_ToShoppingList">Auf Einkaufsliste...</string>
   <string name="ArticleList_Lagerbestand">Lagerbestand</string>
 
   <!-- Artikeldetails Menü -->
@@ -51,7 +51,7 @@
   <string name="ArticleDetails_Menu_SelectPicture">Bild auswählen</string>
   <string name="ArticleDetails_Menu_ShowPicture">Bild bearbeiten</string>
   <string name="ArticleDetails_Menu_EAN_Scannen">EAN Scannen</string>
-  <string name="ArticleDetails_Menu_ToShoppingList">Auf Einkaufsliste</string>
+  <string name="ArticleDetails_Menu_ToShoppingList">Auf Einkaufsliste...</string>
   <string name="ArticleDetails_Menu_CurrentStock">Lagerbestand</string>
 
   <!-- Artikeldetails -->
@@ -65,7 +65,7 @@
   <string name="ArticleDetails_WarningInDays">Warnen in Tagen vor Ablauf:</string>
   <string name="ArticleDetails_Size">Inhalt/Größe:</string>
   <string name="ArticleDetails_Unit">Einheit:</string>
-  <string name="ArticleDetails_Unit_Hint">g, l, kg, mg, stk</string>
+  <string name="ArticleDetails_Unit_Hint">g, l, kg, mg, stk, cl, ml</string>
   <string name="ArticleDetails_Calories">Kalorien:</string>
   <string name="ArticleDetails_CaloriesPerUnit">Kalorien pro 100 {0}:</string>
   <string name="ArticleDetails_StorageLabel">Standard Lagerort:</string>
@@ -79,7 +79,7 @@
 
   <!-- Lagerbestandsliste -->
   <string name="StorageItem_AllStoragesStorage">[Alle Lager]</string>
-  <string name="StorageItem_ToShoppingList">Auf Einkaufsliste</string>
+  <string name="StorageItem_ToShoppingList">Auf Einkaufsliste...</string>
   <string name="StorageItem_Artikelangaben">Artikelangaben...</string>
 
   <!-- Lagerbestand -->

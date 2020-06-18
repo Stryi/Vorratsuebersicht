@@ -13,6 +13,7 @@ using Android.Widget;
 using Android.Graphics;
 using Android.Provider;
 using Android.Content.PM;
+using Android.Text;
 using MatrixGuide;
 using static Android.Widget.AdapterView;
 using System.Threading;
@@ -491,7 +492,7 @@ namespace VorratsUebersicht
             if (this.articleId != 0)
             {
                 this.SaveArticle();
-                this.AddToShoppingListAutomatically();
+                this.AddToShoppingListManually();
                 return;
             }
 
@@ -503,7 +504,7 @@ namespace VorratsUebersicht
                     this.SaveArticle();
                     if (this.articleId != 0)    // Speichern erfolgreich (articleId gesetzt?)
                     {
-                        this.AddToShoppingListAutomatically();
+                        this.AddToShoppingListManually();
                         return;
                     }
                 });
@@ -894,32 +895,12 @@ namespace VorratsUebersicht
 
         }
 
-        private void AddToShoppingListAutomatically()
+        private void AddToShoppingListManually()
         {
             int? minQuantity  = GetIntegerFromEditText(Resource.Id.ArticleDetails_MinQuantity);
             int? prefQuantity = GetIntegerFromEditText(Resource.Id.ArticleDetails_PrefQuantity);
 
-            if (minQuantity  == null) minQuantity  = 0;
-            if (prefQuantity == null) prefQuantity = 0;
-
-            int toBuyQuantity = Database.GetToShoppingListQuantity(this.articleId, minQuantity.Value, prefQuantity.Value);
-            if (toBuyQuantity == 0)
-                toBuyQuantity = 1;
-
-            double count = Database.AddToShoppingList(this.articleId, toBuyQuantity);
-
-            string msg = string.Format("{0:n0} Stück auf der Einkaufsliste.", count);
-            if (this.toast != null)
-            {
-                this.toast.Cancel();
-                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
-            }
-            else
-            {
-                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
-            }
-
-            this.toast.Show();
+            AddToShoppingListDialog.ShowDialog(this, articleId, minQuantity, prefQuantity);
         }
 
         private bool IsThereAnSpeechAvailable()
