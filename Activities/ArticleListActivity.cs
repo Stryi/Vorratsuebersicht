@@ -24,7 +24,6 @@ namespace VorratsUebersicht
         private string eanCode;
         private string lastSearchText = string.Empty;
         private List<string> categoryList;
-        Toast toast;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {

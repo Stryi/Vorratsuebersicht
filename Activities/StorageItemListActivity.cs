@@ -28,8 +28,6 @@ namespace VorratsUebersicht
         private string storageNameFilter = string.Empty;
         private string lastSearchText = string.Empty;
 
-        Toast toast;
-
         public static readonly int StorageItemQuantityId = 1000;
         public static readonly int SelectArticleId = 1001;
         public static readonly int ArticleDetailId = 1002;
@@ -451,25 +449,7 @@ namespace VorratsUebersicht
 
         private void AddToShoppingListAutomatically(int articleId)
         {
-            int toBuyQuantity = Database.GetToShoppingListQuantity(articleId);
-            if (toBuyQuantity == 0)
-                toBuyQuantity = 1;
-
-            double count = Database.AddToShoppingList(articleId, toBuyQuantity);
-
-            string msg = string.Format("{0} Stück auf der Einkaufsliste.", count);
-            if (this.toast != null)
-            {
-                this.toast.Cancel();
-                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
-            }
-            else
-            {
-                this.toast = Toast.MakeText(this, msg, ToastLength.Short);
-            }
-
-            this.toast.Show();
+            AddToShoppingListDialog.ShowDialog(this, articleId);
         }
     }
-
 }

@@ -34,7 +34,7 @@ namespace VorratsUebersicht
                 toBuyQuantity = minQuantity.Value;
             }
 
-            if (prefQuantity > minQuantity)
+            if (prefQuantity > 0)
             {
                 quantityInfo += string.Format("- Bevorz. Menge: {0:#,0.######}\n", prefQuantity);
                 toBuyQuantity = prefQuantity.Value;
@@ -52,6 +52,11 @@ namespace VorratsUebersicht
             if (shoppingListQuantiy > toBuyQuantity)
             {
                 toBuyQuantity = shoppingListQuantiy;
+            }
+
+            if (toBuyQuantity == 0)
+            {
+                toBuyQuantity = 1;
             }
 
             string message = string.Format("{0}\nNeue Anzahl eingeben:", quantityInfo); 

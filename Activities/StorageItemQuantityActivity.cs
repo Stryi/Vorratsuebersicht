@@ -35,8 +35,6 @@ namespace VorratsUebersicht
         bool noArticleDetails = false;
         List<string> Storages;
 
-        Toast toast;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

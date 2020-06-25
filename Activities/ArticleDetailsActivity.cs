@@ -41,7 +41,6 @@ namespace VorratsUebersicht
         TextView  imageTextView;
         EditText  warningInDaysView;
         TextView  warningInDaysLabelView;
-        Toast toast;
         ImageCaptureHelper imageCapture;
         EditText size;
         EditText unit;
