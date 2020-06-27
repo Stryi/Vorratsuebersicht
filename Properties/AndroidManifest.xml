@@ -3,7 +3,7 @@
           package="de.stryi.Vorratsuebersicht"
           android:installLocation="auto"
           android:versionCode="84"
-          android:versionName="4.56">
+          android:versionName="4.61">
 	<uses-sdk android:minSdkVersion="10" android:targetSdkVersion="28" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

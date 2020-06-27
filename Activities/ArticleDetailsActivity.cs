@@ -235,52 +235,78 @@ namespace VorratsUebersicht
 
         private void SelectManufacturer_Click(object sender, EventArgs e)
         {
-            try
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle(Resource.String.ArticleDetails_Manufacturer);
+            builder.SetItems(this.Manufacturers.ToArray(), (s, a) =>
             {
-                var storage = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_Manufacturer);
-                storage.ShowDropDown();
-            }
-            catch(Exception ex)
-            {
-                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-            }
+                try
+                {
+                    var textView = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_Manufacturer);
+                    textView.Text = this.Manufacturers[a.Which];
+                }
+                catch(Exception ex)
+                {
+                    Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
+                }
+            });
+            builder.Show();
         }
 
         private void SelectSubCategory_Click(object sender, EventArgs e)
         {
-            try
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle(Resource.String.ArticleDetails_SubCategory);
+            builder.SetItems(this.SubCategories.ToArray(), (s, a) =>
             {
-                var storage = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_SubCategory);
-                storage.ShowDropDown();
-            }
-            catch(Exception ex)
-            {
-                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-            }
+                try
+                {
+                    var textView = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_SubCategory);
+                    textView.Text = this.SubCategories[a.Which];
+                }
+                catch(Exception ex)
+                {
+                    Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
+                }
+            });
+            builder.Show();
         }
+
         private void SelectSupermarket_Click(object sender, EventArgs e)
         {
-            try
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle(Resource.String.ArticleDetails_SupermarketLabel);
+            builder.SetItems(this.Supermarkets.ToArray(), (s, a) =>
             {
-                var storage = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_Supermarket);
-                storage.ShowDropDown();
-            }
-            catch(Exception ex)
-            {
-                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-            }
+                try
+                {
+                    var textView = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_Supermarket);
+                    textView.Text = this.Supermarkets[a.Which];
+                }
+                catch(Exception ex)
+                {
+                    Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
+                }
+            });
+            builder.Show();
         }
+
         private void SelectStorage_Click(object sender, EventArgs e)
         {
-            try
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle(Resource.String.ArticleDetails_StorageLabel);
+            builder.SetItems(this.Storages.ToArray(), (s, a) =>
             {
-                var storage = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_Storage);
-                storage.ShowDropDown();
-            }
-            catch(Exception ex)
-            {
-                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-            }
+                try
+                {
+                    var textView = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_Storage);
+                    textView.Text = this.Storages[a.Which];
+                }
+                catch(Exception ex)
+                {
+                    Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
+                }
+            });
+            builder.Show();
         }
 
         private void BerechneCalPerUnit(object sender, Android.Text.TextChangedEventArgs e)

@@ -189,15 +189,21 @@ namespace VorratsUebersicht
 
         private void SelectStorage_Click(object sender, EventArgs e)
         {
-            try
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle("Lager für Neuanlage");
+            builder.SetItems(this.Storages.ToArray(), (s, a) =>
             {
-                var storage = FindViewById<AutoCompleteTextView>(Resource.Id.StorageItemQuantity_StorageText);
-                storage.ShowDropDown();
-            }
-            catch(Exception ex)
-            {
-                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-            }
+                try
+                {
+                    var textView = FindViewById<AutoCompleteTextView>(Resource.Id.StorageItemQuantity_StorageText);
+                    textView.Text = this.Storages[a.Which];
+                }
+                catch(Exception ex)
+                {
+                    Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
+                }
+            });
+            builder.Show();
         }
 
         public static void Reload()
