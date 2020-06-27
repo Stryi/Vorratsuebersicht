@@ -104,6 +104,14 @@ namespace VorratsUebersicht
             this.imageCapture = new ImageCaptureHelper();
             this.cameraExists = this.imageCapture.Initializer(this);
 
+            this.article = Database.GetArticle(this.articleId);
+            if (this.article == null)
+                this.article = new Article();
+
+            this.articleImage = Database.GetArticleImage(this.articleId, false);
+            if (this.articleImage == null)
+                this.articleImage = new ArticleImage();
+
             this.imageView              = FindViewById<ImageView>(Resource.Id.ArticleDetails_Image);
             this.imageView2             = FindViewById<ImageView>(Resource.Id.ArticleDetails_Image2);
             this.imageTextView          = FindViewById<TextView>(Resource.Id.ArticleDetails_ImageText);
@@ -153,6 +161,11 @@ namespace VorratsUebersicht
                     continue;
 
                 categories.Add(userCategory);
+            }
+
+            if (!categories.Contains(this.article.Category))
+            {
+                categories.Add(this.article.Category);
             }
 
             categories.Sort();
@@ -938,14 +951,6 @@ namespace VorratsUebersicht
 
         private void ShowPictureAndDetails(int articleId, string eanCode)
         {
-            this.article = Database.GetArticle(articleId);
-            if (this.article == null)
-                this.article = new Article();
-
-            this.articleImage = Database.GetArticleImage(articleId, false);
-            if (this.articleImage == null)
-                this.articleImage = new ArticleImage();
-
             FindViewById<TextView>(Resource.Id.ArticleDetails_ArticleId).Text       = string.Format("ArticleId: {0}", article.ArticleId);
 
             FindViewById<EditText>(Resource.Id.ArticleDetails_Name).Text               = article.Name;

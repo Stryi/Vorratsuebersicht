@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.56 (Code Version 84)
+==============================
+
+E023 - FIX: Kategorie "Essen" in den Testdatenbank wird als "Hygiene" angezeigt.
+
 Version 4.55 (Code Version 83)
 ==============================
 
