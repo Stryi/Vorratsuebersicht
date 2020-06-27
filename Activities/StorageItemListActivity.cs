@@ -141,12 +141,12 @@ namespace VorratsUebersicht
                     this.OnOpenArticleDetails(selectedItem.ArticleId);
                     return true;
 
-                case 2: // Auf Einkaufszettel
-                    this.AddToShoppingListAutomatically(selectedItem.ArticleId);
-
-                    this.SaveListState();
-                    this.ShowStorageItemList(this.lastSearchText);
-                    this.RestoreListState();
+                case 2: // Auf Einkaufsliste
+                    AddToShoppingListDialog.ShowDialog(
+                        this,
+                        selectedItem.ArticleId,
+                        null, null,
+                        this.RefreshStorageItemList);
 
                     return true;
 
@@ -347,6 +347,13 @@ namespace VorratsUebersicht
 
         }
 
+        private void RefreshStorageItemList()
+        {
+            this.SaveListState();
+            this.ShowStorageItemList(this.lastSearchText);
+            this.RestoreListState();
+        }
+
         private void ShowStorageItemList(string filter = null)
         {
             this.liste = new List<StorageItemListView>();
@@ -445,11 +452,6 @@ namespace VorratsUebersicht
             this.ShowStorageItemList(filter);
             this.lastSearchText = filter;
             return true;
-        }
-
-        private void AddToShoppingListAutomatically(int articleId)
-        {
-            AddToShoppingListDialog.ShowDialog(this, articleId);
         }
     }
 }

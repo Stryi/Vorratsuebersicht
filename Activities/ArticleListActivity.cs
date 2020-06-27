@@ -105,12 +105,11 @@ namespace VorratsUebersicht
 
                     return true;
 
-                case 2: // Auf Einkaufszettel
-                    AddToShoppingListDialog.ShowDialog(this, selectedItem.ArticleId);
-
-                    this.SaveListState();
-                    this.ShowArticleList(this.lastSearchText);
-                    this.RestoreListState();
+                case 2: // Auf Einkaufsliste
+                    AddToShoppingListDialog.ShowDialog(
+                        this,
+                        selectedItem.ArticleId,
+                        null, null, this.RefreshArticleList);
 
                     return true;
 
@@ -208,6 +207,13 @@ namespace VorratsUebersicht
             intentsend.SetType("text/plain");
             
             StartActivity(intentsend);
+        }
+
+        private void RefreshArticleList()
+        {
+            this.SaveListState();
+            this.ShowArticleList(this.lastSearchText);
+            this.RestoreListState();
         }
 
         private void ShowArticleList(string text = null)

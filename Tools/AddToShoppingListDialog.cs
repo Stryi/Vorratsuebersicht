@@ -9,7 +9,7 @@ namespace VorratsUebersicht
 {
     class AddToShoppingListDialog
     {
-        internal static void ShowDialog(Activity activity, int articleId, int? minQuantity = null, int? prefQuantity = null)
+        internal static void ShowDialog(Activity activity, int articleId, int? minQuantity = null, int? prefQuantity = null, Action refreshListAction = null)
         {
             string quantityInfo = "";
             decimal toBuyQuantity = 0;
@@ -85,11 +85,11 @@ namespace VorratsUebersicht
                         {
                             Database.SetShoppingItemQuantity(articleId, toBuyQuantity);
                         }
+                        refreshListAction?.Invoke();
                     }
                 });
             quantityDialog.SetNegativeButton("Cancel", (s, e) => {});
             quantityDialog.Show();
         }
-
     }
 }

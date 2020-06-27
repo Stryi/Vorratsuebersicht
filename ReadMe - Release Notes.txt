@@ -12,6 +12,8 @@ Vor dem Hochladen ins Google Play Store:
 Version 4.56 (Code Version 84)
 ==============================
 
+E024 - Testdatenbank "Kartoffel Mehl" -> "Kartoffelmehl"
+C142-Update - Liste wird jetzt aktualisiert.
 E023 - FIX: Kategorie "Essen" in den Testdatenbank wird als "Hygiene" angezeigt.
 
 Version 4.55 (Code Version 83)
