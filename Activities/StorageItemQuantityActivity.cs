@@ -193,15 +193,8 @@ namespace VorratsUebersicht
             builder.SetTitle("Lager für Neuanlage");
             builder.SetItems(this.Storages.ToArray(), (s, a) =>
             {
-                try
-                {
-                    var textView = FindViewById<AutoCompleteTextView>(Resource.Id.StorageItemQuantity_StorageText);
-                    textView.Text = this.Storages[a.Which];
-                }
-                catch(Exception ex)
-                {
-                    Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-                }
+                var textView = FindViewById<AutoCompleteTextView>(Resource.Id.StorageItemQuantity_StorageText);
+                textView.Text = this.Storages[a.Which];
             });
             builder.Show();
         }

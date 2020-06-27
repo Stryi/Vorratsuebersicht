@@ -239,15 +239,8 @@ namespace VorratsUebersicht
             builder.SetTitle(Resource.String.ArticleDetails_Manufacturer);
             builder.SetItems(this.Manufacturers.ToArray(), (s, a) =>
             {
-                try
-                {
-                    var textView = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_Manufacturer);
-                    textView.Text = this.Manufacturers[a.Which];
-                }
-                catch(Exception ex)
-                {
-                    Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-                }
+                var textView = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_Manufacturer);
+                textView.Text = this.Manufacturers[a.Which];
             });
             builder.Show();
         }
@@ -258,15 +251,8 @@ namespace VorratsUebersicht
             builder.SetTitle(Resource.String.ArticleDetails_SubCategory);
             builder.SetItems(this.SubCategories.ToArray(), (s, a) =>
             {
-                try
-                {
-                    var textView = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_SubCategory);
-                    textView.Text = this.SubCategories[a.Which];
-                }
-                catch(Exception ex)
-                {
-                    Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-                }
+                var textView = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_SubCategory);
+                textView.Text = this.SubCategories[a.Which];
             });
             builder.Show();
         }
@@ -277,15 +263,8 @@ namespace VorratsUebersicht
             builder.SetTitle(Resource.String.ArticleDetails_SupermarketLabel);
             builder.SetItems(this.Supermarkets.ToArray(), (s, a) =>
             {
-                try
-                {
-                    var textView = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_Supermarket);
-                    textView.Text = this.Supermarkets[a.Which];
-                }
-                catch(Exception ex)
-                {
-                    Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-                }
+                var textView = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_Supermarket);
+                textView.Text = this.Supermarkets[a.Which];
             });
             builder.Show();
         }
@@ -296,15 +275,8 @@ namespace VorratsUebersicht
             builder.SetTitle(Resource.String.ArticleDetails_StorageLabel);
             builder.SetItems(this.Storages.ToArray(), (s, a) =>
             {
-                try
-                {
-                    var textView = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_Storage);
-                    textView.Text = this.Storages[a.Which];
-                }
-                catch(Exception ex)
-                {
-                    Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-                }
+                var textView = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_Storage);
+                textView.Text = this.Storages[a.Which];
             });
             builder.Show();
         }
