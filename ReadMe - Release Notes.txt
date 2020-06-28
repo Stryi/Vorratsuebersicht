@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.62 (Code Version 85)
+==============================
+
+E025 - FIX: Neuanlage Artikel und "Auf Einkaufsliste" beim Speichern.
+
 Version 4.61 (Code Version 84)
 ==============================
 

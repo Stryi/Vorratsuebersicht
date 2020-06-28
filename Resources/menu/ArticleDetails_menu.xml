@@ -11,7 +11,7 @@
         android:showAsAction="always" />
 
   <item android:id="@+id/ArticleDetailsMenu_ToShoppingList"
-        android:icon="@drawable/ic_shopping_cart_white_48dp"
+        android:icon="@drawable/baseline_shopping_cart_white_24"
         android:title="@string/ArticleDetails_Menu_ToShoppingList"
         android:showAsAction="always" />
 
@@ -36,7 +36,7 @@
         android:title="@string/ArticleDetails_Menu_DeleteArticle" />
 
   <item android:id="@+id/ArticleDetailsMenu_ToStorageQuantity"
-      android:icon="@drawable/ic_assignment_white_48dp"
+      android:icon="@drawable/baseline_assignment_white_24"
       android:title="@string/ArticleDetails_Menu_CurrentStock" />
 
   <item android:id="@+id/ArticleDetailsMenu_Speech"

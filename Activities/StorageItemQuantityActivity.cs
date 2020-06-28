@@ -243,7 +243,7 @@ namespace VorratsUebersicht
 					this.isChanged = true;
                     this.SaveChanges();
 					this.SetEditMode(false);
-                    this.AddToShoppingListManually();
+                    this.AddToShoppingList();
                     break;
 
                 case Resource.Id.StorageItemQuantity_Cancel:
@@ -301,8 +301,6 @@ namespace VorratsUebersicht
             int? prefQuantity = StorageItemQuantityActivity.article.PrefQuantity;
 
             AddToShoppingListDialog.ShowDialog(this, articleId, minQuantity, prefQuantity);
-
-            return;
         }
 
         private void AddToShoppingList()
@@ -310,19 +308,8 @@ namespace VorratsUebersicht
             int toBuy = Database.GetToShoppingListQuantity(this.articleId);
             if (toBuy == 0)
                 return;
-
-            string msg = string.Format("Artikel mit Menge {0} auf die Einkaufsliste setzen?", toBuy);
-
-            var builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Mindestmenge unterschritten");
-            builder.SetMessage(msg);
-            builder.SetNegativeButton("Nein", (s, e) => { });
-            builder.SetPositiveButton("Ja", (s, e) => 
-            {
-                Database.AddToShoppingList(this.articleId, toBuy);
-                this.isChanged = true;
-            });
-            builder.Create().Show();
+            
+            this.AddToShoppingListManually();
         }
 
 

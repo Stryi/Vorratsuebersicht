@@ -163,9 +163,12 @@ namespace VorratsUebersicht
                 categories.Add(userCategory);
             }
 
-            if (!categories.Contains(this.article.Category))
+            if (this.article.Category != null)
             {
-                categories.Add(this.article.Category);
+                if (!categories.Contains(this.article.Category))
+                {
+                    categories.Add(this.article.Category);
+                }
             }
 
             categories.Sort();
