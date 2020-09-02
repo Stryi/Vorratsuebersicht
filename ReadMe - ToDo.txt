@@ -29,7 +29,6 @@ Prio 2
 ======
 
 Einkaufszettel
-- "Ins Lagerbstand..." soll die Menge gliech im Lagerbestand übernehmen.
 - Liste automatisch anhand der Mindestmenge erstellen.
 
 Einkaufsliste

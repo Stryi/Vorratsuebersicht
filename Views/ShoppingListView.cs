@@ -93,6 +93,14 @@ namespace VorratsUebersicht
             }
         }
 
+        public decimal Quantity
+        {
+            get
+            {
+                return this.ShoppingItem.Quantity;
+            }
+        }
+
         public bool Bought
         {
             get 

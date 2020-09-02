@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.70 (Code Version 86)
+==============================
+
+C144 - "Ins Lagerbstand..." übernimmt die Menge gliech ins Lagerbestand.
+
 Version 4.62 (Code Version 85)
 ==============================
 

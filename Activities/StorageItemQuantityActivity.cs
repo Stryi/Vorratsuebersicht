@@ -33,6 +33,7 @@ namespace VorratsUebersicht
         bool isChanged = false;
         bool isEditMode = false;
         bool noArticleDetails = false;
+        double quantity = -1;
         List<string> Storages;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -52,6 +53,7 @@ namespace VorratsUebersicht
             this.articleId        = Intent.GetIntExtra    ("ArticleId", 0);
             bool editMode         = Intent.GetBooleanExtra("EditMode", false);
             this.noArticleDetails = Intent.GetBooleanExtra("NoArticleDetails", false);
+            this.quantity         = Intent.GetDoubleExtra ("Quantity", -1);
 
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -106,7 +108,33 @@ namespace VorratsUebersicht
                 this.SetEditMode(true);
             }
 
+            if (this.quantity >= 0)
+            {
+                this.AddArticleWithQuantity();
+            }
+
             StorageItemQuantityListViewAdapter.StepValue = 1;
+        }
+
+        private void AddArticleWithQuantity()
+        {
+            var storageName = FindViewById<EditText>(Resource.Id.StorageItemQuantity_StorageText).Text;
+
+            StorageItemQuantityResult storageItemQuantity = new StorageItemQuantityResult();
+			storageItemQuantity.ArticleId    = this.articleId;
+            storageItemQuantity.Quantity     = (decimal)this.quantity;
+            storageItemQuantity.BestBefore   = DateTime.Today;
+            storageItemQuantity.StorageName  = storageName;
+            storageItemQuantity.IsChanged    = true;
+            
+            StorageItemQuantityListView itemView = new StorageItemQuantityListView(storageItemQuantity);
+
+            ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
+            var adapter = (StorageItemQuantityListViewAdapter)listView.Adapter;
+            adapter.Add(itemView);
+            listView.InvalidateViews();
+
+            this.ChangeBestBeforeDate(storageItemQuantity, adapter);
         }
 
         private void AddArticle_Click(object sender, EventArgs e)
@@ -120,10 +148,16 @@ namespace VorratsUebersicht
             storageItemQuantity.StorageName  = storageName;
             storageItemQuantity.IsChanged    = true;
 
+            if (this.quantity > 1)
+            {
+                storageItemQuantity.Quantity = (decimal)this.quantity;
+            }
+
             StorageItemQuantityListView itemView = new StorageItemQuantityListView(storageItemQuantity);
 
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
-            ((StorageItemQuantityListViewAdapter)listView.Adapter).Add(itemView);
+            var adapter = (StorageItemQuantityListViewAdapter)listView.Adapter;
+            adapter.Add(itemView);
             listView.InvalidateViews();
 
             if (!this.durableInfinity)
@@ -140,6 +174,12 @@ namespace VorratsUebersicht
                                 storageItemQuantity.BestBefore = null;
 
                             listView.InvalidateViews();
+
+                            if (this.quantity > 0)
+                            {
+                                this.ChangeQuantity(storageItemQuantity, adapter);
+                            }
+
                         }, DateTime.Today);
                     frag.ShowsDialog = true;
                     frag.Show(FragmentManager, DatePickerFragment.TAG);
@@ -153,6 +193,12 @@ namespace VorratsUebersicht
                             storageItemQuantity.BestBefore = null;
 
                         listView.InvalidateViews();
+
+                        if (this.quantity > 0)
+                        {
+                            this.ChangeQuantity(storageItemQuantity, adapter);
+                        }
+
                     }, DateTime.Today);
                     frag.ShowsDialog = true;
                     frag.Show(FragmentManager, AltDatePickerFragment.TAG);
@@ -165,7 +211,7 @@ namespace VorratsUebersicht
                 // Datum muss nicht erfasst werden.
                 storageItemQuantity.BestBefore = null;
                 listView.InvalidateViews();
-                }
+            }
         }
 
         private void StepButton_Click(object sender, EventArgs e)
@@ -243,12 +289,14 @@ namespace VorratsUebersicht
 					this.isChanged = true;
                     this.SaveChanges();
 					this.SetEditMode(false);
+                    this.quantity = -1;
                     this.AddToShoppingList();
                     break;
 
                 case Resource.Id.StorageItemQuantity_Cancel:
                     this.ShowStorageListForArticle(this.articleId);
 					this.SetEditMode(false);
+                    this.quantity = -1;
                     break;
 
                 case Resource.Id.StorageItemQuantity_ToShoppingList:
@@ -509,6 +557,12 @@ namespace VorratsUebersicht
 
                     storageItem.IsChanged = true;
                     adapter.NotifyDataSetInvalidated();
+
+                    if (this.quantity > 0)
+                    {
+                        this.ChangeQuantity(storageItem, adapter);
+                    }
+
                 }, date);
                 frag.ShowsDialog = true;
                 frag.Show(FragmentManager, DatePickerFragment.TAG);
@@ -524,6 +578,11 @@ namespace VorratsUebersicht
 
                     storageItem.IsChanged = true;
                     adapter.NotifyDataSetInvalidated();
+
+                    if (this.quantity > 0)
+                    {
+                        this.ChangeQuantity(storageItem, adapter);
+                    }
                 }, date);
                 frag.ShowsDialog = true;
                 frag.Show(FragmentManager, AltDatePickerFragment.TAG);
@@ -556,6 +615,12 @@ namespace VorratsUebersicht
                         storageItem.Quantity = neueAnzahl;
                         storageItem.IsChanged = true;
                         adapter.NotifyDataSetChanged();
+
+                        if (this.quantity >= 1)
+                        {
+                            this.quantity = this.quantity - (double)neueAnzahl;
+                        }
+
                     }
                 });
             dialog.SetNegativeButton("Cancel", (s, e) => {});

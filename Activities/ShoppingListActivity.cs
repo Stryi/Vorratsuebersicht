@@ -155,6 +155,7 @@ namespace VorratsUebersicht
                         var storageDetails = new Intent(this, typeof(StorageItemQuantityActivity));
                         storageDetails.PutExtra("ArticleId", item.ArticleId);
                         storageDetails.PutExtra("EditMode",  true);
+                        storageDetails.PutExtra("Quantity",  (double)item.Quantity);
                         this.StartActivityForResult(storageDetails, EditStorageQuantity);
                         break;
 
