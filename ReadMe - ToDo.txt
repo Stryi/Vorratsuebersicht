@@ -1,6 +1,9 @@
 Prio 1
 ======
 
+Lagerbestand
+- Notizen anzeigen
+
 Artikeldetails
 - Kalorien umrechnen auch von "cl"
 

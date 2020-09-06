@@ -55,11 +55,11 @@ namespace VorratsUebersicht
             switchCostMessage.Checked = ArticleDetailsActivity.showCostMessage;
 
             Switch switchAltDatePicker = FindViewById<Switch>(Resource.Id.SettingsButton_AltDatePicker);
-            switchAltDatePicker.Click += switchAltDatePicker_Click;
+            switchAltDatePicker.Click += SwitchAltDatePicker_Click;
             switchAltDatePicker.Checked = StorageItemQuantityActivity.UseAltDatePicker;
 
             Switch compressPictures = FindViewById<Switch>(Resource.Id.SettingsButton_CompressPictures);
-            compressPictures.Click += compressPictures_Click;
+            compressPictures.Click += CompressPictures_Click;
             compressPictures.Checked = Settings.GetBoolean("CompressPictures", true);
 
             Button buttonRestoreSampleDb = FindViewById<Button>(Resource.Id.SettingsButton_RestoreSampleDb);
@@ -526,14 +526,14 @@ namespace VorratsUebersicht
             Settings.PutBoolean("ShowOpenFoodFactsInternetCostsMessage", ArticleDetailsActivity.showCostMessage);
         }
 
-        private void switchAltDatePicker_Click(object sender, EventArgs e)
+        private void SwitchAltDatePicker_Click(object sender, EventArgs e)
         {
             var switchAltDatePicker = sender as Switch;
             StorageItemQuantityActivity.UseAltDatePicker = switchAltDatePicker.Checked;
             Settings.PutBoolean("UseAltDatePicker", StorageItemQuantityActivity.UseAltDatePicker);
         }
 
-        private void compressPictures_Click(object sender, EventArgs e)
+        private void CompressPictures_Click(object sender, EventArgs e)
         {
             var switchCompressPictures = sender as Switch;
             Settings.PutBoolean("CompressPictures", switchCompressPictures.Checked);
