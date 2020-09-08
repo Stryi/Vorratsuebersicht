@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 4.70 (Code Version 86)
 ==============================
 
+C145 - Artikel Notizen jetzt im Lagerbestand.
 C144 - "Ins Lagerbstand..." übernimmt die Menge gliech ins Lagerbestand.
 
 Version 4.62 (Code Version 85)

@@ -435,6 +435,11 @@ namespace VorratsUebersicht
 
                 headerView.Text = articleView.Heading;
                 detailView.Text = articleView.SubHeading;
+                if (!string.IsNullOrEmpty(articleView.Notes))
+                {
+                    detailView.Text += "\n";
+                    detailView.Text += articleView.Notes;
+                }
 
                 this.ShowPicture(detailView, imageView);
             }

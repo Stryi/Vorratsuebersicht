@@ -126,6 +126,14 @@ namespace VorratsUebersicht
 					info += " -";
                 }
 
+				if (this.Article.Notes != null)
+				{
+					if (!string.IsNullOrEmpty(info)) info += "\n";
+                    info += MainActivity.Strings_Notes;
+					info += string.Format(" {0}", this.Article.Notes);
+				}
+
+
                 return info;
 			}
         }
