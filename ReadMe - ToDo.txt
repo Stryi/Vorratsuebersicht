@@ -1,8 +1,11 @@
 Prio 1
 ======
 
-Lagerbestand
-- Notizen anzeigen
+Artikelbestand
+- Lagerumbuchung komfortabler machen (s. E-Mail vom C. A. Betz).
+
+Artikelstamm
+- Voreinstellung bei Kategorien (von der Rezension vom Reinhold M. vom 10.09.2020)
 
 Artikeldetails
 - Kalorien umrechnen auch von "cl"
@@ -45,6 +48,7 @@ Artikelstamm
 - Zweiter Preis (Angebot). (vom Scare C. per E-Mail) 
 - Default Werte vorbelegen (Martin T aus CH)
 - Mehrere Bilder Pro Artikel
+- Beim Umbenennen vom "Standard Lagerort" fragen, ob das im Lager auch umbenannt werden sollte.
 
 Einstellungen
 - Automatischen Backup ("Alle X Tage...", "Y Kopien behalten")

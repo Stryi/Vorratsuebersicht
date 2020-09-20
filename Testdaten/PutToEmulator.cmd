@@ -4,12 +4,12 @@ SET adbCmd="%ProgramFiles(x86)%\Android\android-sdk\platform-tools\adb"
 REM SET adbCmd="E:\android-adk\platform-tools\adb"
 
 REM Bis Android 5.1
-REM SET SD_Card_Path=/storage/sdcard
-REM SET App_Path=/data/data/de.Stryi.Vorratsuebersicht/files
+SET SD_Card_Path=/storage/sdcard
+SET App_Path=/data/data/de.Stryi.Vorratsuebersicht/files
 
 REM Ab Android 6.0
-SET SD_Card_Path=/storage/emulated/0
-SET App_Path=/data/user/0/de.stryi.Vorratsuebersicht/files
+REM SET SD_Card_Path=/storage/emulated/0
+REM SET App_Path=/data/user/0/de.stryi.Vorratsuebersicht/files
 
 SET EmulatorName=emulator-5554
 REM SET EmulatorName=emulator-5556

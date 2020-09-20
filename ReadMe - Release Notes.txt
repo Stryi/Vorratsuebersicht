@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 4.70 (Code Version 86)
 ==============================
 
+C146 - Sucht auf OpenFoodFacts.org bei mehreren EAN Codes jetzt möglich. (Sucht nacheinander, bis der erste Artikel gefunden wurde.)
 C145 - Artikel Notizen jetzt im Lagerbestand.
 C144 - "Ins Lagerbstand..." übernimmt die Menge gliech ins Lagerbestand.
 

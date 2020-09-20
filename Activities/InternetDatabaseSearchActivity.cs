@@ -130,9 +130,23 @@ namespace VorratsUebersicht
             this.foodSize = null;
             this.kcalPer100 = null;
 
+            var eanCodeView = FindViewById<TextView>(Resource.Id.InternetDatabaseResult_EanCode);
+
+            
+
             try
             {
-                this.foodInfo = this.GetFoodInformation(eanCode);
+                string[] eanCodeList = eanCode.Split(",");
+                foreach(string ean in eanCodeList)
+                {
+                    RunOnUiThread(() => eanCodeView.Text = "EAN Code: " + ean);
+                    
+                    this.foodInfo = this.GetFoodInformation(ean);
+
+                    if (foodInfo.status == 1)       // Artikelangaben gefunden?
+                        break;
+                }
+
             }
             catch(Exception ex)
             {
@@ -141,6 +155,8 @@ namespace VorratsUebersicht
 
             RunOnUiThread(() =>
             {
+                eanCodeView.Text = string.Empty;
+
                 if (this.foodInfo != null)
                 {
                     title = string.Format("EAN Code: {0}", this.foodInfo.code);
