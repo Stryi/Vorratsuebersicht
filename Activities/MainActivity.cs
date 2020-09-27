@@ -29,6 +29,7 @@ namespace VorratsUebersicht
         public static readonly int OptionsId = 1002;
         public static readonly int ArticleListId = 1003;
         public static readonly int ContinueScanMode = 1004;
+        public static readonly int EditStorageQuantity = 1005;
 
         public static string Strings_Manufacturer;
         public static string Strings_Size;
@@ -509,6 +510,14 @@ namespace VorratsUebersicht
                 buttonBarcode.PerformClick();
             }
 
+            if ((requestCode == EditStorageQuantity) && (resultCode == Result.Ok) && (data != null))
+            {
+                int id = data.GetIntExtra("ArticleId", -1);
+                if (id == -1)
+                    return;
+
+                Database.RemoveFromShoppingList(id);
+            }
         }
 
         private void EnableButtons(bool enable)
@@ -540,14 +549,22 @@ namespace VorratsUebersicht
         {
             string eanCode;
             
-            var scanner = new ZXing.Mobile.MobileBarcodeScanner();
-            var scanResult = await scanner.Scan();
+            if (Debugger.IsAttached)
+            {
+                eanCode = "4006544205006";
+            }
+            else
+            {
+                var scanner = new ZXing.Mobile.MobileBarcodeScanner();
+                var scanResult = await scanner.Scan();
 
-            if (scanResult == null)
-                return;
+                if (scanResult == null)
+                    return;
 
-            TRACE("Scanned Barcode: {0}", scanResult.Text);
-            eanCode = scanResult.Text;
+                eanCode = scanResult.Text;
+            }
+
+            TRACE("Scanned Barcode: {0}", eanCode);
 
             var result = Database.GetArticlesByEanCode(eanCode);
             if (result.Count == 0)
@@ -559,22 +576,29 @@ namespace VorratsUebersicht
                 return;
             }
 
-            string[] actions;
+            List<string> actions;
             AlertDialog.Builder selectDialog = new AlertDialog.Builder(this);
 
             if (result.Count == 1)          // Artikel eindeutig gefunden
             {                
                 int artickeId = result[0].ArticleId;
 
-                actions =  new string[]
+                actions =  new List<string>()
                     {
                         Resources.GetString(Resource.String.Main_Button_Lagerbestand),
                         Resources.GetString(Resource.String.Main_Button_Artikelangaben),
                         Resources.GetString(Resource.String.Main_Button_Einkaufsliste)
                     };
 
+                var shoppingItemCount = Database.GetShoppingListQuantiy(artickeId, -1);
+                if (shoppingItemCount >= 0)
+                {
+                    // Von der Einkaufsliste direkt ins Lager.
+                    actions.Add(Resources.GetString(Resource.String.Main_Button_InLagerbestand));
+                }
+
                 selectDialog.SetTitle("Aktion wählen...");
-                selectDialog.SetItems(actions, (sender2, args) =>
+                selectDialog.SetItems(actions.ToArray(), (sender2, args) =>
                 {
                     switch(args.Which)
                     {
@@ -598,6 +622,18 @@ namespace VorratsUebersicht
                             string msg = string.Format("{0} Stück auf der Liste.", count);
                             Toast.MakeText(this, msg, ToastLength.Short).Show();
                             break;
+                        case 3:
+                            if (shoppingItemCount == 0)
+                                shoppingItemCount = 1;
+
+                            // Aus Einkaufsliste ins Lager
+                            var storageDetails2 = new Intent(this, typeof(StorageItemQuantityActivity));
+                            storageDetails2.PutExtra("ArticleId", artickeId);
+                            storageDetails2.PutExtra("EditMode",  true);
+                            storageDetails2.PutExtra("Quantity",  (double)shoppingItemCount);
+
+                            this.StartActivityForResult(storageDetails2, EditStorageQuantity);
+                            break;
                     }
                     return;
                 });
@@ -606,27 +642,27 @@ namespace VorratsUebersicht
                 return;
             }
 
-            actions = new string[]
+            actions = new List<string>()
                 {
                     Resources.GetString(Resource.String.Main_Button_LagerbestandListe),
                     Resources.GetString(Resource.String.Main_Button_ArtikelListe)
                 };
 
             selectDialog.SetTitle("Aktion wählen...");
-            selectDialog.SetItems(actions, (sender2, args) =>
+            selectDialog.SetItems(actions.ToArray(), (sender2, args) =>
             {
                 switch(args.Which)
                 {
                     case 0: // Lagerbestand Liste
                         var storageDetails = new Intent(this, typeof(StorageItemListActivity));
-                        storageDetails.PutExtra("EANCode", scanResult.Text);
+                        storageDetails.PutExtra("EANCode", eanCode);
                         this.StartActivityForResult(storageDetails, ContinueScanMode);
                         break;
 
                     case 1:
                         // Artikel Liste
                         var articleDetails = new Intent(this, typeof(ArticleListActivity));
-                        articleDetails.PutExtra("EANCode", scanResult.Text);
+                        articleDetails.PutExtra("EANCode", eanCode);
                         this.StartActivityForResult(articleDetails, ContinueScanMode);
                         break;
                 }

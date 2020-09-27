@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 4.72 (Code Version 88)
 ==============================
 
+C148 - EAN Scan: jetzt von Einkaufsliste ins Lager.
 C147 - Standard Kategorie kann jetzt definiert werden.
 E027 - FIX C144: MHD wurde immer abgefragt.
 
