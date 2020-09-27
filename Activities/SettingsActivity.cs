@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Globalization;
+using System.Collections.Generic;
 
 using Android.App;
 using Android.Content;
@@ -22,9 +23,12 @@ namespace VorratsUebersicht
         public static readonly int SelectBackupId = 1000;
         private bool userCategoriesChanged = false;
         private bool additionalDatabasePathChanged = false;
+        private bool isInitialize = false;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            this.isInitialize = true;
+
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.Settings);
@@ -113,12 +117,47 @@ namespace VorratsUebersicht
             EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
             catEdit.TextChanged += delegate { this.userCategoriesChanged = true; };
 
+            // Fest definierte Kategorien
+            string[] defaultCategories = Resources.GetStringArray(Resource.Array.ArticleCatagories);
+
+            // Frei definierte Kategorien zusätzlich laden.
+            var categories = MainActivity.GetDefinedCategories(defaultCategories);
+
+            ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, categories);
+            categoryAdapter.SetDropDownViewResource (Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            
+            Spinner categorySpinner = this.FindViewById<Spinner>(Resource.Id.Settings_DefaultCategory);
+            categorySpinner.Adapter = categoryAdapter;
+            categorySpinner.ItemSelected += CategorySpinner_ItemSelected;
+
+            string defaultCategory = Database.GetSettingsString("DEFAULT_CATEGORY");
+
+            int position = categoryAdapter.GetPosition(defaultCategory);
+
+            if (position < 0)
+                position = 0;
+
+            categorySpinner.SetSelection(position);
+
             this.EnableButtons();
 
             this.ShowApplicationVersion();
 
             // Artikelname ist eingetragen. Tastatus anfänglich ausblenden.
             this.Window.SetSoftInputMode(SoftInput.StateHidden);
+
+            this.isInitialize = false;
+        }
+
+        private void CategorySpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            if (this.isInitialize)
+                return;
+
+            Spinner spinner = sender as Spinner;
+            var item = (String)spinner.Adapter.GetItem(e.Position);
+
+            MainActivity.SetDefaultCategory(item);
         }
 
         private void ButtonCsvExportArticles_Click(object sender, EventArgs e)
@@ -494,7 +533,7 @@ namespace VorratsUebersicht
                     text.AppendFormat("App Version: {0} (Code Version {1})\n", info.VersionName, info.VersionCode);
                     text.AppendFormat("Current Database: {0}\n", Android_Database.SQLiteConnection?.DatabasePath);
                     text.AppendFormat("Android Version: {0}\n",  Build.VERSION.Release);
-                    text.AppendFormat("Android SDK: {0}\n",      Build.VERSION.Sdk);
+                    text.AppendFormat("Android SDK: {0}\n",      Build.VERSION.SdkInt);
                     text.AppendFormat("Hersteller: {0}\n",       Build.Manufacturer);
                     text.AppendFormat("Modell: {0}\n",           Build.Model);
                     text.AppendFormat("CurrentCulture: {0}\n",   CultureInfo.CurrentCulture.DisplayName);

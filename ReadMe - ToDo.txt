@@ -2,7 +2,12 @@ Prio 1
 ======
 
 Artikelbestand
-- Lagerumbuchung komfortabler machen (s. E-Mail vom C. A. Betz).
+- Lagerumbuchung komfortabler machen (s. E-Mail vom C. A. Betz). (noch offen, wie)
+
+EAN Scan
+- Zusätzliche Auswahl "Aus Einkaufsliste ins Lagerbestand", wenn der Artikel 
+  auf dem Einkaufsliste steht.
+
 
 Artikelstamm
 - Voreinstellung bei Kategorien (von der Rezension vom Reinhold M. vom 10.09.2020)
@@ -29,6 +34,35 @@ Sonstiges
 
 Einstellungen
 - Bilder Komprimierung einstellbar (Ein- Ausschaltbar). Vom Adri 123 Rezension vom 02.05.2020 um 21:13.
+
+
+Debugger Information prüfen
+
+
+Warnung
+
+Deine App ist derzeit auf API-Ebene 28 ausgerichtet, sollte jedoch eine API-Mindestebene von 29 haben.
+Hierdurch soll dafür gesorgt werden, dass deine App die aktuellen APIs nutzt, Nutzern eine optimale Leistung bietet und sicher ist.
+
+Ab August 2020 müssen neue Apps auf mindestens Android 10 (API-Ebene 29) ausgerichtet sein.
+Ab November 2020 müssen App-Updates auf mindestens Android 10 (API-Ebene 29) ausgerichtet sein.
+
+Warnung
+Mit diesem APK werden ungenutzter Code und ungenutzte Ressourcen an Nutzer gesendet.
+Deine App könnte kleiner sein, wenn du das Android App Bundle verwendet hättest.
+Wenn du deine App nicht für Gerätekonfigurationen optimierst,
+ist deine App größer und braucht länger zum Herunterladen und Installieren auf den Geräten der Nutzer.
+Größere Apps haben geringere Installations-Erfolgsraten und belegen mehr Speicher auf den Geräten der Nutzer.
+
+Warnung
+Dieses APK enthält Java- oder Kotlin-Code, der möglicherweise verschleiert ist.
+Wir empfehlen dir, eine Offenlegungsdatei hochzuladen, damit deine Abstürze und ANRs
+besser analysiert und von Fehlern bereinigt werden können. Weitere Informationen: https://developer.android.com/studio/build/shrink-code#decode-stack-trace
+
+Warnung
+Dieses APK enthält nativen Code und du hast keine Symbole zum Debuggen hochgeladen.
+Wir empfehlen dir, eine Symboldatei hochzuladen, damit deine Abstürze und ANRs besser analysiert
+und von Fehlern bereinigt werden können. Weitere Informationen: https://developer.android.com/studio/build/shrink-code#native-crash-support
 
 
 Prio 2

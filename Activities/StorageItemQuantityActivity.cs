@@ -134,6 +134,15 @@ namespace VorratsUebersicht
             adapter.Add(itemView);
             listView.InvalidateViews();
 
+            if (this.durableInfinity)
+            {
+                if (this.quantity > 0)
+                {
+                    this.ChangeQuantity(storageItemQuantity, adapter);
+                }
+                return;
+            }
+
             this.ChangeBestBeforeDate(storageItemQuantity, adapter);
         }
 

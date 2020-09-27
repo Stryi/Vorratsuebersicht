@@ -9,10 +9,16 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.72 (Code Version 88)
+==============================
+
+C147 - Standard Kategorie kann jetzt definiert werden.
+E027 - FIX C144: MHD wurde immer abgefragt.
+
 Version 4.71 (Code Version 87)
 ==============================
 
-E147 - FIX: Korrektur Notizen Anzeige (war doppelt).
+E026 - FIX: Korrektur Notizen Anzeige (war doppelt).
 
 Version 4.70 (Code Version 86)
 ==============================

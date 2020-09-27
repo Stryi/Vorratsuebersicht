@@ -668,9 +668,33 @@ namespace VorratsUebersicht
             return result;
         }
 
+        internal static List<string> GetDefinedCategories(string[] defaultCategories)
+        {
+            // Fest definierte Kategorien
+            List<string> categories = new List<string>(defaultCategories);
+
+            var userCategories = MainActivity.GetUserDefinedCategories();
+            foreach(string userCategory in userCategories)
+            {
+                if (categories.Contains(userCategory))      // Doppelte verhindern
+                    continue;
+
+                categories.Add(userCategory);
+            }
+
+            categories.Sort();
+
+            return categories;
+        }
+
         internal static void SetUserDefinedCategories(string newCategories)
         {
             Database.SetSettings("USER_CATEGORIES", newCategories);
+        }
+
+        internal static void SetDefaultCategory(string newDefaultCategory)
+        {
+            Database.SetSettings("DEFAULT_CATEGORY", newDefaultCategory);
         }
     }
 }

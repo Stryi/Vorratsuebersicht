@@ -151,17 +151,11 @@ namespace VorratsUebersicht
             this.catalogListener = new CatalogItemSelectedListener();
 
             // Fest definierte Kategorien
-            List<string> categories = new List<string>(Resources.GetStringArray(Resource.Array.ArticleCatagories));
+            string[] defaultCategories = Resources.GetStringArray(Resource.Array.ArticleCatagories);
 
-            // Benutzerspezifische Kategorien
-            var userCategories = MainActivity.GetUserDefinedCategories();
-            foreach(string userCategory in userCategories)
-            {
-                if (categories.Contains(userCategory))      // Doppelte verhindern
-                    continue;
+            // Frei definierte Kategorien zusätzlich laden.
+            List<string> categories = MainActivity.GetDefinedCategories(defaultCategories);
 
-                categories.Add(userCategory);
-            }
 
             if (this.article.Category != null)
             {
@@ -981,13 +975,24 @@ namespace VorratsUebersicht
             manufacturerAdapter.AddAll(this.Manufacturers);
             manufacturerAdapter.NotifyDataSetChanged();
 
-
+            // Kategorie
             Spinner categorySpinner = FindViewById<Spinner>(Resource.Id.ArticleDetails_Category);
 
             var categoryAdapter = (ArrayAdapter<String>)(categorySpinner.Adapter);
             
+            if (article.ArticleId  <= 0)
+            {
+                article.Category = Database.GetSettingsString("DEFAULT_CATEGORY");
+            }
+
             int position = categoryAdapter.GetPosition(article.Category);
+            if (position < 0)
+            {
+                position = 0;
+            }
+
             categorySpinner.SetSelection(position);
+
 
             // Unterkategorie
             this.SubCategories = Database.GetSubcategoriesOf();
