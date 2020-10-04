@@ -1,16 +1,12 @@
 Prio 1
 ======
 
+EAN Scan
+- BUG: "Auf Einkaufsliste" berücksichtigt nicht die Mindest- und bevorzugte Menge.
+
 Artikelbestand
 - Lagerumbuchung komfortabler machen (s. E-Mail vom C. A. Betz). (noch offen, wie)
 
-EAN Scan
-- Zusätzliche Auswahl "Aus Einkaufsliste ins Lagerbestand", wenn der Artikel 
-  auf dem Einkaufsliste steht.
-
-
-Artikelstamm
-- Voreinstellung bei Kategorien (von der Rezension vom Reinhold M. vom 10.09.2020)
 
 Artikeldetails
 - Kalorien umrechnen auch von "cl"

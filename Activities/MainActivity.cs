@@ -581,7 +581,7 @@ namespace VorratsUebersicht
 
             if (result.Count == 1)          // Artikel eindeutig gefunden
             {                
-                int artickeId = result[0].ArticleId;
+                int articleId = result[0].ArticleId;
 
                 actions =  new List<string>()
                     {
@@ -590,7 +590,7 @@ namespace VorratsUebersicht
                         Resources.GetString(Resource.String.Main_Button_Einkaufsliste)
                     };
 
-                var shoppingItemCount = Database.GetShoppingListQuantiy(artickeId, -1);
+                var shoppingItemCount = Database.GetShoppingListQuantiy(articleId, -1);
                 if (shoppingItemCount >= 0)
                 {
                     // Von der Einkaufsliste direkt ins Lager.
@@ -604,7 +604,7 @@ namespace VorratsUebersicht
                     {
                         case 0: // Lagerbestand bearbeiten
                             var storageDetails = new Intent(this, typeof(StorageItemQuantityActivity));
-                            storageDetails.PutExtra("ArticleId", artickeId);
+                            storageDetails.PutExtra("ArticleId", articleId);
                             storageDetails.PutExtra("EditMode",  true);
 
                             this.StartActivityForResult(storageDetails, ContinueScanMode);
@@ -613,14 +613,12 @@ namespace VorratsUebersicht
                         case 1:
                             // Artikelstamm bearbeiten
                             var articleDetails = new Intent(this, typeof(ArticleDetailsActivity));
-                            articleDetails.PutExtra("ArticleId", artickeId);
+                            articleDetails.PutExtra("ArticleId", articleId);
                             StartActivityForResult(articleDetails, ContinueScanMode);
                             break;
                         case 2:
                             // Auf die Einkaufsliste
-                            double count = Database.AddToShoppingList(artickeId, 1);
-                            string msg = string.Format("{0} Stück auf der Liste.", count);
-                            Toast.MakeText(this, msg, ToastLength.Short).Show();
+                            AddToShoppingListDialog.ShowDialog(this, articleId);
                             break;
                         case 3:
                             if (shoppingItemCount == 0)
@@ -628,7 +626,7 @@ namespace VorratsUebersicht
 
                             // Aus Einkaufsliste ins Lager
                             var storageDetails2 = new Intent(this, typeof(StorageItemQuantityActivity));
-                            storageDetails2.PutExtra("ArticleId", artickeId);
+                            storageDetails2.PutExtra("ArticleId", articleId);
                             storageDetails2.PutExtra("EditMode",  true);
                             storageDetails2.PutExtra("Quantity",  (double)shoppingItemCount);
 

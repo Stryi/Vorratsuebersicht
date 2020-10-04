@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 4.73 (Code Version 89)
+==============================
+
+C149 - EAN Scan: Bei "Auf Einkaufszettel" kann man jetzt die Menge eintragen.
+
 Version 4.72 (Code Version 88)
 ==============================
 
