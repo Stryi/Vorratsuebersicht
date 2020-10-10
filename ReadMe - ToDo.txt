@@ -1,9 +1,6 @@
 Prio 1
 ======
 
-EAN Scan
-- BUG: "Auf Einkaufsliste" berücksichtigt nicht die Mindest- und bevorzugte Menge.
-
 Artikelbestand
 - Lagerumbuchung komfortabler machen (s. E-Mail vom C. A. Betz). (noch offen, wie)
 
@@ -28,12 +25,7 @@ Sonstiges
   (Freie Auswahl des Datenbanknamens)
 
 
-Einstellungen
-- Bilder Komprimierung einstellbar (Ein- Ausschaltbar). Vom Adri 123 Rezension vom 02.05.2020 um 21:13.
-
-
 Debugger Information prüfen
-
 
 Warnung
 

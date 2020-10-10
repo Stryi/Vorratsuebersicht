@@ -61,15 +61,17 @@ namespace VorratsUebersicht
 
             string message = string.Format("{0}\nNeue Anzahl eingeben:", quantityInfo); 
 
-            var quantityDialog = new AlertDialog.Builder(activity);
+            var b = new AlertDialog.Builder(activity);
+            var quantityDialog = b.Create();
+            quantityDialog.Window.SetSoftInputMode(Android.Views.SoftInput.StateVisible);
             quantityDialog.SetTitle("Auf Einkaufsliste setzen");
             quantityDialog.SetMessage(message);
             EditText input = new EditText(activity);
             input.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
             input.Text = toBuyQuantity.ToString();
-            input.SetSelection(input.Text.Length);
+            input.SetSelection(0, input.Text.Length);
             quantityDialog.SetView(input);
-            quantityDialog.SetPositiveButton("OK", (dialog, whichButton) =>
+            quantityDialog.SetButton("OK", (dialog, whichButton) =>
                 {
                     if (string.IsNullOrEmpty(input.Text))
                         input.Text = "0";
@@ -88,7 +90,7 @@ namespace VorratsUebersicht
                         refreshListAction?.Invoke();
                     }
                 });
-            quantityDialog.SetNegativeButton("Cancel", (s, e) => {});
+            quantityDialog.SetButton2("Cancel", (s, e) => {});
             quantityDialog.Show();
         }
     }
