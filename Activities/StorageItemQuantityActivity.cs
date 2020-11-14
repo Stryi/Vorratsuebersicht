@@ -136,6 +136,8 @@ namespace VorratsUebersicht
 
             if (this.durableInfinity)
             {
+                storageItemQuantity.BestBefore = null;
+
                 if (this.quantity > 0)
                 {
                     this.ChangeQuantity(storageItemQuantity, adapter);
