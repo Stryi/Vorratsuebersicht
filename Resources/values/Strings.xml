@@ -26,7 +26,8 @@
   <string name="Main_Button_LagerbestandListe">Lagerbestandsliste</string>
   <string name="Main_Button_ArtikelListe">Artikelliste</string>
   <string name="Main_Button_ArtikelScannen">Artikel scannen</string>
-  <string name="Main_Button_Einkaufsliste">Auf Einkaufsliste</string>
+  <string name="Main_Button_Einkaufsliste">Einkaufsliste</string>
+  <string name="Main_Button_AufEinkaufsliste">Auf Einkaufsliste</string>
   <string name="Main_Button_InLagerbestand">Von Einkaufsliste ins Lager</string>
 
   <!-- Maske Optionen -->

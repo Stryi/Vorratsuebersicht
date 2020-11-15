@@ -587,7 +587,7 @@ namespace VorratsUebersicht
                     {
                         Resources.GetString(Resource.String.Main_Button_Lagerbestand),
                         Resources.GetString(Resource.String.Main_Button_Artikelangaben),
-                        Resources.GetString(Resource.String.Main_Button_Einkaufsliste)
+                        Resources.GetString(Resource.String.Main_Button_AufEinkaufsliste)
                     };
 
                 var shoppingItemCount = Database.GetShoppingListQuantiy(articleId, -1);

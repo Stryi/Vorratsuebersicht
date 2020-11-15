@@ -238,13 +238,13 @@ namespace VorratsUebersicht
             text += footer.Text;
 
             string subject = string.Format("{0} - {1} {2}",
-                Resources.GetString(Resource.String.Main_Button_Einkaufsliste),
+                Resources.GetString(Resource.String.Main_Button_AufEinkaufsliste),
                 DateTime.Now.ToShortDateString(),
                 DateTime.Now.ToShortTimeString());
 
             Intent intentsend = new Intent();
             intentsend.SetAction(Intent.ActionSend);
-            intentsend.PutExtra(Intent.ExtraSubject, Resources.GetString(Resource.String.Main_Button_Einkaufsliste));
+            intentsend.PutExtra(Intent.ExtraSubject, Resources.GetString(Resource.String.Main_Button_AufEinkaufsliste));
             intentsend.PutExtra(Intent.ExtraText, text);
             intentsend.SetType("text/plain");
             

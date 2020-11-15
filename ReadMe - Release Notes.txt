@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 5.00 (Code Version 91)
 ==============================
 
+C151 - Menüpunkt "Auf Einkaufsliste" geändert in "Einkaufsliste"
 C151 - Mindestanforderung: Android 4.1 (Google Anforderung)
 E028 - FIX: Von Einkaufsliste ins Lager mit "Unendlich haltbar".
 

@@ -977,103 +977,106 @@ namespace VorratsUebersicht
 			public const int Main_Button_ArtikelScannen = 2131165226;
 			
 			// aapt resource value: 0x7F07002C
-			public const int Main_Button_BestandNachKategorie = 2131165228;
+			public const int Main_Button_AufEinkaufsliste = 2131165228;
 			
 			// aapt resource value: 0x7F07002D
-			public const int Main_Button_Einkaufsliste = 2131165229;
+			public const int Main_Button_BestandNachKategorie = 2131165229;
 			
 			// aapt resource value: 0x7F07002E
-			public const int Main_Button_InLagerbestand = 2131165230;
+			public const int Main_Button_Einkaufsliste = 2131165230;
 			
 			// aapt resource value: 0x7F07002F
-			public const int Main_Button_Lagerbestand = 2131165231;
+			public const int Main_Button_InLagerbestand = 2131165231;
 			
 			// aapt resource value: 0x7F070030
-			public const int Main_Button_LagerbestandListe = 2131165232;
+			public const int Main_Button_Lagerbestand = 2131165232;
 			
 			// aapt resource value: 0x7F070031
-			public const int Main_DemnaechstZuVerbrauchen = 2131165233;
+			public const int Main_Button_LagerbestandListe = 2131165233;
 			
 			// aapt resource value: 0x7F070032
-			public const int NoArticleCatagories = 2131165234;
+			public const int Main_DemnaechstZuVerbrauchen = 2131165234;
 			
 			// aapt resource value: 0x7F070033
-			public const int NoSubCategory_ItemEntry = 2131165235;
+			public const int NoArticleCatagories = 2131165235;
 			
 			// aapt resource value: 0x7F070034
-			public const int Settings_CreateBackup = 2131165236;
+			public const int NoSubCategory_ItemEntry = 2131165236;
 			
 			// aapt resource value: 0x7F070035
-			public const int Settings_Datenbank = 2131165237;
+			public const int Settings_CreateBackup = 2131165237;
 			
 			// aapt resource value: 0x7F070036
-			public const int Settings_DatenbankKomprimieren = 2131165238;
+			public const int Settings_Datenbank = 2131165238;
 			
 			// aapt resource value: 0x7F070037
-			public const int Settings_DatenbankReparieren = 2131165239;
+			public const int Settings_DatenbankKomprimieren = 2131165239;
 			
 			// aapt resource value: 0x7F070038
-			public const int Settings_OpenSourceLizenzen = 2131165240;
+			public const int Settings_DatenbankReparieren = 2131165240;
 			
 			// aapt resource value: 0x7F070039
-			public const int Settings_RestoreBackup = 2131165241;
+			public const int Settings_OpenSourceLizenzen = 2131165241;
 			
 			// aapt resource value: 0x7F07003A
-			public const int Settings_TestDatenbank = 2131165242;
+			public const int Settings_RestoreBackup = 2131165242;
 			
 			// aapt resource value: 0x7F07003B
-			public const int Settings_TestDatenbankLeeren = 2131165243;
+			public const int Settings_TestDatenbank = 2131165243;
 			
 			// aapt resource value: 0x7F07003C
-			public const int Settings_TestDatenbankZuruecksetzen = 2131165244;
+			public const int Settings_TestDatenbankLeeren = 2131165244;
 			
 			// aapt resource value: 0x7F07003D
-			public const int Settings_Title = 2131165245;
+			public const int Settings_TestDatenbankZuruecksetzen = 2131165245;
 			
 			// aapt resource value: 0x7F07003E
-			public const int ShoppingList_AllSupermarkets = 2131165246;
+			public const int Settings_Title = 2131165246;
 			
 			// aapt resource value: 0x7F07003F
-			public const int ShoppingList_Artikelangaben = 2131165247;
+			public const int ShoppingList_AllSupermarkets = 2131165247;
 			
 			// aapt resource value: 0x7F070040
-			public const int ShoppingList_Gekauft = 2131165248;
+			public const int ShoppingList_Artikelangaben = 2131165248;
 			
 			// aapt resource value: 0x7F070041
-			public const int ShoppingList_Remove = 2131165249;
+			public const int ShoppingList_Gekauft = 2131165249;
 			
 			// aapt resource value: 0x7F070042
-			public const int ShoppingList_ToStorage = 2131165250;
+			public const int ShoppingList_Remove = 2131165250;
 			
 			// aapt resource value: 0x7F070043
-			public const int Start_TestDbQuestion = 2131165251;
+			public const int ShoppingList_ToStorage = 2131165251;
 			
 			// aapt resource value: 0x7F070044
-			public const int Start_TestVersionInfo1 = 2131165252;
+			public const int Start_TestDbQuestion = 2131165252;
 			
 			// aapt resource value: 0x7F070045
-			public const int Start_TestVersionInfo2 = 2131165253;
+			public const int Start_TestVersionInfo1 = 2131165253;
 			
 			// aapt resource value: 0x7F070046
-			public const int Start_TestVersionInfo3 = 2131165254;
+			public const int Start_TestVersionInfo2 = 2131165254;
 			
 			// aapt resource value: 0x7F070047
-			public const int Start_TestVersionInfo4 = 2131165255;
+			public const int Start_TestVersionInfo3 = 2131165255;
 			
 			// aapt resource value: 0x7F070048
-			public const int StorageItemQuantity_Menu_Artikelangaben = 2131165256;
+			public const int Start_TestVersionInfo4 = 2131165256;
 			
 			// aapt resource value: 0x7F070049
-			public const int StorageItemQuantity_Menu_ToShoppingList = 2131165257;
+			public const int StorageItemQuantity_Menu_Artikelangaben = 2131165257;
 			
 			// aapt resource value: 0x7F07004A
-			public const int StorageItem_AllStoragesStorage = 2131165258;
+			public const int StorageItemQuantity_Menu_ToShoppingList = 2131165258;
 			
 			// aapt resource value: 0x7F07004B
-			public const int StorageItem_Artikelangaben = 2131165259;
+			public const int StorageItem_AllStoragesStorage = 2131165259;
 			
 			// aapt resource value: 0x7F07004C
-			public const int StorageItem_ToShoppingList = 2131165260;
+			public const int StorageItem_Artikelangaben = 2131165260;
+			
+			// aapt resource value: 0x7F07004D
+			public const int StorageItem_ToShoppingList = 2131165261;
 			
 			static String()
 			{
