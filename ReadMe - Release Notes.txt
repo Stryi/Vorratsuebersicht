@@ -9,9 +9,10 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
-Version 4.75 (Code Version 91)
+Version 5.00 (Code Version 91)
 ==============================
 
+C151 - Mindestanforderung: Android 4.1 (Google Anforderung)
 E028 - FIX: Von Einkaufsliste ins Lager mit "Unendlich haltbar".
 
 Version 4.74 (Code Version 90)
