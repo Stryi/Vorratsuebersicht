@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 5.01 (Code Version 92)
+==============================
+
+E029 - FIX: Absturz bei OpenFoodFacts.org aufruf.
+
 Version 5.00 (Code Version 91)
 ==============================
 

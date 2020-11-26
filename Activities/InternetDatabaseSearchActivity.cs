@@ -287,15 +287,22 @@ namespace VorratsUebersicht
 
             WebResponse response = webRequest.GetResponse();
 
+            byte[] bytes = null;
+
             using (Stream dataStream = response.GetResponseStream())
+            using( MemoryStream ms = new MemoryStream())
             {
-                int count = (int)dataStream.Length;
+                int count = 0;
+                do
+                {
+                    byte[] buf = new byte[1024];
+                    count = dataStream.Read(buf, 0, 1024);
+                    ms.Write(buf, 0, count);
+                } while(dataStream.CanRead && count > 0);
 
-                BinaryReader reader = new BinaryReader(dataStream);
-                byte[] bytes = reader.ReadBytes(count);
-
-                bitmap = BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length);
+                bytes = ms.ToArray();
             }
+            bitmap = BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length);
             response.Close();
 
             return bitmap;
