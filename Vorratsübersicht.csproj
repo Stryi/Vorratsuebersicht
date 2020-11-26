@@ -25,8 +25,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\Builds\Vorratsübersicht\bin\Debug</OutputPath>
-    <BaseIntermediateOutputPath>..\..\..\..\Builds\Vorratsübersicht\obj\Debug\</BaseIntermediateOutputPath>
+    <OutputPath>..\..\..\..\Builds\Vorratsuebersicht\bin\Debug</OutputPath>
+    <BaseIntermediateOutputPath>..\..\..\..\Builds\Vorratsuebersicht\obj\Debug\</BaseIntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -36,14 +36,14 @@
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs8CD7.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs451C.tmp\Debug\</IntermediateOutputPath>
     <AndroidSupportedAbis />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\Builds\Vorratsübersicht\bin\Release\</OutputPath>
-    <BaseIntermediateOutputPath>..\..\..\..\Builds\Vorratsübersicht\obj\Release\</BaseIntermediateOutputPath>
+    <OutputPath>..\..\..\..\Builds\Vorratsuebersicht\bin\Release\</OutputPath>
+    <BaseIntermediateOutputPath>..\..\..\..\Builds\Vorratsuebersicht\obj\Release\</BaseIntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -58,7 +58,7 @@
     <Debugger>Xamarin</Debugger>
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
     <EnableProguard>False</EnableProguard>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs8CD7.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs451C.tmp\Release\</IntermediateOutputPath>
     <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
