@@ -16,6 +16,7 @@ using Android.Runtime;
 
 namespace VorratsUebersicht
 {
+    using static Tools;
 
     [Activity(Label = "@string/Settings_Title")]
     public class SettingsActivity : Activity
@@ -530,7 +531,7 @@ namespace VorratsUebersicht
                     var build = Build.RadioVersion;
 
                     StringBuilder text = new StringBuilder();
-                    text.AppendFormat("App Version: {0} (Code Version {1})\n", info.VersionName, info.VersionCode);
+                    text.AppendFormat(this.GetApplicationVersion());
                     text.AppendFormat("Current Database: {0}\n", Android_Database.SQLiteConnection?.DatabasePath);
                     text.AppendFormat("Android Version: {0}\n",  Build.VERSION.Release);
                     text.AppendFormat("Android SDK: {0}\n",      Build.VERSION.SdkInt);
@@ -701,11 +702,27 @@ namespace VorratsUebersicht
 
         private void ShowApplicationVersion()
         {
-            Context context = this.ApplicationContext;
-            PackageInfo info = context.PackageManager.GetPackageInfo(context.PackageName, 0);
-
             TextView versionInfo = FindViewById<TextView>(Resource.Id.SettingsButton_Version);
-            versionInfo.Text = string.Format("Version {0} (Code Version {1})", info.VersionName, info.VersionCode);
+            versionInfo.Text = this.GetApplicationVersion();
+        }
+
+        private string GetApplicationVersion()
+        {
+            string versionInfo = string.Empty;
+            try
+            {
+                Context context = this.ApplicationContext;
+                PackageInfo info = context.PackageManager.GetPackageInfo(context.PackageName, 0);
+
+                versionInfo += string.Format("Version {0}",         info.VersionName);
+                versionInfo += string.Format(" (Code Version {0})", info.LongVersionCode);
+            }
+            catch(Exception e)
+            {
+                TRACE("SettingsActivity.ShowApplicationVersion() - {0}", e.Message);
+            }
+
+            return versionInfo;
         }
 
         private void ShowDatabaseInfo()
