@@ -796,6 +796,10 @@ namespace VorratsUebersicht
                 return false;
             }
 
+            // Absichern gegen Unsinn.
+            if (warnInDays > 365*1000)
+                warnInDays = 365*1000;
+
             this.article.Name            = FindViewById<EditText>(Resource.Id.ArticleDetails_Name).Text;
             this.article.Manufacturer    = FindViewById<EditText>(Resource.Id.ArticleDetails_Manufacturer).Text;
             this.article.Category        = this.catalogListener.Value;
