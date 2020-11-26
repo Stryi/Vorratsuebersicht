@@ -125,6 +125,22 @@ Lagerbestand
 Gemeldete Abstürze (die ich mir ansehen sollte):
 ================================================
 
+android.runtime.JavaProxyThrowable: at System.Net.WebConnectionStream.get_Length () [0x00000] in <468651912ca0498082abdfc00964fc02>:0
+at VorratsUebersicht.InternetDatabaseSearchActivity.GetUrlPicture (System.String imageUrl) [0x00035] in <2112193acc53469b9ebbb2c441705d52>:0
+at VorratsUebersicht.InternetDatabaseSearchActivity+<>c__DisplayClass8_0.<SearchAndShowArticle>b__0 () [0x003ef] in <2112193acc53469b9ebbb2c441705d52>:0
+at Java.Lang.Thread+RunnableImplementor.Run () [0x00008] in <2df86f44c8e946618f31cb3aed952f5b>:0
+at Java.Lang.IRunnableInvoker.n_Run (System.IntPtr jnienv, System.IntPtr native__this) [0x00008] in <2df86f44c8e946618f31cb3aed952f5b>:0
+at (wrapper dynamic-method) Android.Runtime.DynamicMethodNameCounter.48(intptr,intptr)
+  at mono.java.lang.RunnableImplementor.n_run (Native Method)
+  at mono.java.lang.RunnableImplementor.run (RunnableImplementor.java:30)
+  at android.os.Handler.handleCallback (Handler.java:873)
+  at android.os.Handler.dispatchMessage (Handler.java:99)
+  at android.os.Looper.loop (Looper.java:214)
+  at android.app.ActivityThread.main (ActivityThread.java:7050)
+  at java.lang.reflect.Method.invoke (Native Method)
+  at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run (RuntimeInit.java:494)
+  at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:965)
+
 Huawei Mate 20 Pro (HWLYA), 5632MB RAM, Android 10
 Bericht 1
 android.runtime.JavaProxyThrowable: at System.Linq.Enumerable.First[TSource] (System.Collections.Generic.IEnumerable`1[T] source) [0x00010] in <715c2ff6913942e6aa8535593b3ef35a>:0

@@ -68,7 +68,7 @@ namespace VorratsUebersicht
             // Damit Pre-Launch von Google Play Store nicht immer wieder
             // in die EAN Scan "Falle" tappt und da nicht wieder rauskommt.
             // (meistens nächster Tag)
-            MainActivity.preLaunchTestEndDay = new DateTime(2020, 11, 15);
+            MainActivity.preLaunchTestEndDay = new DateTime(2020, 11, 27);
 
             base.OnCreate(bundle);
 
@@ -135,12 +135,12 @@ namespace VorratsUebersicht
                 {
                     AltDatePickerFragment frag = AltDatePickerFragment.NewInstance(delegate (DateTime? time) { b.Text = time!=null ? time.Value.ToShortDateString() : "Kein Datum"; }, DateTime.Today);
                     frag.ShowsDialog = true;
-                    frag.Show(FragmentManager, AltDatePickerFragment.TAG);
+                    frag.Show(this.FragmentManager, AltDatePickerFragment.TAG);
                 };
                 FindViewById<LinearLayout>(Resource.Id.Main_LinearLayout).AddView(b);
                 AltDatePickerFragment frag2 = AltDatePickerFragment.NewInstance(delegate (DateTime? time) { b.Text = time != null ? time.Value.ToShortDateString() : "Kein Datum"; }, DateTime.Today);
                 frag2.ShowsDialog = true;
-                frag2.Show(FragmentManager, AltDatePickerFragment.TAG);
+                frag2.Show(this.FragmentManager, AltDatePickerFragment.TAG);
             }
 
 
