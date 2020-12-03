@@ -356,8 +356,8 @@ namespace VorratsUebersicht
 
         private void AddToShoppingListManually()
         {
-            int? minQuantity  = StorageItemQuantityActivity.article.MinQuantity;
-            int? prefQuantity = StorageItemQuantityActivity.article.PrefQuantity;
+            int? minQuantity  = StorageItemQuantityActivity.article?.MinQuantity;
+            int? prefQuantity = StorageItemQuantityActivity.article?.PrefQuantity;
 
             AddToShoppingListDialog.ShowDialog(this, articleId, minQuantity, prefQuantity);
         }

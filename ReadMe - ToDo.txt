@@ -8,6 +8,9 @@ Anwendung
 Artikelbestand
 - Lagerumbuchung komfortabler machen (s. E-Mail vom C. A. Betz). (noch offen, wie)
 
+Einstellungen
+- Automatischen Backup ("Alle X Tage...", "Y Kopien behalten")
+
 
 Artikeldetails
 - Kalorien umrechnen auch von "cl"
@@ -77,7 +80,6 @@ Artikelstamm
 - Beim Umbenennen vom "Standard Lagerort" fragen, ob das im Lager auch umbenannt werden sollte.
 
 Einstellungen
-- Automatischen Backup ("Alle X Tage...", "Y Kopien behalten")
 - Freie Sortierung der Kategorien. (M. Pleuger)
 
 Lagerliste
