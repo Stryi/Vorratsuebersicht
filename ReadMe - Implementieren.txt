@@ -2,6 +2,13 @@
 Projekt: Vorratsübersicht
 --------------------------------------------------------------------------------
 
+Für Android 10 muss requestLegacyExternalStorage=True gesetzt werden
+
+    https://developer.android.com/training/data-storage/use-cases#opt-out-scoped-storage
+
+ab Android 11 wird der Parameter nicht mehr berücksichtigt.
+
+
 Implementiert anhand vom Beispiel:
 
 https://developer.xamarin.com/guides/xamarin-forms/working-with/databases/

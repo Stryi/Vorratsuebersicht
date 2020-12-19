@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 5.03 (Code Version 93)
 ==============================
 
+C152 - Android 10 funktioniert jetzt.
 E030 - FIX: Absicherung gegen Absturz bei "Auf Einkaufszettel".
 
 
