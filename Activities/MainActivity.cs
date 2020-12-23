@@ -86,6 +86,9 @@ namespace VorratsUebersicht
             ActionBar.SetBackgroundDrawable(backgroundPaint);
             ActionBar.SetDisplayShowHomeEnabled(true);
 
+            string storageDir = this.GetExternalFilesDir(null).AbsolutePath;
+            //File.WriteAllText(storageDir + "/Test.txt", "Das ist ein Test.");
+
             // Datenbanken erstellen
             Android_Database.Instance.RestoreSampleDatabaseFromResources();
 
