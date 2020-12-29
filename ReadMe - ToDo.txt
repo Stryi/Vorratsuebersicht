@@ -124,52 +124,49 @@ Lagerbestand
 - Lagerbewegung in einer Tabelle speichern
 
 
-Gemeldete Abstürze (die ich mir ansehen sollte):
-================================================
 
-android.runtime.JavaProxyThrowable: at System.Net.WebConnectionStream.get_Length () [0x00000] in <468651912ca0498082abdfc00964fc02>:0
-at VorratsUebersicht.InternetDatabaseSearchActivity.GetUrlPicture (System.String imageUrl) [0x00035] in <2112193acc53469b9ebbb2c441705d52>:0
-at VorratsUebersicht.InternetDatabaseSearchActivity+<>c__DisplayClass8_0.<SearchAndShowArticle>b__0 () [0x003ef] in <2112193acc53469b9ebbb2c441705d52>:0
-at Java.Lang.Thread+RunnableImplementor.Run () [0x00008] in <2df86f44c8e946618f31cb3aed952f5b>:0
-at Java.Lang.IRunnableInvoker.n_Run (System.IntPtr jnienv, System.IntPtr native__this) [0x00008] in <2df86f44c8e946618f31cb3aed952f5b>:0
-at (wrapper dynamic-method) Android.Runtime.DynamicMethodNameCounter.48(intptr,intptr)
-  at mono.java.lang.RunnableImplementor.n_run (Native Method)
-  at mono.java.lang.RunnableImplementor.run (RunnableImplementor.java:30)
-  at android.os.Handler.handleCallback (Handler.java:873)
-  at android.os.Handler.dispatchMessage (Handler.java:99)
-  at android.os.Looper.loop (Looper.java:214)
-  at android.app.ActivityThread.main (ActivityThread.java:7050)
-  at java.lang.reflect.Method.invoke (Native Method)
-  at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run (RuntimeInit.java:494)
-  at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:965)
+Vorschläge vom Professor Knox
+-----------------------------
 
-Huawei Mate 20 Pro (HWLYA), 5632MB RAM, Android 10
-Bericht 1
-android.runtime.JavaProxyThrowable: at System.Linq.Enumerable.First[TSource] (System.Collections.Generic.IEnumerable`1[T] source) [0x00010] in <715c2ff6913942e6aa8535593b3ef35a>:0
-at VorratsUebersicht.Database.GetArticleData (System.Int32 articleId) [0x00078] in <8f65cfdb5fac4bad9251caa1b2de7fec>:0
-at VorratsUebersicht.Database.GetToShoppingListQuantity (System.Int32 articleId) [0x00001] in <8f65cfdb5fac4bad9251caa1b2de7fec>:0
-at VorratsUebersicht.StorageItemQuantityActivity.AddToShoppingList () [0x0000e] in <8f65cfdb5fac4bad9251caa1b2de7fec>:0
-at VorratsUebersicht.StorageItemQuantityActivity.OnOptionsItemSelected (Android.Views.IMenuItem item) [0x0006e] in <8f65cfdb5fac4bad9251caa1b2de7fec>:0
-at Android.App.Activity.n_OnOptionsItemSelected_Landroid_view_MenuItem_ (System.IntPtr jnienv, System.IntPtr native__this, System.IntPtr native_item) [0x00011] in <b781ed64f1d743e7881ac038e0fbdf85>:0
-at (wrapper dynamic-method) System.Object.7(intptr,intptr,intptr)
-at md56c9fe683bd4750f69443fa5376e732f4.StorageItemQuantityActivity.n_onOptionsItemSelected (Native Method)
-at md56c9fe683bd4750f69443fa5376e732f4.StorageItemQuantityActivity.onOptionsItemSelected (StorageItemQuantityActivity.java:58)
-at android.app.Activity.onMenuItemSelected (Activity.java:4271)
-at com.android.internal.policy.PhoneWindow.onMenuItemSelected (PhoneWindow.java:1339)
-at com.android.internal.view.menu.MenuBuilder.dispatchMenuItemSelected (MenuBuilder.java:787)
-at com.android.internal.view.menu.MenuItemImpl.invoke (MenuItemImpl.java:164)
-at com.android.internal.view.menu.MenuBuilder.performItemAction (MenuBuilder.java:934)
-at com.android.internal.view.menu.MenuBuilder.performItemAction (MenuBuilder.java:924)
-at android.widget.ActionMenuView.invokeItem (ActionMenuView.java:626)
-at com.android.internal.view.menu.ActionMenuItemView.onClick (ActionMenuItemView.java:148)
-at android.view.View.performClick (View.java:7189)
-at android.view.View.performClickInternal (View.java:7163)
-at android.view.View.access$3500 (View.java:821)
-at android.view.View$PerformClick.run (View.java:27579)
-at android.os.Handler.handleCallback (Handler.java:888)
-at android.os.Handler.dispatchMessage (Handler.java:100)
-at android.os.Looper.loop (Looper.java:213)
-at android.app.ActivityThread.main (ActivityThread.java:8147)
-at java.lang.reflect.Method.invoke (Native Method)
-at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run (RuntimeInit.java:513)
-at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:1101)
+Prio eher hoch:
+ 
+- Bild bearbeiten erweitern
+  - "Crop"
+  - Foto löschen
+ 
+- Einscannen des Lagerorts als Barcode
+  - man druckt sich eigene Barcode-Etiketten aus und deponiert/klebt sie an die entsprechenden Lagerorte
+ 
+ 
+Prio eher mittel:
+ 
+- Komfortableres Ausbuchen: Eigener Button für Ausbuchen von Artikeln
+  -  Scannen des Artikel-Barcodes
+  -  Auswahlliste der vorhandenen Lagerorte für diesen Artikel -> Lagerort antippen, oder scannen des Lagerort-Barcodes (s.o.)
+  -  Liste der Haltbarkeitsdaten, falls an diesem Lagerort mehrere Haltbarkeitsdaten vorhanden sind -> Haltbarkeitsdatum antippen
+  -  Abfrage der Anzahl (Dropdown-Liste / Spinner) mit default 1
+  -  Bestätigung der Anzahl
+  -> Entsprechender Artikel wird ausgebucht
+ 
+- Komfortableres Einbuchen: Button für Einbuchen von Artikeln
+  -  Scannen des Artikel-Barcodes
+  -  Auswahlliste der bereits gespeicherten Lagerorte für diesen Artikel [mit Element [neuer Lagerort], Lagerort antippen, neu eingeben oder Scannen des Lagerort-Barcodes (s.o.)
+  -  Abfrage des Haltbarkeitsdatums -> Eingeben des Haltbarkeitsdatums
+  -  Abfrage der Anzahl (Dropdown-Liste / Spinner) mit default 1
+  -  Bestätigung der Anzahl
+  -> Entsprechender Artikel wird eingebucht
+ 
+- VPE (Verpackungseinheiten (stk) gesondert zur Mengenangabe (z.B. ltr.)
+  -  Lebensmittel werden z.B. in Gramm verkauft und enthalten n Stück/Portionen, z.B. 4 Muffins / 2 Portionen (Fertiggericht)
+  -> ermöglicht Angabe Kalorien / 100g und Kalorien / Portion
+ 
+ 
+Prio eher niedrig:
+ 
+- Verwaltung von anderen Artikeln als Lebensmittel, z.B. Reinigungsmittel
+  -> in diesem Fall wird der Barcode natürlich nicht auf openfoodfacts gefunden -> Zugriff auf eine andere, allgemeine EAN-Code-Datenbank und Auslesen Artikelname/Foto/Mengeneinheit
+ 
+- Scannen des Haltbarkeitsdatum, ggf. Foto mit manuellem Markieren des Datums durch Aufziehen eines Rahmens (beo Konserven in der Regel nur Jahreszahl oder Monat/Jahr vorhanden)
+ 
+- openfoodfacts Artikelseite in Artikelliste bzw. Artikeldetails abrufbar
+ 
