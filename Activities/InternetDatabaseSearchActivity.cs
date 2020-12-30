@@ -130,10 +130,10 @@ namespace VorratsUebersicht
             this.foodSize = null;
             this.kcalPer100 = null;
 
-            var eanCodeView = FindViewById<TextView>(Resource.Id.InternetDatabaseResult_EanCode);
-
+            var eanCodeView  = FindViewById<TextView>(Resource.Id.InternetDatabaseResult_EanCode);
+            var progressText = FindViewById<TextView>(Resource.Id.InternetDatabaseResult_ProgressText);
+            var progressBar  = FindViewById<ProgressBar>(Resource.Id.InternetDatabaseResult_Progress);
             
-
             try
             {
                 string[] eanCodeList = eanCode.Split(",");
@@ -201,6 +201,7 @@ namespace VorratsUebersicht
                                 info += string.Format("Nährwert: {0} kcal pro 100g", this.kcalPer100);
                             }
                         }
+                        eanCodeView.Text = "Link: https://de.openfoodfacts.org/produkt/" + this.foodInfo.code;
                     }
                     else
                     {
@@ -209,8 +210,8 @@ namespace VorratsUebersicht
                     }
                 }
 
-                FindViewById<TextView>(Resource.Id.InternetDatabaseResult_ProgressText).Text = title;
-                FindViewById<ProgressBar>(Resource.Id.InternetDatabaseResult_Progress).Visibility = ViewStates.Gone;
+                progressText.Text = title;
+                progressBar.Visibility = ViewStates.Gone;
 
                 var textView = FindViewById<TextView>(Resource.Id.InternetDatabaseResult_Text);
                 if (textView == null)

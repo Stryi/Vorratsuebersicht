@@ -164,7 +164,8 @@ Prio eher mittel:
 Prio eher niedrig:
  
 - Verwaltung von anderen Artikeln als Lebensmittel, z.B. Reinigungsmittel
-  -> in diesem Fall wird der Barcode natürlich nicht auf openfoodfacts gefunden -> Zugriff auf eine andere, allgemeine EAN-Code-Datenbank und Auslesen Artikelname/Foto/Mengeneinheit
+  -> in diesem Fall wird der Barcode natürlich nicht auf openfoodfacts gefunden 
+   -> Zugriff auf eine andere, allgemeine EAN-Code-Datenbank und Auslesen Artikelname/Foto/Mengeneinheit
  
 - Scannen des Haltbarkeitsdatum, ggf. Foto mit manuellem Markieren des Datums durch Aufziehen eines Rahmens (beo Konserven in der Regel nur Jahreszahl oder Monat/Jahr vorhanden)
  

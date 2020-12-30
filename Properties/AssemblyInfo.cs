@@ -8,10 +8,10 @@ using Android.App;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Vorratsuebersicht")]
-[assembly: AssemblyCopyright("Copyright © 2017-2020 Stryi")]
+[assembly: AssemblyCopyright("Copyright © 2017-2021 Stryi")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion("5.03")]
-[assembly: AssemblyFileVersion("5.03.0.0")]
+[assembly: AssemblyVersion("5.10")]
+[assembly: AssemblyFileVersion("5.10.0.0")]
 

@@ -9,12 +9,16 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
   
+Version 5.10 (Code Version 94)
+==============================
+
+C152 - Linkf auf OpenFoodFacts.org Produkt.
+
 Version 5.03 (Code Version 93)
 ==============================
 
 C152 - App funktioniert jetzt unter Android 10 (aber noch nicht unter Android 11).
 E030 - FIX: Absicherung gegen Absturz bei "Auf Einkaufszettel".
-
 
 Version 5.01 (Code Version 92)
 ==============================

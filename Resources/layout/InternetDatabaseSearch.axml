@@ -24,17 +24,18 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:textSize="20sp"
             android:textColor="@color/Text_Color" />
         <TextView
             android:id="@+id/InternetDatabaseResult_EanCode"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
+            android:autoLink="web"
             android:textSize="20sp"
             android:textColor="@color/Text_Color" />
         <ImageView
