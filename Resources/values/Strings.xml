@@ -52,6 +52,7 @@
   <string name="ArticleDetails_Menu_CreatePicture">Bild erstellen</string>
   <string name="ArticleDetails_Menu_SelectPicture">Bild auswählen</string>
   <string name="ArticleDetails_Menu_ShowPicture">Bild bearbeiten</string>
+  <string name="ArticleDetails_Menu_RemovePicture">Bild entfernen</string>
   <string name="ArticleDetails_Menu_EAN_Scannen">EAN Scannen</string>
   <string name="ArticleDetails_Menu_ToShoppingList">Auf Einkaufsliste...</string>
   <string name="ArticleDetails_Menu_CurrentStock">Lagerbestand</string>

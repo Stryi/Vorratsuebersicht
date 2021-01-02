@@ -12,7 +12,8 @@ Vor dem Hochladen ins Google Play Store:
 Version 5.10 (Code Version 94)
 ==============================
 
-C152 - Linkf auf OpenFoodFacts.org Produkt.
+C154 - Bilder können jetzt gelöscht (entfernt) werden.
+C153 - Linkf auf OpenFoodFacts.org Produkt.
 
 Version 5.03 (Code Version 93)
 ==============================

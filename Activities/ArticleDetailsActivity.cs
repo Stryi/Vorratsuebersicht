@@ -363,6 +363,9 @@ namespace VorratsUebersicht
             IMenuItem itemShowPicture = menu.FindItem(Resource.Id.ArticleDetailsMenu_ShowPicture);
             itemShowPicture.SetEnabled(this.IsPhotoSelected);
 
+            IMenuItem itemRemovePicture = menu.FindItem(Resource.Id.ArticleDetailsMenu_RemovePicture);
+            itemRemovePicture.SetEnabled(this.IsPhotoSelected);
+
             IMenuItem itemSpeech = menu.FindItem(Resource.Id.ArticleDetailsMenu_Speech);
             itemSpeech.SetEnabled(this.IsThereAnSpeechAvailable());
 
@@ -423,6 +426,23 @@ namespace VorratsUebersicht
                         articleImage.PutExtra("ArticleId", this.articleId);
                         articleImage.PutExtra("EditMode", true);
                         StartActivityForResult (articleImage, EditPhoto);
+                    }
+                    return true;
+
+                case Resource.Id.ArticleDetailsMenu_RemovePicture:
+                    if (this.IsPhotoSelected)
+                    {
+                        ArticleDetailsActivity.imageLarge = null;
+                        ArticleDetailsActivity.imageSmall = null;
+
+                        this.articleImage.ImageLarge = null;
+                        this.articleImage.ImageSmall = null;
+
+                        this.imageView.SetImageResource(Resource.Drawable.ic_photo_camera_white_24dp);
+                        this.imageView2.SetImageResource(Resource.Drawable.ic_photo_white_24dp);
+                        this.imageView2.Visibility = ViewStates.Visible;
+
+                        this.isChanged = true;
                     }
                     return true;
 

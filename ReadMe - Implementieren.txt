@@ -36,6 +36,8 @@ Icons der Anwendung:
 
 https://material.io/icons
 
+Filled -> Selected Icon -> Android -> White 
+
 Open Source
 The icons are available under the Apache License Version 2.0. 
 We'd love attribution in your app's "about" screen, but it's not 

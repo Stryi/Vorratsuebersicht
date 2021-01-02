@@ -27,6 +27,10 @@
         android:icon="@drawable/ic_photo_white_24dp"
         android:title="@string/ArticleDetails_Menu_ShowPicture" />
 
+  <item android:id="@+id/ArticleDetailsMenu_RemovePicture"
+        android:icon="@drawable/baseline_image_not_supported_white_24"
+        android:title="@string/ArticleDetails_Menu_RemovePicture" />
+
   <item android:id="@+id/ArticleDetailsMenu_ScanEAN"
         android:icon="@drawable/Barcode"
         android:title="@string/ArticleDetails_Menu_EAN_Scannen" />

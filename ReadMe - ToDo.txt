@@ -169,5 +169,4 @@ Prio eher niedrig:
  
 - Scannen des Haltbarkeitsdatum, ggf. Foto mit manuellem Markieren des Datums durch Aufziehen eines Rahmens (beo Konserven in der Regel nur Jahreszahl oder Monat/Jahr vorhanden)
  
-- openfoodfacts Artikelseite in Artikelliste bzw. Artikeldetails abrufbar
  
