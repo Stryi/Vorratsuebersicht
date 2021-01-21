@@ -167,19 +167,12 @@
     <Compile Include="Database\Results\ShoppingItemListResult.cs" />
     <Compile Include="Database\Results\StringResult.cs" />
     <Compile Include="Database\Results\table_info.cs" />
-    <None Include="KnowladgeBase\Datenbank_auf_ein_neues_Smartphone_übernehmen.md" />
-    <None Include="KnowladgeBase\Fehler_beim_Zugriff_auf_die_Datenbank.md" />
-    <None Include="KnowladgeBase\Mehrere_Datenbanken_betreiben.md" />
-    <None Include="KnowladgeBase\Mindestmenge.md" />
     <None Include="LICENSE" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="ReadMe - Release Notes.txt" />
     <None Include="ReadMe - ToDo.txt" />
-    <None Include="Service\AlarmReceiver.cs" />
-    <None Include="Service\BootBroadcast.cs" />
-    <None Include="Service\PeriodicBackgroundService.cs" />
     <Compile Include="Tools\AddToShoppingListDialog.cs" />
     <Compile Include="Tools\CsvExport.cs" />
     <Compile Include="Tools\AltDatePickerFragment.cs" />
@@ -393,9 +386,7 @@
   <ItemGroup>
     <None Include="ReadMe.md" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="KnowladgeBase\Pictures\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\baseline_share_white_24.png" />
   </ItemGroup>
