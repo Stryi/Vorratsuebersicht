@@ -36,7 +36,7 @@
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs9186.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\StryiC\AppData\Local\Temp\vsD061.tmp\Debug\</IntermediateOutputPath>
     <AndroidSupportedAbis />
     <MandroidI18n />
   </PropertyGroup>
@@ -59,7 +59,7 @@
     <Debugger>Xamarin</Debugger>
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
     <EnableProguard>False</EnableProguard>
-    <IntermediateOutputPath>C:\Users\CHRIST~1\AppData\Local\Temp\vs9186.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\StryiC\AppData\Local\Temp\vsD061.tmp\Release\</IntermediateOutputPath>
     <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
@@ -167,11 +167,11 @@
     <Compile Include="Database\Results\ShoppingItemListResult.cs" />
     <Compile Include="Database\Results\StringResult.cs" />
     <Compile Include="Database\Results\table_info.cs" />
-    <Compile Include="Database\ShoppingItem.cs" />
     <None Include="KnowladgeBase\Datenbank_auf_ein_neues_Smartphone_übernehmen.md" />
     <None Include="KnowladgeBase\Fehler_beim_Zugriff_auf_die_Datenbank.md" />
     <None Include="KnowladgeBase\Mehrere_Datenbanken_betreiben.md" />
     <None Include="KnowladgeBase\Mindestmenge.md" />
+    <None Include="LICENSE" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -194,14 +194,12 @@
     <Compile Include="Database\Article.cs" />
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\Results\QuantityResult.cs" />
-    <Compile Include="Database\StorageItem.cs" />
     <Compile Include="Database\Results\StorageItemQuantityResult.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\ImageCaptureHelper.cs" />
     <Compile Include="Tools\ImageResizer.cs" />
-    <Compile Include="Tools\IOUtil.cs" />
     <Compile Include="Tools\SdCardAccess.cs" />
     <Compile Include="Tools\ShoppingListHelper.cs" />
     <Compile Include="Tools\Tools.cs" />
@@ -397,7 +395,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="KnowladgeBase\Pictures\" />
-    <Folder Include="Resources\raw\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\baseline_share_white_24.png" />

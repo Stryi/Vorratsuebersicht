@@ -14,6 +14,7 @@ Einstellungen
 
 Artikeldetails
 - Kalorien umrechnen auch von "cl"
+- Bild Komprimierung an die Auflösung des Smartphones anpassen
 
 
 EAN Scan
