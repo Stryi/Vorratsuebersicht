@@ -8,7 +8,7 @@ using Android.Widget;
 
 namespace VorratsUebersicht
 {
-    public class AltDatePickerFragment : DialogFragment
+    public class AltDatePickerFragment : Android.Support.V4.App.DialogFragment
     {
         private View view;
         private LinearLayout root;

@@ -8,6 +8,11 @@ Vor dem Hochladen ins Google Play Store:
 
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
+
+Version 6.00 (Code Version 95)
+==============================
+
+C155 - Umstellung auf die neue Xamarin.AndroidX Bibliothek
   
 Version 5.10 (Code Version 94)
 ==============================

@@ -12,13 +12,15 @@ using Android.Views;
 using Android.Widget;
 using Android.Graphics;
 using Android.Support.V4.Content;
+using Android.Support.V7.App;
 
 namespace VorratsUebersicht
 {
     using static VorratsUebersicht.StorageItemQuantityListViewAdapter;
+    using AlertDialog = Android.Support.V7.App.AlertDialog;
 
-    [Activity(Label = "Artikelbestand", Icon = "@drawable/ic_assignment_white_48dp", ScreenOrientation = ScreenOrientation.Portrait)]
-    public class StorageItemQuantityActivity : Activity
+    [Activity(Label = "Artikelbestand", Theme = "@style/Theme.AppCompat", Icon = "@drawable/ic_assignment_white_48dp", ScreenOrientation = ScreenOrientation.Portrait)]
+    public class StorageItemQuantityActivity : AppCompatActivity
     {
         public static readonly int ArticleDetailId = 1002;
 
@@ -46,8 +48,8 @@ namespace VorratsUebersicht
             // ActionBar Hintergrund Farbe setzen
             var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
             backgroundPaint.SetBounds(0, 0, 10, 10);
-            ActionBar.SetBackgroundDrawable(backgroundPaint);
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            this.SupportActionBar.SetBackgroundDrawable(backgroundPaint);
+            this.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
             this.text             = Intent.GetStringExtra ("Heading") ?? string.Empty;
             this.articleId        = Intent.GetIntExtra    ("ArticleId", 0);
@@ -193,7 +195,7 @@ namespace VorratsUebersicht
 
                         }, DateTime.Today);
                     frag.ShowsDialog = true;
-                    frag.Show(FragmentManager, DatePickerFragment.TAG);
+                    frag.Show(this.SupportFragmentManager, DatePickerFragment.TAG);
                 } else
                 {
                     AltDatePickerFragment frag = AltDatePickerFragment.NewInstance(delegate (DateTime? time)
@@ -212,7 +214,7 @@ namespace VorratsUebersicht
 
                     }, DateTime.Today);
                     frag.ShowsDialog = true;
-                    frag.Show(FragmentManager, AltDatePickerFragment.TAG);
+                    frag.Show(this.SupportFragmentManager, AltDatePickerFragment.TAG);
 
                 }
             }
@@ -581,7 +583,7 @@ namespace VorratsUebersicht
 
                 }, date);
                 frag.ShowsDialog = true;
-                frag.Show(FragmentManager, DatePickerFragment.TAG);
+                frag.Show(this.SupportFragmentManager, DatePickerFragment.TAG);
             }
             else
             {
@@ -601,7 +603,7 @@ namespace VorratsUebersicht
                     }
                 }, date);
                 frag.ShowsDialog = true;
-                frag.Show(FragmentManager, AltDatePickerFragment.TAG);
+                frag.Show(this.SupportFragmentManager, AltDatePickerFragment.TAG);
             }
         }
 

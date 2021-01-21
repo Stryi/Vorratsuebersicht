@@ -9,7 +9,7 @@ namespace VorratsUebersicht
 {
 	// https://developer.xamarin.com/guides/android/user_interface/date_picker/
 
-	public class DatePickerFragment : DialogFragment, DatePickerDialog.IOnDateSetListener
+	public class DatePickerFragment : Android.Support.V4.App.DialogFragment, DatePickerDialog.IOnDateSetListener
 	{
         public DateTime? Date = null;
 

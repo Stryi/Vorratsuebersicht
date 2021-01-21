@@ -3,6 +3,7 @@ using System.IO;
 using System.Globalization;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 using Android.App;
 using Android.Content;
@@ -11,16 +12,17 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Content.PM;
-using Android.Content.Res;
-using Android.Support.V4.Content;
+using Android.Support.Design.Widget;
+using Android.Support.V7.App;
+using AndroidX.Core.Content;
 
 namespace VorratsUebersicht
 {
-    using System.Collections.ObjectModel;
     using static Tools;
+    using AlertDialog = Android.App.AlertDialog;
 
-    [Activity(Label = " Vorratsübersicht", Icon = "@drawable/ic_launcher")]
-    public class MainActivity : Activity
+    [Activity(Label = " Vorratsübersicht", Icon = "@drawable/ic_launcher", Theme = "@style/Theme.AppCompat")]
+    public class MainActivity : AppCompatActivity
     {
         // Debug-Konstanten
         private static bool debug_date_picker = false;
@@ -72,28 +74,27 @@ namespace VorratsUebersicht
 
             base.OnCreate(bundle);
 
+            Xamarin.Essentials.Platform.Init(this, bundle);
+
             if (Debugger.IsAttached)
             {
                 ShoppingListHelper.UnitTest();
             }
-
+            
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
             // ActionBar Hintergrund Farbe setzen
             var backgroundPaint = ContextCompat.GetDrawable(this, Resource.Color.Application_ActionBar_Background);
             backgroundPaint.SetBounds(0, 0, 10, 10);
-            ActionBar.SetBackgroundDrawable(backgroundPaint);
-            ActionBar.SetDisplayShowHomeEnabled(true);
+            this.SupportActionBar.SetBackgroundDrawable(backgroundPaint);
+            this.SupportActionBar.SetDisplayShowHomeEnabled(true);
 
             string storageDir = this.GetExternalFilesDir(null).AbsolutePath;
             //File.WriteAllText(storageDir + "/Test.txt", "Das ist ein Test.");
 
             // Datenbanken erstellen
             Android_Database.Instance.RestoreSampleDatabaseFromResources();
-
-            // Initialisierung für EAN Scanner
-            ZXing.Mobile.MobileBarcodeScanner.Initialize (Application);
 
             // Zugriff auf die SD Karte anfordern
             new SdCardAccess().Grand(this);
@@ -137,19 +138,19 @@ namespace VorratsUebersicht
                 b.Click += delegate
                 {
                     AltDatePickerFragment frag = AltDatePickerFragment.NewInstance(delegate (DateTime? time) { b.Text = time!=null ? time.Value.ToShortDateString() : "Kein Datum"; }, DateTime.Today);
-                    frag.ShowsDialog = true;
-                    frag.Show(this.FragmentManager, AltDatePickerFragment.TAG);
+                frag.ShowsDialog = true;
+                    frag.Show(this.SupportFragmentManager, AltDatePickerFragment.TAG);
                 };
                 FindViewById<LinearLayout>(Resource.Id.Main_LinearLayout).AddView(b);
                 AltDatePickerFragment frag2 = AltDatePickerFragment.NewInstance(delegate (DateTime? time) { b.Text = time != null ? time.Value.ToShortDateString() : "Kein Datum"; }, DateTime.Today);
                 frag2.ShowsDialog = true;
-                frag2.Show(this.FragmentManager, AltDatePickerFragment.TAG);
+                frag2.Show(this.SupportFragmentManager, AltDatePickerFragment.TAG);
             }
 
 
             if (MainActivity.IsGooglePlayPreLaunchTestMode)
             {
-			    Android_Database.UseTestDatabase = true;
+                Android_Database.UseTestDatabase = true;
             }
             else
             {
@@ -186,6 +187,10 @@ namespace VorratsUebersicht
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
             bool canWriteExternalStorage = false;
 
             for(int i = 0; i < permissions.Length; i++)
@@ -376,7 +381,7 @@ namespace VorratsUebersicht
         /// innerhalb vom Warnungsdatum liegt.
         /// </summary>
         private string ShowStorageInfoText()
-		{
+        {
             decimal abgelaufen;
 
             try
@@ -434,7 +439,7 @@ namespace VorratsUebersicht
             {
                 text.Visibility = ViewStates.Gone;
             }
-
+ 
             return null;
         }
 
@@ -478,28 +483,28 @@ namespace VorratsUebersicht
             string databaseName = Android_Database.Instance.GetDatabasePath();
             if (databaseName == null)
             {
-                ActionBar.Subtitle = "Keine Datenbank ausgewählt";
+                this.SupportActionBar.Subtitle = "Keine Datenbank ausgewählt";
                 return;
             }
 
             string dbFileName = Path.GetFileNameWithoutExtension(databaseName);
             if (dbFileName != "Vorraete")
             {
-                ActionBar.Subtitle = " Datenbank: " + dbFileName;
+                this.SupportActionBar.Subtitle = " Datenbank: " + dbFileName;
                 return;
             }
-            ActionBar.Subtitle = null;
+            this.SupportActionBar.Subtitle = null;
         }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
-		{
-			base.OnActivityResult(requestCode, resultCode, data);
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
 
-			if (requestCode == EditStorageItemQuantityId)
-			{
-				string error = this.ShowStorageInfoText();
+            if (requestCode == EditStorageItemQuantityId)
+            {
+                string error = this.ShowStorageInfoText();
                 this.ShowDatabaseError(error);
-			}
+            }
 
             if (requestCode == OptionsId)
             {
@@ -551,7 +556,7 @@ namespace VorratsUebersicht
         private async void ButtonBarcode_Click(object sender, System.EventArgs e)
         {
             string eanCode;
-            
+
             if (Debugger.IsAttached)
             {
                 eanCode = "4006544205006";
@@ -636,6 +641,7 @@ namespace VorratsUebersicht
                             this.StartActivityForResult(storageDetails2, EditStorageQuantity);
                             break;
                     }
+
                     return;
                 });
                 selectDialog.Show();
@@ -659,7 +665,6 @@ namespace VorratsUebersicht
                         storageDetails.PutExtra("EANCode", eanCode);
                         this.StartActivityForResult(storageDetails, ContinueScanMode);
                         break;
-
                     case 1:
                         // Artikel Liste
                         var articleDetails = new Intent(this, typeof(ArticleListActivity));

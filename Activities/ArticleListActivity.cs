@@ -93,7 +93,7 @@ namespace VorratsUebersicht
 
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
             ArticleListView  selectedItem = Tools.Cast<ArticleListView>(listView.Adapter.GetItem(info.Position));
-
+            
             switch(item.ItemId)
             {
                 case 1: // Lagerbestand

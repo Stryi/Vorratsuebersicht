@@ -2,26 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="de.stryi.Vorratsuebersicht" 
           android:installLocation="auto"
-					android:versionCode="94"
-          android:versionName="5.10">
-	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="29" />
-	<uses-permission android:name="android.permission.CAMERA" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.FLASHLIGHT" />
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	<application
+          android:versionCode="95"
+          android:versionName="6.00">
+  <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="29" />
+  <uses-permission android:name="android.permission.CAMERA" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.FLASHLIGHT" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <application
     android:label="Vorratsübersicht" 
     android:requestLegacyExternalStorage="true"
     android:icon="@drawable/ic_launcher">
-		<provider 
+    <provider 
       android:name="android.support.v4.content.FileProvider" 
       android:authorities="de.stryi.exportcsv.fileprovider" 
       android:grantUriPermissions="true" 
       android:exported="false">
-			<meta-data 
+      <meta-data 
         android:name="android.support.FILE_PROVIDER_PATHS" 
         android:resource="@xml/provider_paths"/>
-		</provider>
-	</application>
+    </provider>
+  </application>
 </manifest>

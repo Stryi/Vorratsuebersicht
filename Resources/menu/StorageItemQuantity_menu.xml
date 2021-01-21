@@ -1,33 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
   <item android:id="@+id/StorageItemQuantity_Edit"
         android:icon="@drawable/ic_mode_edit_white_24dp"
         android:title="Positionen bearbeiten"
-        android:showAsAction="always" />
+        app:showAsAction="always" />
 
   <item android:id="@+id/StorageItemQuantity_EditPicture"
         android:icon="@drawable/ic_add_a_photo_white_24dp"
         android:title="Bild anzeigen"
-        android:showAsAction="never" />
+        app:showAsAction="never" />
   
   <item android:id="@+id/StorageItemQuantity_Cancel"
         android:icon="@drawable/ic_close_white_24dp"
         android:title="@string/App_Cancel"
-        android:showAsAction="always" />
+        app:showAsAction="always" />
   
   <item android:id="@+id/StorageItemQuantity_Save"
         android:icon="@drawable/ic_check_white_24dp"
         android:title="@string/App_Save"
-        android:showAsAction="always" />
+        app:showAsAction="always" />
 
   <item android:id="@+id/StorageItemQuantity_ToShoppingList"
-      android:icon="@drawable/baseline_shopping_cart_white_24"
-      android:title="@string/StorageItemQuantity_Menu_ToShoppingList"
-      android:showAsAction="always" />
+        android:icon="@drawable/baseline_shopping_cart_white_24"
+        android:title="@string/StorageItemQuantity_Menu_ToShoppingList"
+        app:showAsAction="always" />
 
   <item android:id="@+id/StorageItemQuantity_ToArticleDetails"
-      android:icon="@drawable/ic_local_offer_white_48dp"
-      android:title="@string/StorageItemQuantity_Menu_Artikelangaben"
-      android:showAsAction="never" />
+        android:icon="@drawable/ic_local_offer_white_48dp"
+        android:title="@string/StorageItemQuantity_Menu_Artikelangaben"
+        app:showAsAction="never" />
 
 </menu>
