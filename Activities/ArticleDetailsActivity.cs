@@ -1164,7 +1164,7 @@ namespace VorratsUebersicht
                         widthLarge  = displaySize.WidthPixels;
                         heightLarge = displaySize.HeightPixels;
                     }
-                    
+
                     text += string.Format("Display: {0:n0} x {1:n0}\r\n", displaySize.HeightPixels, displaySize.WidthPixels);
                 }
 
