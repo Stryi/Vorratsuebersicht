@@ -432,11 +432,12 @@ namespace VorratsUebersicht
                 case Resource.Id.ArticleDetailsMenu_RemovePicture:
                     if (this.IsPhotoSelected)
                     {
+                        // Erstelltes oder ausgewähltes Bild entfernen
                         ArticleDetailsActivity.imageLarge = null;
                         ArticleDetailsActivity.imageSmall = null;
 
-                        this.articleImage.ImageLarge = null;
-                        this.articleImage.ImageSmall = null;
+                        this.articleImage.ImageLarge = null;    // Änderungen verwerfen
+                        this.articleImage.ImageSmall = null;    // Gespeichertes Bild auch löschen
 
                         this.imageView.SetImageResource(Resource.Drawable.ic_photo_camera_white_24dp);
                         this.imageView2.SetImageResource(Resource.Drawable.ic_photo_white_24dp);
@@ -862,7 +863,7 @@ namespace VorratsUebersicht
                 this.articleId = this.article.ArticleId;
             }
 
-            if (this.articleImage.ImageLarge != null)   // Ein neues Bild wurde ausgewählt
+            if (this.articleImage.ImageLarge != null)   // Ein neues Bild wurde ausgewählt oder vorhandenes geändert.
             {
                 if (this.articleImage.ImageId > 0)
                 {
@@ -875,6 +876,11 @@ namespace VorratsUebersicht
                     this.articleImage.CreatedAt = DateTime.Now;
                     databaseConnection.Insert(this.articleImage);
                 }
+            }
+
+            if ((this.articleImage.ImageSmall == null) && (this.articleImage.ImageId > 0))  // Vorhandenes Bild gelöscht?
+            {
+                databaseConnection.Delete(this.articleImage);
             }
 
             this.isChanged = true;
@@ -1145,8 +1151,22 @@ namespace VorratsUebersicht
 
             try
             {
-                int width1  = newBitmap.Width;
-                int height1 = newBitmap.Height;
+                int widthLarge  = newBitmap.Width;
+                int heightLarge = newBitmap.Height;
+
+                var displaySize = Resources.DisplayMetrics;
+
+                if (displaySize != null)
+                {
+                    // Bild auf Bildschirmgröße verkleinern?
+                    if (newBitmap.Width > displaySize.WidthPixels)
+                    {
+                        widthLarge  = displaySize.WidthPixels;
+                        heightLarge = displaySize.HeightPixels;
+                    }
+                    
+                    text += string.Format("Display: {0:n0} x {1:n0}\r\n", displaySize.HeightPixels, displaySize.WidthPixels);
+                }
 
                 text += string.Format("Org.: {0:n0} x {1:n0} ({2:n0})\r\n",  newBitmap.Height,  newBitmap.Width, Tools.ToFuzzyByteString(newBitmap.ByteCount));
 
@@ -1155,7 +1175,7 @@ namespace VorratsUebersicht
                 var compress = Settings.GetBoolean("CompressPictures", true);
                 if (compress)
                 {
-                    resizedImage = ImageResizer.ResizeImageAndroid(newBitmap, 480*1, 854*1);
+                    resizedImage = ImageResizer.ResizeImageAndroid(newBitmap, widthLarge, heightLarge);
                     largeBitmap = BitmapFactory.DecodeByteArray(resizedImage, 0, resizedImage.Length);
                 }
 
@@ -1179,11 +1199,9 @@ namespace VorratsUebersicht
                 RunOnUiThread(() => this.imageView2.Visibility = ViewStates.Gone);
                 RunOnUiThread(() => this.imageTextView.Text = text);
 
-                TRACE("Bild original : W={0:n0}, H={1:n0}", newBitmap.Width, newBitmap.Height);
-                TRACE("Bild original : Size={0}", Tools.ToFuzzyByteString(newBitmap.ByteCount));
-                TRACE("Bild small    : W={0:n0}, H={1:n0}", smallBitmap.Width, smallBitmap.Height);
-                TRACE("Bild small    : Size={0}", Tools.ToFuzzyByteString(smallBitmap.ByteCount));
-                TRACE("Image size    : Size={0}", Tools.ToFuzzyByteString(ArticleDetailsActivity.imageLarge.Length));
+                TRACE("-------------------------------------");
+                TRACE(text);
+                TRACE("-------------------------------------");
             }
             catch(Exception ex)
             {
