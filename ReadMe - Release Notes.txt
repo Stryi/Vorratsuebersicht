@@ -12,15 +12,17 @@ Vor dem Hochladen ins Google Play Store:
 Version 6.00 (Code Version 95)
 ==============================
 
-C155 - Umstellung auf die neue Xamarin.AndroidX Bibliothek
+C157 - Textgröße passt sich jetzt besser an die eingestellte Textgröße vom Smartphone.
+C156 - Bilder Komprimierung an die Auflösung des Smartphones anpassen
+C155 - Umstellung auf die neue Xamarin.AndroidX Bibliothek (intern)
   
 Version 5.10 (Code Version 94)
 ==============================
 
-C154 - Bilder können jetzt gelöscht (entfernt) werden.
-C153 - Linkf auf OpenFoodFacts.org Produkt.
+C154 - Bilder können jetzt gelöscht (entfernt) werden. (noch nicht ganz)
+C153 - Link auf OpenFoodFacts.org Produkt.
 
-Version 5.03 (Code Version 93)
+Version 5.03 (Code Version 93) - Google Play: Beta am 20.12.2020, Produktiv 100% am 16.01.2021
 ==============================
 
 C152 - App funktioniert jetzt unter Android 10 (aber noch nicht unter Android 11).

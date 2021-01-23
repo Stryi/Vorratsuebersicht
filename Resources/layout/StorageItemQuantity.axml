@@ -56,7 +56,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:textColor="@color/Text_Color"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
         <AutoCompleteTextView
             android:id="@+id/StorageItemQuantity_StorageText"
             android:layout_width="fill_parent"
@@ -66,7 +66,7 @@
             android:layout_marginRight="55dp"
             android:textColor="@color/Text_Color"
             android:background="@color/Application_Background"
-            android:textSize="18dp" 
+            android:textSize="18sp" 
             android:layout_toRightOf="@id/StorageItemQuantity_StorageLabel" />
         <Button
             android:id="@+id/StorageItemQuantity_SelectStorage"

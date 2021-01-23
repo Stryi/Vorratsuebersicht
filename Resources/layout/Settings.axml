@@ -29,7 +29,6 @@
       <Button
           android:id="@+id/SettingsButton_Compress"
           android:text="@string/Settings_DatenbankKomprimieren"
-          android:textSize="16dp"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:textAllCaps="false"
@@ -38,7 +37,6 @@
         <Button
             android:id="@+id/SettingsButton_Repair"
             android:text="@string/Settings_DatenbankReparieren"
-            android:textSize="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
@@ -87,7 +85,6 @@
         <Button
             android:id="@+id/SettingsButton_Backup"
             android:text="@string/Settings_CreateBackup"
-            android:textSize="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
@@ -96,7 +93,6 @@
         <Button
             android:id="@+id/SettingsButton_Restore"
             android:text="@string/Settings_RestoreBackup"
-            android:textSize="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
@@ -113,8 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
-            android:gravity="left|center_vertical"
-            android:textSize="15dp" />
+            android:gravity="left|center_vertical" />
 
         <TextView
             android:text="Zum Kennenlernen oder Testen neuer Funktionalität"
@@ -141,7 +136,6 @@
         <Button
             android:id="@+id/SettingsButton_RestoreSampleDb"
             android:text="@string/Settings_TestDatenbankZuruecksetzen"
-            android:textSize="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
@@ -150,7 +144,6 @@
         <Button
             android:id="@+id/SettingsButton_RestoreDb0"
             android:text="@string/Settings_TestDatenbankLeeren"
-            android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
@@ -171,7 +164,6 @@
             <Button
                 android:id="@+id/SettingsButton_CsvExportArticles"
                 android:text="Artikelstamm"
-                android:textSize="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
@@ -180,7 +172,6 @@
             <Button
                 android:id="@+id/SettingsButton_CsvExportStorageItems"
                 android:text="Lagerbestand"
-                android:textSize="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
@@ -208,8 +199,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
-            android:gravity="left|center_vertical"
-            android:textSize="15dp" />
+            android:gravity="left|center_vertical" />
 
         <Switch
             android:id="@+id/SettingsButton_AltDatePicker"
@@ -238,7 +228,6 @@
         <Button
             android:id="@+id/SettingsButton_CopyAppDbToSdCard"
             android:text="App-DB auf den Internen Speicher kopieren"
-            android:textSize="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
@@ -248,7 +237,6 @@
         <Button
             android:id="@+id/SettingsButton_SendLogFile"
             android:text="LOG Einträge an Entwickler schicken"
-            android:textSize="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
@@ -266,18 +254,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
-            android:gravity="left|center_vertical"
-            android:textSize="16dp" />
+            android:gravity="left|center_vertical" />
         <TextView
             android:id="@+id/SettingsButton_Version"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15dp" />
+            android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/SettingsButton_Kontakt"
             android:text="Kontakt E-Mail: cstryi@freenet.de"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>

@@ -1,10 +1,11 @@
 ﻿using System;
-
 using System.Linq;
+
 using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using Android.Util;
 
 namespace VorratsUebersicht
 {
@@ -91,39 +92,6 @@ namespace VorratsUebersicht
             this.base_year = base_year;
             this.root.RemoveAllViews();
 
-            /*
-                        // Überschrift und 'Kein Datum' in die oberste Zeile
-                        ll = new LinearLayout(this.view.Context);
-                        lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
-                        ll.Orientation = Orientation.Horizontal;
-                        ll.WeightSum = 10;
-                        this.root.AddView(ll);
-                        TextView tv = new TextView(this.view.Context);
-                        tv.Text = "Jahr / Monat / Tag wählen";
-                        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
-                        lp.Width = 0;
-                        lp.Weight = 7;
-                        lp.Gravity = GravityFlags.Center;
-                        lp.SetMargins(1, 1, 1, 1);
-                        tv.Gravity = GravityFlags.Center;
-                        tv.SetTextSize(Android.Util.ComplexUnitType.Dip, 20f);
-                        tv.LayoutParameters = lp;
-                        ll.AddView(tv);
-
-                        b = new Button(this.view.Context);
-                        b.Text = "Kein Datum";
-                        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
-                        lp.Width = 0;
-                        lp.Weight = 3;
-                        lp.SetMargins(1, 1, 1, 1);
-                        b.SetBackgroundColor(Android.Graphics.Color.OrangeRed);
-                        b.SetTextColor(Android.Graphics.Color.Black);
-                        b.SetPadding(0, 0, 0, 0);
-                        b.LayoutParameters = lp;
-                        b.Click += delegate { DateSelectedHandler(null); Dismiss(); };
-                        ll.AddView(b);
-            */
-
             ll = BuildGrid("Y", 10);
             b = new Button(this.view.Context);
             b.Text = ">";
@@ -163,9 +131,6 @@ namespace VorratsUebersicht
             lp.SetMargins(1, 1, 1, 1);
 
             this.date_textview.Gravity = GravityFlags.Center;
-            //this.date_textview.SetTextSize(Android.Util.ComplexUnitType.Dip, 20f);
-            //this.date_textview.SetBackgroundColor(Android.Graphics.Color.Aquamarine);
-            //this.date_textview.SetTextAppearance(Android.Resource.Style.TextAppearanceDeviceDefaultLarge);
             this.date_textview.LayoutParameters = lp;
             ll.AddView(this.date_textview);
 
@@ -279,6 +244,7 @@ namespace VorratsUebersicht
                 else
                     b.SetBackgroundColor(Android.Graphics.Color.LightGray);// new Android.Graphics.Color(Resource.Color.Text_Warning));
                 b.SetTextColor(Android.Graphics.Color.Black);
+                b.SetTextSize(ComplexUnitType.Sp, 18);
                 lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
                 lp.Weight = 2;
                 lp.Width = 0;
