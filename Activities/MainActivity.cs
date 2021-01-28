@@ -67,6 +67,8 @@ namespace VorratsUebersicht
             MainActivity.Strings_Amount        = Resources.GetString(Resource.String.ArticleDetails_Amount);
             MainActivity.Strings_Notes         = Resources.GetString(Resource.String.ArticleDetails_Notes);
 
+            // Neuerungen auf dem Start Bildschirm aktualisiern.
+
             // Damit Pre-Launch von Google Play Store nicht immer wieder
             // in die EAN Scan "Falle" tappt und da nicht wieder rauskommt.
             // (meistens nächster Tag)
@@ -162,6 +164,9 @@ namespace VorratsUebersicht
 
             // Hinweis bei Pre-Launch Untersuchung
             this.ShowInfoAufTestversion();
+
+            // Backup erstellen?
+            this.CreateBackup();
         }
 
         private void InitializeDatabase()
@@ -270,6 +275,38 @@ namespace VorratsUebersicht
                 StartActivity(subCategory);
             });
             builder.Show();
+        }
+
+        private void CreateBackup()
+        {
+            // Ab 5 Artikel in der Datenbank (damit nicht bei einem Artikel schon mit Backup 'geärgert' wird) 
+            // einmal pro Woche ein Backup vorschlagen zu erstellen.
+
+            decimal articleCount = Database.GetArticleCount();
+            if (articleCount < 5)
+                return;
+
+            DateTime? lastBackupDay = Database.GetSettingsDate("LAST_BACKUP");
+
+            // Backup nur alle 7 Tage vorschlagen
+            if ((lastBackupDay != null) && (lastBackupDay.Value.AddDays(7) >= DateTime.Today))
+                return;
+
+            AlertDialog.Builder message = new AlertDialog.Builder(this);
+            message.SetIcon(Resource.Drawable.ic_launcher);
+            message.SetMessage("Backup der Datenbank erstellen?");
+            message.SetPositiveButton("Ja", (s, e) => 
+                { 
+                    var settingsActivity = new Intent(this, typeof(SettingsActivity));
+                    settingsActivity.PutExtra("CreateBackup", true);
+                    StartActivity(settingsActivity);
+
+                    // Datum vom Backup in der Datenbank speichern.
+                    Database.SetSettingsDate("LAST_BACKUP", DateTime.Today);
+
+                });
+            message.SetNegativeButton("Nicht jetzt", (s, e) => { });
+            message.Show();
         }
 
         private void ShowDatabaseError(string error)

@@ -147,6 +147,13 @@ namespace VorratsUebersicht
             // Artikelname ist eingetragen. Tastatus anfänglich ausblenden.
             this.Window.SetSoftInputMode(SoftInput.StateHidden);
 
+            bool createBackup = Intent.GetBooleanExtra("CreateBackup", false);
+
+            if (createBackup)
+            {
+                this.ButtonBackup_Click(this, EventArgs.Empty);
+            }
+
             this.isInitialize = false;
         }
 
@@ -251,6 +258,30 @@ namespace VorratsUebersicht
 
             EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
             MainActivity.SetUserDefinedCategories(catEdit?.Text);
+        }
+
+        internal string GetBackupFileName(string databaseFilePath)
+        {
+            string backupFileName;
+
+            string databaseFileName = Path.GetFileNameWithoutExtension(databaseFilePath);
+
+            if (databaseFileName == "Vorraete")
+            {
+                backupFileName = string.Format("Vue_{0}.VueBak", 
+                    DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss"));
+            }
+            else
+            {
+                backupFileName = string.Format(databaseFileName + "_{0}.VueBak", 
+                    DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss"));
+            }
+
+            var downloadFolder = this.GetBackupPath();
+
+            var backupFilePath = Path.Combine(downloadFolder, backupFileName);
+
+            return backupFilePath;
         }
 
         private string GetBackupPath()
@@ -607,23 +638,7 @@ namespace VorratsUebersicht
 
             var databaseFilePath = Android_Database.Instance.GetProductiveDatabasePath();
 
-            var downloadFolder = this.GetBackupPath();
-
-            string backupFileName;
-            string databaseFileName = Path.GetFileNameWithoutExtension(databaseFilePath);
-
-            if (databaseFileName == "Vorraete")
-            {
-                backupFileName = string.Format("Vue_{0}.VueBak", 
-                    DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss"));
-            }
-            else
-            {
-                backupFileName = string.Format(databaseFileName + "_{0}.VueBak", 
-                    DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss"));
-            }
-
-            var backupFilePath = Path.Combine(downloadFolder, backupFileName);
+            string backupFilePath = this.GetBackupFileName(databaseFilePath);
 
             Android_Database.Instance.CloseConnection();
 

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -346,7 +347,7 @@ namespace VorratsUebersicht
             return command.ExecuteQuery<ArticleData>().FirstOrDefault();
         }
 
-        internal static ArticleImage GetArticleImage(int articleId, bool showLarge)
+        internal static ArticleImage GetArticleImage(int articleId, bool? showLarge = null)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
@@ -355,10 +356,17 @@ namespace VorratsUebersicht
             string cmd = string.Empty;
             cmd += "SELECT ImageId, ArticleId, Type, ";
 
-            if (showLarge)
-                cmd += "ImageLarge";
+            if (showLarge == null)
+            {
+                cmd += "ImageLarge, ImageSmall";
+            }
             else
-                cmd += "ImageSmall";
+            {
+                if (showLarge.Value == true)
+                    cmd += "ImageLarge";
+                else
+                    cmd += "ImageSmall";
+            }
 
             cmd += " FROM ArticleImage";
             cmd += " WHERE ArticleId = ?";
@@ -815,6 +823,23 @@ namespace VorratsUebersicht
             return command.ExecuteScalar<string>();
         }
 
+        internal static decimal GetArticleCount()
+        {
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
+            if (databaseConnection == null)
+                return 0;
+
+            // Artikel suchen, die schon abgelaufen sind.
+            string cmd = string.Empty;
+            cmd += "SELECT COUNT(*) AS Quantity";
+            cmd += " FROM Article";
+
+            var command = databaseConnection.CreateCommand(cmd);
+            IList<QuantityResult> result = command.ExecuteQuery<QuantityResult>();
+            return result[0].Quantity;
+        }
+
+
         internal static decimal GetArticleCount_Abgelaufen()
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
@@ -1053,6 +1078,24 @@ namespace VorratsUebersicht
             var command = databaseConnection.CreateCommand(cmd, new object[] { key });
 
             return command.ExecuteScalar<string>();
+        }
+
+        internal static DateTime? GetSettingsDate(string key)
+        {
+            var dateText = Database.GetSettingsString(key);
+            if (dateText == null)
+                return null;
+
+            var date = DateTime.ParseExact(dateText, "yyyy.MM.dd", CultureInfo.InvariantCulture);
+
+            return date.Date;
+        }
+
+        internal static void SetSettingsDate(string key, DateTime date)
+        {
+            string dateText = date.ToString("yyyy.MM.dd");
+
+            Database.SetSettings(key, dateText);
         }
 
         internal static void SetSettings(string key, string value)
