@@ -9,11 +9,12 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
-Version 6.00 (Code Version 95)
-==============================
+Version 6.00 (Code Version 95, 96)
+==================================
 
+C158 - Einmal pro Woche beim Starten nach einem Backup fragen.
 C157 - Textgröße passt sich jetzt besser an die eingestellte Textgröße vom Smartphone.
-C156 - Bilder Komprimierung an die Auflösung des Smartphones anpassen
+C156 - Bilder Komprimierung an die Auflösung des Smartphones anpassen (NOCH NICHT RICHTIG GETESTET)
 C155 - Umstellung auf die neue Xamarin.AndroidX Bibliothek (intern)
   
 Version 5.10 (Code Version 94)

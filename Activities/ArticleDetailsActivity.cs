@@ -1068,7 +1068,7 @@ namespace VorratsUebersicht
                     this.imageView.SetImageBitmap(smallBitmap);
                     /*
                     string text = string.Empty;
-                    text += string.Format("Voransicht: {0:n0} X {1:n0}\n", smallBitmap.Height, smallBitmap.Width);
+                    text += string.Format("Voransicht: {0:n0} X {1:n0}\n", smallBitmap.Width, smallBitmap.Height);
                     text += string.Format("Größe: {0:n0}\n", Tools.ToFuzzyByteString(smallBitmap.ByteCount));
                     text += string.Format("Komprimiert: {0:n0}\n", Tools.ToFuzzyByteString(this.articleImage.ImageSmall.Length));
                     this.imageTextView.Text = text;
@@ -1154,21 +1154,26 @@ namespace VorratsUebersicht
                 int widthLarge  = newBitmap.Width;
                 int heightLarge = newBitmap.Height;
 
+                bool landScape = widthLarge > heightLarge;
+
                 var displaySize = Resources.DisplayMetrics;
 
                 if (displaySize != null)
                 {
+                    int maxDisplay = Math.Max(displaySize.WidthPixels, displaySize.HeightPixels);
+                    int maxBitmap  = Math.Max(newBitmap.Width, newBitmap.Height);
+
+                    text += string.Format("Display: {0:n0} x {1:n0}\r\n", displaySize.WidthPixels, displaySize.HeightPixels);
+
                     // Bild auf Bildschirmgröße verkleinern?
                     if (newBitmap.Width > displaySize.WidthPixels)
                     {
                         widthLarge  = displaySize.WidthPixels;
                         heightLarge = displaySize.HeightPixels;
                     }
-
-                    text += string.Format("Display: {0:n0} x {1:n0}\r\n", displaySize.HeightPixels, displaySize.WidthPixels);
                 }
 
-                text += string.Format("Org.: {0:n0} x {1:n0} ({2:n0})\r\n",  newBitmap.Height,  newBitmap.Width, Tools.ToFuzzyByteString(newBitmap.ByteCount));
+                text += string.Format("Org.: {0:n0} x {1:n0} ({2:n0})\r\n",  newBitmap.Width,  newBitmap.Height, Tools.ToFuzzyByteString(newBitmap.ByteCount));
 
                 Bitmap largeBitmap = newBitmap;
 
@@ -1183,7 +1188,7 @@ namespace VorratsUebersicht
                 largeBitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
                 ArticleDetailsActivity.imageLarge = stream.ToArray();
 
-                text += string.Format("Bild: {0:n0} x {1:n0} ({2:n0})\r\n", largeBitmap.Height, largeBitmap.Width, Tools.ToFuzzyByteString(largeBitmap.ByteCount));
+                text += string.Format("Bild: {0:n0} x {1:n0} ({2:n0})\r\n", largeBitmap.Width, largeBitmap.Height, Tools.ToFuzzyByteString(largeBitmap.ByteCount));
 
                 resizedImage = ImageResizer.ResizeImageAndroid(newBitmap, 48*2, 85*2);
 
@@ -1193,7 +1198,7 @@ namespace VorratsUebersicht
                 smallBitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
                 ArticleDetailsActivity.imageSmall = stream.ToArray();
 
-                text += string.Format("Thn.: {0:n0} x {1:n0} ({2:n0})", smallBitmap.Height, smallBitmap.Width, Tools.ToFuzzyByteString(smallBitmap.ByteCount));
+                text += string.Format("Thn.: {0:n0} x {1:n0} ({2:n0})", smallBitmap.Width, smallBitmap.Height, Tools.ToFuzzyByteString(smallBitmap.ByteCount));
 
                 RunOnUiThread(() => this.imageView.SetImageBitmap(smallBitmap));
                 RunOnUiThread(() => this.imageView2.Visibility = ViewStates.Gone);

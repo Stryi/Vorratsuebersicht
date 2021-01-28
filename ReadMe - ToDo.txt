@@ -170,3 +170,26 @@ Prio eher niedrig:
 - Scannen des Haltbarkeitsdatum, ggf. Foto mit manuellem Markieren des Datums durch Aufziehen eines Rahmens (beo Konserven in der Regel nur Jahreszahl oder Monat/Jahr vorhanden)
  
  
+Stacktrace          Fall 1 von 14
+Absturz: Samsung Galaxy S20 5G Android 11 (SDK 30) 93.apk vor 27 Stunden
+
+android.runtime.JavaProxyThrowable
+ android.runtime.JavaProxyThrowable: at ZXing.Net.Mobile.Android.PermissionsHandler.CheckPermissions (Android.Content.Context context, System.String permission, System.Boolean throwOnError) [0x00066] in <819b29aa6d91462699e19a679be55a44>:0
+at ZXing.Net.Mobile.Android.PermissionsHandler.CheckCameraPermissions (Android.Content.Context context, System.Boolean throwOnError) [0x00001] in <819b29aa6d91462699e19a679be55a44>:0
+at ZXing.Mobile.CameraAccess.CameraController.SetupCamera () [0x00013] in <819b29aa6d91462699e19a679be55a44>:0
+at ZXing.Mobile.CameraAccess.CameraAnalyzer.SetupCamera () [0x00019] in <819b29aa6d91462699e19a679be55a44>:0
+at ZXing.Mobile.ZXingSurfaceView.SurfaceCreated (Android.Views.ISurfaceHolder holder) [0x0006b] in <819b29aa6d91462699e19a679be55a44>:0
+at System.Runtime.CompilerServices.AsyncMethodBuilderCore+<>c.<ThrowAsync>b__7_0 (System.Object state) [0x00000] in <bcf42fd6deee4819942a24b710f9b740>:0
+at Android.App.SyncContext+<>c__DisplayClass2_0.<Post>b__0 () [0x00000] in <2df86f44c8e946618f31cb3aed952f5b>:0
+at Java.Lang.Thread+RunnableImplementor.Run () [0x00008] in <2df86f44c8e946618f31cb3aed952f5b>:0
+at Java.Lang.IRunnableInvoker.n_Run (System.IntPtr jnienv, System.IntPtr native__this) [0x00008] in <2df86f44c8e946618f31cb3aed952f5b>:0
+at (wrapper dynamic-method) Android.Runtime.DynamicMethodNameCounter.37(intptr,intptr)
+  at mono.java.lang.RunnableImplementor.n_run (Native Method)
+  at mono.java.lang.RunnableImplementor.run (RunnableImplementor.java:30)
+  at android.os.Handler.handleCallback (Handler.java:938)
+  at android.os.Handler.dispatchMessage (Handler.java:99)
+  at android.os.Looper.loop (Looper.java:246)
+  at android.app.ActivityThread.main (ActivityThread.java:8419)
+  at java.lang.reflect.Method.invoke (Native Method)
+  at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run (RuntimeInit.java:596)
+  at com.android.internal.os.ZygoteInit.main (ZygoteInit.java:1130)

@@ -58,14 +58,17 @@ REM 'Camera' Verzeichnis erst verfügbar, wenn das erste Bild mit der Camera App 
 
 %adbCmd% -s %EmulatorName%   shell mkdir %SD_Card_Path%/DCIM/Camera/
 
-%adbCmd% -s %EmulatorName%   push "..\Pictures\01 Ravioli.jpeg"   %SD_Card_Path%/DCIM/Camera/
-%adbCmd% -s %EmulatorName%   push "..\Pictures\02 Pfirsich.jpeg"  %SD_Card_Path%/DCIM/Camera/
-%adbCmd% -s %EmulatorName%   push "..\Pictures\03 Zucker.jpeg"    %SD_Card_Path%/DCIM/Camera/
+%adbCmd% -s %EmulatorName%   push "..\..\Testdaten\Pictures\01 Big Landscape 2560 x1920.jpg"   %SD_Card_Path%/DCIM/Camera/
+%adbCmd% -s %EmulatorName%   push "..\..\Testdaten\Pictures\02 Big Portrait 1920 x 2560.jpg"   %SD_Card_Path%/DCIM/Camera/
+%adbCmd% -s %EmulatorName%   push "..\..\Testdaten\Pictures\03 Large Land 4608 x 3456.jpg"     %SD_Card_Path%/DCIM/Camera/
+%adbCmd% -s %EmulatorName%   push "..\..\Testdaten\Pictures\04 Large Port 3456 x 4608.jpg"     %SD_Card_Path%/DCIM/Camera/
 
 
 ECHO ----------------------------------------------------
 ECHO DropBox Verzeichnis
 ECHO ----------------------------------------------------
+
+%adbCmd% -s %EmulatorName%   shell mkdir %SD_Card_Path%/DropBox/
 
 %adbCmd% -s %EmulatorName%   push ..\..\Testdaten\Vorraete-DropBox.db3  %SD_Card_Path%/DropBox/Vorraete-DropBox.db3
 

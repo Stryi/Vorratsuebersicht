@@ -11,9 +11,9 @@
 
   <!-- Meldungen beim Starten -->
   <string name="Start_TestDbQuestion">Sie starten die Anwendung zum ersten Mal.\n\nZum Kennenlernen der Anwendung kann eine Testdatenbank aktiviert werden. Diese können Sie unter Optionen wieder deaktivieren.</string>
-  <string name="Start_TestVersionInfo1">BACKUP erstellen nicht vergessen!</string>
-  <string name="Start_TestVersionInfo2"></string>
-  <string name="Start_TestVersionInfo3"></string>
+  <string name="Start_TestVersionInfo1">Suche mit OpenFoodFacts.org zeigt jetzt auch Link auf das Produkt.</string>
+  <string name="Start_TestVersionInfo2">Bilder können jetzt gelöscht (entfernt) werden.</string>
+  <string name="Start_TestVersionInfo3">Bilder werden jetzt mit der Auflösung des Smartphones komprimiert.</string>
   <string name="Start_TestVersionInfo4"></string>
 
   <!-- Hauptmaske -->

@@ -151,7 +151,7 @@ namespace VorratsUebersicht
                 return;
             }
 
-            ArticleImage article = Database.GetArticleImage(this.articleId, true);
+            ArticleImage article = Database.GetArticleImage(this.articleId);
             if (article == null)
             {
                 this.imageView.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
@@ -171,17 +171,27 @@ namespace VorratsUebersicht
             string message = string.Empty;
             try
             {
-                Bitmap image= BitmapFactory.DecodeByteArray (article.ImageLarge, 0, article.ImageLarge.Length);
+                Bitmap largeBitmap = BitmapFactory.DecodeByteArray (article.ImageLarge, 0, article.ImageLarge.Length);
 
-                this.imageView.SetImageBitmap(image);
+                this.imageView.SetImageBitmap(largeBitmap);
 
-                message = string.Format("Bild: {0:n0} X {1:n0} (Größe: {2:n0}, Komprimiert: {3:n0})", 
-                    image.Height, 
-                    image.Width, 
-                    Tools.ToFuzzyByteString(image.ByteCount),
+                message = string.Format("Bild (BxH): {0:n0} x {1:n0} (Größe: {2:n0}, Komprimiert: {3:n0})\r\n", 
+                    largeBitmap.Width,
+                    largeBitmap.Height,
+                    Tools.ToFuzzyByteString(largeBitmap.ByteCount),
                     Tools.ToFuzzyByteString(article.ImageLarge.Length));
 
-                image = null;
+
+                Bitmap smallBitmap = BitmapFactory.DecodeByteArray (article.ImageSmall, 0, article.ImageSmall.Length);
+
+                message  += string.Format("Thn. (BxH): {0:n0} X {1:n0} (Größe: {2:n0}, Komprimiert: {3:n0})",
+                    smallBitmap.Width,
+                    smallBitmap.Height,
+                    Tools.ToFuzzyByteString(smallBitmap.ByteCount),
+                    Tools.ToFuzzyByteString(article.ImageSmall.Length));
+
+                largeBitmap = null;
+                smallBitmap = null;
             }
             catch (Exception e)
             {
@@ -196,9 +206,30 @@ namespace VorratsUebersicht
 
         private void ShowPictureFromBitmap()
         {
-            Bitmap largeBitmap = BitmapFactory.DecodeByteArray(ArticleDetailsActivity.imageLarge, 0, ArticleDetailsActivity.imageLarge.Length);                
+            Bitmap largeBitmap = BitmapFactory.DecodeByteArray(ArticleDetailsActivity.imageLarge, 0, ArticleDetailsActivity.imageLarge.Length);
             this.rotatedBitmap = largeBitmap;
             this.imageView.SetImageBitmap(largeBitmap);
+
+            string message;
+
+            message = string.Format("Bild (BxH): {0:n0} x {1:n0} (Größe: {2:n0}, Komprimiert: {3:n0})\r\n", 
+                largeBitmap.Width,
+                largeBitmap.Height,
+                Tools.ToFuzzyByteString(largeBitmap.ByteCount),
+                Tools.ToFuzzyByteString(ArticleDetailsActivity.imageLarge.Length));
+
+            if (ArticleDetailsActivity.imageSmall != null)
+            {
+                Bitmap smallBitmap = BitmapFactory.DecodeByteArray(ArticleDetailsActivity.imageSmall, 0, ArticleDetailsActivity.imageSmall.Length);
+
+                message  += string.Format("Thn. (BxH): {0:n0} X {1:n0} (Größe: {2:n0}, Komprimiert: {3:n0})",
+                    smallBitmap.Width,
+                    smallBitmap.Height,
+                    Tools.ToFuzzyByteString(smallBitmap.ByteCount),
+                    Tools.ToFuzzyByteString(ArticleDetailsActivity.imageSmall.Length));
+            }
+
+            this.imageInfo.Text = message;
         }
 
         private void RotateImage()
@@ -236,9 +267,9 @@ namespace VorratsUebersicht
                 this.rotatedBitmap = bMapRotate;
                 this.isChanged = true;
 
-                string message = string.Format("Bild: {0:n0} X {1:n0} (Größe: {2:n0})", 
-                    this.rotatedBitmap.Height, 
+                string message = string.Format("Bild (BxH): {0:n0} X {1:n0} (Größe: {2:n0})", 
                     this.rotatedBitmap.Width, 
+                    this.rotatedBitmap.Height, 
                     Tools.ToFuzzyByteString(this.rotatedBitmap.ByteCount));
 
                 this.imageInfo.Text = message;
