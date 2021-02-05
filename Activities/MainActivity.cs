@@ -72,7 +72,10 @@ namespace VorratsUebersicht
             // Damit Pre-Launch von Google Play Store nicht immer wieder
             // in die EAN Scan "Falle" tappt und da nicht wieder rauskommt.
             // (meistens nächster Tag)
-            MainActivity.preLaunchTestEndDay = new DateTime(2021, 01, 24);
+            MainActivity.preLaunchTestEndDay = new DateTime(2021, 02, 06);
+
+            // Zusammen mit minSdkVersion="19" verhindert das den Fehler: Android.Content.Res.Resources+NotFoundException: 'File res/drawable/abc_vector_test.xml from drawable resource ID
+            //AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
 
             base.OnCreate(bundle);
 
@@ -279,6 +282,12 @@ namespace VorratsUebersicht
 
         private void CreateBackup()
         {
+            bool askForBackup = Settings.GetBoolean("AskForBackup", true);;
+            if (!askForBackup)
+            {
+                return;
+            }
+
             // Ab 5 Artikel in der Datenbank (damit nicht bei einem Artikel schon mit Backup 'geärgert' wird) 
             // einmal pro Woche ein Backup vorschlagen zu erstellen.
 
@@ -289,12 +298,15 @@ namespace VorratsUebersicht
             DateTime? lastBackupDay = Database.GetSettingsDate("LAST_BACKUP");
 
             // Backup nur alle 7 Tage vorschlagen
-            if ((lastBackupDay != null) && (lastBackupDay.Value.AddDays(7) >= DateTime.Today))
+            if ((lastBackupDay == null) || (lastBackupDay.Value.AddDays(7) >= DateTime.Today))
                 return;
+
+            string messageText = "Backup der Datenbank erstellen?\r\n\r\n" +
+                "Letzter Backup: " + lastBackupDay.Value.ToShortDateString();
 
             AlertDialog.Builder message = new AlertDialog.Builder(this);
             message.SetIcon(Resource.Drawable.ic_launcher);
-            message.SetMessage("Backup der Datenbank erstellen?");
+            message.SetMessage(messageText);
             message.SetPositiveButton("Ja", (s, e) => 
                 { 
                     var settingsActivity = new Intent(this, typeof(SettingsActivity));

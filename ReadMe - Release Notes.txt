@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 6.00 (Code Version 95, 96)
 ==================================
 
+C159 - Nach Backup fragen jetzt abschaltber.
 C158 - Einmal pro Woche beim Starten nach einem Backup fragen.
 C157 - Textgröße passt sich jetzt besser an die eingestellte Textgröße vom Smartphone.
 C156 - Bilder Komprimierung an die Auflösung des Smartphones anpassen (NOCH NICHT RICHTIG GETESTET)

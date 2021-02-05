@@ -100,6 +100,10 @@ namespace VorratsUebersicht
             Button buttonRestore = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
             buttonRestore.Click += ButtonRestore_Click;
 
+            Switch switchAskForBackup = FindViewById<Switch>(Resource.Id.SettingsButton_AskForBackup);
+            switchAskForBackup.Click += AskForBackup_Click;
+            switchAskForBackup.Checked = Settings.GetBoolean("AskForBackup", true);;
+
             EditText editTextBackupPath = FindViewById<EditText>(Resource.Id.SettingsButton_BackupPath);
             editTextBackupPath.Text = this.GetBackupPath();
             editTextBackupPath.TextChanged += delegate
@@ -623,6 +627,12 @@ namespace VorratsUebersicht
             StartActivityForResult(selectFile, SelectBackupId);
         }
 
+        private void AskForBackup_Click(object sender, EventArgs e)
+        {
+            var switchAskForBackup = sender as Switch;
+            Settings.PutBoolean("AskForBackup", switchAskForBackup.Checked);
+        }
+ 
         private void ButtonBackup_Click(object sender, EventArgs eventArgs)
         {
             bool isGranted = new SdCardAccess().Grand(this);

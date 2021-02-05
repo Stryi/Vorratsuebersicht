@@ -47,7 +47,7 @@
             android:text="Zusätzliche Kategorien (mit Komma getrennt definieren)" 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp" />
+            android:paddingTop="20dp" />
         <EditText
             android:id="@+id/Settings_Categories"
             android:inputType="textMultiLine"
@@ -60,7 +60,7 @@
             android:text="Standard Kategorie für neue Artikel:"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp" />
+            android:paddingTop="20dp" />
         <Spinner
             android:id="@+id/Settings_DefaultCategory"
             android:layout_width="fill_parent"
@@ -71,7 +71,7 @@
             android:text="Backup und Restore (auf eigene Verantwortung)"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp" />
+            android:paddingTop="20dp" />
         <ProgressBar
             android:id="@+id/ProgressBar_BackupAndRestore"
             style="?android:attr/progressBarStyleHorizontal"
@@ -98,11 +98,22 @@
             android:textAllCaps="false"
             android:gravity="left|center_vertical"
             android:drawablePadding="10dp" />
+
+        <Switch
+            android:id="@+id/SettingsButton_AskForBackup"
+            android:text="Zum Backup erinnern"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:drawablePadding="20dp" />
+
         <TextView
             android:text="Backup-Pfad:"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp" />
+            android:paddingTop="20dp" />
         <EditText
             android:id="@+id/SettingsButton_BackupPath"
             android:text=""
@@ -111,11 +122,12 @@
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
 
+
         <TextView
             android:text="Zum Kennenlernen oder Testen neuer Funktionalität"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp" />
+            android:paddingTop="20dp" />
         <Switch
             android:id="@+id/SettingsButton_SwitchToTestDB"
             android:text="@string/Settings_TestDatenbank"
@@ -151,10 +163,10 @@
             android:drawablePadding="10dp" />
 
         <TextView
-            android:text="CSV Export (Beta)"
+            android:text="CSV Export"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="20dp" />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -185,14 +197,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
-            android:paddingTop="10dp"
+            android:paddingTop="20dp"
             android:drawablePadding="20dp" />
 
         <TextView
             android:text="Zusätzlicher Datenbankpfad:"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp" />
+            android:paddingTop="20dp" />
         <EditText
             android:id="@+id/SettingsButton_AdditionalDatabasePath"
             android:text=""
@@ -207,7 +219,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
-            android:paddingTop="10dp"
+            android:paddingTop="20dp"
             android:drawablePadding="20dp" />
 
         <Switch
@@ -216,14 +228,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
-            android:paddingTop="10dp"
+            android:paddingTop="20dp"
             android:drawablePadding="20dp" />
 
         <TextView
             android:text="Support" 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp" />
+            android:paddingTop="20dp" />
 
         <Button
             android:id="@+id/SettingsButton_CopyAppDbToSdCard"
@@ -247,7 +259,7 @@
             android:text="Lizenzbedingungen" 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp" />
+            android:paddingTop="20dp" />
         <Button
             android:id="@+id/SettingsButton_Licenses"
             android:text="@string/Settings_OpenSourceLizenzen"
