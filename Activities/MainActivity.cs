@@ -166,7 +166,7 @@ namespace VorratsUebersicht
             this.InitializeDatabase();
 
             // Hinweis bei Pre-Launch Untersuchung
-            this.ShowInfoAufTestversion();
+            this.ShowInfoAufTestModus();
 
             // Backup erstellen?
             this.CreateBackup();
@@ -291,9 +291,18 @@ namespace VorratsUebersicht
             // Ab 5 Artikel in der Datenbank (damit nicht bei einem Artikel schon mit Backup 'geärgert' wird) 
             // einmal pro Woche ein Backup vorschlagen zu erstellen.
 
-            decimal articleCount = Database.GetArticleCount();
-            if (articleCount < 5)
+            // Falls noch kein Zugriff auf den Internen Speicher gegeben ist
+            try
+            {
+                decimal articleCount = Database.GetArticleCount();
+                if (articleCount < 5)
+                    return;
+            }
+            catch(Exception ex)
+            {
+                TRACE(ex);
                 return;
+            }
 
             DateTime? lastBackupDay = Database.GetSettingsDate("LAST_BACKUP");
 
@@ -331,7 +340,7 @@ namespace VorratsUebersicht
             this.SetInfoText(text);
         }
 
-        private void ShowInfoAufTestversion()
+        private void ShowInfoAufTestModus()
         {
             string message = string.Empty;
 
@@ -351,55 +360,6 @@ namespace VorratsUebersicht
 
                 return;
             }
-
-            string lastRunDay = Settings.GetString("LastRunDay", string.Empty);
-            int startInfoNr   = Settings.GetInt("StartInfoNumber", 0);
-
-            DateTime lastRun = new DateTime();
-            DateTime today = DateTime.Today;
-
-            if (!string.IsNullOrEmpty(lastRunDay))
-            {
-                lastRun = DateTime.ParseExact(lastRunDay, "yyyy.MM.dd", CultureInfo.InvariantCulture);
-            }
-
-            // Zum Debuggen
-            // lastRun = new DateTime(1900,01,01);
-            // startInfoNr = 0;
-
-            if (today != lastRun)
-            {
-                startInfoNr++;
-                if (startInfoNr > 3)
-                    startInfoNr = 1;
-
-                switch(startInfoNr)
-                {
-                    case 1:
-                        message = Resources.GetString(Resource.String.Start_TestVersionInfo1);
-                        break;
-
-                    case 2:
-                        message = Resources.GetString(Resource.String.Start_TestVersionInfo2);
-                        break;
-
-                    case 3:
-                        message = Resources.GetString(Resource.String.Start_TestVersionInfo3);
-                        break;
-
-                    case 4:
-                        message = Resources.GetString(Resource.String.Start_TestVersionInfo4);
-                        break;
-                }
-            }
-
-            if (!string.IsNullOrEmpty(message))
-            {
-                this.SetInfoText(message, false);
-            }
-
-            Settings.PutString("LastRunDay",   today.ToString("yyyy.MM.dd"));
-            Settings.PutInt("StartInfoNumber", startInfoNr);
         }
 
         private void ShowInfoAufTestdatenbank()
