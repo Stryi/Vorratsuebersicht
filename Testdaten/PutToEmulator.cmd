@@ -62,6 +62,8 @@ REM 'Camera' Verzeichnis erst verfügbar, wenn das erste Bild mit der Camera App 
 %adbCmd% -s %EmulatorName%   push "..\..\Testdaten\Pictures\02 Big Portrait 1920 x 2560.jpg"   %SD_Card_Path%/DCIM/Camera/
 %adbCmd% -s %EmulatorName%   push "..\..\Testdaten\Pictures\03 Large Land 4608 x 3456.jpg"     %SD_Card_Path%/DCIM/Camera/
 %adbCmd% -s %EmulatorName%   push "..\..\Testdaten\Pictures\04 Large Port 3456 x 4608.jpg"     %SD_Card_Path%/DCIM/Camera/
+%adbCmd% -s %EmulatorName%   push "..\..\Testdaten\Pictures\05 Small Landscape 640 x480.jpg"   %SD_Card_Path%/DCIM/Camera/
+%adbCmd% -s %EmulatorName%   push "..\..\Testdaten\Pictures\06 Small Portrait 480 x 640.jpg"   %SD_Card_Path%/DCIM/Camera/
 
 
 ECHO ----------------------------------------------------
