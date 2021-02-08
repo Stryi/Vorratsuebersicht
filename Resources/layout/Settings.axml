@@ -171,7 +171,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="0dp"
             android:scrollbars="vertical">
             <Button
                 android:id="@+id/SettingsButton_CsvExportArticles"
@@ -256,6 +256,19 @@
             android:drawablePadding="10dp" />
 
         <TextView
+            android:text="App Wiki" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp" />
+        <TextView
+            android:text="https://github.com/Stryi/Vorratsuebersicht/wiki"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:autoLink="web"
+            android:paddingLeft="10dp" />
+
+        <TextView
             android:text="Lizenzbedingungen" 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -270,9 +283,9 @@
         <TextView
             android:id="@+id/SettingsButton_Version"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp" />
         <TextView
-            android:id="@+id/SettingsButton_Kontakt"
             android:text="Kontakt E-Mail: cstryi@freenet.de"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

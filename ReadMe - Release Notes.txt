@@ -10,12 +10,14 @@ Vor dem Hochladen ins Google Play Store:
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
 Version 6.00 (Code Version 95, 96)
-==================================
+======================================
+- Android ab 5.1
 
+C160 - Link auf Wiki in Einstellungen
 C159 - Nach Backup fragen jetzt abschaltber.
 C158 - Einmal pro Woche beim Starten nach einem Backup fragen.
 C157 - Textgröße passt sich jetzt besser an die eingestellte Textgröße vom Smartphone.
-C156 - Bilder Komprimierung an die Auflösung des Smartphones anpassen (NOCH NICHT RICHTIG GETESTET)
+C156 - Bilder Komprimierung an die Auflösung des Smartphones anpassen
 C155 - Umstellung auf die neue Xamarin.AndroidX Bibliothek (intern)
   
 Version 5.10 (Code Version 94)
@@ -24,8 +26,11 @@ Version 5.10 (Code Version 94)
 C154 - Bilder können jetzt gelöscht (entfernt) werden. (noch nicht ganz)
 C153 - Link auf OpenFoodFacts.org Produkt.
 
-Version 5.03 (Code Version 93) - Google Play: Beta am 20.12.2020, Produktiv 100% am 16.01.2021
+Version 5.03 (Code Version 93) 
 ==============================
+- Google Play: Beta am 20.12.2020, Produktiv 100% am 16.01.2021
+- Letzte Version mit Unterstützung für Android ab 4.1 Version.
+
 
 C152 - App funktioniert jetzt unter Android 10 (aber noch nicht unter Android 11).
 E030 - FIX: Absicherung gegen Absturz bei "Auf Einkaufszettel".
