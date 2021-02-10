@@ -63,9 +63,35 @@ namespace VorratsUebersicht
             switchAltDatePicker.Click += SwitchAltDatePicker_Click;
             switchAltDatePicker.Checked = StorageItemQuantityActivity.UseAltDatePicker;
 
-            Switch compressPictures = FindViewById<Switch>(Resource.Id.SettingsButton_CompressPictures);
-            compressPictures.Click += CompressPictures_Click;
-            compressPictures.Checked = Settings.GetBoolean("CompressPictures", true);
+            bool compress = Settings.GetBoolean("CompressPictures", true);
+            int compressMode = Settings.GetInt("CompressPicturesMode", 1);
+
+            Switch compressPicturesSwitch = FindViewById<Switch>(Resource.Id.SettingsButton_CompressPictures);
+
+            compressPicturesSwitch.Click += CompressPictures_Click;
+            compressPicturesSwitch.Checked = compress;
+
+
+            RadioButton radioButton1 = FindViewById<RadioButton>(Resource.Id.SettingsButton_CompressPictures_Small);
+            radioButton1.Enabled = compress;
+            radioButton1.Checked = (compressMode == 1);
+            radioButton1.Click  += CompressMode_Click;
+
+            RadioButton radioButton2 = FindViewById<RadioButton>(Resource.Id.SettingsButton_CompressPictures_Middle);
+            radioButton2.Enabled = compress;
+            radioButton2.Checked = (compressMode == 2);
+            radioButton2.Click  += CompressMode_Click;
+
+            RadioButton radioButton3 = FindViewById<RadioButton>(Resource.Id.SettingsButton_CompressPictures_Big);
+            radioButton3.Enabled = compress;
+            radioButton3.Checked = (compressMode == 3);
+            radioButton3.Click  += CompressMode_Click;
+
+            RadioButton radioButton4 = FindViewById<RadioButton>(Resource.Id.SettingsButton_CompressPictures_Huge);
+            radioButton4.Enabled = compress;
+            radioButton4.Checked = (compressMode == 4);
+            radioButton4.Click  += CompressMode_Click;
+
 
             Button buttonRestoreSampleDb = FindViewById<Button>(Resource.Id.SettingsButton_RestoreSampleDb);
             buttonRestoreSampleDb.Click += ButtonRestoreSampleDb_Click;
@@ -612,8 +638,36 @@ namespace VorratsUebersicht
         {
             var switchCompressPictures = sender as Switch;
             Settings.PutBoolean("CompressPictures", switchCompressPictures.Checked);
+
+            FindViewById<RadioButton>(Resource.Id.SettingsButton_CompressPictures_Small) .Enabled = switchCompressPictures.Checked;
+            FindViewById<RadioButton>(Resource.Id.SettingsButton_CompressPictures_Middle).Enabled = switchCompressPictures.Checked;
+            FindViewById<RadioButton>(Resource.Id.SettingsButton_CompressPictures_Big)   .Enabled = switchCompressPictures.Checked;
+            FindViewById<RadioButton>(Resource.Id.SettingsButton_CompressPictures_Huge)  .Enabled = switchCompressPictures.Checked;
         }
         
+        private void CompressMode_Click(object sender, EventArgs e)
+        {
+            RadioButton radioButton = sender as RadioButton;
+
+            if (radioButton.Id == Resource.Id.SettingsButton_CompressPictures_Small)
+            {
+                Settings.PutInt("CompressPicturesMode", 1);
+            }
+            if (radioButton.Id == Resource.Id.SettingsButton_CompressPictures_Middle)
+            {
+                Settings.PutInt("CompressPicturesMode", 2);
+            }
+            if (radioButton.Id == Resource.Id.SettingsButton_CompressPictures_Big)
+            {
+                Settings.PutInt("CompressPicturesMode", 3);
+            }
+            if (radioButton.Id == Resource.Id.SettingsButton_CompressPictures_Huge)
+            {
+                Settings.PutInt("CompressPicturesMode", 4);
+            }
+        }
+
+
         private void ButtonRestore_Click(object sender, EventArgs e)
         {
             // Backups müssen sich im Download Verzeichnis befinden.

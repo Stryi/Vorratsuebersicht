@@ -13,11 +13,12 @@ Version 6.00 (Code Version 95, 96)
 ======================================
 - Android ab 5.1
 
+C161 - Komprimierung der Bilder jetzt wählbar
 C160 - Link auf Wiki in Einstellungen
 C159 - Nach Backup fragen jetzt abschaltber.
 C158 - Einmal pro Woche beim Starten nach einem Backup fragen.
 C157 - Textgröße passt sich jetzt besser an die eingestellte Textgröße vom Smartphone.
-C156 - Bilder Komprimierung an die Auflösung des Smartphones anpassen
+C156 - Bilder Komprimierung an die Auflösung des Smartphones anpassen (rückgängig gemacht)
 C155 - Umstellung auf die neue Xamarin.AndroidX Bibliothek (intern)
   
 Version 5.10 (Code Version 94)

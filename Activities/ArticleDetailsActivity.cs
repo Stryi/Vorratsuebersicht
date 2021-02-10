@@ -1151,27 +1151,8 @@ namespace VorratsUebersicht
 
             try
             {
-                int widthLarge  = newBitmap.Width;
-                int heightLarge = newBitmap.Height;
-
-                bool landScape = widthLarge > heightLarge;
-
-                var displaySize = Resources.DisplayMetrics;
-
-                if (displaySize != null)
-                {
-                    int maxDisplay = Math.Max(displaySize.WidthPixels, displaySize.HeightPixels);
-                    int maxBitmap  = Math.Max(newBitmap.Width, newBitmap.Height);
-
-                    text += string.Format("Display: {0:n0} x {1:n0}\r\n", displaySize.WidthPixels, displaySize.HeightPixels);
-
-                    // Bild auf Bildschirmgröße verkleinern?
-                    if (newBitmap.Width > displaySize.WidthPixels)
-                    {
-                        widthLarge  = displaySize.WidthPixels;
-                        heightLarge = displaySize.HeightPixels;
-                    }
-                }
+                int widthLarge  = 854;
+                int heightLarge = 854;
 
                 text += string.Format("Org.: {0:n0} x {1:n0} ({2:n0})\r\n",  newBitmap.Width,  newBitmap.Height, Tools.ToFuzzyByteString(newBitmap.ByteCount));
 
@@ -1180,6 +1161,28 @@ namespace VorratsUebersicht
                 var compress = Settings.GetBoolean("CompressPictures", true);
                 if (compress)
                 {
+                    int compressMode = Settings.GetInt("CompressPicturesMode", 1);
+                    if (compressMode == 2)
+                    {
+                        widthLarge  = 1_024;
+                        heightLarge = 1_024;
+                    }
+
+                    if (compressMode == 3)
+                    {
+                        widthLarge  = 1_280;
+                        heightLarge = 1_280;
+                    }
+
+                    if (compressMode == 4)
+                    {
+                        widthLarge  = 1_536;
+                        heightLarge = 1_536;
+                    }
+
+                    widthLarge = Math.Min (newBitmap.Width,  widthLarge);
+                    heightLarge = Math.Min(newBitmap.Height, heightLarge);
+
                     resizedImage = ImageResizer.ResizeImageAndroid(newBitmap, widthLarge, heightLarge);
                     largeBitmap = BitmapFactory.DecodeByteArray(resizedImage, 0, resizedImage.Length);
                 }
@@ -1189,6 +1192,10 @@ namespace VorratsUebersicht
                 ArticleDetailsActivity.imageLarge = stream.ToArray();
 
                 text += string.Format("Bild: {0:n0} x {1:n0} ({2:n0})\r\n", largeBitmap.Width, largeBitmap.Height, Tools.ToFuzzyByteString(largeBitmap.ByteCount));
+
+                // --------------------------------------------------------------------------------
+                // Miniaturansicht erstellen
+                // --------------------------------------------------------------------------------
 
                 resizedImage = ImageResizer.ResizeImageAndroid(newBitmap, 48*2, 85*2);
 
