@@ -97,6 +97,8 @@ namespace VorratsUebersicht
             string text            = Intent.GetStringExtra ("Name") ?? string.Empty;
             this.articleId         = Intent.GetIntExtra    ("ArticleId", 0);
             string eanCode         = Intent.GetStringExtra ("EANCode") ?? string.Empty;
+
+            // TODO: Kategorie und SubCategorie schon mal setzen (ist ja Neuanlage mit Filter)
             this.category          = Intent.GetStringExtra ("Category");
             this.subCategory       = Intent.GetStringExtra ("SubCategory");
             this.noStorageQuantity = Intent.GetBooleanExtra("NoStorageQuantity", false);
@@ -205,7 +207,7 @@ namespace VorratsUebersicht
             supermarket.Threshold = 1;
 
 
-            this.ShowPictureAndDetails(this.articleId, eanCode);
+            this.ShowPictureAndDetails(eanCode);
 
             imageView.Click     += TakeOrShowPhoto;
             imageTextView.Click += delegate { this.SaveAndGoToStorageItem(); };
@@ -494,9 +496,11 @@ namespace VorratsUebersicht
             message.SetMessage("Artikelangaben im Internet auf OpenFoodFacts.org suchen?\n\nInternetzugriff kann zusätzliche Kosten verursachen.");
             message.SetIcon(Resource.Drawable.ic_launcher);
 
-            Switch checkBox = new Switch(this);
-            checkBox.Text = "Warnung nicht mehr zeigen";
-            checkBox.TextSize = 14;
+            Switch checkBox = new Switch(this)
+            {
+                Text = "Warnung nicht mehr zeigen",
+                TextSize = 14
+            };
             checkBox.SetPadding(20, 50, 20, 20);
             message.SetView(checkBox);
             message.SetPositiveButton("Ja", (s, e) => 
@@ -727,7 +731,7 @@ namespace VorratsUebersicht
 
             if (requestCode == StorageQuantityId)
             {
-                this.ShowStoreQuantityInfo(this.articleId);
+                this.ShowStoreQuantityInfo();
             }
         }
 
@@ -974,7 +978,7 @@ namespace VorratsUebersicht
             StartActivityForResult(voiceIntent, SpechId);
         }
 
-        private void ShowPictureAndDetails(int articleId, string eanCode)
+        private void ShowPictureAndDetails(string eanCode)
         {
             FindViewById<TextView>(Resource.Id.ArticleDetails_ArticleId).Text       = string.Format("ArticleId: {0}", article.ArticleId);
 
@@ -1056,7 +1060,7 @@ namespace VorratsUebersicht
             FindViewById<EditText>(Resource.Id.ArticleDetails_Supermarket).Text  = article.Supermarket;
             FindViewById<EditText>(Resource.Id.ArticleDetails_Storage).Text      = article.StorageName;
 
-            this.ShowStoreQuantityInfo(article.ArticleId);
+            this.ShowStoreQuantityInfo();
 
             if (this.articleImage.ImageSmall != null)
             {
@@ -1091,7 +1095,7 @@ namespace VorratsUebersicht
             }
         }
 
-        private void ShowStoreQuantityInfo(int articleId)
+        private void ShowStoreQuantityInfo()
         {
 			var storageItemBestList = Database.GetBestBeforeItemQuantity(article.ArticleId);
 
@@ -1117,8 +1121,8 @@ namespace VorratsUebersicht
                 }
             }
 
-			string info    = string.Empty;
-			
+            string info;
+
             info = string.Format("Bestand: {0} Stück", bestand);
 
             if (vorDemAblauf > 0)

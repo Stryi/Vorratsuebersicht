@@ -93,7 +93,7 @@ namespace VorratsUebersicht
             TextView articleText = FindViewById<TextView>(Resource.Id.StorageItemQuantity_ArticleDetail);
             articleText.Click += delegate
             {
-                this.GotoArticleDetails(this.articleId);
+                this.GotoArticleDetails();
             };
 
             Button selectStorage = FindViewById<Button>(Resource.Id.StorageItemQuantity_SelectStorage);
@@ -122,12 +122,14 @@ namespace VorratsUebersicht
         {
             var storageName = FindViewById<EditText>(Resource.Id.StorageItemQuantity_StorageText).Text;
 
-            StorageItemQuantityResult storageItemQuantity = new StorageItemQuantityResult();
-			storageItemQuantity.ArticleId    = this.articleId;
-            storageItemQuantity.Quantity     = (decimal)this.quantity;
-            storageItemQuantity.BestBefore   = DateTime.Today;
-            storageItemQuantity.StorageName  = storageName;
-            storageItemQuantity.IsChanged    = true;
+            StorageItemQuantityResult storageItemQuantity = new StorageItemQuantityResult()
+            {
+			    ArticleId    = this.articleId,
+                Quantity     = (decimal)this.quantity,
+                BestBefore   = DateTime.Today,
+                StorageName  = storageName,
+                IsChanged    = true
+            };
             
             StorageItemQuantityListView itemView = new StorageItemQuantityListView(storageItemQuantity);
 
@@ -154,12 +156,14 @@ namespace VorratsUebersicht
         {
             var storageName = FindViewById<EditText>(Resource.Id.StorageItemQuantity_StorageText).Text;
 
-            StorageItemQuantityResult storageItemQuantity = new StorageItemQuantityResult();
-			storageItemQuantity.ArticleId    = this.articleId;
-            storageItemQuantity.Quantity     = 1;
-            storageItemQuantity.BestBefore   = DateTime.Today;
-            storageItemQuantity.StorageName  = storageName;
-            storageItemQuantity.IsChanged    = true;
+            StorageItemQuantityResult storageItemQuantity = new StorageItemQuantityResult()
+            {
+			    ArticleId    = this.articleId,
+                Quantity     = 1,
+                BestBefore   = DateTime.Today,
+                StorageName  = storageName,
+                IsChanged    = true
+            };
 
             if (this.quantity > 1)
             {
@@ -317,7 +321,7 @@ namespace VorratsUebersicht
                     return true;
 
                 case Resource.Id.StorageItemQuantity_ToArticleDetails:
-                    this.GotoArticleDetails(this.articleId);
+                    this.GotoArticleDetails();
                     return true;
 
                 case Resource.Id.StorageItemQuantity_EditPicture:
@@ -544,7 +548,7 @@ namespace VorratsUebersicht
             builder.Show();
         }
 
-        private void GotoArticleDetails(int articleId)
+        private void GotoArticleDetails()
         {
             if (this.noArticleDetails)
                 return;
@@ -611,8 +615,10 @@ namespace VorratsUebersicht
         {
             var dialog = new AlertDialog.Builder(this);
             dialog.SetMessage("Anzahl eingeben:");
-            EditText input = new EditText(this);
-            input.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
+            EditText input = new EditText(this)
+            {
+                InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal
+            };
 
             if (storageItem.Quantity > 0)
             {

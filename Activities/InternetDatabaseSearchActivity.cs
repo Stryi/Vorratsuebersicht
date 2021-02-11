@@ -231,7 +231,7 @@ namespace VorratsUebersicht
 
         private FoodInformation GetFoodInformation(string eanCode)
         {
-            string parameter = null;
+            string parameter;
             
             parameter = "?fields=product_name,product_name_de,brands,quantity,nutriments,image_url,image_small_url";
 

@@ -8358,92 +8358,92 @@ namespace VorratsUebersicht
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7F0F004B
-			public const int abc_action_bar_home_description = 2131689547;
-			
-			// aapt resource value: 0x7F0F004C
-			public const int abc_action_bar_up_description = 2131689548;
-			
 			// aapt resource value: 0x7F0F004D
-			public const int abc_action_menu_overflow_description = 2131689549;
+			public const int abc_action_bar_home_description = 2131689549;
 			
 			// aapt resource value: 0x7F0F004E
-			public const int abc_action_mode_done = 2131689550;
-			
-			// aapt resource value: 0x7F0F0050
-			public const int abc_activitychooserview_choose_application = 2131689552;
+			public const int abc_action_bar_up_description = 2131689550;
 			
 			// aapt resource value: 0x7F0F004F
-			public const int abc_activity_chooser_view_see_all = 2131689551;
+			public const int abc_action_menu_overflow_description = 2131689551;
 			
-			// aapt resource value: 0x7F0F0051
-			public const int abc_capital_off = 2131689553;
+			// aapt resource value: 0x7F0F0050
+			public const int abc_action_mode_done = 2131689552;
 			
 			// aapt resource value: 0x7F0F0052
-			public const int abc_capital_on = 2131689554;
+			public const int abc_activitychooserview_choose_application = 2131689554;
+			
+			// aapt resource value: 0x7F0F0051
+			public const int abc_activity_chooser_view_see_all = 2131689553;
 			
 			// aapt resource value: 0x7F0F0053
-			public const int abc_menu_alt_shortcut_label = 2131689555;
+			public const int abc_capital_off = 2131689555;
 			
 			// aapt resource value: 0x7F0F0054
-			public const int abc_menu_ctrl_shortcut_label = 2131689556;
+			public const int abc_capital_on = 2131689556;
 			
 			// aapt resource value: 0x7F0F0055
-			public const int abc_menu_delete_shortcut_label = 2131689557;
+			public const int abc_menu_alt_shortcut_label = 2131689557;
 			
 			// aapt resource value: 0x7F0F0056
-			public const int abc_menu_enter_shortcut_label = 2131689558;
+			public const int abc_menu_ctrl_shortcut_label = 2131689558;
 			
 			// aapt resource value: 0x7F0F0057
-			public const int abc_menu_function_shortcut_label = 2131689559;
+			public const int abc_menu_delete_shortcut_label = 2131689559;
 			
 			// aapt resource value: 0x7F0F0058
-			public const int abc_menu_meta_shortcut_label = 2131689560;
+			public const int abc_menu_enter_shortcut_label = 2131689560;
 			
 			// aapt resource value: 0x7F0F0059
-			public const int abc_menu_shift_shortcut_label = 2131689561;
+			public const int abc_menu_function_shortcut_label = 2131689561;
 			
 			// aapt resource value: 0x7F0F005A
-			public const int abc_menu_space_shortcut_label = 2131689562;
+			public const int abc_menu_meta_shortcut_label = 2131689562;
 			
 			// aapt resource value: 0x7F0F005B
-			public const int abc_menu_sym_shortcut_label = 2131689563;
+			public const int abc_menu_shift_shortcut_label = 2131689563;
 			
 			// aapt resource value: 0x7F0F005C
-			public const int abc_prepend_shortcut_label = 2131689564;
-			
-			// aapt resource value: 0x7F0F005E
-			public const int abc_searchview_description_clear = 2131689566;
-			
-			// aapt resource value: 0x7F0F005F
-			public const int abc_searchview_description_query = 2131689567;
-			
-			// aapt resource value: 0x7F0F0060
-			public const int abc_searchview_description_search = 2131689568;
-			
-			// aapt resource value: 0x7F0F0061
-			public const int abc_searchview_description_submit = 2131689569;
-			
-			// aapt resource value: 0x7F0F0062
-			public const int abc_searchview_description_voice = 2131689570;
+			public const int abc_menu_space_shortcut_label = 2131689564;
 			
 			// aapt resource value: 0x7F0F005D
-			public const int abc_search_hint = 2131689565;
+			public const int abc_menu_sym_shortcut_label = 2131689565;
+			
+			// aapt resource value: 0x7F0F005E
+			public const int abc_prepend_shortcut_label = 2131689566;
+			
+			// aapt resource value: 0x7F0F0060
+			public const int abc_searchview_description_clear = 2131689568;
+			
+			// aapt resource value: 0x7F0F0061
+			public const int abc_searchview_description_query = 2131689569;
+			
+			// aapt resource value: 0x7F0F0062
+			public const int abc_searchview_description_search = 2131689570;
 			
 			// aapt resource value: 0x7F0F0063
-			public const int abc_shareactionprovider_share_with = 2131689571;
+			public const int abc_searchview_description_submit = 2131689571;
 			
 			// aapt resource value: 0x7F0F0064
-			public const int abc_shareactionprovider_share_with_application = 2131689572;
+			public const int abc_searchview_description_voice = 2131689572;
+			
+			// aapt resource value: 0x7F0F005F
+			public const int abc_search_hint = 2131689567;
 			
 			// aapt resource value: 0x7F0F0065
-			public const int abc_toolbar_collapse_description = 2131689573;
+			public const int abc_shareactionprovider_share_with = 2131689573;
+			
+			// aapt resource value: 0x7F0F0066
+			public const int abc_shareactionprovider_share_with_application = 2131689574;
+			
+			// aapt resource value: 0x7F0F0067
+			public const int abc_toolbar_collapse_description = 2131689575;
 			
 			// aapt resource value: 0x7F0F0000
 			public const int AnySubCategory_ItemEntry = 2131689472;
 			
-			// aapt resource value: 0x7F0F0066
-			public const int appbar_scrolling_view_behavior = 2131689574;
+			// aapt resource value: 0x7F0F0068
+			public const int appbar_scrolling_view_behavior = 2131689576;
 			
 			// aapt resource value: 0x7F0F0001
 			public const int App_Cancel = 2131689473;
@@ -8562,56 +8562,56 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7F0F0027
 			public const int ArticleList_ToShoppingList = 2131689511;
 			
-			// aapt resource value: 0x7F0F0067
-			public const int bottom_sheet_behavior = 2131689575;
-			
-			// aapt resource value: 0x7F0F0068
-			public const int character_counter_content_description = 2131689576;
-			
 			// aapt resource value: 0x7F0F0069
-			public const int character_counter_overflowed_content_description = 2131689577;
+			public const int bottom_sheet_behavior = 2131689577;
 			
 			// aapt resource value: 0x7F0F006A
-			public const int character_counter_pattern = 2131689578;
+			public const int character_counter_content_description = 2131689578;
 			
 			// aapt resource value: 0x7F0F006B
-			public const int chip_text = 2131689579;
+			public const int character_counter_overflowed_content_description = 2131689579;
 			
 			// aapt resource value: 0x7F0F006C
-			public const int clear_text_end_icon_content_description = 2131689580;
+			public const int character_counter_pattern = 2131689580;
 			
 			// aapt resource value: 0x7F0F006D
-			public const int copy_toast_msg = 2131689581;
+			public const int chip_text = 2131689581;
 			
 			// aapt resource value: 0x7F0F006E
-			public const int error_icon_content_description = 2131689582;
+			public const int clear_text_end_icon_content_description = 2131689582;
 			
 			// aapt resource value: 0x7F0F006F
-			public const int exposed_dropdown_menu_content_description = 2131689583;
+			public const int copy_toast_msg = 2131689583;
 			
 			// aapt resource value: 0x7F0F0070
-			public const int fab_transformation_scrim_behavior = 2131689584;
+			public const int error_icon_content_description = 2131689584;
 			
 			// aapt resource value: 0x7F0F0071
-			public const int fab_transformation_sheet_behavior = 2131689585;
+			public const int exposed_dropdown_menu_content_description = 2131689585;
 			
 			// aapt resource value: 0x7F0F0072
-			public const int fallback_menu_item_copy_link = 2131689586;
+			public const int fab_transformation_scrim_behavior = 2131689586;
 			
 			// aapt resource value: 0x7F0F0073
-			public const int fallback_menu_item_open_in_browser = 2131689587;
+			public const int fab_transformation_sheet_behavior = 2131689587;
 			
 			// aapt resource value: 0x7F0F0074
-			public const int fallback_menu_item_share_link = 2131689588;
+			public const int fallback_menu_item_copy_link = 2131689588;
 			
 			// aapt resource value: 0x7F0F0075
-			public const int hide_bottom_view_on_scroll_behavior = 2131689589;
+			public const int fallback_menu_item_open_in_browser = 2131689589;
 			
 			// aapt resource value: 0x7F0F0076
-			public const int icon_content_description = 2131689590;
+			public const int fallback_menu_item_share_link = 2131689590;
 			
 			// aapt resource value: 0x7F0F0077
-			public const int item_view_role_description = 2131689591;
+			public const int hide_bottom_view_on_scroll_behavior = 2131689591;
+			
+			// aapt resource value: 0x7F0F0078
+			public const int icon_content_description = 2131689592;
+			
+			// aapt resource value: 0x7F0F0079
+			public const int item_view_role_description = 2131689593;
 			
 			// aapt resource value: 0x7F0F0028
 			public const int Main_ArticlesNearExpiryDate = 2131689512;
@@ -8649,116 +8649,116 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7F0F0033
 			public const int Main_DemnaechstZuVerbrauchen = 2131689523;
 			
-			// aapt resource value: 0x7F0F0078
-			public const int material_slider_range_end = 2131689592;
-			
-			// aapt resource value: 0x7F0F0079
-			public const int material_slider_range_start = 2131689593;
-			
 			// aapt resource value: 0x7F0F007A
-			public const int mtrl_badge_numberless_content_description = 2131689594;
+			public const int material_slider_range_end = 2131689594;
 			
 			// aapt resource value: 0x7F0F007B
-			public const int mtrl_chip_close_icon_content_description = 2131689595;
+			public const int material_slider_range_start = 2131689595;
 			
 			// aapt resource value: 0x7F0F007C
-			public const int mtrl_exceed_max_badge_number_content_description = 2131689596;
+			public const int mtrl_badge_numberless_content_description = 2131689596;
 			
 			// aapt resource value: 0x7F0F007D
-			public const int mtrl_exceed_max_badge_number_suffix = 2131689597;
+			public const int mtrl_chip_close_icon_content_description = 2131689597;
 			
 			// aapt resource value: 0x7F0F007E
-			public const int mtrl_picker_a11y_next_month = 2131689598;
+			public const int mtrl_exceed_max_badge_number_content_description = 2131689598;
 			
 			// aapt resource value: 0x7F0F007F
-			public const int mtrl_picker_a11y_prev_month = 2131689599;
+			public const int mtrl_exceed_max_badge_number_suffix = 2131689599;
 			
 			// aapt resource value: 0x7F0F0080
-			public const int mtrl_picker_announce_current_selection = 2131689600;
+			public const int mtrl_picker_a11y_next_month = 2131689600;
 			
 			// aapt resource value: 0x7F0F0081
-			public const int mtrl_picker_cancel = 2131689601;
+			public const int mtrl_picker_a11y_prev_month = 2131689601;
 			
 			// aapt resource value: 0x7F0F0082
-			public const int mtrl_picker_confirm = 2131689602;
+			public const int mtrl_picker_announce_current_selection = 2131689602;
 			
 			// aapt resource value: 0x7F0F0083
-			public const int mtrl_picker_date_header_selected = 2131689603;
+			public const int mtrl_picker_cancel = 2131689603;
 			
 			// aapt resource value: 0x7F0F0084
-			public const int mtrl_picker_date_header_title = 2131689604;
+			public const int mtrl_picker_confirm = 2131689604;
 			
 			// aapt resource value: 0x7F0F0085
-			public const int mtrl_picker_date_header_unselected = 2131689605;
+			public const int mtrl_picker_date_header_selected = 2131689605;
 			
 			// aapt resource value: 0x7F0F0086
-			public const int mtrl_picker_day_of_week_column_header = 2131689606;
+			public const int mtrl_picker_date_header_title = 2131689606;
 			
 			// aapt resource value: 0x7F0F0087
-			public const int mtrl_picker_invalid_format = 2131689607;
+			public const int mtrl_picker_date_header_unselected = 2131689607;
 			
 			// aapt resource value: 0x7F0F0088
-			public const int mtrl_picker_invalid_format_example = 2131689608;
+			public const int mtrl_picker_day_of_week_column_header = 2131689608;
 			
 			// aapt resource value: 0x7F0F0089
-			public const int mtrl_picker_invalid_format_use = 2131689609;
+			public const int mtrl_picker_invalid_format = 2131689609;
 			
 			// aapt resource value: 0x7F0F008A
-			public const int mtrl_picker_invalid_range = 2131689610;
+			public const int mtrl_picker_invalid_format_example = 2131689610;
 			
 			// aapt resource value: 0x7F0F008B
-			public const int mtrl_picker_navigate_to_year_description = 2131689611;
+			public const int mtrl_picker_invalid_format_use = 2131689611;
 			
 			// aapt resource value: 0x7F0F008C
-			public const int mtrl_picker_out_of_range = 2131689612;
+			public const int mtrl_picker_invalid_range = 2131689612;
 			
 			// aapt resource value: 0x7F0F008D
-			public const int mtrl_picker_range_header_only_end_selected = 2131689613;
+			public const int mtrl_picker_navigate_to_year_description = 2131689613;
 			
 			// aapt resource value: 0x7F0F008E
-			public const int mtrl_picker_range_header_only_start_selected = 2131689614;
+			public const int mtrl_picker_out_of_range = 2131689614;
 			
 			// aapt resource value: 0x7F0F008F
-			public const int mtrl_picker_range_header_selected = 2131689615;
+			public const int mtrl_picker_range_header_only_end_selected = 2131689615;
 			
 			// aapt resource value: 0x7F0F0090
-			public const int mtrl_picker_range_header_title = 2131689616;
+			public const int mtrl_picker_range_header_only_start_selected = 2131689616;
 			
 			// aapt resource value: 0x7F0F0091
-			public const int mtrl_picker_range_header_unselected = 2131689617;
+			public const int mtrl_picker_range_header_selected = 2131689617;
 			
 			// aapt resource value: 0x7F0F0092
-			public const int mtrl_picker_save = 2131689618;
+			public const int mtrl_picker_range_header_title = 2131689618;
 			
 			// aapt resource value: 0x7F0F0093
-			public const int mtrl_picker_text_input_date_hint = 2131689619;
+			public const int mtrl_picker_range_header_unselected = 2131689619;
 			
 			// aapt resource value: 0x7F0F0094
-			public const int mtrl_picker_text_input_date_range_end_hint = 2131689620;
+			public const int mtrl_picker_save = 2131689620;
 			
 			// aapt resource value: 0x7F0F0095
-			public const int mtrl_picker_text_input_date_range_start_hint = 2131689621;
+			public const int mtrl_picker_text_input_date_hint = 2131689621;
 			
 			// aapt resource value: 0x7F0F0096
-			public const int mtrl_picker_text_input_day_abbr = 2131689622;
+			public const int mtrl_picker_text_input_date_range_end_hint = 2131689622;
 			
 			// aapt resource value: 0x7F0F0097
-			public const int mtrl_picker_text_input_month_abbr = 2131689623;
+			public const int mtrl_picker_text_input_date_range_start_hint = 2131689623;
 			
 			// aapt resource value: 0x7F0F0098
-			public const int mtrl_picker_text_input_year_abbr = 2131689624;
+			public const int mtrl_picker_text_input_day_abbr = 2131689624;
 			
 			// aapt resource value: 0x7F0F0099
-			public const int mtrl_picker_toggle_to_calendar_input_mode = 2131689625;
+			public const int mtrl_picker_text_input_month_abbr = 2131689625;
 			
 			// aapt resource value: 0x7F0F009A
-			public const int mtrl_picker_toggle_to_day_selection = 2131689626;
+			public const int mtrl_picker_text_input_year_abbr = 2131689626;
 			
 			// aapt resource value: 0x7F0F009B
-			public const int mtrl_picker_toggle_to_text_input_mode = 2131689627;
+			public const int mtrl_picker_toggle_to_calendar_input_mode = 2131689627;
 			
 			// aapt resource value: 0x7F0F009C
-			public const int mtrl_picker_toggle_to_year_selection = 2131689628;
+			public const int mtrl_picker_toggle_to_day_selection = 2131689628;
+			
+			// aapt resource value: 0x7F0F009D
+			public const int mtrl_picker_toggle_to_text_input_mode = 2131689629;
+			
+			// aapt resource value: 0x7F0F009E
+			public const int mtrl_picker_toggle_to_year_selection = 2131689630;
 			
 			// aapt resource value: 0x7F0F0034
 			public const int NoArticleCatagories = 2131689524;
@@ -8766,89 +8766,95 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7F0F0035
 			public const int NoSubCategory_ItemEntry = 2131689525;
 			
-			// aapt resource value: 0x7F0F009D
-			public const int password_toggle_content_description = 2131689629;
-			
-			// aapt resource value: 0x7F0F009E
-			public const int path_password_eye = 2131689630;
-			
 			// aapt resource value: 0x7F0F009F
-			public const int path_password_eye_mask_strike_through = 2131689631;
+			public const int password_toggle_content_description = 2131689631;
 			
 			// aapt resource value: 0x7F0F00A0
-			public const int path_password_eye_mask_visible = 2131689632;
+			public const int path_password_eye = 2131689632;
 			
 			// aapt resource value: 0x7F0F00A1
-			public const int path_password_strike_through = 2131689633;
+			public const int path_password_eye_mask_strike_through = 2131689633;
 			
 			// aapt resource value: 0x7F0F00A2
-			public const int search_menu_title = 2131689634;
-			
-			// aapt resource value: 0x7F0F0036
-			public const int Settings_CreateBackup = 2131689526;
-			
-			// aapt resource value: 0x7F0F0037
-			public const int Settings_Datenbank = 2131689527;
-			
-			// aapt resource value: 0x7F0F0038
-			public const int Settings_DatenbankKomprimieren = 2131689528;
-			
-			// aapt resource value: 0x7F0F0039
-			public const int Settings_DatenbankReparieren = 2131689529;
-			
-			// aapt resource value: 0x7F0F003A
-			public const int Settings_OpenSourceLizenzen = 2131689530;
-			
-			// aapt resource value: 0x7F0F003B
-			public const int Settings_RestoreBackup = 2131689531;
-			
-			// aapt resource value: 0x7F0F003C
-			public const int Settings_TestDatenbank = 2131689532;
-			
-			// aapt resource value: 0x7F0F003D
-			public const int Settings_TestDatenbankLeeren = 2131689533;
-			
-			// aapt resource value: 0x7F0F003E
-			public const int Settings_TestDatenbankZuruecksetzen = 2131689534;
-			
-			// aapt resource value: 0x7F0F003F
-			public const int Settings_Title = 2131689535;
-			
-			// aapt resource value: 0x7F0F0040
-			public const int ShoppingList_AllSupermarkets = 2131689536;
-			
-			// aapt resource value: 0x7F0F0041
-			public const int ShoppingList_Artikelangaben = 2131689537;
-			
-			// aapt resource value: 0x7F0F0042
-			public const int ShoppingList_Gekauft = 2131689538;
-			
-			// aapt resource value: 0x7F0F0043
-			public const int ShoppingList_Remove = 2131689539;
-			
-			// aapt resource value: 0x7F0F0044
-			public const int ShoppingList_ToStorage = 2131689540;
-			
-			// aapt resource value: 0x7F0F0045
-			public const int Start_TestDbQuestion = 2131689541;
+			public const int path_password_eye_mask_visible = 2131689634;
 			
 			// aapt resource value: 0x7F0F00A3
-			public const int status_bar_notification_info_overflow = 2131689635;
+			public const int path_password_strike_through = 2131689635;
+			
+			// aapt resource value: 0x7F0F0036
+			public const int Picture = 2131689526;
+			
+			// aapt resource value: 0x7F0F00A4
+			public const int search_menu_title = 2131689636;
+			
+			// aapt resource value: 0x7F0F0037
+			public const int Settings_CreateBackup = 2131689527;
+			
+			// aapt resource value: 0x7F0F0038
+			public const int Settings_Datenbank = 2131689528;
+			
+			// aapt resource value: 0x7F0F0039
+			public const int Settings_DatenbankKomprimieren = 2131689529;
+			
+			// aapt resource value: 0x7F0F003A
+			public const int Settings_DatenbankReparieren = 2131689530;
+			
+			// aapt resource value: 0x7F0F003B
+			public const int Settings_OpenSourceLizenzen = 2131689531;
+			
+			// aapt resource value: 0x7F0F003C
+			public const int Settings_RestoreBackup = 2131689532;
+			
+			// aapt resource value: 0x7F0F003D
+			public const int Settings_TestDatenbank = 2131689533;
+			
+			// aapt resource value: 0x7F0F003E
+			public const int Settings_TestDatenbankLeeren = 2131689534;
+			
+			// aapt resource value: 0x7F0F003F
+			public const int Settings_TestDatenbankZuruecksetzen = 2131689535;
+			
+			// aapt resource value: 0x7F0F0040
+			public const int Settings_Title = 2131689536;
+			
+			// aapt resource value: 0x7F0F0041
+			public const int ShoppingList_AllSupermarkets = 2131689537;
+			
+			// aapt resource value: 0x7F0F0042
+			public const int ShoppingList_Artikelangaben = 2131689538;
+			
+			// aapt resource value: 0x7F0F0043
+			public const int ShoppingList_Gekauft = 2131689539;
+			
+			// aapt resource value: 0x7F0F0044
+			public const int ShoppingList_Remove = 2131689540;
+			
+			// aapt resource value: 0x7F0F0045
+			public const int ShoppingList_ToStorage = 2131689541;
 			
 			// aapt resource value: 0x7F0F0046
-			public const int StorageItemQuantity_Menu_Artikelangaben = 2131689542;
+			public const int Start_TestDbQuestion = 2131689542;
+			
+			// aapt resource value: 0x7F0F00A5
+			public const int status_bar_notification_info_overflow = 2131689637;
 			
 			// aapt resource value: 0x7F0F0047
-			public const int StorageItemQuantity_Menu_ToShoppingList = 2131689543;
+			public const int StorageItemQuantity_Menu_Artikelangaben = 2131689543;
 			
 			// aapt resource value: 0x7F0F0048
-			public const int StorageItem_AllStoragesStorage = 2131689544;
+			public const int StorageItemQuantity_Menu_ToShoppingList = 2131689544;
 			
 			// aapt resource value: 0x7F0F0049
-			public const int StorageItem_Artikelangaben = 2131689545;
+			public const int StorageItem_AllStoragesStorage = 2131689545;
 			
 			// aapt resource value: 0x7F0F004A
-			public const int StorageItem_ToShoppingList = 2131689546;
+			public const int StorageItem_Artikelangaben = 2131689546;
+			
+			// aapt resource value: 0x7F0F004B
+			public const int StorageItem_ToShoppingList = 2131689547;
+			
+			// aapt resource value: 0x7F0F004C
+			public const int ThreePoints = 2131689548;
 			
 			static String()
 			{

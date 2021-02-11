@@ -168,7 +168,7 @@ namespace VorratsUebersicht
                 return;
             }
 
-            string message = string.Empty;
+            string message;
             try
             {
                 Bitmap largeBitmap = BitmapFactory.DecodeByteArray (article.ImageLarge, 0, article.ImageLarge.Length);

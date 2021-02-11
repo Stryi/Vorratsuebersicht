@@ -78,9 +78,6 @@ namespace VorratsUebersicht
         {
             if (view.Id == Resource.Id.ArticleList) 
             {
-                ListView listView = (ListView)view;
-                AdapterView.AdapterContextMenuInfo acmi = (AdapterContextMenuInfo) menuInfo;
-
                 menu.Add(Menu.None, 1, Menu.None, Resource.String.ArticleList_Lagerbestand);    // Lagerbestand
                 menu.Add(Menu.None, 2, Menu.None, Resource.String.ArticleList_ToShoppingList);  // Auf Einkaufszettel
 

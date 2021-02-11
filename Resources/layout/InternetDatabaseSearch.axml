@@ -8,7 +8,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
       <ProgressBar
           android:id="@+id/InternetDatabaseResult_Progress"            
           style="?android:attr/progressBarStyleHorizontal"
@@ -40,6 +40,7 @@
             android:textColor="@color/Text_Color" />
         <ImageView
             android:id="@+id/InternetDatabaseResult_Image"
+            android:contentDescription="@string/Picture"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" 
             android:scaleType="fitCenter"/>

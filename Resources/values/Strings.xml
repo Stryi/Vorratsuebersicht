@@ -104,5 +104,9 @@
     <item>Medikamente</item>
     <item>Sonstiges</item>    
   </string-array>
+
+  <string name="Picture">Bild</string>
+  <string name="ThreePoints">...</string>
+  
 </resources>
 

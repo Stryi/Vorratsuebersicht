@@ -22,6 +22,7 @@
         android:background="@color/Application_Background2">
         <ImageView
             android:id="@+id/StorageItemQuantity_Image"
+            android:contentDescription="@string/Picture"
             android:layout_width="100dp"
             android:layout_height="fill_parent"
             android:scaleType="fitCenter"
@@ -105,6 +106,7 @@
             android:layout_toRightOf="@id/StorageItemQuantity_StepButton" />
         <ImageButton
             android:id="@+id/StorageItemQuantity_AddArticle"
+            android:contentDescription="@string/Picture"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
