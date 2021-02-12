@@ -67,12 +67,10 @@ namespace VorratsUebersicht
             MainActivity.Strings_Amount        = Resources.GetString(Resource.String.ArticleDetails_Amount);
             MainActivity.Strings_Notes         = Resources.GetString(Resource.String.ArticleDetails_Notes);
 
-            // Neuerungen auf dem Start Bildschirm aktualisiern.
-
             // Damit Pre-Launch von Google Play Store nicht immer wieder
             // in die EAN Scan "Falle" tappt und da nicht wieder rauskommt.
             // (meistens nächster Tag)
-            MainActivity.preLaunchTestEndDay = new DateTime(2021, 02, 06);
+            MainActivity.preLaunchTestEndDay = new DateTime(2021, 02, 13);
 
             // Zusammen mit minSdkVersion="19" verhindert das den Fehler: Android.Content.Res.Resources+NotFoundException: 'File res/drawable/abc_vector_test.xml from drawable resource ID
             //AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
