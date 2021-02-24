@@ -9,6 +9,12 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 6.01 (Code Version 97)
+==============================
+
+C162 - Artikeldetails jetzt mit oben kläbendem Bild.
+E031 - Erinnerung an Backup hat nicht funktioniert.
+
 Version 6.00 (Code Version 95, 96)
 ======================================
 - Android ab 5.1

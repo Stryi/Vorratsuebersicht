@@ -25,7 +25,7 @@ namespace VorratsUebersicht
     public class MainActivity : AppCompatActivity
     {
         // Debug-Konstanten
-        private static bool debug_date_picker = false;
+        private static readonly bool debug_date_picker = false;
 
         public static readonly int EditStorageItemQuantityId = 1001;
         public static readonly int OptionsId = 1002;
@@ -136,8 +136,10 @@ namespace VorratsUebersicht
             if (debug_date_picker)
             {
                 Android_Database.UseTestDatabase = true;
-                Button b = new Button(this.ApplicationContext);
-                b.Text = "Test DP";
+                Button b = new Button(this.ApplicationContext)
+                {
+                    Text = "Test DP"
+                };
                 b.Click += delegate
                 {
                     AltDatePickerFragment frag = AltDatePickerFragment.NewInstance(delegate (DateTime? time) { b.Text = time!=null ? time.Value.ToShortDateString() : "Kein Datum"; }, DateTime.Today);
@@ -305,11 +307,16 @@ namespace VorratsUebersicht
             DateTime? lastBackupDay = Database.GetSettingsDate("LAST_BACKUP");
 
             // Backup nur alle 7 Tage vorschlagen
-            if ((lastBackupDay == null) || (lastBackupDay.Value.AddDays(7) >= DateTime.Today))
+            if ((lastBackupDay != null) && (lastBackupDay.Value.AddDays(7) >= DateTime.Today))
                 return;
 
-            string messageText = "Backup der Datenbank erstellen?\r\n\r\n" +
-                "Letzter Backup: " + lastBackupDay.Value.ToShortDateString();
+            string messageText = "Backup der Datenbank erstellen?";
+
+            if (lastBackupDay != null)
+            {
+                messageText += "\r\n\r\n";
+                messageText += "Letzter Backup: " + lastBackupDay.Value.ToShortDateString();
+            }
 
             AlertDialog.Builder message = new AlertDialog.Builder(this);
             message.SetIcon(Resource.Drawable.ic_launcher);
@@ -319,10 +326,6 @@ namespace VorratsUebersicht
                     var settingsActivity = new Intent(this, typeof(SettingsActivity));
                     settingsActivity.PutExtra("CreateBackup", true);
                     StartActivity(settingsActivity);
-
-                    // Datum vom Backup in der Datenbank speichern.
-                    Database.SetSettingsDate("LAST_BACKUP", DateTime.Today);
-
                 });
             message.SetNegativeButton("Nicht jetzt", (s, e) => { });
             message.Show();

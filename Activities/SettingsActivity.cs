@@ -128,7 +128,7 @@ namespace VorratsUebersicht
 
             Switch switchAskForBackup = FindViewById<Switch>(Resource.Id.SettingsButton_AskForBackup);
             switchAskForBackup.Click += AskForBackup_Click;
-            switchAskForBackup.Checked = Settings.GetBoolean("AskForBackup", true);;
+            switchAskForBackup.Checked = Settings.GetBoolean("AskForBackup", true);
 
             EditText editTextBackupPath = FindViewById<EditText>(Resource.Id.SettingsButton_BackupPath);
             editTextBackupPath.Text = this.GetBackupPath();
@@ -172,6 +172,7 @@ namespace VorratsUebersicht
 
             this.EnableButtons();
 
+            this.ShowLastBackupDay();
             this.ShowApplicationVersion();
 
             // Artikelname ist eingetragen. Tastatus anfänglich ausblenden.
@@ -520,6 +521,7 @@ namespace VorratsUebersicht
 
             this.ShowDatabaseInfo();
             this.ShowUserDefinedCategories();
+            this.ShowLastBackupDay();
             this.EnableButtons();
         }
 
@@ -700,6 +702,13 @@ namespace VorratsUebersicht
             // damit es auch im Backup ist.
             this.SaveUserDefinedCategories();
 
+            DateTime? lastBackupDay = Database.GetSettingsDate("LAST_BACKUP");
+
+            // Datum vom Backup in der Datenbank speichern.
+            Database.SetSettingsDate("LAST_BACKUP", DateTime.Today);
+
+            this.ShowLastBackupDay();
+
             var databaseFilePath = Android_Database.Instance.GetProductiveDatabasePath();
 
             string backupFilePath = this.GetBackupFileName(databaseFilePath);
@@ -713,6 +722,7 @@ namespace VorratsUebersicht
                 try
                 {
                     File.Copy(databaseFilePath, backupFilePath);
+
                     message = string.Format(
                         "Datenbank im Download Verzeichnis gesichert als:\n\n {0}" +
                         "\n\nSichern Sie diese Datei auf Google Drive oder auf Ihren PC.",
@@ -721,13 +731,19 @@ namespace VorratsUebersicht
                 catch(Exception ex)
                 {
                     message = ex.Message;
+
+                    if (lastBackupDay != null)
+                    {
+                        // Datum vom wieder zurückspielen.
+                        Database.SetSettingsDate("LAST_BACKUP", lastBackupDay.Value);
+                    }
+
                 }
 
                 this.HideProgressBar(progressDialog);
 
                 RunOnUiThread(() =>
                 {
-
                     var builder = new AlertDialog.Builder(this);
                     builder.SetMessage(message);
                     builder.SetPositiveButton("Ok", (s, e) => { });
@@ -745,6 +761,9 @@ namespace VorratsUebersicht
 
             buttonBackup.Enabled  = !Android_Database.UseTestDatabase;
             buttonRestore.Enabled = !Android_Database.UseTestDatabase;
+
+            TextView lastBackup = FindViewById<TextView>(Resource.Id.Settings_LastBackupDay);
+            lastBackup.Enabled = !Android_Database.UseTestDatabase;
         }
 
         private void ShowUserDefinedCategories()
@@ -778,6 +797,13 @@ namespace VorratsUebersicht
 
             this.userCategoriesChanged = false;
         }
+
+        private void ShowLastBackupDay()
+        {
+            TextView lastBackupDay = FindViewById<TextView>(Resource.Id.Settings_LastBackupDay);
+            lastBackupDay.Text = string.Format("Letzter Backup am: {0}", Database.GetSettingsDate("LAST_BACKUP")?.ToShortDateString());
+        }
+
 
         private void ShowApplicationVersion()
         {

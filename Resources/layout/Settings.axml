@@ -99,6 +99,12 @@
             android:gravity="left|center_vertical"
             android:drawablePadding="10dp" />
 
+        <TextView
+            android:id="@+id/Settings_LastBackupDay"
+            android:textColor="@color/Text_Color2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <Switch
             android:id="@+id/SettingsButton_AskForBackup"
             android:text="Zum Backup erstellen erinnern"
