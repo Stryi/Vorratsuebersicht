@@ -30,8 +30,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
     <Optimize>False</Optimize>
-    <OutputPath>..\..\..\..\Builds\Vorratsuebersicht_Neu\bin\Debug</OutputPath>
-    <BaseIntermediateOutputPath>..\..\..\..\Builds\Vorratsuebersicht_Neu\obj\Debug\</BaseIntermediateOutputPath>
+    <OutputPath>..\..\..\..\Builds\Vorratsuebersicht\bin\Debug</OutputPath>
+    <BaseIntermediateOutputPath>..\..\..\..\Builds\Vorratsuebersicht\obj\Debug\</BaseIntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -46,8 +46,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>portable</DebugType>
     <Optimize>True</Optimize>
-    <OutputPath>..\..\..\..\Builds\Vorratsuebersicht_Neu\bin\Release\</OutputPath>
-    <BaseIntermediateOutputPath>..\..\..\..\Builds\Vorratsuebersicht_Neu\obj\Release\</BaseIntermediateOutputPath>
+    <OutputPath>..\..\..\..\Builds\Vorratsuebersicht\bin\Release\</OutputPath>
+    <BaseIntermediateOutputPath>..\..\..\..\Builds\Vorratsuebersicht\obj\Release\</BaseIntermediateOutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

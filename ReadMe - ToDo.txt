@@ -5,9 +5,6 @@ Anwendung
 - Anwendungsabstürze in die LOG Datei protokollieren.
   https://stackoverflow.com/questions/39503390/global-exception-handling-in-xamarin-cross-platform
 
-Artikelbestand
-- Lagerumbuchung komfortabler machen (s. E-Mail vom C. A. Betz). (noch offen, wie)
-
 Einstellungen
 - Automatischen Backup ("Alle X Tage...", "Y Kopien behalten")
 
