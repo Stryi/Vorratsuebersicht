@@ -642,7 +642,8 @@ namespace VorratsUebersicht
                     GC.Collect();
 
                     Android.Net.Uri uri = data.Data;
-                    Bitmap newBitmap = MediaStore.Images.Media.GetBitmap( this.ContentResolver, uri);
+                    var source = ImageDecoder.CreateSource(this.ContentResolver, uri);
+                    Bitmap newBitmap = ImageDecoder.DecodeBitmap(source);
 
                     this.ResizeBitmap(newBitmap);
 
