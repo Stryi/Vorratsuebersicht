@@ -107,7 +107,7 @@
 
         <Switch
             android:id="@+id/SettingsButton_AskForBackup"
-            android:text="Zum Backup erstellen erinnern"
+            android:text="Zum Backup alle 7 Tage erinnern"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
