@@ -79,11 +79,6 @@ namespace VorratsUebersicht
 
             Xamarin.Essentials.Platform.Init(this, bundle);
 
-            if (Debugger.IsAttached)
-            {
-                ShoppingListHelper.UnitTest();
-            }
-            
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
