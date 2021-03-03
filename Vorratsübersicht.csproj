@@ -90,6 +90,7 @@
     <Compile Include="Tools\CsvExport.cs" />
     <Compile Include="Tools\AltDatePickerFragment.cs" />
     <Compile Include="Tools\Logging.cs" />
+    <Compile Include="Tools\PricePerUnit.cs" />
     <Compile Include="Tools\QuantityAndUnit.cs" />
     <Compile Include="Tools\Settings.cs" />
     <Compile Include="Tools\StockStatistic.cs" />

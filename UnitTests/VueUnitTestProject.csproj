@@ -6,10 +6,10 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{423EE467-4921-4E9D-ACC9-2F2C7190AB4F}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTestProject1</RootNamespace>
-    <AssemblyName>UnitTestProject1</AssemblyName>
+    <RootNamespace>VueUnitTestProject</RootNamespace>
+    <AssemblyName>VueUnitTestProject</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -40,6 +40,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\MSTest.TestFramework.2.1.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
@@ -63,22 +66,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Database\Results\StorageItemQuantityResult.cs">
-      <Link>Database\Results\StorageItemQuantityResult.cs</Link>
-    </Compile>
-    <Compile Include="..\Tools\PricePerUnit.cs">
-      <Link>Tools\PricePerUnit.cs</Link>
-    </Compile>
-    <Compile Include="..\Tools\ShoppingListHelper.cs">
-      <Link>Tools\ShoppingListHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\Tools\StockStatistic.cs">
-      <Link>Tools\StockStatistic.cs</Link>
-    </Compile>
-    <Compile Include="..\Tools\UnitConvert.cs">
-      <Link>Tools\UnitConvert.cs</Link>
-    </Compile>
     <Compile Include="PricePerUnit_UnitTest.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="ShoppingListHelper_UnitTest.cs" />
     <Compile Include="StockStatistic_UnitTest.cs" />
     <Compile Include="UnitConvert_UnitTest.cs" />
@@ -88,6 +77,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Vorratsübersicht.csproj">
+      <Project>{86c76510-254a-40ea-a9d6-27a1c35bd5e1}</Project>
+      <Name>Vorratsübersicht</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

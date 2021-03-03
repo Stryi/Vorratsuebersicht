@@ -14,4 +14,5 @@ using Android.App;
 [assembly: ComVisible(false)]
 [assembly: AssemblyVersion("6.01")]
 [assembly: AssemblyFileVersion("6.01.0.0")]
+[assembly: InternalsVisibleTo("VueUnitTestProject")]
 
