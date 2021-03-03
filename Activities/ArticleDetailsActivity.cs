@@ -230,6 +230,25 @@ namespace VorratsUebersicht
             {
                 this.SearchEanCodeOnInternetDb();
             }
+
+            // Für die automatische Berechnung des Preises pro Einheit.
+            FindViewById<EditText>(Resource.Id.ArticleDetails_Unit).AfterTextChanged  += CalculatePricePerUnit;
+            FindViewById<EditText>(Resource.Id.ArticleDetails_Size).AfterTextChanged  += CalculatePricePerUnit;
+            FindViewById<EditText>(Resource.Id.ArticleDetails_Price).AfterTextChanged += CalculatePricePerUnit;
+
+            this.CalculatePricePerUnit(this, EventArgs.Empty);
+        }
+
+        private void CalculatePricePerUnit(object sender, EventArgs e)
+        {
+            string unit  = FindViewById<EditText>(Resource.Id.ArticleDetails_Unit).Text;
+            string size  = FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text;
+            string price = FindViewById<EditText>(Resource.Id.ArticleDetails_Price).Text;
+
+            string pricePerUnitText = PricePerUnit.Calculate(price, size, unit);
+
+            FindViewById<TextView>(Resource.Id.ArticleDetails_PricePerUnit).Text = 
+                "Preis pro Einheit: " + pricePerUnitText;
         }
 
         private void SelectManufacturer_Click(object sender, EventArgs e)

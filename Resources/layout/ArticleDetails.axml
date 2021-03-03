@@ -283,6 +283,14 @@
                     android:hint="@string/ArticleDetails_Unit_Hint" />
             </LinearLayout>
 
+            <TextView
+                android:text="Preis pro Einheit: "
+                android:id="@+id/ArticleDetails_PricePerUnit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
             <LinearLayout
                 android:id="@+id/ArticleDetails_CaloriesPerUnitSection"
                 android:orientation="horizontal"

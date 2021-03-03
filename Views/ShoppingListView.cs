@@ -65,6 +65,12 @@ namespace VorratsUebersicht
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";
                     info += string.Format("{0} {1} €", MainActivity.Strings_Price, this.ShoppingItem.Price.Value);
+
+                    string pricePerUnit = PricePerUnit.Calculate(this.ShoppingItem.Price, this.ShoppingItem.Size, this.ShoppingItem.Unit);
+                    if (!string.IsNullOrEmpty(pricePerUnit))
+                    {
+                        info += string.Format(" ({0})", pricePerUnit);
+                    }
                 }
                 if (!string.IsNullOrEmpty(this.ShoppingItem.Category))
                 {

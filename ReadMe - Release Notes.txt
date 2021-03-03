@@ -12,7 +12,8 @@ Vor dem Hochladen ins Google Play Store:
 Version 6.01 (Code Version 97)
 ==============================
 
-C162 - Artikeldetails jetzt mit oben kläbendem Bild.
+C163 - Preis pro Einheit im Artikelstamm und Einkaufsliste.
+C162 - Artikeldetails jetzt mit oben klebendem Bild.
 E031 - Erinnerung an Backup hat nicht funktioniert.
 
 Version 6.00 (Code Version 95, 96)

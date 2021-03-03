@@ -102,6 +102,12 @@ namespace VorratsUebersicht
                 if (this.Article.Price.HasValue)
                 {
 					info += string.Format(" {0:n2}", this.Article.Price.Value);
+
+                    string pricePerUnit = PricePerUnit.Calculate(this.Article.Price, this.Article.Size, this.Article.Unit);
+                    if (!string.IsNullOrEmpty(pricePerUnit))
+                    {
+                        info += string.Format(" ({0})", pricePerUnit);
+                    }
                 }
                 else
                 {
