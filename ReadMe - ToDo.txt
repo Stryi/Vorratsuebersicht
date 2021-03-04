@@ -1,13 +1,9 @@
 Prio 1
 ======
 
-Artikeldetails
-- Preis pro 100 ml, 100 g oder Liter
-
 Anwendung
 - Anwendungsabstürze in die LOG Datei protokollieren.
   https://stackoverflow.com/questions/39503390/global-exception-handling-in-xamarin-cross-platform
-
 
 Artikeldetails
 - Kalorien umrechnen auch von "cl"

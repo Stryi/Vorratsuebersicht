@@ -46,6 +46,10 @@ namespace VorratsUebersicht
             databasePath.Text = Android_Database.Instance.GetDatabaseInfoText(dbInfoFormat);
 
 
+            Switch useFrontCamera = FindViewById<Switch>(Resource.Id.SettingsButton_EANScan_FrontCamera);
+            useFrontCamera.Click += UseFrontCamera_Click; ;
+            useFrontCamera.Checked = Settings.GetBoolean("UseFrontCameraForEANScan", false);
+
             Switch switchToTestDB = FindViewById<Switch>(Resource.Id.SettingsButton_SwitchToTestDB);
             switchToTestDB.Click += ButtonTestDB_Click;
             switchToTestDB.Checked = Android_Database.UseTestDatabase;
@@ -186,6 +190,13 @@ namespace VorratsUebersicht
             }
 
             this.isInitialize = false;
+        }
+
+        private void UseFrontCamera_Click(object sender, EventArgs e)
+        {
+            Switch toggle = sender as Switch;
+            
+            Settings.PutBoolean("UseFrontCameraForEANScan", toggle.Checked);
         }
 
         private void CategorySpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)

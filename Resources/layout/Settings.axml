@@ -10,35 +10,37 @@
         android:scrollbars="vertical"
         android:paddingLeft="5dp">
         <TextView
-          android:id="@+id/SettingsButton_DatabasePath"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingTop="5dp"
-          android:paddingBottom="10dp"
-          android:text="@string/Settings_Datenbank" />
-      <ProgressBar
-          android:id="@+id/ProgressBar_Compress"
-          style="?android:attr/progressBarStyleHorizontal"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:indeterminate="true"
-          android:max="100"
-          android:layout_marginTop="-15dp"
-          android:layout_marginBottom="-5dp"
-          android:visibility="invisible"/>
-      <Button
-          android:id="@+id/SettingsButton_Compress"
-          android:text="@string/Settings_DatenbankKomprimieren"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAllCaps="false"
-          android:gravity="left|center_vertical"
-          android:drawablePadding="10dp" />
+            android:id="@+id/SettingsButton_DatabasePath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:text="@string/Settings_Datenbank" />
+        <ProgressBar
+            android:id="@+id/ProgressBar_Compress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:max="100"
+            android:layout_marginTop="-15dp"
+            android:layout_marginBottom="-5dp"
+            android:visibility="invisible"/>
+        <Button
+            android:id="@+id/SettingsButton_Compress"
+            android:text="@string/Settings_DatenbankKomprimieren"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical"
+            android:drawablePadding="10dp" />
         <Button
             android:id="@+id/SettingsButton_Repair"
             android:text="@string/Settings_DatenbankReparieren"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical"
             android:drawablePadding="10dp" />
@@ -54,7 +56,8 @@
             android:gravity="top|left"
             android:scrollbars="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:text="Standard Kategorie für neue Artikel:"
@@ -65,6 +68,7 @@
             android:id="@+id/Settings_DefaultCategory"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:paddingTop="10dp"
             android:hint="@string/ArticleDetails_Category_Hint" />
         <TextView
@@ -77,6 +81,7 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:indeterminate="true"
             android:max="100"
             android:layout_marginTop="-5dp"
@@ -87,6 +92,7 @@
             android:text="@string/Settings_CreateBackup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical"
             android:drawablePadding="10dp" />
@@ -95,39 +101,57 @@
             android:text="@string/Settings_RestoreBackup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical"
             android:drawablePadding="10dp" />
 
         <TextView
+            android:text="Backup-Pfad:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="10dp" />
+        <EditText
+            android:id="@+id/SettingsButton_BackupPath"
+            android:text=""
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical" />
+
+        <TextView
             android:id="@+id/Settings_LastBackupDay"
             android:textColor="@color/Text_Color2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="10dp" />
 
         <Switch
             android:id="@+id/SettingsButton_AskForBackup"
             android:text="Zum Backup alle 7 Tage erinnern"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:gravity="left|center_vertical"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:drawablePadding="20dp" />
 
         <TextView
-            android:text="Backup-Pfad:"
+            android:text="EAN Scann"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp" />
-        <EditText
-            android:id="@+id/SettingsButton_BackupPath"
-            android:text=""
+        <Switch
+            android:id="@+id/SettingsButton_EANScan_FrontCamera"
+            android:text="Benutze Frontkamera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:gravity="left|center_vertical" />
-
+            android:gravity="left|center_vertical"
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:text="Zum Kennenlernen oder Testen neuer Funktionalität"
@@ -140,7 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
-            android:drawablePadding="20dp" />
+            android:layout_marginLeft="10dp" />
         <ProgressBar
             android:id="@+id/ProgressBar_RestoreSampleDb"
             style="?android:attr/progressBarStyleHorizontal"
@@ -150,6 +174,7 @@
             android:max="100"
             android:layout_marginTop="-5dp"
             android:layout_marginBottom="-5dp"
+            android:layout_marginLeft="10dp"
             android:visibility="invisible"/>
         <Button
             android:id="@+id/SettingsButton_RestoreSampleDb"
@@ -158,7 +183,7 @@
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:gravity="left|center_vertical"
-            android:drawablePadding="10dp" />
+            android:layout_marginLeft="10dp" />
         <Button
             android:id="@+id/SettingsButton_RestoreDb0"
             android:text="@string/Settings_TestDatenbankLeeren"
@@ -166,7 +191,7 @@
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:gravity="left|center_vertical"
-            android:drawablePadding="10dp" />
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:text="CSV Export"
@@ -186,7 +211,7 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:gravity="left|center_vertical"
-                android:drawablePadding="10dp" />
+                android:layout_marginLeft="10dp" />
             <Button
                 android:id="@+id/SettingsButton_CsvExportStorageItems"
                 android:text="Lagerbestand"
@@ -194,7 +219,7 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:gravity="left|center_vertical"
-                android:drawablePadding="10dp" />
+                android:layout_marginLeft="10dp" />
         </LinearLayout>
 
         <Switch
@@ -216,6 +241,7 @@
             android:text=""
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
 
@@ -240,28 +266,31 @@
         <RadioGroup
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
             <RadioButton
                 android:id="@+id/SettingsButton_CompressPictures_Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingRight="10dp"
                 android:text="854" />
             <RadioButton
                 android:id="@+id/SettingsButton_CompressPictures_Middle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingRight="10dp"
                 android:text="1.024" />
             <RadioButton
                 android:id="@+id/SettingsButton_CompressPictures_Big"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingRight="10dp"
                 android:text="1.280" />
-
             <RadioButton
                 android:id="@+id/SettingsButton_CompressPictures_Huge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1.536 " />
+                android:text="1.536" />
             
         </RadioGroup>
 
@@ -278,7 +307,7 @@
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:gravity="left|center_vertical"
-            android:drawablePadding="10dp" />
+            android:layout_marginLeft="10dp" />
 
         <Button
             android:id="@+id/SettingsButton_SendLogFile"
@@ -287,7 +316,7 @@
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:gravity="left|center_vertical"
-            android:drawablePadding="10dp" />
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:text="App Wiki" 
@@ -300,7 +329,7 @@
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
             android:autoLink="web"
-            android:paddingLeft="10dp" />
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:text="Lizenzbedingungen" 
@@ -313,6 +342,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
+            android:layout_marginLeft="10dp"
             android:gravity="left|center_vertical" />
         <TextView
             android:id="@+id/SettingsButton_Version"

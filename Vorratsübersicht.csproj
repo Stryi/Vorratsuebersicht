@@ -111,6 +111,7 @@
     <Compile Include="Tools\ShoppingListHelper.cs" />
     <Compile Include="Tools\Tools.cs" />
     <Compile Include="Activities\StorageItemQuantityActivity.cs" />
+    <Compile Include="Tools\ZXingFragmentActivity.cs" />
     <Compile Include="Views\ArticleListViewAdapter.cs" />
     <Compile Include="Views\ArticleListView.cs" />
     <Compile Include="Views\SimpleListItem2View.cs" />
@@ -712,6 +713,26 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\outline_rotate_right_white_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ZxingFragmentActivity.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\baseline_flashlight_on_black_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\baseline_flashlight_on_black_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\baseline_flashlight_on_black_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\baseline_flashlight_on_black_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\baseline_flashlight_on_black_24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

@@ -32,6 +32,7 @@ namespace VorratsUebersicht
         public static readonly int ArticleListId = 1003;
         public static readonly int ContinueScanMode = 1004;
         public static readonly int EditStorageQuantity = 1005;
+        public static readonly int EANScanID = 1006;
 
         public static string Strings_Manufacturer;
         public static string Strings_Size;
@@ -531,6 +532,12 @@ namespace VorratsUebersicht
 
                 Database.RemoveFromShoppingList(id);
             }
+
+            if ((requestCode == EANScanID) && (resultCode == Result.Ok) && (data != null))
+            {
+                string eanCode = data.GetStringExtra("EANCode");
+                this.SearchEANCode(eanCode);
+            }
         }
 
         private void EnableButtons(bool enable)
@@ -558,25 +565,13 @@ namespace VorratsUebersicht
             }
         }
 
-        private async void ButtonBarcode_Click(object sender, System.EventArgs e)
+        private void ButtonBarcode_Click(object sender, System.EventArgs e)
         {
-            string eanCode;
+            StartActivityForResult(typeof(ZXingFragmentActivity), EANScanID);
+        }
 
-            if (Debugger.IsAttached)
-            {
-                eanCode = "4006544205006";
-            }
-            else
-            {
-                var scanner = new ZXing.Mobile.MobileBarcodeScanner();
-                var scanResult = await scanner.Scan();
-
-                if (scanResult == null)
-                    return;
-
-                eanCode = scanResult.Text;
-            }
-
+        private void SearchEANCode(string eanCode)
+        { 
             TRACE("Scanned Barcode: {0}", eanCode);
 
             var result = Database.GetArticlesByEanCode(eanCode);

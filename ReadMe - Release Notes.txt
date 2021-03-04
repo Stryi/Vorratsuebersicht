@@ -12,9 +12,11 @@ Vor dem Hochladen ins Google Play Store:
 Version 6.01 (Code Version 97)
 ==============================
 
+C165 - EAS Scan jetzt auch mit Frontkamera (Experimental).
+C164 - Licht kann jetzt beim Scannen eingeschaltet werden.
 C163 - Preis pro Einheit im Artikelstamm und Einkaufsliste.
 C162 - Artikeldetails jetzt mit oben klebendem Bild.
-E031 - Erinnerung an Backup hat nicht funktioniert.
+E031 - FIX: Erinnerung an Backup hat nicht funktioniert.
 
 Version 6.00 (Code Version 95, 96)
 ======================================
