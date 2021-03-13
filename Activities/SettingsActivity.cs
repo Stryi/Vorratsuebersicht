@@ -158,7 +158,7 @@ namespace VorratsUebersicht
             // Frei definierte Kategorien zusätzlich laden.
             var categories = MainActivity.GetDefinedCategories(defaultCategories);
 
-            ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, categories);
+            ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, Resource.Layout.SpinnerItem, categories);
             categoryAdapter.SetDropDownViewResource (Android.Resource.Layout.SimpleSpinnerDropDownItem);
             
             Spinner categorySpinner = this.FindViewById<Spinner>(Resource.Id.Settings_DefaultCategory);

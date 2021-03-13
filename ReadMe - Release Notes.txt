@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 6.10 (Code Version 98)
+==============================
+
+C165 - "Standardkategorie" und "Kategorie" Spinner (Auswahlbox) jetzt kleiner und Einrückung bei Einstellungen.
+
 Version 6.01 (Code Version 97)
 ==============================
 

@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="5dp">
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -10,9 +11,15 @@
         android:scrollbars="vertical"
         android:paddingLeft="5dp">
         <TextView
+            android:text="Datenbank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp" />
+        <TextView
             android:id="@+id/SettingsButton_DatabasePath"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:paddingTop="5dp"
             android:paddingBottom="10dp"
             android:text="@string/Settings_Datenbank" />
@@ -21,6 +28,7 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:indeterminate="true"
             android:max="100"
             android:layout_marginTop="-15dp"
@@ -33,8 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:textAllCaps="false"
-            android:gravity="left|center_vertical"
-            android:drawablePadding="10dp" />
+            android:gravity="left|center_vertical" />
         <Button
             android:id="@+id/SettingsButton_Repair"
             android:text="@string/Settings_DatenbankReparieren"
@@ -42,8 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:textAllCaps="false"
-            android:gravity="left|center_vertical"
-            android:drawablePadding="10dp" />
+            android:gravity="left|center_vertical" />
+
         <TextView
             android:id="@+id/Settings_Categories_Text"
             android:text="Zusätzliche Kategorien (mit Komma getrennt definieren)" 
@@ -70,7 +77,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:hint="@string/ArticleDetails_Category_Hint" />
+
         <TextView
             android:text="Backup und Restore (auf eigene Verantwortung)"
             android:layout_width="match_parent"
@@ -94,8 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:textAllCaps="false"
-            android:gravity="left|center_vertical"
-            android:drawablePadding="10dp" />
+            android:gravity="left|center_vertical" />
         <Button
             android:id="@+id/SettingsButton_Restore"
             android:text="@string/Settings_RestoreBackup"
@@ -103,8 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:textAllCaps="false"
-            android:gravity="left|center_vertical"
-            android:drawablePadding="10dp" />
+            android:gravity="left|center_vertical" />
 
         <TextView
             android:text="Backup-Pfad:"
@@ -131,14 +138,13 @@
 
         <Switch
             android:id="@+id/SettingsButton_AskForBackup"
-            android:text="Zum Backup alle 7 Tage erinnern"
+            android:text="An Backup alle 7 Tage erinnern"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:gravity="left|center_vertical"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:drawablePadding="20dp" />
+            android:paddingBottom="10dp" />
 
         <TextView
             android:text="EAN Scann"
@@ -228,8 +234,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
-            android:paddingTop="20dp"
-            android:drawablePadding="20dp" />
+            android:paddingTop="20dp" />
 
         <TextView
             android:text="Zusätzlicher Datenbankpfad:"
@@ -251,8 +256,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
-            android:paddingTop="20dp"
-            android:drawablePadding="20dp" />
+            android:paddingTop="20dp" />
 
         <Switch
             android:id="@+id/SettingsButton_CompressPictures"
@@ -260,8 +264,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
-            android:paddingTop="20dp"
-            android:drawablePadding="20dp" />
+            android:paddingTop="20dp" />
 
         <RadioGroup
             android:layout_width="fill_parent"

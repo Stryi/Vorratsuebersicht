@@ -29,7 +29,7 @@
   <!-- Maske Optionen -->
   <string name="Settings_Title">Einstellungen</string>
   <string name="Settings_TestDatenbank">Test Datenbank aktivieren</string>
-  <string name="Settings_Datenbank">Datenbank: {0}\nGröße: {1} ({2:n0} Bytes)</string>
+  <string name="Settings_Datenbank">Datei: {0}\nGröße: {1} ({2:n0} Bytes)</string>
   <string name="Settings_TestDatenbankZuruecksetzen">Test Datenbank zurücksetzen</string>
   <string name="Settings_TestDatenbankLeeren">Test Datenbank leeren</string>
   <string name="Settings_DatenbankKomprimieren">Datenbank komprimieren</string>
