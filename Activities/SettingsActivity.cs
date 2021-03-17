@@ -14,8 +14,6 @@ using Android.Support.V4.Content;
 using Android.Views;
 using Android.Runtime;
 
-using Com.Codekidlabs.Storagechooser;
-
 namespace VorratsUebersicht
 {
     using static Tools;
