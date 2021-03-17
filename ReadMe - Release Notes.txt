@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 6.10 (Code Version 98)
 ==============================
 
+C166 - Verzeichnisse in den Einstellungen können jetzt komfortabel ausgewählt werden.
 C165 - "Standardkategorie" und "Kategorie" Spinner (Auswahlbox) jetzt kleiner und Einrückung bei Einstellungen.
 
 Version 6.01 (Code Version 97)

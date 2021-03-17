@@ -14,6 +14,8 @@ using Android.Support.V4.Content;
 using Android.Views;
 using Android.Runtime;
 
+using Com.Codekidlabs.Storagechooser;
+
 namespace VorratsUebersicht
 {
     using static Tools;
@@ -174,6 +176,12 @@ namespace VorratsUebersicht
 
             categorySpinner.SetSelection(position);
 
+            Button selectDatabase = this.FindViewById<Button>(Resource.Id.SettingsButton_SelectAdditionalDatabasePath);
+            selectDatabase.Click += SelectDatabase_Click;
+
+            Button selectBackuPath = this.FindViewById<Button>(Resource.Id.SettingsButton_SelectBackupPath);
+            selectBackuPath.Click += SelectBackuPath_Click;
+            
             this.EnableButtons();
 
             this.ShowLastBackupDay();
@@ -192,6 +200,48 @@ namespace VorratsUebersicht
             this.isInitialize = false;
         }
 
+        private async void SelectBackuPath_Click(object sender, EventArgs e)
+        {
+            // Initialize Builder
+            var builder = new StorageChooser.Builder();
+            builder.WithActivity(this);
+            builder.WithFragmentManager(this.FragmentManager);
+            builder.WithMemoryBar(true);
+            builder.AllowCustomPath(true);
+            builder.SetType(StorageChooser.DirectoryChooser);
+            //builder.WithPredefinedPath(STATIC_PATH);
+
+            StorageChooser chooser = builder.Build();
+            chooser.Select += delegate (object sender, StorageChooser.SelectEventArgs e)
+            {
+                this.FindViewById<EditText>(Resource.Id.SettingsButton_BackupPath).Text = e.P0;
+            };
+            chooser.Show();
+        }
+
+        private void SelectDatabase_Click(object sender, EventArgs e)
+        {
+            // Initialize Builder
+            var builder = new StorageChooser.Builder();
+            builder.WithActivity(this);
+            builder.WithFragmentManager(this.FragmentManager);
+            builder.WithMemoryBar(true);
+            builder.AllowCustomPath(true);
+            builder.SetType(StorageChooser.DirectoryChooser);
+
+            StorageChooser chooser = builder.Build();
+            chooser.Select += delegate (object sender, StorageChooser.SelectEventArgs e)
+            {
+                this.FindViewById<EditText>(Resource.Id.SettingsButton_AdditionalDatabasePath).Text = e.P0;
+                this.additionalDatabasePathChanged = true;
+            };
+            chooser.Show();
+        }
+
+        private void Chooser_Select(object sender, StorageChooser.SelectEventArgs e)
+        {
+        }
+
         private void UseFrontCamera_Click(object sender, EventArgs e)
         {
             Switch toggle = sender as Switch;
@@ -204,10 +254,23 @@ namespace VorratsUebersicht
             if (this.isInitialize)
                 return;
 
-            Spinner spinner = sender as Spinner;
-            var item = (String)spinner.Adapter.GetItem(e.Position);
+            try
+            {
+                Spinner spinner = sender as Spinner;
+                var item = (String)spinner.Adapter.GetItem(e.Position);
 
-            MainActivity.SetDefaultCategory(item);
+                MainActivity.SetDefaultCategory(item);
+            }
+            catch(Exception ex)
+            {
+                TRACE(ex);
+
+                var messageBox = new AlertDialog.Builder(this);
+                messageBox.SetTitle("Fehler aufgetreten!");
+                messageBox.SetMessage(ex.Message);
+                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.Create().Show();
+            }
         }
 
         private void ButtonCsvExportArticles_Click(object sender, EventArgs e)
@@ -218,6 +281,8 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
+                TRACE(ex);
+
                 var messageBox = new AlertDialog.Builder(this);
                 messageBox.SetTitle("Fehler aufgetreten!");
                 messageBox.SetMessage(ex.Message);
@@ -234,6 +299,8 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
+                TRACE(ex);
+
                 var messageBox = new AlertDialog.Builder(this);
                 messageBox.SetTitle("Fehler aufgetreten!");
                 messageBox.SetMessage(ex.Message);
@@ -462,6 +529,8 @@ namespace VorratsUebersicht
                 }
                 catch(Exception ex)
                 {
+                    TRACE(ex);
+                    
                     RunOnUiThread(() =>
                     {
                         var messageBox = new AlertDialog.Builder(this);
@@ -498,6 +567,8 @@ namespace VorratsUebersicht
                 }
                 catch(Exception ex)
                 {
+                    TRACE(ex);
+
                     RunOnUiThread(() =>
                     {
                         var messageBox = new AlertDialog.Builder(this);
@@ -575,6 +646,8 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
+                TRACE(ex);
+
                 var messageBox = new AlertDialog.Builder(this);
                 messageBox.SetTitle("Fehler aufgetreten!");
                 messageBox.SetMessage(ex.Message);
@@ -741,6 +814,8 @@ namespace VorratsUebersicht
                 }
                 catch(Exception ex)
                 {
+                    TRACE(ex);
+
                     message = ex.Message;
 
                     if (lastBackupDay != null)
@@ -793,6 +868,8 @@ namespace VorratsUebersicht
             }
             catch(Exception e)
             {
+                TRACE(e);
+
                 var messageBox = new AlertDialog.Builder(this);
                 messageBox.SetTitle("Fehler aufgetreten!");
                 messageBox.SetMessage("Fehler beim Laden der benutzerspezifischen Kategorien.\n\n" + e.Message);
