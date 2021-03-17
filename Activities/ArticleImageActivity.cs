@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading;
 
 using Android.App;
 using Android.Content;
@@ -9,7 +10,8 @@ using Android.Graphics;
 using Android.Support.V4.Content;
 using Android.Views;
 using MatrixGuide;
-using System.Threading;
+
+using static VorratsUebersicht.Tools;
 
 namespace VorratsUebersicht
 {
@@ -195,6 +197,8 @@ namespace VorratsUebersicht
             }
             catch (Exception e)
             {
+                TRACE(e);
+
                 message = e.Message;
                 this.imageView.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
                 this.imageView.Alpha = 1f;
@@ -249,6 +253,8 @@ namespace VorratsUebersicht
                 }
                 catch(Exception ex)
                 {
+                    TRACE(ex);
+
                     this.rotatedBitmap = null;
                     this.imageView.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
                     this.imageView.Alpha = 1f;
@@ -277,6 +283,8 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
+                TRACE(ex);
+
                 this.rotatedBitmap = null;
                 this.imageView.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
                 this.imageView.Alpha = 1f;

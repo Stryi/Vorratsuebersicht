@@ -150,6 +150,8 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
+                TRACE(ex);
+
                 title = ex.Message;
             }
 

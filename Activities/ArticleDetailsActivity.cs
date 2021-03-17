@@ -809,9 +809,78 @@ namespace VorratsUebersicht
                 minQuantity  = GetIntegerFromEditText(Resource.Id.ArticleDetails_MinQuantity);
                 prefQuantity = GetIntegerFromEditText(Resource.Id.ArticleDetails_PrefQuantity);
                 price        = GetDecimalFromEditText(Resource.Id.ArticleDetails_Price);
+
+
+                // Absichern gegen Unsinn.
+                if (warnInDays > 365*1000)
+                    warnInDays = 365*1000;
+
+                this.article.Name            = FindViewById<EditText>(Resource.Id.ArticleDetails_Name).Text;
+                this.article.Manufacturer    = FindViewById<EditText>(Resource.Id.ArticleDetails_Manufacturer).Text;
+                this.article.Category        = this.catalogListener.Value;
+                this.article.SubCategory     = FindViewById<EditText>(Resource.Id.ArticleDetails_SubCategory).Text;
+                this.article.DurableInfinity = FindViewById<Switch>(Resource.Id.ArticleDetails_DurableInfinity).Checked;
+                this.article.WarnInDays      = warnInDays;
+                this.article.Price           = price;
+                this.article.Size            = size;
+                this.article.Calorie         = calorie;
+                this.article.Unit            = FindViewById<EditText>(Resource.Id.ArticleDetails_Unit).Text;
+                this.article.MinQuantity     = minQuantity;
+                this.article.PrefQuantity    = prefQuantity;
+                this.article.StorageName     = FindViewById<EditText>(Resource.Id.ArticleDetails_Storage).Text;
+                this.article.Supermarket     = FindViewById<EditText>(Resource.Id.ArticleDetails_Supermarket).Text;
+                this.article.EANCode         = FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text;
+                this.article.Notes           = FindViewById<EditText>(Resource.Id.ArticleDetails_Notes).Text;
+
+                this.article.Manufacturer    = this.article.Manufacturer?.TrimEnd();
+                this.article.SubCategory     = this.article.SubCategory?.TrimEnd();
+                this.article.StorageName     = this.article.StorageName?.TrimEnd();
+                this.article.Supermarket     = this.article.Supermarket?.TrimEnd();
+
+                if (ArticleDetailsActivity.imageLarge != null)
+                    this.articleImage.ImageLarge = ArticleDetailsActivity.imageLarge;
+
+                if (ArticleDetailsActivity.imageSmall != null)
+                    this.articleImage.ImageSmall = ArticleDetailsActivity.imageSmall;
+
+                SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
+                if (databaseConnection == null)
+                    return false;
+
+                if (this.article.ArticleId > 0)
+                {
+                    databaseConnection.Update(this.article);
+                }
+                else
+                {
+                    databaseConnection.Insert(this.article);
+                    this.articleId = this.article.ArticleId;
+                }
+
+                if (this.articleImage.ImageLarge != null)   // Ein neues Bild wurde ausgewählt oder vorhandenes geändert.
+                {
+                    if (this.articleImage.ImageId > 0)
+                    {
+                        databaseConnection.Update(this.articleImage);
+                    }
+                    else
+                    {
+                        this.articleImage.ArticleId = this.articleId;
+                        this.articleImage.Type = 0;
+                        this.articleImage.CreatedAt = DateTime.Now;
+                        databaseConnection.Insert(this.articleImage);
+                    }
+                }
+
+                if ((this.articleImage.ImageSmall == null) && (this.articleImage.ImageId > 0))  // Vorhandenes Bild gelöscht?
+                {
+                    databaseConnection.Delete(this.articleImage);
+                }
             }
             catch(Exception ex)
             {
+                TRACE(ex);
+
                 string fehlerText = ex.Message;
 
                 string text = fehlerText + "\n\nSoll eine E-Mail mit dem Fehler an den Entwickler geschickt werden?";
@@ -839,72 +908,6 @@ namespace VorratsUebersicht
 
                 size = 0;
                 return false;
-            }
-
-            // Absichern gegen Unsinn.
-            if (warnInDays > 365*1000)
-                warnInDays = 365*1000;
-
-            this.article.Name            = FindViewById<EditText>(Resource.Id.ArticleDetails_Name).Text;
-            this.article.Manufacturer    = FindViewById<EditText>(Resource.Id.ArticleDetails_Manufacturer).Text;
-            this.article.Category        = this.catalogListener.Value;
-            this.article.SubCategory     = FindViewById<EditText>(Resource.Id.ArticleDetails_SubCategory).Text;
-            this.article.DurableInfinity = FindViewById<Switch>(Resource.Id.ArticleDetails_DurableInfinity).Checked;
-            this.article.WarnInDays      = warnInDays;
-            this.article.Price           = price;
-            this.article.Size            = size;
-            this.article.Calorie         = calorie;
-            this.article.Unit            = FindViewById<EditText>(Resource.Id.ArticleDetails_Unit).Text;
-            this.article.MinQuantity     = minQuantity;
-            this.article.PrefQuantity    = prefQuantity;
-            this.article.StorageName     = FindViewById<EditText>(Resource.Id.ArticleDetails_Storage).Text;
-            this.article.Supermarket     = FindViewById<EditText>(Resource.Id.ArticleDetails_Supermarket).Text;
-            this.article.EANCode         = FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text;
-            this.article.Notes           = FindViewById<EditText>(Resource.Id.ArticleDetails_Notes).Text;
-
-            this.article.Manufacturer    = this.article.Manufacturer?.TrimEnd();
-            this.article.SubCategory     = this.article.SubCategory?.TrimEnd();
-            this.article.StorageName     = this.article.StorageName?.TrimEnd();
-            this.article.Supermarket     = this.article.Supermarket?.TrimEnd();
-
-            if (ArticleDetailsActivity.imageLarge != null)
-                this.articleImage.ImageLarge = ArticleDetailsActivity.imageLarge;
-
-            if (ArticleDetailsActivity.imageSmall != null)
-                this.articleImage.ImageSmall = ArticleDetailsActivity.imageSmall;
-
-            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
-            if (databaseConnection == null)
-                return false;
-
-            if (this.article.ArticleId > 0)
-            {
-                databaseConnection.Update(this.article);
-            }
-            else
-            {
-                databaseConnection.Insert(this.article);
-                this.articleId = this.article.ArticleId;
-            }
-
-            if (this.articleImage.ImageLarge != null)   // Ein neues Bild wurde ausgewählt oder vorhandenes geändert.
-            {
-                if (this.articleImage.ImageId > 0)
-                {
-                    databaseConnection.Update(this.articleImage);
-                }
-                else
-                {
-                    this.articleImage.ArticleId = this.articleId;
-                    this.articleImage.Type = 0;
-                    this.articleImage.CreatedAt = DateTime.Now;
-                    databaseConnection.Insert(this.articleImage);
-                }
-            }
-
-            if ((this.articleImage.ImageSmall == null) && (this.articleImage.ImageId > 0))  // Vorhandenes Bild gelöscht?
-            {
-                databaseConnection.Delete(this.articleImage);
             }
 
             this.isChanged = true;
@@ -1100,6 +1103,8 @@ namespace VorratsUebersicht
                 }
                 catch(Exception ex)
                 {
+                    TRACE(ex);
+
                     this.imageTextView.Text = ex.Message;
 
                     this.imageView.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
@@ -1241,6 +1246,8 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
+                TRACE(ex);
+
                 RunOnUiThread(() => this.imageTextView.Text = ex.Message);
             }
         

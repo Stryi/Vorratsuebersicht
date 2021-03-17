@@ -13,6 +13,8 @@ using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 
+using static VorratsUebersicht.Tools;
+
 namespace VorratsUebersicht
 {
     [Activity(Label = "Auswahl Datei")]
@@ -152,6 +154,8 @@ namespace VorratsUebersicht
             }
             catch(Exception e)
             {
+                TRACE(e);
+
                 var pathView = FindViewById<TextView>(Resource.Id.SelectFile_Message);
                 pathView.Visibility = ViewStates.Visible;
                 pathView.Text = e.Message;

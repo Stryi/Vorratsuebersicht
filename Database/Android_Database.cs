@@ -187,6 +187,7 @@ namespace VorratsUebersicht
 			catch (Exception e)
 			{
 				TRACE(e);
+
 				return e;
 			}
             
@@ -255,6 +256,7 @@ namespace VorratsUebersicht
                     catch (Exception e)
                     {
                         TRACE(e);
+
                         return false;
                     }
                     return true;
@@ -325,6 +327,11 @@ namespace VorratsUebersicht
 
             FileInfo fileInfo = new FileInfo(path);
             TRACE("Database Size: {0} ({1:n0} Bytes)", Tools.ToFuzzyByteString(fileInfo.Length), fileInfo.Length);
+
+            if (fileInfo.IsReadOnly)
+            {
+                TRACE("**** Database is read only!");
+            }
 
 			var conn = new SQLite.SQLiteConnection(path, false);
             //conn.Trace = true;

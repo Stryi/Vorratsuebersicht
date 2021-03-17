@@ -50,6 +50,8 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
+                TRACE(ex);
+
                 string text = "Bitte ggf. den Eintrag 'Zusätzlicher Datenbankpfad' in den Einstellungen prüfen.";
                 TRACE("SplashScreen: {0}", ex.Message);
                 TRACE("SplashScreen: {0}", text);
@@ -238,6 +240,8 @@ namespace VorratsUebersicht
                 }
                 catch(Exception ex)
                 {
+                    TRACE(ex);
+
                     exception = ex;
                     break;
                 }
