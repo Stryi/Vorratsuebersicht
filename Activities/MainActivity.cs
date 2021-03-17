@@ -139,7 +139,7 @@ namespace VorratsUebersicht
                 b.Click += delegate
                 {
                     AltDatePickerFragment frag = AltDatePickerFragment.NewInstance(delegate (DateTime? time) { b.Text = time!=null ? time.Value.ToShortDateString() : "Kein Datum"; }, DateTime.Today);
-                frag.ShowsDialog = true;
+                    frag.ShowsDialog = true;
                     frag.Show(this.SupportFragmentManager, AltDatePickerFragment.TAG);
                 };
                 FindViewById<LinearLayout>(Resource.Id.Main_LinearLayout).AddView(b);
@@ -297,6 +297,7 @@ namespace VorratsUebersicht
             catch(Exception ex)
             {
                 TRACE(ex);
+
                 return;
             }
 
@@ -396,6 +397,8 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
+                TRACE(ex);
+
                 //Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
                 return ex.Message;
             }
@@ -420,6 +423,8 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
+                TRACE(ex);
+
                 //Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
                 return ex.Message;
             }
@@ -567,6 +572,7 @@ namespace VorratsUebersicht
 
         private void ButtonBarcode_Click(object sender, System.EventArgs e)
         {
+            // this.SearchEANCode("4058172637117");
             StartActivityForResult(typeof(ZXingFragmentActivity), EANScanID);
         }
 
@@ -590,6 +596,24 @@ namespace VorratsUebersicht
             if (result.Count == 1)          // Artikel eindeutig gefunden
             {                
                 int articleId = result[0].ArticleId;
+                
+                string zusatzInfo = string.Empty;
+
+                decimal quantityInStorage = Database.GetArticleQuantityInStorage(articleId);
+                if (quantityInStorage > 0)
+                {
+                    zusatzInfo += string.Format("- Bestand: {0:#,0.######}", quantityInStorage);
+                }
+
+                decimal shoppingListQuantiy = Database.GetShoppingListQuantiy(articleId);
+                if (shoppingListQuantiy > 0)
+                {
+                    if (!string.IsNullOrEmpty(zusatzInfo))
+                    {
+                        zusatzInfo += "\n";
+                    }
+                    zusatzInfo += string.Format("- Auf Einkaufsliste: {0:#,0.######}", shoppingListQuantiy);
+                }
 
                 actions =  new List<string>()
                     {
@@ -603,6 +627,17 @@ namespace VorratsUebersicht
                 {
                     // Von der Einkaufsliste direkt ins Lager.
                     actions.Add(Resources.GetString(Resource.String.Main_Button_InLagerbestand));
+                }
+
+                if (!string.IsNullOrEmpty(zusatzInfo))
+                {
+                    TextView info = new TextView(this);
+                    //info.SetBackgroundColor(Android.Graphics.Color.LightGray);
+                    info.SetTextColor(Android.Graphics.Color.Gray);
+                    info.SetPadding(25, 0, 0, 0);
+                    info.Text = zusatzInfo;
+
+                    selectDialog.SetView(info);
                 }
 
                 selectDialog.SetTitle("Aktion wählen...");
