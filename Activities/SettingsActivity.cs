@@ -176,12 +176,6 @@ namespace VorratsUebersicht
 
             categorySpinner.SetSelection(position);
 
-            Button selectDatabase = this.FindViewById<Button>(Resource.Id.SettingsButton_SelectAdditionalDatabasePath);
-            selectDatabase.Click += SelectDatabase_Click;
-
-            Button selectBackuPath = this.FindViewById<Button>(Resource.Id.SettingsButton_SelectBackupPath);
-            selectBackuPath.Click += SelectBackuPath_Click;
-            
             this.EnableButtons();
 
             this.ShowLastBackupDay();
@@ -198,48 +192,6 @@ namespace VorratsUebersicht
             }
 
             this.isInitialize = false;
-        }
-
-        private async void SelectBackuPath_Click(object sender, EventArgs e)
-        {
-            // Initialize Builder
-            var builder = new StorageChooser.Builder();
-            builder.WithActivity(this);
-            builder.WithFragmentManager(this.FragmentManager);
-            builder.WithMemoryBar(true);
-            builder.AllowCustomPath(true);
-            builder.SetType(StorageChooser.DirectoryChooser);
-            //builder.WithPredefinedPath(STATIC_PATH);
-
-            StorageChooser chooser = builder.Build();
-            chooser.Select += delegate (object sender, StorageChooser.SelectEventArgs e)
-            {
-                this.FindViewById<EditText>(Resource.Id.SettingsButton_BackupPath).Text = e.P0;
-            };
-            chooser.Show();
-        }
-
-        private void SelectDatabase_Click(object sender, EventArgs e)
-        {
-            // Initialize Builder
-            var builder = new StorageChooser.Builder();
-            builder.WithActivity(this);
-            builder.WithFragmentManager(this.FragmentManager);
-            builder.WithMemoryBar(true);
-            builder.AllowCustomPath(true);
-            builder.SetType(StorageChooser.DirectoryChooser);
-
-            StorageChooser chooser = builder.Build();
-            chooser.Select += delegate (object sender, StorageChooser.SelectEventArgs e)
-            {
-                this.FindViewById<EditText>(Resource.Id.SettingsButton_AdditionalDatabasePath).Text = e.P0;
-                this.additionalDatabasePathChanged = true;
-            };
-            chooser.Show();
-        }
-
-        private void Chooser_Select(object sender, StorageChooser.SelectEventArgs e)
-        {
         }
 
         private void UseFrontCamera_Click(object sender, EventArgs e)
