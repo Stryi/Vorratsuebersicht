@@ -14,7 +14,7 @@ namespace VorratsUebersicht
             string quantityInfo = "";
             decimal toBuyQuantity = 0;
 
-            int quantityInStorage = (int)Database.GetArticleQuantityInStorage(articleId);
+            decimal quantityInStorage = Database.GetArticleQuantityInStorage(articleId);
             quantityInfo += string.Format("- Bestand: {0:#,0.######}\n", quantityInStorage);
 
             if ((minQuantity == null) || (prefQuantity == null))
@@ -45,7 +45,7 @@ namespace VorratsUebersicht
                 toBuyQuantity = toBuyQuantity - quantityInStorage;
             }
 
-            int shoppingListQuantiy = (int)Database.GetShoppingListQuantiy(articleId);
+            decimal shoppingListQuantiy = Database.GetShoppingListQuantiy(articleId);
             quantityInfo += string.Format("- Auf Einkaufsliste: {0:#,0.######}\n", shoppingListQuantiy);
 
             // Auf Einkaufsliste ist ein höherer Betrag als ausgereichnet?
@@ -58,6 +58,9 @@ namespace VorratsUebersicht
             {
                 toBuyQuantity = 1;
             }
+
+            // Auf volle Stückzahl aufrunden
+            toBuyQuantity = Math.Ceiling(toBuyQuantity);
 
             string message = string.Format("{0}\nNeue Anzahl eingeben:", quantityInfo); 
 
