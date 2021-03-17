@@ -119,14 +119,34 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:paddingTop="10dp" />
-        <EditText
-            android:id="@+id/SettingsButton_BackupPath"
-            android:text=""
+
+        <RelativeLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textAllCaps="false"
-            android:gravity="left|center_vertical" />
+            android:layout_marginLeft="10dp" >
+
+            <EditText
+                android:id="@+id/SettingsButton_BackupPath"
+                android:text=""
+                android:inputType="textUri"                
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="40dp"                 
+                android:textAllCaps="false"
+                android:gravity="left|center_vertical" />
+
+            <Button
+                android:id="@+id/SettingsButton_SelectBackupPath"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text = "@string/ThreePoints" 
+                android:textSize="16dp"
+                android:textAllCaps="false"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/Settings_LastBackupDay"
@@ -241,14 +261,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp" />
-        <EditText
-            android:id="@+id/SettingsButton_AdditionalDatabasePath"
-            android:text=""
+
+        <RelativeLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textAllCaps="false"
-            android:gravity="left|center_vertical" />
+            android:layout_marginLeft="10dp" >
+            <EditText
+                android:id="@+id/SettingsButton_AdditionalDatabasePath"
+                android:text=""
+                android:inputType="textUri"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp" />
+            <Button
+                android:id="@+id/SettingsButton_SelectAdditionalDatabasePath"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text = "@string/ThreePoints" 
+                android:textSize="16dp"
+                android:textAllCaps="false"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
 
         <Switch
             android:id="@+id/SettingsButton_AltDatePicker"
