@@ -14,6 +14,8 @@ using Android.Graphics;
 using Android.Support.V4.Content;
 using Android.Support.V7.App;
 
+using static VorratsUebersicht.Tools;
+
 namespace VorratsUebersicht
 {
     using static VorratsUebersicht.StorageItemQuantityListViewAdapter;
@@ -304,7 +306,12 @@ namespace VorratsUebersicht
 
                 case Resource.Id.StorageItemQuantity_Save:
 					this.isChanged = true;
-                    this.SaveChanges();
+                    bool ok = this.SaveChanges();
+                    if (!ok)
+                    {
+                        return false;
+                    }
+
 					this.SetEditMode(false);
                     this.quantity = -1;
                     this.AddToShoppingList();
@@ -406,16 +413,33 @@ namespace VorratsUebersicht
             StorageItemQuantityActivity.Reload();
         }
 
-        private void SaveChanges()
+        private bool SaveChanges()
         {
-            foreach(StorageItemQuantityListView item in StorageItemQuantityActivity.liste)
+            try
             {
-                if ((item.StorageItem.IsChanged))
+                foreach(StorageItemQuantityListView item in StorageItemQuantityActivity.liste)
                 {
-                    Database.UpdateStorageItemQuantity(item.StorageItem);
-                    item.StorageItem.IsChanged = false;
+                    if ((item.StorageItem.IsChanged))
+                    {
+                        Database.UpdateStorageItemQuantity(item.StorageItem);
+                        item.StorageItem.IsChanged = false;
+                    }
                 }
             }
+            catch(Exception ex)
+            {
+                TRACE(ex);
+
+                var messageBox = new AlertDialog.Builder(this);
+                messageBox.SetTitle("Fehler aufgetreten!");
+                messageBox.SetMessage(ex.Message);
+                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.Create().Show();
+
+                return false;
+            }
+
+            return true;
         }
 
         private void ShowPictureAndDetails(int articleId, string title)
@@ -462,6 +486,8 @@ namespace VorratsUebersicht
             }
             catch(Exception ex)
             {
+                TRACE(ex);
+
                 imageView.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
                 headerView.Text = null;
                 detailView.Text = ex.Message + ex.StackTrace;

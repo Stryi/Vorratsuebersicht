@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 6.10 (Code Version 98)
 ==============================
 
+E032 - Kein Absturz beim Speichern, wenn die Datenbank ReadOnly ist (z.B. auf SD Karte)
 C167 - Nach dem EAN Scan wird jetzt auch Bestand und Anzahl auf dem Einkaufszettel angezeigt.
 C166 - Verzeichnisse in den Einstellungen können jetzt komfortabel ausgewählt werden.
 C165 - "Standardkategorie" und "Kategorie" Spinner (Auswahlbox) jetzt kleiner und Einrückung bei Einstellungen.
