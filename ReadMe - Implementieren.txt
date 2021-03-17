@@ -29,6 +29,7 @@ NuGet Packages:
 - SQLitePCLRaw.lib.e_sqlite3.android by Eric Sink, D. Richard Hipp, et al
 - SQLitePCLRaw.provider.e_sqlite3.android by Eric Sink, et al
 - ZXing.Net.Mobile by Redth
+- https://github.com/broteam168/Storage-Chooser-Xamarin
 
 
 Icons der Anwendung:

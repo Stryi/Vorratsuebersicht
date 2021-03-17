@@ -20,17 +20,10 @@ Funktionsweise
 
     Die Datenbank für die erfassten Daten wird im internen Speicher angelegt als
     
-        /data/data/de.stryi.Vorratsuebersicht/files/Vorraete.db3
-        
-    Ist eine SD Karte vorhanden oder wird eine nachträglich reingelegt,
-    so wird ein Verzeichnis "Vorratsuebersicht" auf der SD Karte angelegt
-    und die Datenbank aus dem internen Speicher dort kopiert als
-
         /storage/sdcard/Vorratsuebersicht/Vorraete.db3
 
-    Es wird vorzugsweise die Datenbank aus der SD Karte verwendet, 
-    damit, falls das Smartphone nicht mehr funktioniert, die Datenbank
-    in ein neues Smartphone übernommen werden kann.
+    oder
+        /storage/emulated/0/Vorratsuebersicht/Vorraete.db3
 
 
     1.2 Die Test Datenbank
