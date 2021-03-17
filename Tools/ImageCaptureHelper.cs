@@ -26,7 +26,6 @@ namespace VorratsUebersicht
         {
             public static Java.IO.File _file;
             public static Java.IO.File _dir;
-            //public static Bitmap bitmap;
             public static string fileName;
         }
 
@@ -91,18 +90,7 @@ namespace VorratsUebersicht
 
         private void CreateDirectoryForPictures()
         {
-            var pictureFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures);
-            bool folderExists = pictureFolder.Exists();
-
-            if (folderExists)
-            {
-                App._dir = new Java.IO.File(pictureFolder, "Vorräte Bilder");
-                if (!App._dir.Exists())
-                {
-                    App._dir.Mkdirs();
-                }
-                return;
-            }
+            App._dir = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures);
         }
 
         private void StartCameraActivity()
