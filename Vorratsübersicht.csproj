@@ -42,6 +42,10 @@
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
+    <MandroidI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>portable</DebugType>
@@ -71,7 +75,7 @@
     <Compile Include="Activities\ArticleListActivity.cs" />
     <Compile Include="Activities\InternetDatabaseSearchActivity.cs" />
     <Compile Include="Activities\LicensesActivity.cs" />
-    <Compile Include="Activities\SelectFileActivity.cs" />
+    <Compile Include="Activities\BackupFileManageActivity.cs" />
     <Compile Include="Activities\SettingsActivity.cs" />
     <Compile Include="Activities\ShoppingListActivity.cs" />
     <Compile Include="Activities\SplashScreenActivity.cs" />
@@ -86,6 +90,7 @@
     <None Include="LICENSE" />
     <None Include="ReadMe - Release Notes.txt" />
     <None Include="ReadMe - ToDo.txt" />
+    <Compile Include="Tools\ActionDismissListener.cs" />
     <Compile Include="Tools\AddToShoppingListDialog.cs" />
     <Compile Include="Tools\CsvExport.cs" />
     <Compile Include="Tools\AltDatePickerFragment.cs" />
@@ -138,6 +143,10 @@
     <AndroidAsset Include="Assets\Vorraete_db0.db3" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\layout\BackupFileManage.axml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\Main.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -333,9 +342,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\SplashScreen.axml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\SelectFile.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\InternetDatabaseSearch.axml" />
@@ -736,6 +742,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\SpinnerItem.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\baseline_dns_white_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\baseline_dns_white_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\baseline_dns_white_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\baseline_dns_white_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\baseline_dns_white_24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

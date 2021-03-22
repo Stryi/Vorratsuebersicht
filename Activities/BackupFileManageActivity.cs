@@ -18,7 +18,7 @@ using static VorratsUebersicht.Tools;
 namespace VorratsUebersicht
 {
     [Activity(Label = "Auswahl Datei")]
-    public class SelectFileActivity : Activity
+    public class BackupFileManageActivity : Activity
     {
         List<SimpleListItem2View> items;
         private string path;
@@ -42,7 +42,7 @@ namespace VorratsUebersicht
             this.searchPattern = Intent.GetStringExtra("SearchPattern");
 
             // Soll noch umgestellt werden
-            SetContentView(Resource.Layout.SelectFile);
+            SetContentView(Resource.Layout.BackupFileManage);
 
             var pathView = FindViewById<TextView>(Resource.Id.SelectFile_Path);
             pathView.Text = this.path;

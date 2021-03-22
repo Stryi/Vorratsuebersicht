@@ -46,6 +46,8 @@ namespace VorratsUebersicht
 
 			TextView text2 = view.FindViewById<TextView> (Android.Resource.Id.Text2);
 			text2.Text = kitten.SubHeading;
+			text2.SetTextSize(Android.Util.ComplexUnitType.Sp, 12);
+			text2.Alpha = 0.5f;
 
 			return view;
 		}
