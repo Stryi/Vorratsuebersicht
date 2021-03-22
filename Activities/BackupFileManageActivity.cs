@@ -135,7 +135,9 @@ namespace VorratsUebersicht
         {
             try
             {
-                var fileList = new DirectoryInfo(this.path).GetFiles(this.searchPattern);
+                var fileListUnsorted = new DirectoryInfo(this.path).GetFiles(this.searchPattern);
+
+                var fileList = fileListUnsorted.OrderBy( e => e.Name);
 
                 this.items = new List<SimpleListItem2View>();
                 foreach(FileInfo file in fileList)

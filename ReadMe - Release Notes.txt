@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 6.10 (Code Version 98)
 ==============================
 
+E033 - Backup Liste jetzt Sortiert nach Namen.
 C170 - Auswahl der Datenbanken jetzt auf der Hauptmaske.
 C169 - "Nicht heute" beim Fragen nach dem Backup hinzugefügt.
 C168 - "Auf Einkaufszettel" zeigt jetzt Lagerbestand mit Komma Zahl.

@@ -31,7 +31,7 @@ REM Daten kopieren
 %adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"     "%SD_Card_Path%/Vorratsuebersicht/Ferienhaus Florida.db3"
 %adbCmd% push "..\..\Testdaten\Vorraete_Stryi_Kaputt.db3"  "%SD_Card_Path%/Vorratsuebersicht/KAPUTT.db3"
 
-%adbCmd% push "..\..\Testdaten\Vorraete_Stryi.db3"         "%SD_Card_Path%/Vorratsuebersicht/Vorraete.db3"
+%adbCmd% push "..\..\Testdaten\Vorraete_Stryi.db3"         "%SD_Card_Path%/Vorratsuebersicht/Milanweg.db3"
 
 REM %adbCmd% -s %EmulatorName%   push "..\..\Testdaten\Vue_2020-03-23 11.59.14.db3" "%SD_Card_Path%/Vorratsuebersicht/Vue_2020-03-23 11.59.14.db3"
 
