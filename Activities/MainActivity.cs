@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Globalization;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -12,7 +10,6 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Content.PM;
-using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using AndroidX.Core.Content;
 

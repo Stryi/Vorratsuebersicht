@@ -1,9 +1,6 @@
 Prio 1
 ======
 
-EAN Scan
-- Besseren EAN Scanner suchen (inzwischen Zxing.Net.Mobile 3.1.0 Beta2 Version)
-
 
 Sonstiges
 - Push Benachrichtigung über bald zu verbrauchende Artikel einmal pro Tag
@@ -11,13 +8,19 @@ Sonstiges
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/notifications/local-notifications-walkthrough
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/services/service-notifications
 
+Einstellungen
+- Nur X Backups lassen, ältere automatisch löschen.
 
 Anwendung
 - Anwendungsabstürze in die LOG Datei protokollieren.
   https://stackoverflow.com/questions/39503390/global-exception-handling-in-xamarin-cross-platform
 
+
 Artikeldetails
 - Kalorien umrechnen auch von "cl"
+
+EAN Scan
+- Besseren EAN Scanner suchen (inzwischen Zxing.Net.Mobile 3.1.0 Beta2 Version)
 
 
 Prio 2

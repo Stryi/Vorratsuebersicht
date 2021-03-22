@@ -12,6 +12,8 @@ Vor dem Hochladen ins Google Play Store:
 Version 6.10 (Code Version 98)
 ==============================
 
+C170 - Auswahl der Datenbanken jetzt auf der Hauptmaske.
+C169 - "Nicht heute" beim Fragen nach dem Backup hinzugefügt.
 C168 - "Auf Einkaufszettel" zeigt jetzt Lagerbestand mit Komma Zahl.
 E032 - Kein Absturz beim Speichern, wenn die Datenbank ReadOnly ist (z.B. auf SD Karte)
 C167 - Nach dem EAN Scan wird jetzt auch Bestand und Anzahl auf dem Einkaufszettel angezeigt.

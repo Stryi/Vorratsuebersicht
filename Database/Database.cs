@@ -144,6 +144,20 @@ namespace VorratsUebersicht
             command.ExecuteNonQuery();
         }
 
+        internal static List<ArticleData> GetArticlesToCopyImages()
+        {
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
+            if (databaseConnection == null)
+                return new List<ArticleData>();
+
+            return databaseConnection.Query<ArticleData>(
+                "SELECT ArticleId, Name" +
+                " FROM Article" +
+                " WHERE Image IS NOT NULL" +
+                " AND ArticleId NOT IN (SELECT ArticleId FROM ArticleImage)" +
+                " ORDER BY Name COLLATE NOCASE");
+        }
+
         internal static decimal GetShoppingListQuantiy(int articleId, decimal notFoundDefault = 0)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
@@ -1123,5 +1137,23 @@ namespace VorratsUebersicht
                 command.ExecuteNonQuery();
             }
         }
+
+        internal static string ClearSettings(string key)
+        {
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
+            if (databaseConnection == null)
+                return null;
+
+            string cmd = string.Empty;
+
+            cmd += "DELETE";
+            cmd += " FROM Settings";
+            cmd += " WHERE Key = ?";
+
+            var command = databaseConnection.CreateCommand(cmd, new object[] { key });
+
+            return command.ExecuteScalar<string>();
+        }
+
     }
 }

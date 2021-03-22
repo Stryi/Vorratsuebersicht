@@ -351,6 +351,44 @@ namespace VorratsUebersicht
 			return conn;
 		}
 
+        public static List<string> GetDatabaseFileList()
+        {
+            var fileList = new List<string>();
+
+            string addPath = Settings.GetString("AdditionslDatabasePath", string.Empty);
+            
+            if (!string.IsNullOrEmpty(addPath))
+            {
+                fileList.AddRange(Directory.GetFiles(addPath, "*.db3"));
+            }
+            
+            string sdCardPath = Android_Database.Instance.GetSdCardPath();
+            if (Directory.Exists(sdCardPath))
+            {
+                fileList.AddRange(Directory.GetFiles(sdCardPath, "*.db3"));
+            }
+
+            return fileList;
+        }
+
+        public static string TryOpenDatabase(string databaseName)
+        {
+            try
+            {
+                Android_Database.Instance.CloseConnection();
+
+                Android_Database.SelectedDatabaseName = databaseName;
+
+                Android_Database.SQLiteConnection = Android_Database.Instance.GetConnection();
+            }
+            catch(Exception ex)
+            {
+                return ex.Message;
+            }
+
+            return null;
+        }
+
         public void CloseConnection()
         {
             if (Android_Database.SQLiteConnection != null)
@@ -440,23 +478,6 @@ namespace VorratsUebersicht
             {
                 conn.Execute("ALTER TABLE StorageItem ADD COLUMN [StorageName] TEXT");
             }
-        }
-
-        public IList<ArticleData> GetArticlesToCopyImages(SQLite.SQLiteConnection databaseConnection)
-        {
-            // Noch keine Datenbank angelegt?
-            if (databaseConnection == null)
-                return new List<ArticleData>();
-
-            // Artikelbilder ermitteln, die noch nicht übertragen wurden.
-            var articleImagesToCopy = databaseConnection.Query<ArticleData>(
-                "SELECT ArticleId, Name" +
-                " FROM Article" +
-                " WHERE Image IS NOT NULL" +
-                " AND ArticleId NOT IN (SELECT ArticleId FROM ArticleImage)" +
-                " ORDER BY Name COLLATE NOCASE");
-
-            return articleImagesToCopy;
         }
 
         private bool IsFieldInTheTable(SQLiteConnection conn, string tableName, string fieldName)

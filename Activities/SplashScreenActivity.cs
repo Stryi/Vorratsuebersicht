@@ -2,10 +2,11 @@
 using System.IO;
 using System.Threading;
 using System.Collections.Generic;
-using Android.Content;
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using Android.Support.V7.App;
+using Android.Content;
 
 // Anhand von
 // http://www.c-sharpcorner.com/UploadFile/1e050f/creating-splash-screen-for-android-app-in-xamarin/
@@ -13,9 +14,10 @@ using Android.Widget;
 namespace VorratsUebersicht  
 {
     using static Tools;
+    using AlertDialog = Android.App.AlertDialog;
 
     [Activity(Label="Vorratsübersicht",MainLauncher=true,Theme="@style/Theme.Splash",NoHistory=true,Icon="@drawable/ic_launcher")]  
-    public class SplashScreenActivity : Activity  
+    public class SplashScreenActivity : AppCompatActivity
     {  
         private TextView    progressText;
         private ProgressBar progressBar;
@@ -29,24 +31,25 @@ namespace VorratsUebersicht
             this.progressText = FindViewById<TextView>(Resource.Id.SplashScreen_ProgressText);
             this.progressBar  = FindViewById<ProgressBar>(Resource.Id.SplashScreen_ProgressBar);
 
-            bool ok = this.InitializeApp();
-            if (ok)
+            bool selected = this.SelectDatabase();
+            if (selected)
             {
                 this.CheckAndMoveArticleImages();
                 StartActivity(typeof(MainActivity));
             }
         }
 
-        private bool InitializeApp() 
+        /// <summary>
+        /// Datenbankauswahl (bei mehreren Datenbanken)
+        /// </summary>
+        /// <returns>true - Datenbank wurde ausgewählt. false - Datenbankauswahl wird angezeigt.</returns>
+        private bool SelectDatabase() 
         {
-            if (Android_Database.SQLiteConnection != null)
-                return true;
-            
             List<string> fileList;
 
             try
             {
-                fileList = this.GetFileList();
+                fileList = Android_Database.GetDatabaseFileList();
             }
             catch(Exception ex)
             {
@@ -60,26 +63,12 @@ namespace VorratsUebersicht
 
                 Toast.MakeText(this, text, ToastLength.Long).Show();
 
-                this.ConvertAndStartMainScreen();
-                
-                /*
-                 * Die Meldung kam bei Neuinstallation und könnte den Benutzer verwirren.
-                 * 
-                var message = new AlertDialog.Builder(this);
-                message.SetMessage(text);
-                message.SetIcon(Resource.Drawable.ic_launcher);
-                message.SetPositiveButton("Ok", (s, e) => 
-                {
-                    this.ConvertAndStartMainScreen();
-                });
-                message.Create().Show();
-                */
-                return false;
+                return true;
             }
 
             if (fileList.Count == 1)
             {
-                Android_Database.SelectedDatabaseName = fileList[0];
+                Android_Database.TryOpenDatabase(fileList[0]);
                 return true;
             }
 
@@ -99,14 +88,14 @@ namespace VorratsUebersicht
             builder.SetTitle("Datenbank auswählen:");
             builder.SetItems(databaseNames, (sender2, args) =>
             {
-                Android_Database.SelectedDatabaseName = fileList[args.Which];
+                Android_Database.TryOpenDatabase(fileList[args.Which]);
 
                 this.ConvertAndStartMainScreen();
             });
 
-            builder.SetOnCancelListener(new OnDismissListener(() =>
+            builder.SetOnCancelListener(new ActionDismissListener(() =>
             {
-                Android_Database.SelectedDatabaseName = fileList[0];        // Ersten Eintrag auswählen
+                Android_Database.TryOpenDatabase(fileList[0]);
 
                 this.ConvertAndStartMainScreen();
             }));
@@ -143,32 +132,13 @@ namespace VorratsUebersicht
             */
         }
 
-        private List<string> GetFileList()
-        {
-            var fileList = new List<string>();
-
-            string addPath = Settings.GetString("AdditionslDatabasePath", string.Empty);
-            
-            if (!string.IsNullOrEmpty(addPath))
-            {
-                fileList.AddRange(Directory.GetFiles(addPath, "*.db3"));
-            }
-            
-            string sdCardPath = Android_Database.Instance.GetSdCardPath();
-            if (Directory.Exists(sdCardPath))
-            {
-                fileList.AddRange(Directory.GetFiles(sdCardPath, "*.db3"));
-            }
-
-            return fileList;
-        }
-
         private void ConvertAndStartMainScreen()
         {
             new System.Threading.Thread(new ThreadStart(delegate             
             {
                 this.CheckAndMoveArticleImages();
                 StartActivity(typeof(MainActivity));
+
             })).Start();
         }
 
@@ -177,29 +147,14 @@ namespace VorratsUebersicht
         //
         private bool CheckAndMoveArticleImages()
         {
-            SQLite.SQLiteConnection databaseConnection;
-
-            try
-            {
-                databaseConnection = Android_Database.Instance.GetConnection();
-
-            }
-            catch
-            {
-                return true;
-            }
-
             // Nur, wenn bereits eine Datenbank vorhanden ist
-            if (databaseConnection == null)
+            if (Android_Database.SQLiteConnection == null)
                 return true;
+
+            var databaseConnection = Android_Database.SQLiteConnection;
 
             // Artikelbilder ermitteln, die noch nicht übertragen wurden.
-            var articleImagesToCopy = databaseConnection.Query<ArticleData>(
-                "SELECT ArticleId, Name" +
-                " FROM Article" +
-                " WHERE Image IS NOT NULL" +
-                " AND ArticleId NOT IN (SELECT ArticleId FROM ArticleImage)" +
-                " ORDER BY Name COLLATE NOCASE");
+            var articleImagesToCopy = Database.GetArticlesToCopyImages();
 
             if (articleImagesToCopy.Count == 0)
                 return true;
@@ -290,11 +245,11 @@ namespace VorratsUebersicht
             return true;
         }
 
-        private class OnDismissListener : Java.Lang.Object, IDialogInterfaceOnCancelListener
+       private class ActionDismissListener : Java.Lang.Object, IDialogInterfaceOnCancelListener
         {
             private readonly Action action;
 
-            public OnDismissListener(Action action)
+            public ActionDismissListener(Action action)
             {
                 this.action = action;
             }

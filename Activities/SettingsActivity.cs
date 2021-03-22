@@ -165,18 +165,22 @@ namespace VorratsUebersicht
             categorySpinner.Adapter = categoryAdapter;
             categorySpinner.ItemSelected += CategorySpinner_ItemSelected;
 
-            string defaultCategory = Database.GetSettingsString("DEFAULT_CATEGORY");
+            if (Android_Database.SQLiteConnection != null)
+            {
+                string defaultCategory = Database.GetSettingsString("DEFAULT_CATEGORY");
 
-            int position = categoryAdapter.GetPosition(defaultCategory);
+                int position = categoryAdapter.GetPosition(defaultCategory);
 
-            if (position < 0)
-                position = 0;
+                if (position < 0)
+                    position = 0;
 
-            categorySpinner.SetSelection(position);
+                categorySpinner.SetSelection(position);
 
-            this.EnableButtons();
+                this.EnableButtons();
 
-            this.ShowLastBackupDay();
+                this.ShowLastBackupDay();
+            }
+
             this.ShowApplicationVersion();
 
             // Artikelname ist eingetragen. Tastatus anfänglich ausblenden.
@@ -397,9 +401,7 @@ namespace VorratsUebersicht
                         // Sich neu connecten;
                         Android_Database.SQLiteConnection = null;
 
-                        var databaseConnection = Android_Database.Instance.GetConnection();
-
-                        var picturesToMove = Android_Database.Instance.GetArticlesToCopyImages(databaseConnection);
+                        var picturesToMove = Database.GetArticlesToCopyImages();
 
                         if (picturesToMove.Count > 0)
                         {
@@ -407,7 +409,8 @@ namespace VorratsUebersicht
                             RunOnUiThread(() =>
                             {
                                 message = string.Format(
-                                    "Es müsen {0} Bilder übetragen werden. Beenden Sie die app ganz und starten Sie diese neu.",
+                                    "Es müsen {0} Bilder übetragen werden.\n\n" +
+                                    "Beenden Sie die App ganz und starten Sie diese neu.",
                                     picturesToMove.Count);
 
                                 var dialog = new AlertDialog.Builder(this);
@@ -550,6 +553,20 @@ namespace VorratsUebersicht
 
             // Sich neu connecten;
             Android_Database.SQLiteConnection = null;
+
+            try
+            {
+                Android_Database.Instance.GetConnection();
+                
+            }
+            catch(Exception ex)
+            {
+                var messageBox = new AlertDialog.Builder(this);
+                messageBox.SetTitle("Fehler aufgetreten!");
+                messageBox.SetMessage(ex.Message);
+                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.Create().Show();
+            }
 
             this.ShowDatabaseInfo();
             this.ShowUserDefinedCategories();
@@ -709,7 +726,7 @@ namespace VorratsUebersicht
             // Backups müssen sich im Download Verzeichnis befinden.
             var downloadFolder = this.GetBackupPath();
 
-            var selectFile = new Intent(this, typeof(SelectFileActivity));
+            var selectFile = new Intent(this, typeof(BackupFileManageActivity));
             selectFile.PutExtra("Text",         "Backup auswählen:");
             selectFile.PutExtra("Path",          downloadFolder);
             selectFile.PutExtra("SearchPattern", "*.VueBak");
@@ -806,9 +823,8 @@ namespace VorratsUebersicht
         {
             string categoryText = string.Empty;
 
-           EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
-
-            try
+            // Nur, wenn Datenbankverbindung besteht
+            if (Android_Database.SQLiteConnection != null)
             {
                 var categories = MainActivity.GetUserDefinedCategories();
                 foreach(string category in categories)
@@ -816,30 +832,29 @@ namespace VorratsUebersicht
                     categoryText += category + ", ";
                 }
             }
-            catch(Exception e)
-            {
-                TRACE(e);
 
-                var messageBox = new AlertDialog.Builder(this);
-                messageBox.SetTitle("Fehler aufgetreten!");
-                messageBox.SetMessage("Fehler beim Laden der benutzerspezifischen Kategorien.\n\n" + e.Message);
-                messageBox.SetPositiveButton("OK", (s, evt) => { });
-                messageBox.Create().Show();
-
-                this.FindViewById<TextView>(Resource.Id.Settings_Categories_Text).Enabled = false;
-                catEdit.Enabled = false;
-            }
-
+            EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
             catEdit.Text = categoryText;
             catEdit.SetSelection(categoryText.Length);
+            catEdit.Enabled = Android_Database.SQLiteConnection != null;
 
             this.userCategoriesChanged = false;
         }
 
         private void ShowLastBackupDay()
         {
-            TextView lastBackupDay = FindViewById<TextView>(Resource.Id.Settings_LastBackupDay);
-            lastBackupDay.Text = string.Format("Letzter Backup am: {0}", Database.GetSettingsDate("LAST_BACKUP")?.ToShortDateString());
+            string lastBackupDay = string.Empty;
+            try
+            {
+                lastBackupDay = Database.GetSettingsDate("LAST_BACKUP")?.ToShortDateString();
+            }
+            catch(Exception ex)
+            {
+                TRACE(ex);
+            }
+
+            TextView lastBackupDayView = FindViewById<TextView>(Resource.Id.Settings_LastBackupDay);
+            lastBackupDayView.Text = string.Format("Letzter Backup am: {0}", lastBackupDay);
         }
 
 
