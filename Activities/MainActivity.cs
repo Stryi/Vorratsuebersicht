@@ -33,6 +33,7 @@ namespace VorratsUebersicht
         public static readonly int ContinueScanMode = 1004;
         public static readonly int EditStorageQuantity = 1005;
         public static readonly int EANScanID = 1006;
+        public static readonly int ManageDatabases = 1007;
 
         public static string Strings_Manufacturer;
         public static string Strings_Size;
@@ -182,11 +183,9 @@ namespace VorratsUebersicht
             // Sich neu connecten;
             Android_Database.SQLiteConnection = null;
 
-            string error = this.ShowStorageInfoText();
-            this.ShowDatabaseError(error);
-            this.ShowDatabaseName();
+            this.ShowDatabaseInfoText();
 
-            this.EnableButtons(string.IsNullOrEmpty(error));
+            this.ShowDatabaseName();
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -241,9 +240,77 @@ namespace VorratsUebersicht
                     StartActivityForResult(new Intent(this, typeof(SettingsActivity)), OptionsId);
 
                     return true;
+
+                case Resource.Id.Main_Menu_SelectDatabase:
+
+                    this.SelectDatabase();
+
+                    return true;
             }
 
             return false;
+        }
+
+        private void SelectDatabase()
+        {
+            List<string> fileList;
+            
+            try
+            {
+                fileList = Android_Database.GetDatabaseFileList();
+            }
+            catch(Exception ex)
+            {
+                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
+                
+                return;
+            }
+
+            string[] databaseNames = new string[fileList.Count];
+
+            for(int i = 0; i < fileList.Count; i++)
+            {
+                databaseNames[i] = Path.GetFileNameWithoutExtension(fileList[i]);
+            }
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle("Datenbank auswählen:");
+            builder.SetItems(databaseNames, (sender2, args) =>
+            {
+                Android_Database.TryOpenDatabase(fileList[args.Which]);
+                
+                this.CheckAndMoveArticleImages();
+
+                this.ShowDatabaseName();
+
+                this.ShowDatabaseInfoText();
+            });
+
+            builder.Show();
+        }
+
+        private void CheckAndMoveArticleImages()
+        {
+            // Nur, wenn bereits eine Datenbank vorhanden ist
+            if (Android_Database.SQLiteConnection == null)
+                return;
+
+            var picturesToMove = Database.GetArticlesToCopyImages();
+
+            if (picturesToMove.Count == 0)
+                return;
+
+            string message = string.Format(
+                "Es müsen {0} Bilder übetragen werden.\n\n" +
+                "Beenden Sie die App ganz, starten Sie diese neu und wählen Sie beim Starten diese Datenbank.",
+                picturesToMove.Count);
+
+            var dialog = new AlertDialog.Builder(this);
+            dialog.SetMessage(message);
+            dialog.SetTitle(Resource.String.App_Name);
+            dialog.SetIcon(Resource.Drawable.ic_launcher);
+            dialog.SetPositiveButton("OK", (s1, e1) => { });
+            dialog.Create().Show();
         }
 
         private void ArticlesNearExpiryDate_Click(object sender, EventArgs e)
@@ -278,33 +345,35 @@ namespace VorratsUebersicht
 
         private void CreateBackup()
         {
+            /*
+            // Einstellungen löschen
+            Database.ClearSettings("LAST_BACKUP");
+            Settings.Clear("BACKUP_NOT_TODAY");
+            */
+
             bool askForBackup = Settings.GetBoolean("AskForBackup", true);;
             if (!askForBackup)
             {
                 return;
             }
 
-            // Ab 5 Artikel in der Datenbank (damit nicht bei einem Artikel schon mit Backup 'geärgert' wird) 
-            // einmal pro Woche ein Backup vorschlagen zu erstellen.
-
-            // Falls noch kein Zugriff auf den Internen Speicher gegeben ist
-            try
-            {
-                decimal articleCount = Database.GetArticleCount();
-                if (articleCount < 5)
-                    return;
-            }
-            catch(Exception ex)
-            {
-                TRACE(ex);
-
+            // Noch keine Datenbankverbindung?
+            if (Android_Database.SQLiteConnection == null)
                 return;
-            }
+
+            decimal articleCount = Database.GetArticleCount();
+            if (articleCount < 5)
+                return;
 
             DateTime? lastBackupDay = Database.GetSettingsDate("LAST_BACKUP");
 
             // Backup nur alle 7 Tage vorschlagen
             if ((lastBackupDay != null) && (lastBackupDay.Value.AddDays(7) >= DateTime.Today))
+                return;
+
+            // Heute nicht mehr fragen?
+            DateTime? notToday = Settings.GetDate("BACKUP_NOT_TODAY");
+            if ((notToday != null) && (notToday.Value.Date == DateTime.Today))
                 return;
 
             string messageText = "Backup der Datenbank erstellen?";
@@ -324,7 +393,12 @@ namespace VorratsUebersicht
                     settingsActivity.PutExtra("CreateBackup", true);
                     StartActivity(settingsActivity);
                 });
-            message.SetNegativeButton("Nicht jetzt", (s, e) => { });
+            message.SetNegativeButton("Später",      (s, e) => { });
+            message.SetNeutralButton("Nicht heute",  (s, e) => 
+                { 
+                    Settings.PutDate("BACKUP_NOT_TODAY", DateTime.Today);
+                });
+
             message.Show();
         }
 
@@ -383,25 +457,28 @@ namespace VorratsUebersicht
             Settings.PutBoolean("FirstRun", false);
         }
 
-        /// <summary>
-        /// Information über abgelaufene Lagerpositionen und die Positionen, bei denen das Ablaufdatum
-        /// innerhalb vom Warnungsdatum liegt.
-        /// </summary>
-        private string ShowStorageInfoText()
+        private void ShowDatabaseInfoText()
         {
-            decimal abgelaufen;
-
             try
             {
-                abgelaufen = Database.GetArticleCount_Abgelaufen();
+                this.ShowStorageInfoText();
+                this.ShowDatabaseError(string.Empty);
+                this.EnableButtons(true);
             }
             catch(Exception ex)
             {
-                TRACE(ex);
-
-                //Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-                return ex.Message;
+                this.ShowDatabaseError(ex.Message);
+                this.EnableButtons(false);
             }
+        }
+
+        /// <summary>
+        /// Information über abgelaufene Lagerpositionen und die Positionen, 
+        /// bei denen das Ablaufdatum innerhalb vom Warnungsdatum liegt.
+        /// </summary>
+        private void ShowStorageInfoText()
+        {
+            decimal abgelaufen = Database.GetArticleCount_Abgelaufen();
 
             TextView text = FindViewById<TextView>(Resource.Id.Main_Text1);
             if (abgelaufen > 0)
@@ -415,19 +492,7 @@ namespace VorratsUebersicht
                 text.Visibility = ViewStates.Gone;
             }
 
-            decimal kurzDavor;
-
-            try
-            {
-                kurzDavor = Database.GetArticleCount_BaldZuVerbrauchen();
-            }
-            catch(Exception ex)
-            {
-                TRACE(ex);
-
-                //Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-                return ex.Message;
-            }
+            decimal kurzDavor = Database.GetArticleCount_BaldZuVerbrauchen();
 
             text = FindViewById<TextView>(Resource.Id.Main_Text2);
             if (kurzDavor > 0)
@@ -450,8 +515,6 @@ namespace VorratsUebersicht
             {
                 text.Visibility = ViewStates.Gone;
             }
- 
-            return null;
         }
 
         private void SetInfoText(string text, bool overrideText = true)
@@ -513,8 +576,7 @@ namespace VorratsUebersicht
 
             if (requestCode == EditStorageItemQuantityId)
             {
-                string error = this.ShowStorageInfoText();
-                this.ShowDatabaseError(error);
+                this.ShowDatabaseInfoText();
             }
 
             if (requestCode == OptionsId)
@@ -749,6 +811,10 @@ namespace VorratsUebersicht
         {
             // Fest definierte Kategorien
             List<string> categories = new List<string>(defaultCategories);
+
+            // Noch keine Datenbankverbindung?
+            if (Android_Database.SQLiteConnection == null)
+                return categories;
 
             var userCategories = MainActivity.GetUserDefinedCategories();
             foreach(string userCategory in userCategories)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -25,12 +26,24 @@ namespace VorratsUebersicht
             var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
             return prefs.GetInt(key, defValue);
         }
-
         
         internal static bool GetBoolean(string key, bool defValue)
         {
             var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
             return prefs.GetBoolean(key, defValue);
+        }
+
+        internal static DateTime? GetDate(string key)
+        {
+            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
+            string dateText = prefs.GetString(key, null);
+
+            if (dateText == null)
+                return null;
+
+            var date = DateTime.ParseExact(dateText, "yyyy.MM.dd", CultureInfo.InvariantCulture);
+
+            return date.Date;
         }
         
         internal static void PutString(string key, string value)
@@ -49,7 +62,6 @@ namespace VorratsUebersicht
             prefEditor.Commit();
         }
 
-        
         internal static void PutBoolean(string key, bool value)
         {
             var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
@@ -58,5 +70,22 @@ namespace VorratsUebersicht
             prefEditor.Commit();
         }
 
+        internal static void PutDate(string key, DateTime value)
+        {
+            string dateText = value.ToString("yyyy.MM.dd");
+
+            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
+            var prefEditor = prefs.Edit();
+            prefEditor.PutString(key, dateText);
+            prefEditor.Commit();
+        }
+
+        internal static void Clear(string key)
+        {
+            var prefs = Application.Context.GetSharedPreferences("Vorratsübersicht", FileCreationMode.Private);
+            var prefEditor = prefs.Edit();
+            prefEditor.Remove(key);
+            prefEditor.Commit();
+        }
     }
 }
