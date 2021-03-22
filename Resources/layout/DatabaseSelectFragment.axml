@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/FolderSelect_Top"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/Application_ActionBar_Background" >
+
+        <TextView
+            android:id="@+id/FolderSelect_Title"
+            android:text="Datenbank auswählen:"
+            android:textColor="@color/Application_ActionBar_TextColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="5dp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/SelectFile"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/FolderSelect_Top"/>
+</RelativeLayout>

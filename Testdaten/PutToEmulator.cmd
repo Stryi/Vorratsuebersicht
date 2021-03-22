@@ -22,16 +22,17 @@ ECHO ----------------------------------------------------
 REM Bereinigung
 REM %adbCmd% -s %EmulatorName%   shell rm    %SD_Card_Path%/Vorratsuebersicht/Vorraete.db3
 REM %adbCmd% -s %EmulatorName%   shell rm    %SD_Card_Path%/Vorratsuebersicht/Vorraete-Test.db3
-REM %adbCmd% -s %EmulatorName%   shell rm    %SD_Card_Path%/Vorratsuebersicht/Vorraete_Stryi_Kaputt.db3
+REM %adbCmd% -s %EmulatorName%   shell rm    %SD_Card_Path%/Vorratsuebersicht/KAPUTT.db3
 %adbCmd% shell rm    %SD_Card_Path%/Vorratsuebersicht/*.*
 %adbCmd% shell rmdir %SD_Card_Path%/Vorratsuebersicht
 
 REM Daten kopieren
-REM %adbCmd% push "..\..\Testdaten\Jacht.db3"                  "%SD_Card_Path%/Vorratsuebersicht/Jacht.db3"
-REM %adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"     "%SD_Card_Path%/Vorratsuebersicht/Ferienhaus Florida.db3"
+%adbCmd% push "..\..\Testdaten\Jacht.db3"                  "%SD_Card_Path%/Vorratsuebersicht/Jacht.db3"
+%adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"     "%SD_Card_Path%/Vorratsuebersicht/Ferienhaus Florida.db3"
+%adbCmd% push "..\..\Testdaten\Vorraete_Stryi_Kaputt.db3"  "%SD_Card_Path%/Vorratsuebersicht/KAPUTT.db3"
+
 %adbCmd% push "..\..\Testdaten\Vorraete_Stryi.db3"         "%SD_Card_Path%/Vorratsuebersicht/Vorraete.db3"
 
-REM %adbCmd% -s %EmulatorName%   push "..\..\Testdaten\Vorraete_Stryi_Kaputt.db3"  "%SD_Card_Path%/Vorratsuebersicht/Vorraete_Stryi_Kaputt.db3"
 REM %adbCmd% -s %EmulatorName%   push "..\..\Testdaten\Vue_2020-03-23 11.59.14.db3" "%SD_Card_Path%/Vorratsuebersicht/Vue_2020-03-23 11.59.14.db3"
 
 ECHO ----------------------------------------------------

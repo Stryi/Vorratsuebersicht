@@ -2,14 +2,17 @@
 Projekt: Vorratsübersicht
 --------------------------------------------------------------------------------
 
+Zum Übersetzen wird das Visual Studio Community 2019 verwendet.
+Als Bibliothek wir Xamarin eingesetzt.
+
 Für Android 10 muss requestLegacyExternalStorage=True gesetzt werden
 
     https://developer.android.com/training/data-storage/use-cases#opt-out-scoped-storage
 
-ab Android 11 wird der Parameter nicht mehr berücksichtigt.
+ab Android 11 wird der Parameter nicht mehr berücksichtigt(?).
 
 
-Implementiert anhand vom Beispiel:
+Ursprünglische Implementiert anhand vom Beispiel:
 
 https://developer.xamarin.com/guides/xamarin-forms/working-with/databases/
 
@@ -29,7 +32,6 @@ NuGet Packages:
 - SQLitePCLRaw.lib.e_sqlite3.android by Eric Sink, D. Richard Hipp, et al
 - SQLitePCLRaw.provider.e_sqlite3.android by Eric Sink, et al
 - ZXing.Net.Mobile by Redth
-- https://github.com/broteam168/Storage-Chooser-Xamarin
 
 
 Icons der Anwendung:
@@ -37,7 +39,7 @@ Icons der Anwendung:
 
 https://material.io/icons
 
-Filled -> Selected Icon -> Android -> White 
+Filled -> Selected Icon -> Android -> White -> PNG
 
 Open Source
 The icons are available under the Apache License Version 2.0. 
