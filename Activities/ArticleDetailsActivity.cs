@@ -65,6 +65,7 @@ namespace VorratsUebersicht
         public static readonly int EditPhoto = 1003;
         public static readonly int InternetDB = 1004;
         public static readonly int StorageQuantityId = 1005;
+        public static readonly int EANScanID = 1006;
 
         public bool IsPhotoSelected
         {
@@ -469,7 +470,8 @@ namespace VorratsUebersicht
                     return true;
 
                 case Resource.Id.ArticleDetailsMenu_ScanEAN:
-                    this.ScanEAN();
+                    StartActivityForResult(typeof(ZXingFragmentActivity), EANScanID);
+
                     return true;
 
                 case Resource.Id.ArticleDetailsMenu_ToShoppingList:
@@ -602,26 +604,23 @@ namespace VorratsUebersicht
             this.StartActivityForResult(storageDetails, StorageQuantityId);
         }
 
-        private async void ScanEAN()
+        private void SearchEANCode(string eanCode)
         {
-            var scanner = new ZXing.Mobile.MobileBarcodeScanner();
-            var scanResult = await scanner.Scan();
-
-            if (scanResult == null)
+            if (string.IsNullOrEmpty(eanCode))
                 return;
 
-            TRACE("Scanned Barcode: {0}", scanResult.Text);
+            TRACE("Scanned Barcode: {0}", eanCode);
             EditText editTextEanCode = FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode);
             if (string.IsNullOrEmpty(editTextEanCode.Text))
             {
-                editTextEanCode.Text = scanResult.Text;
+                editTextEanCode.Text = eanCode;
                 return;
             }
 
             var message = new AlertDialog.Builder(this);
             message.SetIcon(Resource.Drawable.ic_launcher);
 
-            if (editTextEanCode.Text.Contains(scanResult.Text))
+            if (editTextEanCode.Text.Contains(eanCode))
             {
                 message.SetMessage("Der EAN Code ist bereits eingetragen.");
                 message.SetPositiveButton("Ok", (s, e) => {});
@@ -633,11 +632,11 @@ namespace VorratsUebersicht
             message.SetMessage("Den EAN Code ersetzen oder zusätzlich hinzufügen?");
             message.SetPositiveButton("Ersetzen", (s, e) => 
             {
-                editTextEanCode.Text = scanResult.Text;
+                editTextEanCode.Text = eanCode;
             });
             message.SetNegativeButton("Hinzufügen", (s, e) => 
             { 
-                editTextEanCode.Text = editTextEanCode.Text +  "," + scanResult.Text;
+                editTextEanCode.Text = editTextEanCode.Text +  "," + eanCode;
             });
             message.Create().Show();
 
@@ -752,6 +751,12 @@ namespace VorratsUebersicht
             if (requestCode == StorageQuantityId)
             {
                 this.ShowStoreQuantityInfo();
+            }
+
+            if ((requestCode == EANScanID) && (data != null))
+            {
+                string eanCode = data.GetStringExtra("EANCode");
+                this.SearchEANCode(eanCode);
             }
         }
 
