@@ -70,6 +70,7 @@ Synchronisierung (Mehrbenutzermodus)
 - https://syncthing.net
 - https://github.com/rqlite/rqlite - ...distributed relational database, which uses SQLite
 - http://litesync.io
+- FolderSync
 
 Prio 3
 ======

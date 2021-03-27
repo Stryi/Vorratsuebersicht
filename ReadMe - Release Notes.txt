@@ -12,6 +12,8 @@ Vor dem Hochladen ins Google Play Store:
 Version 6.10 (Code Version 98)
 ==============================
 
+E045 - Liste der Dateien jetzt alphabetisch sortiert.
+E034 - List an/aus jetzt auch in EAN Scan im Artikalstamm
 E033 - Backup Liste jetzt Sortiert nach Namen.
 C170 - Auswahl der Datenbanken jetzt auf der Hauptmaske.
 C169 - "Nicht heute" beim Fragen nach dem Backup hinzugefügt.

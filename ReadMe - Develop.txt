@@ -22,7 +22,8 @@ Funktionsweise
     
         /storage/sdcard/Vorratsuebersicht/Vorraete.db3
 
-    oder
+    oder ab Android 6.0 als
+
         /storage/emulated/0/Vorratsuebersicht/Vorraete.db3
 
 
