@@ -368,6 +368,8 @@ namespace VorratsUebersicht
                 fileList.AddRange(Directory.GetFiles(sdCardPath, "*.db3"));
             }
 
+            fileList.Sort();
+
             return fileList;
         }
 

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Collections.Generic;
 
 namespace VorratsUebersicht
 {
@@ -54,7 +56,11 @@ namespace VorratsUebersicht
         internal static string[] GetLogFileList()
         {
             string logFilePath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
-            return Directory.GetFiles(logFilePath, "Vue_*.log");
+            var unsortedFileList = Directory.GetFiles(logFilePath, "Vue_*.log");
+
+            List<string> sortedList = new List<string>(unsortedFileList);
+
+            return sortedList.OrderBy(e => e).ToArray();
         }
 
         internal static string GetLogFileText()
