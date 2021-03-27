@@ -87,11 +87,19 @@ namespace VorratsUebersicht
             this.SupportActionBar.SetBackgroundDrawable(backgroundPaint);
             this.SupportActionBar.SetDisplayShowHomeEnabled(true);
 
-            string storageDir = this.GetExternalFilesDir(null).AbsolutePath;
-            //File.WriteAllText(storageDir + "/Test.txt", "Das ist ein Test.");
+            var databases = Android_Database.GetDatabaseFileList();
 
-            // Datenbanken erstellen
-            Android_Database.Instance.RestoreSampleDatabaseFromResources();
+            if (databases.Count == 0)
+            {
+                // Datenbanken erstellen
+                Android_Database.Instance.RestoreSampleDatabaseFromResources();
+            }
+
+            if ((databases.Count > 0) && (string.IsNullOrEmpty(Android_Database.SelectedDatabaseName)))
+            {
+                // Datenbanken auswählen
+                this.SelectDatabase();
+            }
 
             // Zugriff auf die SD Karte anfordern
             new SdCardAccess().Grand(this);
@@ -229,6 +237,14 @@ namespace VorratsUebersicht
             return base.OnCreateOptionsMenu(menu);
         }
 
+        public override bool OnPrepareOptionsMenu(IMenu menu)
+        {
+            IMenuItem itemSelectDatabase = menu.FindItem(Resource.Id.Main_Menu_SelectDatabase);
+            itemSelectDatabase.SetVisible(!Android_Database.UseTestDatabase);
+
+            return true;
+        }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
@@ -271,7 +287,7 @@ namespace VorratsUebersicht
             }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Datenbank auswählen:");
+            builder.SetTitle("Datenbank auswählen: ");
             builder.SetItems(databaseNames, (sender2, args) =>
             {
                 Android_Database.TryOpenDatabase(fileList[args.Which]);
@@ -606,6 +622,8 @@ namespace VorratsUebersicht
 
         private void EnableButtons(bool enable)
         {
+            this.InvalidateOptionsMenu();
+
             Button buttonKategorie = FindViewById<Button>(Resource.Id.MainButton_Kategorie);
             buttonKategorie.Enabled = enable;
 
