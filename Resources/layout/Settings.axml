@@ -29,10 +29,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:indeterminate="true"
-            android:max="100"
             android:layout_marginTop="-15dp"
             android:layout_marginBottom="-5dp"
+            android:indeterminate="true"
+            android:max="100"
             android:visibility="invisible"/>
         <Button
             android:id="@+id/SettingsButton_Compress"
@@ -50,6 +50,19 @@
             android:layout_marginLeft="10dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
+
+        <TextView
+            android:text="Datenbanken verwalten (Anleitung):" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp" />
+        <TextView
+            android:text="https://github.com/Stryi/Vorratsuebersicht/wiki/Mehrere-Datenbanken-betreiben"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="left|center_vertical"
+            android:autoLink="web" />
 
         <TextView
             android:id="@+id/Settings_Categories_Text"
@@ -91,10 +104,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:indeterminate="true"
-            android:max="100"
             android:layout_marginTop="-5dp"
             android:layout_marginBottom="-5dp"
+            android:indeterminate="true"
+            android:max="100"
             android:visibility="invisible"/>
         <Button
             android:id="@+id/SettingsButton_Backup"
@@ -122,6 +135,7 @@
         <EditText
             android:id="@+id/SettingsButton_BackupPath"
             android:text=""
+            android:inputType="textUri"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -133,8 +147,8 @@
             android:textColor="@color/Text_Color2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:paddingTop="10dp" />
 
         <Switch
             android:id="@+id/SettingsButton_AskForBackup"
@@ -156,8 +170,8 @@
             android:text="Benutze Frontkamera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:gravity="left|center_vertical" />
 
         <TextView
             android:text="Zum Kennenlernen oder Testen neuer Funktionalität"
@@ -169,35 +183,35 @@
             android:text="@string/Settings_TestDatenbank"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:gravity="left|center_vertical" />
         <ProgressBar
             android:id="@+id/ProgressBar_RestoreSampleDb"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:max="100"
             android:layout_marginTop="-5dp"
             android:layout_marginBottom="-5dp"
             android:layout_marginLeft="10dp"
+            android:indeterminate="true"
+            android:max="100"
             android:visibility="invisible"/>
         <Button
             android:id="@+id/SettingsButton_RestoreSampleDb"
             android:text="@string/Settings_TestDatenbankZuruecksetzen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"            
             android:textAllCaps="false"
-            android:gravity="left|center_vertical"
-            android:layout_marginLeft="10dp" />
+            android:gravity="left|center_vertical" />
         <Button
             android:id="@+id/SettingsButton_RestoreDb0"
             android:text="@string/Settings_TestDatenbankLeeren"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:textAllCaps="false"
-            android:gravity="left|center_vertical"
-            android:layout_marginLeft="10dp" />
+            android:gravity="left|center_vertical" />
 
         <TextView
             android:text="CSV Export"
@@ -215,17 +229,17 @@
                 android:text="Artikelstamm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"                
                 android:textAllCaps="false"
-                android:gravity="left|center_vertical"
-                android:layout_marginLeft="10dp" />
+                android:gravity="left|center_vertical" />
             <Button
                 android:id="@+id/SettingsButton_CsvExportStorageItems"
                 android:text="Lagerbestand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:textAllCaps="false"
-                android:gravity="left|center_vertical"
-                android:layout_marginLeft="10dp" />
+                android:gravity="left|center_vertical" />
         </LinearLayout>
 
         <Switch
@@ -308,18 +322,18 @@
             android:text="App-DB auf den Internen Speicher kopieren"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:textAllCaps="false"
-            android:gravity="left|center_vertical"
-            android:layout_marginLeft="10dp" />
+            android:gravity="left|center_vertical" />
 
         <Button
             android:id="@+id/SettingsButton_SendLogFile"
             android:text="LOG Einträge an Entwickler schicken"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:textAllCaps="false"
-            android:gravity="left|center_vertical"
-            android:layout_marginLeft="10dp" />
+            android:gravity="left|center_vertical" />
 
         <TextView
             android:text="App Wiki" 
@@ -330,9 +344,9 @@
             android:text="https://github.com/Stryi/Vorratsuebersicht/wiki"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:gravity="left|center_vertical"
-            android:autoLink="web"
-            android:layout_marginLeft="10dp" />
+            android:autoLink="web" />
 
         <TextView
             android:text="Lizenzbedingungen" 
@@ -344,8 +358,8 @@
             android:text="@string/Settings_OpenSourceLizenzen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
             android:layout_marginLeft="10dp"
+            android:textAllCaps="false"
             android:gravity="left|center_vertical" />
         <TextView
             android:id="@+id/SettingsButton_Version"
