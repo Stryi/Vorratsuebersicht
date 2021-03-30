@@ -38,7 +38,7 @@ namespace VorratsUebersicht
 
             if (IsThereAnAppToTakePicture())
             { 
-                CreateDirectoryForPictures();
+                CreateDirectoryForPictures(context);
                 return true;
             }
             return false;
@@ -88,9 +88,11 @@ namespace VorratsUebersicht
             }
         }
 
-        private void CreateDirectoryForPictures()
+        private void CreateDirectoryForPictures(Context context)
         {
-            App._dir = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures);
+            var mediaDirs = context.GetExternalMediaDirs();
+
+            App._dir = mediaDirs[0];
         }
 
         private void StartCameraActivity()
