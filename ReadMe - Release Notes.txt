@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 6.11 (Code Version 99)
+==============================
+
+C171 - Datenbanken in App Verzeichnis kann jetzt geöffnet werden.
+
 Version 6.10 (Code Version 98)
 ==============================
 

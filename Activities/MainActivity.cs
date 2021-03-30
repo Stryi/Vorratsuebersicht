@@ -87,7 +87,7 @@ namespace VorratsUebersicht
             this.SupportActionBar.SetBackgroundDrawable(backgroundPaint);
             this.SupportActionBar.SetDisplayShowHomeEnabled(true);
 
-            var databases = Android_Database.GetDatabaseFileList();
+            var databases = Android_Database.GetDatabaseFileList(this);
 
             if (databases.Count == 0)
             {
@@ -270,7 +270,7 @@ namespace VorratsUebersicht
             
             try
             {
-                fileList = Android_Database.GetDatabaseFileList();
+                fileList = Android_Database.GetDatabaseFileList(this);
             }
             catch(Exception ex)
             {

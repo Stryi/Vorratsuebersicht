@@ -351,7 +351,7 @@ namespace VorratsUebersicht
 			return conn;
 		}
 
-        public static List<string> GetDatabaseFileList()
+        public static List<string> GetDatabaseFileList(Android.Content.ContextWrapper context)
         {
             var fileList = new List<string>();
 
@@ -366,6 +366,15 @@ namespace VorratsUebersicht
             if (Directory.Exists(sdCardPath))
             {
                 fileList.AddRange(Directory.GetFiles(sdCardPath, "*.db3"));
+            }
+
+            var externalFilesDirs = context.GetExternalFilesDirs(null);
+            if (externalFilesDirs != null)
+            {
+                foreach(var extFilesDir in externalFilesDirs)
+                {
+                    fileList.AddRange(Directory.GetFiles(extFilesDir.AbsolutePath, "*.db3"));
+                }
             }
 
             fileList.Sort();

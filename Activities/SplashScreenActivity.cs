@@ -2,6 +2,8 @@
 using System.IO;
 using System.Threading;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using Android.App;
 using Android.OS;
 using Android.Widget;
@@ -24,7 +26,10 @@ namespace VorratsUebersicht
 
         protected override void OnCreate(Bundle bundle)  
         {  
-            base.OnCreate(bundle);  
+            base.OnCreate(bundle);
+
+            //AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            //TaskScheduler.UnobservedTaskException      += TaskScheduler_UnobservedTaskException;
 
             SetContentView(Resource.Layout.SplashScreen);
 
@@ -49,7 +54,7 @@ namespace VorratsUebersicht
 
             try
             {
-                fileList = Android_Database.GetDatabaseFileList();
+                fileList = Android_Database.GetDatabaseFileList(this);
             }
             catch(Exception ex)
             {
@@ -259,5 +264,19 @@ namespace VorratsUebersicht
                 this.action();
             }
         }
+
+        /*
+        private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            var newExc = new Exception("TaskSchedulerOnUnobservedTaskException", e.Exception);
+            TRACE(newExc);
+        }
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            var newExc = new Exception("CurrentDomainOnUnhandledException", e.ExceptionObject as Exception);
+            TRACE(newExc);
+        }
+        */
     }
 }   
