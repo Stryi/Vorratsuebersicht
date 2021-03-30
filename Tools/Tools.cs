@@ -47,8 +47,8 @@ namespace VorratsUebersicht
 
         public static void TRACE(Exception e)
         {
-            Log.WriteLine(LogPriority.Error, "stryi", e.ToString());
             Tools.LogToFile(e.ToString());
+            Log.WriteLine(LogPriority.Error, "stryi", e.ToString());
         }
 
         private static void LogToFile(string text)
