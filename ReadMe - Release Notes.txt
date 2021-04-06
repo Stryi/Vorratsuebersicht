@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 6.11 (Code Version 99)
 ==============================
 
+C172 - Zuletzt geöffnete Datenbank wird gemerkt und wieder geöffnet.
 C171 - Datenbanken in App Verzeichnis kann jetzt geöffnet werden.
 
 Version 6.10 (Code Version 98)

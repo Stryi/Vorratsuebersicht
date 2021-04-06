@@ -87,18 +87,24 @@ namespace VorratsUebersicht
             this.SupportActionBar.SetBackgroundDrawable(backgroundPaint);
             this.SupportActionBar.SetDisplayShowHomeEnabled(true);
 
-            var databases = Android_Database.GetDatabaseFileList(this);
+            // Datenbanken erstellen
+            Android_Database.Instance.RestoreSampleDatabaseFromResources();
 
-            if (databases.Count == 0)
-            {
-                // Datenbanken erstellen
-                Android_Database.Instance.RestoreSampleDatabaseFromResources();
-            }
+            var databases = Android_Database.GetDatabaseFileListSafe(this);
 
             if ((databases.Count > 0) && (string.IsNullOrEmpty(Android_Database.SelectedDatabaseName)))
             {
-                // Datenbanken auswählen
-                this.SelectDatabase();
+                string lastSelectedDatabase = Settings.GetString("LastSelectedDatabase", null);
+
+                if (string.IsNullOrEmpty(lastSelectedDatabase))
+                {
+                    // Datenbanken auswählen
+                    this.SelectDatabase();
+                }
+                else
+                {
+                    Android_Database.SelectedDatabaseName = lastSelectedDatabase;
+                }
             }
 
             // Zugriff auf die SD Karte anfordern
@@ -290,8 +296,12 @@ namespace VorratsUebersicht
             builder.SetTitle("Datenbank auswählen: ");
             builder.SetItems(databaseNames, (sender2, args) =>
             {
-                Android_Database.TryOpenDatabase(fileList[args.Which]);
+                string database = fileList[args.Which];
+
+                Android_Database.TryOpenDatabase(database);
                 
+                Settings.PutString("LastSelectedDatabase", database);
+
                 this.CheckAndMoveArticleImages();
 
                 this.ShowDatabaseName();
@@ -491,42 +501,36 @@ namespace VorratsUebersicht
         /// </summary>
         private void ShowStorageInfoText()
         {
+            TextView text1 = FindViewById<TextView>(Resource.Id.Main_Text1);
+            text1.Visibility = ViewStates.Gone;
+
+            TextView text2 = FindViewById<TextView>(Resource.Id.Main_Text2);
+            text2.Visibility = ViewStates.Gone;
+
+            TextView text = FindViewById<TextView>(Resource.Id.Main_Text);
+            text.Visibility = ViewStates.Gone;
+
             decimal abgelaufen = Database.GetArticleCount_Abgelaufen();
 
-            TextView text = FindViewById<TextView>(Resource.Id.Main_Text1);
             if (abgelaufen > 0)
             {
                 string value = Resources.GetString(Resource.String.Main_ArticlesWithExpiryDate);
-                text.Text = string.Format(value, abgelaufen);
-                text.Visibility = ViewStates.Visible;
-            }
-            else
-            {
-                text.Visibility = ViewStates.Gone;
+                text1.Text = string.Format(value, abgelaufen);
+                text1.Visibility = ViewStates.Visible;
             }
 
             decimal kurzDavor = Database.GetArticleCount_BaldZuVerbrauchen();
 
-            text = FindViewById<TextView>(Resource.Id.Main_Text2);
             if (kurzDavor > 0)
             {
                 string value = Resources.GetString(Resource.String.Main_ArticlesNearExpiryDate);
-                text.Text = string.Format(value, kurzDavor);
-                text.Visibility = ViewStates.Visible;
-            }
-            else
-            {
-                text.Visibility = ViewStates.Gone;
+                text2.Text = string.Format(value, kurzDavor);
+                text2.Visibility = ViewStates.Visible;
             }
 
-            text = FindViewById<TextView>(Resource.Id.Main_Text);
             if ((abgelaufen > 0) || (kurzDavor > 0))
             {
                 text.Visibility = ViewStates.Visible;
-            }
-            else
-            {
-                text.Visibility = ViewStates.Gone;
             }
         }
 

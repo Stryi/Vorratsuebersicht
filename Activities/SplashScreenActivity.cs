@@ -93,7 +93,11 @@ namespace VorratsUebersicht
             builder.SetTitle("Datenbank auswählen:");
             builder.SetItems(databaseNames, (sender2, args) =>
             {
-                Android_Database.TryOpenDatabase(fileList[args.Which]);
+                string database = fileList[args.Which];
+
+                Android_Database.TryOpenDatabase(database);
+
+                Settings.PutString("LastSelectedDatabase", database);
 
                 this.ConvertAndStartMainScreen();
             });
