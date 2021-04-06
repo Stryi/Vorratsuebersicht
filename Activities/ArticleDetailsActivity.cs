@@ -1,7 +1,6 @@
 using System;
 using System.Globalization;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
 
 using Android.App;
@@ -11,14 +10,14 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Graphics;
-using Android.Provider;
 using Android.Content.PM;
-using Android.Text;
 using MatrixGuide;
 using static Android.Widget.AdapterView;
-using System.Threading;
 using Android.Support.V4.Content;
 using Android.Speech;
+
+using Xamarin.Essentials;
+using System.Threading;
 
 namespace VorratsUebersicht
 {
@@ -41,7 +40,6 @@ namespace VorratsUebersicht
         TextView  imageTextView;
         EditText  warningInDaysView;
         TextView  warningInDaysLabelView;
-        ImageCaptureHelper imageCapture;
         EditText size;
         EditText unit;
         EditText calorie;
@@ -57,10 +55,7 @@ namespace VorratsUebersicht
 
         string category;
         string subCategory;
-        bool cameraExists;
 
-        public static readonly int PickImageId = 1000;
-        public static readonly int TakePhotoId = 1001;
         public static readonly int SpechId = 1002;
         public static readonly int EditPhoto = 1003;
         public static readonly int InternetDB = 1004;
@@ -103,9 +98,6 @@ namespace VorratsUebersicht
             this.category          = Intent.GetStringExtra ("Category");
             this.subCategory       = Intent.GetStringExtra ("SubCategory");
             this.noStorageQuantity = Intent.GetBooleanExtra("NoStorageQuantity", false);
-
-            this.imageCapture = new ImageCaptureHelper();
-            this.cameraExists = this.imageCapture.Initializer(this);
 
             this.article = Database.GetArticle(this.articleId);
             if (this.article == null)
@@ -379,9 +371,6 @@ namespace VorratsUebersicht
             IMenuItem itemDelete = menu.FindItem(Resource.Id.ArticleDetailsMenu_Delete);
             itemDelete.SetVisible(this.article?.ArticleId > 0);
 
-            IMenuItem itemAddPhoto = menu.FindItem(Resource.Id.ArticleDetailsMenu_MakeAPhoto);
-            itemAddPhoto.SetVisible(this.cameraExists);
-
             IMenuItem itemShowPicture = menu.FindItem(Resource.Id.ArticleDetailsMenu_ShowPicture);
             itemShowPicture.SetEnabled(this.IsPhotoSelected);
 
@@ -651,55 +640,6 @@ namespace VorratsUebersicht
                 return;
             }
 
-            if ((requestCode == PickImageId) && (data != null))
-            {
-                var progressDialog = this.CreateProgressBar();
-                new Thread(new ThreadStart(delegate             
-                {
-                    // Dispose of the Java side bitmap.
-                    GC.Collect();
-
-                    Android.Net.Uri uri = data.Data;
-                    var source = ImageDecoder.CreateSource(this.ContentResolver, uri);
-                    Bitmap newBitmap = ImageDecoder.DecodeBitmap(source);
-
-                    this.ResizeBitmap(newBitmap);
-
-                    // Dispose of the Java side bitmap.
-                    GC.Collect();
-
-                    this.HideProgressBar(progressDialog);
-
-                })).Start();
-            }
-
-            if ((requestCode == TakePhotoId))
-            {
-                var progressDialog = this.CreateProgressBar();
-                new Thread(new ThreadStart(delegate             
-                {
-                    string path = this.imageCapture.FilePath;
-                    if (System.IO.File.Exists(path))
-                    {
-                        this.LoadAndResizeBitmap(path);
-                    }
-                    else
-                    {
-                        RunOnUiThread(() =>
-                        {
-                            string message = string.Format("Fotodatei '{0}' nicht gefunden.", path);
-                            Toast.MakeText(this, message, ToastLength.Long).Show();
-                        });
-                    }
-
-                    this.HideProgressBar(progressDialog);
-
-                    // Dispose of the Java side bitmap.
-                    GC.Collect();
-
-                })).Start();
-            }
-
             if (requestCode == SpechId)
             {
                 var matches = data.GetStringArrayListExtra(RecognizerIntent.ExtraResults);
@@ -776,25 +716,25 @@ namespace VorratsUebersicht
             InternetDatabaseSearchActivity.picture = null;
         }
 
-        private void SelectAPicture()
+        private async void SelectAPicture()
         {
-            Intent = new Intent();
-            Intent.SetType("image/*");
-            Intent.SetAction(Intent.ActionGetContent);
-            StartActivityForResult(Intent.CreateChooser(Intent, "Select Picture"), PickImageId);
+            FileResult photo = await MediaPicker.PickPhotoAsync();
+            if (photo == null)
+                return;
+            
+            this.LoadAndResizeBitmap(photo.FullPath);
         }
 
-        private void TakeAPhoto()
+        private async void TakeAPhoto()
         {
             if (MainActivity.IsGooglePlayPreLaunchTestMode)
                 return;
 
-            this.imageCapture.TakePicture();
-        }
-
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
-        {
-            this.imageCapture.RequestPermissions(requestCode, grantResults);
+            var result = await MediaPicker.CapturePhotoAsync();
+            if (result == null)
+                return;
+            
+            this.LoadAndResizeBitmap(result.FullPath);
         }
 
         private bool SaveArticle()
@@ -1261,13 +1201,27 @@ namespace VorratsUebersicht
 
         private void LoadAndResizeBitmap(string fileName)
         {
-            Bitmap bitmap = BitmapFactory.DecodeFile(fileName);
-            if (bitmap == null)
-                return;
+            var progressDialog = this.CreateProgressBar();
 
-            this.ResizeBitmap(bitmap);
+            new Thread(new ThreadStart(delegate             
+            {
+                Bitmap bitmap = BitmapFactory.DecodeFile(fileName);
+                if (bitmap == null)
+                {
+                    this.HideProgressBar(progressDialog);
+                    return;
+                }
 
-            File.Delete(fileName);
+                this.ResizeBitmap(bitmap);
+
+                File.Delete(fileName);
+
+                this.HideProgressBar(progressDialog);
+
+                // Dispose of the Java side bitmap.
+                GC.Collect();
+
+            })).Start();
         }
 
         private int? GetIntegerFromEditText(int resourceId)
