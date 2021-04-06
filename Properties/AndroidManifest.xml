@@ -10,6 +10,14 @@
   <uses-permission android:name="android.permission.FLASHLIGHT" />
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.INTERNET" />
+
+  <queries>
+    <!-- MediaPicker -->
+    <intent>
+      <action android:name="android.media.action.IMAGE_CAPTURE" />
+    </intent>
+  </queries>
+
   <application
     android:label="Vorratsübersicht" 
     android:requestLegacyExternalStorage="true"
