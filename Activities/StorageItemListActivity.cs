@@ -119,10 +119,6 @@ namespace VorratsUebersicht
         {
             if (view.Id == Resource.Id.StorageItemView) 
             {
-                ListView listView = (ListView)view;
-                AdapterView.AdapterContextMenuInfo acmi = (AdapterContextMenuInfo) menuInfo;
-                //ArticleListView obj = (ArticleListView)listView.GetItemAtPosition(acmi.Position);
-
                 menu.Add(Menu.None, 1, Menu.None, Resource.String.StorageItem_Artikelangaben);
                 menu.Add(Menu.None, 2, Menu.None, Resource.String.StorageItem_ToShoppingList);
             }

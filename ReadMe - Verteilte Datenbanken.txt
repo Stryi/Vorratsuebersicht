@@ -6,26 +6,35 @@ Lagerbestand:
 - Insert, Update (+/- Anzahl Differenz, Lager, MHD), Delete
 
 Artikelstamm
-- IUD
+- Insert, Update (nur die geänderten Felder), Delete
 
 Einkaufszettel
-- Anzahl, gekauft
+- Insert, Update (Anzahl, gekauft,...), Delete
 
 
 
 Annahmen:
 
 - In der Gruppe (z.B. Familie) gibt es nur EINE Master Datenbank.
+
 - Alle replizieren nur gegen die Master Datenbank.
+
 - Jede Datenbank kann als Master Datenbank definiert werden, dann aber:
-  * kann sie aber nicht mehr replizieren
-  * Änderungs-Protokoll wird dann gelöscht
+  * kann sie nicht mehr aktiv replizieren
+  * Änderungs-Protokoll wird dann gelöscht und nicht befüllt
+  * Eine DatenbankID (GUID Zahl) wird erstellt (zur Sicherheit)
+  
 - Wenn Master Datenbank ins Slave konvertiert wird, dann:
   * werden alle lokalen Daten davor gelöscht,
-  * die Daten vom Master werden auf das Gerät übertragen
+  * die Daten vom Master werden auf das Gerät übertragen.
+
+- Ein Client kann sich anhand der DatenbankID und der IP Adresse
+  (z.B. abgescannt als QR Code) mit der Master Datenbank "verbinden"
+  und dann initial die Datenbank holen.
+  
 
 Client
-- Markt sich z.B. Mengen- und Datenänderungen (z.B. 2 entnommen, 1 gelöscht, Artikel A in Einkaufskorb)
+- Markt sich z.B. Mengen- und Datenänderungen (z.B. 2 entnommen, 1 gelöscht, Artikel 'A' in den Einkaufskorb)
 - Replikation nur mit dem Master möglich.
 - Zuerst werden Änderungen übertragen und dann den Ist Zustand geholt.
 
@@ -95,7 +104,12 @@ Beispiel:
                                         A       2      
                                         
                                         
-                                        
+* Möglicher Problem 1
+
+Teilnehmer 1 und 2 entnehmen 5 Artikel. Dadurch müßte Lagerbestand -5 sein.
+
+
+
                                         
 Technologie
 ===========

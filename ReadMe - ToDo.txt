@@ -3,7 +3,7 @@ Prio 1
 
 
 Sonstiges
-- Push Benachrichtigung über bald zu verbrauchende Artikel einmal pro Tag
+- Push Benachrichtigung (z.B. einmal pro Tag) über bald zu verbrauchende Artikel 
   Gewünscht von Frank (E-Mail), und von Eva (?)
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/notifications/local-notifications-walkthrough
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/services/service-notifications
