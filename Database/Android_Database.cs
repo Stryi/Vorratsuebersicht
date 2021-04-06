@@ -108,11 +108,18 @@ namespace VorratsUebersicht
             if (databaseName == null)
                 return string.Empty;
 
-            FileInfo fileInfo = new FileInfo(databaseName);
+            try
+            {
+                FileInfo fileInfo = new FileInfo(databaseName);
 
-            string info = string.Format(format, databaseName, Tools.ToFuzzyByteString(fileInfo.Length), fileInfo.Length);
+                string info = string.Format(format, databaseName, Tools.ToFuzzyByteString(fileInfo.Length), fileInfo.Length);
 
-            return info;
+                return info;
+            }
+            catch(Exception ex)
+            {
+                return ex.Message;
+            }
         }
 
         public void CompressDatabase()
@@ -139,8 +146,6 @@ namespace VorratsUebersicht
 
 			// This is where we copy in the prepopulated database
 			TRACE("Database Path: {0}", path);
-			if (!File.Exists(path))
-                return "Datenbank Datei existiert nicht.";
 
 			var conn = new SQLite.SQLiteConnection(path, false);
 
@@ -168,6 +173,10 @@ namespace VorratsUebersicht
 
 			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
 			string sdCardPath    = this.CreateAndGetSdCardPath();
+
+            if (sdCardPath == null)
+                sdCardPath = documentsPath;
+
 
 			string source      = Path.Combine(documentsPath, Android_Database.sqliteFilename_New);
             string destination = Path.Combine(sdCardPath,    Android_Database.sqliteFilename_Prod);
@@ -314,24 +323,28 @@ namespace VorratsUebersicht
 
 			string path = GetDatabasePath();
             if (path == null)
-                return null;
+            {
+                TRACE("Keine Database ist ausgewählt.");
+                throw new Exception("Keine Database ist ausgewählt.");
+            }
+
+            FileInfo fileInfo = new FileInfo(path);
+            if (fileInfo.IsReadOnly)
+            {
+                TRACE($"Database '{path}' is read only!");
+                throw new Exception($"Database '{path}' is read only!");
+            }
 
 			// This is where we copy in the prepopulated database
 			if (!File.Exists(path))
             {
-			    TRACE("Database not exists: {0}", path);
-				return null;
+                TRACE($"Database '{path}' not exists.");
+                throw new Exception($"Database '{path}' not exists.");
             }
 
             TRACE("Database Path: {0}", path);
 
-            FileInfo fileInfo = new FileInfo(path);
             TRACE("Database Size: {0} ({1:n0} Bytes)", Tools.ToFuzzyByteString(fileInfo.Length), fileInfo.Length);
-
-            if (fileInfo.IsReadOnly)
-            {
-                TRACE("**** Database is read only!");
-            }
 
 			var conn = new SQLite.SQLiteConnection(path, false);
             //conn.Trace = true;
@@ -350,6 +363,19 @@ namespace VorratsUebersicht
 			// Return the database connection 
 			return conn;
 		}
+
+        public static List<string> GetDatabaseFileListSafe(Android.Content.ContextWrapper context)
+        {
+            try
+            {
+                return Android_Database.GetDatabaseFileList(context);
+            }
+            catch
+            {
+            }
+
+            return new List<string>();
+        }
 
         public static List<string> GetDatabaseFileList(Android.Content.ContextWrapper context)
         {
@@ -373,6 +399,9 @@ namespace VorratsUebersicht
             {
                 foreach(var extFilesDir in externalFilesDirs)
                 {
+                    if (!extFilesDir.CanWrite())
+                        continue;
+
                     fileList.AddRange(Directory.GetFiles(extFilesDir.AbsolutePath, "*.db3"));
                 }
             }

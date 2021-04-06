@@ -190,7 +190,7 @@ namespace VorratsUebersicht
 
             if (createBackup)
             {
-                this.ButtonBackup_Click(this, EventArgs.Empty);
+                this.CreateBackup();
             }
 
             this.isInitialize = false;
@@ -574,7 +574,7 @@ namespace VorratsUebersicht
             this.EnableButtons();
         }
 
-        private void ButtonCopyAppDb_Click(object sender, EventArgs e)
+        private void CopyAppDbToInternalStorage()
         {
             Android_Database.Instance.CloseConnection();
 
@@ -600,7 +600,7 @@ namespace VorratsUebersicht
                     throw new Exception($"Zieldatei '{sdDbFileName}' existiert bereits und wird NICHT überschrieben.");
                 }
 
-                File.Copy(appDbFileName, sdDbFileName);
+                File.Move(appDbFileName, sdDbFileName);
 
                 string message = $"Die Datei\n\n{appDbFileName}\n\nwurde kopiert als\n\n{sdDbFileName}\n\n";
                 message += "Bitte beenden Sie die App jetzt richtig. ";
@@ -625,7 +625,7 @@ namespace VorratsUebersicht
             // Sich neu connecten;
             Android_Database.SQLiteConnection = null;
 
-            var databaseConnection = Android_Database.Instance.GetConnection();
+            Android_Database.Instance.GetConnection();
         }
 
         private void ButtonSendLogFile_Click(object sender, EventArgs eventArgs)
@@ -740,7 +740,7 @@ namespace VorratsUebersicht
             Settings.PutBoolean("AskForBackup", switchAskForBackup.Checked);
         }
  
-        private void ButtonBackup_Click(object sender, EventArgs eventArgs)
+        private void CreateBackup()
         {
             bool isGranted = new SdCardAccess().Grand(this);
 
@@ -908,5 +908,44 @@ namespace VorratsUebersicht
             });
         }
 
+        #region private events
+
+        private void ButtonCopyAppDb_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.CopyAppDbToInternalStorage();
+            }
+            catch(Exception ex)
+            {
+                TRACE(ex);
+
+                var messageBox = new AlertDialog.Builder(this);
+                messageBox.SetTitle("Fehler aufgetreten!");
+                messageBox.SetMessage(ex.Message);
+                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.Create().Show();
+            }
+        }
+
+        private void ButtonBackup_Click(object sender, EventArgs eventArgs)
+        {
+            try
+            {
+                this.CreateBackup();
+            }
+            catch(Exception ex)
+            {
+                TRACE(ex);
+
+                var messageBox = new AlertDialog.Builder(this);
+                messageBox.SetTitle("Fehler aufgetreten!");
+                messageBox.SetMessage(ex.Message);
+                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.Create().Show();
+            }
+        }
+
+        #endregion
     }
 }
