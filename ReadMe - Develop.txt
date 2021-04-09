@@ -26,6 +26,9 @@ Funktionsweise
 
         /storage/emulated/0/Vorratsuebersicht/Vorraete.db3
 
+    Ab API Level 30 wird die Datenbank in 
+    
+        /data/user/0/de.stryi.Vorratsuebersicht/files
 
     1.2 Die Test Datenbank
 

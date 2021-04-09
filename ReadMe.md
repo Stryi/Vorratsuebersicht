@@ -48,7 +48,7 @@ unten aufgeführte E-Mail-Adresse versenden.
 
 ### Bekannte Probleme und Fehler:
 
-1. Die Sortierung der Artikel berücksichtig nicht die deutschen Umlaute 
+1. Die Sortierung der Artikel berücksichtig nicht die deutschen Umlaute.
 Die eingesetzte SQLite Datenbank unterstützt diese Sortierung nicht.
 
 2. Eine Popup Benachrichtigung findet nicht statt. 
@@ -56,4 +56,4 @@ Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
 
 3. Die Datenbank befindet sich lokal auf dem Smartphone
-und kann somit nicht von mehreren Benutzer verwendet werden.
+und kann somit nicht von mehreren Benutzern verwendet werden.
