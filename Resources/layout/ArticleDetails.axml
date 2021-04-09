@@ -65,7 +65,7 @@
             <EditText
                 android:id="@+id/ArticleDetails_Name"
                 android:text="Artikelname"
-                android:inputType="text"
+                android:inputType="textMultiLine"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -388,7 +388,7 @@
                 android:layout_marginRight="10dp" />
             <EditText
                 android:id="@+id/ArticleDetails_Notes"
-                android:inputType="text"
+                android:inputType="textMultiLine"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
