@@ -183,8 +183,6 @@ namespace VorratsUebersicht
 
             this.ShowApplicationVersion();
 
-            // Artikelname ist eingetragen. Tastatus anfänglich ausblenden.
-            this.Window.SetSoftInputMode(SoftInput.StateHidden);
 
             bool createBackup = Intent.GetBooleanExtra("CreateBackup", false);
 
@@ -725,6 +723,12 @@ namespace VorratsUebersicht
         {
             // Backups müssen sich im Download Verzeichnis befinden.
             var downloadFolder = this.GetBackupPath();
+            var databasePath = Android_Database.SelectedDatabaseName;
+
+            if (string.IsNullOrEmpty(databasePath))
+            {
+                return;
+            }
 
             var selectFile = new Intent(this, typeof(BackupFileManageActivity));
             selectFile.PutExtra("Text",         "Backup auswählen:");
