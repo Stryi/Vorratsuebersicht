@@ -2,35 +2,77 @@
 Projekt: Vorratsübersicht
 --------------------------------------------------------------------------------
 
+Versionskontrolle
+=================
+GitHub: https://github.com/Stryi/Vorratsuebersicht
+
+
+Entwicklungsumgebung
+====================
+
 Zum Übersetzen wird das Visual Studio Community 2019 verwendet.
 Als Bibliothek wir Xamarin eingesetzt.
+Programmiert ist es in C# Programmiersprache.
 
-Für Android 10 muss requestLegacyExternalStorage=True gesetzt werden
+Google Play Store
+=================
+
+Play Store    : https://play.google.com/store/apps/details?id=de.stryi.Vorratsuebersicht&hl=de
+Beta Test     : https://play.google.com/apps/testing/de.stryi.Vorratsuebersicht
+Interner Test : https://play.google.com/apps/internaltest/4697556532584863618
+Web Seite     : https://sites.google.com/site/vorratsuebersicht
+
+
+
+Verwendete Datenbank
+====================
+
+Als Datenbank wir SQLite eingesetzt. Die Datenbank wird lokal auf dem Device abgelegt.
+
+Für Android 10 Target Framework mit API Level 29 wird requestLegacyExternalStorage=True gesetzt,
 
     https://developer.android.com/training/data-storage/use-cases#opt-out-scoped-storage
 
-ab Android 11 wird der Parameter nicht mehr berücksichtigt(?).
+damit die Datenbank auf dem internen Speicher 
 
+    /storage/emulated/0/Vorratsuebersicht/Vorraete.db3
+
+angelegt werden kann.
+
+Ab Android 11 (Target Framework 30) wird der Parameter nicht mehr berücksichtigt.
+Dann wird die Datenbank im Applikationsverzeichnis angelegt.
+
+    /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files
+
+
+Im privaten speicher wird auch eine Testdatenbank mit einigen Testdaten angelegt.
+Diese kann zurückgesetzt werden auf Ursprungszustand oder komplett geleert werden.
+
+    /data/user/0/de.stryi.Vorratsuebersicht/files/Vorraete_Test.db3
+
+
+Projekt übersetzen
+==================
 
 Ursprünglische Implementiert anhand vom Beispiel:
 
 https://developer.xamarin.com/guides/xamarin-forms/working-with/databases/
 
-Ausgabeverzeichnis ist: 
+Ausgabeverzeichnis für "Bin" und "Obj" ist im Projekt auf
 
     ..\..\..\..\Builds\Vorratsübersicht\bin\Debug\
 
-da ich den Quellcode über OneDrive auf meinen zweiten Computer "verteile". Damit werden keine MByte Dateien in OneDrive übertragen.
+eingestellt, da ich den Quellcode über OneDrive auf meinen zweiten Computer "verteile".
+Damit werden keine MByte Dateien in OneDrive übertragen.
 
 
 NuGet Packages:
 
 - FastAndroidCamera by James Athey
-- SQLite-net-pcl  by Frank A. Krueger
-- SQLitePCLRaw.bundle_green by Eric Sink
-- SQLitePCLRaw.core by Eric Sink, et al
-- SQLitePCLRaw.lib.e_sqlite3.android by Eric Sink, D. Richard Hipp, et al
-- SQLitePCLRaw.provider.e_sqlite3.android by Eric Sink, et al
+- Newtonsoft.Json
+- SQLite-net-pcl  by SQLie-net
+- Xamarin.Android von Microsoft
+- Xamarin.Essentians by Microsoft
 - ZXing.Net.Mobile by Redth
 
 
@@ -167,113 +209,3 @@ Probleme:
     - Platz auf dem Smartphone schaffen.
 
 
-8. Umstellung der Bilderkomprimierung auf die Auflösung des Bildschirmes
-
-Beispiel 01 Big Landscape 2560 x1920.jpg
-
-    ==> Alte Komprimierungsroutine
-    02-07 18:29:36.755 D/stryi   (14248): -------------------------------------
-    02-07 18:29:36.756 D/stryi   (14248): Display: 1,080 x 1,776
-    02-07 18:29:36.756 D/stryi   (14248): Org.:    2,560 x 1,920 (18.75 MB)
-    02-07 18:29:36.756 D/stryi   (14248): Bild:      480 x   360 (675 KB)
-    02-07 18:29:36.756 D/stryi   (14248): Thn.:       96 x    72 (27 KB)
-    02-07 18:29:36.756 D/stryi   (14248): -------------------------------------
-
-    ==> Neue Komprimierungsroutine
-    02-07 16:09:38.422 D/stryi   (12656): -------------------------------------
-    02-07 16:09:38.422 D/stryi   (12656): Display: 1,080 x 1,776
-    02-07 16:09:38.422 D/stryi   (12656): Org.:    2,560 x 1,920 (18.75 MB)
-    02-07 16:09:38.422 D/stryi   (12656): Bild:    1,080 x   810 (3.33 MB)
-    02-07 16:09:38.422 D/stryi   (12656): Thn.:       96 x    72 (27 KB)
-    02-07 16:09:40.510 D/stryi   (12656): -------------------------------------
-
-Beispiel 02 Big Portrait 1920 x 2560.jpg
-
-    ==> Alte Komprimierungsroutine
-    02-07 18:32:49.610 D/stryi   (14248): -------------------------------------
-    02-07 18:32:49.610 D/stryi   (14248): Display: 1,080 x 1,776
-    02-07 18:32:49.610 D/stryi   (14248): Org.:    1,920 x 2,560 (18.75 MB)
-    02-07 18:32:49.610 D/stryi   (14248): Bild:      640 x   854 (2.08 MB)
-    02-07 18:32:49.610 D/stryi   (14248): Thn.:      127 x   170 (84.33 KB)
-    02-07 18:32:49.611 D/stryi   (14248): -------------------------------------
-
-    ==> Neue Komprimierungsroutine
-    02-07 16:08:03.867 D/stryi   (12656): -------------------------------------
-    02-07 16:08:03.867 D/stryi   (12656): Display: 1,080 x 1,776
-    02-07 16:08:03.867 D/stryi   (12656): Org.:    1,920 x 2,560 (18.75 MB)
-    02-07 16:08:03.867 D/stryi   (12656): Bild:    1,332 x 1,776 (9.02 MB)
-    02-07 16:08:03.867 D/stryi   (12656): Thn.:      127 x   170 (84.33 KB)
-    02-07 16:08:37.450 D/stryi   (12656): -------------------------------------
-
-Beispiel 03 Large Land 4608 x 3456.jpg
-
-    ==> Alte Komprimierungsroutine
-    02-07 18:33:32.030 D/stryi   (14248): -------------------------------------
-    02-07 18:33:32.030 D/stryi   (14248): Display: 1,080 x 1,776
-    02-07 18:33:32.030 D/stryi   (14248): Org.:    4,608 x 3,456 (60.75 MB)
-    02-07 18:33:32.030 D/stryi   (14248): Bild:      480 x   360 (675 KB)
-    02-07 18:33:32.030 D/stryi   (14248): Thn.:       96 x    72 (27 KB)
-    02-07 18:33:32.031 D/stryi   (14248): -------------------------------------
-
-    ==> Neue Komprimierungsroutine
-    02-07 16:10:52.796 D/stryi   (12656): -------------------------------------
-    02-07 16:10:52.796 D/stryi   (12656): Display: 1,080 x 1,776
-    02-07 16:10:52.796 D/stryi   (12656): Org.:    4,608 x 3,456 (60.75 MB)
-    02-07 16:10:52.796 D/stryi   (12656): Bild:    1,080 x   809 (3.33 MB)
-    02-07 16:10:52.796 D/stryi   (12656): Thn.:       96 x    72 (27 KB)
-    02-07 16:10:54.256 D/stryi   (12656): -------------------------------------
-
-Beispiel 04 Large Port 3456 x 4608.jpg
-
-    ==> Alte Komprimierungsroutine
-    02-07 18:34:34.866 D/stryi   (14248): -------------------------------------
-    02-07 18:34:34.866 D/stryi   (14248): Display: 1,080 x 1,776
-    02-07 18:34:34.866 D/stryi   (14248): Org.:    3,456 x 4,608 (60.75 MB)
-    02-07 18:34:34.866 D/stryi   (14248): Bild:      640 x   854 (2.08 MB)
-    02-07 18:34:34.866 D/stryi   (14248): Thn.:      127 x   170 (84.33 KB)
-    02-07 18:34:34.870 D/stryi   (14248): -------------------------------------
-
-    ==> Neue Komprimierungsroutine
-    02-07 16:11:29.520 D/stryi   (12656): -------------------------------------
-    02-07 16:11:29.520 D/stryi   (12656): Display: 1,080 x 1,776
-    02-07 16:11:29.520 D/stryi   (12656): Org.:    3,456 x 4,608 (60.75 MB)
-    02-07 16:11:29.520 D/stryi   (12656): Bild:    1,332 x 1,776 (9.02 MB)
-    02-07 16:11:29.520 D/stryi   (12656): Thn.:      127 x   170 (84.33 KB)
-    02-07 16:11:31.630 D/stryi   (12656): -------------------------------------
-
-Beispiel 05 Small Landscape 640 x480.jpg
-
-    ==> Alte Komprimierungsroutine
-    02-07 18:35:40.200 D/stryi   (14248): -------------------------------------
-    02-07 18:35:40.202 D/stryi   (14248): Display: 1,080 x 1,776
-    02-07 18:35:40.202 D/stryi   (14248): Org.:      640 x   480 (1.17 MB)
-    02-07 18:35:40.202 D/stryi   (14248): Bild:      480 x   360 (675 KB)
-    02-07 18:35:40.202 D/stryi   (14248): Thn.:       96 x    72 (27 KB)
-    02-07 18:35:40.203 D/stryi   (14248): -------------------------------------
-
-
-    ==> Neue Komprimierungsroutine
-    02-07 18:14:16.802 D/stryi   (13671): -------------------------------------
-    02-07 18:14:16.802 D/stryi   (13671): Display: 1,080 x 1,776
-    02-07 18:14:16.802 D/stryi   (13671): Org.:      640 x   480 (1.17 MB)
-    02-07 18:14:16.802 D/stryi   (13671): Bild:      640 x   480 (1.17 MB)
-    02-07 18:14:16.802 D/stryi   (13671): Thn.:       96 x    72 (27 KB)
-    02-07 18:14:16.802 D/stryi   (13671): -------------------------------------
-
-Beispiel 06 Small Portrait 480 x 640.jpg
-
-    ==> Alte Komprimierungsroutine
-    02-07 18:36:15.231 D/stryi   (14248): -------------------------------------
-    02-07 18:36:15.232 D/stryi   (14248): Display: 1,080 x 1,776
-    02-07 18:36:15.232 D/stryi   (14248): Org.:      480 x   640 (1.17 MB)
-    02-07 18:36:15.232 D/stryi   (14248): Bild:      640 x   854 (2.08 MB)
-    02-07 18:36:15.232 D/stryi   (14248): Thn.:      127 x   170 (84.33 KB)
-    02-07 18:36:15.232 D/stryi   (14248): -------------------------------------
-
-    ==> Neue Komprimierungsroutine
-    02-07 18:14:57.726 D/stryi   (13671): -------------------------------------
-    02-07 18:14:57.726 D/stryi   (13671): Display: 1,080 x 1,776
-    02-07 18:14:57.726 D/stryi   (13671): Org.:      480 x   640 (1.17 MB)
-    02-07 18:14:57.726 D/stryi   (13671): Bild:      480 x   640 (1.17 MB)
-    02-07 18:14:57.726 D/stryi   (13671): Thn.:      127 x   170 (84.33 KB)
-    02-07 18:14:57.726 D/stryi   (13671): -------------------------------------
