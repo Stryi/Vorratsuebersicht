@@ -52,11 +52,9 @@ namespace VorratsUebersicht
         {
             List<string> fileList;
 
-            try
-            {
-                fileList = Android_Database.GetDatabaseFileList(this);
-            }
-            catch(Exception ex)
+            Exception ex = Android_Database.LoadDatabaseFileListSafe(this, out fileList);
+
+            if (ex != null)
             {
                 TRACE(ex);
 
@@ -67,8 +65,6 @@ namespace VorratsUebersicht
                 text = ex.Message + "\n\n" + text;
 
                 Toast.MakeText(this, text, ToastLength.Long).Show();
-
-                return true;
             }
 
             if (fileList.Count == 1)

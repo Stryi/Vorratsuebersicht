@@ -88,9 +88,10 @@ namespace VorratsUebersicht
             this.SupportActionBar.SetDisplayShowHomeEnabled(true);
 
             // Datenbanken erstellen
-            Android_Database.Instance.RestoreSampleDatabaseFromResources();
+            Android_Database.Instance.RestoreSampleDatabaseFromResources(this);
 
-            var databases = Android_Database.GetDatabaseFileListSafe(this);
+            List<string> databases;
+            Android_Database.LoadDatabaseFileListSafe(this, out databases);
 
             if ((databases.Count > 0) && (string.IsNullOrEmpty(Android_Database.SelectedDatabaseName)))
             {
@@ -274,14 +275,14 @@ namespace VorratsUebersicht
         {
             List<string> fileList;
             
-            try
-            {
-                fileList = Android_Database.GetDatabaseFileList(this);
-            }
-            catch(Exception ex)
+            Exception ex = Android_Database.LoadDatabaseFileListSafe(this, out fileList);
+            if (ex != null)
             {
                 Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-                
+            }
+
+            if (fileList.Count == 0)
+            {
                 return;
             }
 

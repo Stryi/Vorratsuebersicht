@@ -3,6 +3,7 @@ using System.Linq;
 using System.IO;
 using System.Collections.Generic;
 using Android.App;
+using Android.Content;
 
 namespace VorratsUebersicht
 {
@@ -175,7 +176,7 @@ namespace VorratsUebersicht
 			string sdCardPath    = this.CreateAndGetSdCardPath();
 
             if (sdCardPath == null)
-                sdCardPath = documentsPath;
+                return null;
 
 
 			string source      = Path.Combine(documentsPath, Android_Database.sqliteFilename_New);
@@ -192,6 +193,35 @@ namespace VorratsUebersicht
 
                 // Datenbankverbindung neu öffnen
                 Android_Database.SQLiteConnection = null;
+			}
+			catch (Exception e)
+			{
+				TRACE(e);
+
+				return e;
+			}
+            
+            return null;
+        }
+
+		public Exception CreateDatabaseOnPersonalStorage(Context context)
+        {
+			var externalFileDir = context.GetExternalFilesDir(null);
+            if (externalFileDir == null)
+                return null;
+
+            string destination = Path.Combine(externalFileDir.AbsolutePath, "Vorraete_AppPath.db3");
+            if (File.Exists(destination))
+            {
+                return null;
+            }
+
+			string documentsPath = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+			string source      = Path.Combine(documentsPath, Android_Database.sqliteFilename_New);
+
+			try
+			{
+                File.Copy(source, destination);
 			}
 			catch (Exception e)
 			{
@@ -278,7 +308,7 @@ namespace VorratsUebersicht
         /// <summary>
         /// Datenbanken aus den Resourcen erstellen.
         /// </summary>
-		public void RestoreSampleDatabaseFromResources()
+		public void RestoreSampleDatabaseFromResources(Context context)
 		{
 			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
 
@@ -291,6 +321,9 @@ namespace VorratsUebersicht
             {
                 this.CreateDatabaseOnExternalStorage();
             }
+
+            // Nur zum Testen für API Level 30.
+            //this.CreateDatabaseOnPersonalStorage(context);
         }
 
         public string GetSdCardPath()
@@ -364,34 +397,30 @@ namespace VorratsUebersicht
 			return conn;
 		}
 
-        public static List<string> GetDatabaseFileListSafe(Android.Content.ContextWrapper context)
+        public static Exception LoadDatabaseFileListSafe(ContextWrapper context, out List<string> fileList)
         {
-            try
-            {
-                return Android_Database.GetDatabaseFileList(context);
-            }
-            catch
-            {
-            }
-
-            return new List<string>();
-        }
-
-        public static List<string> GetDatabaseFileList(Android.Content.ContextWrapper context)
-        {
-            var fileList = new List<string>();
+            Exception exception = null;
+            fileList = new List<string>();
 
             string addPath = Settings.GetString("AdditionslDatabasePath", string.Empty);
             
             if (!string.IsNullOrEmpty(addPath))
             {
-                fileList.AddRange(Directory.GetFiles(addPath, "*.db3"));
+                try
+                {
+                    fileList.AddRange(Directory.GetFiles(addPath, "*.db3"));
+                }
+                catch (Exception ex) { exception = ex; }
             }
             
             string sdCardPath = Android_Database.Instance.GetSdCardPath();
             if (Directory.Exists(sdCardPath))
             {
-                fileList.AddRange(Directory.GetFiles(sdCardPath, "*.db3"));
+                try
+                {
+                    fileList.AddRange(Directory.GetFiles(sdCardPath, "*.db3"));
+                }
+                catch (Exception ex) { exception = ex; }
             }
 
             var externalFilesDirs = context.GetExternalFilesDirs(null);
@@ -400,15 +429,27 @@ namespace VorratsUebersicht
                 foreach(var extFilesDir in externalFilesDirs)
                 {
                     if (!extFilesDir.CanWrite())
+                    {
+                        TRACE("GetDatabaseFileListSafe(): Can not write external storage dir '{0}'.", extFilesDir.AbsolutePath);
                         continue;
+                    }
 
-                    fileList.AddRange(Directory.GetFiles(extFilesDir.AbsolutePath, "*.db3"));
+                    try
+                    {
+                        fileList.AddRange(Directory.GetFiles(extFilesDir.AbsolutePath, "*.db3"));
+                    }
+                    catch (Exception ex) { exception = ex; }
                 }
             }
 
             fileList.Sort();
 
-            return fileList;
+            if (exception != null)
+            {
+                TRACE(exception);
+            }
+
+            return exception;
         }
 
         public static string TryOpenDatabase(string databaseName)
