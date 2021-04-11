@@ -923,6 +923,11 @@ namespace VorratsUebersicht
         // Anhand vom https://docs.microsoft.com/de-de/xamarin/android/platform/speech
         private void SprachEingabe()
         {
+            if (MainActivity.IsGooglePlayPreLaunchTestMode)
+            {
+                return;
+            }
+
             string rec = Android.Content.PM.PackageManager.FeatureMicrophone;
             if (rec != "android.hardware.microphone")
             {
