@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 6.12 (Code Version 100)
+===============================
+
+C173 - Datenbanken können jetzt angelegt und gelöscht werden.
+
 Version 6.11 (Code Version 99)
 ==============================
 
