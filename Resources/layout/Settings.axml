@@ -37,6 +37,8 @@
         <Button
             android:id="@+id/SettingsButton_Compress"
             android:text="@string/Settings_DatenbankKomprimieren"
+            android:drawableLeft="@drawable/baseline_compress_white_24"
+            android:contentDescription="@string/Settings_DatenbankKomprimieren"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -45,6 +47,27 @@
         <Button
             android:id="@+id/SettingsButton_Repair"
             android:text="@string/Settings_DatenbankReparieren"
+            android:drawableLeft="@drawable/baseline_home_repair_service_white_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical" />
+        <Button
+            android:id="@+id/SettingsButton_DatabaseNew"
+            android:text="\tNeue Datenbank anlegen"
+            android:drawableLeft="@drawable/baseline_add_box_white_24"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical" />
+        <Button
+            android:id="@+id/SettingsButton_DatabaseDelete"
+            android:text="\tDatenbank unwiderruflich löschen"
+            android:drawableLeft="@drawable/baseline_delete_forever_white_24"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
