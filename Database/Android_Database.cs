@@ -442,8 +442,9 @@ namespace VorratsUebersicht
                 }
             }
 
-            fileList.Sort();
-
+            var sorted = fileList.OrderBy(e => Path.GetFileNameWithoutExtension(e));
+            fileList = sorted.ToList();
+            
             if (exception != null)
             {
                 TRACE(exception);
