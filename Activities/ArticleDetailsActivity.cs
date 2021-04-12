@@ -216,6 +216,12 @@ namespace VorratsUebersicht
                 // Artikelname ist eingetragen. Tastatus anfänglich ausblenden.
                 this.Window.SetSoftInputMode(SoftInput.StateHidden);
             }
+            else
+            {
+                FindViewById<EditText>(Resource.Id.ArticleDetails_Name).RequestFocus();
+                this.Window.SetSoftInputMode(SoftInput.StateVisible);
+            }
+
             stopWatch.Stop();
             TRACE("Dauer Laden der Artikeldaten: {0}", stopWatch.Elapsed.ToString());
 
@@ -382,6 +388,8 @@ namespace VorratsUebersicht
 
             if (MainActivity.IsGooglePlayPreLaunchTestMode)
             {
+                itemSpeech.SetEnabled(false);
+
                 IMenuItem itemEanScan = menu.FindItem(Resource.Id.ArticleDetailsMenu_ScanEAN);
                 itemEanScan.SetEnabled(false);
             }
@@ -923,11 +931,6 @@ namespace VorratsUebersicht
         // Anhand vom https://docs.microsoft.com/de-de/xamarin/android/platform/speech
         private void SprachEingabe()
         {
-            if (MainActivity.IsGooglePlayPreLaunchTestMode)
-            {
-                return;
-            }
-
             string rec = Android.Content.PM.PackageManager.FeatureMicrophone;
             if (rec != "android.hardware.microphone")
             {
