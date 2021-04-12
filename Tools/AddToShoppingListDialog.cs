@@ -72,6 +72,7 @@ namespace VorratsUebersicht
             EditText input = new EditText(activity);
             input.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
             input.Text = toBuyQuantity.ToString();
+            input.RequestFocus();
             input.SetSelection(0, input.Text.Length);
             quantityDialog.SetView(input);
             quantityDialog.SetButton("OK", (dialog, whichButton) =>

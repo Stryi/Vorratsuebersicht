@@ -36,6 +36,9 @@ namespace VorratsUebersicht
 
         public static void TRACE(string text)
         {
+            if (text == null)
+                return;
+
             Log.WriteLine(LogPriority.Debug, "stryi", text);
             Tools.LogToFile(text);
         }
