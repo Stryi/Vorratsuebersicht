@@ -204,16 +204,16 @@ namespace VorratsUebersicht
             return null;
         }
 
-		public Exception CreateDatabaseOnPersonalStorage(Context context)
+		public Exception CreateDatabaseOnPersonalStorage(Context context, string databaseName)
         {
 			var externalFileDir = context.GetExternalFilesDir(null);
             if (externalFileDir == null)
                 return null;
 
-            string destination = Path.Combine(externalFileDir.AbsolutePath, "Vorraete_AppPath.db3");
+            string destination = Path.Combine(externalFileDir.AbsolutePath, databaseName + ".db3");
             if (File.Exists(destination))
             {
-                return null;
+                return new Exception($"Datenbank '{databaseName}' ist bereits vorhanden.");
             }
 
 			string documentsPath = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
@@ -607,6 +607,19 @@ namespace VorratsUebersicht
                 this.PrepareTestDatabase(dbPath);
 
             return;
+        }
+
+        internal Exception DeleteDatabase(string selectedDatabasePath)
+        {
+            try
+            {
+                File.Delete(selectedDatabasePath);
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+            return null;
         }
     }
 }

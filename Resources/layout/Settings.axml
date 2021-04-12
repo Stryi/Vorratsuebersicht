@@ -55,9 +55,8 @@
             android:gravity="left|center_vertical" />
         <Button
             android:id="@+id/SettingsButton_DatabaseNew"
-            android:text="\tNeue Datenbank anlegen"
+            android:text="\tNeue Datenbank anlegen..."
             android:drawableLeft="@drawable/baseline_add_box_white_24"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -65,9 +64,8 @@
             android:gravity="left|center_vertical" />
         <Button
             android:id="@+id/SettingsButton_DatabaseDelete"
-            android:text="\tDatenbank unwiderruflich löschen"
+            android:text="\tDatenbank löschen...\n\t(Auswahl folgt)"
             android:drawableLeft="@drawable/baseline_delete_forever_white_24"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

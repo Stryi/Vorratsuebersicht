@@ -13,6 +13,7 @@ using Android.Widget;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Runtime;
+using Android.Text;
 
 namespace VorratsUebersicht
 {
@@ -108,6 +109,12 @@ namespace VorratsUebersicht
 
             Button buttonRepairDb = FindViewById<Button>(Resource.Id.SettingsButton_Repair);
             buttonRepairDb.Click += ButtonRepairDb_Click;
+
+            Button buttonNewDb = FindViewById<Button>(Resource.Id.SettingsButton_DatabaseNew);
+            buttonNewDb.Click += ButtonNewDb_Click;
+
+            Button buttonDeleteDb = FindViewById<Button>(Resource.Id.SettingsButton_DatabaseDelete);
+            buttonDeleteDb.Click += ButtonDeleteDb_Click;
 
             Button buttonCopyAppDb =  FindViewById<Button>(Resource.Id.SettingsButton_CopyAppDbToSdCard);
             buttonCopyAppDb.Click += ButtonCopyAppDb_Click;
@@ -533,6 +540,102 @@ namespace VorratsUebersicht
                 this.HideProgressBar(progressDialog);
 
             })).Start();
+        }
+
+        private void ButtonNewDb_Click(object sender, EventArgs e)
+        {
+            var builder = new AlertDialog.Builder(this);
+
+            var dialog = builder.Create();
+            dialog.SetTitle("Neue Datenbank erstellen");
+            dialog.SetMessage("\n\nName eingeben:");
+            dialog.Window.SetSoftInputMode(Android.Views.SoftInput.StateVisible);
+            EditText input = new EditText(this);
+            input.InputType = InputTypes.ClassText;
+            input.RequestFocus();
+            dialog.SetView(input);
+            dialog.SetButton("Erstellen", (dialog, whichButton) =>
+                {
+                    if (string.IsNullOrEmpty(input.Text))
+                        return;
+
+                    Exception ex = Android_Database.Instance.CreateDatabaseOnPersonalStorage(this, input.Text);
+
+                    if (ex != null)
+                    {
+                        var message = new AlertDialog.Builder(this);
+                        message.SetMessage(ex.Message);
+                        message.SetPositiveButton("OK", (s, e) => { });
+                        message.Create().Show();
+                    }
+
+                });
+            dialog.SetButton2("Abbrechen", (s, e) => {});
+            dialog.Show();
+        }
+
+        private void ButtonDeleteDb_Click(object sender, EventArgs e)
+        {
+            List<string> fileList;
+            
+            Exception ex = Android_Database.LoadDatabaseFileListSafe(this, out fileList);
+            if (ex != null)
+            {
+                var message = new AlertDialog.Builder(this);
+                message.SetMessage(ex.Message);
+                message.SetPositiveButton("OK", (s, e) => { });
+                message.Create().Show();
+            }
+
+            if (fileList.Count == 0)
+            {
+                return;
+            }
+
+            string currentDatabaseName = Android_Database.Instance.GetDatabasePath();
+            if (!string.IsNullOrEmpty(currentDatabaseName))
+            {
+                fileList.Remove(currentDatabaseName);
+            }
+
+            string[] databaseNames = new string[fileList.Count];
+
+            for(int i = 0; i < fileList.Count; i++)
+            {
+                databaseNames[i] = Path.GetFileNameWithoutExtension(fileList[i]);
+            }
+
+            string selectedDatabasePath = null;
+
+            var builder = new AlertDialog.Builder(this);
+            builder.SetTitle("Datenbank löschen");
+            builder.SetSingleChoiceItems(databaseNames, -1,
+                new EventHandler<DialogClickEventArgs>(delegate (object sender, DialogClickEventArgs e) 
+                {
+                    // Get reference to AlertDialog
+                    var d = (sender as Android.App.AlertDialog);
+  
+                    // Auswahl merken
+                    selectedDatabasePath = fileList[e.Which];
+                }));
+            builder.SetPositiveButton("LÖSCHEN", (s, e) => 
+                {
+                    if (string.IsNullOrEmpty(selectedDatabasePath))
+                        return;
+
+                    Exception ex = Android_Database.Instance.DeleteDatabase(selectedDatabasePath);
+
+                    if (ex != null)
+                    {
+                        var message = new AlertDialog.Builder(this);
+                        message.SetMessage(ex.Message);
+                        message.SetPositiveButton("OK", (s, e) => { });
+                        message.Create().Show();
+                    }
+                });
+
+            builder.SetNegativeButton("Abbruch", (s, e) => { });
+            builder.Show();
         }
 
         private void ButtonTestDB_Click(object sender, System.EventArgs e)
