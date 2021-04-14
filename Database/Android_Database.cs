@@ -397,7 +397,7 @@ namespace VorratsUebersicht
 			return conn;
 		}
 
-        public static Exception LoadDatabaseFileListSafe(ContextWrapper context, out List<string> fileList)
+        public static Exception LoadDatabaseFileListSafe(Context context, out List<string> fileList)
         {
             Exception exception = null;
             fileList = new List<string>();
@@ -609,11 +609,49 @@ namespace VorratsUebersicht
             return;
         }
 
+		public Exception RenameDatabase(Context context, string databaseName, string newName)
+        {
+            string destinationName = Path.GetDirectoryName(databaseName);
+
+            destinationName = Path.Combine(destinationName, newName + ".db3");
+
+			try
+			{
+                File.Move(databaseName, destinationName);
+			}
+			catch (Exception e)
+			{
+				TRACE(e);
+
+				return e;
+			}
+
+            return null;
+        }
+
         internal Exception DeleteDatabase(string selectedDatabasePath)
         {
             try
             {
                 File.Delete(selectedDatabasePath);
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+            return null;
+        }
+
+        internal Exception ImportDatabase(Context context, string sourceFilePath, string datebaseName)
+        {
+            try
+            {
+			    var applicationFileDir = context.GetExternalFilesDir(null);
+                if (applicationFileDir == null)
+                    return null;
+                string destinationFilePath = Path.Combine(applicationFileDir.Path, datebaseName);
+                
+                File.Copy(sourceFilePath, destinationFilePath);
             }
             catch (Exception ex)
             {

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+ <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,7 +11,7 @@
         android:scrollbars="vertical"
         android:paddingLeft="5dp">
         <TextView
-            android:text="Datenbank"
+            android:text="Aktuelle Datenbank"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="5dp" />
@@ -53,6 +53,13 @@
             android:layout_marginLeft="10dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
+
+        <TextView
+            android:text="Datenbanken verwalten"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp" />
+
         <Button
             android:id="@+id/SettingsButton_DatabaseNew"
             android:text="\tNeue Datenbank anlegen..."
@@ -63,9 +70,27 @@
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
         <Button
+            android:id="@+id/SettingsButton_DatabaseRename"
+            android:text="\tDatenbank umbenennen...\n\t(außer der gerade geöffneten)"
+            android:drawableLeft="@drawable/baseline_drive_file_rename_outline_white_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical" />
+        <Button
             android:id="@+id/SettingsButton_DatabaseDelete"
             android:text="\tDatenbank löschen...\n\t(Auswahl folgt)"
             android:drawableLeft="@drawable/baseline_delete_forever_white_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical" />
+        <Button
+            android:id="@+id/SettingsButton_DatabaseImport"
+            android:text="\tDatenbank importieren"
+            android:drawableLeft="@drawable/baseline_upload_file_white_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

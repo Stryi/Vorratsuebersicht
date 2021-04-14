@@ -15,6 +15,8 @@ using Android.Views;
 using Android.Runtime;
 using Android.Text;
 
+using Xamarin.Essentials;
+
 namespace VorratsUebersicht
 {
     using static Tools;
@@ -110,11 +112,20 @@ namespace VorratsUebersicht
             Button buttonRepairDb = FindViewById<Button>(Resource.Id.SettingsButton_Repair);
             buttonRepairDb.Click += ButtonRepairDb_Click;
 
+            // Datenbanken verwalten
+
             Button buttonNewDb = FindViewById<Button>(Resource.Id.SettingsButton_DatabaseNew);
             buttonNewDb.Click += ButtonNewDb_Click;
 
+            Button buttonRenameDb = FindViewById<Button>(Resource.Id.SettingsButton_DatabaseRename);
+            buttonRenameDb.Click += ButtonRenameDb_Click;
+
             Button buttonDeleteDb = FindViewById<Button>(Resource.Id.SettingsButton_DatabaseDelete);
             buttonDeleteDb.Click += ButtonDeleteDb_Click;
+
+            Button buttonImportDb = FindViewById<Button>(Resource.Id.SettingsButton_DatabaseImport);
+            buttonImportDb.Click += ButtonImportDb_Click;
+            
 
             Button buttonCopyAppDb =  FindViewById<Button>(Resource.Id.SettingsButton_CopyAppDbToSdCard);
             buttonCopyAppDb.Click += ButtonCopyAppDb_Click;
@@ -542,36 +553,28 @@ namespace VorratsUebersicht
             })).Start();
         }
 
-        private void ButtonNewDb_Click(object sender, EventArgs e)
+        private async void ButtonNewDb_Click(object sender, EventArgs e)
         {
-            var builder = new AlertDialog.Builder(this);
+            string newDatabaseName = await MainActivity.InputTextAsync(
+                this,
+                "Neue Datenbank erstellen",
+                "\n\nName eingeben:",
+                string.Empty,
+                "Erstellen",
+                "Abbrechen");
 
-            var dialog = builder.Create();
-            dialog.SetTitle("Neue Datenbank erstellen");
-            dialog.SetMessage("\n\nName eingeben:");
-            dialog.Window.SetSoftInputMode(Android.Views.SoftInput.StateVisible);
-            EditText input = new EditText(this);
-            input.InputType = InputTypes.ClassText;
-            input.RequestFocus();
-            dialog.SetView(input);
-            dialog.SetButton("Erstellen", (dialog, whichButton) =>
-                {
-                    if (string.IsNullOrEmpty(input.Text))
-                        return;
+            if (string.IsNullOrEmpty(newDatabaseName))
+                return;
 
-                    Exception ex = Android_Database.Instance.CreateDatabaseOnPersonalStorage(this, input.Text);
+            Exception ex = Android_Database.Instance.CreateDatabaseOnPersonalStorage(this, newDatabaseName);
 
-                    if (ex != null)
-                    {
-                        var message = new AlertDialog.Builder(this);
-                        message.SetMessage(ex.Message);
-                        message.SetPositiveButton("OK", (s, e) => { });
-                        message.Create().Show();
-                    }
-
-                });
-            dialog.SetButton2("Abbrechen", (s, e) => {});
-            dialog.Show();
+            if (ex != null)
+            {
+                var message = new AlertDialog.Builder(this);
+                message.SetMessage(ex.Message);
+                message.SetPositiveButton("OK", (s, e) => { });
+                message.Create().Show();
+            }
         }
 
         private void ButtonDeleteDb_Click(object sender, EventArgs e)
@@ -636,6 +639,62 @@ namespace VorratsUebersicht
 
             builder.SetNegativeButton("Abbruch", (s, e) => { });
             builder.Show();
+        }
+
+        private async void ButtonRenameDb_Click(object sender, EventArgs e)
+        {
+            string proDatabase = Android_Database.Instance.GetProductiveDatabasePath();
+
+            string databasePath = await MainActivity.SelectDatabase(this, "Datenbank umbenennen:", proDatabase); ;
+
+            if (string.IsNullOrEmpty(databasePath))
+                return;
+
+            string databaseName = Path.GetFileNameWithoutExtension(databasePath);
+
+            string newDatabaseName = await MainActivity.InputTextAsync(
+                this,
+                "Datenbank umbenennen",
+                "\n" + databasePath + "\n\nNeuen Name eingeben:",
+                databaseName,
+                "Umbenennen",
+                "Abbrechen");
+
+            if (string.IsNullOrEmpty(newDatabaseName))
+                return;
+
+            Exception ex = Android_Database.Instance.RenameDatabase(this, databasePath,  newDatabaseName);
+
+            if (ex != null)
+            {
+                var message = new AlertDialog.Builder(this);
+                message.SetMessage(ex.Message);
+                message.SetPositiveButton("OK", (s, e) => { });
+                message.Create().Show();
+            }
+        }
+
+
+        private async void ButtonImportDb_Click(object sender, EventArgs e)
+        {
+            PickOptions options = new PickOptions();
+            options.PickerTitle = "Datenbank oder Backup auswählen:";
+
+            var file = await FilePicker.PickAsync(options);
+            if (file == null)
+                return;
+
+            Exception ex = Android_Database.Instance.ImportDatabase(this, file.FullPath, file.FileName);
+
+            if (ex != null)
+            {
+                var message = new AlertDialog.Builder(this);
+                message.SetMessage(ex.Message);
+                message.SetPositiveButton("OK", (s, e) => { });
+                message.Create().Show();
+            }
+
+            return;
         }
 
         private void ButtonTestDB_Click(object sender, System.EventArgs e)
