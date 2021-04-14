@@ -12,6 +12,7 @@ using Android.OS;
 using Android.Content.PM;
 using Android.Support.V7.App;
 using AndroidX.Core.Content;
+using System.Threading.Tasks;
 
 namespace VorratsUebersicht
 {
@@ -100,7 +101,7 @@ namespace VorratsUebersicht
                 if (string.IsNullOrEmpty(lastSelectedDatabase))
                 {
                     // Datenbanken auswählen
-                    this.SelectDatabase();
+                    this.SwitchDatabase();
                 }
                 else
                 {
@@ -263,7 +264,7 @@ namespace VorratsUebersicht
 
                 case Resource.Id.Main_Menu_SelectDatabase:
 
-                    this.SelectDatabase();
+                    this.SwitchDatabase();
 
                     return true;
             }
@@ -271,46 +272,24 @@ namespace VorratsUebersicht
             return false;
         }
 
-        private void SelectDatabase()
-        {
-            List<string> fileList;
-            
-            Exception ex = Android_Database.LoadDatabaseFileListSafe(this, out fileList);
-            if (ex != null)
-            {
-                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
-            }
 
-            if (fileList.Count == 0)
+        private async void SwitchDatabase()
+        {
+            string database = await MainActivity.SelectDatabase(this, "Datenbank öffnen:");
+            if (string.IsNullOrEmpty(database))
             {
                 return;
             }
 
-            string[] databaseNames = new string[fileList.Count];
-
-            for(int i = 0; i < fileList.Count; i++)
-            {
-                databaseNames[i] = Path.GetFileNameWithoutExtension(fileList[i]);
-            }
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Datenbank auswählen: ");
-            builder.SetItems(databaseNames, (sender2, args) =>
-            {
-                string database = fileList[args.Which];
-
-                Android_Database.TryOpenDatabase(database);
+            Android_Database.TryOpenDatabase(database);
                 
-                Settings.PutString("LastSelectedDatabase", database);
+            Settings.PutString("LastSelectedDatabase", database);
 
-                this.CheckAndMoveArticleImages();
+            this.CheckAndMoveArticleImages();
 
-                this.ShowDatabaseName();
+            this.ShowDatabaseName();
 
-                this.ShowDatabaseInfoText();
-            });
-
-            builder.Show();
+            this.ShowDatabaseInfoText();
         }
 
         private void CheckAndMoveArticleImages()
@@ -859,6 +838,70 @@ namespace VorratsUebersicht
         {
             Database.SetSettings("DEFAULT_CATEGORY", newDefaultCategory);
         }
+
+        internal static Task<string> SelectDatabase(Context context, string title, string except = null)
+        {
+            var tcs = new TaskCompletionSource<string>();
+
+            Exception ex = Android_Database.LoadDatabaseFileListSafe(context, out List<string> fileList);
+            if (ex != null)
+            {
+                Toast.MakeText(context, ex.Message, ToastLength.Long).Show();
+            }
+
+            if (!string.IsNullOrEmpty(except))
+            {
+                if (fileList.Contains(except))
+                    fileList.Remove(except);
+            }
+
+            if (fileList.Count == 0)
+            {
+                tcs.TrySetResult(null);
+                return tcs.Task;
+            }
+
+            string[] databaseNames = new string[fileList.Count];
+
+            for(int i = 0; i < fileList.Count; i++)
+            {
+                databaseNames[i] = Path.GetFileNameWithoutExtension(fileList[i]);
+            }
+
+            using(AlertDialog.Builder builder = new AlertDialog.Builder(context))
+            {
+                builder.SetTitle(title);
+                builder.SetItems(databaseNames, (sender2, args)          => { tcs.TrySetResult(fileList[args.Which]); });
+                builder.SetOnCancelListener(new ActionDismissListener(() => { tcs.TrySetResult(null); }));
+                builder.Show();
+            }
+
+            return tcs.Task;
+        }
+
+        internal static Task<string> InputTextAsync(Context context, string title, string message, string name, string positiveButton, string negativeButton)
+        {
+            var tcs = new TaskCompletionSource<string>();
+
+            var builder = new AlertDialog.Builder(context);
+
+            var dialog = builder.Create();
+            dialog.SetTitle(title);
+            dialog.SetMessage(message);
+            dialog.Window.SetSoftInputMode(Android.Views.SoftInput.StateVisible);
+            EditText input = new EditText(context);
+            input.InputType = Android.Text.InputTypes.ClassText;
+            input.Text = name;
+            input.RequestFocus();
+            dialog.SetView(input);
+            dialog.SetButton(positiveButton,  (s, e) => { tcs.TrySetResult(input.Text); });
+            dialog.SetButton2(negativeButton, (s, e) => { tcs.TrySetResult(null);       });
+            dialog.Show();
+
+            return tcs.Task;
+        }
+
+
     }
 }
 
