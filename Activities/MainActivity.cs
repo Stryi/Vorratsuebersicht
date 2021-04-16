@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 using Android.App;
 using Android.Content;
@@ -12,7 +13,6 @@ using Android.OS;
 using Android.Content.PM;
 using Android.Support.V7.App;
 using AndroidX.Core.Content;
-using System.Threading.Tasks;
 
 namespace VorratsUebersicht
 {
@@ -70,7 +70,7 @@ namespace VorratsUebersicht
             // Damit Pre-Launch von Google Play Store nicht immer wieder
             // in die EAN Scan "Falle" tappt und da nicht wieder rauskommt.
             // (meistens nächster Tag)
-            MainActivity.preLaunchTestEndDay = new DateTime(2021, 04, 11);
+            MainActivity.preLaunchTestEndDay = new DateTime(2021, 04, 17);
 
             // Zusammen mit minSdkVersion="19" verhindert das den Fehler: Android.Content.Res.Resources+NotFoundException: 'File res/drawable/abc_vector_test.xml from drawable resource ID
             //AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
