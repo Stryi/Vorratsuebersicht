@@ -178,6 +178,9 @@ namespace VorratsUebersicht
             if (sdCardPath == null)
                 return null;
 
+            // Sind da schon Datenbanken angelegt? (nicht immer wieder die Vorraete.db3 erstellen, wenn die Berechtigung erteilt wird).
+            if (Directory.GetFiles(sdCardPath, "*.db3").Length > 0)
+                return null;
 
 			string source      = Path.Combine(documentsPath, Android_Database.sqliteFilename_New);
             string destination = Path.Combine(sdCardPath,    Android_Database.sqliteFilename_Prod);

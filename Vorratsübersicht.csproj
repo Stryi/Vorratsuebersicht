@@ -353,9 +353,8 @@
     <AndroidResource Include="Resources\layout\AltDatePickerFragment.axml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ReadMe - Gebrauchsanweisung.txt" />
     <None Include="ReadMe - Implementieren.txt" />
-    <None Include="ReadMe.txt" />
+    <None Include="ReadMe - Google Play Store.txt" />
     <None Include="environment.txt" />
     <AndroidAsset Include="Licenses.html" />
   </ItemGroup>
