@@ -456,6 +456,75 @@ namespace VorratsUebersicht
             return exception;
         }
 
+        /// <summary>
+        /// Liefert die Datenbanken, die sich z.Z. im internen Speicher und nicht im App Verzeichnis befinden.
+        /// Diese müssen dann in das App Verzeichnis verschoben, werden, da ab API-Level 30 die App
+        /// da kein Zugriff mehr haben wird.
+        /// </summary>
+        internal static Exception LoadDatabaseFilesToMove(out List<string> fileList)
+        {
+            Exception exception = null;
+            fileList = new List<string>();
+
+            string addPath = Settings.GetString("AdditionslDatabasePath", string.Empty);
+            
+            if (!string.IsNullOrEmpty(addPath))
+            {
+                try
+                {
+                    fileList.AddRange(Directory.GetFiles(addPath, "*.db3"));
+                }
+                catch (Exception ex) { exception = ex; }
+            }
+            
+            string sdCardPath = Android_Database.Instance.GetSdCardPath();
+            if (Directory.Exists(sdCardPath))
+            {
+                try
+                {
+                    fileList.AddRange(Directory.GetFiles(sdCardPath, "*.db3"));
+                }
+                catch (Exception ex) { exception = ex; }
+            }
+
+            if (exception != null)
+            {
+                TRACE(exception);
+            }
+
+            return exception;
+        }
+
+        internal static Exception MoveDatabasesToAppDir(Context context, List<string> fileList)
+        {
+            Exception exception = null;
+
+			var applicationFileDir = context.GetExternalFilesDir(null);
+            if (applicationFileDir == null)
+            {
+                throw new Exception("Das App-Verzeichnis kann nicht ermittelt werden.");
+            }
+
+            foreach(string sourceFile in fileList)
+            {
+                string destinationFile = Path.Combine(applicationFileDir.AbsolutePath, Path.GetFileName(sourceFile));
+
+                try
+                {
+                    File.Move(sourceFile, destinationFile);
+                }
+                catch (Exception ex)
+                {
+                    exception = ex;
+
+                }
+            }
+
+            //exception = new Exception($"Access to file '{fileList[0]}' denied!"); 
+
+            return exception;
+        }
+
         public static string TryOpenDatabase(string databaseName)
         {
             try

@@ -2,6 +2,7 @@
 <resources>
   <style name="Theme.Splash" parent="Theme.AppCompat">
     <item name="android:windowBackground">@drawable/splash</item>
+    <item name="android:textAllCaps">false</item>
     <item name="windowNoTitle">true</item>
   </style>
 </resources>

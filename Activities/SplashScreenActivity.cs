@@ -36,12 +36,132 @@ namespace VorratsUebersicht
             this.progressText = FindViewById<TextView>(Resource.Id.SplashScreen_ProgressText);
             this.progressBar  = FindViewById<ProgressBar>(Resource.Id.SplashScreen_ProgressBar);
 
+            bool done = this.MoveDatabaseToSafePlace();
+            if (done)
+            {
+                return;
+            }
+
+            //var test = await MainActivity.ShowYesNoQuestion(this, "Wichtig!!!", "Datenbank sichern", "Ja", "Nicht jetzt.");
+            //bool sichern = test.Result;
+
             bool selected = this.SelectDatabase();
             if (selected)
             {
                 this.CheckAndMoveArticleImages();
                 StartActivity(typeof(MainActivity));
             }
+        }
+
+        private bool MoveDatabaseToSafePlace()
+        {
+            bool tryMoveDatabases = Settings.GetBoolean("CheckDatabaseFilesToMove", true);
+            if (!tryMoveDatabases)
+            {
+                return false;
+            }
+
+            List<string> filesToMoveExists = null;
+
+            // Liste der Datenbanken zum Verschieben laden.
+            Exception ex = Android_Database.LoadDatabaseFilesToMove(out filesToMoveExists);
+
+            if (ex != null)
+            {
+                TRACE(ex);
+            }
+
+            // Keine Datenbanken zum Verschieben gefunden?
+            if (filesToMoveExists.Count == 0)
+            {
+                return false;
+            }
+
+            var dialog = new AlertDialog.Builder(this).Create();
+            dialog.SetTitle("Wichtig!!!");
+            dialog.SetMessage($"Die Datenbank muss vom internen Speicher (Verzeichnis: Vorratsuebersicht) in das App-Verzeichnis verschoben werden, " +
+                "damit neuere Versionen dieser App weiterhin Zugriff auf diese Datenbank haben.\n\n" +
+                "Wenn Sie das nicht wollen, so drücken sie 'Frag nicht mehr' und deaktivieren die automatische Updates auf Google Play für diese App.");
+
+            dialog.SetButton("OK (empfohlen)",  (s, e) => 
+            { 
+                dialog.Dismiss();
+
+                Exception ex = Android_Database.MoveDatabasesToAppDir(this, filesToMoveExists);
+                if (ex != null)
+                {
+                    dialog.Dismiss();
+
+                    string text = "Fehler beim Verschieben der Datenbank Dateien.";
+                    text = text + "\n\n" + ex.Message;
+
+                    TRACE(text);
+
+                    var message = new AlertDialog.Builder(this).Create();
+
+                    message.SetMessage(text);
+                    message.SetButton("Ok",  (s, e) => 
+                    {  
+                        StartActivity(typeof(MainActivity));
+                    });
+                    message.CancelEvent += delegate (object sender, EventArgs e)
+                    {
+                        StartActivity(typeof(MainActivity));
+                    };
+
+                    message.Show();
+
+                    return;
+                }
+
+                bool selected = this.SelectDatabase();
+                if (selected)
+                {
+                    this.CheckAndMoveArticleImages();
+                    StartActivity(typeof(MainActivity));
+                }
+            });
+
+            dialog.SetButton2("Nicht jetzt", (s, e) => 
+            { 
+                dialog.Dismiss();
+
+                bool selected = this.SelectDatabase();
+                if (selected)
+                {
+                    this.CheckAndMoveArticleImages();
+                    StartActivity(typeof(MainActivity));
+                }
+            });
+            dialog.SetButton3("Frag nicht mehr", (s, e) => 
+            { 
+                dialog.Dismiss();
+
+                Settings.PutBoolean("CheckDatabaseFilesToMove", false);
+
+                bool selected = this.SelectDatabase();
+                if (selected)
+                {
+                    this.CheckAndMoveArticleImages();
+                    StartActivity(typeof(MainActivity));
+                }
+            });
+
+            dialog.CancelEvent += delegate (object sender, EventArgs e)
+            {
+                dialog.Dismiss();
+
+                bool selected = this.SelectDatabase();
+                if (selected)
+                {
+                    this.CheckAndMoveArticleImages();
+                    StartActivity(typeof(MainActivity));
+                }
+            };
+
+            dialog.Show();
+
+            return true;
         }
 
         /// <summary>
