@@ -405,48 +405,52 @@ namespace VorratsUebersicht
             Exception exception = null;
             fileList = new List<string>();
 
-            string addPath = Settings.GetString("AdditionslDatabasePath", string.Empty);
-            
-            if (!string.IsNullOrEmpty(addPath))
+            try
             {
-                try
+                string addPath = Settings.GetString("AdditionslDatabasePath", string.Empty);
+            
+                if (!string.IsNullOrEmpty(addPath))
                 {
                     fileList.AddRange(Directory.GetFiles(addPath, "*.db3"));
                 }
-                catch (Exception ex) { exception = ex; }
             }
+            catch (Exception ex) { TRACE("AdditionslDatabasePath..."); exception = ex; }
             
-            string sdCardPath = Android_Database.Instance.GetSdCardPath();
-            if (Directory.Exists(sdCardPath))
+            try
             {
-                try
+                string sdCardPath = Android_Database.Instance.GetSdCardPath();
+                if (Directory.Exists(sdCardPath))
                 {
                     fileList.AddRange(Directory.GetFiles(sdCardPath, "*.db3"));
                 }
-                catch (Exception ex) { exception = ex; }
             }
+            catch (Exception ex) { TRACE("GetSdCardPath..."); exception = ex; }
 
-            var externalFilesDirs = context.GetExternalFilesDirs(null);
-            if (externalFilesDirs != null)
+            try
             {
-                foreach(var extFilesDir in externalFilesDirs)
+                var externalFilesDirs = context.GetExternalFilesDirs(null);
+                if (externalFilesDirs != null)
                 {
-                    if (!extFilesDir.CanWrite())
+                    foreach(var extFilesDir in externalFilesDirs)
                     {
-                        TRACE("GetDatabaseFileListSafe(): Can not write external storage dir '{0}'.", extFilesDir.AbsolutePath);
-                        continue;
-                    }
+                        if (!extFilesDir.CanWrite())
+                        {
+                            TRACE("GetDatabaseFileListSafe(): Can not write external storage dir '{0}'.", extFilesDir.AbsolutePath);
+                            continue;
+                        }
 
-                    try
-                    {
                         fileList.AddRange(Directory.GetFiles(extFilesDir.AbsolutePath, "*.db3"));
                     }
-                    catch (Exception ex) { exception = ex; }
                 }
             }
+            catch (Exception ex) { TRACE("GetExternalFilesDirs..."); exception = ex; }
 
-            var sorted = fileList.OrderBy(e => Path.GetFileNameWithoutExtension(e));
-            fileList = sorted.ToList();
+            try
+            {
+                var sorted = fileList.OrderBy(e => Path.GetFileNameWithoutExtension(e));
+                fileList = sorted.ToList();
+            }
+            catch (Exception ex) { TRACE("OrderBy..."); exception = ex; }
             
             if (exception != null)
             {

@@ -9,6 +9,12 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 6.13 (Code Version 101)
+===============================
+
+C174 - Zusätzliche Absicherung beim Zugriff auf Verzeichnisse.
+
+
 Version 6.12 (Code Version 100)
 ===============================
 
