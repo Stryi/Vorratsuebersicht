@@ -69,7 +69,11 @@ namespace VorratsUebersicht
             Switch switchAltDatePicker = FindViewById<Switch>(Resource.Id.SettingsButton_AltDatePicker);
             switchAltDatePicker.Click += SwitchAltDatePicker_Click;
             switchAltDatePicker.Checked = StorageItemQuantityActivity.UseAltDatePicker;
-
+            
+            Switch checkDatabaseFilesToMove = FindViewById<Switch>(Resource.Id.SettingsButton_CheckDatabaseFilesToMove);
+            checkDatabaseFilesToMove.Click += CheckDatabaseFilesToMove_Click;
+            checkDatabaseFilesToMove.Checked = Settings.GetBoolean("CheckDatabaseFilesToMove", true);
+            
             bool compress = Settings.GetBoolean("CompressPictures", true);
             int compressMode = Settings.GetInt("CompressPicturesMode", 1);
 
@@ -846,6 +850,14 @@ namespace VorratsUebersicht
             StorageItemQuantityActivity.UseAltDatePicker = switchAltDatePicker.Checked;
             Settings.PutBoolean("UseAltDatePicker", StorageItemQuantityActivity.UseAltDatePicker);
         }
+
+        private void CheckDatabaseFilesToMove_Click(object sender, EventArgs e)
+        {
+            var switchMoveDb = sender as Switch;
+            bool isChecked = switchMoveDb.Checked;
+            Settings.PutBoolean("CheckDatabaseFilesToMove", isChecked);
+        }
+
 
         private void CompressPictures_Click(object sender, EventArgs e)
         {

@@ -357,6 +357,14 @@
             
         </RadioGroup>
 
+        <Switch
+            android:id="@+id/SettingsButton_CheckDatabaseFilesToMove"
+            android:text="Beim Starten fragen, ob die Datenbanken in das App Verzeichnis verschoben werden sollte."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:paddingTop="20dp" />
+
         <TextView
             android:text="Support" 
             android:layout_width="match_parent"

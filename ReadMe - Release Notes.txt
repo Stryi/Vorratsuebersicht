@@ -9,7 +9,12 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
-Version 6.13 (Code Version 101)
+Version 6.20 (Code Version 103)
+===============================
+
+C175- Datenbanken in App Verzeichnis verschieben.
+
+Version 6.13 (Code Version 102)
 ===============================
 
 C174 - Zusätzliche Absicherung beim Zugriff auf Verzeichnisse.
