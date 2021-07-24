@@ -18,6 +18,8 @@ using Android.Speech;
 
 using Xamarin.Essentials;
 using System.Threading;
+using Android.Icu.Text;
+using Android.Text.Method;
 
 namespace VorratsUebersicht
 {
@@ -106,6 +108,10 @@ namespace VorratsUebersicht
             this.articleImage = Database.GetArticleImage(this.articleId, false);
             if (this.articleImage == null)
                 this.articleImage = new ArticleImage();
+
+            var price = FindViewById<EditText>(Resource.Id.ArticleDetails_Price);
+            char separator = DecimalFormatSymbols.Instance.DecimalSeparator;
+            //price.AfterTextChanged += Price_AfterTextChanged;
 
             this.imageView              = FindViewById<ImageView>(Resource.Id.ArticleDetails_Image);
             this.imageView2             = FindViewById<ImageView>(Resource.Id.ArticleDetails_Image2);
@@ -236,6 +242,13 @@ namespace VorratsUebersicht
             FindViewById<EditText>(Resource.Id.ArticleDetails_Price).AfterTextChanged += CalculatePricePerUnit;
 
             this.CalculatePricePerUnit(this, EventArgs.Empty);
+        }
+
+        private void Price_AfterTextChanged(object sender, Android.Text.AfterTextChangedEventArgs e)
+        {
+            var editText = ((EditText)sender);
+            var text = editText.Text.Replace(",", ".");
+            editText.Text = text;
         }
 
         private void CalculatePricePerUnit(object sender, EventArgs e)

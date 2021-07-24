@@ -247,7 +247,8 @@
                     android:id="@+id/ArticleDetails_Price"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal" 
+                    android:digits="0123456789.,"/>
             </LinearLayout>
 
             <LinearLayout
@@ -381,7 +382,8 @@
 
             <TextView
                 android:text="@string/ArticleDetails_Notes"
-                android:layout_width="fill_parent"
+                android:layout_width="fill_paren
+
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
