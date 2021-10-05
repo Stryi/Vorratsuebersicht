@@ -153,6 +153,12 @@ namespace VorratsUebersicht
                 TRACE(ex);
 
                 title = ex.Message;
+
+                if (ex.InnerException != null)
+                {
+                    TRACE(ex.InnerException);
+                }
+
             }
 
             RunOnUiThread(() =>
@@ -254,6 +260,12 @@ namespace VorratsUebersicht
             webRequest.Credentials = CredentialCache.DefaultCredentials;
             webRequest.Headers.Add("UserAgent", agentInfo);
             webRequest.Timeout = 10000;
+
+            if (ServicePointManager.ServerCertificateValidationCallback == null)
+            {
+                ServicePointManager.ServerCertificateValidationCallback += 
+                    (sender, certificate, chain, sslPolicy) => { return true; };
+            }
 
             WebResponse response = webRequest.GetResponse();
 

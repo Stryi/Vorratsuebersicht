@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 6.21 (Code Version 104)
+===============================
+
+E047 - FIX: OpenFoodFacts.org Zertifikat Fehler korrigiert.
+
 Version 6.20 (Code Version 103)
 ===============================
 

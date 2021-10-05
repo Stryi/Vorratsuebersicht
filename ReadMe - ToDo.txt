@@ -1,6 +1,9 @@
 Prio 1
 ======
 
+Artikeldetails
+- Preisangabe auch mit ","
+- Einheit RTRIM() wegen "Stück "
 
 Sonstiges
 - Push Benachrichtigung (z.B. einmal pro Tag) über bald zu verbrauchende Artikel 
