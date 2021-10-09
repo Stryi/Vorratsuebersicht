@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 6.22 (Code Version 105)
+===============================
+
+E048 - Jetzt auch für ab Android 5.1 (SDK Version=22).
+
 Version 6.21 (Code Version 104)
 ===============================
 
