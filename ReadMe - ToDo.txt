@@ -5,7 +5,11 @@ Artikeldetails
 - Preisangabe auch mit ","
 - Einheit RTRIM() wegen "Stück "
 
+Lagerliste
+- (anfängliche) Sortierung auf "Datum" (Einstellbar in den Optionen) - (Per E-Mail vom mi53ke)
+
 Sonstiges
+- Einstellungen: Reihenfolge sinnvoller gestalten (von mi53ke)
 - Push Benachrichtigung (z.B. einmal pro Tag) über bald zu verbrauchende Artikel 
   Gewünscht von Frank (E-Mail), und von Eva (?)
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/notifications/local-notifications-walkthrough
@@ -14,7 +18,7 @@ Sonstiges
 
 
 Einstellungen
-- Nur X Backups lassen, ältere automatisch löschen.
+- Nur X Backups lassen, ältere automatisch löschen. (auch vom mik53ke per E-Mail)
 
 Anwendung
 - Anwendungsabstürze in die LOG Datei protokollieren.
@@ -66,7 +70,7 @@ Lagerliste
 
 
 Sonstiges
-- CSV Import (vom Scare C. per E-Mail, I. Landgraf per E-Mail) 
+- CSV Import (vom Scare C. per E-Mail, I. Landgraf per E-Mail und mi53ke per E-Mail) 
 - Spracheingabe, https://docs.microsoft.com/de-de/xamarin/android/platform/speech
 
 
