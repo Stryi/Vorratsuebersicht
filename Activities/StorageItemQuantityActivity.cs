@@ -582,6 +582,7 @@ namespace VorratsUebersicht
             var articleDetails = new Intent(this, typeof(ArticleDetailsActivity));
             articleDetails.PutExtra("ArticleId", this.articleId);
             articleDetails.PutExtra("NoStorageQuantity", true);
+            articleDetails.PutExtra("NoDeleteArticle", true);
             this.StartActivityForResult(articleDetails, ArticleDetailId);
         }
 

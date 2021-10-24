@@ -172,6 +172,12 @@ namespace VorratsUebersicht
                 this.ShowInfoAufTestdatenbank();
             }
 
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                // TODO: Ggf. entfernen?
+                Android_Database.UseTestDatabase = true;
+            }
+
             // Datenbankverbindung initialisieren
             this.InitializeDatabase();
 

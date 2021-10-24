@@ -34,6 +34,7 @@ namespace VorratsUebersicht
         int articleId;
         bool isChanged = false;
         bool noStorageQuantity = false;
+        bool noDeleteArticle = false;
 
         ImageView imageView;
         ImageView imageView2;
@@ -98,6 +99,7 @@ namespace VorratsUebersicht
             this.category          = Intent.GetStringExtra ("Category");
             this.subCategory       = Intent.GetStringExtra ("SubCategory");
             this.noStorageQuantity = Intent.GetBooleanExtra("NoStorageQuantity", false);
+            this.noDeleteArticle   = Intent.GetBooleanExtra("NoDeleteArticle",   false);
 
             this.article = Database.GetArticle(this.articleId);
             if (this.article == null)
@@ -400,6 +402,7 @@ namespace VorratsUebersicht
             itemInternetDB.SetEnabled(!string.IsNullOrEmpty(EANCode));
 
             menu.FindItem(Resource.Id.ArticleDetailsMenu_ToStorageQuantity).SetVisible(!this.noStorageQuantity);
+            menu.FindItem(Resource.Id.ArticleDetailsMenu_Delete).SetVisible(!this.noDeleteArticle);
 
             return true;
         }
