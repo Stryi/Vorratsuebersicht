@@ -151,11 +151,13 @@ namespace VorratsUebersicht
 
             var item = items[position];
 
-            if (item.StorageItem.Quantity - StorageItemQuantityListViewAdapter.StepValue < 0)
-                return;
-
             item.StorageItem.Quantity -= StorageItemQuantityListViewAdapter.StepValue;
             item.StorageItem.IsChanged = true;
+
+            if (item.StorageItem.Quantity < 0)
+            {
+                item.StorageItem.Quantity = 0;
+            }
 
             this.NotifyDataSetChanged();
         }

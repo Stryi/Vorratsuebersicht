@@ -9,6 +9,11 @@ Vor dem Hochladen ins Google Play Store:
   auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
   bei Google Play nicht beim EAN Scan "gefangen bleibt".
 
+Version 6.23 (Code Version 106)
+===============================
+
+C176 - Bestand: 0,25 und (-1) Button macht jetzt Bestand: 0
+
 Version 6.22 (Code Version 105)
 ===============================
 
