@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 6.23 (Code Version 106)
 ===============================
 
+C178 - Beim Pre-Launch wird jetzt kein Share mehr aufgerufen ("ist dann eine Sackgasse"")
 C177 - Wert im Lager wird jetzt auch bei Menge 1 angezeigt (war verwirrend).
 C176 - Bestand: 0,25 und (-1) Button macht jetzt Bestand: 0
 

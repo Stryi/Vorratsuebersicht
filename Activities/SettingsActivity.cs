@@ -794,6 +794,9 @@ namespace VorratsUebersicht
 
         private void ButtonSendLogFile_Click(object sender, EventArgs eventArgs)
         {
+            if (MainActivity.IsGooglePlayPreLaunchTestMode)
+                return;
+
             string message = "LOG Einträge an den Entwickler schicken?";
             message += "\n\nIhre E-Mail Adresse wird dem Entwickler als 'Absender' angezeigt. ";
             message += "Es werden keine private Daten versendet. ";

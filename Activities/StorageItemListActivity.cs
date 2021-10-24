@@ -229,6 +229,9 @@ namespace VorratsUebersicht
 
         private void ShareList()
         {
+            if (MainActivity.IsGooglePlayPreLaunchTestMode)
+                return;
+
             string text = string.Empty;
 
             foreach(StorageItemListView view in this.liste)
