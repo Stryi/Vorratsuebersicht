@@ -12,6 +12,8 @@ Vor dem Hochladen ins Google Play Store:
 Version 6.23 (Code Version 106)
 ===============================
 
+C180 - Einstellungen umstrukturiert
+C179 - Kein Link mehr "Datenbanken verwalten (Anleitung)" in den Einstellungen, denn selbsterklärend.
 E049 - FIX: Artikel Löschen über Lagerbestand -> Artikelangaben jetzt nicht mehr möglich (brachte Fehler beim Bestand 0)
 C178 - Beim Pre-Launch wird jetzt kein Share mehr aufgerufen ("ist dann eine Sackgasse"")
 C177 - Wert im Lager wird jetzt auch bei Menge 1 angezeigt (war verwirrend).

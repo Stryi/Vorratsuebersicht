@@ -10,6 +10,36 @@
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
         android:paddingLeft="5dp">
+
+        <TextView
+            android:id="@+id/Settings_Categories_Text"
+            android:text="Zusätzliche Kategorien (mit Komma getrennt definieren)" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp" />
+        <EditText
+            android:id="@+id/Settings_Categories"
+            android:inputType="textMultiLine"
+            android:gravity="top|left"
+            android:scrollbars="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:text="Standard Kategorie für neue Artikel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp" />
+        <Spinner
+            android:id="@+id/Settings_DefaultCategory"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:hint="@string/ArticleDetails_Category_Hint" />
+
         <TextView
             android:text="Aktuelle Datenbank"
             android:layout_width="match_parent"
@@ -23,6 +53,75 @@
             android:paddingTop="5dp"
             android:paddingBottom="10dp"
             android:text="@string/Settings_Datenbank" />
+
+
+        <TextView
+            android:text="Backup und Restore (auf eigene Verantwortung)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp" />
+        <ProgressBar
+            android:id="@+id/ProgressBar_BackupAndRestore"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="-5dp"
+            android:layout_marginBottom="-5dp"
+            android:indeterminate="true"
+            android:max="100"
+            android:visibility="invisible"/>
+        <Button
+            android:id="@+id/SettingsButton_Backup"
+            android:text="@string/Settings_CreateBackup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical" />
+        <Button
+            android:id="@+id/SettingsButton_Restore"
+            android:text="@string/Settings_RestoreBackup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical" />
+
+        <TextView
+            android:text="Backup-Pfad:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="10dp" />
+        <EditText
+            android:id="@+id/SettingsButton_BackupPath"
+            android:text=""
+            android:inputType="textUri"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical" />
+
+        <TextView
+            android:id="@+id/Settings_LastBackupDay"
+            android:textColor="@color/Text_Color2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="10dp" />
+
+        <Switch
+            android:id="@+id/SettingsButton_AskForBackup"
+            android:text="An Backup alle 7 Tage erinnern"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="left|center_vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp" />
+
         <ProgressBar
             android:id="@+id/ProgressBar_Compress"
             style="?android:attr/progressBarStyleHorizontal"
@@ -97,114 +196,6 @@
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
 
-        <TextView
-            android:text="Datenbanken verwalten (Anleitung):" 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp" />
-        <TextView
-            android:text="https://github.com/Stryi/Vorratsuebersicht/wiki/Mehrere-Datenbanken-betreiben"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:gravity="left|center_vertical"
-            android:autoLink="web" />
-
-        <TextView
-            android:id="@+id/Settings_Categories_Text"
-            android:text="Zusätzliche Kategorien (mit Komma getrennt definieren)" 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp" />
-        <EditText
-            android:id="@+id/Settings_Categories"
-            android:inputType="textMultiLine"
-            android:gravity="top|left"
-            android:scrollbars="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp" />
-
-        <TextView
-            android:text="Standard Kategorie für neue Artikel:"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp" />
-        <Spinner
-            android:id="@+id/Settings_DefaultCategory"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:hint="@string/ArticleDetails_Category_Hint" />
-
-        <TextView
-            android:text="Backup und Restore (auf eigene Verantwortung)"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp" />
-        <ProgressBar
-            android:id="@+id/ProgressBar_BackupAndRestore"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="-5dp"
-            android:layout_marginBottom="-5dp"
-            android:indeterminate="true"
-            android:max="100"
-            android:visibility="invisible"/>
-        <Button
-            android:id="@+id/SettingsButton_Backup"
-            android:text="@string/Settings_CreateBackup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textAllCaps="false"
-            android:gravity="left|center_vertical" />
-        <Button
-            android:id="@+id/SettingsButton_Restore"
-            android:text="@string/Settings_RestoreBackup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textAllCaps="false"
-            android:gravity="left|center_vertical" />
-
-        <TextView
-            android:text="Backup-Pfad:"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:paddingTop="10dp" />
-        <EditText
-            android:id="@+id/SettingsButton_BackupPath"
-            android:text=""
-            android:inputType="textUri"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textAllCaps="false"
-            android:gravity="left|center_vertical" />
-
-        <TextView
-            android:id="@+id/Settings_LastBackupDay"
-            android:textColor="@color/Text_Color2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:paddingTop="10dp" />
-
-        <Switch
-            android:id="@+id/SettingsButton_AskForBackup"
-            android:text="An Backup alle 7 Tage erinnern"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:gravity="left|center_vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
 
         <TextView
             android:text="EAN Scann"
