@@ -12,6 +12,7 @@ Vor dem Hochladen ins Google Play Store:
 Version 6.23 (Code Version 106)
 ===============================
 
+C177 - Wert im Lager wird jetzt auch bei Menge 1 angezeigt (war verwirrend).
 C176 - Bestand: 0,25 und (-1) Button macht jetzt Bestand: 0
 
 Version 6.22 (Code Version 105)
