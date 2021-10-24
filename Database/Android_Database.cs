@@ -433,6 +433,10 @@ namespace VorratsUebersicht
                 {
                     foreach(var extFilesDir in externalFilesDirs)
                     {
+                        // Ist das Storage nicht gemounted?
+                        if (extFilesDir == null)
+                            continue;
+
                         if (!extFilesDir.CanWrite())
                         {
                             TRACE("GetDatabaseFileListSafe(): Can not write external storage dir '{0}'.", extFilesDir.AbsolutePath);
