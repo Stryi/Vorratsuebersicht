@@ -70,7 +70,7 @@ namespace VorratsUebersicht
             // Damit Pre-Launch von Google Play Store nicht immer wieder
             // in die EAN Scan "Falle" tappt und da nicht wieder rauskommt.
             // (meistens nächster Tag)
-            MainActivity.preLaunchTestEndDay = new DateTime(2021, 10, 10);
+            MainActivity.preLaunchTestEndDay = new DateTime(2021, 10, 25);
 
             // Zusammen mit minSdkVersion="19" verhindert das den Fehler: Android.Content.Res.Resources+NotFoundException: 'File res/drawable/abc_vector_test.xml from drawable resource ID
             //AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
@@ -431,6 +431,7 @@ namespace VorratsUebersicht
                 message = "Die App befindet sich im Testmodus. Folgende Einschränkung bestehen bis zum {0}:\n\n";
                 message += "- Nur Testdatenbank\n";
                 message += "- Kein EAN Scan\n";
+                message += "- Kein Teilen\n";
                 message = string.Format(message, MainActivity.preLaunchTestEndDay.AddDays(-1).ToShortDateString());
 
                 var messageDialog = new AlertDialog.Builder(this);
