@@ -1,14 +1,4 @@
 
-Vor dem Hochladen ins Google Play Store: 
-----------------------------------------
-
-  Im MainActivity das Datum in
-
-      MainActivity.preLaunchTestEndDay = new DateTime(2018, 9, 22);
-
-  auf heutiges Datum setzen, damit die automatische Pre-Launch Prüfung
-  bei Google Play nicht beim EAN Scan "gefangen bleibt".
-
 Version 6.23 (Code Version 106)
 ===============================
 
@@ -33,13 +23,16 @@ E047 - FIX: OpenFoodFacts.org Zertifikat Fehler korrigiert.
 Version 6.20 (Code Version 103)
 ===============================
 
-C175- Datenbanken in App Verzeichnis verschieben.
+Mindestanforderung auf Android 10 (mindest SDK Version=29)
+
+C175- Datenbanken in App Verzeichnis verschieben. 
 
 Version 6.13 (Code Version 102)
 ===============================
 
-C174 - Zusätzliche Absicherung beim Zugriff auf Verzeichnisse.
+Mindestanforderung auf Android 5.1 (mindest SDK Version=22)
 
+C174 - Zusätzliche Absicherung beim Zugriff auf Verzeichnisse.
 
 Version 6.12 (Code Version 100)
 ===============================
@@ -112,6 +105,10 @@ Version 5.00 (Code Version 91)
 
 C151 - Menüpunkt "Auf Einkaufsliste" geändert in "Einkaufsliste"
 C151 - Mindestanforderung: Android 4.1 (Google Anforderung)
+
+Version 4.75 (Code Version 91)
+==============================
+
 E028 - FIX: Von Einkaufsliste ins Lager mit "Unendlich haltbar".
 
 Version 4.74 (Code Version 90)
