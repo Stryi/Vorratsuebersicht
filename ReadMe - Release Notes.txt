@@ -5,7 +5,6 @@ Version 6.24 (Code Version 107)
 C182 - Jetzt auch für ab Android 8 (SDK Version=26).
 E050 - FIX: Datenbank importieren benennt die Endung in .db3 um.
 
-
 Version 6.23 (Code Version 106)
 ===============================
 
