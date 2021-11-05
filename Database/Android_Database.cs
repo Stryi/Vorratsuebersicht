@@ -325,8 +325,9 @@ namespace VorratsUebersicht
                 this.CreateDatabaseOnExternalStorage();
             }
 
-            // Nur zum Testen für API Level 30.
-            //this.CreateDatabaseOnPersonalStorage(context);
+            // Default mäßig im Applikationsverzeichnis die Datenbank erstellen.
+            //string databaseName = Path.GetFileNameWithoutExtension(Android_Database.sqliteFilename_Prod);
+            //this.CreateDatabaseOnPersonalStorage(context, databaseName);
         }
 
         public string GetSdCardPath()
@@ -730,6 +731,9 @@ namespace VorratsUebersicht
                 if (applicationFileDir == null)
                     return null;
                 string destinationFilePath = Path.Combine(applicationFileDir.Path, datebaseName);
+
+                // Erweiterung in .db3 umbenennen, damit bei Datenbankauswahl die Datei vorgeschlagen wird.
+                destinationFilePath = Path.ChangeExtension(destinationFilePath, ".db3");
                 
                 File.Copy(sourceFilePath, destinationFilePath);
             }
