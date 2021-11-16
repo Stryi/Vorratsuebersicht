@@ -1,9 +1,14 @@
 
+Version 6.25 (Code Version 108)
+===============================
+
+C183 - Jetzt auch für ab Android 9 (SDK Version=28) wegen Android 8 Problemen.
+
 Version 6.24 (Code Version 107)
 ===============================
 
-- Testversion 6.24-Test (107) für ab Android 5.00 erstellt.
-
+- Testversion 6.24-Test (107) für ab Android 5.00 (SDK Version=21) erstellt.
+- Vom Google Play Store "zurückgezogen", da Probleme mit Android 8 aufgetreten sind.
 
 C182 - Jetzt auch für ab Android 8 (SDK Version=26).
 E050 - FIX: Datenbank importieren benennt die Endung in .db3 um.
