@@ -2,6 +2,9 @@
 Version 6.24 (Code Version 107)
 ===============================
 
+- Testversion 6.24-Test (107) für ab Android 5.00 erstellt.
+
+
 C182 - Jetzt auch für ab Android 8 (SDK Version=26).
 E050 - FIX: Datenbank importieren benennt die Endung in .db3 um.
 
