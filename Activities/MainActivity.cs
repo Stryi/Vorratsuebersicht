@@ -234,9 +234,19 @@ namespace VorratsUebersicht
                 return;
             }
 
-            TRACE("Permission granted to external storage.");
+            Exception exception = null;
+            if (Android.OS.Environment.ExternalStorageDirectory.CanWrite())
+            {
+                TRACE("Permission granted to external storage.");
 
-            var exception = Android_Database.Instance.CreateDatabaseOnExternalStorage();
+                exception = Android_Database.Instance.CreateDatabaseOnExternalStorage();
+            }
+            else
+            {
+                // Trotz Berechtigung dennoch kein Zugriff (ab Android 11)?
+                exception = Android_Database.Instance.CreateDatabaseOnPersonalStorage(this, "Vorraete");
+            }
+
             if (exception != null)
             {
                 Toast.MakeText(this, exception.Message, ToastLength.Long).Show();
