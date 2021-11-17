@@ -91,6 +91,14 @@ namespace VorratsUebersicht
             // Datenbanken erstellen
             Android_Database.Instance.RestoreSampleDatabaseFromResources(this);
 
+            bool firstRun = Settings.GetBoolean("FirstRun", true);
+            if (firstRun)
+            {
+                // Bessere Voreinstellungen vornehmen.
+                Settings.PutBoolean("UseAltDatePicker", true);
+                Settings.PutInt("CompressPicturesMode", 2);
+            }
+
             List<string> databases;
             Android_Database.LoadDatabaseFileListSafe(this, out databases);
 

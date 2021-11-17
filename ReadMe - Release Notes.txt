@@ -2,6 +2,7 @@
 Version 6.25 (Code Version 108)
 ===============================
 
+C184 - Default bei Neuinstallation: Neuer Datum Dialog und Bilder mit 1.024
 E051 - FIX: Anlage Datenbank bei Neuinstallation auf Android 11.
 C183 - Jetzt auch für ab Android 9 (SDK Version=28) wegen Android 8 Problemen.
 
