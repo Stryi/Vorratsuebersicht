@@ -91,11 +91,13 @@ namespace VorratsUebersicht
 
             //
             // Die App Datenbank auswählen.
-            // Für diejenigen, die gar keine SD-Karte haben(?)
+            // (sollte dort eigentlich nicht existieren)
+            //
+            // /data/user/0/de.stryi.Vorratsuebersicht/files/Vorraete.db3
             //
             databasePath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
             databaseFileName = Path.Combine(databasePath, Android_Database.sqliteFilename_Prod);
-
+            
             if (File.Exists(databaseFileName))
             {
                 return databaseFileName;
@@ -207,7 +209,7 @@ namespace VorratsUebersicht
             return null;
         }
 
-		public Exception CreateDatabaseOnPersonalStorage(Context context, string databaseName)
+		public Exception CreateDatabaseOnAppStorage(Context context, string databaseName, bool setAsCurrent = false)
         {
 			var externalFileDir = context.GetExternalFilesDir(null);
             if (externalFileDir == null)
@@ -225,6 +227,10 @@ namespace VorratsUebersicht
 			try
 			{
                 File.Copy(source, destination);
+                if (setAsCurrent)
+                {
+                    Android_Database.SelectedDatabaseName = destination;
+                }
 			}
 			catch (Exception e)
 			{

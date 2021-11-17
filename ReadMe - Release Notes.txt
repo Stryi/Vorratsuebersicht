@@ -2,6 +2,7 @@
 Version 6.25 (Code Version 108)
 ===============================
 
+E051 - FIX: Anlage Datenbank bei Neuinstallation auf Android 11.
 C183 - Jetzt auch für ab Android 9 (SDK Version=28) wegen Android 8 Problemen.
 
 Version 6.24 (Code Version 107)

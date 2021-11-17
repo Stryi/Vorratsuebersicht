@@ -244,7 +244,7 @@ namespace VorratsUebersicht
             else
             {
                 // Trotz Berechtigung dennoch kein Zugriff (ab Android 11)?
-                exception = Android_Database.Instance.CreateDatabaseOnPersonalStorage(this, "Vorraete");
+                exception = Android_Database.Instance.CreateDatabaseOnAppStorage(this, "Vorraete", true);
             }
 
             if (exception != null)

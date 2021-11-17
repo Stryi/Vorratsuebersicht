@@ -570,7 +570,7 @@ namespace VorratsUebersicht
             if (string.IsNullOrEmpty(newDatabaseName))
                 return;
 
-            Exception ex = Android_Database.Instance.CreateDatabaseOnPersonalStorage(this, newDatabaseName);
+            Exception ex = Android_Database.Instance.CreateDatabaseOnAppStorage(this, newDatabaseName);
 
             if (ex != null)
             {
