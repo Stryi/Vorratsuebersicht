@@ -213,6 +213,8 @@ namespace VorratsUebersicht
                 this.CreateBackup();
             }
 
+            this.Window.SetSoftInputMode(SoftInput.StateHidden);
+
             this.isInitialize = false;
         }
 
