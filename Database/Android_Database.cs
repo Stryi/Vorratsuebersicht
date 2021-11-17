@@ -79,9 +79,11 @@ namespace VorratsUebersicht
             }    
 
             //
-            // Datenbank (bereits) auf der SD Karte?
+            // Datenbank (bereits) im internen Speicher (zur Vereinfachung als SD Karte bezeichnet)?
             //
-			string sdCardPath = this.GetSdCardPath();
+            // Beispiel: "/storage/emulated/0/Vorratsuebersicht"
+
+            string sdCardPath = this.GetSdCardPath();
             databaseFileName = Path.Combine(sdCardPath, Android_Database.sqliteFilename_Prod);
 
             if (File.Exists(databaseFileName))
@@ -174,8 +176,11 @@ namespace VorratsUebersicht
                 return null;
             }
 
+            // Pfad: "/data/user/0/de.stryi.Vorratsuebersicht/files"
 			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
-			string sdCardPath    = this.CreateAndGetSdCardPath();
+
+            // Pfad: "/storage/emulated/0/Vorratsuebersicht"
+			string sdCardPath    = this.CreateAndGetSdCardPath();                  
 
             if (sdCardPath == null)
                 return null;
@@ -211,6 +216,7 @@ namespace VorratsUebersicht
 
 		public Exception CreateDatabaseOnAppStorage(Context context, string databaseName, bool setAsCurrent = false)
         {
+            // Beispiel: "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
 			var externalFileDir = context.GetExternalFilesDir(null);
             if (externalFileDir == null)
                 return null;
@@ -221,6 +227,7 @@ namespace VorratsUebersicht
                 return new Exception($"Datenbank '{databaseName}' ist bereits vorhanden.");
             }
 
+            // Beispiel: "/data/user/0/de.stryi.Vorratsuebersicht/files"
 			string documentsPath = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 			string source      = Path.Combine(documentsPath, Android_Database.sqliteFilename_New);
 
@@ -247,11 +254,13 @@ namespace VorratsUebersicht
         /// </summary>
 		public void RestoreDatabase_Test_Sample(bool overrideDatabase)
         {
-            //  /data/data/de.stryi.Vorratsuebersicht/files/Vorraete_Demo.db3
+            // Beispiel: "/data/user/0/de.stryi.Vorratsuebersicht/files"
 			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
+            
+            // Beispiel: "/data/user/0/de.stryi.Vorratsuebersicht/files/Vorraete_Demo.db3"
             string source      = Path.Combine(documentsPath, Android_Database.sqliteFilename_Demo);
 
-            //  /data/data/de.stryi.Vorratsuebersicht/files/Vorraete_Test.db3
+            // Beispiel: "/data/user/0/de.stryi.Vorratsuebersicht/files/Vorraete_Test.db3"
 			string destination = Path.Combine(documentsPath,  Android_Database.sqliteFilename_Test);
 
             this.RestoreDatabase(source, destination, overrideDatabase);
@@ -261,11 +270,13 @@ namespace VorratsUebersicht
 
         public void RestoreDatabase_Test_Db0(bool overrideDatabase)
         {
-            //  /data/data/de.stryi.Vorratsuebersicht/files/Vorraete_Db0.db3
+            // Beispiel: "/data/user/0/de.stryi.Vorratsuebersicht/files"
 			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
+
+            // Beispiel: "/data/user/0/de.stryi.Vorratsuebersicht/files/Vorraete_db0.db3"
             string source      = Path.Combine(documentsPath, Android_Database.sqliteFilename_New);
 
-            //  /data/data/de.stryi.Vorratsuebersicht/files/Vorraete_Test.db3
+            // Beispiel: "/data/data/de.stryi.Vorratsuebersicht/files/Vorraete_Test.db3"
 			string destination = Path.Combine(documentsPath, Android_Database.sqliteFilename_Test);
 
             this.RestoreDatabase(source, destination, overrideDatabase);
@@ -325,6 +336,7 @@ namespace VorratsUebersicht
             this.CreateDatabaseIfNotExists(documentsPath,  Android_Database.sqliteFilename_Demo, Android_Database.sqliteFilename_Demo, false);
             this.CreateDatabaseIfNotExists(documentsPath,  Android_Database.sqliteFilename_New,  Android_Database.sqliteFilename_New,  false);
 
+            // sdCardPath = "/storage/emulated/0/Vorratsuebersicht"
 			string sdCardPath = this.CreateAndGetSdCardPath();
             if (!string.IsNullOrEmpty(sdCardPath))
             {
@@ -338,6 +350,7 @@ namespace VorratsUebersicht
 
         public string GetSdCardPath()
         {
+            // Beispiel: "/storage/emulated/0"
             string sdCardPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
             sdCardPath = Path.Combine(sdCardPath, "Vorratsuebersicht");
 
@@ -346,9 +359,11 @@ namespace VorratsUebersicht
 
         internal string CreateAndGetSdCardPath()
         {
+            // Beispiel: "/storage/emulated/0"
             if (!Android.OS.Environment.ExternalStorageDirectory.CanWrite())
                 return null;
 
+            // Beispiel: "/storage/emulated/0/Vorratsuebersicht"
             string sdCardPath = this.GetSdCardPath();
 
             if (!Directory.Exists(sdCardPath))
@@ -425,6 +440,7 @@ namespace VorratsUebersicht
             
             try
             {
+                // Beispiel: "/storage/emulated/0/Vorratsuebersicht"
                 string sdCardPath = Android_Database.Instance.GetSdCardPath();
                 if (Directory.Exists(sdCardPath))
                 {
@@ -435,6 +451,9 @@ namespace VorratsUebersicht
 
             try
             {
+                // Beispiel:
+                //       "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
+                //       "/storage/0E0E-2316/Android/data/de.stryi.Vorratsuebersicht/files"
                 var externalFilesDirs = context.GetExternalFilesDirs(null);
                 if (externalFilesDirs != null)
                 {
@@ -492,6 +511,7 @@ namespace VorratsUebersicht
                 catch (Exception ex) { exception = ex; }
             }
             
+            // Beispiel: "/storage/emulated/0/Vorratsuebersicht"
             string sdCardPath = Android_Database.Instance.GetSdCardPath();
             if (Directory.Exists(sdCardPath))
             {
@@ -514,6 +534,7 @@ namespace VorratsUebersicht
         {
             Exception exception = null;
 
+            // Beispiel: "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
 			var applicationFileDir = context.GetExternalFilesDir(null);
             if (applicationFileDir == null)
             {
@@ -531,7 +552,6 @@ namespace VorratsUebersicht
                 catch (Exception ex)
                 {
                     exception = ex;
-
                 }
             }
 
@@ -733,9 +753,11 @@ namespace VorratsUebersicht
         {
             try
             {
+                // Beispiel: "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
 			    var applicationFileDir = context.GetExternalFilesDir(null);
                 if (applicationFileDir == null)
                     return null;
+
                 string destinationFilePath = Path.Combine(applicationFileDir.Path, datebaseName);
 
                 // Erweiterung in .db3 umbenennen, damit bei Datenbankauswahl die Datei vorgeschlagen wird.
