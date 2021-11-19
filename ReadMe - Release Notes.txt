@@ -1,5 +1,5 @@
 
-Version 6.25 (Code Version 108)
+Version 6.26 (Code Version 109)
 ===============================
 
 C184 - Default bei Neuinstallation: Neuer Datum Dialog und Bilder mit 1.024
@@ -8,7 +8,6 @@ C183 - Jetzt auch für ab Android 9 (SDK Version=28) wegen Android 8 Problemen.
 
 Version 6.24 (Code Version 107)
 ===============================
-
 - Testversion 6.24-Test (107) für ab Android 5.00 (SDK Version=21) erstellt.
 - Vom Google Play Store "zurückgezogen", da Probleme mit Android 8 aufgetreten sind.
 
