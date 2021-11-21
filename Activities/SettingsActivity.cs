@@ -822,7 +822,8 @@ namespace VorratsUebersicht
                     text.AppendFormat("Modell: {0}\n",           Build.Model);
                     text.AppendFormat("CurrentCulture: {0}\n",   CultureInfo.CurrentCulture.DisplayName);
                     text.AppendFormat("CurrentUICulture: {0}\n", CultureInfo.CurrentUICulture.DisplayName);
-                    
+                    text.AppendFormat("Prozessor: {0}\n",        String.Join<string>(',', Android.OS.Build.SupportedAbis));
+
                     text.AppendLine();
                     text.AppendFormat(Logging.GetLogFileText());
 
@@ -1061,6 +1062,16 @@ namespace VorratsUebersicht
             catch(Exception e)
             {
                 TRACE("SettingsActivity.ShowApplicationVersion() - {0}", e.Message);
+            }
+
+            try
+            {
+                var prozessoren = String.Join<string>(',', Android.OS.Build.SupportedAbis);
+                versionInfo += string.Format("\nProzessor: {0}", prozessoren);
+            }
+            catch(Exception e)
+            {
+                TRACE("SettingsActivity.ShowApplicationVersion() - Prozessoren Exception: {0}", e.Message);
             }
 
             return versionInfo;
