@@ -379,6 +379,12 @@ namespace VorratsUebersicht
             Settings.Clear("BACKUP_NOT_TODAY");
             */
 
+            // Wenn Testdatenbank aktiv ist, nicht nach Backup fragen.
+            if (Android_Database.UseTestDatabase)
+            {
+                return;
+            }
+
             bool askForBackup = Settings.GetBoolean("AskForBackup", true);;
             if (!askForBackup)
             {
