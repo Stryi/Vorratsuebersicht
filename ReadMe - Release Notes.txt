@@ -1,23 +1,31 @@
 
+Version 6.27 (Code Version 110)
+===============================
+
+E052 - FIX: Nach Neuinstalltion mit DB Erstellung kann jetzt gleich Restore aufgerufen werden.
+
 Version 6.26 (Code Version 109)
 ===============================
+- ab Android 9 (API Version 28)
 
 C184 - Default bei Neuinstallation: Neuer Datum Dialog und Bilder mit 1.024
 E051 - FIX: Anlage Datenbank bei Neuinstallation auf Android 11.
-C183 - Jetzt auch für ab Android 9 (SDK Version=28) wegen Android 8 Problemen.
+C183 - Jetzt auch für ab Android 9 (SDK Version 28) wegen Android 8 Problemen.
 
 Version 6.24 (Code Version 107)
 ===============================
-- Testversion 6.24-Test (107) für ab Android 5.00 (SDK Version=21) erstellt.
+- ab Android 8 (API Version 26)
+- Auch Testversion 6.24-Test (107) für ab Android 5.00 (SDK Version 21) erstellt.
 - Vom Google Play Store "zurückgezogen", da Probleme mit Android 8 aufgetreten sind.
 
-C182 - Jetzt auch für ab Android 8 (SDK Version=26).
+C182 - Jetzt auch für ab Android 8 (SDK Version 26).
 E050 - FIX: Datenbank importieren benennt die Endung in .db3 um.
 
 Version 6.23 (Code Version 106)
 ===============================
+- ab Android 9 (API Version 28)
 
-C181 - Jetzt auch für ab Android 9 (SDK Version=28).
+C181 - Jetzt auch für ab Android 9 (SDK Version 28).
 C180 - Einstellungen umstrukturiert
 C179 - Kein Link mehr "Datenbanken verwalten (Anleitung)" in den Einstellungen, denn selbsterklärend.
 E049 - FIX: Artikel Löschen über Lagerbestand -> Artikelangaben jetzt nicht mehr möglich (brachte Fehler beim Bestand 0)
@@ -27,30 +35,35 @@ C176 - Bestand: 0,25 und (-1) Button macht jetzt Bestand: 0
 
 Version 6.22 (Code Version 105)
 ===============================
+- ab Android 5.1 (API Version 22)
 
-E048 - Jetzt auch für ab Android 5.1 (SDK Version=22).
+E048 - Jetzt auch für ab Android 5.1 (SDK Version 22).
 
 Version 6.21 (Code Version 104)
 ===============================
+- ab Android 10 (API Version 29)
 
 E047 - FIX: OpenFoodFacts.org Zertifikat Fehler korrigiert.
 
 Version 6.20 (Code Version 103)
 ===============================
+- ab Android 10 (API Version 29)
 
-Mindestanforderung auf Android 10 (mindest SDK Version=29)
+Mindestanforderung auf Android 10 (mindest SDK Version 29)
 
 C175- Datenbanken in App Verzeichnis verschieben. 
 
-Version 6.13 (Code Version 102)
+Version 6.13 (Code Version 101)
 ===============================
+- ab Android 5.1 (API Version 22)
 
-Mindestanforderung auf Android 5.1 (mindest SDK Version=22)
+Mindestanforderung auf Android 5.1 (mindest SDK Version 22)
 
 C174 - Zusätzliche Absicherung beim Zugriff auf Verzeichnisse.
 
 Version 6.12 (Code Version 100)
 ===============================
+- ab Android 5.1 (API Version 22)
 
 C173 - Datenbanken können jetzt angelegt und gelöscht werden.
 
@@ -83,9 +96,13 @@ C163 - Preis pro Einheit im Artikelstamm und Einkaufsliste.
 C162 - Artikeldetails jetzt mit oben klebendem Bild.
 E031 - FIX: Erinnerung an Backup hat nicht funktioniert.
 
-Version 6.00 (Code Version 95, 96)
+Version 6.00 (Code Version 96)
 ======================================
-- Android ab 5.1
+- ab Android 5.1 (API Lever 22)
+
+Version 6.00 (Code Version 95)
+======================================
+- ab Android 4.1 (API Lever 16)
 
 C161 - Komprimierung der Bilder jetzt wählbar
 C160 - Link auf Wiki in Einstellungen
@@ -123,6 +140,7 @@ C151 - Mindestanforderung: Android 4.1 (Google Anforderung)
 
 Version 4.75 (Code Version 91)
 ==============================
+- ab Android 2.3 (SDK Level 10)
 
 E028 - FIX: Von Einkaufsliste ins Lager mit "Unendlich haltbar".
 

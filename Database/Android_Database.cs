@@ -201,6 +201,8 @@ namespace VorratsUebersicht
 			{
                 File.Copy(source, destination);
 
+                Android_Database.SelectedDatabaseName = destination;
+
                 // Datenbankverbindung neu öffnen
                 Android_Database.SQLiteConnection = null;
 			}
