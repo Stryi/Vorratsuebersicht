@@ -907,6 +907,7 @@ namespace VorratsUebersicht
 
             if (string.IsNullOrEmpty(databasePath))
             {
+                Toast.MakeText(this, "Keine Datenbank ausgewählt.", ToastLength.Long).Show();
                 return;
             }
 
@@ -930,6 +931,7 @@ namespace VorratsUebersicht
 
             if (!isGranted)
             {
+                Toast.MakeText(this, "Keine Berechtigung auf Dateien und Medien für diese App vergeben.", ToastLength.Long).Show();
                 return;
             }
 

@@ -1,4 +1,9 @@
 
+Version 6.28 (Code Version 111)
+===============================
+
+E053 - FIX: Backup Restore bei Neuinstalltion bis Android 9.
+
 Version 6.27 (Code Version 110)
 ===============================
 
