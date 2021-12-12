@@ -104,6 +104,17 @@ namespace VorratsUebersicht
             {
                 return databaseFileName;
             }
+
+            // Öffne dann die zuletzt verwendete Datenbank.
+            string lastSelectedDatabase = Settings.GetString("LastSelectedDatabase", null);
+            if (!string.IsNullOrEmpty(lastSelectedDatabase))
+            {
+                if (File.Exists(lastSelectedDatabase))
+                {
+                    return lastSelectedDatabase;
+                }
+            }
+            
             return null;
 		}
 
@@ -424,6 +435,8 @@ namespace VorratsUebersicht
 
             Android_Database.SQLiteConnection = conn;
 
+            Settings.PutString("LastSelectedDatabase", path);
+        
 			// Return the database connection 
 			return conn;
 		}
@@ -550,7 +563,9 @@ namespace VorratsUebersicht
             foreach(string sourceFile in fileList)
             {
                 string destinationFile = Path.Combine(applicationFileDir.AbsolutePath, Path.GetFileName(sourceFile));
-
+                
+                destinationFile = Android_Database.GetNotExistingFileName(destinationFile);
+                
                 try
                 {
                     File.Move(sourceFile, destinationFile);
@@ -564,6 +579,26 @@ namespace VorratsUebersicht
             //exception = new Exception($"Access to file '{fileList[0]}' denied!"); 
 
             return exception;
+        }
+
+        private static string GetNotExistingFileName(string destinationFile)
+        {
+            int count = 0;
+
+            string path = Path.GetDirectoryName(destinationFile);
+            string name = Path.GetFileNameWithoutExtension(destinationFile);
+            string ext  = Path.GetExtension(destinationFile);
+
+            while(File.Exists(destinationFile))
+            {
+                count++;
+                
+                string nameNew = string.Format("{0}_{1}{2}", name, count, ext);
+
+                destinationFile = Path.Combine(path, nameNew);
+            }
+
+            return destinationFile;
         }
 
         public static string TryOpenDatabase(string databaseName)

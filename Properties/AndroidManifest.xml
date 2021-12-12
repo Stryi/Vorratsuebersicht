@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!-- Version android:versionName="6.27 (ab Android 4.4) x86" -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="de.stryi.Vorratsuebersicht" android:installLocation="auto" android:versionCode="111" android:versionName="6.28">
+<!-- Version android:versionName="6.29 (ab Android 4.4) x86|arm" -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="de.stryi.Vorratsuebersicht" android:installLocation="auto" android:versionCode="112" android:versionName="6.29">
 	<!-- für Google Play Store -->
     <uses-sdk android:minSdkVersion="28" android:targetSdkVersion="30" />
 	<!-- für ab Android 4.4 -->

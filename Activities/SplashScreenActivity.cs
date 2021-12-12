@@ -213,8 +213,6 @@ namespace VorratsUebersicht
 
                 Android_Database.TryOpenDatabase(database);
 
-                Settings.PutString("LastSelectedDatabase", database);
-
                 this.ConvertAndStartMainScreen();
             });
 

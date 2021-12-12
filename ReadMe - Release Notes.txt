@@ -1,4 +1,9 @@
 
+Version 6.29 (Code Version 112)
+===============================
+
+E054 - FIX: Absturz bei wiederaktivieren der App in einer Liste.
+
 Version 6.28 (Code Version 111)
 ===============================
 

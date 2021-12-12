@@ -33,25 +33,26 @@ namespace VorratsUebersicht
         public static readonly int EANScanID = 1006;
         public static readonly int ManageDatabases = 1007;
 
-        public static string Strings_Manufacturer;
-        public static string Strings_Size;
-        public static string Strings_WarnenInTagen;
-        public static string Strings_Calories;
-        public static string Strings_Category;
-        public static string Strings_SubCategory;
-        public static string Strings_Supermarket;
-        public static string Strings_Price;
-        public static string Strings_Storage;
-        public static string Strings_MinQuantity;
-        public static string Strings_PrefQuantity;
-        public static string Strings_EANCode;
-        public static string Strings_Amount;
-        public static string Strings_Notes;
+        public const string Strings_Manufacturer  = "Hersteller:";
+        public const string Strings_Size          = "Inhalt/Größe:";
+        public const string Strings_WarnenInTagen = "Warnen in Tagen vor Ablauf:";
+        public const string Strings_Calories      = "Kalorien:";
+        public const string Strings_Category      = "Kategorie:";
+        public const string Strings_SubCategory   = "Unterkategorie:";
+        public const string Strings_Supermarket   = "Einkaufsmarkt:";
+        public const string Strings_Price         = "Preis:";
+        public const string Strings_Storage       = "Standard Lagerort:";
+        public const string Strings_MinQuantity   = "Mindestmenge:";
+        public const string Strings_PrefQuantity  = "Bevorzugte Menge:";
+        public const string Strings_EANCode       = "EAN Code (Komma getrennt, wenn mehrere):";
+        public const string Strings_Amount        = "Anzahl:";
+        public const string Strings_Notes         = "Notizen:";
 
         private static DateTime preLaunchTestEndDay;
 
         protected override void OnCreate(Bundle bundle)
         {
+            /*
             MainActivity.Strings_Manufacturer  = Resources.GetString(Resource.String.ArticleDetails_Manufacturer);
             MainActivity.Strings_Size          = Resources.GetString(Resource.String.ArticleDetails_Size);
             MainActivity.Strings_WarnenInTagen = Resources.GetString(Resource.String.ArticleDetails_WarningInDays);
@@ -66,6 +67,7 @@ namespace VorratsUebersicht
             MainActivity.Strings_EANCode       = Resources.GetString(Resource.String.ArticleDetails_EANCode);
             MainActivity.Strings_Amount        = Resources.GetString(Resource.String.ArticleDetails_Amount);
             MainActivity.Strings_Notes         = Resources.GetString(Resource.String.ArticleDetails_Notes);
+            */
 
             // Damit Pre-Launch von Google Play Store nicht immer wieder
             // in die EAN Scan "Falle" tappt und da nicht wieder rauskommt.
@@ -308,8 +310,6 @@ namespace VorratsUebersicht
 
             Android_Database.TryOpenDatabase(database);
                 
-            Settings.PutString("LastSelectedDatabase", database);
-
             this.CheckAndMoveArticleImages();
 
             this.ShowDatabaseName();
