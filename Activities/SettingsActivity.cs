@@ -607,6 +607,11 @@ namespace VorratsUebersicht
                 fileList.Remove(currentDatabaseName);
             }
 
+            if (fileList.Count == 0)
+            {
+                return;
+            }
+
             string[] databaseNames = new string[fileList.Count];
 
             for(int i = 0; i < fileList.Count; i++)
