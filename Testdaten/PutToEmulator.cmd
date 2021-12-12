@@ -7,41 +7,45 @@ REM Root Zugriff für adb
 %adbCmd% root
 
 ECHO ----------------------------------------------------
-ECHO Meine Datenbank zum Emulator uebertragen
+ECHO Meine Datenbanken zum Emulator uebertragen
 ECHO ----------------------------------------------------
 
-REM Bereinigung
-REM %adbCmd% shell rm    /storage/emulated/0/Vorratsuebersicht/Vorraete.db3
-REM %adbCmd% shell rm    /storage/emulated/0/Vorratsuebersicht/Vorraete-Test.db3
-REM %adbCmd% shell rm    /storage/emulated/0/Vorratsuebersicht/KAPUTT.db3
-REM %adbCmd% shell rm    /storage/emulated/0/Vorratsuebersicht/*.*
-REM %adbCmd% shell rmdir /storage/emulated/0/Vorratsuebersicht
+ECHO **** Bereinigung
+%adbCmd% shell rm    /storage/emulated/0/Vorratsuebersicht/Vorraete.db3
+%adbCmd% shell rm    /storage/emulated/0/Vorratsuebersicht/Jacht.db3
+%adbCmd% shell rm    /storage/emulated/0/Vorratsuebersicht/Ferienhaus Florida.db3
+%adbCmd% shell rm    /storage/emulated/0/Vorratsuebersicht/KAPUTT.db3
+%adbCmd% shell rm    /storage/emulated/0/Vorratsuebersicht/*.*
+%adbCmd% shell rmdir /storage/emulated/0/Vorratsuebersicht
 
-ECHO - Daten auf internen Speicher kopieren
-%adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"         "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/01 Interner Speicher.db3"
-
-ECHO - Daten auf SD Karte kopieren
-
-%adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"         "/storage/0E0E-2316/Android/data/de.stryi.Vorratsuebersicht/files/02 SD Karte.db3"
-REM %adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"     "/storage/0FE9-280F/Android/data/de.stryi.Vorratsuebersicht/files/02 SD Karte.db3"
-
-
-REM %adbCmd% push "..\..\Testdaten\Jacht.db3"                  "/storage/emulated/0/Vorratsuebersicht/Jacht.db3"
-REM %adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"     "/storage/emulated/0/Vorratsuebersicht/Ferienhaus Florida.db3"
-REM %adbCmd% push "..\..\Testdaten\Vorraete_Stryi_Kaputt.db3"  "/storage/emulated/0/Vorratsuebersicht/KAPUTT.db3"
-REM %adbCmd% push "..\..\Testdaten\Vorraete_Stryi.db3"         "/storage/emulated/0/Vorratsuebersicht/Vorraete.db3"
-
-REM %adbCmd% push "..\..\Testdaten\Vue_2020-03-23 11.59.14.db3" "/storage/emulated/0/Vorratsuebersicht/Vue_2020-03-23 11.59.14.db3"
+ECHO **** Uebertragung
+%adbCmd% push "..\..\Testdaten\Vorraete.db3"               "/storage/emulated/0/Vorratsuebersicht/Vorraete.db3"
+%adbCmd% push "..\..\Testdaten\Jacht.db3"                  "/storage/emulated/0/Vorratsuebersicht/Jacht.db3"
+%adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"     "/storage/emulated/0/Vorratsuebersicht/Ferienhaus Florida.db3"
+%adbCmd% push "..\..\Testdaten\KAPUTT.db3"                 "/storage/emulated/0/Vorratsuebersicht/KAPUTT.db3"
 
 
 ECHO ----------------------------------------------------
 ECHO db0 und Testdatenbank uebertragen
 ECHO ----------------------------------------------------
 
-REM %adbCmd% root
-REM %adbCmd% push "..\..\Testdaten\Vorraete_Stryi.db3"         "/data/user/0/de.stryi.Vorratsuebersicht/files/Vorraete.db3"
-REM %adbCmd% push "..\Assets\Vorraete_db0.db3"                 "/data/user/0/de.stryi.Vorratsuebersicht/files/Vorraete_db0.db3"
-REM %adbCmd% push "..\Assets\Vorraete_Demo.db3"                "/data/user/0/de.stryi.Vorratsuebersicht/files/Vorraete_Test.db3"
+%adbCmd% push "..\Assets\Vorraete_db0.db3"                 "/data/user/0/de.stryi.Vorratsuebersicht/files/Vorraete_db0.db3"
+%adbCmd% push "..\Assets\Vorraete_Demo.db3"                "/data/user/0/de.stryi.Vorratsuebersicht/files/Vorraete_Test.db3"
+
+
+
+ECHO - Daten auf internen Speicher kopieren
+rem %adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"         "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/01 Interner Speicher.db3"
+
+ECHO ----------------------------------------------------
+ECHO - Daten auf SD Karte kopieren
+ECHO ----------------------------------------------------
+
+REM Stryi_10
+%adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"     "/storage/0E0E-2316/Android/data/de.stryi.Vorratsuebersicht/files/02 SD Karte.db3"
+
+REM REM %adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"     "/storage/0FE9-280F/Android/data/de.stryi.Vorratsuebersicht/files/02 SD Karte.db3"
+
 
 
 ECHO ----------------------------------------------------
