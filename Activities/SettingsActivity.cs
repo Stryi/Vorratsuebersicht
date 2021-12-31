@@ -819,7 +819,7 @@ namespace VorratsUebersicht
                     var build = Build.RadioVersion;
 
                     StringBuilder text = new StringBuilder();
-                    text.AppendFormat(this.GetApplicationVersion());
+                    text.AppendFormat("{0}\n", this.GetApplicationVersion());
                     text.AppendFormat("Current Database: {0}\n", Android_Database.SQLiteConnection?.DatabasePath);
                     text.AppendFormat("Android Version: {0}\n",  Build.VERSION.Release);
                     text.AppendFormat("Android SDK: {0}\n",      Build.VERSION.SdkInt);
