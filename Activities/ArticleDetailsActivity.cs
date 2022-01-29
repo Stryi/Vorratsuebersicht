@@ -729,23 +729,37 @@ namespace VorratsUebersicht
 
         private async void SelectAPicture()
         {
-            FileResult photo = await MediaPicker.PickPhotoAsync();
-            if (photo == null)
-                return;
+            try
+            {
+                FileResult photo = await MediaPicker.PickPhotoAsync();
+                if (photo == null)
+                    return;
             
-            this.LoadAndResizeBitmap(photo.FullPath);
+                this.LoadAndResizeBitmap(photo.FullPath);
+            }
+            catch(Exception ex)
+            {
+                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
+            }
         }
 
         private async void TakeAPhoto()
         {
-            if (MainActivity.IsGooglePlayPreLaunchTestMode)
-                return;
+            try
+            {
+                if (MainActivity.IsGooglePlayPreLaunchTestMode)
+                    return;
 
-            var result = await MediaPicker.CapturePhotoAsync();
-            if (result == null)
-                return;
+                var result = await MediaPicker.CapturePhotoAsync();
+                if (result == null)
+                    return;
             
-            this.LoadAndResizeBitmap(result.FullPath);
+                this.LoadAndResizeBitmap(result.FullPath);
+            }
+            catch(Exception ex)
+            {
+                Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
+            }
         }
 
         private bool SaveArticle()
