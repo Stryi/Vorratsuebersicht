@@ -13,7 +13,6 @@ using Android.Widget;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Runtime;
-using Android.Text;
 
 using Xamarin.Essentials;
 
@@ -130,9 +129,6 @@ namespace VorratsUebersicht
             Button buttonImportDb = FindViewById<Button>(Resource.Id.SettingsButton_DatabaseImport);
             buttonImportDb.Click += ButtonImportDb_Click;
             
-
-            Button buttonCopyAppDb =  FindViewById<Button>(Resource.Id.SettingsButton_CopyAppDbToSdCard);
-            buttonCopyAppDb.Click += ButtonCopyAppDb_Click;
 
             Button buttonSendLogFile =  FindViewById<Button>(Resource.Id.SettingsButton_SendLogFile);
             buttonSendLogFile.Click += ButtonSendLogFile_Click;
@@ -745,60 +741,6 @@ namespace VorratsUebersicht
             this.EnableButtons();
         }
 
-        private void CopyAppDbToInternalStorage()
-        {
-            Android_Database.Instance.CloseConnection();
-
-            try
-            {
-                //
-                // App-DB Pfad
-                //
-                var databasePath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
-                var appDbFileName = Path.Combine(databasePath, Android_Database.sqliteFilename_Prod);
-                if (!File.Exists(appDbFileName))
-                {
-                    throw new Exception($"Quelldatei '{appDbFileName}' nicht gefunden.");
-                }
-                //
-                // Datenbank auf der SD Karte?
-                //
-                string sdCardPath = Android_Database.Instance.CreateAndGetSdCardPath();
-                string sdDbFileName = Path.Combine(sdCardPath, "Vorraete_App.db3");
-
-                if (File.Exists(sdDbFileName))
-                {
-                    throw new Exception($"Zieldatei '{sdDbFileName}' existiert bereits und wird NICHT überschrieben.");
-                }
-
-                File.Move(appDbFileName, sdDbFileName);
-
-                string message = $"Die Datei\n\n{appDbFileName}\n\nwurde kopiert als\n\n{sdDbFileName}\n\n";
-                message += "Bitte beenden Sie die App jetzt richtig. ";
-                message += "Beim Starten kann jetzt die Datenbank 'Vorraete_App' ausgewählt werden.";
-
-                var messageBox = new AlertDialog.Builder(this);
-                messageBox.SetMessage(message);
-                messageBox.SetPositiveButton("OK", (s, evt) => { });
-                messageBox.Create().Show();
-            }
-            catch(Exception ex)
-            {
-                TRACE(ex);
-
-                var messageBox = new AlertDialog.Builder(this);
-                messageBox.SetTitle("Fehler aufgetreten!");
-                messageBox.SetMessage(ex.Message);
-                messageBox.SetPositiveButton("OK", (s, evt) => { });
-                messageBox.Create().Show();
-            }
-
-            // Sich neu connecten;
-            Android_Database.SQLiteConnection = null;
-
-            Android_Database.Instance.GetConnection();
-        }
-
         private void ButtonSendLogFile_Click(object sender, EventArgs eventArgs)
         {
             if (MainActivity.IsGooglePlayPreLaunchTestMode)
@@ -827,7 +769,6 @@ namespace VorratsUebersicht
                     text.AppendFormat("Modell: {0}\n",           Build.Model);
                     text.AppendFormat("CurrentCulture: {0}\n",   CultureInfo.CurrentCulture.DisplayName);
                     text.AppendFormat("CurrentUICulture: {0}\n", CultureInfo.CurrentUICulture.DisplayName);
-                    text.AppendFormat("Prozessor: {0}\n",        String.Join<string>(',', Android.OS.Build.SupportedAbis));
 
                     text.AppendLine();
                     text.AppendFormat(Logging.GetLogFileText());
@@ -940,6 +881,11 @@ namespace VorratsUebersicht
                 return;
             }
 
+            this.CreateBackupInternal();
+        }
+
+        private void CreateBackupInternal()
+        {
             // Vor dem Backup ggf. die User-Kategorien ggf. speichern,
             // damit es auch im Backup ist.
             this.SaveUserDefinedCategories();
@@ -1111,24 +1057,6 @@ namespace VorratsUebersicht
 
         #region private events
 
-        private void ButtonCopyAppDb_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.CopyAppDbToInternalStorage();
-            }
-            catch(Exception ex)
-            {
-                TRACE(ex);
-
-                var messageBox = new AlertDialog.Builder(this);
-                messageBox.SetTitle("Fehler aufgetreten!");
-                messageBox.SetMessage(ex.Message);
-                messageBox.SetPositiveButton("OK", (s, evt) => { });
-                messageBox.Create().Show();
-            }
-        }
-
         private void ButtonBackup_Click(object sender, EventArgs eventArgs)
         {
             try
@@ -1148,5 +1076,34 @@ namespace VorratsUebersicht
         }
 
         #endregion
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            bool canWriteExternalStorage = false;
+
+            for(int i = 0; i < permissions.Length; i++)
+            {
+                string permission      = permissions[i];
+                Permission grantResult = grantResults[i];
+
+                if (permission.Equals(Android.Manifest.Permission.WriteExternalStorage)
+                    && grantResult == Permission.Granted)
+                {
+                    canWriteExternalStorage = true;
+                }
+            }
+
+            if (!canWriteExternalStorage)
+            {
+                TRACE("Permission to external storage is not granted.");
+                return;
+            }
+
+            this.CreateBackupInternal();
+        }
     }
 }

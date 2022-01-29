@@ -2,13 +2,15 @@
 using System.IO;
 using System.Threading;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Text;
+using System.Globalization;
 
 using Android.App;
 using Android.OS;
 using Android.Widget;
 using Android.Support.V7.App;
 using Android.Content;
+using Android.Content.PM;
 
 // Anhand von
 // http://www.c-sharpcorner.com/UploadFile/1e050f/creating-splash-screen-for-android-app-in-xamarin/
@@ -36,14 +38,7 @@ namespace VorratsUebersicht
             this.progressText = FindViewById<TextView>(Resource.Id.SplashScreen_ProgressText);
             this.progressBar  = FindViewById<ProgressBar>(Resource.Id.SplashScreen_ProgressBar);
 
-            bool done = this.MoveDatabaseToSafePlace();
-            if (done)
-            {
-                return;
-            }
-
-            //var test = await MainActivity.ShowYesNoQuestion(this, "Wichtig!!!", "Datenbank sichern", "Ja", "Nicht jetzt.");
-            //bool sichern = test.Result;
+            this.ProtocolAppInfo();
 
             bool selected = this.SelectDatabase();
             if (selected)
@@ -51,117 +46,6 @@ namespace VorratsUebersicht
                 this.CheckAndMoveArticleImages();
                 StartActivity(typeof(MainActivity));
             }
-        }
-
-        private bool MoveDatabaseToSafePlace()
-        {
-            bool tryMoveDatabases = Settings.GetBoolean("CheckDatabaseFilesToMove", true);
-            if (!tryMoveDatabases)
-            {
-                return false;
-            }
-
-            List<string> filesToMoveExists = null;
-
-            // Liste der Datenbanken zum Verschieben laden.
-            Exception ex = Android_Database.LoadDatabaseFilesToMove(out filesToMoveExists);
-
-            if (ex != null)
-            {
-                TRACE(ex);
-            }
-
-            // Keine Datenbanken zum Verschieben gefunden?
-            if (filesToMoveExists.Count == 0)
-            {
-                return false;
-            }
-
-            var dialog = new AlertDialog.Builder(this).Create();
-            dialog.SetTitle("Wichtig!!!");
-            dialog.SetMessage($"Die Datenbank muss vom internen Speicher (Verzeichnis: Vorratsuebersicht) in das App-Verzeichnis verschoben werden, " +
-                "damit neuere Versionen dieser App weiterhin Zugriff auf diese Datenbank haben.\n\n" +
-                "Wenn Sie das nicht wollen, so drücken sie 'Frag nicht mehr' und deaktivieren die automatische Updates auf Google Play für diese App.");
-
-            dialog.SetButton("OK (empfohlen)",  (s, e) => 
-            { 
-                dialog.Dismiss();
-
-                Exception ex = Android_Database.MoveDatabasesToAppDir(this, filesToMoveExists);
-                if (ex != null)
-                {
-                    dialog.Dismiss();
-
-                    string text = "Fehler beim Verschieben der Datenbank Dateien.";
-                    text = text + "\n\n" + ex.Message;
-
-                    TRACE(text);
-
-                    var message = new AlertDialog.Builder(this).Create();
-
-                    message.SetMessage(text);
-                    message.SetButton("Ok",  (s, e) => 
-                    {  
-                        StartActivity(typeof(MainActivity));
-                    });
-                    message.CancelEvent += delegate (object sender, EventArgs e)
-                    {
-                        StartActivity(typeof(MainActivity));
-                    };
-
-                    message.Show();
-
-                    return;
-                }
-
-                bool selected = this.SelectDatabase();
-                if (selected)
-                {
-                    this.CheckAndMoveArticleImages();
-                    StartActivity(typeof(MainActivity));
-                }
-            });
-
-            dialog.SetButton2("Nicht jetzt", (s, e) => 
-            { 
-                dialog.Dismiss();
-
-                bool selected = this.SelectDatabase();
-                if (selected)
-                {
-                    this.CheckAndMoveArticleImages();
-                    StartActivity(typeof(MainActivity));
-                }
-            });
-            dialog.SetButton3("Frag nicht mehr", (s, e) => 
-            { 
-                dialog.Dismiss();
-
-                Settings.PutBoolean("CheckDatabaseFilesToMove", false);
-
-                bool selected = this.SelectDatabase();
-                if (selected)
-                {
-                    this.CheckAndMoveArticleImages();
-                    StartActivity(typeof(MainActivity));
-                }
-            });
-
-            dialog.CancelEvent += delegate (object sender, EventArgs e)
-            {
-                dialog.Dismiss();
-
-                bool selected = this.SelectDatabase();
-                if (selected)
-                {
-                    this.CheckAndMoveArticleImages();
-                    StartActivity(typeof(MainActivity));
-                }
-            };
-
-            dialog.Show();
-
-            return true;
         }
 
         /// <summary>
@@ -178,7 +62,7 @@ namespace VorratsUebersicht
             {
                 TRACE(ex);
 
-                string text = "Bitte ggf. den Eintrag 'Zusätzlicher Datenbankpfad' in den Einstellungen prüfen.";
+                string text = "Fehler beim Ermitteln der Datenbanken.";
                 TRACE("SplashScreen: {0}", ex.Message);
                 TRACE("SplashScreen: {0}", text);
 
@@ -366,6 +250,40 @@ namespace VorratsUebersicht
             }
 
             return true;
+        }
+
+        private void ProtocolAppInfo()
+        {
+            var build = Build.RadioVersion;
+
+            StringBuilder text = new StringBuilder();
+            text.AppendFormat("--- Application Start ---\n");
+            text.AppendFormat("{0}\n", this.GetApplicationVersion());
+            text.AppendFormat("Android Version: {0}\n",  Build.VERSION.Release);
+            text.AppendFormat("Android SDK: {0}\n",      Build.VERSION.SdkInt);
+            text.AppendFormat("CurrentCulture: {0}\n",   CultureInfo.CurrentCulture.DisplayName);
+            text.AppendFormat("CurrentUICulture: {0}\n", CultureInfo.CurrentUICulture.DisplayName);
+
+            TRACE(text.ToString());
+        }
+
+        private string GetApplicationVersion()
+        {
+            string versionInfo = string.Empty;
+            try
+            {
+                Context context = this.ApplicationContext;
+                PackageInfo info = context.PackageManager.GetPackageInfo(context.PackageName, 0);
+
+                versionInfo += string.Format("Version {0}",         info.VersionName);
+                versionInfo += string.Format(" (Code Version {0})", info.LongVersionCode);
+            }
+            catch(Exception e)
+            {
+                TRACE("SettingsActivity.ShowApplicationVersion() - {0}", e.Message);
+            }
+
+            return versionInfo;
         }
 
         /*

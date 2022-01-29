@@ -104,6 +104,12 @@ namespace VorratsUebersicht
             List<string> databases;
             Android_Database.LoadDatabaseFileListSafe(this, out databases);
 
+            // Nur eine Datenbank (die gerade angelegt wurde)?
+            if ((databases.Count == 1) && (string.IsNullOrEmpty(Android_Database.SelectedDatabaseName)))
+            {
+                Android_Database.SelectedDatabaseName = databases[0];
+            }
+
             if ((databases.Count > 0) && (string.IsNullOrEmpty(Android_Database.SelectedDatabaseName)))
             {
                 string lastSelectedDatabase = Settings.GetString("LastSelectedDatabase", null);
@@ -118,9 +124,6 @@ namespace VorratsUebersicht
                     Android_Database.SelectedDatabaseName = lastSelectedDatabase;
                 }
             }
-
-            // Zugriff auf die SD Karte anfordern
-            new SdCardAccess().Grand(this);
 
             // Klick auf den "abgelaufen" Text bringt die Liste der (bald) abgelaufender Artieln.
             FindViewById<TextView>(Resource.Id.Main_Text).Click  += ArticlesNearExpiryDate_Click;
@@ -218,53 +221,6 @@ namespace VorratsUebersicht
             this.ShowDatabaseName();
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
-        {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-            bool canWriteExternalStorage = false;
-
-            for(int i = 0; i < permissions.Length; i++)
-            {
-                string permission      = permissions[i];
-                Permission grantResult = grantResults[i];
-
-                if (permission.Equals(Android.Manifest.Permission.WriteExternalStorage)
-                    && grantResult == Permission.Granted)
-                {
-                    canWriteExternalStorage = true;
-                }
-            }
-
-            if (!canWriteExternalStorage)
-            {
-                TRACE("Permission to external storage is not granted.");
-                return;
-            }
-
-            Exception exception = null;
-            if (Android.OS.Environment.ExternalStorageDirectory.CanWrite())
-            {
-                TRACE("Permission granted to external storage.");
-
-                exception = Android_Database.Instance.CreateDatabaseOnExternalStorage();
-            }
-            else
-            {
-                // Trotz Berechtigung dennoch kein Zugriff (ab Android 11)?
-                exception = Android_Database.Instance.CreateDatabaseOnAppStorage(this, "Vorraete", true);
-            }
-
-            if (exception != null)
-            {
-                Toast.MakeText(this, exception.Message, ToastLength.Long).Show();
-                return;
-            }
-
-            this.InitializeDatabase();
-        }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {

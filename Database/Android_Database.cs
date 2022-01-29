@@ -79,19 +79,6 @@ namespace VorratsUebersicht
             }    
 
             //
-            // Datenbank (bereits) im internen Speicher (zur Vereinfachung als SD Karte bezeichnet)?
-            //
-            // Beispiel: "/storage/emulated/0/Vorratsuebersicht"
-
-            string sdCardPath = this.GetSdCardPath();
-            databaseFileName = Path.Combine(sdCardPath, Android_Database.sqliteFilename_Prod);
-
-            if (File.Exists(databaseFileName))
-            {
-                return databaseFileName;
-            }
-
-            //
             // Die App Datenbank auswählen.
             // (sollte dort eigentlich nicht existieren)
             //
@@ -179,57 +166,6 @@ namespace VorratsUebersicht
 
 			return File.Exists(path);
 		}
-
-		public Exception CreateDatabaseOnExternalStorage()
-        {
-            if (!string.IsNullOrEmpty(Android_Database.SelectedDatabaseName))
-            {
-                return null;
-            }
-
-            // Pfad: "/data/user/0/de.stryi.Vorratsuebersicht/files"
-			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
-
-            // Pfad: "/storage/emulated/0/Vorratsuebersicht"
-			string sdCardPath    = this.CreateAndGetSdCardPath();                  
-
-            if (sdCardPath == null)
-                return null;
-
-            // Sind da schon Datenbanken angelegt? (nicht immer wieder die Vorraete.db3 erstellen, wenn die Berechtigung erteilt wird).
-            var databaseList = Directory.GetFiles(sdCardPath, "*.db3");
-            if (databaseList.Length > 0)
-            {
-                Android_Database.SelectedDatabaseName = databaseList[0];
-                return null;
-            }
-
-			string source      = Path.Combine(documentsPath, Android_Database.sqliteFilename_New);
-            string destination = Path.Combine(sdCardPath,    Android_Database.sqliteFilename_Prod);
-
-            if (File.Exists(destination))
-            {
-                return null;
-            }
-
-			try
-			{
-                File.Copy(source, destination);
-
-                Android_Database.SelectedDatabaseName = destination;
-
-                // Datenbankverbindung neu öffnen
-                Android_Database.SQLiteConnection = null;
-			}
-			catch (Exception e)
-			{
-				TRACE(e);
-
-				return e;
-			}
-            
-            return null;
-        }
 
 		public Exception CreateDatabaseOnAppStorage(Context context, string databaseName, bool setAsCurrent = false)
         {
@@ -353,40 +289,14 @@ namespace VorratsUebersicht
             this.CreateDatabaseIfNotExists(documentsPath,  Android_Database.sqliteFilename_Demo, Android_Database.sqliteFilename_Demo, false);
             this.CreateDatabaseIfNotExists(documentsPath,  Android_Database.sqliteFilename_New,  Android_Database.sqliteFilename_New,  false);
 
-            // sdCardPath = "/storage/emulated/0/Vorratsuebersicht"
-			string sdCardPath = this.CreateAndGetSdCardPath();
-            if (!string.IsNullOrEmpty(sdCardPath))
+            List<string> databases;
+            Android_Database.LoadDatabaseFileListSafe(context, out databases);
+            if (databases.Count == 0)
             {
-                this.CreateDatabaseOnExternalStorage();
-            }
-
-            // Default mäßig im Applikationsverzeichnis die Datenbank erstellen.
-            //string databaseName = Path.GetFileNameWithoutExtension(Android_Database.sqliteFilename_Prod);
-            //this.CreateDatabaseOnPersonalStorage(context, databaseName);
+                // Datenbank im Applikationsverzeichnis erstellen.
+                string databaseName = Path.GetFileNameWithoutExtension(Android_Database.sqliteFilename_Prod);
+                this.CreateDatabaseOnAppStorage(context, databaseName);
         }
-
-        public string GetSdCardPath()
-        {
-            // Beispiel: "/storage/emulated/0"
-            string sdCardPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
-            sdCardPath = Path.Combine(sdCardPath, "Vorratsuebersicht");
-
-            return sdCardPath;
-        }
-
-        internal string CreateAndGetSdCardPath()
-        {
-            // Beispiel: "/storage/emulated/0"
-            if (!Android.OS.Environment.ExternalStorageDirectory.CanWrite())
-                return null;
-
-            // Beispiel: "/storage/emulated/0/Vorratsuebersicht"
-            string sdCardPath = this.GetSdCardPath();
-
-            if (!Directory.Exists(sdCardPath))
-                Directory.CreateDirectory(sdCardPath);
-
-            return sdCardPath;
         }
 
         public static SQLite.SQLiteConnection SQLiteConnection = null;
@@ -459,20 +369,6 @@ namespace VorratsUebersicht
             
             try
             {
-                // Beispiel: "/storage/emulated/0/Vorratsuebersicht"
-                string sdCardPath = Android_Database.Instance.GetSdCardPath();
-                if (Directory.Exists(sdCardPath))
-                {
-                    fileList.AddRange(Directory.GetFiles(sdCardPath, "*.db3"));
-                }
-            }
-            catch (Exception ex) { TRACE("GetSdCardPath..."); exception = ex; }
-
-            try
-            {
-                // Beispiel:
-                //       "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
-                //       "/storage/0E0E-2316/Android/data/de.stryi.Vorratsuebersicht/files"
                 var externalFilesDirs = context.GetExternalFilesDirs(null);
                 if (externalFilesDirs != null)
                 {
@@ -507,98 +403,6 @@ namespace VorratsUebersicht
             }
 
             return exception;
-        }
-
-        /// <summary>
-        /// Liefert die Datenbanken, die sich z.Z. im internen Speicher und nicht im App Verzeichnis befinden.
-        /// Diese müssen dann in das App Verzeichnis verschoben, werden, da ab API-Level 30 die App
-        /// da kein Zugriff mehr haben wird.
-        /// </summary>
-        internal static Exception LoadDatabaseFilesToMove(out List<string> fileList)
-        {
-            Exception exception = null;
-            fileList = new List<string>();
-
-            string addPath = Settings.GetString("AdditionslDatabasePath", string.Empty);
-            
-            if (!string.IsNullOrEmpty(addPath))
-            {
-                try
-                {
-                    fileList.AddRange(Directory.GetFiles(addPath, "*.db3"));
-                }
-                catch (Exception ex) { exception = ex; }
-            }
-            
-            // Beispiel: "/storage/emulated/0/Vorratsuebersicht"
-            string sdCardPath = Android_Database.Instance.GetSdCardPath();
-            if (Directory.Exists(sdCardPath))
-            {
-                try
-                {
-                    fileList.AddRange(Directory.GetFiles(sdCardPath, "*.db3"));
-                }
-                catch (Exception ex) { exception = ex; }
-            }
-
-            if (exception != null)
-            {
-                TRACE(exception);
-            }
-
-            return exception;
-        }
-
-        internal static Exception MoveDatabasesToAppDir(Context context, List<string> fileList)
-        {
-            Exception exception = null;
-
-            // Beispiel: "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
-			var applicationFileDir = context.GetExternalFilesDir(null);
-            if (applicationFileDir == null)
-            {
-                throw new Exception("Das App-Verzeichnis kann nicht ermittelt werden.");
-            }
-
-            foreach(string sourceFile in fileList)
-            {
-                string destinationFile = Path.Combine(applicationFileDir.AbsolutePath, Path.GetFileName(sourceFile));
-                
-                destinationFile = Android_Database.GetNotExistingFileName(destinationFile);
-                
-                try
-                {
-                    File.Move(sourceFile, destinationFile);
-                }
-                catch (Exception ex)
-                {
-                    exception = ex;
-                }
-            }
-
-            //exception = new Exception($"Access to file '{fileList[0]}' denied!"); 
-
-            return exception;
-        }
-
-        private static string GetNotExistingFileName(string destinationFile)
-        {
-            int count = 0;
-
-            string path = Path.GetDirectoryName(destinationFile);
-            string name = Path.GetFileNameWithoutExtension(destinationFile);
-            string ext  = Path.GetExtension(destinationFile);
-
-            while(File.Exists(destinationFile))
-            {
-                count++;
-                
-                string nameNew = string.Format("{0}_{1}{2}", name, count, ext);
-
-                destinationFile = Path.Combine(path, nameNew);
-            }
-
-            return destinationFile;
         }
 
         public static string TryOpenDatabase(string databaseName)
@@ -794,23 +598,55 @@ namespace VorratsUebersicht
         {
             try
             {
+
                 // Beispiel: "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
 			    var applicationFileDir = context.GetExternalFilesDir(null);
                 if (applicationFileDir == null)
                     return null;
 
-                string destinationFilePath = Path.Combine(applicationFileDir.Path, datebaseName);
-
-                // Erweiterung in .db3 umbenennen, damit bei Datenbankauswahl die Datei vorgeschlagen wird.
-                destinationFilePath = Path.ChangeExtension(destinationFilePath, ".db3");
+                string destinationFilePath = this.GetUniqueDestinationDatabaseName(applicationFileDir.Path, datebaseName);
                 
                 File.Copy(sourceFilePath, destinationFilePath);
+
+                string msg = string.Format("Die Datenbank wurde als '{0}' importiert.", Path.GetFileNameWithoutExtension(destinationFilePath));
+                var message = new AlertDialog.Builder(context);
+                message.SetMessage(msg);
+                message.SetPositiveButton("OK", (s, e) => { });
+                message.Create().Show();
+
             }
             catch (Exception ex)
             {
                 return ex;
             }
             return null;
+        }
+
+        /// <summary>
+        /// Dateiname liefern, was noch nicht da ist.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="datebaseName"></param>
+        /// <returns></returns>
+        private string GetUniqueDestinationDatabaseName(string path, string datebaseName)
+        {
+            int counter = 0;
+            string fileName = Path.GetFileNameWithoutExtension(datebaseName);
+            string destinationFilePath;
+
+            do
+            {
+                destinationFilePath = Path.Combine(path, fileName);
+
+                // Erweiterung in .db3 umbenennen, damit bei Datenbankauswahl die Datei vorgeschlagen wird.
+                destinationFilePath = Path.ChangeExtension(destinationFilePath, ".db3");
+
+                counter++;
+                fileName = string.Format("{0}_{1}", Path.GetFileNameWithoutExtension(datebaseName), counter);
+
+            } while(File.Exists(destinationFilePath));
+
+            return destinationFilePath;
         }
     }
 }

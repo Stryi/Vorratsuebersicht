@@ -5,6 +5,9 @@ Artikeldetails
 - Preisangabe auch mit ","
 - Einheit RTRIM() wegen "Stück "
 
+Settings
+- LOG Datei im Cache anlegen (damit vom PC aus ausgelesen werden kann)?
+
 Lagerliste
 - (anfängliche) Sortierung auf "Datum" (Einstellbar in den Optionen) - (Per E-Mail vom mi53ke)
 
@@ -60,7 +63,6 @@ Artikelstamm
 
 Einstellungen
 - Freie Sortierung der Kategorien. (M. Pleuger)
-- Neue Datenbank erstellen (z.B. "Yacht" oder "Ferienhaus in Florida")
 
 Lagerliste
 - Zusammenfügen von Unterkategorien bei der Mindestmenge. 

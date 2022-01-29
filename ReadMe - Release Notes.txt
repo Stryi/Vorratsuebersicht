@@ -1,3 +1,7 @@
+Version 7.00 (Code Version 113)
+===============================
+
+C185 - Datenbank wird jetzt direkt im App Verzeichnis erstellt.
 
 Version 6.29 (Code Version 112)
 ===============================
