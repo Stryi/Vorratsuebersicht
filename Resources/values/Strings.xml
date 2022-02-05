@@ -35,7 +35,7 @@
   <string name="Settings_DatenbankKomprimieren">\tDatenbank komprimieren</string>
   <string name="Settings_DatenbankReparieren">\tDatenbank reparieren/checken</string>
   <string name="Settings_CreateBackup">Backup erstellen</string>
-  <string name="Settings_RestoreBackup">Backup zurückspielen</string>
+  <string name="Settings_RestoreBackup">Backup zurückspielen / löschen</string>
   <string name="Settings_OpenSourceLizenzen">Open-Source-Lizenzen</string>
 
   <!-- Artikelliste -->
