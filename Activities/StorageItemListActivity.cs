@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 
 using Android.App;
@@ -386,26 +387,26 @@ namespace VorratsUebersicht
                         if (result.BestBefore == null)
                         {
 					        if (!string.IsNullOrEmpty(info)) info += "\r\n";
-					        info += string.Format("{0} ohne Ablaufdatum", result.Quantity);
+					        info += string.Format(CultureInfo.CurrentUICulture, "{0} ohne Ablaufdatum", result.Quantity);
                         }
                         else
                         {
 					        if (!string.IsNullOrEmpty(info)) info += "\r\n";
-					        info += string.Format("{0} mit Ablaufdatum {1}", result.Quantity, result.BestBefore.Value.ToShortDateString());
+					        info += string.Format(CultureInfo.CurrentUICulture, "{0} mit Ablaufdatum {1}", result.Quantity, result.BestBefore.Value.ToShortDateString());
                         }
                     }
 
 				    if (result.WarningLevel == 1)
 				    {
 					    if (!string.IsNullOrEmpty(warning)) warning += "\r\n";
-					    warning += string.Format("{0} mit Ablaufdatum {1}", result.Quantity, result.BestBefore.Value.ToShortDateString());
+					    warning += string.Format(CultureInfo.CurrentUICulture, "{0} mit Ablaufdatum {1}", result.Quantity, result.BestBefore.Value.ToShortDateString());
 
                         statistic.AddWarningLevel1(result.Quantity);
 				    }
 				    if (result.WarningLevel == 2)
 				    {
 					    if (!string.IsNullOrEmpty(error)) error += "\r\n";
-					    error += string.Format("{0} mit Ablaufdatum {1}", result.Quantity, result.BestBefore.Value.ToShortDateString());
+					    error += string.Format(CultureInfo.CurrentUICulture, "{0} mit Ablaufdatum {1}", result.Quantity, result.BestBefore.Value.ToShortDateString());
 
                         statistic.AddWarningLevel2(result.Quantity);
 				    }

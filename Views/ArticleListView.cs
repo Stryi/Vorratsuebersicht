@@ -1,14 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Globalization;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.Graphics;
 
 namespace VorratsUebersicht
@@ -101,7 +93,7 @@ namespace VorratsUebersicht
                 info += MainActivity.Strings_Price;
                 if (this.Article.Price.HasValue)
                 {
-					info += string.Format(" {0:n2}", this.Article.Price.Value);
+					info += string.Format(CultureInfo.CurrentUICulture, " {0:n2}", this.Article.Price.Value);
 
                     string pricePerUnit = PricePerUnit.Calculate(this.Article.Price, this.Article.Size, this.Article.Unit);
                     if (!string.IsNullOrEmpty(pricePerUnit))
@@ -118,7 +110,7 @@ namespace VorratsUebersicht
 				{
 				    if (!string.IsNullOrEmpty(info)) info += "\n";
                     info += MainActivity.Strings_Size;
-					info += string.Format(" {0} {1}", this.Article.Size.Value, this.Article.Unit).TrimEnd();
+					info += string.Format(CultureInfo.CurrentUICulture, " {0} {1}", this.Article.Size.Value, this.Article.Unit).TrimEnd();
 				}
 
 				if (!string.IsNullOrEmpty(info)) info += "\n";
@@ -177,7 +169,7 @@ namespace VorratsUebersicht
                 if (this.shoppingQuantity.Value == 0)
                     return string.Empty;
 
-                return string.Format("{0:#,0.######}", this.shoppingQuantity.Value);
+                return string.Format(CultureInfo.CurrentUICulture, "{0:#,0.######}", this.shoppingQuantity.Value);
             }
         }
 
@@ -204,7 +196,7 @@ namespace VorratsUebersicht
                 if (!this.IsInStorage)
                     return "0";
 
-                return string.Format("{0:#,0.######}", this.storageQuantity.Value);
+                return string.Format(CultureInfo.CurrentUICulture, "{0:#,0.######}", this.storageQuantity.Value);
             }
         }
 

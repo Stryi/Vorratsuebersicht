@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading;
+using System.Globalization;
+
 using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 using Android.Content.PM;
+
 using Newtonsoft.Json;
 
 namespace VorratsUebersicht
@@ -177,7 +176,7 @@ namespace VorratsUebersicht
                         this.foodSize = QuantityAndUnit.Parse(this.foodInfo.product.quantity);
                         if (this.foodSize != null)
                         {
-                            info += string.Format("Menge: {0} {1}",  this.foodSize.Quantity, this.foodSize.Unit);
+                            info += string.Format(CultureInfo.CurrentUICulture, "Menge: {0} {1}",  this.foodSize.Quantity, this.foodSize.Unit);
                         }
                         else
                         {

@@ -345,10 +345,10 @@ namespace VorratsUebersicht
             else
                 status = string.Format("{0:n0} Positionen", this.liste.Count);
 
-            if (sum_quantity > 0) status += string.Format(", Anzahl {0:n0}",   sum_quantity);
-            if (sum_amount   > 0) status += string.Format(", Betrag {0:n2} €", sum_amount);
-            if (sum_noPrice  > 0) status += string.Format(", {0:n0} Artikel ohne Preisangabe", sum_noPrice);
-            if (to_pay > 0)       status += string.Format("\nZu zahlen: {0:n2} €", to_pay);
+            if (sum_quantity > 0) status += string.Format(CultureInfo.CurrentUICulture, ", Anzahl {0:#,0.##} Stück",   sum_quantity);
+            if (sum_amount   > 0) status += string.Format(CultureInfo.CurrentUICulture, ", Betrag {0:n2} €", sum_amount);
+            if (sum_noPrice  > 0) status += string.Format(CultureInfo.CurrentUICulture, ", {0:n0} Artikel ohne Preisangabe", sum_noPrice);
+            if (to_pay > 0)       status += string.Format(CultureInfo.CurrentUICulture, "\nZu zahlen: {0:n2} €", to_pay);
 
             return status;
         }

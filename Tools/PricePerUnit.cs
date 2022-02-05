@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Globalization;
 
 namespace VorratsUebersicht
@@ -150,7 +149,7 @@ namespace VorratsUebersicht
 
             if (calculatedSize != -1)
             {
-                pricePerUnit = string.Format(CultureInfo.InvariantCulture,
+                pricePerUnit = string.Format(CultureInfo.CurrentUICulture,
                     "{0} {1} = {2:N2}",
                     calculatedSize,
                     calculatedUnit,

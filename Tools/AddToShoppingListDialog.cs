@@ -3,6 +3,7 @@ using System.Globalization;
 
 using Android.App;
 using Android.Text;
+using Android.Text.Method;
 using Android.Widget;
 
 namespace VorratsUebersicht
@@ -15,7 +16,7 @@ namespace VorratsUebersicht
             decimal toBuyQuantity = 0;
 
             decimal quantityInStorage = Database.GetArticleQuantityInStorage(articleId);
-            quantityInfo += string.Format("- Bestand: {0:#,0.######}\n", quantityInStorage);
+            quantityInfo += string.Format(CultureInfo.CurrentUICulture, "- Bestand: {0:#,0.######}\n", quantityInStorage);
 
             if ((minQuantity == null) || (prefQuantity == null))
             {
@@ -46,7 +47,7 @@ namespace VorratsUebersicht
             }
 
             decimal shoppingListQuantiy = Database.GetShoppingListQuantiy(articleId);
-            quantityInfo += string.Format("- Auf Einkaufsliste: {0:#,0.######}\n", shoppingListQuantiy);
+            quantityInfo += string.Format(CultureInfo.CurrentUICulture, "- Auf Einkaufsliste: {0:#,0.######}\n", shoppingListQuantiy);
 
             // Auf Einkaufsliste ist ein höherer Betrag als ausgereichnet?
             if (shoppingListQuantiy > toBuyQuantity)
@@ -59,9 +60,6 @@ namespace VorratsUebersicht
                 toBuyQuantity = 1;
             }
 
-            // Auf volle Stückzahl aufrunden
-            toBuyQuantity = Math.Ceiling(toBuyQuantity);
-
             string message = string.Format("{0}\nNeue Anzahl eingeben:", quantityInfo); 
 
             var b = new AlertDialog.Builder(activity);
@@ -71,7 +69,11 @@ namespace VorratsUebersicht
             quantityDialog.SetMessage(message);
             EditText input = new EditText(activity);
             input.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
-            input.Text = toBuyQuantity.ToString();
+            input.Text = toBuyQuantity.ToString(CultureInfo.CurrentUICulture);
+
+            string sep = CultureInfo.CurrentUICulture.NumberFormat.NumberDecimalSeparator;
+            input.KeyListener  = DigitsKeyListener.GetInstance("0123456789" + sep);
+
             input.RequestFocus();
             input.SetSelection(0, input.Text.Length);
             quantityDialog.SetView(input);
@@ -80,7 +82,7 @@ namespace VorratsUebersicht
                     if (string.IsNullOrEmpty(input.Text))
                         input.Text = "0";
 
-                    bool decialOk = Decimal.TryParse(input.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out toBuyQuantity);
+                    bool decialOk = Decimal.TryParse(input.Text, NumberStyles.Any, CultureInfo.CurrentUICulture, out toBuyQuantity);
                     if (decialOk)
                     {
                         if (toBuyQuantity == 0)

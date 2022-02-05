@@ -1,8 +1,7 @@
 using System;
+using System.Globalization;
 
-using Android.App;
 using Android.Graphics;
-using Android.Content.Res;
 
 namespace VorratsUebersicht
 {
@@ -37,18 +36,18 @@ namespace VorratsUebersicht
 				string info = string.Empty;
 
                 info += MainActivity.Strings_Amount;
-                info += string.Format(" {0}", this.StorageItem.Quantity);
+                info += string.Format(CultureInfo.CurrentUICulture, " {0}", this.StorageItem.Quantity);
 
                 if (this.StorageItem.Size != 0)
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
                     info += MainActivity.Strings_Size;
-					info += string.Format(" {0} {1}", this.StorageItem.Size, this.StorageItem.Unit).TrimEnd();
+					info += string.Format(CultureInfo.CurrentUICulture, " {0} {1}", this.StorageItem.Size, this.StorageItem.Unit).TrimEnd();
                     if ((this.StorageItem.Quantity != 1) && (this.StorageItem.Size != 1))
                     {
                         // TODO: Menge ggf. umrechnen, z.B. "2.500 g" als "2,5 Kg"
                         info += "\r\n";
-    					info += string.Format("Menge: {0:#,0.######} {1}", (this.StorageItem.Size * this.StorageItem.Quantity), this.StorageItem.Unit).TrimEnd();
+    					info += string.Format(CultureInfo.CurrentUICulture, "Menge: {0:#,0.######} {1}", (this.StorageItem.Size * this.StorageItem.Quantity), this.StorageItem.Unit).TrimEnd();
                     }
 				}
 
@@ -76,8 +75,8 @@ namespace VorratsUebersicht
                 if (this.StorageItem.Price.HasValue)
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                    info += string.Format("Preis: {0:n2}", this.StorageItem.Price.Value);
-                    info += string.Format(" (Wert: {0:n2})", this.StorageItem.Quantity * this.StorageItem.Price.Value);
+                    info += string.Format(CultureInfo.CurrentUICulture, "Preis: {0:n2}", this.StorageItem.Price.Value);
+                    info += string.Format(CultureInfo.CurrentUICulture, " (Wert: {0:n2})", this.StorageItem.Quantity * this.StorageItem.Price.Value);
                 }
 
                 return info;
@@ -105,7 +104,7 @@ namespace VorratsUebersicht
                 if (this.StorageItem.ShoppingListQuantity.Value == 0)
                     return string.Empty;
 
-                return string.Format("{0:#,0.######}", this.StorageItem.ShoppingListQuantity.Value);
+                return string.Format(CultureInfo.CurrentUICulture, "{0:#,0.######}", this.StorageItem.ShoppingListQuantity.Value);
             }
         }
 

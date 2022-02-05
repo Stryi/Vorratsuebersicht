@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -10,7 +11,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using Android.Content.PM;
 using Android.Support.V7.App;
 using AndroidX.Core.Content;
 
@@ -651,7 +651,7 @@ namespace VorratsUebersicht
                 decimal quantityInStorage = Database.GetArticleQuantityInStorage(articleId);
                 if (quantityInStorage > 0)
                 {
-                    zusatzInfo += string.Format("- Bestand: {0:#,0.######}", quantityInStorage);
+                    zusatzInfo += string.Format(CultureInfo.CurrentUICulture, "- Bestand: {0:#,0.######}", quantityInStorage);
                 }
 
                 decimal shoppingListQuantiy = Database.GetShoppingListQuantiy(articleId);
@@ -661,7 +661,7 @@ namespace VorratsUebersicht
                     {
                         zusatzInfo += "\n";
                     }
-                    zusatzInfo += string.Format("- Auf Einkaufsliste: {0:#,0.######}", shoppingListQuantiy);
+                    zusatzInfo += string.Format(CultureInfo.CurrentUICulture, "- Auf Einkaufsliste: {0:#,0.######}", shoppingListQuantiy);
                 }
 
                 actions =  new List<string>()

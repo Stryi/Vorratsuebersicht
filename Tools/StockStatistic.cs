@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 
 namespace VorratsUebersicht
@@ -68,7 +69,7 @@ namespace VorratsUebersicht
             else
                 status = string.Format("{0:n0} Positionen", this.count);
 
-            status += string.Format(", Anzahl: {0:#,0.######} Stück", this.quantity);
+            status += string.Format(CultureInfo.CurrentUICulture, ", Anzahl: {0:#,0.######} Stück", this.quantity);
 
             if (this.sum_menge.Count > 0)
             {
@@ -114,7 +115,7 @@ namespace VorratsUebersicht
 
                     if (!string.IsNullOrEmpty(mengeListe))
                         mengeListe += ", ";
-                    mengeListe += string.Format("{0:#,0.######} {1}", menge.Value, menge.Key);
+                    mengeListe += string.Format(CultureInfo.CurrentUICulture, "{0:#,0.######} {1}", menge.Value, menge.Key);
                 }
 
                 if (!string.IsNullOrEmpty(mengeListe))
@@ -123,10 +124,10 @@ namespace VorratsUebersicht
                 }
             }
 
-            if (sum_kcal        > 0) status += string.Format(", Kalorien: {0:n0}",   sum_kcal);
-            if (sum_price       > 0) status += string.Format(", Wert: {0:n2} €",       sum_price);
-            if (sum_warnung     > 0) status += string.Format(", {0:#,0.######} Warnung(en)", sum_warnung);
-            if (sum_abgelaufen  > 0) status += string.Format(", {0:#,0.######} Abgelaufen",  sum_abgelaufen);
+            if (sum_kcal        > 0) status += string.Format(CultureInfo.CurrentUICulture, ", Kalorien: {0:n0}",   sum_kcal);
+            if (sum_price       > 0) status += string.Format(CultureInfo.CurrentUICulture, ", Wert: {0:n2} €",       sum_price);
+            if (sum_warnung     > 0) status += string.Format(CultureInfo.CurrentUICulture, ", {0:#,0.######} Warnung(en)", sum_warnung);
+            if (sum_abgelaufen  > 0) status += string.Format(CultureInfo.CurrentUICulture, ", {0:#,0.######} Abgelaufen",  sum_abgelaufen);
             
             return status;
         }

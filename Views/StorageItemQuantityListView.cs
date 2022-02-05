@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace VorratsUebersicht
 {
@@ -10,7 +11,7 @@ namespace VorratsUebersicht
 
         public string AnzahlText
         {
-             get { return string.Format("{0} {1}", MainActivity.Strings_Amount, this.StorageItem.Quantity); }
+             get { return string.Format(CultureInfo.CurrentUICulture, "{0} {1}", MainActivity.Strings_Amount, this.StorageItem.Quantity); }
         }
 
         public string LagerText

@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Globalization;
 using System.Collections.Generic;
 using System.IO;
@@ -11,13 +12,14 @@ using Android.Views;
 using Android.Widget;
 using Android.Graphics;
 using Android.Content.PM;
+using Android.Text.Method;
+
 using MatrixGuide;
 using static Android.Widget.AdapterView;
 using Android.Support.V4.Content;
 using Android.Speech;
 
 using Xamarin.Essentials;
-using System.Threading;
 
 namespace VorratsUebersicht
 {
@@ -26,6 +28,8 @@ namespace VorratsUebersicht
     [Activity(Label = "@string/Main_Button_Artikelangaben", Icon = "@drawable/ic_local_offer_white_48dp", ScreenOrientation = ScreenOrientation.Portrait)]
     public class ArticleDetailsActivity : Activity
     {
+        CultureInfo currentCulture;
+
         internal static byte[] imageLarge;
         internal static byte[] imageSmall;
 
@@ -82,6 +86,8 @@ namespace VorratsUebersicht
             var stopWatch = new System.Diagnostics.Stopwatch();
             stopWatch.Start();
             base.OnCreate(savedInstanceState);
+
+            this.currentCulture = new CultureInfo(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
 
             this.SetContentView(Resource.Layout.ArticleDetails);
 
@@ -685,7 +691,7 @@ namespace VorratsUebersicht
                     FindViewById<EditText>(Resource.Id.ArticleDetails_Manufacturer).Text = hersteller;
 
                 if (quantity > 0)
-                    this.size.Text = quantity.ToString(CultureInfo.InvariantCulture);
+                    this.size.Text = quantity.ToString(this.currentCulture);
 
                 if (!string.IsNullOrEmpty(unit))
                     this.unit.Text = unit;
@@ -973,6 +979,11 @@ namespace VorratsUebersicht
 
         private void ShowPictureAndDetails(string eanCode)
         {
+            
+            string sep = this.currentCulture.NumberFormat.NumberDecimalSeparator;
+            FindViewById<EditText>(Resource.Id.ArticleDetails_Size).KeyListener  = DigitsKeyListener.GetInstance("0123456789" + sep);
+            FindViewById<EditText>(Resource.Id.ArticleDetails_Price).KeyListener = DigitsKeyListener.GetInstance("0123456789" + sep);
+
             FindViewById<TextView>(Resource.Id.ArticleDetails_ArticleId).Text       = string.Format("ArticleId: {0}", article.ArticleId);
 
             FindViewById<EditText>(Resource.Id.ArticleDetails_Name).Text               = article.Name;
@@ -980,10 +991,10 @@ namespace VorratsUebersicht
 
             if (article.WarnInDays.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_WarnInDays).Text = article.WarnInDays.Value.ToString();
             if (article.Calorie.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie).Text       = this.article.Calorie.ToString();
-            if (article.Size.HasValue)    FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text          = article.Size.Value.ToString(CultureInfo.InvariantCulture);
+            if (article.Size.HasValue)    FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text          = article.Size.Value.ToString(this.currentCulture);
             if (article.MinQuantity.HasValue)  FindViewById<EditText>(Resource.Id.ArticleDetails_MinQuantity).Text  = article.MinQuantity.Value.ToString();
             if (article.PrefQuantity.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_PrefQuantity).Text = article.PrefQuantity.Value.ToString();
-            if (article.Price.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_Price).Text = article.Price.Value.ToString(CultureInfo.InvariantCulture);
+            if (article.Price.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_Price).Text = article.Price.Value.ToString(this.currentCulture);
 
             FindViewById<EditText>(Resource.Id.ArticleDetails_Unit).Text               = article.Unit;
             FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text            = article.EANCode;
@@ -1118,24 +1129,24 @@ namespace VorratsUebersicht
 
             string info;
 
-            info = string.Format("Bestand: {0} Stück", bestand);
+            info = string.Format(CultureInfo.CurrentUICulture, "Bestand: {0} Stück", bestand);
 
             if (vorDemAblauf > 0)
             {
 			    if (!string.IsNullOrEmpty(info)) info += "\r\n";
-			    info += string.Format("{0} vor dem Ablaufdatum", vorDemAblauf);
+			    info += string.Format(CultureInfo.CurrentUICulture, "{0} vor dem Ablaufdatum", vorDemAblauf);
             }
 
             if (mitWarnung > 0)
             {
 			    if (!string.IsNullOrEmpty(info)) info += "\r\n";
-			    info += string.Format("{0} mit Warnung", mitWarnung);
+			    info += string.Format(CultureInfo.CurrentUICulture, "{0} mit Warnung", mitWarnung);
             }
 
             if (abgelaufen > 0)
             {
 			    if (!string.IsNullOrEmpty(info)) info += "\r\n";
-			    info += string.Format("{0} bereits abgelaufen", abgelaufen);
+			    info += string.Format(CultureInfo.CurrentUICulture, "{0} bereits abgelaufen", abgelaufen);
             }
 
             this.imageTextView.Text = info;
@@ -1259,7 +1270,7 @@ namespace VorratsUebersicht
             {
                 if (!string.IsNullOrEmpty(valueText))
                 {
-                    value = Convert.ToInt32(valueText, CultureInfo.InvariantCulture);
+                    value = Convert.ToInt32(valueText, this.currentCulture);
                 }
             }
             catch(Exception ex)
@@ -1281,7 +1292,7 @@ namespace VorratsUebersicht
             {
                 if (!string.IsNullOrEmpty(valueText))
                 {
-                    value = Convert.ToDecimal(valueText, CultureInfo.InvariantCulture);
+                    value = Convert.ToDecimal(valueText, this.currentCulture);
                 }
             }
             catch(Exception ex)

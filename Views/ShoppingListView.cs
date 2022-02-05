@@ -1,15 +1,6 @@
-using System;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Globalization;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.Graphics;
 
 namespace VorratsUebersicht
@@ -54,7 +45,7 @@ namespace VorratsUebersicht
 				if (this.ShoppingItem.Size.HasValue)
 				{
 					if (!string.IsNullOrEmpty(info)) info += "\r\n";
-					info += string.Format("{0} {1} {2}", MainActivity.Strings_Size, this.ShoppingItem.Size.Value, this.ShoppingItem.Unit);
+					info += string.Format(CultureInfo.CurrentUICulture, "{0} {1} {2}", MainActivity.Strings_Size, this.ShoppingItem.Size.Value, this.ShoppingItem.Unit);
 				}
                 if (!string.IsNullOrEmpty(this.ShoppingItem.Supermarket))
                 {
@@ -64,7 +55,7 @@ namespace VorratsUebersicht
                 if (this.ShoppingItem.Price.HasValue)
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                    info += string.Format("{0} {1} €", MainActivity.Strings_Price, this.ShoppingItem.Price.Value);
+                    info += string.Format(CultureInfo.CurrentUICulture, "{0} {1} €", MainActivity.Strings_Price, this.ShoppingItem.Price.Value);
 
                     string pricePerUnit = PricePerUnit.Calculate(this.ShoppingItem.Price, this.ShoppingItem.Size, this.ShoppingItem.Unit);
                     if (!string.IsNullOrEmpty(pricePerUnit))
@@ -95,7 +86,7 @@ namespace VorratsUebersicht
                 if (this.ShoppingItem.Quantity == 0)
                     return string.Empty;
 
-                return  string.Format("Anzahl: {0}", this.ShoppingItem.Quantity);
+                return  string.Format(CultureInfo.CurrentUICulture, "Anzahl: {0}", this.ShoppingItem.Quantity);
             }
         }
 
