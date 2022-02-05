@@ -1,7 +1,7 @@
 Version 7.00 (Code Version 113)
 ===============================
 
-C185 - Dezimalzeichen jetzt ein Komma statt Punkt bei Sprache Deutsch. (Bei Änderung der Sprache die App neu starten)
+C186 - Dezimalzeichen jetzt ein Komma statt Punkt bei Sprache Deutsch. (Bei Änderung der Sprache die App neu starten)
 C185 - Datenbank wird jetzt direkt im App Verzeichnis erstellt.
 
 Version 6.29 (Code Version 112)
