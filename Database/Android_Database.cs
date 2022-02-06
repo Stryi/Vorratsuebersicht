@@ -638,8 +638,8 @@ namespace VorratsUebersicht
             {
                 destinationFilePath = Path.Combine(path, fileName);
 
-                // Erweiterung in .db3 umbenennen, damit bei Datenbankauswahl die Datei vorgeschlagen wird.
-                destinationFilePath = Path.ChangeExtension(destinationFilePath, ".db3");
+                // Erweiterung .db3 setzen.
+                destinationFilePath = String.Format("{0}.{1}", destinationFilePath, "db3");
 
                 counter++;
                 fileName = string.Format("{0}_{1}", Path.GetFileNameWithoutExtension(datebaseName), counter);
