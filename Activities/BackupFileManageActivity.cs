@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
@@ -144,7 +144,9 @@ namespace VorratsUebersicht
                 {
                     var item = new SimpleListItem2View();
                     item.Heading = Path.GetFileNameWithoutExtension(file.FullName);
-                    item.SubHeading = Tools.ToFuzzyByteString(file.Length);
+                    string size      = Tools.ToFuzzyByteString(file.Length);
+                    string timeStamp = file.CreationTime.ToString(CultureInfo.CurrentUICulture);
+                    item.SubHeading = string.Format("{0} - {1}", size, timeStamp);
                     item.Tag = file.FullName;
 
                     items.Add(item);
