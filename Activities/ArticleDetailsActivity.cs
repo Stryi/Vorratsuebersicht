@@ -979,22 +979,17 @@ namespace VorratsUebersicht
 
         private void ShowPictureAndDetails(string eanCode)
         {
-            
-            string sep = this.currentCulture.NumberFormat.NumberDecimalSeparator;
-            FindViewById<EditText>(Resource.Id.ArticleDetails_Size).KeyListener  = DigitsKeyListener.GetInstance("0123456789" + sep);
-            FindViewById<EditText>(Resource.Id.ArticleDetails_Price).KeyListener = DigitsKeyListener.GetInstance("0123456789" + sep);
-
             FindViewById<TextView>(Resource.Id.ArticleDetails_ArticleId).Text       = string.Format("ArticleId: {0}", article.ArticleId);
 
             FindViewById<EditText>(Resource.Id.ArticleDetails_Name).Text               = article.Name;
             FindViewById<Switch>  (Resource.Id.ArticleDetails_DurableInfinity).Checked = article.DurableInfinity;
 
-            if (article.WarnInDays.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_WarnInDays).Text = article.WarnInDays.Value.ToString();
-            if (article.Calorie.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie).Text       = this.article.Calorie.ToString();
-            if (article.Size.HasValue)    FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text          = article.Size.Value.ToString(this.currentCulture);
+            if (article.WarnInDays.HasValue)   FindViewById<EditText>(Resource.Id.ArticleDetails_WarnInDays).Text   = article.WarnInDays.Value.ToString();
+            if (article.Calorie.HasValue)      FindViewById<EditText>(Resource.Id.ArticleDetails_Calorie).Text      = this.article.Calorie.ToString();
+            if (article.Size.HasValue)         FindViewById<EditText>(Resource.Id.ArticleDetails_Size).Text         = article.Size.Value.ToString(CultureInfo.InvariantCulture);
             if (article.MinQuantity.HasValue)  FindViewById<EditText>(Resource.Id.ArticleDetails_MinQuantity).Text  = article.MinQuantity.Value.ToString();
             if (article.PrefQuantity.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_PrefQuantity).Text = article.PrefQuantity.Value.ToString();
-            if (article.Price.HasValue) FindViewById<EditText>(Resource.Id.ArticleDetails_Price).Text = article.Price.Value.ToString(this.currentCulture);
+            if (article.Price.HasValue)        FindViewById<EditText>(Resource.Id.ArticleDetails_Price).Text        = article.Price.Value.ToString(CultureInfo.InvariantCulture);
 
             FindViewById<EditText>(Resource.Id.ArticleDetails_Unit).Text               = article.Unit;
             FindViewById<EditText>(Resource.Id.ArticleDetails_EANCode).Text            = article.EANCode;
@@ -1292,7 +1287,7 @@ namespace VorratsUebersicht
             {
                 if (!string.IsNullOrEmpty(valueText))
                 {
-                    value = Convert.ToDecimal(valueText, this.currentCulture);
+                    value = Convert.ToDecimal(valueText, CultureInfo.InvariantCulture);
                 }
             }
             catch(Exception ex)

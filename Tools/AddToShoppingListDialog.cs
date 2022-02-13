@@ -69,10 +69,7 @@ namespace VorratsUebersicht
             quantityDialog.SetMessage(message);
             EditText input = new EditText(activity);
             input.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
-            input.Text = toBuyQuantity.ToString(CultureInfo.CurrentUICulture);
-
-            string sep = CultureInfo.CurrentUICulture.NumberFormat.NumberDecimalSeparator;
-            input.KeyListener  = DigitsKeyListener.GetInstance("0123456789" + sep);
+            input.Text = toBuyQuantity.ToString(CultureInfo.InvariantCulture);
 
             input.RequestFocus();
             input.SetSelection(0, input.Text.Length);
@@ -82,7 +79,7 @@ namespace VorratsUebersicht
                     if (string.IsNullOrEmpty(input.Text))
                         input.Text = "0";
 
-                    bool decialOk = Decimal.TryParse(input.Text, NumberStyles.Any, CultureInfo.CurrentUICulture, out toBuyQuantity);
+                    bool decialOk = Decimal.TryParse(input.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out toBuyQuantity);
                     if (decialOk)
                     {
                         if (toBuyQuantity == 0)
