@@ -34,6 +34,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:textColor="@color/Text_Color2"
+            android:alpha="0.5"
             android:gravity="center"
             android:textSize="30sp"
             android:text="&#8942;" />

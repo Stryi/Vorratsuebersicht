@@ -246,9 +246,7 @@ namespace VorratsUebersicht
 
         private void ListAdapter_OptionMenu(object sender, EventArgs e)
         {
-            ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
-
-            this.OpenContextMenu(listView);
+            this.OpenContextMenu((TextView)sender);
         }
 
         private void OnOpenArticleDetails(object sender, AdapterView.ItemClickEventArgs e)

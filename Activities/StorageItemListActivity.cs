@@ -434,9 +434,7 @@ namespace VorratsUebersicht
 
         private void ListAdapter_OptionMenu(object sender, EventArgs e)
         {
-            ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
-
-            this.OpenContextMenu(listView);
+            this.OpenContextMenu((TextView)sender);
         }
 
         public bool OnQueryTextChange(string filter)
