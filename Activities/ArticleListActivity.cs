@@ -228,6 +228,7 @@ namespace VorratsUebersicht
             }
 
             ArticleListViewAdapter listAdapter = new ArticleListViewAdapter(this, liste);
+            listAdapter.OptionMenu += ListAdapter_OptionMenu;
 
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
             listView.Adapter = listAdapter;
@@ -241,6 +242,13 @@ namespace VorratsUebersicht
 
             TextView footer = FindViewById<TextView>(Resource.Id.ArticleList_Footer);
             footer.Text = status;
+        }
+
+        private void ListAdapter_OptionMenu(object sender, EventArgs e)
+        {
+            ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
+
+            this.OpenContextMenu(listView);
         }
 
         private void OnOpenArticleDetails(object sender, AdapterView.ItemClickEventArgs e)

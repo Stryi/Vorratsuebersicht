@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/Application_Background"
-    >
+    android:background="@color/Application_Background" >
     <ImageView
         android:id="@+id/ArticleListView_Image"
         android:layout_width="74dp"
@@ -25,8 +24,19 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color"
+            android:layout_marginRight="20sp"
             android:text="Heading"
             android:textSize="20sp" />
+        <TextView
+            android:id="@+id/ArticleListView_Option"
+            android:layout_width="20sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/Text_Color2"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:text="&#8942;" />
         <TextView
             android:id="@+id/ArticleListView_SubHeading"
             android:layout_width="fill_parent"

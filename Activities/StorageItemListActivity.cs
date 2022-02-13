@@ -422,6 +422,7 @@ namespace VorratsUebersicht
             }
 
             StorageItemListViewAdapter listAdapter = new StorageItemListViewAdapter(this, liste);
+            listAdapter.OptionMenu += ListAdapter_OptionMenu;
 
             ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
             listView.Adapter = listAdapter;
@@ -429,6 +430,13 @@ namespace VorratsUebersicht
 
             TextView footer = FindViewById<TextView>(Resource.Id.StorageItemList_Footer);
             footer.Text = statistic.GetStatistic();
+        }
+
+        private void ListAdapter_OptionMenu(object sender, EventArgs e)
+        {
+            ListView listView = FindViewById<ListView>(Resource.Id.StorageItemView);
+
+            this.OpenContextMenu(listView);
         }
 
         public bool OnQueryTextChange(string filter)

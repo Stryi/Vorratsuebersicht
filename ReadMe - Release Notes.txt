@@ -1,8 +1,9 @@
 Version 7.00 (Code Version 113)
 ===============================
 
+C187 - Drei Punkte in Artikel- und Lagerliste für Kontextmenü.
 E055 - FIX: Beim 2 X Import vom Backup friert die App ein.
-C186 - Dezimalzeichen jetzt ein Komma statt Punkt bei Sprache Deutsch. (Bei Änderung der Sprache die App neu starten)
+C186 - Jetzt ein Komma statt einem Punkt beim Dezimalzeichen, aber (noch) nicht bei der Eingabe (alte Samsungs machen Probleme).
 C185 - Datenbank wird jetzt direkt im App Verzeichnis erstellt.
 
 Version 6.29 (Code Version 112)

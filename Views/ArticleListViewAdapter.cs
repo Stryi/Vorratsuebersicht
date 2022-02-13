@@ -18,6 +18,8 @@ namespace VorratsUebersicht
         List<ArticleListView> items;
         Activity context;
 
+        public event EventHandler OptionMenu;
+
         public ArticleListViewAdapter(Activity context, List<ArticleListView> items) : base()
         {
             this.context = context;
@@ -35,6 +37,7 @@ namespace VorratsUebersicht
         {
             get { return items.Count; }
         }
+
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             ArticleListView item = items[position];
@@ -59,6 +62,10 @@ namespace VorratsUebersicht
                 view.FindViewById<TextView> (Resource.Id.ArticleListView_StorageQuantity).Visibility  = ViewStates.Gone;
             }
 
+            TextView option = view.FindViewById<TextView>(Resource.Id.ArticleListView_Option);
+            option.Click -= Option_Click;
+            option.Click += Option_Click;
+
             ImageView image = view.FindViewById<ImageView>(Resource.Id.ArticleListView_Image);
             image.Click -= OnImageClicked;
 
@@ -77,6 +84,11 @@ namespace VorratsUebersicht
             }
 
             return view;
+        }
+
+        private void Option_Click(object sender, EventArgs e)
+        {
+            this.OptionMenu?.Invoke(sender, EventArgs.Empty);
         }
 
         private void OnImageClicked(object sender, EventArgs e)

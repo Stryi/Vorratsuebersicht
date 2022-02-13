@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/Application_Background"
-    android:padding="0dp">
+    android:background="@color/Application_Background" >
     <ImageView
         android:id="@+id/StorageItemListView_Image"
         android:contentDescription="@string/Picture"
@@ -13,24 +12,35 @@
         android:scaleType="fitCenter"
         android:background="@color/Application_Background"
         android:layout_alignParentLeft="true" />
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/SimpleImageViewText"
-        android:orientation="vertical"
-        android:paddingLeft="50dp"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="5dp">
+        android:layout_marginRight="5dp"
+        android:layout_toRightOf="@id/StorageItemListView_Image">
         <TextView
             android:id="@+id/StorageItemListView_TextHeader"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color"
+            android:layout_marginRight="20sp"
             android:text="Überschrift"
             android:textSize="20sp" />
         <TextView
-            android:id="@+id/StorageItemListView_TextDetails"
-            android:layout_width="match_parent"
+            android:id="@+id/StorageItemListView_Option"
+            android:layout_width="20sp"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/Text_Color2"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:text="&#8942;" />
+        <TextView
+            android:id="@+id/StorageItemListView_TextDetails"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/StorageItemListView_TextHeader"            
             android:textColor="@color/Text_Color2"
             android:text="Details"
             android:textSize="14sp" />
@@ -38,6 +48,7 @@
             android:id="@+id/StorageItemListView_TextError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/StorageItemListView_TextDetails"            
             android:textColor="@color/Text_Error"
             android:visibility="visible"
             android:textSize="14sp" />
@@ -45,6 +56,7 @@
             android:id="@+id/StorageItemListView_TextWarning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/StorageItemListView_TextError"
             android:textColor="@color/Text_Warning"
             android:visibility="visible"
             android:textSize="14sp" />
@@ -52,10 +64,11 @@
             android:id="@+id/StorageItemListView_TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/StorageItemListView_TextWarning"
             android:textColor="@color/Text_Info"
             android:visibility="visible"
             android:textSize="14sp" />
-    </LinearLayout>
+    </RelativeLayout>
     <ImageView
         android:id="@+id/StorageItemListView_OnShoppingList"
         android:contentDescription="@string/Picture"
