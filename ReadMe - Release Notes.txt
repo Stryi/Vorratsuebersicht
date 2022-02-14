@@ -1,8 +1,12 @@
-Version 7.00 (Code Version 113)
+Version 7.01 (Code Version 121)
 ===============================
 
 E056 - FIX: Textfarbe bei Auswahlbox 'Kategorie' für Android 4 gesetzt.
 C187 - Drei Punkte in Artikel- und Lagerliste für Kontextmenü.
+
+Version 7.00 (Code Version 120)
+===============================
+
 E055 - FIX: Beim 2 X Import vom Backup friert die App ein.
 C186 - Jetzt ein Komma statt einem Punkt beim Dezimalzeichen, aber (noch) nicht bei der Eingabe (alte Samsungs machen Probleme).
 C185 - Datenbank wird jetzt direkt im App Verzeichnis erstellt.
