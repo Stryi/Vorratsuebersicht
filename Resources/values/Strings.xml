@@ -64,7 +64,7 @@
   <string name="ArticleDetails_WarningInDays">Warnen in Tagen vor Ablauf:</string>
   <string name="ArticleDetails_Size">Inhalt/Größe:</string>
   <string name="ArticleDetails_Unit">Einheit:</string>
-  <string name="ArticleDetails_Unit_Hint">g, l, kg, mg, stk, cl, ml</string>
+  <string name="ArticleDetails_Unit_Hint">g, l, kg, mg, stk, cl, ml, m</string>
   <string name="ArticleDetails_Calories">Kalorien:</string>
   <string name="ArticleDetails_CaloriesPerUnit">Kalorien pro 100 {0}:</string>
   <string name="ArticleDetails_StorageLabel">Standard Lagerort:</string>
