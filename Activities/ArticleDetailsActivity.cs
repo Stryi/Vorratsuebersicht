@@ -12,7 +12,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Graphics;
 using Android.Content.PM;
-using Android.Text.Method;
+using Android.Content.Res;
 
 using MatrixGuide;
 using static Android.Widget.AdapterView;
@@ -152,6 +152,13 @@ namespace VorratsUebersicht
 
             // Kategorie Auswahl
             this.catalogListener = new CatalogItemSelectedListener();
+
+            EditText articleName = FindViewById<EditText>(Resource.Id.ArticleDetails_Name);
+            var colors = articleName.TextColors;
+            if (colors != null)
+            {
+                this.catalogListener.TextColor = new Color(colors.DefaultColor);
+            }
 
             // Fest definierte Kategorien
             string[] defaultCategories = Resources.GetStringArray(Resource.Array.ArticleCatagories);
@@ -1318,12 +1325,19 @@ namespace VorratsUebersicht
 
     public class CatalogItemSelectedListener : Java.Lang.Object, IOnItemSelectedListener
     {
+        public Color? TextColor = null;
+
         public string Value { get; private set; }
 
         public void OnItemSelected(AdapterView parent, View view, int position, long id)
         {
             TextView textView = view as TextView;
             if (textView == null) return;
+
+            if (this.TextColor != null)
+            {
+                textView.SetTextColor(this.TextColor.Value);
+            }
 
             this.Value = textView.Text;
         }
