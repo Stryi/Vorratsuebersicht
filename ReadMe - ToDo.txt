@@ -3,7 +3,6 @@ Prio 1
 
 Artikeldetails
 - Preisangabe auch mit ","
-- Einheit RTRIM() wegen "Stück "
 
 Settings
 - LOG Datei im Cache anlegen (damit vom PC aus ausgelesen werden kann)?
@@ -12,7 +11,6 @@ Lagerliste
 - (anfängliche) Sortierung auf "Datum" (Einstellbar in den Optionen) - (Per E-Mail vom mi53ke)
 
 Sonstiges
-- Einstellungen: Reihenfolge sinnvoller gestalten (von mi53ke)
 - Push Benachrichtigung (z.B. einmal pro Tag) über bald zu verbrauchende Artikel 
   Gewünscht von Frank (E-Mail), und von Eva (?)
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/notifications/local-notifications-walkthrough
@@ -30,9 +28,6 @@ Anwendung
 
 Artikeldetails
 - Kalorien umrechnen auch von "cl"
-
-EAN Scan
-- Besseren EAN Scanner suchen (inzwischen Zxing.Net.Mobile 3.1.0 Beta2 Version)
 
 
 Prio 2
