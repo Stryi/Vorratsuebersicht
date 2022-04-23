@@ -238,7 +238,7 @@ namespace VorratsUebersicht
                     dialog.SetMessage(message);
                     dialog.SetTitle(Resource.String.App_Name);
                     dialog.SetIcon(Resource.Drawable.ic_launcher);
-                    dialog.SetPositiveButton("OK", (s, e) => 
+                    dialog.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => 
                     { 
                         StartActivity(typeof(MainActivity));
                         

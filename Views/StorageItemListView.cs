@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 
 using Android.Graphics;
+using Android.Content.Res;
 
 namespace VorratsUebersicht
 {
@@ -9,9 +10,25 @@ namespace VorratsUebersicht
 
     public class StorageItemListView : ListItemViewBase
     {
-        public StorageItemListView(StorageItemQuantityResult storageItem)
+        internal string String_Quantity     = String.Empty;
+        internal string String_Size         = String.Empty;
+        internal string String_MinQuantity  = String.Empty;
+        internal string String_PrefQuantity = String.Empty;
+        internal string String_Storage      = String.Empty;
+        internal string String_Price        = String.Empty;
+        internal string String_Amount       = String.Empty;
+
+        public StorageItemListView(StorageItemQuantityResult storageItem, Resources resources)
         {
             this.StorageItem = storageItem;
+
+            this.String_Quantity     = resources.GetString(Resource.String.StorageItemQuantityList_Quantity);
+            this.String_Storage      = resources.GetString(Resource.String.StorageItemQuantityList_StorageLabel);
+            this.String_Size         = resources.GetString(Resource.String.ArticleDetails_Size);
+            this.String_MinQuantity  = resources.GetString(Resource.String.ArticleDetails_MinQuantityLabel);
+            this.String_PrefQuantity = resources.GetString(Resource.String.ArticleDetails_PrefQuantityLabel);
+            this.String_Price        = resources.GetString(Resource.String.ArticleDetails_Price);
+            this.String_Amount       = resources.GetString(Resource.String.StorageItem_Amount);
         }
         public StorageItemListView()
         {
@@ -35,13 +52,13 @@ namespace VorratsUebersicht
 			{
 				string info = string.Empty;
 
-                info += MainActivity.Strings_Amount;
+                info += this.String_Quantity;
                 info += string.Format(CultureInfo.CurrentUICulture, " {0}", this.StorageItem.Quantity);
 
                 if (this.StorageItem.Size != 0)
 				{
 					if (!string.IsNullOrEmpty(info)) info += ", ";
-                    info += MainActivity.Strings_Size;
+                    info += this.String_Size;
 					info += string.Format(CultureInfo.CurrentUICulture, " {0} {1}", this.StorageItem.Size, this.StorageItem.Unit).TrimEnd();
                     if ((this.StorageItem.Quantity != 1) && (this.StorageItem.Size != 1))
                     {
@@ -54,29 +71,29 @@ namespace VorratsUebersicht
                 if (this.StorageItem.MinQuantity.HasValue)
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                    info += MainActivity.Strings_MinQuantity;
+                    info += this.String_MinQuantity;
                     info += string.Format(" {0}", this.StorageItem.MinQuantity);
                 }
 
                 if (this.StorageItem.PrefQuantity.HasValue)
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                    info += MainActivity.Strings_PrefQuantity;
+                    info += this.String_PrefQuantity;
                     info += string.Format(" {0}", this.StorageItem.PrefQuantity);
                 }
 
                 if (!string.IsNullOrEmpty(this.StorageItem.StorageName))
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                    info += MainActivity.Strings_Storage;
+                    info += this.String_Storage;
                     info += string.Format(" {0}", this.StorageItem.StorageName);
                 }
 
                 if (this.StorageItem.Price.HasValue)
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                    info += string.Format(CultureInfo.CurrentUICulture, "Preis: {0:n2}", this.StorageItem.Price.Value);
-                    info += string.Format(CultureInfo.CurrentUICulture, " (Wert: {0:n2})", this.StorageItem.Quantity * this.StorageItem.Price.Value);
+                    info += string.Format(CultureInfo.CurrentUICulture, "{0} {1:n2}", this.String_Price, this.StorageItem.Price.Value);
+                    info += string.Format(CultureInfo.CurrentUICulture, " ({0}: {1:n2})", this.String_Amount, this.StorageItem.Quantity * this.StorageItem.Price.Value);
                 }
 
                 return info;

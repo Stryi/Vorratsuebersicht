@@ -13,7 +13,7 @@
 
         <TextView
             android:id="@+id/Settings_Categories_Text"
-            android:text="Zusätzliche Kategorien (mit Komma getrennt definieren)" 
+            android:text="@string/Settings_AdditionalCategories" 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp" />
@@ -27,7 +27,7 @@
             android:layout_marginLeft="10dp" />
 
         <TextView
-            android:text="Standard Kategorie für neue Artikel"
+            android:text="@string/Settings_DefaultCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp" />
@@ -41,7 +41,7 @@
             android:hint="@string/ArticleDetails_Category_Hint" />
 
         <TextView
-            android:text="Aktuelle Datenbank"
+            android:text="@string/Settings_CurrentDatabase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="5dp" />
@@ -56,7 +56,7 @@
 
 
         <TextView
-            android:text="Backup und Restore (auf eigene Verantwortung)"
+            android:text="@string/Settings_BackupAndRestore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp" />
@@ -89,14 +89,13 @@
             android:gravity="left|center_vertical" />
 
         <TextView
-            android:text="Backup-Pfad:"
+            android:text="@string/Settings_BackupPath"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:paddingTop="10dp" />
         <EditText
             android:id="@+id/SettingsButton_BackupPath"
-            android:text=""
             android:inputType="textUri"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,7 +113,7 @@
 
         <Switch
             android:id="@+id/SettingsButton_AskForBackup"
-            android:text="An Backup alle 7 Tage erinnern"
+            android:text="@string/Settings_AskForBackup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -154,14 +153,14 @@
             android:gravity="left|center_vertical" />
 
         <TextView
-            android:text="Datenbanken verwalten"
+            android:text="@string/Settings_DatabaseManagement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="5dp" />
 
         <Button
             android:id="@+id/SettingsButton_DatabaseNew"
-            android:text="\tNeue Datenbank anlegen..."
+            android:text="@string/Settings_DatabaseNew"
             android:drawableLeft="@drawable/baseline_add_box_white_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -170,7 +169,7 @@
             android:gravity="left|center_vertical" />
         <Button
             android:id="@+id/SettingsButton_DatabaseRename"
-            android:text="\tDatenbank umbenennen...\n\t(außer der gerade geöffneten)"
+            android:text="@string/Settings_DatabaseRename"
             android:drawableLeft="@drawable/baseline_drive_file_rename_outline_white_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -179,7 +178,7 @@
             android:gravity="left|center_vertical" />
         <Button
             android:id="@+id/SettingsButton_DatabaseDelete"
-            android:text="\tDatenbank löschen...\n\t(Auswahl folgt)"
+            android:text="@string/Settings_DatabaseDelete"
             android:drawableLeft="@drawable/baseline_delete_forever_white_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -188,7 +187,7 @@
             android:gravity="left|center_vertical" />
         <Button
             android:id="@+id/SettingsButton_DatabaseImport"
-            android:text="\tDatenbank importieren"
+            android:text="@string/Settings_DatabaseImport"
             android:drawableLeft="@drawable/baseline_upload_file_white_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -198,26 +197,26 @@
 
 
         <TextView
-            android:text="EAN Scann"
+            android:text="@string/Settings_EAN_Scann"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp" />
         <Switch
             android:id="@+id/SettingsButton_EANScan_FrontCamera"
-            android:text="Benutze Frontkamera"
+            android:text="@string/Settings_EAN_Scann_UseFrontcamera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:gravity="left|center_vertical" />
 
         <TextView
-            android:text="Zum Kennenlernen oder Testen neuer Funktionalität"
+            android:text="@string/Settings_TestDatenbank"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp" />
         <Switch
             android:id="@+id/SettingsButton_SwitchToTestDB"
-            android:text="@string/Settings_TestDatenbank"
+            android:text="@string/Settings_SwitchToTestDB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -251,7 +250,7 @@
             android:gravity="left|center_vertical" />
 
         <TextView
-            android:text="CSV Export"
+            android:text="@string/Settings_CSV_Export"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp" />
@@ -263,7 +262,7 @@
             android:scrollbars="vertical">
             <Button
                 android:id="@+id/SettingsButton_CsvExportArticles"
-                android:text="Artikelstamm"
+                android:text="@string/Settings_CSV_Export_Articles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"                
@@ -271,7 +270,7 @@
                 android:gravity="left|center_vertical" />
             <Button
                 android:id="@+id/SettingsButton_CsvExportStorageItems"
-                android:text="Lagerbestand"
+                android:text="@string/Settings_CSV_Export_Inventory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -281,20 +280,19 @@
 
         <Switch
             android:id="@+id/SettingsButton_ShowOFFCostMessage"
-            android:text="Kostenhinweis bei OpenFoodFacts.org anzeigen"
+            android:text="@string/Settings_ShowOFFCostMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
             android:paddingTop="20dp" />
 
         <TextView
-            android:text="Zusätzlicher Datenbankpfad (wird später leider nicht mehr möglich sein):"
+            android:text="@string/Settings_AdditionalDatabasePath"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp" />
         <EditText
             android:id="@+id/SettingsButton_AdditionalDatabasePath"
-            android:text=""
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -303,7 +301,7 @@
 
         <Switch
             android:id="@+id/SettingsButton_AltDatePicker"
-            android:text="Alternativer Datumsauswahl-Dialog"
+            android:text="@string/Settings_AltDatePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
@@ -311,7 +309,7 @@
 
         <Switch
             android:id="@+id/SettingsButton_CompressPictures"
-            android:text="Bilder komprimieren"
+            android:text="@string/Settings_CompressPictures"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
@@ -327,36 +325,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="10dp"
-                android:text="854" />
+                android:text="@string/Settings_Compress_854" />
             <RadioButton
                 android:id="@+id/SettingsButton_CompressPictures_Middle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="10dp"
-                android:text="1.024" />
+                android:text="@string/Settings_Compress_1024" />
             <RadioButton
                 android:id="@+id/SettingsButton_CompressPictures_Big"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="10dp"
-                android:text="1.280" />
+                android:text="@string/Settings_Compress_1280" />
             <RadioButton
                 android:id="@+id/SettingsButton_CompressPictures_Huge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1.536" />
+                android:text="@string/Settings_Compress_1536" />
             
         </RadioGroup>
 
         <TextView
-            android:text="Support" 
+            android:text="@string/Settings_Support" 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp" />
 
         <Button
             android:id="@+id/SettingsButton_SendLogFile"
-            android:text="LOG Einträge an Entwickler schicken"
+            android:text="@string/Settings_SendLogFile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -364,12 +362,12 @@
             android:gravity="left|center_vertical" />
 
         <TextView
-            android:text="App Wiki" 
+            android:text="@string/Settings_AppWiki" 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp" />
         <TextView
-            android:text="https://github.com/Stryi/Vorratsuebersicht/wiki"
+            android:text="@string/Settings_AppWiki_Page"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -377,7 +375,7 @@
             android:autoLink="web" />
 
         <TextView
-            android:text="Lizenzbedingungen" 
+            android:text="@string/Settings_Licenses" 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp" />
@@ -395,7 +393,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="20dp" />
         <TextView
-            android:text="Kontakt E-Mail: cstryi@freenet.de"
+            android:text="@string/Settings_Contact_Email"
+            android:autoLink="web|email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

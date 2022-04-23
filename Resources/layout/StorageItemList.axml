@@ -17,7 +17,7 @@
         android:padding="10dp"
         android:textSize="20sp"
         android:textColor="@color/Text_Color"
-        android:text="Lager:" />
+        android:text="@string/StorageItem_Storage" />
     <Spinner
         android:id="@+id/StorageItemList_Storages"
         android:layout_width="fill_parent"
@@ -33,8 +33,7 @@
         android:layout_alignParentBottom="true"
         android:padding="5dp"
         android:textSize="15sp"
-        android:textColor="@color/Text_Color"
-        android:text="Summe:" />
+        android:textColor="@color/Text_Color" />
     <ListView
         android:id="@+id/StorageItemView"
         android:layout_below="@id/StorageItemList_SelectStorageSection"

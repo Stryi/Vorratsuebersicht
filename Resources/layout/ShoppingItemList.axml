@@ -16,7 +16,7 @@
         android:padding="10dp"
         android:textSize="20sp"
         android:textColor="@color/Text_Color"
-        android:text="Einkaufsmarkt: " />
+        android:text="@string/ArticleDetails_SupermarketLabel" />
     <Spinner
         android:id="@+id/ShoppingItemList_Spinner"
         android:layout_width="fill_parent"
@@ -32,8 +32,7 @@
         android:layout_alignParentBottom="true"
         android:textSize="15sp"
         android:padding="5dp"        
-        android:textColor="@color/Text_Color"
-        android:text="Summe:" />
+        android:textColor="@color/Text_Color" />
     <ListView
         android:id="@+id/ShoppingItemList"
         android:layout_below="@id/ShoppingItemList_SelectSupermarket"

@@ -12,7 +12,6 @@
         android:layout_toLeftOf="@+id/StorageItemQuantityList_Add">            
         <TextView
             android:id="@+id/StorageItemQuantityList_Quantity"
-            android:text="Anzahl:"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color"
@@ -20,14 +19,12 @@
             android:layout_alignParentLeft="true" />
         <TextView
             android:id="@+id/StorageItemQuantityList_Date"
-            android:text="Ablaufdatum:"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color"
             android:textSize="16sp" />
         <TextView
             android:id="@+id/StorageItemQuantityList_Storage"
-            android:text="Lagerort:"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color2"

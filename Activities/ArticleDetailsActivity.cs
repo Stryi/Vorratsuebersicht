@@ -262,7 +262,9 @@ namespace VorratsUebersicht
             string pricePerUnitText = PricePerUnit.Calculate(price, size, unit);
 
             FindViewById<TextView>(Resource.Id.ArticleDetails_PricePerUnit).Text = 
-                "Preis pro Einheit: " + pricePerUnitText;
+                string.Format("{0} {1}",
+                    Resources.GetString(Resource.String.ArticleDetails_PricePerUnit),
+                    pricePerUnitText);
         }
 
         private void SelectManufacturer_Click(object sender, EventArgs e)
@@ -537,7 +539,7 @@ namespace VorratsUebersicht
             };
             checkBox.SetPadding(20, 50, 20, 20);
             message.SetView(checkBox);
-            message.SetPositiveButton("Ja", (s, e) => 
+            message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Yes), (s, e) => 
             {
                 var internetDB = new Intent(this, typeof(InternetDatabaseSearchActivity));
                 internetDB.PutExtra("EANCode", EANCode);
@@ -549,7 +551,7 @@ namespace VorratsUebersicht
                     ArticleDetailsActivity.showCostMessage = false;
                 }
             });
-            message.SetNegativeButton("Nein", (s, e) => { });
+            message.SetNegativeButton(this.Resources.GetString(Resource.String.App_No), (s, e) => { });
             message.Create().Show();
         }
 
@@ -565,7 +567,7 @@ namespace VorratsUebersicht
             var message = new AlertDialog.Builder(this);
             message.SetMessage("Ein Artikel kann erst nach der Neuanlage auf die Einkaufsliste kommen.\n\nArtikel speichern (anlegen)?");
             message.SetIcon(Resource.Drawable.ic_launcher);
-            message.SetPositiveButton("OK", (s, e) => 
+            message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => 
                 {
                     this.SaveArticle();
                     if (this.articleId != 0)    // Speichern erfolgreich (articleId gesetzt?)
@@ -593,7 +595,7 @@ namespace VorratsUebersicht
             var message = new AlertDialog.Builder(this);
             message.SetMessage("Lagerbestand kann erst nach dem Speichern bearbeitet werden.\n\nArtikel speichern (anlegen)?");
             message.SetIcon(Resource.Drawable.ic_launcher);
-            message.SetPositiveButton("OK", (s, e) => 
+            message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => 
                 {
                     this.SaveArticle();
                     if (this.articleId != 0)    // Speichern erfolgreich (articleId gesetzt?)
@@ -636,14 +638,14 @@ namespace VorratsUebersicht
             if (editTextEanCode.Text.Contains(eanCode))
             {
                 message.SetMessage("Der EAN Code ist bereits eingetragen.");
-                message.SetPositiveButton("Ok", (s, e) => {});
+                message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => {});
                 message.Create().Show();
 
                 return;
             }
 
             message.SetMessage("Den EAN Code ersetzen oder zusätzlich hinzufügen?");
-            message.SetPositiveButton("Ersetzen", (s, e) => 
+            message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Replace), (s, e) => 
             {
                 editTextEanCode.Text = eanCode;
             });
@@ -871,7 +873,7 @@ namespace VorratsUebersicht
 
                 var message = new AlertDialog.Builder(this);
                 message.SetMessage(text);
-                message.SetPositiveButton("Ja", (s, e) => 
+                message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Yes), (s, e) => 
                     {
                         fehlerText += "\n";
                         fehlerText += "\nMessage: " + ex.Message;
@@ -886,7 +888,7 @@ namespace VorratsUebersicht
                         emailIntent.PutExtra(Android.Content.Intent.ExtraText, fehlerText);
                         StartActivity(Intent.CreateChooser(emailIntent, "E-Mail an Entwickler senden mit..."));
                     });
-                message.SetNegativeButton("Nein", (s, e) => { });
+                message.SetNegativeButton(this.Resources.GetString(Resource.String.App_No), (s, e) => { });
                 message.Create().Show();
 
                 size = 0;
@@ -908,7 +910,7 @@ namespace VorratsUebersicht
 
                 var builder1 = new AlertDialog.Builder(this);
                 builder1.SetMessage(message);
-                builder1.SetPositiveButton("OK", (s, e) => { });
+                builder1.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => { });
                 builder1.Create().Show();
 
                 return;
@@ -925,8 +927,8 @@ namespace VorratsUebersicht
 
             var builder = new AlertDialog.Builder(this);
             builder.SetMessage(msg);
-            builder.SetNegativeButton("Nein", (s, e) => { });
-            builder.SetPositiveButton("Ja", (s, e) => 
+            builder.SetNegativeButton(this.Resources.GetString(Resource.String.App_No), (s, e) => { });
+            builder.SetPositiveButton(this.Resources.GetString(Resource.String.App_Yes), (s, e) => 
             { 
                 SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
                 if (this.article.ArticleId > 0)
@@ -966,7 +968,7 @@ namespace VorratsUebersicht
             {
                 var alert = new AlertDialog.Builder(this);
                 alert.SetTitle("You don't seem to have a microphone to record with");
-                alert.SetPositiveButton("OK", (sender, e) =>
+                alert.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (sender, e) =>
                 {
                     return;
                 });
@@ -1136,19 +1138,19 @@ namespace VorratsUebersicht
             if (vorDemAblauf > 0)
             {
 			    if (!string.IsNullOrEmpty(info)) info += "\r\n";
-			    info += string.Format(CultureInfo.CurrentUICulture, "{0} vor dem Ablaufdatum", vorDemAblauf);
+			    info += string.Format(CultureInfo.CurrentUICulture, this.Resources.GetString(Resource.String.ArticleDetails_WithExpiryDate), vorDemAblauf);
             }
 
             if (mitWarnung > 0)
             {
 			    if (!string.IsNullOrEmpty(info)) info += "\r\n";
-			    info += string.Format(CultureInfo.CurrentUICulture, "{0} mit Warnung", mitWarnung);
+			    info += string.Format(CultureInfo.CurrentUICulture, this.Resources.GetString(Resource.String.ArticleDetails_WithWarnings), mitWarnung);
             }
 
             if (abgelaufen > 0)
             {
 			    if (!string.IsNullOrEmpty(info)) info += "\r\n";
-			    info += string.Format(CultureInfo.CurrentUICulture, "{0} bereits abgelaufen", abgelaufen);
+			    info += string.Format(CultureInfo.CurrentUICulture, this.Resources.GetString(Resource.String.ArticleDetails_AfterExpiryDate), abgelaufen);
             }
 
             this.imageTextView.Text = info;

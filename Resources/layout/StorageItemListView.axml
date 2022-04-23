@@ -24,7 +24,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color"
             android:layout_marginRight="20sp"
-            android:text="Überschrift"
             android:textSize="20sp" />
         <TextView
             android:id="@+id/StorageItemListView_Option"
@@ -36,14 +35,13 @@
             android:alpha="0.5"
             android:gravity="center"
             android:textSize="30sp"
-            android:text="&#8942;" />
+            android:text="@string/ListView_Option" />
         <TextView
             android:id="@+id/StorageItemListView_TextDetails"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/StorageItemListView_TextHeader"            
             android:textColor="@color/Text_Color2"
-            android:text="Details"
             android:textSize="14sp" />
         <TextView
             android:id="@+id/StorageItemListView_TextError"

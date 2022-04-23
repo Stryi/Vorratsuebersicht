@@ -64,7 +64,6 @@
                 android:layout_marginRight="10dp" />
             <EditText
                 android:id="@+id/ArticleDetails_Name"
-                android:text="Artikelname"
                 android:inputType="textMultiLine"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -93,7 +92,7 @@
                     android:id="@+id/ArticleDetails_SelectManufacturer"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text = "@string/ThreePoints" 
+                    android:text="@string/ThreePoints" 
                     android:textSize="16dp"
                     android:textAllCaps="false"
                     android:layout_alignParentRight="true" />
@@ -140,7 +139,7 @@
                     android:id="@+id/ArticleDetails_SelectSubCategory"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text = "@string/ThreePoints" 
+                    android:text="@string/ThreePoints" 
                     android:tag="@id/ArticleDetails_SubCategory"
                     android:textSize="16dp"
                     android:textAllCaps="false"
@@ -170,7 +169,7 @@
                     android:id="@+id/ArticleDetails_SelectSupermarket"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text = "@string/ThreePoints" 
+                    android:text="@string/ThreePoints" 
                     android:textSize="16dp"
                     android:textAllCaps="false"
                     android:layout_alignParentRight="true" />
@@ -199,7 +198,7 @@
                     android:id="@+id/ArticleDetails_SelectStorage"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text = "@string/ThreePoints" 
+                    android:text="@string/ThreePoints" 
                     android:textSize="16dp"
                     android:textAllCaps="false"
                     android:layout_alignParentRight="true" />
@@ -240,7 +239,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
                 <TextView
-                    android:text="Preis:"
+                    android:text="@string/ArticleDetails_Price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <EditText
@@ -281,12 +280,12 @@
                     android:id="@+id/ArticleDetails_Unit"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textShortMessage"
+                    android:inputType="textNoSuggestions"
                     android:hint="@string/ArticleDetails_Unit_Hint" />
             </LinearLayout>
 
             <TextView
-                android:text="Preis pro Einheit: "
+                android:text="@string/ArticleDetails_PricePerUnit"
                 android:id="@+id/ArticleDetails_PricePerUnit"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

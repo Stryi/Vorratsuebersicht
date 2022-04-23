@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color"
             android:layout_marginRight="20sp"
-            android:text="Heading"
             android:textSize="20sp" />
         <TextView
             android:id="@+id/ArticleListView_Option"
@@ -37,14 +36,13 @@
             android:alpha="0.5"
             android:gravity="center"
             android:textSize="30sp"
-            android:text="&#8942;" />
+            android:text="@string/ListView_Option" />
         <TextView
             android:id="@+id/ArticleListView_SubHeading"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ArticleListView_Heading"
             android:textColor="@color/Text_Color2"
-            android:text="SubHeading"
             android:textSize="14sp" />
         <ImageView
             android:id="@+id/ArticleListView_IsInStorage"
@@ -64,7 +62,6 @@
             android:layout_toLeftOf="@id/ArticleListView_IsInStorage"
             android:textColor="@color/Text_Color2"
             android:textSize="14sp"
-            android:text="23"
         />
         <ImageView
             android:id="@+id/ArticleListView_OnShoppingList"
@@ -84,7 +81,6 @@
             android:layout_toLeftOf="@id/ArticleListView_OnShoppingList"
             android:textColor="@color/Text_Color2"
             android:textSize="14sp"
-            android:text="23"
         />
         <TextView
             android:id="@+id/ArticleListView_Notes"
@@ -92,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ArticleListView_SubHeading"
             android:layout_toLeftOf="@id/ArticleListView_ShoppingQuantity"
-            android:text="Notizen"
+            android:text="@string/ArticleDetails_Notes"
             android:textColor="@color/Text_Color2"
             android:textSize="14sp"            
         />

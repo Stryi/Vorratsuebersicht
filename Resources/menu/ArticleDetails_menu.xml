@@ -44,9 +44,9 @@
       android:title="@string/ArticleDetails_Menu_CurrentStock" />
 
   <item android:id="@+id/ArticleDetailsMenu_Speech"
-    android:title="Spracheingabe" />
+      android:title="@string/ArticleDetails_Menu_VoiceInput" />
 
   <item android:id="@+id/ArticleDetailsMenu_InternetDB"
-    android:title="Search OpenFoodFacts.org" />
+      android:title="@string/ArticleDetails_Menu_SearchOpenFoodFacts" />
 
 </menu>

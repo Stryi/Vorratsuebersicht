@@ -9,16 +9,6 @@
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
         android:paddingBottom="10dp"/>
-   <Button
-        android:id="@+id/SelectFile_Button"
-        android:text="Andere Datei auswählen"
-        android:textSize="15sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:gravity="left|center_vertical"
-        android:visibility="gone"
-        android:drawablePadding="10dp" />
     <TextView
         android:id="@+id/SelectFile_Message"
         android:layout_width="match_parent"

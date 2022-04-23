@@ -125,7 +125,7 @@ namespace VorratsUebersicht
             }
 
             if (sum_kcal        > 0) status += string.Format(CultureInfo.CurrentUICulture, ", Kalorien: {0:n0}",   sum_kcal);
-            if (sum_price       > 0) status += string.Format(CultureInfo.CurrentUICulture, ", Wert: {0:n2} €",       sum_price);
+            if (sum_price       > 0) status += string.Format(CultureInfo.CurrentUICulture, ", Wert: {0:n2} {1}",   sum_price, CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol);
             if (sum_warnung     > 0) status += string.Format(CultureInfo.CurrentUICulture, ", {0:#,0.######} Warnung(en)", sum_warnung);
             if (sum_abgelaufen  > 0) status += string.Format(CultureInfo.CurrentUICulture, ", {0:#,0.######} Abgelaufen",  sum_abgelaufen);
             

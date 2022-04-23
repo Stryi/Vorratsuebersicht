@@ -236,7 +236,7 @@ namespace VorratsUebersicht
                 var messageBox = new AlertDialog.Builder(this);
                 messageBox.SetTitle("Fehler aufgetreten!");
                 messageBox.SetMessage(ex.Message);
-                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                 messageBox.Create().Show();
             }
         }
@@ -254,7 +254,7 @@ namespace VorratsUebersicht
                 var messageBox = new AlertDialog.Builder(this);
                 messageBox.SetTitle("Fehler aufgetreten!");
                 messageBox.SetMessage(ex.Message);
-                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                 messageBox.Create().Show();
             }
         }
@@ -272,7 +272,7 @@ namespace VorratsUebersicht
                 var messageBox = new AlertDialog.Builder(this);
                 messageBox.SetTitle("Fehler aufgetreten!");
                 messageBox.SetMessage(ex.Message);
-                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                 messageBox.Create().Show();
             }
         }
@@ -316,7 +316,7 @@ namespace VorratsUebersicht
 
                     var messageBox = new AlertDialog.Builder(this);
                     messageBox.SetMessage(message);
-                    messageBox.SetPositiveButton("OK", (s, evt) => { });
+                    messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                     messageBox.Create().Show();
 
                     return false;
@@ -393,7 +393,7 @@ namespace VorratsUebersicht
                 var builder = new AlertDialog.Builder(this);
                 builder.SetMessage(message);
                 builder.SetNegativeButton("Abbruch",(s, e) => { });
-                builder.SetPositiveButton("Ok", (s, e) => 
+                builder.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => 
                 { 
                     var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_BackupAndRestore);
                     new Thread(new ThreadStart(delegate
@@ -431,7 +431,7 @@ namespace VorratsUebersicht
                                 dialog.SetMessage(message);
                                 dialog.SetTitle(Resource.String.App_Name);
                                 dialog.SetIcon(Resource.Drawable.ic_launcher);
-                                dialog.SetPositiveButton("OK", (s1, e1) => { });
+                                dialog.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s1, e1) => { });
                                 dialog.Create().Show();
                             });
 
@@ -503,7 +503,7 @@ namespace VorratsUebersicht
                         var messageBox = new AlertDialog.Builder(this);
                         messageBox.SetTitle("Fehler aufgetreten!");
                         messageBox.SetMessage(ex.Message);
-                        messageBox.SetPositiveButton("OK", (s, evt) => { });
+                        messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                         messageBox.Create().Show();
                     });
                 }
@@ -528,7 +528,7 @@ namespace VorratsUebersicht
                         var messageBox = new AlertDialog.Builder(this);
                         messageBox.SetTitle("Ergebnis der Prüfung:");
                         messageBox.SetMessage(result);
-                        messageBox.SetPositiveButton("OK", (s, evt) => { });
+                        messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                         messageBox.Create().Show();
                     });
                 }
@@ -541,7 +541,7 @@ namespace VorratsUebersicht
                         var messageBox = new AlertDialog.Builder(this);
                         messageBox.SetTitle("Fehler aufgetreten!");
                         messageBox.SetMessage(ex.Message);
-                        messageBox.SetPositiveButton("OK", (s, evt) => { });
+                        messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                         messageBox.Create().Show();
                     });
                 }
@@ -570,7 +570,7 @@ namespace VorratsUebersicht
             {
                 var message = new AlertDialog.Builder(this);
                 message.SetMessage(ex.Message);
-                message.SetPositiveButton("OK", (s, e) => { });
+                message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => { });
                 message.Create().Show();
             }
         }
@@ -584,7 +584,7 @@ namespace VorratsUebersicht
             {
                 var message = new AlertDialog.Builder(this);
                 message.SetMessage(ex.Message);
-                message.SetPositiveButton("OK", (s, e) => { });
+                message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => { });
                 message.Create().Show();
             }
 
@@ -624,7 +624,7 @@ namespace VorratsUebersicht
                     // Auswahl merken
                     selectedDatabasePath = fileList[e.Which];
                 }));
-            builder.SetPositiveButton("LÖSCHEN", (s, e) => 
+            builder.SetPositiveButton(this.Resources.GetString(Resource.String.App_DeleteBig), (s, e) => 
                 {
                     if (string.IsNullOrEmpty(selectedDatabasePath))
                         return;
@@ -635,7 +635,7 @@ namespace VorratsUebersicht
                     {
                         var message = new AlertDialog.Builder(this);
                         message.SetMessage(ex.Message);
-                        message.SetPositiveButton("OK", (s, e) => { });
+                        message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => { });
                         message.Create().Show();
                     }
                 });
@@ -672,7 +672,7 @@ namespace VorratsUebersicht
             {
                 var message = new AlertDialog.Builder(this);
                 message.SetMessage(ex.Message);
-                message.SetPositiveButton("OK", (s, e) => { });
+                message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => { });
                 message.Create().Show();
             }
         }
@@ -693,7 +693,7 @@ namespace VorratsUebersicht
             {
                 var message = new AlertDialog.Builder(this);
                 message.SetMessage(ex.Message);
-                message.SetPositiveButton("OK", (s, e) => { });
+                message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => { });
                 message.Create().Show();
             }
 
@@ -727,7 +727,7 @@ namespace VorratsUebersicht
                 var messageBox = new AlertDialog.Builder(this);
                 messageBox.SetTitle("Fehler aufgetreten!");
                 messageBox.SetMessage(ex.Message);
-                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                 messageBox.Create().Show();
             }
 
@@ -749,7 +749,7 @@ namespace VorratsUebersicht
 
             var dialog = new AlertDialog.Builder(this);
             dialog.SetMessage(message);
-            dialog.SetPositiveButton("Ja", (s, e) => 
+            dialog.SetPositiveButton(this.Resources.GetString(Resource.String.App_Yes), (s, e) => 
                 {
                     Context context = this.ApplicationContext;
                     PackageInfo info = context.PackageManager.GetPackageInfo(context.PackageName, 0);
@@ -781,7 +781,7 @@ namespace VorratsUebersicht
                     emailIntent.SetType("text/plain");
                     StartActivity(Intent.CreateChooser(emailIntent, "E-Mail an Entwickler senden mit..."));
                 });
-            dialog.SetNegativeButton("Nein", (s, e) => { });
+            dialog.SetNegativeButton(this.Resources.GetString(Resource.String.App_No), (s, e) => { });
             dialog.Create().Show();
         }
 
@@ -924,7 +924,7 @@ namespace VorratsUebersicht
                 {
                     var builder = new AlertDialog.Builder(this);
                     builder.SetMessage(message);
-                    builder.SetPositiveButton("Ok", (s, e) => { });
+                    builder.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => { });
                     builder.Create().Show();
                 });
             })).Start();
@@ -971,7 +971,11 @@ namespace VorratsUebersicht
             string lastBackupDay = string.Empty;
             try
             {
-                lastBackupDay = Database.GetSettingsDate("LAST_BACKUP")?.ToShortDateString();
+                var dateTime = Database.GetSettingsDate("LAST_BACKUP");
+                if (dateTime != null)
+                {
+                    lastBackupDay = dateTime.Value.ToShortDateString();
+                }
             }
             catch(Exception ex)
             {
@@ -979,7 +983,7 @@ namespace VorratsUebersicht
             }
 
             TextView lastBackupDayView = FindViewById<TextView>(Resource.Id.Settings_LastBackupDay);
-            lastBackupDayView.Text = string.Format("Letzter Backup am: {0}", lastBackupDay);
+            lastBackupDayView.Text = string.Format(this.Resources.GetString(Resource.String.Settings_LastBackupOn), lastBackupDay);
         }
 
 
@@ -1058,7 +1062,7 @@ namespace VorratsUebersicht
                 var messageBox = new AlertDialog.Builder(this);
                 messageBox.SetTitle("Fehler aufgetreten!");
                 messageBox.SetMessage(ex.Message);
-                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                 messageBox.Create().Show();
             }
         }

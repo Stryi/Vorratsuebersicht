@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 
 using Android.Graphics;
+using Android.Content.Res;
 
 namespace VorratsUebersicht
 {
@@ -9,11 +10,31 @@ namespace VorratsUebersicht
 
     public class ArticleListView
     {
+        internal string String_Manufacturer  = String.Empty;
+        internal string String_Category      = String.Empty;
+        internal string String_Supermarket   = String.Empty;
+        internal string String_Storage       = String.Empty;
+        internal string String_WarnenInTagen = String.Empty;
+        internal string String_Price         = String.Empty;
+        internal string String_Size          = String.Empty;
+        internal string String_Calories      = String.Empty;
+        internal string String_Notes         = String.Empty;
+
         private Article Article {set; get;}
         
-        public ArticleListView(Article article)
+        public ArticleListView(Article article, Resources resources)
         {
             this.Article = article;
+
+            this.String_Manufacturer  = resources.GetString(Resource.String.ArticleDetails_Manufacturer);
+            this.String_Category      = resources.GetString(Resource.String.ArticleDetails_Category);
+            this.String_Supermarket   = resources.GetString(Resource.String.ArticleDetails_SupermarketLabel);
+            this.String_Storage       = resources.GetString(Resource.String.ArticleDetails_StorageLabel);
+            this.String_WarnenInTagen = resources.GetString(Resource.String.ArticleDetails_WarningInDays);
+            this.String_Price         = resources.GetString(Resource.String.ArticleDetails_Price);
+            this.String_Size          = resources.GetString(Resource.String.ArticleDetails_Size);
+            this.String_Calories      = resources.GetString(Resource.String.ArticleDetails_Calories);
+            this.String_Notes         = resources.GetString(Resource.String.ArticleDetails_Notes);
         }
 
         public int ArticleId
@@ -34,7 +55,7 @@ namespace VorratsUebersicht
 
 				if (!string.IsNullOrEmpty(this.Article.Manufacturer))
 				{
-                    info += MainActivity.Strings_Manufacturer;
+                    info += this.String_Manufacturer;
 					info += string.Format(" {0}", this.Article.Manufacturer);
 				}
 
@@ -56,7 +77,7 @@ namespace VorratsUebersicht
 				if (!string.IsNullOrEmpty(categoryText))
 				{
 					if (!string.IsNullOrEmpty(info)) info += "\n";
-					info += MainActivity.Strings_Category;
+					info += this.String_Category;
 				    info += string.Format(" {0}", categoryText);
 				}
 
@@ -65,7 +86,7 @@ namespace VorratsUebersicht
                 if (!string.IsNullOrEmpty(this.Article.Supermarket))
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\n";
-                    info += MainActivity.Strings_Supermarket;
+                    info += this.String_Supermarket;
                     info += string.Format(" {0}", this.Article.Supermarket);
                 }
 
@@ -74,7 +95,7 @@ namespace VorratsUebersicht
                 if (!string.IsNullOrEmpty(this.Article.StorageName))
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\n";
-                    info += MainActivity.Strings_Storage;
+                    info += this.String_Storage;
                     info += string.Format(" {0}", this.Article.StorageName);
                 }
 
@@ -83,14 +104,14 @@ namespace VorratsUebersicht
 				if (this.Article.DurableInfinity == false && this.Article.WarnInDays.HasValue)
 				{
 					if (!string.IsNullOrEmpty(info)) info += "\n";
-                    info += MainActivity.Strings_WarnenInTagen;
+                    info += this.String_WarnenInTagen;
 					info += string.Format(" {0}", this.Article.WarnInDays.Value);
 				}
 
                 // Preis
 
 				if (!string.IsNullOrEmpty(info)) info += "\n";
-                info += MainActivity.Strings_Price;
+                info += this.String_Price;
                 if (this.Article.Price.HasValue)
                 {
 					info += string.Format(CultureInfo.CurrentUICulture, " {0:n2}", this.Article.Price.Value);
@@ -109,12 +130,12 @@ namespace VorratsUebersicht
 				if (this.Article.Size.HasValue)
 				{
 				    if (!string.IsNullOrEmpty(info)) info += "\n";
-                    info += MainActivity.Strings_Size;
+                    info += this.String_Size;
 					info += string.Format(CultureInfo.CurrentUICulture, " {0} {1}", this.Article.Size.Value, this.Article.Unit).TrimEnd();
 				}
 
 				if (!string.IsNullOrEmpty(info)) info += "\n";
-                info += MainActivity.Strings_Calories;
+                info += this.String_Calories;
 				if (this.Article.Calorie.HasValue)
 				{
 					info += string.Format(" {0:n0}", this.Article.Calorie.Value);
@@ -136,7 +157,7 @@ namespace VorratsUebersicht
 
                 if (!string.IsNullOrEmpty(this.Article.Notes))
                 {
-                    info += MainActivity.Strings_Notes;
+                    info += this.String_Notes;
                     info += string.Format(" {0}", this.Article.Notes);
                 }
 

@@ -26,14 +26,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color"
-            android:text="Überschrift"
             android:textSize="20sp" />
         <TextView
             android:id="@+id/ShoppingItemListView_SubHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Text_Color2"
-            android:text="Details"
             android:textSize="14sp" />
         <TextView
             android:id="@+id/ShoppingItemListView_Quantity"
@@ -49,7 +47,7 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:textColor="#FF0000FF"
-        android:text="Gekauft"
+        android:text="@string/ShoppingList_Bought"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:buttonTint="#FF0000FF"

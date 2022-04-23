@@ -42,7 +42,7 @@ namespace VorratsUebersicht
 				this.Date.Value.Month,
 				this.Date.Value.Day);
 
-            dialog.SetButton("Ok",          OnOkEventHandling);
+            dialog.SetButton(this.Resources.GetString(Resource.String.App_Ok),          OnOkEventHandling);
             dialog.SetButton2("Kein Datum", OnCancelEventHandling);
 
 			return dialog;

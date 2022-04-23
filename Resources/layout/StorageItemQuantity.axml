@@ -13,8 +13,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="5dp"
         android:textColor="@color/Text_Color"
-        android:textSize="20sp"
-        android:text="Überschrift" />
+        android:textSize="20sp" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -36,8 +35,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:textColor="@color/Text_Color"
-            android:background="@color/Application_Background2"
-            android:text="Beschreibung des Artikels" />
+            android:background="@color/Application_Background2" />
     </LinearLayout>
 
     <RelativeLayout
@@ -50,7 +48,7 @@
         android:layout_marginTop="2dp">
         <TextView
             android:id="@+id/StorageItemQuantity_StorageLabel"
-            android:text="Lager für Neu.:"
+            android:text="@string/StorageItemQuantity_StorageForNewPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
@@ -73,7 +71,7 @@
             android:id="@+id/StorageItemQuantity_SelectStorage"
             android:layout_width="50dp"
             android:layout_height="40dp"
-            android:text = "..." 
+            android:text="@string/ThreePoints" 
             android:textSize="16dp"
             android:textAllCaps="false"
             android:layout_alignParentRight="true" />
@@ -91,7 +89,7 @@
             android:id="@+id/StorageItemQuantity_StepButton"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:text = "Schritt:" 
+            android:text="@string/StorageItemQuantity_Step" 
             android:textSize="16dp"
             android:textAllCaps="false" />
         <TextView
@@ -101,7 +99,7 @@
             android:layout_marginLeft="5dp"
             android:gravity="center"
             android:textSize="20sp"
-            android:text = "1x"
+            android:text="@string/StorageItemQuantity_StepText"
             android:textColor="@color/Text_Color"
             android:layout_toRightOf="@id/StorageItemQuantity_StepButton" />
         <ImageButton

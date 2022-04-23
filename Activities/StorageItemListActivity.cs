@@ -417,8 +417,8 @@ namespace VorratsUebersicht
 			    storegeItem.BestBeforeErrorText   = error;
 
                 statistic.AddStorageItem(storegeItem);
-
-                liste.Add(new StorageItemListView(storegeItem));
+                
+                liste.Add(new StorageItemListView(storegeItem, this.Resources));
             }
 
             StorageItemListViewAdapter listAdapter = new StorageItemListViewAdapter(this, liste);

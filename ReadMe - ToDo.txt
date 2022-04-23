@@ -1,8 +1,11 @@
 Prio 1
 ======
 
+- Nur 5 neueste Backups behalten (ältere werden in dem Verzeichnis gelöscht)
+
+
 Artikeldetails
-- Preisangabe auch mit ","
+- Preiseingabe auch mit ","
 
 Settings
 - LOG Datei im Cache anlegen (damit vom PC aus ausgelesen werden kann)?

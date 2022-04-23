@@ -47,9 +47,6 @@ namespace VorratsUebersicht
             var pathView = FindViewById<TextView>(Resource.Id.SelectFile_Path);
             pathView.Text = this.path;
 
-            var selectFileButton = FindViewById<Button>(Resource.Id.SelectFile_Button);
-            selectFileButton.Click += SelectFileButton_Click;
-
             var listView = FindViewById<ListView>(Resource.Id.SelectFile);
             listView.ItemClick += ListView_ItemClick;
 
@@ -104,7 +101,7 @@ namespace VorratsUebersicht
             var builder = new AlertDialog.Builder(this);
             builder.SetMessage(message);
             builder.SetNegativeButton("Nicht löschen", (s, e) => { });
-            builder.SetPositiveButton("Löschen", (s, e) => 
+            builder.SetPositiveButton(this.Resources.GetString(Resource.String.App_Delete), (s, e) => 
             { 
                 File.Delete(filePath);
                 this.ShowFileList();
@@ -177,14 +174,5 @@ namespace VorratsUebersicht
 
             return base.OnOptionsItemSelected(item);
         }
-
-        private void SelectFileButton_Click(object sender, EventArgs e)
-        {
-            Intent = new Intent();
-            Intent.SetType("*/*.VueBak"); // *.VueBak
-            Intent.SetAction(Intent.ActionGetContent);
-            StartActivityForResult(Intent.CreateChooser(Intent, "Select Backup"), PickBackupId);
-        }
-
     }
 }

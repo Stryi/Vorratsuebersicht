@@ -113,8 +113,8 @@ namespace VorratsUebersicht
 
             string removeText    = Resources.GetString(Resource.String.ShoppingList_Remove);
             string toStorage     = Resources.GetString(Resource.String.ShoppingList_ToStorage);
-            string articleDetail = Resources.GetString(Resource.String.ShoppingList_Artikelangaben);
-            string gekauft       = Resources.GetString(Resource.String.ShoppingList_Gekauft);
+            string articleDetail = Resources.GetString(Resource.String.ShoppingList_ArticleDetails);
+            string gekauft       = Resources.GetString(Resource.String.ShoppingList_MarkAsBought);
 
             string[] actions = { "+10", "+1", "-1", "-10", removeText, toStorage, articleDetail, gekauft};
 
@@ -296,7 +296,7 @@ namespace VorratsUebersicht
 
             foreach (ShoppingItemListResult shoppingItem in shoppingList)
             {
-                this.liste.Add(new ShoppingListView(shoppingItem));
+                this.liste.Add(new ShoppingListView(shoppingItem, this.Resources));
             }
 
             ShoppingListViewAdapter listAdapter = new ShoppingListViewAdapter(this, this.liste);
@@ -346,9 +346,9 @@ namespace VorratsUebersicht
                 status = string.Format("{0:n0} Positionen", this.liste.Count);
 
             if (sum_quantity > 0) status += string.Format(CultureInfo.CurrentUICulture, ", Anzahl {0:#,0.##} Stück",   sum_quantity);
-            if (sum_amount   > 0) status += string.Format(CultureInfo.CurrentUICulture, ", Betrag {0:n2} €", sum_amount);
+            if (sum_amount   > 0) status += string.Format(CultureInfo.CurrentUICulture, ", Betrag {0:n2} {1}", sum_amount, CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol);
             if (sum_noPrice  > 0) status += string.Format(CultureInfo.CurrentUICulture, ", {0:n0} Artikel ohne Preisangabe", sum_noPrice);
-            if (to_pay > 0)       status += string.Format(CultureInfo.CurrentUICulture, "\nZu zahlen: {0:n2} €", to_pay);
+            if (to_pay > 0)       status += string.Format(CultureInfo.CurrentUICulture, "\nZu zahlen: {0:n2} {1}", to_pay, CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol);
 
             return status;
         }
@@ -382,7 +382,7 @@ namespace VorratsUebersicht
             }
             input.SetSelection(input.Text.Length);
             quantityDialog.SetView(input);
-            quantityDialog.SetPositiveButton("OK", (dialog, whichButton) =>
+            quantityDialog.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (dialog, whichButton) =>
                 {
                     if (string.IsNullOrEmpty(input.Text))
                         input.Text = "0";

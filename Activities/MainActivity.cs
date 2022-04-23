@@ -33,42 +33,10 @@ namespace VorratsUebersicht
         public static readonly int EANScanID = 1006;
         public static readonly int ManageDatabases = 1007;
 
-        public const string Strings_Manufacturer  = "Hersteller:";
-        public const string Strings_Size          = "Inhalt/Größe:";
-        public const string Strings_WarnenInTagen = "Warnen in Tagen vor Ablauf:";
-        public const string Strings_Calories      = "Kalorien:";
-        public const string Strings_Category      = "Kategorie:";
-        public const string Strings_SubCategory   = "Unterkategorie:";
-        public const string Strings_Supermarket   = "Einkaufsmarkt:";
-        public const string Strings_Price         = "Preis:";
-        public const string Strings_Storage       = "Standard Lagerort:";
-        public const string Strings_MinQuantity   = "Mindestmenge:";
-        public const string Strings_PrefQuantity  = "Bevorzugte Menge:";
-        public const string Strings_EANCode       = "EAN Code (Komma getrennt, wenn mehrere):";
-        public const string Strings_Amount        = "Anzahl:";
-        public const string Strings_Notes         = "Notizen:";
-
         private static DateTime preLaunchTestEndDay;
 
         protected override void OnCreate(Bundle bundle)
         {
-            /*
-            MainActivity.Strings_Manufacturer  = Resources.GetString(Resource.String.ArticleDetails_Manufacturer);
-            MainActivity.Strings_Size          = Resources.GetString(Resource.String.ArticleDetails_Size);
-            MainActivity.Strings_WarnenInTagen = Resources.GetString(Resource.String.ArticleDetails_WarningInDays);
-            MainActivity.Strings_Calories      = Resources.GetString(Resource.String.ArticleDetails_Calories);
-            MainActivity.Strings_Category      = Resources.GetString(Resource.String.ArticleDetails_Category);
-            MainActivity.Strings_SubCategory   = Resources.GetString(Resource.String.ArticleDetails_SubCategory);
-            MainActivity.Strings_Supermarket   = Resources.GetString(Resource.String.ArticleDetails_SupermarketLabel);
-            MainActivity.Strings_Price         = Resources.GetString(Resource.String.ArticleDetails_Price);
-            MainActivity.Strings_Storage       = Resources.GetString(Resource.String.ArticleDetails_StorageLabel);
-            MainActivity.Strings_MinQuantity   = Resources.GetString(Resource.String.ArticleDetails_MinQuantityLabel);
-            MainActivity.Strings_PrefQuantity  = Resources.GetString(Resource.String.ArticleDetails_PrefQuantityLabel);
-            MainActivity.Strings_EANCode       = Resources.GetString(Resource.String.ArticleDetails_EANCode);
-            MainActivity.Strings_Amount        = Resources.GetString(Resource.String.ArticleDetails_Amount);
-            MainActivity.Strings_Notes         = Resources.GetString(Resource.String.ArticleDetails_Notes);
-            */
-
             // Damit Pre-Launch von Google Play Store nicht immer wieder
             // in die EAN Scan "Falle" tappt und da nicht wieder rauskommt.
             // (meistens nächster Tag)
@@ -293,7 +261,7 @@ namespace VorratsUebersicht
             dialog.SetMessage(message);
             dialog.SetTitle(Resource.String.App_Name);
             dialog.SetIcon(Resource.Drawable.ic_launcher);
-            dialog.SetPositiveButton("OK", (s1, e1) => { });
+            dialog.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s1, e1) => { });
             dialog.Create().Show();
         }
 
@@ -371,13 +339,13 @@ namespace VorratsUebersicht
             if (lastBackupDay != null)
             {
                 messageText += "\r\n\r\n";
-                messageText += "Letzter Backup: " + lastBackupDay.Value.ToShortDateString();
+                messageText += string.Format(this.Resources.GetString(Resource.String.Settings_LastBackupOn), lastBackupDay.Value.ToShortDateString());
             }
 
             AlertDialog.Builder message = new AlertDialog.Builder(this);
             message.SetIcon(Resource.Drawable.ic_launcher);
             message.SetMessage(messageText);
-            message.SetPositiveButton("Ja", (s, e) => 
+            message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Yes), (s, e) => 
                 { 
                     var settingsActivity = new Intent(this, typeof(SettingsActivity));
                     settingsActivity.PutExtra("CreateBackup", true);
@@ -441,7 +409,7 @@ namespace VorratsUebersicht
 
                         this.InitializeDatabase();
                     });
-                message.SetNegativeButton("OK", (s, e) => { });
+                message.SetNegativeButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => { });
                 message.Create().Show();
             }
 

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
     <Button
-        android:text="Licht an/aus"
+        android:text="@string/LightOnOff"
         android:textSize="18sp"
         android:id="@+id/buttonZxingFlash"
         android:drawableLeft="@drawable/baseline_flashlight_on_black_24"

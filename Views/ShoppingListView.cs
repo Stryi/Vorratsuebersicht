@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Globalization;
 
 using Android.Graphics;
+using Android.Content.Res;
 
 namespace VorratsUebersicht
 {
@@ -10,8 +11,22 @@ namespace VorratsUebersicht
     [DebuggerDisplay("{ShoppingItem}")]
     public class ShoppingListView : ListItemViewBase
     {
-        public ShoppingListView(ShoppingItemListResult article)
+        internal string String_Manufacturer = string.Empty;
+        internal string String_Size         = string.Empty;
+        internal string String_Supermarket  = string.Empty;
+        internal string String_Price        = string.Empty;
+        internal string String_Category     = string.Empty;
+        internal string String_Notes        = string.Empty;
+
+        public ShoppingListView(ShoppingItemListResult article, Resources resources)
         {
+            this.String_Manufacturer = resources.GetString(Resource.String.ArticleDetails_Manufacturer);
+            this.String_Size         = resources.GetString(Resource.String.ArticleDetails_Size);
+            this.String_Supermarket  = resources.GetString(Resource.String.ArticleDetails_SupermarketLabel);
+            this.String_Price        = resources.GetString(Resource.String.ArticleDetails_Price);
+            this.String_Category     = resources.GetString(Resource.String.ArticleDetails_Calories);
+            this.String_Notes        = resources.GetString(Resource.String.ArticleDetails_Notes);
+
             this.ShoppingItem = article;
         }
         public ShoppingItemListResult ShoppingItem { set; get;}
@@ -39,23 +54,23 @@ namespace VorratsUebersicht
 				if (!string.IsNullOrEmpty(this.ShoppingItem.Manufacturer))
 				{
 					if (!string.IsNullOrEmpty(info)) info += "\r\n";
-					info += string.Format("{0} {1}", MainActivity.Strings_Manufacturer, this.ShoppingItem.Manufacturer);
+					info += string.Format("{0} {1}", this.String_Manufacturer, this.ShoppingItem.Manufacturer);
 				}
 
 				if (this.ShoppingItem.Size.HasValue)
 				{
 					if (!string.IsNullOrEmpty(info)) info += "\r\n";
-					info += string.Format(CultureInfo.CurrentUICulture, "{0} {1} {2}", MainActivity.Strings_Size, this.ShoppingItem.Size.Value, this.ShoppingItem.Unit);
+					info += string.Format(CultureInfo.CurrentUICulture, "{0} {1} {2}", this.String_Size, this.ShoppingItem.Size.Value, this.ShoppingItem.Unit);
 				}
                 if (!string.IsNullOrEmpty(this.ShoppingItem.Supermarket))
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                    info += string.Format("{0} {1}", MainActivity.Strings_Supermarket, this.ShoppingItem.Supermarket);
+                    info += string.Format("{0} {1}", this.String_Supermarket, this.ShoppingItem.Supermarket);
                 }
                 if (this.ShoppingItem.Price.HasValue)
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                    info += string.Format(CultureInfo.CurrentUICulture, "{0} {1} €", MainActivity.Strings_Price, this.ShoppingItem.Price.Value);
+                    info += string.Format(CultureInfo.CurrentUICulture, "{0} {1} {2}", this.String_Price, this.ShoppingItem.Price.Value, CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol);
 
                     string pricePerUnit = PricePerUnit.Calculate(this.ShoppingItem.Price, this.ShoppingItem.Size, this.ShoppingItem.Unit);
                     if (!string.IsNullOrEmpty(pricePerUnit))
@@ -66,13 +81,13 @@ namespace VorratsUebersicht
                 if (!string.IsNullOrEmpty(this.ShoppingItem.Category))
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                    info += string.Format("{0} {1}", MainActivity.Strings_Category, this.ShoppingItem.Category);
+                    info += string.Format("{0} {1}", this.String_Category, this.ShoppingItem.Category);
                 }
 
                 if (!string.IsNullOrEmpty(this.ShoppingItem.Notes))
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                    info += string.Format("{0} {1}", MainActivity.Strings_Notes, this.ShoppingItem.Notes);
+                    info += string.Format("{0} {1}", this.String_Notes, this.ShoppingItem.Notes);
                 }
 
                 return info;

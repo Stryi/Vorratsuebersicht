@@ -1,13 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!-- Version android:versionName="7.00 (ab Android 4.4) x86|arm" -->
-<manifest android:versionCode="121" android:versionName="7.01" package="de.stryi.Vorratsuebersicht" android:installLocation="auto" xmlns:android="http://schemas.android.com/apk/res/android">
-	
+<!-- Version android:versionName="7.02 (ab Android 4.4) x86|arm" -->
+<manifest android:versionCode="122" android:versionName="7.02" package="de.stryi.Vorratsuebersicht" android:installLocation="auto" xmlns:android="http://schemas.android.com/apk/res/android">
 	<!-- für Google Play Store -->
-	<uses-sdk android:minSdkVersion="28" android:targetSdkVersion="30" />
-	
+	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="30" />
 	<!-- für ab Android 4.4 -->
 	<!-- uses-sdk android:minSdkVersion="19" android:targetSdkVersion="30" / -->
-	
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.FLASHLIGHT" />
@@ -19,8 +16,8 @@
 			<action android:name="android.media.action.IMAGE_CAPTURE" />
 		</intent>
 	</queries>
-    <application android:label="Vorratsübersicht" android:requestLegacyExternalStorage="true" android:icon="@drawable/ic_launcher">
-        <provider android:name="android.support.v4.content.FileProvider" android:authorities="de.stryi.exportcsv.fileprovider" android:grantUriPermissions="true" android:exported="false">
+	<application android:label="Vorratsübersicht" android:requestLegacyExternalStorage="true" android:icon="@drawable/ic_launcher">
+		<provider android:name="android.support.v4.content.FileProvider" android:authorities="de.stryi.exportcsv.fileprovider" android:grantUriPermissions="true" android:exported="false">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths" />
 		</provider>
 	</application>

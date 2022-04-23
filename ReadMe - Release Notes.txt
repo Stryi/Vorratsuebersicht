@@ -1,3 +1,8 @@
+Version 7.02 (Code Version 122)
+===============================
+
+E056 - Übersetzung für EN und PL hinzugefügt (erster Versuch)
+
 Version 7.01 (Code Version 121)
 ===============================
 

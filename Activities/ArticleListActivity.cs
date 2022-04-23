@@ -224,7 +224,7 @@ namespace VorratsUebersicht
 
             foreach(Article article in articleList)
             {
-                liste.Add(new ArticleListView(article));
+                liste.Add(new ArticleListView(article, this.Resources));
             }
 
             ArticleListViewAdapter listAdapter = new ArticleListViewAdapter(this, liste);

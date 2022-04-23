@@ -16,7 +16,7 @@
         android:padding="10dp"
         android:textSize="20sp"
         android:textColor="@color/Text_Color"
-        android:text="Kategorie:" />
+        android:text="@string/ArticleDetails_Category" />
     <Spinner
         android:id="@+id/ArticleList_Categories"
         android:layout_width="fill_parent"
@@ -32,8 +32,7 @@
     android:layout_alignParentBottom="true"
     android:textSize="15sp"
     android:padding="5dp"        
-    android:textColor="@color/Text_Color"
-    android:text="Summe:" />
+    android:textColor="@color/Text_Color" />
   <ListView
         android:id="@+id/ArticleList"
         android:layout_below="@id/ArticleList_SelectCategory"

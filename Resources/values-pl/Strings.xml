@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+
+	<!-- Applikations Name-->
+	<string name="App_Name" >Vorratsübersicht</string>
+	<string name="App_Yes" >Tak</string>
+	<string name="App_No" >Nie</string>
+	<string name="App_Ok" >OK</string>
+	<string name="App_Cancel" >Anuluj</string>
+	<string name="App_Save" >Zapisz</string>
+	<string name="App_Replace" >Zastąp</string>
+	<string name="App_Delete" >Usuń</string>
+	<string name="App_DeleteBig" >USUŃ</string>
+
+	<!-- Meldungen beim Starten -->
+	<string name="Start_TestDbQuestion" >Uruchamiasz aplikację po raz pierwszy.\n\nBaza danych testowych może zostać aktywowana w celu zapoznania się z aplikacją. Możesz dezaktywować to ponownie w Opcjach.</string>
+	<string name="Start_PleaseWait" >Proszę czekać...</string>
+
+	<!-- Hauptmaske -->
+	<string name="Main_DemnaechstZuVerbrauchen" >Pozycje do zużycia:</string>
+	<string name="Main_ArticlesWithExpiryDate" >{0} po upływie terminu ważności</string>
+	<string name="Main_ArticlesNearExpiryDate" >{0} wkrótce do zużycia</string>
+	<string name="Main_Button_BestandNachKategorie" >Inwentarz według kategorii</string>
+	<string name="Main_Button_Lagerbestand" >Inwentarz</string>
+	<string name="Main_Button_LagerbestandListe" >Inwentarz</string>
+	<string name="Main_Button_ArtikelListe" >Artykuły</string>
+	<string name="Main_Button_ArtikelScannen" >Skanuj artykuł</string>
+	<string name="Main_Button_Einkaufsliste" >Lista zakupów</string>
+	<string name="Main_Button_Artikelangaben" >Dane artykułu</string>
+	<string name="Main_Button_AufEinkaufsliste" >Na listę zakupów</string>
+	<string name="Main_Button_InLagerbestand" >Z listy zakupów do magazynu</string>
+
+	<!-- Maske Optionen -->
+	<string name="Settings_Title" >Ustawienia</string>
+	<string name="Settings_AdditionalCategories" >Dodatkowe kategorie (zdefiniuj oddzielone przecinkami)</string>
+	<string name="Settings_CurrentDatabase" >Aktualna baza danych</string>
+	<string name="Settings_Datenbank" >Plik: {0}\n\nWielkość: {1} ({2:n0} bajtów)</string>
+	<string name="Settings_DefaultCategory" >Domyślna kategoria dla nowych artykułów</string>
+	<string name="Settings_BackupAndRestore" >Backup i Restore</string>
+	<string name="Settings_CreateBackup" >Utwórz kopię zapasową</string>
+	<string name="Settings_RestoreBackup" >Przywróć / usuń kopię zapasową</string>
+	<string name="Settings_BackupPath" >Ścieżka zapasowa:</string>
+	<string name="Settings_LastBackupOn" >Ostatnia kopia zapasowa dnia: {0}</string>
+	<string name="Settings_AskForBackup" >Przypomnij o kopii zapasowej co 7 dni</string>
+	<string name="Settings_DatenbankKomprimieren" >\tKompaktuj tą bazę danych</string>
+	<string name="Settings_DatenbankReparieren" >\tNapraw/sprawdź bazę danych</string>
+
+	<string name="Settings_DatabaseManagement" >Zarząd baz danych</string>
+	<string name="Settings_DatabaseNew" >\tUtwórz nową bazę danych...</string>
+	<string name="Settings_DatabaseRename" >\tZmień nazwę bazy danych...\n\t(z wyjątkiem tej właśnie otwartej)</string>
+	<string name="Settings_DatabaseDelete" >\tUsuń bazę danych...\n\t(wybór następuje)</string>
+	<string name="Settings_DatabaseImport" >\tImportuj bazę danych</string>
+	<string name="Settings_EAN_Scann" >EAN skan</string>
+	<string name="Settings_EAN_Scann_UseFrontcamera" >Używaj przedniej kamery</string>
+
+	<string name="Settings_TestDatenbank" >Aby poznać lub przetestować nową funkcjonalność</string>
+	<string name="Settings_SwitchToTestDB" >Aktywuj testową bazę danych</string>
+	<string name="Settings_TestDatenbankZuruecksetzen" >Zresetuj testową bazę danych</string>
+	<string name="Settings_TestDatenbankLeeren" >Pusta testowa baza danych</string>
+
+	<string name="Settings_CSV_Export" >Eksport CSV</string>
+	<string name="Settings_CSV_Export_Articles" >Artykuły</string>
+	<string name="Settings_CSV_Export_Inventory" >Inwentarz</string>
+
+	<string name="Settings_ShowOFFCostMessage" >Pokaż Informacje o kosztach dostępu do OpenFoodFacts.org</string>
+	<string name="Settings_AdditionalDatabasePath" >Dodatkowa ścieżka do bazy danych (może nie być później możliwa):</string>
+
+	<string name="Settings_AltDatePicker" >Alternatywne okno wyboru dnia</string>
+	<string name="Settings_CompressPictures" >Kompresuj zdjęcia</string>
+	<string name="Settings_Compress_854" >854</string>
+	<string name="Settings_Compress_1024" >1.024</string>
+	<string name="Settings_Compress_1280" >1.280</string>
+	<string name="Settings_Compress_1536" >1.536</string>
+
+	<string name="Settings_Support" >Support</string>
+	<string name="Settings_SendLogFile" >Wysyłaj wpisy LOG do programisty</string>
+	<string name="Settings_AppWiki" >App Wiki</string>
+	<string name="Settings_AppWiki_Page" >https://github.com/Stryi/Vorratsuebersicht/wiki</string>
+	<string name="Settings_Licenses" >Warunki licencyjne</string>
+	<string name="Settings_OpenSourceLizenzen" >Licencje Open Source</string>
+	<string name="Settings_Contact_Email" >
+		kontaktowy e-mail: <a href="mailto:cstryi@freenet.de">cstryi@freenet.de</a>
+	</string>
+
+	<!-- Artikelliste -->
+	<string name="ArticleList_AllCategories" >[Wszystkie kategorie]</string>
+	<string name="ArticleList_ToShoppingList" >Na liście zakupów...</string>
+	<string name="ArticleList_Lagerbestand" >Inwentarz</string>
+
+	<!-- Artikeldetails Menü -->
+	<string name="ArticleDetails_Menu_DeleteArticle" >Usuń Artykuły</string>
+	<string name="ArticleDetails_Menu_CreatePicture" >Zrób zdjęcie</string>
+	<string name="ArticleDetails_Menu_SelectPicture" >Wybierz zdjęcie</string>
+	<string name="ArticleDetails_Menu_ShowPicture" >Edytuj zdjęcie</string>
+	<string name="ArticleDetails_Menu_RemovePicture" >Usuń zdjęcie</string>
+	<string name="ArticleDetails_Menu_EAN_Scannen" >EAN skan</string>
+	<string name="ArticleDetails_Menu_ToShoppingList" >Na listę zakupów...</string>
+	<string name="ArticleDetails_Menu_CurrentStock" >Inwentarz</string>
+	<string name="ArticleDetails_Menu_VoiceInput" >Wejście głosowe</string>
+	<string name="ArticleDetails_Menu_SearchOpenFoodFacts" >Szukaj na OpenFoodFacts.org</string>
+
+	<!-- Artikeldetails -->
+	<string name="ArticleDetails_ArticleName" >Nazwa artykułu:</string>
+	<string name="ArticleDetails_Manufacturer" >Producent:</string>
+	<string name="ArticleDetails_Category" >Kategoria:</string>
+	<string name="ArticleDetails_Category_Hint" >Jedzenie, picie, artykuły higieniczne, ochrona zdrowia</string>
+	<string name="ArticleDetails_SubCategory" >Podkategoria:</string>
+	<string name="ArticleDetails_SubCategory_Hint" >W zależności od kategorii np. miód w kategorii żywność.</string>
+	<string name="ArticleDetails_EnduringlyDurable" >Nieskończenie trwałe</string>
+	<string name="ArticleDetails_WarningInDays" >Informuj dni przed datą:</string>
+	<string name="ArticleDetails_Size" >Zawartość:</string>
+	<string name="ArticleDetails_Unit" >Jednostka:</string>
+	<string name="ArticleDetails_Unit_Hint" >g, l, kg, mg, stk, cl, ml, m</string>
+	<string name="ArticleDetails_Calories" >Kalorie:</string>
+	<string name="ArticleDetails_CaloriesPerUnit" >Kalorie na 100 {0}:</string>
+	<string name="ArticleDetails_StorageLabel" >Standard spichlerz:</string>
+	<string name="ArticleDetails_MinQuantityLabel" >Minimalna ilość:</string>
+	<string name="ArticleDetails_PrefQuantityLabel" >Preferowana ilość:</string>
+	<string name="ArticleDetails_SupermarketLabel" >Supermarket:</string>
+	<string name="ArticleDetails_Price" >Cena:</string>
+	<string name="ArticleDetails_PricePerUnit" >Cena za jednostkę:</string>
+	<string name="ArticleDetails_EANCode" >Kod EAN (oddzielone przecinkami, jeśli więcej niż jeden):</string>
+	<string name="ArticleDetails_Notes" >Notatki:</string>
+	<!-- string name="ArticleDetails_Amount" >Ilość:</string -->
+	<string name="ArticleDetails_WithExpiryDate" >{0} przed terminem zużycia</string>
+	<string name="ArticleDetails_WithWarnings" >{0} do zużycia</string>
+	<string name="ArticleDetails_AfterExpiryDate" >{0} po terminie zużycia</string>
+
+	<!-- Lagerbestandsliste -->
+	<string name="StorageItem_Storage" >Spichlerz:</string>
+	<string name="StorageItem_AllStoragesStorage" >[Wszystkie]</string>
+	<string name="StorageItem_ToShoppingList" >Na listę zakupów</string>
+	<string name="StorageItem_Artikelangaben" >Dane artykułu...</string>
+	<string name="StorageItem_Amount" >Wartość:</string>
+
+	<!-- Lagerbestand -->
+	<string name="StorageItemQuantity_Menu_ToShoppingList" >Na listę zakupów</string>
+	<string name="StorageItemQuantity_Menu_Artikelangaben" >Dane artykułu</string>
+	<string name="StorageItemQuantity_StorageForNewPosition" >Spichlerz dla nowach:</string>
+	<string name="StorageItemQuantity_Step" >Multiplikator</string>
+	<string name="StorageItemQuantity_StepText" >1x</string>
+
+	<string name="StorageItemQuantityList_Quantity" >Ilość:</string>
+	<string name="StorageItemQuantityList_StorageLabel" >Spichlerz:</string>
+	<string name="StorageItemQuantityList_BestBefore" >Data do spożycia:</string>
+
+
+	<string name="ArticleCatagoriesSelect" >Wybór kategorii...</string>
+	<string name="NoArticleCatagories" >Brak kategorii.</string>
+	<string name="NoSubCategory_ItemEntry" >[Brak podkategorii]</string>
+	<string name="AnySubCategory_ItemEntry" >[Dowolna podkategoria]</string>
+
+	<!-- Einkaufsliste -->
+	<string name="ShoppingList_Remove" >Usuń</string>
+	<string name="ShoppingList_ToStorage" >Do spichlerzu...</string>
+	<string name="ShoppingList_ArticleDetails" >Dane artykułu...</string>
+	<string name="ShoppingList_MarkAsBought" >Zaznacz jako \'Kupiono\'</string>
+	<string name="ShoppingList_AllSupermarkets" >[Wszystkie]</string>
+	<string name="ShoppingList_Bought" >Kupiono</string>
+
+	<string-array name="ArticleCatagories" >
+		<item>Żywność</item>
+		<item>Napoje</item>
+		<item>Higiena</item>
+		<item>Lekarstwo</item>
+		<item>Inne</item>
+	</string-array>
+
+	<string name="Picture" >Zdjęcie</string>
+	<string name="ThreePoints" >...</string>
+	<string name="ListView_Option" >&#8942;</string>
+	<!-- Drei vertikale Punkte für das Menü in den Listen. -->
+	<string name="LightOnOff" >załącz/wyłącz lampę błyskową</string>
+
+</resources>
+

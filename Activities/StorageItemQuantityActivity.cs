@@ -133,7 +133,7 @@ namespace VorratsUebersicht
                 IsChanged    = true
             };
             
-            StorageItemQuantityListView itemView = new StorageItemQuantityListView(storageItemQuantity);
+            StorageItemQuantityListView itemView = new StorageItemQuantityListView(storageItemQuantity, this.Resources);
 
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
             var adapter = (StorageItemQuantityListViewAdapter)listView.Adapter;
@@ -172,7 +172,7 @@ namespace VorratsUebersicht
                 storageItemQuantity.Quantity = (decimal)this.quantity;
             }
 
-            StorageItemQuantityListView itemView = new StorageItemQuantityListView(storageItemQuantity);
+            StorageItemQuantityListView itemView = new StorageItemQuantityListView(storageItemQuantity, this.Resources);
 
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
             var adapter = (StorageItemQuantityListViewAdapter)listView.Adapter;
@@ -433,7 +433,7 @@ namespace VorratsUebersicht
                 var messageBox = new AlertDialog.Builder(this);
                 messageBox.SetTitle("Fehler aufgetreten!");
                 messageBox.SetMessage(ex.Message);
-                messageBox.SetPositiveButton("OK", (s, evt) => { });
+                messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                 messageBox.Create().Show();
 
                 return false;
@@ -472,7 +472,7 @@ namespace VorratsUebersicht
 
                 this.durableInfinity = article.DurableInfinity;
 
-                ArticleListView articleView = new ArticleListView(article);
+                ArticleListView articleView = new ArticleListView(article, this.Resources);
 
                 headerView.Text = articleView.Heading;
                 detailView.Text = articleView.SubHeading;
@@ -531,7 +531,7 @@ namespace VorratsUebersicht
 
             foreach(StorageItemQuantityResult storegeItem in storageItemQuantityList)
             {
-                StorageItemQuantityListView item = new StorageItemQuantityListView(storegeItem);
+                StorageItemQuantityListView item = new StorageItemQuantityListView(storegeItem, this.Resources);
 
                 StorageItemQuantityActivity.liste.Add(item);
             }
@@ -653,7 +653,7 @@ namespace VorratsUebersicht
             }
             input.SetSelection(input.Text.Length);
             dialog.SetView(input);
-            dialog.SetPositiveButton("OK", (sender, whichButton) =>
+            dialog.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (sender, whichButton) =>
                 {
                     if (string.IsNullOrEmpty(input.Text))
                         input.Text = "0";
