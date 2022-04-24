@@ -170,8 +170,8 @@ namespace VorratsUebersicht
 
                     if (this.foodInfo.status == 1)
                     {
-                        info += string.Format("Produkt:\n{0}\n\n",    this.foodInfo.product.GetProduktName());
-                        info += string.Format("Hersteller:\n{0}\n\n", this.foodInfo.product.brands);
+                        info += string.Format("{0}\n{1}\n\n", this.Resources.GetString(Resource.String.ArticleDetails_ArticleName),  this.foodInfo.product.GetProduktName());
+                        info += string.Format("{0}\n{1}\n\n", this.Resources.GetString(Resource.String.ArticleDetails_Manufacturer), this.foodInfo.product.brands);
 
                         this.foodSize = QuantityAndUnit.Parse(this.foodInfo.product.quantity);
                         if (this.foodSize != null)
@@ -191,11 +191,13 @@ namespace VorratsUebersicht
                                 this.foodInfo.product.nutriments.energy_unit);
                             */
 
+                            string caloriePer100gInfo = this.Resources.GetString(Resource.String.InternetDatabaseSearch_CaloriesPerUnit);
+
                             if (string.Compare(this.foodInfo.product.nutriments.energy_unit, "kcal", true) == 0)
                             {
                                 this.kcalPer100 = this.foodInfo.product.nutriments.energy_value;
                                 info += "\n\n";
-                                info += string.Format("Nährwert: {0} kcal pro 100g", this.kcalPer100);
+                                info += string.Format(caloriePer100gInfo, this.kcalPer100);
                             }
 
                             if (string.Compare(this.foodInfo.product.nutriments.energy_unit, "kJ", true) == 0)
@@ -205,7 +207,7 @@ namespace VorratsUebersicht
                                 this.kcalPer100 = Math.Round(this.kcalPer100.Value, 0);
 
                                 info += "\n\n";
-                                info += string.Format("Nährwert: {0} kcal pro 100g", this.kcalPer100);
+                                info += string.Format(caloriePer100gInfo, this.kcalPer100);
                             }
                         }
                         eanCodeView.Text = "Link: https://de.openfoodfacts.org/produkt/" + this.foodInfo.code;

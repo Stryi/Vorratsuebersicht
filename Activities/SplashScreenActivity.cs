@@ -90,7 +90,7 @@ namespace VorratsUebersicht
             }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Datenbank auswählen:");
+            builder.SetTitle(this.Resources.GetString(Resource.String.Main_OpenDatabase));
             builder.SetItems(databaseNames, (sender2, args) =>
             {
                 string database = fileList[args.Which];

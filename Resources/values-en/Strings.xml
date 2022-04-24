@@ -20,6 +20,8 @@
 	<string name="Main_DemnaechstZuVerbrauchen" >To be consumed soon:</string>
 	<string name="Main_ArticlesWithExpiryDate" >{0} items after the expiry date</string>
 	<string name="Main_ArticlesNearExpiryDate" >{0} Consume item soon</string>
+	<string name="Main_Database" >Database</string>
+	<string name="Main_OpenDatabase" >Open database:</string>
 	<string name="Main_Button_BestandNachKategorie" >Inventory by category</string>
 	<string name="Main_Button_Lagerbestand" >Inventory</string>
 	<string name="Main_Button_LagerbestandListe" >Inventory List</string>
@@ -118,12 +120,20 @@
 	<string name="ArticleDetails_EANCode" >EAN code:</string>
 	<string name="ArticleDetails_Notes" >Notes:</string>
 	<!-- string name="ArticleDetails_Amount" >Amount:</string -->
+	<string name="ArticleDetails_WithExpiryDate" >{0} before the expiration date</string>
+	<string name="ArticleDetails_WithWarnings" >{0} with warning</string>
+	<string name="ArticleDetails_AfterExpiryDate" >{0} already expired</string>
+
+	<!-- OpenFoodFacts -->
+	<string name="InternetDatabaseSearch_CaloriesPerUnit" >Nutritional value: {0} kcal per 100g</string>
 
 	<!-- Lagerbestandsliste -->
 	<string name="StorageItem_Storage" >Storage:</string>
 	<string name="StorageItem_AllStoragesStorage" >[All storages]</string>
 	<string name="StorageItem_ToShoppingList" >To shopping list</string>
 	<string name="StorageItem_Artikelangaben" >Article details...</string>
+	<string name="StorageItem_Amount" >Wartość:</string>
+	<string name="StorageItem_InventoryInPieces" >Inventory: {0} pieces</string>
 
 	<!-- Lagerbestand -->
 	<string name="StorageItemQuantity_Menu_ToShoppingList" >To shopping list</string>

@@ -20,6 +20,8 @@
 	<string name="Main_DemnaechstZuVerbrauchen" >Demnächst zu verbrauchen:</string>
 	<string name="Main_ArticlesWithExpiryDate" >{0} Artikel nach dem Ablaufdatum</string>
 	<string name="Main_ArticlesNearExpiryDate" >{0} Artikel demnächst verbrauchen</string>
+	<string name="Main_Database" >Datenbank</string>
+	<string name="Main_OpenDatabase" >Datenbank öffnen:</string>
 	<string name="Main_Button_BestandNachKategorie" >Bestand nach Kategorie</string>
 	<string name="Main_Button_Lagerbestand" >Lagerbestand</string>
 	<string name="Main_Button_LagerbestandListe" >Lagerbestandsliste</string>
@@ -124,12 +126,16 @@
 	<string name="ArticleDetails_WithWarnings" >{0} mit Warnung</string>
 	<string name="ArticleDetails_AfterExpiryDate" >{0} bereits abgelaufen</string>
 
+	<!-- OpenFoodFacts -->
+	<string name="InternetDatabaseSearch_CaloriesPerUnit" >Nährwert: {0} kcal pro 100g</string>
+	
 	<!-- Lagerbestandsliste -->
 	<string name="StorageItem_Storage" >Lager:</string>
 	<string name="StorageItem_AllStoragesStorage" >[Alle Lager]</string>
 	<string name="StorageItem_ToShoppingList" >Auf Einkaufsliste...</string>
 	<string name="StorageItem_Artikelangaben" >Artikelangaben...</string>
 	<string name="StorageItem_Amount" >Wert</string>
+	<string name="StorageItem_InventoryInPieces" >Bestand: {0} Stück</string>
 
 	<!-- Lagerbestand -->
 	<string name="StorageItemQuantity_Menu_ToShoppingList" >Auf Einkaufsliste</string>

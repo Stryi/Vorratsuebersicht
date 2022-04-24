@@ -1133,7 +1133,7 @@ namespace VorratsUebersicht
 
             string info;
 
-            info = string.Format(CultureInfo.CurrentUICulture, "Bestand: {0} Stück", bestand);
+            info = string.Format(CultureInfo.CurrentUICulture, this.Resources.GetString(Resource.String.StorageItem_InventoryInPieces), bestand);
 
             if (vorDemAblauf > 0)
             {

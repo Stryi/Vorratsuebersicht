@@ -226,7 +226,7 @@ namespace VorratsUebersicht
 
         private async void SwitchDatabase()
         {
-            string database = await MainActivity.SelectDatabase(this, "Datenbank öffnen:");
+            string database = await MainActivity.SelectDatabase(this, this.Resources.GetString(Resource.String.Main_OpenDatabase));
             if (string.IsNullOrEmpty(database))
             {
                 return;
@@ -517,7 +517,7 @@ namespace VorratsUebersicht
             string dbFileName = Path.GetFileNameWithoutExtension(databaseName);
             if (dbFileName != "Vorraete")
             {
-                this.SupportActionBar.Subtitle = " Datenbank: " + dbFileName;
+                this.SupportActionBar.Subtitle = String.Format(" {0}: {1}", this.Resources.GetString(Resource.String.Main_Database), dbFileName);
                 return;
             }
             this.SupportActionBar.Subtitle = null;
