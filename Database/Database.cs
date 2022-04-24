@@ -1108,7 +1108,7 @@ namespace VorratsUebersicht
                     return date.Date;
                 }
 
-                var dateTime = DateTime.ParseExact(dateText, "yyyy.MM.dd hh:mm:ss", CultureInfo.InvariantCulture);
+                var dateTime = DateTime.ParseExact(dateText, "yyyy.MM.dd HH:mm:ss", CultureInfo.InvariantCulture);
 
                 return dateTime;
             }
@@ -1122,7 +1122,7 @@ namespace VorratsUebersicht
 
         internal static void SetSettingsDate(string key, DateTime date)
         {
-            string dateText = date.ToString("yyyy.MM.dd hh:mm:ss");
+            string dateText = date.ToString("yyyy.MM.dd HH:mm:ss");
 
             Database.SetSettings(key, dateText);
         }
