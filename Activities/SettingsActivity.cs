@@ -881,7 +881,7 @@ namespace VorratsUebersicht
             DateTime? lastBackupDay = Database.GetSettingsDate("LAST_BACKUP");
 
             // Datum vom Backup in der Datenbank speichern.
-            Database.SetSettingsDate("LAST_BACKUP", DateTime.Today);
+            Database.SetSettingsDate("LAST_BACKUP", DateTime.Now);
 
             this.ShowLastBackupDay();
 
@@ -969,17 +969,19 @@ namespace VorratsUebersicht
         private void ShowLastBackupDay()
         {
             string lastBackupDay = string.Empty;
-            try
+
+            var dateTime = Database.GetSettingsDate("LAST_BACKUP");
+            if (dateTime != null)
             {
-                var dateTime = Database.GetSettingsDate("LAST_BACKUP");
-                if (dateTime != null)
+                // Keine Uhrzeit Angabe?
+                if ((dateTime.Value.Hour == 0) && (dateTime.Value.Minute == 0) && (dateTime.Value.Second == 0))
                 {
                     lastBackupDay = dateTime.Value.ToShortDateString();
                 }
-            }
-            catch(Exception ex)
-            {
-                TRACE(ex);
+                else
+                {
+                    lastBackupDay = dateTime.Value.ToString("g");
+                }
             }
 
             TextView lastBackupDayView = FindViewById<TextView>(Resource.Id.Settings_LastBackupDay);

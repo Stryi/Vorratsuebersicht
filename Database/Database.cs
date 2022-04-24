@@ -1100,14 +1100,29 @@ namespace VorratsUebersicht
             if (dateText == null)
                 return null;
 
-            var date = DateTime.ParseExact(dateText, "yyyy.MM.dd", CultureInfo.InvariantCulture);
+            try
+            {
+                if (dateText.Length == 10)
+                {
+                    var date = DateTime.ParseExact(dateText, "yyyy.MM.dd", CultureInfo.InvariantCulture);
+                    return date.Date;
+                }
 
-            return date.Date;
+                var dateTime = DateTime.ParseExact(dateText, "yyyy.MM.dd hh:mm:ss", CultureInfo.InvariantCulture);
+
+                return dateTime;
+            }
+            catch (Exception ex)
+            {
+                TRACE(ex);
+            }
+
+            return null;
         }
 
         internal static void SetSettingsDate(string key, DateTime date)
         {
-            string dateText = date.ToString("yyyy.MM.dd");
+            string dateText = date.ToString("yyyy.MM.dd hh:mm:ss");
 
             Database.SetSettings(key, dateText);
         }
