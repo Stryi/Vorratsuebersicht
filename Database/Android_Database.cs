@@ -611,7 +611,7 @@ namespace VorratsUebersicht
                 string msg = string.Format("Die Datenbank wurde als '{0}' importiert.", Path.GetFileNameWithoutExtension(destinationFilePath));
                 var message = new AlertDialog.Builder(context);
                 message.SetMessage(msg);
-                message.SetPositiveButton("OK", (s, e) => { });
+                message.SetPositiveButton(context.Resources.GetString(Resource.String.App_Ok), (s, e) => { });
                 message.Create().Show();
 
             }

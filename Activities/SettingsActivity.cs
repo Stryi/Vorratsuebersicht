@@ -681,7 +681,7 @@ namespace VorratsUebersicht
         private async void ButtonImportDb_Click(object sender, EventArgs e)
         {
             PickOptions options = new PickOptions();
-            options.PickerTitle = "Datenbank oder Backup auswählen:";
+            options.PickerTitle = this.Resources.GetString(Resource.String.Settings_SelectBackupOrImport);
 
             var file = await FilePicker.PickAsync(options);
             if (file == null)
@@ -843,7 +843,7 @@ namespace VorratsUebersicht
             }
 
             var selectFile = new Intent(this, typeof(BackupFileManageActivity));
-            selectFile.PutExtra("Text",         "Backup auswählen:");
+            selectFile.PutExtra("Text",         this.Resources.GetString(Resource.String.Settings_SelectBackup));
             selectFile.PutExtra("Path",          downloadFolder);
             selectFile.PutExtra("SearchPattern", "*.VueBak");
 

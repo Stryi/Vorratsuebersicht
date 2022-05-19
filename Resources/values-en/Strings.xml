@@ -53,6 +53,8 @@
 	<string name="Settings_Action_BackupDelete" >Delete</string>
 	<string name="Settings_DeleteDatabase" >Delete databse</string>
 	<string name="Settings_RestoreBackupFile" >Restore backup file \n\n{0}\n\nas {1}?</string>
+	<string name="Settings_SelectBackupOrImport" >Select database or backup:</string>
+	<string name="Settings_SelectBackup" >Select backup:</string>
 
 	<string name="Settings_BackupPath" >Backup path:</string>
 	<string name="Settings_LastBackupOn" >Last backup on: {0}</string>
@@ -211,6 +213,14 @@
 	<string name="ShoppingList_MarkAsBought" >Mark as \'bought\'</string>
 	<string name="ShoppingList_AllSupermarkets" >[All]</string>
 	<string name="ShoppingList_Bought" >Bought</string>
+
+	<!-- To shopping list -->
+	<string name="ToShoppingList_Title" >Put on shopping list</string>
+	<string name="ToShoppingList_Inventory" >- Inventory:</string>
+	<string name="ToShoppingList_MinQuantity" >- Min. quantity:</string>
+	<string name="ToShoppingList_PrefQuantity" >- Pref. quantity:</string>
+	<string name="ToShoppingList_ToShoppingList" >- On shopping list:</string>
+	<string name="ToShoppingList_EnterNewQuantity" >Enter new quantity</string>
 
 	<string-array name="ArticleCatagories" >
 		<item>Foods</item>

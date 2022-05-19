@@ -53,6 +53,8 @@
 	<string name="Settings_Action_BackupDelete"  >Usuń</string>	
 	<string name="Settings_DeleteDatabase" >Usuń bazę danych</string>
 	<string name="Settings_RestoreBackupFile" >Przywrócić kopię zapasową bazy danych\n\n{0}\n\njako {1}?</string>
+	<string name="Settings_SelectBackupOrImport" >Wybierz bazę danych lub kopię zapasową:</string>
+	<string name="Settings_SelectBackup" >Wybierz kopię zapasową:</string>
 
 	<string name="Settings_BackupPath" >Ścieżka zapasowa:</string>
 	<string name="Settings_LastBackupOn" >Ostatnia kopia zapasowa dnia: {0}</string>
@@ -214,6 +216,14 @@
 	<string name="ShoppingList_MarkAsBought" >Zaznacz jako \'Kupiono\'</string>
 	<string name="ShoppingList_AllSupermarkets" >[Wszystkie]</string>
 	<string name="ShoppingList_Bought" >Kupiono</string>
+
+	<!-- To shopping list -->
+	<string name="ToShoppingList_Title" >Umieść na liście zakupów</string>
+	<string name="ToShoppingList_Inventory" >- W inwentarzu:</string>
+	<string name="ToShoppingList_MinQuantity" >- Minimalna ilość:</string>
+	<string name="ToShoppingList_PrefQuantity" >- Preferowana ilość:</string>
+	<string name="ToShoppingList_ToShoppingList" >- Na liście zakupów:</string>
+	<string name="ToShoppingList_EnterNewQuantity" >Wprowadź nową ilość</string>
 
 	<string-array name="ArticleCatagories" >
 		<item>Żywność</item>

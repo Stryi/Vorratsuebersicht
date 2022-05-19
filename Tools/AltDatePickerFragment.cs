@@ -148,7 +148,7 @@ namespace VorratsUebersicht
             ll.AddView(b);
 
             b = new Button(this.view.Context);
-            b.Text = "OK";
+            b.Text = this.Resources.GetString(Resource.String.App_Ok);
             lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
             lp.Width = 0;
             lp.Weight = 3;

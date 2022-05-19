@@ -352,6 +352,7 @@ namespace VorratsUebersicht
 
             internal string GetProduktName()
             {
+                // Vorzugsweise die Deutsche Sprache nehmen. Beispiel: https://world.openfoodfacts.org/api/v0/product/7610200068989.json
                 if (!string.IsNullOrEmpty(this.product_name_de))
                     return this.product_name_de;
 
