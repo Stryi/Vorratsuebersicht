@@ -246,9 +246,7 @@ namespace VorratsUebersicht
             
             parameter = "?fields=product_name,product_name_de,brands,quantity,nutriments,image_url";
 
-            var languageCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-
-            string server = string.Format("https://{0}.openfoodfacts.org/api/v0/product/", languageCode);
+            string server = "https://world.openfoodfacts.org/api/v0/product/";
             string request = string.Format("{0}{1}.json", server, eanCode);
             if (!string.IsNullOrEmpty(parameter))
             {
