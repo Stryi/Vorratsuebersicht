@@ -234,7 +234,7 @@ namespace VorratsUebersicht
                 TRACE(ex);
 
                 var messageBox = new AlertDialog.Builder(this);
-                messageBox.SetTitle("Fehler aufgetreten!");
+                messageBox.SetTitle(this.Resources.GetString(Resource.String.App_ErrorOccurred));
                 messageBox.SetMessage(ex.Message);
                 messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                 messageBox.Create().Show();
@@ -252,7 +252,7 @@ namespace VorratsUebersicht
                 TRACE(ex);
 
                 var messageBox = new AlertDialog.Builder(this);
-                messageBox.SetTitle("Fehler aufgetreten!");
+                messageBox.SetTitle(this.Resources.GetString(Resource.String.App_ErrorOccurred));
                 messageBox.SetMessage(ex.Message);
                 messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                 messageBox.Create().Show();
@@ -270,7 +270,7 @@ namespace VorratsUebersicht
                 TRACE(ex);
 
                 var messageBox = new AlertDialog.Builder(this);
-                messageBox.SetTitle("Fehler aufgetreten!");
+                messageBox.SetTitle(this.Resources.GetString(Resource.String.App_ErrorOccurred));
                 messageBox.SetMessage(ex.Message);
                 messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                 messageBox.Create().Show();
@@ -386,13 +386,13 @@ namespace VorratsUebersicht
                 string fileSource = data.GetStringExtra("FullName");
                 string fileDestination = Android_Database.Instance.GetProductiveDatabasePath();
                 
-                string message = string.Format("Backup Datenbank\n\n{0}\n\nwiederherstellen in {1}?",
+                string message = string.Format(this.Resources.GetString(Resource.String.Settings_RestoreBackupFile),
                     Path.GetFileName(fileSource),
                     Path.GetFileName(fileDestination));
 
                 var builder = new AlertDialog.Builder(this);
                 builder.SetMessage(message);
-                builder.SetNegativeButton("Abbruch",(s, e) => { });
+                builder.SetNegativeButton(this.Resources.GetString(Resource.String.App_Cancel),(s, e) => { });
                 builder.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => 
                 { 
                     var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_BackupAndRestore);
@@ -501,7 +501,7 @@ namespace VorratsUebersicht
                     RunOnUiThread(() =>
                     {
                         var messageBox = new AlertDialog.Builder(this);
-                        messageBox.SetTitle("Fehler aufgetreten!");
+                        messageBox.SetTitle(this.Resources.GetString(Resource.String.App_ErrorOccurred));
                         messageBox.SetMessage(ex.Message);
                         messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                         messageBox.Create().Show();
@@ -526,7 +526,7 @@ namespace VorratsUebersicht
                     RunOnUiThread(() =>
                     {
                         var messageBox = new AlertDialog.Builder(this);
-                        messageBox.SetTitle("Ergebnis der Prüfung:");
+                        messageBox.SetTitle(this.Resources.GetString(Resource.String.Settings_CheckReport));
                         messageBox.SetMessage(result);
                         messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                         messageBox.Create().Show();
@@ -539,7 +539,7 @@ namespace VorratsUebersicht
                     RunOnUiThread(() =>
                     {
                         var messageBox = new AlertDialog.Builder(this);
-                        messageBox.SetTitle("Fehler aufgetreten!");
+                        messageBox.SetTitle(this.Resources.GetString(Resource.String.App_ErrorOccurred));
                         messageBox.SetMessage(ex.Message);
                         messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                         messageBox.Create().Show();
@@ -558,8 +558,8 @@ namespace VorratsUebersicht
                 "Neue Datenbank erstellen",
                 "\n\nName eingeben:",
                 string.Empty,
-                "Erstellen",
-                "Abbrechen");
+                this.Resources.GetString(Resource.String.App_Create),
+                this.Resources.GetString(Resource.String.App_Cancel));
 
             if (string.IsNullOrEmpty(newDatabaseName))
                 return;
@@ -614,7 +614,7 @@ namespace VorratsUebersicht
             string selectedDatabasePath = null;
 
             var builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Datenbank löschen");
+            builder.SetTitle(this.Resources.GetString(Resource.String.Settings_DeleteDatabase));
             builder.SetSingleChoiceItems(databaseNames, -1,
                 new EventHandler<DialogClickEventArgs>(delegate (object sender, DialogClickEventArgs e) 
                 {
@@ -640,7 +640,7 @@ namespace VorratsUebersicht
                     }
                 });
 
-            builder.SetNegativeButton("Abbruch", (s, e) => { });
+            builder.SetNegativeButton(this.Resources.GetString(Resource.String.App_Cancel), (s, e) => { });
             builder.Show();
         }
 
@@ -661,7 +661,7 @@ namespace VorratsUebersicht
                 "\n" + databasePath + "\n\nNeuen Name eingeben:",
                 databaseName,
                 "Umbenennen",
-                "Abbrechen");
+                this.Resources.GetString(Resource.String.App_Cancel));
 
             if (string.IsNullOrEmpty(newDatabaseName))
                 return;
@@ -725,7 +725,7 @@ namespace VorratsUebersicht
             catch(Exception ex)
             {
                 var messageBox = new AlertDialog.Builder(this);
-                messageBox.SetTitle("Fehler aufgetreten!");
+                messageBox.SetTitle(this.Resources.GetString(Resource.String.App_ErrorOccurred));
                 messageBox.SetMessage(ex.Message);
                 messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                 messageBox.Create().Show();
@@ -742,10 +742,7 @@ namespace VorratsUebersicht
             if (MainActivity.IsGooglePlayPreLaunchTestMode)
                 return;
 
-            string message = "LOG Einträge an den Entwickler schicken?";
-            message += "\n\nIhre E-Mail Adresse wird dem Entwickler als 'Absender' angezeigt. ";
-            message += "Es werden keine private Daten versendet. ";
-            message += "Vor dem Senden können Sie die Daten noch betrachten.";
+            string message = this.Resources.GetString(Resource.String.Settings_SendLogFileMessage);
 
             var dialog = new AlertDialog.Builder(this);
             dialog.SetMessage(message);
@@ -761,7 +758,7 @@ namespace VorratsUebersicht
                     text.AppendFormat("Current Database: {0}\n", Android_Database.SQLiteConnection?.DatabasePath);
                     text.AppendFormat("Android Version: {0}\n",  Build.VERSION.Release);
                     text.AppendFormat("Android SDK: {0}\n",      Build.VERSION.SdkInt);
-                    text.AppendFormat("Hersteller: {0}\n",       Build.Manufacturer);
+                    text.AppendFormat("Manufacturer: {0}\n",     Build.Manufacturer);
                     text.AppendFormat("Modell: {0}\n",           Build.Model);
                     text.AppendFormat("CurrentCulture: {0}\n",   CultureInfo.CurrentCulture.DisplayName);
                     text.AppendFormat("CurrentUICulture: {0}\n", CultureInfo.CurrentUICulture.DisplayName);
@@ -779,7 +776,7 @@ namespace VorratsUebersicht
                     emailIntent.PutExtra(Android.Content.Intent.ExtraText,    text.ToString());
                     //emailIntent.SetType("message/rfc822");
                     emailIntent.SetType("text/plain");
-                    StartActivity(Intent.CreateChooser(emailIntent, "E-Mail an Entwickler senden mit..."));
+                    StartActivity(Intent.CreateChooser(emailIntent, this.Resources.GetString(Resource.String.Settings_SendLogFile)));
                 });
             dialog.SetNegativeButton(this.Resources.GetString(Resource.String.App_No), (s, e) => { });
             dialog.Create().Show();
@@ -899,10 +896,7 @@ namespace VorratsUebersicht
                 {
                     File.Copy(databaseFilePath, backupFilePath);
 
-                    message = string.Format(
-                        "Datenbank im Download Verzeichnis gesichert als:\n\n {0}" +
-                        "\n\nSichern Sie diese Datei auf Google Drive oder auf Ihren PC.",
-                        backupFilePath);
+                    message = string.Format(this.Resources.GetString(Resource.String.Settings_BackupDone), backupFilePath);
                 }
                 catch(Exception ex)
                 {
@@ -1062,7 +1056,7 @@ namespace VorratsUebersicht
                 TRACE(ex);
 
                 var messageBox = new AlertDialog.Builder(this);
-                messageBox.SetTitle("Fehler aufgetreten!");
+                messageBox.SetTitle(this.Resources.GetString(Resource.String.App_ErrorOccurred));
                 messageBox.SetMessage(ex.Message);
                 messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                 messageBox.Create().Show();

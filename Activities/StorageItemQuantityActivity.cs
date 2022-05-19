@@ -255,7 +255,7 @@ namespace VorratsUebersicht
         private void SelectStorage_Click(object sender, EventArgs e)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Lager für Neuanlage");
+            builder.SetTitle(this.Resources.GetString(Resource.String.StorageItemQuantityList_StorageForNew));
             builder.SetItems(this.Storages.ToArray(), (s, a) =>
             {
                 var textView = FindViewById<AutoCompleteTextView>(Resource.Id.StorageItemQuantity_StorageText);
@@ -431,7 +431,7 @@ namespace VorratsUebersicht
                 TRACE(ex);
 
                 var messageBox = new AlertDialog.Builder(this);
-                messageBox.SetTitle("Fehler aufgetreten!");
+                messageBox.SetTitle(this.Resources.GetString(Resource.String.App_ErrorOccurred));
                 messageBox.SetMessage(ex.Message);
                 messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                 messageBox.Create().Show();
@@ -546,11 +546,15 @@ namespace VorratsUebersicht
         private void ListAdapter_ItemClicked(object sender, StorageItemEventArgs e)
         {
             var adapter = sender as StorageItemQuantityListViewAdapter;
-
-            string[] actions = { "Anzahl", "Ablaufdatum", "Lagerort"};
+            
+            string[] actions = {
+                this.Resources.GetString(Resource.String.StorageItemQuantityList_ActionSelectQuantity),
+                this.Resources.GetString(Resource.String.StorageItemQuantityList_ActionSelectExpiryDate),
+                this.Resources.GetString(Resource.String.StorageItemQuantityList_ActionSelectStorage)
+                };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Angaben ändern");
+            builder.SetTitle(this.Resources.GetString(Resource.String.StorageItemQuantityList_ChangeDetails));
             builder.SetItems(actions, (sender2, args) =>
             {
 
@@ -641,7 +645,7 @@ namespace VorratsUebersicht
         private void ChangeQuantity(StorageItemQuantityResult storageItem, StorageItemQuantityListViewAdapter adapter)
         {
             var dialog = new AlertDialog.Builder(this);
-            dialog.SetMessage("Anzahl eingeben:");
+            dialog.SetMessage(this.Resources.GetString(Resource.String.App_EnterQuantity));
             EditText input = new EditText(this)
             {
                 InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal
@@ -674,7 +678,7 @@ namespace VorratsUebersicht
 
                     }
                 });
-            dialog.SetNegativeButton("Cancel", (s, e) => {});
+            dialog.SetNegativeButton(this.Resources.GetString(Resource.String.App_Cancel), (s, e) => {});
             dialog.Show();
         }
 
@@ -687,7 +691,7 @@ namespace VorratsUebersicht
             storages.Insert(0, "[Kein Lagerort]");
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-            dialog.SetTitle("Lagerort auswählen");
+            dialog.SetTitle(this.Resources.GetString(Resource.String.StorageItemQuantityList_SelectStorage));
             dialog.SetItems(storages.ToArray(), (sender, args) =>
             {
                 if (args.Which == 0)

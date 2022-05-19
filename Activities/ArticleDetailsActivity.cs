@@ -485,6 +485,7 @@ namespace VorratsUebersicht
                     return true;
 
                 case Resource.Id.ArticleDetailsMenu_ScanEAN:
+                    //this.SearchEANCode("4444444");
                     StartActivityForResult(typeof(ZXingFragmentActivity), EANScanID);
 
                     return true;
@@ -528,16 +529,16 @@ namespace VorratsUebersicht
             }
 
             var message = new AlertDialog.Builder(this);
-            message.SetTitle("EAN Suche...");
-            message.SetMessage("Artikelangaben im Internet auf OpenFoodFacts.org suchen?\n\nInternetzugriff kann zusätzliche Kosten verursachen.");
+            message.SetTitle(this.Resources.GetString(Resource.String.ArticleDetails_SearchEANScan));
+            message.SetMessage(this.Resources.GetString(Resource.String.ArticleDetails_SearchOnOpenFoodFacts));
             message.SetIcon(Resource.Drawable.ic_launcher);
 
             Switch checkBox = new Switch(this)
             {
-                Text = "Warnung nicht mehr zeigen",
+                Text = this.Resources.GetString(Resource.String.ArticleDetails_StopShowingWarning),
                 TextSize = 14
             };
-            checkBox.SetPadding(20, 50, 20, 20);
+            checkBox.SetPadding(50, 50, 20, 20);
             message.SetView(checkBox);
             message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Yes), (s, e) => 
             {
@@ -565,7 +566,7 @@ namespace VorratsUebersicht
             }
 
             var message = new AlertDialog.Builder(this);
-            message.SetMessage("Ein Artikel kann erst nach der Neuanlage auf die Einkaufsliste kommen.\n\nArtikel speichern (anlegen)?");
+            message.SetMessage(this.Resources.GetString(Resource.String.ArticleDetails_SaveToAddToShippingList));
             message.SetIcon(Resource.Drawable.ic_launcher);
             message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => 
                 {
@@ -576,7 +577,7 @@ namespace VorratsUebersicht
                         return;
                     }
                 });
-            message.SetNegativeButton("Abbrechen", (s, e) => { });
+            message.SetNegativeButton(this.Resources.GetString(Resource.String.App_Cancel), (s, e) => { });
             message.Create().Show();
         }
 
@@ -593,7 +594,7 @@ namespace VorratsUebersicht
             }
 
             var message = new AlertDialog.Builder(this);
-            message.SetMessage("Lagerbestand kann erst nach dem Speichern bearbeitet werden.\n\nArtikel speichern (anlegen)?");
+            message.SetMessage(this.Resources.GetString(Resource.String.ArticleDetails_SaveToAddToStorage));
             message.SetIcon(Resource.Drawable.ic_launcher);
             message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => 
                 {
@@ -604,7 +605,7 @@ namespace VorratsUebersicht
                         return;
                     }
                 });
-            message.SetNegativeButton("Abbrechen", (s, e) => { });
+            message.SetNegativeButton(this.Resources.GetString(Resource.String.App_Cancel), (s, e) => { });
             message.Create().Show();
         }
 
@@ -637,19 +638,19 @@ namespace VorratsUebersicht
 
             if (editTextEanCode.Text.Contains(eanCode))
             {
-                message.SetMessage("Der EAN Code ist bereits eingetragen.");
+                message.SetMessage(this.Resources.GetString(Resource.String.ArticleDetails_EanCodeAlreadyContains));
                 message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => {});
                 message.Create().Show();
 
                 return;
             }
 
-            message.SetMessage("Den EAN Code ersetzen oder zusätzlich hinzufügen?");
+            message.SetMessage(this.Resources.GetString(Resource.String.ArticleDetails_EanCodeReplaceOrInsert));
             message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Replace), (s, e) => 
             {
                 editTextEanCode.Text = eanCode;
             });
-            message.SetNegativeButton("Hinzufügen", (s, e) => 
+            message.SetNegativeButton(this.Resources.GetString(Resource.String.App_Insert), (s, e) => 
             { 
                 editTextEanCode.Text = editTextEanCode.Text +  "," + eanCode;
             });
@@ -906,7 +907,7 @@ namespace VorratsUebersicht
             decimal anzahl = Database.GetArticleQuantityInStorage(this.articleId);
             if (anzahl > 0)
             {
-                string message = string.Format("Dieser Artikel kann nicht gelöscht werden, da noch ein Bestand von {0} im Lager vorhanden ist.", anzahl);
+                string message = string.Format(this.Resources.GetString(Resource.String.ArticleDetails_CanNotDeleteBecauseStorage), anzahl);
 
                 var builder1 = new AlertDialog.Builder(this);
                 builder1.SetMessage(message);
@@ -916,13 +917,13 @@ namespace VorratsUebersicht
                 return;
             }
 
-            string msg = "Soll dieser Artikel wirklich gelöscht werden?";
+            string msg = this.Resources.GetString(Resource.String.ArticleDetails_DeleteArticlerReally);
 
             bool isInList = Database.IsArticleInShoppingList(articleId);
             if (isInList)
             {
                 msg += "\n\n";
-                msg += "Achtung! Dieser Artikel befindet sich auch auf der Einkaufsliste.";
+                msg += this.Resources.GetString(Resource.String.ArticleDetails_ArticleOnShoppingList);
             }
 
             var builder = new AlertDialog.Builder(this);

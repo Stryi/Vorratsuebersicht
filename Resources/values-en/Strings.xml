@@ -11,6 +11,13 @@
 	<string name="App_Replace" >Replace</string>
 	<string name="App_Delete" >Delete</string>
 	<string name="App_DeleteBig" >DELETE</string>
+	<string name="App_DoNotDelete" >Do not delete</string>
+	<string name="App_Insert" >Insert</string>
+	<string name="App_Create" >Create</string>
+
+	<string name="App_ErrorOccurred" >Error occurred!</string>
+	<string name="App_ChooseAction" >Choose action...</string>
+	<string name="App_EnterQuantity">Enter quantity:</string>
 
 	<!-- Meldungen beim Starten -->
 	<string name="Start_TestDbQuestion" >You are launching the application for the first time.\n\nA test database can be activated to get to know the application. You can deactivate this again under Options.</string>
@@ -34,6 +41,7 @@
 
 	<!-- Maske Optionen -->
 	<string name="Settings_Title" >Settings</string>
+	<string name="Settings_ArticleDefaults" >Articles</string>
 	<string name="Settings_AdditionalCategories" >Additional categories (define comma separated)</string>
 	<string name="Settings_CurrentDatabase" >Current database</string>
 	<string name="Settings_Datenbank" >File: {0}\n\nSize: {1} ({2:n0} Bytes)</string>
@@ -41,11 +49,19 @@
 	<string name="Settings_BackupAndRestore" >Backup and restore</string>
 	<string name="Settings_CreateBackup" >Create backup</string>
 	<string name="Settings_RestoreBackup" >Restore / delete backup</string>
+	<string name="Settings_Action_BackupRestore" >Restore</string>
+	<string name="Settings_Action_BackupDelete" >Delete</string>
+	<string name="Settings_DeleteDatabase" >Delete databse</string>
+	<string name="Settings_RestoreBackupFile" >Restore backup file \n\n{0}\n\nas {1}?</string>
+
 	<string name="Settings_BackupPath" >Backup path:</string>
 	<string name="Settings_LastBackupOn" >Last backup on: {0}</string>
 	<string name="Settings_AskForBackup" >Remind to backup every 7 days</string>
+	<string name="Settings_BackupDone" >Database saved in download directory as:\n\n {0}"\n\nSave this file to Google Drive or to your PC.</string>
 	<string name="Settings_DatenbankKomprimieren" >\tCompact database</string>
 	<string name="Settings_DatenbankReparieren" >\tRepair/check database</string>
+	<string name="Settings_CheckReport" >Check result:</string>
+	<string name="Settings_DeleteBackupFileQuestion" >Delete backup file?\n\n{0}</string>
 
 	<string name="Settings_DatabaseManagement" >Manage databases</string>
 	<string name="Settings_DatabaseNew" >\tCreate a new Database...</string>
@@ -64,6 +80,8 @@
 	<string name="Settings_CSV_Export_Articles" >Articles</string>
 	<string name="Settings_CSV_Export_Inventory" >Inventory</string>
 
+	<string name="Settings_AdditionalOptions" >Options</string>
+
 	<string name="Settings_ShowOFFCostMessage" >View cost notice at OpenFoodFacts.org</string>
 	<string name="Settings_AdditionalDatabasePath" >Additional database path (unfortunately not possible later):</string>
 
@@ -76,6 +94,12 @@
 
 	<string name="Settings_Support" >Support</string>
 	<string name="Settings_SendLogFile" >Send LOG entries to developer</string>
+	<string name="Settings_SendLogFileMessage" >
+		Send LOG entries to the developer?
+		\n\nYour e-mail address will be shown to the developer as \'Sender\'.
+		No private data will be sent.
+		You can view the data before sending.
+	</string>
 	<string name="Settings_AppWiki" >App Wiki</string>
 	<string name="Settings_AppWiki_Page" >https://github.com/Stryi/Vorratsuebersicht/wiki</string>
 	<string name="Settings_Licenses" >License Terms</string>
@@ -117,14 +141,34 @@
 	<string name="ArticleDetails_SupermarketLabel" >Supermarket:</string>
 	<string name="ArticleDetails_Price" >Price:</string>
 	<string name="ArticleDetails_PricePerUnit" >Price per unit:</string>
-	<string name="ArticleDetails_EANCode" >EAN code:</string>
+	<string name="ArticleDetails_EANCode" >EAN code (comma separated if more than one):</string>
 	<string name="ArticleDetails_Notes" >Notes:</string>
 	<!-- string name="ArticleDetails_Amount" >Amount:</string -->
 	<string name="ArticleDetails_WithExpiryDate" >{0} before the expiration date</string>
 	<string name="ArticleDetails_WithWarnings" >{0} with warning</string>
 	<string name="ArticleDetails_AfterExpiryDate" >{0} already expired</string>
+	<string name="ArticleDetails_SearchEANScan" >EAN search...</string>
+	<string name="ArticleDetails_SearchOnOpenFoodFacts" >Looking for item details online at OpenFoodFacts.org?\n\nInternet access may incur additional charges.</string>
+	<string name="ArticleDetails_StopShowingWarning" >Don\'t show this warning again.</string>
+
+	<string name="ArticleDetails_SaveToAddToShippingList">An article can only appear on the shopping list after it has been created.\n\nSave (create) article?</string>
+	<string name="ArticleDetails_SaveToAddToStorage">Inventory can only be edited after saving.\n\nSave (create) article?</string>
+	<string name="ArticleDetails_CanNotDeleteBecauseStorage">This article cannot be deleted because there is still stock of {0} in stock.</string>
+	<string name="ArticleDetails_DeleteArticlerReally">Do you really want to delete this article?</string>
+	<string name="ArticleDetails_ArticleOnShoppingList">Caution! This item is also on the shopping list.</string>
+	<string name="ArticleDetails_EanCodeAlreadyContains">The EAN code is already entered.</string>
+	<string name="ArticleDetails_EanCodeReplaceOrInsert">Replace or add the EAN code?</string>
 
 	<!-- OpenFoodFacts -->
+	<string name="InternetDatabaseSearch_Searching" >Search for item data on:\n\n https://{0}.openfoodfacts.org</string>
+	<string name="InternetDatabaseSearch_EANCode" >EAN code: {0}</string>
+	<string name="InternetDatabaseSearch_Info" >
+		The product data are published according to the Wikipedia principle on OpenFoodFacts.org
+		maintained by the community and are far from complete and/or correct.
+		\n\nPlease help maintain the products there.
+	</string>
+	<string name="InternetDatabaseSearch_Size" >Quantity: {0} {1}</string>
+	<string name="InternetDatabaseSearch_UnknownSize" >Quantity with unit not recognized: {0}</string>
 	<string name="InternetDatabaseSearch_CaloriesPerUnit" >Nutritional value: {0} kcal per 100g</string>
 
 	<!-- Lagerbestandsliste -->
@@ -143,10 +187,18 @@
 	<string name="StorageItemQuantity_StepText" >1x</string>
 
 	<string name="StorageItemQuantityList_Quantity" >Amount:</string>
-	<string name="StorageItemQuantityList_StorageLabel" >Lagerrt:</string>
 	<string name="StorageItemQuantityList_BestBefore" >Expiry Date:</string>
+	<string name="StorageItemQuantityList_StorageLabel" >Storage:</string>
 
+	<string name="StorageItemQuantityList_StorageForNew" >Storage for new</string>
+	<string name="StorageItemQuantityList_ChangeDetails" >Change details</string>
+	<string name="StorageItemQuantityList_SelectStorage" >Select storage location</string>
 
+	<string name="StorageItemQuantityList_ActionSelectQuantity" >Amount</string>
+	<string name="StorageItemQuantityList_ActionSelectExpiryDate" >Expiry Date</string>
+	<string name="StorageItemQuantityList_ActionSelectStorage" >Storage</string>
+
+	
 	<string name="ArticleCatagoriesSelect" >Select category...</string>
 	<string name="NoArticleCatagories" >No categories available.</string>
 	<string name="NoSubCategory_ItemEntry" >[No subcategory]</string>

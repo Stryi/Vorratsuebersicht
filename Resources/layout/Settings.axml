@@ -12,11 +12,19 @@
         android:paddingLeft="5dp">
 
         <TextView
+            android:text="@string/Settings_ArticleDefaults"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp" />
+
+        <TextView
             android:id="@+id/Settings_Categories_Text"
             android:text="@string/Settings_AdditionalCategories" 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp" />
+            android:layout_marginLeft="10dp"
+            android:paddingTop="10dp" />
         <EditText
             android:id="@+id/Settings_Categories"
             android:inputType="textMultiLine"
@@ -24,24 +32,26 @@
             android:scrollbars="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="15dp" />
 
         <TextView
             android:text="@string/Settings_DefaultCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp" />
+            android:layout_marginLeft="10dp"
+            android:paddingTop="10dp" />
         <Spinner
             android:id="@+id/Settings_DefaultCategory"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:paddingTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:paddingTop="0dp"
             android:paddingBottom="10dp"
             android:hint="@string/ArticleDetails_Category_Hint" />
 
         <TextView
             android:text="@string/Settings_CurrentDatabase"
+            android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="5dp" />
@@ -51,15 +61,16 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:paddingTop="5dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="0dp"
             android:text="@string/Settings_Datenbank" />
 
 
         <TextView
             android:text="@string/Settings_BackupAndRestore"
+            android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp" />
+            android:paddingTop="16dp" />
         <ProgressBar
             android:id="@+id/ProgressBar_BackupAndRestore"
             style="?android:attr/progressBarStyleHorizontal"
@@ -121,13 +132,20 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp" />
 
+        <TextView
+            android:text="@string/Settings_DatabaseManagement"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp" />
+
         <ProgressBar
             android:id="@+id/ProgressBar_Compress"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="-15dp"
+            android:layout_marginTop="-5dp"
             android:layout_marginBottom="-5dp"
             android:indeterminate="true"
             android:max="100"
@@ -152,12 +170,6 @@
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
 
-        <TextView
-            android:text="@string/Settings_DatabaseManagement"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp" />
-
         <Button
             android:id="@+id/SettingsButton_DatabaseNew"
             android:text="@string/Settings_DatabaseNew"
@@ -165,6 +177,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
         <Button
@@ -195,12 +208,28 @@
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
 
+        <TextView
+            android:text="@string/Settings_AdditionalDatabasePath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="16dp" />
+        <EditText
+            android:id="@+id/SettingsButton_AdditionalDatabasePath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical"
+            android:inputType="textNoSuggestions" />
+
 
         <TextView
             android:text="@string/Settings_EAN_Scann"
+            android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp" />
+            android:paddingTop="16dp" />
         <Switch
             android:id="@+id/SettingsButton_EANScan_FrontCamera"
             android:text="@string/Settings_EAN_Scann_UseFrontcamera"
@@ -211,9 +240,10 @@
 
         <TextView
             android:text="@string/Settings_TestDatenbank"
+            android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp" />
+            android:paddingTop="16dp" />
         <Switch
             android:id="@+id/SettingsButton_SwitchToTestDB"
             android:text="@string/Settings_SwitchToTestDB"
@@ -251,9 +281,10 @@
 
         <TextView
             android:text="@string/Settings_CSV_Export"
+            android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="16dp" />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -278,47 +309,44 @@
                 android:gravity="left|center_vertical" />
         </LinearLayout>
 
+        <TextView
+            android:text="@string/Settings_AdditionalOptions"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp" />
+
         <Switch
             android:id="@+id/SettingsButton_ShowOFFCostMessage"
             android:text="@string/Settings_ShowOFFCostMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
-            android:paddingTop="20dp" />
-
-        <TextView
-            android:text="@string/Settings_AdditionalDatabasePath"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp" />
-        <EditText
-            android:id="@+id/SettingsButton_AdditionalDatabasePath"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:textAllCaps="false"
-            android:gravity="left|center_vertical" />
+            android:gravity="left|center_vertical"
+            android:paddingTop="16dp" />
 
         <Switch
             android:id="@+id/SettingsButton_AltDatePicker"
             android:text="@string/Settings_AltDatePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:gravity="left|center_vertical"
-            android:paddingTop="20dp" />
+            android:paddingTop="16dp" />
 
         <Switch
             android:id="@+id/SettingsButton_CompressPictures"
             android:text="@string/Settings_CompressPictures"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:gravity="left|center_vertical"
-            android:paddingTop="20dp" />
+            android:paddingTop="16dp" />
 
         <RadioGroup
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:orientation="horizontal">
             <RadioButton
                 android:id="@+id/SettingsButton_CompressPictures_Small"
@@ -348,9 +376,23 @@
 
         <TextView
             android:text="@string/Settings_Support" 
+            android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp" />
+            android:paddingTop="16dp" />
+
+        <TextView
+            android:text="@string/Settings_Contact_Email"
+            android:autoLink="web|email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/SettingsButton_Version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp" />
 
         <Button
             android:id="@+id/SettingsButton_SendLogFile"
@@ -363,9 +405,10 @@
 
         <TextView
             android:text="@string/Settings_AppWiki" 
+            android:textSize="20sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp" />
+            android:layout_height="wrap_content" />
+
         <TextView
             android:text="@string/Settings_AppWiki_Page"
             android:layout_width="match_parent"
@@ -376,9 +419,10 @@
 
         <TextView
             android:text="@string/Settings_Licenses" 
+            android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp" />
+            android:paddingTop="16dp" />
         <Button
             android:id="@+id/SettingsButton_Licenses"
             android:text="@string/Settings_OpenSourceLizenzen"
@@ -387,15 +431,5 @@
             android:layout_marginLeft="10dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
-        <TextView
-            android:id="@+id/SettingsButton_Version"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp" />
-        <TextView
-            android:text="@string/Settings_Contact_Email"
-            android:autoLink="web|email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>

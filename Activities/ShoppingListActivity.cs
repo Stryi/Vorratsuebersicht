@@ -372,7 +372,7 @@ namespace VorratsUebersicht
 
             var quantityDialog = new AlertDialog.Builder(this);
             quantityDialog.SetTitle(shoppingListView.Heading);
-            quantityDialog.SetMessage("Anzahl eingeben:");
+            quantityDialog.SetMessage(this.Resources.GetString(Resource.String.App_EnterQuantity));
             EditText input = new EditText(this);
             input.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
 
@@ -396,7 +396,7 @@ namespace VorratsUebersicht
                         Database.SetShoppingItemQuantity(shoppingListView.ArticleId, neueAnzahl);
                     }
                 });
-            quantityDialog.SetNegativeButton("Cancel", (s, e) => {});
+            quantityDialog.SetNegativeButton(this.Resources.GetString(Resource.String.App_Cancel), (s, e) => {});
             quantityDialog.Show();
         }
 

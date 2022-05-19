@@ -63,8 +63,11 @@ namespace VorratsUebersicht
             ListView listView = sender as ListView;
             Java.Lang.Object itemObject = listView.GetItemAtPosition(e.Position);
             SimpleListItem2View item = Tools.Cast<SimpleListItem2View>(itemObject);
-
-            string[] actions = { "Zurückspielen", "Löschen" };
+            
+            string[] actions = {
+                this.Resources.GetString(Resource.String.Settings_Action_BackupRestore),
+                this.Resources.GetString(Resource.String.Settings_Action_BackupDelete)
+            };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle(item.Heading);
@@ -96,11 +99,11 @@ namespace VorratsUebersicht
 
         private void DeleteBackup(string filePath)
         {
-            string message = string.Format("Backup Datei löschen?\n\n{0}",
+            string message = string.Format(this.Resources.GetString(Resource.String.Settings_DeleteBackupFileQuestion),
                 Path.GetFileName(filePath));
             var builder = new AlertDialog.Builder(this);
             builder.SetMessage(message);
-            builder.SetNegativeButton("Nicht löschen", (s, e) => { });
+            builder.SetNegativeButton(this.Resources.GetString(Resource.String.App_DoNotDelete), (s, e) => { });
             builder.SetPositiveButton(this.Resources.GetString(Resource.String.App_Delete), (s, e) => 
             { 
                 File.Delete(filePath);

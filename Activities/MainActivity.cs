@@ -657,7 +657,7 @@ namespace VorratsUebersicht
                     selectDialog.SetView(info);
                 }
 
-                selectDialog.SetTitle("Aktion wählen...");
+                selectDialog.SetTitle(this.Resources.GetString(Resource.String.App_ChooseAction));
                 selectDialog.SetItems(actions.ToArray(), (sender2, args) =>
                 {
                     switch(args.Which)
@@ -707,7 +707,7 @@ namespace VorratsUebersicht
                     Resources.GetString(Resource.String.Main_Button_ArtikelListe)
                 };
 
-            selectDialog.SetTitle("Aktion wählen...");
+            selectDialog.SetTitle(this.Resources.GetString(Resource.String.App_ChooseAction));
             selectDialog.SetItems(actions.ToArray(), (sender2, args) =>
             {
                 switch(args.Which)

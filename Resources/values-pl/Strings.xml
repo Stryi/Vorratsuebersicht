@@ -11,6 +11,13 @@
 	<string name="App_Replace" >Zastąp</string>
 	<string name="App_Delete" >Usuń</string>
 	<string name="App_DeleteBig" >USUŃ</string>
+	<string name="App_DoNotDelete" >Nie usuwaj</string>
+	<string name="App_Insert" >Dodaj</string>
+	<string name="App_Create" >Utwórz</string>
+
+	<string name="App_ErrorOccurred" >Wystąpił błąd!</string>
+	<string name="App_ChooseAction" >Wybierz akcję...</string>
+	<string name="App_EnterQuantity">Podaj ilość:</string>
 
 	<!-- Meldungen beim Starten -->
 	<string name="Start_TestDbQuestion" >Uruchamiasz aplikację po raz pierwszy.\n\nBaza danych testowych może zostać aktywowana w celu zapoznania się z aplikacją. Możesz dezaktywować to ponownie w Opcjach.</string>
@@ -34,6 +41,7 @@
 
 	<!-- Maske Optionen -->
 	<string name="Settings_Title" >Ustawienia</string>
+	<string name="Settings_ArticleDefaults" >Artykuły</string>
 	<string name="Settings_AdditionalCategories" >Dodatkowe kategorie (zdefiniuj oddzielone przecinkami)</string>
 	<string name="Settings_CurrentDatabase" >Aktualna baza danych</string>
 	<string name="Settings_Datenbank" >Plik: {0}\n\nWielkość: {1} ({2:n0} bajtów)</string>
@@ -41,11 +49,19 @@
 	<string name="Settings_BackupAndRestore" >Backup i Restore</string>
 	<string name="Settings_CreateBackup" >Utwórz kopię zapasową</string>
 	<string name="Settings_RestoreBackup" >Przywróć / usuń kopię zapasową</string>
+	<string name="Settings_Action_BackupRestore" >Przywróć</string>
+	<string name="Settings_Action_BackupDelete"  >Usuń</string>	
+	<string name="Settings_DeleteDatabase" >Usuń bazę danych</string>
+	<string name="Settings_RestoreBackupFile" >Przywrócić kopię zapasową bazy danych\n\n{0}\n\njako {1}?</string>
+
 	<string name="Settings_BackupPath" >Ścieżka zapasowa:</string>
 	<string name="Settings_LastBackupOn" >Ostatnia kopia zapasowa dnia: {0}</string>
 	<string name="Settings_AskForBackup" >Przypomnij o kopii zapasowej co 7 dni</string>
-	<string name="Settings_DatenbankKomprimieren" >\tKompaktuj tą bazę danych</string>
+	<string name="Settings_BackupDone" >Baza danych zapisana w katalogu jako:\n\n {0}"\n\nZapisz ten plik na Dysku Google lub na komputerze.</string>
+	<string name="Settings_DatenbankKomprimieren" >\tKompensuj tą bazę danych</string>
 	<string name="Settings_DatenbankReparieren" >\tNapraw/sprawdź bazę danych</string>
+	<string name="Settings_CheckReport" >Wynik checku:</string>
+	<string name="Settings_DeleteBackupFileQuestion" >Usunąć plik kopii zapasowej?\n\n{0}</string>
 
 	<string name="Settings_DatabaseManagement" >Zarząd baz danych</string>
 	<string name="Settings_DatabaseNew" >\tUtwórz nową bazę danych...</string>
@@ -64,6 +80,8 @@
 	<string name="Settings_CSV_Export_Articles" >Artykuły</string>
 	<string name="Settings_CSV_Export_Inventory" >Inwentarz</string>
 
+	<string name="Settings_AdditionalOptions" >Opcje</string>
+
 	<string name="Settings_ShowOFFCostMessage" >Pokaż Informacje o kosztach dostępu do OpenFoodFacts.org</string>
 	<string name="Settings_AdditionalDatabasePath" >Dodatkowa ścieżka do bazy danych (może nie być później możliwa):</string>
 
@@ -75,13 +93,18 @@
 	<string name="Settings_Compress_1536" >1.536</string>
 
 	<string name="Settings_Support" >Support</string>
-	<string name="Settings_SendLogFile" >Wysyłaj wpisy LOG do programisty</string>
+	<string name="Settings_SendLogFile" >Wysyłaj metadane do programisty</string>
+	<string name="Settings_SendLogFileMessage" >
+		Wysłaj metadane do programisty?
+		\n\nTwój adres e-mail będzie widoczny dla programisty jako \'Sender\'.
+		Żadne prywatne dane nie zostaną wysłane.
+		Możesz przeglądać dane przed wysłaniem.
+	</string>
 	<string name="Settings_AppWiki" >App Wiki</string>
 	<string name="Settings_AppWiki_Page" >https://github.com/Stryi/Vorratsuebersicht/wiki</string>
 	<string name="Settings_Licenses" >Warunki licencyjne</string>
 	<string name="Settings_OpenSourceLizenzen" >Licencje Open Source</string>
-	<string name="Settings_Contact_Email" >
-		kontaktowy e-mail: <a href="mailto:cstryi@freenet.de">cstryi@freenet.de</a>
+	<string name="Settings_Contact_Email" >kontaktowy e-mail: <a href="mailto:cstryi@freenet.de">cstryi@freenet.de</a>
 	</string>
 
 	<!-- Artikelliste -->
@@ -90,7 +113,7 @@
 	<string name="ArticleList_Lagerbestand" >Inwentarz</string>
 
 	<!-- Artikeldetails Menü -->
-	<string name="ArticleDetails_Menu_DeleteArticle" >Usuń Artykuły</string>
+	<string name="ArticleDetails_Menu_DeleteArticle" >Usuń Artykuł</string>
 	<string name="ArticleDetails_Menu_CreatePicture" >Zrób zdjęcie</string>
 	<string name="ArticleDetails_Menu_SelectPicture" >Wybierz zdjęcie</string>
 	<string name="ArticleDetails_Menu_ShowPicture" >Edytuj zdjęcie</string>
@@ -115,7 +138,7 @@
 	<string name="ArticleDetails_Unit_Hint" >g, l, kg, mg, stk, cl, ml, m</string>
 	<string name="ArticleDetails_Calories" >Kalorie:</string>
 	<string name="ArticleDetails_CaloriesPerUnit" >Kalorie na 100 {0}:</string>
-	<string name="ArticleDetails_StorageLabel" >Standard spichlerz:</string>
+	<string name="ArticleDetails_StorageLabel" >Standard spiżarnia:</string>
 	<string name="ArticleDetails_MinQuantityLabel" >Minimalna ilość:</string>
 	<string name="ArticleDetails_PrefQuantityLabel" >Preferowana ilość:</string>
 	<string name="ArticleDetails_SupermarketLabel" >Supermarket:</string>
@@ -127,12 +150,32 @@
 	<string name="ArticleDetails_WithExpiryDate" >{0} przed terminem zużycia</string>
 	<string name="ArticleDetails_WithWarnings" >{0} do zużycia</string>
 	<string name="ArticleDetails_AfterExpiryDate" >{0} po terminie zużycia</string>
+	<string name="ArticleDetails_SearchEANScan" >Szukaj EAN...</string>
+	<string name="ArticleDetails_SearchOnOpenFoodFacts" >Szukaj szczegółów artykułu online na OpenFoodFacts.org?\n\nDostęp do internetu może wiązać się z dodatkowymi opłatami.</string>
+	<string name="ArticleDetails_StopShowingWarning" >Nie pokazuj więcej tego ostrzeżenia.</string>
+
+	<string name="ArticleDetails_SaveToAddToShippingList">Artykuł może pojawić się na liście zakupów dopiero po zapisaniu.\n\nZapisać (utworzyć) artykuł?</string>
+	<string name="ArticleDetails_SaveToAddToStorage">Inwentarz można edytować tylko po zapisaniu.\n\nZapisać (utworzyć) artykuł?</string>
+	<string name="ArticleDetails_CanNotDeleteBecauseStorage">Nie można usunąć tego artykułu, ponieważ jest w inwentarzu z ilością {0}.</string>
+	<string name="ArticleDetails_DeleteArticlerReally">Czy na pewno chcesz usunąć ten artykuł?</string>
+	<string name="ArticleDetails_ArticleOnShoppingList">Uwaga! Ta pozycja jest na liście zakupów.</string>
+	<string name="ArticleDetails_EanCodeAlreadyContains">Kod EAN jest już wprowadzony.</string>
+	<string name="ArticleDetails_EanCodeReplaceOrInsert">Zastąpić albo dodać ten kod EAN?</string>
 
 	<!-- OpenFoodFacts -->
+	<string name="InternetDatabaseSearch_Searching" >Szukam dane na:\n\n https://{0}.openfoodfacts.org</string>
+	<string name="InternetDatabaseSearch_EANCode" >Kod EAN: {0}</string>
+	<string name="InternetDatabaseSearch_Info" >
+		Dane produktów są publikowane zgodnie z zasadą Wikipedii na OpenFoodFacts.org
+		utrzymywane przez społeczność i są dalekie od kompletności i/lub poprawności.
+		\n\nProszę o pomoc w utrzymaniu tam produktów.
+	</string>
+	<string name="InternetDatabaseSearch_Size" >Zawartość: {0} {1}</string>
+	<string name="InternetDatabaseSearch_UnknownSize" >Ilość z nierozpoznaną jednostką: {0}</string>
 	<string name="InternetDatabaseSearch_CaloriesPerUnit" >Wartość odżywcza: {0} kcal na 100g</string>
 
 	<!-- Lagerbestandsliste -->
-	<string name="StorageItem_Storage" >Spichlerz:</string>
+	<string name="StorageItem_Storage" >Spiżarnia:</string>
 	<string name="StorageItem_AllStoragesStorage" >[Wszystkie]</string>
 	<string name="StorageItem_ToShoppingList" >Na listę zakupów</string>
 	<string name="StorageItem_Artikelangaben" >Dane artykułu...</string>
@@ -142,15 +185,23 @@
 	<!-- Lagerbestand -->
 	<string name="StorageItemQuantity_Menu_ToShoppingList" >Na listę zakupów</string>
 	<string name="StorageItemQuantity_Menu_Artikelangaben" >Dane artykułu</string>
-	<string name="StorageItemQuantity_StorageForNewPosition" >Spichlerz dla nowach:</string>
+	<string name="StorageItemQuantity_StorageForNewPosition" >Spiżarnia dla nowach:</string>
 	<string name="StorageItemQuantity_Step" >Multiplikator</string>
 	<string name="StorageItemQuantity_StepText" >1x</string>
 
 	<string name="StorageItemQuantityList_Quantity" >Ilość:</string>
-	<string name="StorageItemQuantityList_StorageLabel" >Spichlerz:</string>
 	<string name="StorageItemQuantityList_BestBefore" >Data do spożycia:</string>
+	<string name="StorageItemQuantityList_StorageLabel" >Spiżarnia:</string>
 
+	<string name="StorageItemQuantityList_StorageForNew" >Magazyn dla nowych</string>
+	<string name="StorageItemQuantityList_ChangeDetails" >Zmień szczegóły</string>
+	<string name="StorageItemQuantityList_SelectStorage" >Wybierz spiżarnię</string>
 
+	<string name="StorageItemQuantityList_ActionSelectQuantity" >Ilość</string>
+	<string name="StorageItemQuantityList_ActionSelectExpiryDate" >Data do spożycia</string>
+	<string name="StorageItemQuantityList_ActionSelectStorage" >Spiżarnia</string>
+
+	
 	<string name="ArticleCatagoriesSelect" >Wybór kategorii...</string>
 	<string name="NoArticleCatagories" >Brak kategorii.</string>
 	<string name="NoSubCategory_ItemEntry" >[Brak podkategorii]</string>
@@ -158,7 +209,7 @@
 
 	<!-- Einkaufsliste -->
 	<string name="ShoppingList_Remove" >Usuń</string>
-	<string name="ShoppingList_ToStorage" >Do spichlerzu...</string>
+	<string name="ShoppingList_ToStorage" >Do spiżarni...</string>
 	<string name="ShoppingList_ArticleDetails" >Dane artykułu...</string>
 	<string name="ShoppingList_MarkAsBought" >Zaznacz jako \'Kupiono\'</string>
 	<string name="ShoppingList_AllSupermarkets" >[Wszystkie]</string>

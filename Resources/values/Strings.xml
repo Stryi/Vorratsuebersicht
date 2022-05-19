@@ -11,6 +11,13 @@
 	<string name="App_Replace" >Ersetzen</string>
 	<string name="App_Delete" >Löschen</string>
 	<string name="App_DeleteBig" >LÖSCHEN</string>
+	<string name="App_DoNotDelete" >Nicht löschen</string>
+	<string name="App_Insert" >Hinzufügen</string>
+	<string name="App_Create" >Erstellen</string>
+	
+	<string name="App_ErrorOccurred" >Fehler aufgetreten!</string>
+	<string name="App_ChooseAction" >Aktion wählen...</string>
+	<string name="App_EnterQuantity">Anzahl eingeben:</string>
 
 	<!-- Meldungen beim Starten -->
 	<string name="Start_TestDbQuestion" >Sie starten die Anwendung zum ersten Mal.\n\nZum Kennenlernen der Anwendung kann eine Testdatenbank aktiviert werden. Diese können Sie unter Optionen wieder deaktivieren.</string>
@@ -34,6 +41,7 @@
 
 	<!-- Maske Optionen -->
 	<string name="Settings_Title" >Einstellungen</string>
+	<string name="Settings_ArticleDefaults" >Artikelangaben</string>
 	<string name="Settings_AdditionalCategories" >Zusätzliche Kategorien (mit Komma getrennt definieren)</string>
 	<string name="Settings_CurrentDatabase" >Aktuelle Datenbank</string>
 	<string name="Settings_Datenbank" >Datei: {0}\n\nGröße: {1} ({2:n0} Bytes)</string>
@@ -41,11 +49,19 @@
 	<string name="Settings_BackupAndRestore" >Backup und Restore</string>
 	<string name="Settings_CreateBackup" >Backup erstellen</string>
 	<string name="Settings_RestoreBackup" >Backup zurückspielen / löschen</string>
+	<string name="Settings_Action_BackupRestore" >Zurückspielen</string>
+	<string name="Settings_Action_BackupDelete" >Löschen</string>
+	<string name="Settings_DeleteDatabase" >Datenbank löschen</string>
+	<string name="Settings_RestoreBackupFile" >Backup Datenbank\n\n{0}\n\nwiederherstellen in {1}?</string>
+
 	<string name="Settings_BackupPath" >Backup-Pfad:</string>
 	<string name="Settings_LastBackupOn" >Letzter Backup am: {0}</string>
 	<string name="Settings_AskForBackup" >An Backup alle 7 Tage erinnern</string>
+	<string name="Settings_BackupDone" >Datenbank im Download Verzeichnis gesichert als:\n\n {0}"\n\nSichern Sie diese Datei auf Google Drive oder auf Ihren PC.</string>
 	<string name="Settings_DatenbankKomprimieren" >\tDatenbank komprimieren</string>
 	<string name="Settings_DatenbankReparieren" >\tDatenbank reparieren/checken</string>
+	<string name="Settings_CheckReport" >Ergebnis der Prüfung:</string>
+	<string name="Settings_DeleteBackupFileQuestion" >Backup Datei löschen?\n\n{0}</string>
 
 	<string name="Settings_DatabaseManagement" >Datenbanken verwalten</string>
 	<string name="Settings_DatabaseNew" >\tNeue Datenbank anlegen...</string>
@@ -64,6 +80,8 @@
 	<string name="Settings_CSV_Export_Articles" >Artikelstamm</string>
 	<string name="Settings_CSV_Export_Inventory" >Lagerbestand</string>
 
+	<string name="Settings_AdditionalOptions" >Weitere Optionen</string>
+
 	<string name="Settings_ShowOFFCostMessage" >Kostenhinweis bei OpenFoodFacts.org anzeigen</string>
 	<string name="Settings_AdditionalDatabasePath" >Zusätzlicher Datenbankpfad (wird später vielleicht nicht mehr möglich sein):</string>
 
@@ -76,6 +94,12 @@
 
 	<string name="Settings_Support" >Support</string>
 	<string name="Settings_SendLogFile" >LOG Einträge an Entwickler schicken</string>
+	<string name="Settings_SendLogFileMessage" >
+		LOG Einträge an den Entwickler schicken?
+		\n\nIhre E-Mail Adresse wird dem Entwickler als \'Absender\' angezeigt.
+		Es werden keine private Daten versendet.
+		Vor dem Senden können Sie die Daten noch betrachten.
+	</string>
 	<string name="Settings_AppWiki" >App Wiki</string>
 	<string name="Settings_AppWiki_Page" >https://github.com/Stryi/Vorratsuebersicht/wiki</string>
 	<string name="Settings_Licenses" >Lizenzbedingungen</string>
@@ -125,8 +149,29 @@
 	<string name="ArticleDetails_WithExpiryDate" >{0} vor dem Ablaufdatum</string>
 	<string name="ArticleDetails_WithWarnings" >{0} mit Warnung</string>
 	<string name="ArticleDetails_AfterExpiryDate" >{0} bereits abgelaufen</string>
+	<string name="ArticleDetails_SearchEANScan" >EAN Suche...</string>
+	<string name="ArticleDetails_SearchOnOpenFoodFacts" >Artikelangaben im Internet auf OpenFoodFacts.org suchen?\n\nInternetzugriff kann zusätzliche Kosten verursachen.</string>
+	<string name="ArticleDetails_StopShowingWarning" >Warnung nicht mehr zeigen</string>
+
+	<string name="ArticleDetails_SaveToAddToShippingList">Ein Artikel kann erst nach der Neuanlage auf die Einkaufsliste kommen.\n\nArtikel speichern (anlegen)?</string>
+	<string name="ArticleDetails_SaveToAddToStorage">Lagerbestand kann erst nach dem Speichern bearbeitet werden.\n\nArtikel speichern (anlegen)?</string>
+	<string name="ArticleDetails_CanNotDeleteBecauseStorage">Dieser Artikel kann nicht gelöscht werden, da noch ein Bestand von {0} im Lager vorhanden ist.</string>
+	<string name="ArticleDetails_DeleteArticlerReally">Soll dieser Artikel wirklich gelöscht werden?</string>
+	<string name="ArticleDetails_ArticleOnShoppingList">Achtung! Dieser Artikel befindet sich auch auf der Einkaufsliste.</string>
+	<string name="ArticleDetails_EanCodeAlreadyContains">Der EAN Code ist bereits eingetragen.</string>
+	<string name="ArticleDetails_EanCodeReplaceOrInsert">Den EAN Code ersetzen oder zusätzlich hinzufügen?</string>
 
 	<!-- OpenFoodFacts -->
+	<string name="InternetDatabaseSearch_Searching" >Suche nach Artikeldaten auf:\n\n  https://{0}.openfoodfacts.org</string>
+	<string name="InternetDatabaseSearch_EANCode" >EAN Code: {0}</string>
+	<string name="InternetDatabaseSearch_Info" >
+		Die Produktdaten werden nach dem Wikipedia-Prinzip auf OpenFoodFacts.org
+		von der Community gepflegt und sind noch lange nicht vollständig und/oder korrekt.
+		\n\nBitte helfen Sie, die Produkte dort zu pflegen.
+	</string>
+	
+	<string name="InternetDatabaseSearch_Size" >Menge: {0} {1}</string>
+	<string name="InternetDatabaseSearch_UnknownSize" >Menge mit Einheit nicht erkannt: {0}</string>
 	<string name="InternetDatabaseSearch_CaloriesPerUnit" >Nährwert: {0} kcal pro 100g</string>
 	
 	<!-- Lagerbestandsliste -->
@@ -145,9 +190,17 @@
 	<string name="StorageItemQuantity_StepText" >1x</string>
 
 	<string name="StorageItemQuantityList_Quantity" >Anzahl:</string>
-	<string name="StorageItemQuantityList_StorageLabel" >Lagerort:</string>
 	<string name="StorageItemQuantityList_BestBefore" >Ablaufdatum:</string>
+	<string name="StorageItemQuantityList_StorageLabel" >Lagerort:</string>
 
+	<string name="StorageItemQuantityList_StorageForNew" >Lager für Neuanlage</string>
+	<string name="StorageItemQuantityList_ChangeDetails" >Angaben ändern</string>
+	<string name="StorageItemQuantityList_SelectStorage" >Lagerort auswählen</string>
+
+	<string name="StorageItemQuantityList_ActionSelectQuantity" >Anzahl</string>
+	<string name="StorageItemQuantityList_ActionSelectExpiryDate" >Ablaufdatum</string>
+	<string name="StorageItemQuantityList_ActionSelectStorage" >Lagerort</string>
+	
 
 	<string name="ArticleCatagoriesSelect" >Auswahl Kategorie...</string>
 	<string name="NoArticleCatagories" >Keine Kategorien vorhanden.</string>

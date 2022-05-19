@@ -45,11 +45,9 @@ namespace VorratsUebersicht
 
             var textView = FindViewById<TextView>(Resource.Id.InternetDatabaseResult_ProgressText);
             textView.Text = "Suche nach Artikeldaten auf:\n\n  https://world.openfoodfacts.org";
-            
+
             var textInfo = FindViewById<TextView>(Resource.Id.InternetDatabaseResult_Description);
-            textInfo.Text = "Die Produktdaten werden nach dem Wikipedia-Prinzip auf OpenFoodFacts.org " +
-                "von der Community gepflegt und sind noch lange nicht vollständig und/oder korrekt.\n\n" +
-                "Bitte helfen Sie, die Produkte dort zu pflegen.";
+            textInfo.Text = this.Resources.GetString(Resource.String.InternetDatabaseSearch_Info);
 
             new System.Threading.Thread(new ThreadStart(delegate             
             {
@@ -112,7 +110,6 @@ namespace VorratsUebersicht
             /*
             foodInfo.product = new FoodInformation.Product();
             foodInfo.product.image_url       = "https://static.openfoodfacts.org/images/products/20005016/front_fr.4.400.jpg";
-            foodInfo.product.image_small_url = "https://static.openfoodfacts.org/images/products/20005016/front_fr.4.200.jpg";
             */
 
             //eanCode = "22120649";   // Kartoffeleintopf Mit Würstchen Und Rauchspeck, mit Mengenangabe, und KCal/100g
@@ -138,7 +135,7 @@ namespace VorratsUebersicht
                 string[] eanCodeList = eanCode.Split(",");
                 foreach(string ean in eanCodeList)
                 {
-                    RunOnUiThread(() => eanCodeView.Text = "EAN Code: " + ean);
+                    RunOnUiThread(() => eanCodeView.Text = string.Format(this.Resources.GetString(Resource.String.InternetDatabaseSearch_EANCode), ean));
                     
                     this.foodInfo = this.GetFoodInformation(ean);
 
@@ -166,7 +163,7 @@ namespace VorratsUebersicht
 
                 if (this.foodInfo != null)
                 {
-                    title = string.Format("EAN Code: {0}", this.foodInfo.code);
+                    title = string.Format(this.Resources.GetString(Resource.String.InternetDatabaseSearch_EANCode), this.foodInfo.code);
 
                     if (this.foodInfo.status == 1)
                     {
@@ -176,11 +173,13 @@ namespace VorratsUebersicht
                         this.foodSize = QuantityAndUnit.Parse(this.foodInfo.product.quantity);
                         if (this.foodSize != null)
                         {
-                            info += string.Format(CultureInfo.CurrentUICulture, "Menge: {0} {1}",  this.foodSize.Quantity, this.foodSize.Unit);
+                            string content = this.Resources.GetString(Resource.String.InternetDatabaseSearch_Size);
+                            info += string.Format(CultureInfo.CurrentUICulture, content,  this.foodSize.Quantity, this.foodSize.Unit);
                         }
                         else
                         {
-                            info += string.Format("Menge mit Einheit nicht erkannt: {0}", this.foodInfo.product.quantity);
+                            string unknownSize = this.Resources.GetString(Resource.String.InternetDatabaseSearch_UnknownSize);
+                            info += string.Format(unknownSize, this.foodInfo.product.quantity);
                         }
 
                         if (foodInfo.product.nutriments != null)
@@ -210,7 +209,10 @@ namespace VorratsUebersicht
                                 info += string.Format(caloriePer100gInfo, this.kcalPer100);
                             }
                         }
-                        eanCodeView.Text = "Link: https://de.openfoodfacts.org/produkt/" + this.foodInfo.code;
+
+                        var languageCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+
+                        eanCodeView.Text = "Link: https://" + languageCode + ".openfoodfacts.org/product/" + this.foodInfo.code;
                     }
                     else
                     {
@@ -242,16 +244,18 @@ namespace VorratsUebersicht
         {
             string parameter;
             
-            parameter = "?fields=product_name,product_name_de,brands,quantity,nutriments,image_url,image_small_url";
+            parameter = "?fields=product_name,product_name_de,brands,quantity,nutriments,image_url";
 
-            string server = "https://de.openfoodfacts.org/api/v0/product/";
+            var languageCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+
+            string server = string.Format("https://{0}.openfoodfacts.org/api/v0/product/", languageCode);
             string request = string.Format("{0}{1}.json", server, eanCode);
             if (!string.IsNullOrEmpty(parameter))
             {
                 request += parameter;
             }
 
-            //TRACE("WebRequest: {0}", request);
+            TRACE("WebRequest: {0}", request);
             Context context = this.ApplicationContext;
             PackageInfo info = context.PackageManager.GetPackageInfo(context.PackageName, 0);
 
@@ -276,7 +280,7 @@ namespace VorratsUebersicht
             {
                 StreamReader reader = new StreamReader(dataStream);
                 webResponse = reader.ReadToEnd();
-                //TRACE("Response from OpenFoodFacts.org (max 1024 Zeichen):\n{0}", this.responseFromServer);
+                TRACE("Response from OpenFoodFacts.org (max 1024 Zeichen):\n{0}", webResponse);
             }
             
             response.Close();
@@ -286,7 +290,7 @@ namespace VorratsUebersicht
             // Formatierte Ausgabe
             var allInfo = JsonConvert.DeserializeObject(webResponse);
             this.formatedResponseFromServer = JsonConvert.SerializeObject(allInfo, Formatting.Indented);
-            //TRACE("JSon Antwort vom Server OpenFoodFacts.org:\n\n{0}", this.formatedResponseFromServer);
+            TRACE("JSon Antwort vom Server OpenFoodFacts.org:\n\n{0}", this.formatedResponseFromServer);
 
             return foodInfo;
         }
@@ -339,7 +343,6 @@ namespace VorratsUebersicht
             public string brands;
             public string code;
             public string image_url;
-            public string image_small_url;
 
             public string quantity;
             public int product_quantity;
