@@ -164,7 +164,7 @@
 	<string name="ArticleDetails_EanCodeReplaceOrInsert">Den EAN Code ersetzen oder zusätzlich hinzufügen?</string>
 
 	<!-- OpenFoodFacts -->
-	<string name="InternetDatabaseSearch_Searching" >Suche nach Artikeldaten auf:\n\n  https://{0}.openfoodfacts.org</string>
+	<string name="InternetDatabaseSearch_Searching" >Suche nach Artikeldaten auf:\n\n  https://world.openfoodfacts.org</string>
 	<string name="InternetDatabaseSearch_EANCode" >EAN Code: {0}</string>
 	<string name="InternetDatabaseSearch_Info" >
 		Die Produktdaten werden nach dem Wikipedia-Prinzip auf OpenFoodFacts.org

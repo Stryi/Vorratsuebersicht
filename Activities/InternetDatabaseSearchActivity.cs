@@ -44,7 +44,7 @@ namespace VorratsUebersicht
             string eanCode = Intent.GetStringExtra ("EANCode") ?? string.Empty;
 
             var textView = FindViewById<TextView>(Resource.Id.InternetDatabaseResult_ProgressText);
-            textView.Text = "Suche nach Artikeldaten auf:\n\n  https://world.openfoodfacts.org";
+            textView.Text = this.Resources.GetString(Resource.String.InternetDatabaseSearch_Searching);
 
             var textInfo = FindViewById<TextView>(Resource.Id.InternetDatabaseResult_Description);
             textInfo.Text = this.Resources.GetString(Resource.String.InternetDatabaseSearch_Info);

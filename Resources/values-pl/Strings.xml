@@ -165,7 +165,7 @@
 	<string name="ArticleDetails_EanCodeReplaceOrInsert">Zastąpić albo dodać ten kod EAN?</string>
 
 	<!-- OpenFoodFacts -->
-	<string name="InternetDatabaseSearch_Searching" >Szukam dane na:\n\n https://{0}.openfoodfacts.org</string>
+	<string name="InternetDatabaseSearch_Searching" >Szukam dane na:\n\n https://world.openfoodfacts.org</string>
 	<string name="InternetDatabaseSearch_EANCode" >Kod EAN: {0}</string>
 	<string name="InternetDatabaseSearch_Info" >
 		Dane produktów są publikowane zgodnie z zasadą Wikipedii na OpenFoodFacts.org
