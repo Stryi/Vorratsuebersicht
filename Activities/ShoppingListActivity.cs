@@ -341,14 +341,18 @@ namespace VorratsUebersicht
 
             string status;
             if (this.liste.Count == 1)
-                status = string.Format("{0:n0} Position", this.liste.Count);
+                status = string.Format(this.Resources.GetString(Resource.String.ShoppingListSummary_Position), this.liste.Count);
             else
-                status = string.Format("{0:n0} Positionen", this.liste.Count);
+                status = string.Format(this.Resources.GetString(Resource.String.ShoppingListSummary_Positions), this.liste.Count);
 
-            if (sum_quantity > 0) status += string.Format(CultureInfo.CurrentUICulture, ", Anzahl {0:#,0.##} Stück",   sum_quantity);
-            if (sum_amount   > 0) status += string.Format(CultureInfo.CurrentUICulture, ", Betrag {0:n2} {1}", sum_amount, CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol);
-            if (sum_noPrice  > 0) status += string.Format(CultureInfo.CurrentUICulture, ", {0:n0} Artikel ohne Preisangabe", sum_noPrice);
-            if (to_pay > 0)       status += string.Format(CultureInfo.CurrentUICulture, "\nZu zahlen: {0:n2} {1}", to_pay, CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol);
+            if (sum_quantity > 0) status += ", " + string.Format(CultureInfo.CurrentUICulture, this.Resources.GetString(Resource.String.ShoppingListSummary_Quantity),     sum_quantity);
+            if (sum_amount   > 0) status += ", " + string.Format(CultureInfo.CurrentUICulture, this.Resources.GetString(Resource.String.ShoppingListSummary_Amount),       sum_amount, CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol);
+            if (sum_noPrice  == 1)
+                status += ", " + string.Format(CultureInfo.CurrentUICulture, this.Resources.GetString(Resource.String.ShoppingListSummary_WithoutPrice), sum_noPrice);
+            if (sum_noPrice > 1)
+                status += ", " + string.Format(CultureInfo.CurrentUICulture, this.Resources.GetString(Resource.String.ShoppingListSummary_WithoutPriceN), sum_noPrice);
+
+            if (to_pay > 0)       status += "\n" + string.Format(CultureInfo.CurrentUICulture, this.Resources.GetString(Resource.String.ShoppingListSummary_ToPay), to_pay, CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol);
 
             return status;
         }

@@ -147,7 +147,7 @@
 	<string name="ArticleDetails_PricePerUnit" >Preis pro Einheit:</string>
 	<string name="ArticleDetails_EANCode" >EAN Code (Komma getrennt, wenn mehrere):</string>
 	<string name="ArticleDetails_Notes" >Notizen:</string>
-	<!-- string name="ArticleDetails_Amount" >Anzahl:</string -->
+	<string name="ArticleDetails_Amount" >Anzahl:</string>
 	<string name="ArticleDetails_WithExpiryDate" >{0} vor dem Ablaufdatum</string>
 	<string name="ArticleDetails_WithWarnings" >{0} mit Warnung</string>
 	<string name="ArticleDetails_AfterExpiryDate" >{0} bereits abgelaufen</string>
@@ -181,7 +181,8 @@
 	<string name="StorageItem_AllStoragesStorage" >[Alle Lager]</string>
 	<string name="StorageItem_ToShoppingList" >Auf Einkaufsliste...</string>
 	<string name="StorageItem_Artikelangaben" >Artikelangaben...</string>
-	<string name="StorageItem_Amount" >Wert</string>
+	<string name="StorageItem_Amount" >Wert:</string>
+	<string name="StorageItem_SumQuantityAndSize" >Menge:</string>
 	<string name="StorageItem_InventoryInPieces" >Bestand: {0} Stück</string>
 
 	<!-- Lagerbestand -->
@@ -217,7 +218,16 @@
 	<string name="ShoppingList_AllSupermarkets" >[Alle]</string>
 	<string name="ShoppingList_Bought" >Gekauft</string>
 
-	<!-- Auf Einkaufsliste setzen -->
+	<!-- Shopping list - Footer -->
+	<string name="ShoppingListSummary_Position" >{0:n0} Position</string>
+	<string name="ShoppingListSummary_Positions" >{0:n0} Positionen</string>
+	<string name="ShoppingListSummary_Quantity" >Anzahl {0:#,0.##} Stück</string>
+	<string name="ShoppingListSummary_Amount" >Betrag {0:n2} {1}</string>
+	<string name="ShoppingListSummary_WithoutPrice"  >{0:n0} Artikel ohne Preisangabe</string>
+	<string name="ShoppingListSummary_WithoutPriceN" >{0:n0} Artikel ohne Preisangabe</string>
+	<string name="ShoppingListSummary_ToPay" >Zu zahlen: {0:n2} {1}</string>
+
+	<!-- To shopping list -->
 	<string name="ToShoppingList_Title" >Auf Einkaufsliste setzen</string>
 	<string name="ToShoppingList_Inventory" >- Bestand:</string>
 	<string name="ToShoppingList_MinQuantity" >- Mindestmenge:</string>

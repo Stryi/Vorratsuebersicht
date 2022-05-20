@@ -145,7 +145,7 @@
 	<string name="ArticleDetails_PricePerUnit" >Price per unit:</string>
 	<string name="ArticleDetails_EANCode" >EAN code (comma separated if more than one):</string>
 	<string name="ArticleDetails_Notes" >Notes:</string>
-	<!-- string name="ArticleDetails_Amount" >Amount:</string -->
+	<string name="ArticleDetails_Amount" >Amount:</string>
 	<string name="ArticleDetails_WithExpiryDate" >{0} before the expiration date</string>
 	<string name="ArticleDetails_WithWarnings" >{0} with warning</string>
 	<string name="ArticleDetails_AfterExpiryDate" >{0} already expired</string>
@@ -178,7 +178,8 @@
 	<string name="StorageItem_AllStoragesStorage" >[All storages]</string>
 	<string name="StorageItem_ToShoppingList" >To shopping list</string>
 	<string name="StorageItem_Artikelangaben" >Article details...</string>
-	<string name="StorageItem_Amount" >Wartość:</string>
+	<string name="StorageItem_Amount" >Value:</string>
+	<string name="StorageItem_SumQuantityAndSize" >Quantity:</string>
 	<string name="StorageItem_InventoryInPieces" >Inventory: {0} pieces</string>
 
 	<!-- Lagerbestand -->
@@ -213,6 +214,15 @@
 	<string name="ShoppingList_MarkAsBought" >Mark as \'bought\'</string>
 	<string name="ShoppingList_AllSupermarkets" >[All]</string>
 	<string name="ShoppingList_Bought" >Bought</string>
+
+	<!-- Shopping list - Footer -->
+	<string name="ShoppingListSummary_Position" >{0:n0} position</string>
+	<string name="ShoppingListSummary_Positions" >{0:n0} positions</string>
+	<string name="ShoppingListSummary_Quantity" >Sum amount {0:#,0.##}</string>
+	<string name="ShoppingListSummary_Amount" >Cost {0:n2} {1}</string>
+	<string name="ShoppingListSummary_WithoutPrice"  >{0:n0} Article without price</string>
+	<string name="ShoppingListSummary_WithoutPriceN" >{0:n0} Articles without price</string>	
+	<string name="ShoppingListSummary_ToPay" >To pay: {0:n2} {1}</string>
 
 	<!-- To shopping list -->
 	<string name="ToShoppingList_Title" >Put on shopping list</string>

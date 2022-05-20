@@ -148,7 +148,7 @@
 	<string name="ArticleDetails_PricePerUnit" >Cena za jednostkę:</string>
 	<string name="ArticleDetails_EANCode" >Kod EAN (oddzielone przecinkami, jeśli więcej niż jeden):</string>
 	<string name="ArticleDetails_Notes" >Notatki:</string>
-	<!-- string name="ArticleDetails_Amount" >Ilość:</string -->
+	<string name="ArticleDetails_Amount" >Ilość:</string>
 	<string name="ArticleDetails_WithExpiryDate" >{0} przed terminem zużycia</string>
 	<string name="ArticleDetails_WithWarnings" >{0} do zużycia</string>
 	<string name="ArticleDetails_AfterExpiryDate" >{0} po terminie zużycia</string>
@@ -182,6 +182,7 @@
 	<string name="StorageItem_ToShoppingList" >Na listę zakupów</string>
 	<string name="StorageItem_Artikelangaben" >Dane artykułu...</string>
 	<string name="StorageItem_Amount" >Wartość:</string>
+	<string name="StorageItem_SumQuantityAndSize" >Suma:</string>
 	<string name="StorageItem_InventoryInPieces" >Inwentarz: {0} sztuk</string>
 
 	<!-- Lagerbestand -->
@@ -217,6 +218,16 @@
 	<string name="ShoppingList_AllSupermarkets" >[Wszystkie]</string>
 	<string name="ShoppingList_Bought" >Kupiono</string>
 
+	<!-- Shopping list - Footer -->
+	<string name="ShoppingListSummary_Position" >{0:n0} pozycja</string>
+	<string name="ShoppingListSummary_Positions" >{0:n0} pozycji</string>
+	<string name="ShoppingListSummary_Quantity" >Ilość {0:#,0.##} sztuk</string>
+	<string name="ShoppingListSummary_Amount" >Należność {0:n2} {1}</string>
+	<string name="ShoppingListSummary_WithoutPrice"  >{0:n0} pozycja bez ceny</string>
+	<string name="ShoppingListSummary_WithoutPriceN" >{0:n0} pozycji bez ceny</string>
+	<string name="ShoppingListSummary_ToPay" >Do płacenia: {0:n2} {1}</string>
+
+	<!-- To shopping list -->
 	<!-- To shopping list -->
 	<string name="ToShoppingList_Title" >Umieść na liście zakupów</string>
 	<string name="ToShoppingList_Inventory" >- W inwentarzu:</string>

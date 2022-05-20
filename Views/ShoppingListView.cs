@@ -17,6 +17,7 @@ namespace VorratsUebersicht
         internal string String_Price        = string.Empty;
         internal string String_Category     = string.Empty;
         internal string String_Notes        = string.Empty;
+        internal string String_Amount       = string.Empty;
 
         public ShoppingListView(ShoppingItemListResult article, Resources resources)
         {
@@ -24,8 +25,9 @@ namespace VorratsUebersicht
             this.String_Size         = resources.GetString(Resource.String.ArticleDetails_Size);
             this.String_Supermarket  = resources.GetString(Resource.String.ArticleDetails_SupermarketLabel);
             this.String_Price        = resources.GetString(Resource.String.ArticleDetails_Price);
-            this.String_Category     = resources.GetString(Resource.String.ArticleDetails_Calories);
+            this.String_Category     = resources.GetString(Resource.String.ArticleDetails_Category);
             this.String_Notes        = resources.GetString(Resource.String.ArticleDetails_Notes);
+            this.String_Amount       = resources.GetString(Resource.String.ArticleDetails_Amount);
 
             this.ShoppingItem = article;
         }
@@ -78,10 +80,25 @@ namespace VorratsUebersicht
                         info += string.Format(" ({0})", pricePerUnit);
                     }
                 }
+
+                string categoryText = string.Empty;
+
                 if (!string.IsNullOrEmpty(this.ShoppingItem.Category))
                 {
+                    categoryText += this.ShoppingItem.Category;
+                }
+                if (!string.IsNullOrEmpty(this.ShoppingItem.SubCategory))
+                {
+                    if (!string.IsNullOrEmpty(categoryText)) categoryText += " / ";
+
+                    categoryText += this.ShoppingItem.SubCategory;
+                }
+
+
+                if (!string.IsNullOrEmpty(categoryText))
+                {
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                    info += string.Format("{0} {1}", this.String_Category, this.ShoppingItem.Category);
+                    info += string.Format("{0} {1}", this.String_Category, categoryText);
                 }
 
                 if (!string.IsNullOrEmpty(this.ShoppingItem.Notes))
@@ -101,7 +118,7 @@ namespace VorratsUebersicht
                 if (this.ShoppingItem.Quantity == 0)
                     return string.Empty;
 
-                return  string.Format(CultureInfo.CurrentUICulture, "Anzahl: {0}", this.ShoppingItem.Quantity);
+                return  string.Format(CultureInfo.CurrentUICulture, "{0} {1}", this.String_Amount, this.ShoppingItem.Quantity);
             }
         }
 

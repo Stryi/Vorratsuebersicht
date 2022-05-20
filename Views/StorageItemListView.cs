@@ -17,6 +17,7 @@ namespace VorratsUebersicht
         internal string String_Storage      = String.Empty;
         internal string String_Price        = String.Empty;
         internal string String_Amount       = String.Empty;
+        internal string String_Sum          = String.Empty;
 
         public StorageItemListView(StorageItemQuantityResult storageItem, Resources resources)
         {
@@ -29,6 +30,7 @@ namespace VorratsUebersicht
             this.String_PrefQuantity = resources.GetString(Resource.String.ArticleDetails_PrefQuantityLabel);
             this.String_Price        = resources.GetString(Resource.String.ArticleDetails_Price);
             this.String_Amount       = resources.GetString(Resource.String.StorageItem_Amount);
+            this.String_Sum          = resources.GetString(Resource.String.StorageItem_SumQuantityAndSize);
         }
         public StorageItemListView()
         {
@@ -64,7 +66,7 @@ namespace VorratsUebersicht
                     {
                         // TODO: Menge ggf. umrechnen, z.B. "2.500 g" als "2,5 Kg"
                         info += "\r\n";
-    					info += string.Format(CultureInfo.CurrentUICulture, "Menge: {0:#,0.######} {1}", (this.StorageItem.Size * this.StorageItem.Quantity), this.StorageItem.Unit).TrimEnd();
+                        info += string.Format(CultureInfo.CurrentUICulture, "{0} {1:#,0.######} {2}", this.String_Sum, (this.StorageItem.Size * this.StorageItem.Quantity), this.StorageItem.Unit).TrimEnd();
                     }
 				}
 
@@ -93,7 +95,7 @@ namespace VorratsUebersicht
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";
                     info += string.Format(CultureInfo.CurrentUICulture, "{0} {1:n2}", this.String_Price, this.StorageItem.Price.Value);
-                    info += string.Format(CultureInfo.CurrentUICulture, " ({0}: {1:n2})", this.String_Amount, this.StorageItem.Quantity * this.StorageItem.Price.Value);
+                    info += string.Format(CultureInfo.CurrentUICulture, " ({0} {1:n2})", this.String_Amount, this.StorageItem.Quantity * this.StorageItem.Price.Value);
                 }
 
                 return info;

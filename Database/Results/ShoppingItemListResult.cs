@@ -15,6 +15,7 @@ namespace VorratsUebersicht
         public string Manufacturer { get; set; }
         public string Supermarket { get; set; }
         public string Category { get; set; }
+        public string SubCategory { get; set; }
         public decimal? Size { get; set; }
         public string Unit { get; set; }
         public int? Calorie { get; set; }
