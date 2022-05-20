@@ -113,6 +113,10 @@
 	<string name="ArticleList_ToShoppingList" >Auf Einkaufsliste...</string>
 	<string name="ArticleList_Lagerbestand" >Lagerbestand</string>
 
+	<!-- Artikelliste - Footer -->
+	<string name="ArticleListSummary_Position" >{0:n0} Position</string>
+	<string name="ArticleListSummary_Positions" >{0:n0} Positionen</string>
+
 	<!-- Artikeldetails Menü -->
 	<string name="ArticleDetails_Menu_DeleteArticle" >Artikel löschen</string>
 	<string name="ArticleDetails_Menu_CreatePicture" >Bild erstellen</string>
@@ -184,6 +188,16 @@
 	<string name="StorageItem_Amount" >Wert:</string>
 	<string name="StorageItem_SumQuantityAndSize" >Menge:</string>
 	<string name="StorageItem_InventoryInPieces" >Bestand: {0} Stück</string>
+
+	<!-- Lagerbestandsliste - Footer -->
+	<string name="StorageListSummary_Position" >{0:n0} Position</string>
+	<string name="StorageListSummary_Positions" >{0:n0} Positionen</string>
+	<string name="StorageListSummary_Quantity" >Anzahl {0:#,0.##} Stück</string>
+	<string name="StorageListSummary_Amount" >Menge: {0:n0}</string>
+	<string name="StorageListSummary_Calories" >Kalorien: {0:n0}</string>
+	<string name="StorageListSummary_Value" >Wert: {0:n2} {1}</string>
+	<string name="StorageListSummary_Warning" >{0:#,0.######} Warnung(en)</string>
+	<string name="StorageListSummary_Off" >{0:#,0.######} Abgelaufen</string>
 
 	<!-- Lagerbestand -->
 	<string name="StorageItemQuantity_Menu_ToShoppingList" >Auf Einkaufsliste</string>

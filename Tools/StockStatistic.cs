@@ -1,6 +1,7 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Collections.Generic;
+
+using Android.App;
 
 namespace VorratsUebersicht
 {
@@ -61,15 +62,15 @@ namespace VorratsUebersicht
             this.sum_price += quantity * price.Value;
         }
 
-        internal string GetStatistic()
+        internal string GetStatistic(Activity activity)
         {
             string status;
             if (this.count == 1)
-                status = string.Format("{0:n0} Position", this.count);
+                status = string.Format(activity.Resources.GetString(Resource.String.ArticleListSummary_Position), this.count);
             else
-                status = string.Format("{0:n0} Positionen", this.count);
+                status = string.Format(activity.Resources.GetString(Resource.String.ArticleListSummary_Positions), this.count);
 
-            status += string.Format(CultureInfo.CurrentUICulture, ", Anzahl: {0:#,0.######} Stück", this.quantity);
+            status += ", " + string.Format(CultureInfo.CurrentUICulture, activity.Resources.GetString(Resource.String.StorageListSummary_Quantity), this.quantity);
 
             if (this.sum_menge.Count > 0)
             {
@@ -120,14 +121,14 @@ namespace VorratsUebersicht
 
                 if (!string.IsNullOrEmpty(mengeListe))
                 {
-                    status += string.Format(", Menge: {0:n0}", mengeListe);
+                    status += ", " + string.Format(activity.Resources.GetString(Resource.String.StorageListSummary_Amount), mengeListe);
                 }
             }
 
-            if (sum_kcal        > 0) status += string.Format(CultureInfo.CurrentUICulture, ", Kalorien: {0:n0}",   sum_kcal);
-            if (sum_price       > 0) status += string.Format(CultureInfo.CurrentUICulture, ", Wert: {0:n2} {1}",   sum_price, CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol);
-            if (sum_warnung     > 0) status += string.Format(CultureInfo.CurrentUICulture, ", {0:#,0.######} Warnung(en)", sum_warnung);
-            if (sum_abgelaufen  > 0) status += string.Format(CultureInfo.CurrentUICulture, ", {0:#,0.######} Abgelaufen",  sum_abgelaufen);
+            if (sum_kcal        > 0) status += ", " + string.Format(CultureInfo.CurrentUICulture, activity.Resources.GetString(Resource.String.StorageListSummary_Calories),   sum_kcal);
+            if (sum_price       > 0) status += ", " + string.Format(CultureInfo.CurrentUICulture, activity.Resources.GetString(Resource.String.StorageListSummary_Value),   sum_price, CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol);
+            if (sum_warnung     > 0) status += ", " + string.Format(CultureInfo.CurrentUICulture, activity.Resources.GetString(Resource.String.StorageListSummary_Warning), sum_warnung);
+            if (sum_abgelaufen  > 0) status += ", " + string.Format(CultureInfo.CurrentUICulture, activity.Resources.GetString(Resource.String.StorageListSummary_Off),  sum_abgelaufen);
             
             return status;
         }

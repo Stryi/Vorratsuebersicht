@@ -236,9 +236,9 @@ namespace VorratsUebersicht
             string status;
 
             if (articleList.Count == 1)
-                status = string.Format("{0:n0} Position", articleList.Count);
+                status = string.Format(this.Resources.GetString(Resource.String.ArticleListSummary_Position), articleList.Count);
             else
-                status = string.Format("{0:n0} Positionen", articleList.Count);
+                status = string.Format(this.Resources.GetString(Resource.String.ArticleListSummary_Positions), articleList.Count);
 
             TextView footer = FindViewById<TextView>(Resource.Id.ArticleList_Footer);
             footer.Text = status;

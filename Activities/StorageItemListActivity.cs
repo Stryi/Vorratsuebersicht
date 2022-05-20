@@ -429,7 +429,7 @@ namespace VorratsUebersicht
             listView.Focusable = true;
 
             TextView footer = FindViewById<TextView>(Resource.Id.StorageItemList_Footer);
-            footer.Text = statistic.GetStatistic();
+            footer.Text = statistic.GetStatistic(this);
         }
 
         private void ListAdapter_OptionMenu(object sender, EventArgs e)
