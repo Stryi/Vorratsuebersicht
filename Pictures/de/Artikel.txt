@@ -1,0 +1,12 @@
+01 Ravioli
+02 Pfirsich
+03 Zucker
+04 H-Milch,milfina,1l,22116406,
+05 Pizza Tomaten,Beste Ernte,400g,42298113
+06 Spaghetti n.5,Barilla,500g,8076800195057
+07 Kartoffel Mehl,RUF,500g,4002809001307,Haltbar 05.2018
+08 Tomatenmarkt,Beste Ernte,200g,4316268456715
+09 Heidelbeeren,Grandessa,450g,22152411
+10 42300656,Wald-Heidelbeeren,Beste Ernte,Essen,540,g,Glas
+11 4316268427548,Sonnenblumenöl,1L,
+12 22112439,Sonnenblumen Margarine,Bellasan,500g,Haltb. 06.12.2016
