@@ -185,6 +185,8 @@
 	<string name="StorageItem_Amount" >Value:</string>
 	<string name="StorageItem_SumQuantityAndSize" >Quantity:</string>
 	<string name="StorageItem_InventoryInPieces" >Inventory: {0} pieces</string>
+	<string name="StorageItem_CountWithNoExpiryDate" >{0} without expiry date </string>
+	<string name="StorageItem_CountWithThisExpiryDate" >{0} with expiry date {1}</string>
 
 	<!-- Lagerbestandsliste - Footer -->
 	<string name="StorageListSummary_Position" >{0:n0} position</string>

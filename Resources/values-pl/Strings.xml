@@ -188,6 +188,8 @@
 	<string name="StorageItem_Amount" >Wartość:</string>
 	<string name="StorageItem_SumQuantityAndSize" >Suma:</string>
 	<string name="StorageItem_InventoryInPieces" >Inwentarz: {0} sztuk</string>
+	<string name="StorageItem_CountWithNoExpiryDate" >{0} bez termiu zużycia</string>
+	<string name="StorageItem_CountWithThisExpiryDate" >{0} z terminem zużycia {1}</string>
 
 	<!-- Lagerbestandsliste - Footer -->
 	<string name="StorageListSummary_Position" >{0:n0} pozycja</string>
