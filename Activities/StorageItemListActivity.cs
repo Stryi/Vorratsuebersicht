@@ -369,8 +369,8 @@ namespace VorratsUebersicht
                 this.storageNameFilter,
                 StorageItemListActivity.oderByToConsumeDate);
 
-            var witNoDate   = this.Resources.GetString(Resource.String.StorageItem_CountWithNoExpiryDate);
-            var witTHisDate = this.Resources.GetString(Resource.String.StorageItem_CountWithThisExpiryDate);
+            var withNoDate   = this.Resources.GetString(Resource.String.StorageItem_CountWithNoExpiryDate);
+            var withThisDate = this.Resources.GetString(Resource.String.StorageItem_CountWithThisExpiryDate);
 
             foreach(StorageItemQuantityResult storegeItem in storageItemQuantityList)
             {
@@ -390,26 +390,26 @@ namespace VorratsUebersicht
                         if (result.BestBefore == null)
                         {
 					        if (!string.IsNullOrEmpty(info)) info += "\r\n";
-					        info += string.Format(CultureInfo.CurrentUICulture, witNoDate, result.Quantity);
+					        info += string.Format(CultureInfo.CurrentUICulture, withNoDate, result.Quantity);
                         }
                         else
                         {
 					        if (!string.IsNullOrEmpty(info)) info += "\r\n";
-					        info += string.Format(CultureInfo.CurrentUICulture, witTHisDate, result.Quantity, result.BestBefore.Value.ToShortDateString());
+					        info += string.Format(CultureInfo.CurrentUICulture, withThisDate, result.Quantity, result.BestBefore.Value.ToShortDateString());
                         }
                     }
 
 				    if (result.WarningLevel == 1)
 				    {
 					    if (!string.IsNullOrEmpty(warning)) warning += "\r\n";
-					    warning += string.Format(CultureInfo.CurrentUICulture, witTHisDate, result.Quantity, result.BestBefore.Value.ToShortDateString());
+					    warning += string.Format(CultureInfo.CurrentUICulture, withThisDate, result.Quantity, result.BestBefore.Value.ToShortDateString());
 
                         statistic.AddWarningLevel1(result.Quantity);
 				    }
 				    if (result.WarningLevel == 2)
 				    {
 					    if (!string.IsNullOrEmpty(error)) error += "\r\n";
-					    error += string.Format(CultureInfo.CurrentUICulture, "{0} mit Ablaufdatum {1}", result.Quantity, result.BestBefore.Value.ToShortDateString());
+					    error += string.Format(CultureInfo.CurrentUICulture, withThisDate, result.Quantity, result.BestBefore.Value.ToShortDateString());
 
                         statistic.AddWarningLevel2(result.Quantity);
 				    }
