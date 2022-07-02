@@ -1,18 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  <!--
-  <item android:id="@+id/ArticleImageMenu_Cancel"
-        android:icon="@drawable/ic_close_white_24dp"
-        android:title="@string/App_Cancel"
-        android:showAsAction="always" />
-
-  <item android:id="@+id/ArticleImageMenu_Save"
-        android:icon="@drawable/ic_check_white_24dp"
-        android:title="@string/App_Save"
-        android:showAsAction="always" />
-  -->
-  <item android:id="@+id/ArticleImageMenu_RotateRight"
+  <item android:id="@+id/ArticleImage_Menu_RotateRight"
         android:icon="@drawable/outline_rotate_right_white_24"
-        android:title="Rotate right"
+        android:title="@string/ArticleImage_Menu_RotateRight"
         android:showAsAction="always" />
 </menu>

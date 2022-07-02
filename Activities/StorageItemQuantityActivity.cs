@@ -279,12 +279,12 @@ namespace VorratsUebersicht
 
         public override bool OnPrepareOptionsMenu(IMenu menu)
         {
-            menu.FindItem(Resource.Id.StorageItemQuantity_Edit).SetVisible(!this.isEditMode);
+            menu.FindItem(Resource.Id.StorageItemQuantity_Menu_Edit).SetVisible(!this.isEditMode);
             menu.FindItem(Resource.Id.StorageItemQuantity_Cancel).SetVisible(this.isEditMode);
             menu.FindItem(Resource.Id.StorageItemQuantity_Save).SetVisible(this.isEditMode);
 
             if (StorageItemQuantityActivity.articleImage?.ImageSmall == null)
-                menu.FindItem(Resource.Id.StorageItemQuantity_EditPicture).SetVisible(false);
+                menu.FindItem(Resource.Id.StorageItemQuantity_Menu_EditPicture).SetVisible(false);
 
             menu.FindItem(Resource.Id.StorageItemQuantity_ToArticleDetails).SetVisible(!this.noArticleDetails);
             
@@ -299,7 +299,7 @@ namespace VorratsUebersicht
                     this.OnBackPressed();
                     return true;
 
-                case Resource.Id.StorageItemQuantity_Edit:
+                case Resource.Id.StorageItemQuantity_Menu_Edit:
 					this.SetEditMode(true);
 
                     return true;
@@ -331,7 +331,7 @@ namespace VorratsUebersicht
                     this.GotoArticleDetails();
                     return true;
 
-                case Resource.Id.StorageItemQuantity_EditPicture:
+                case Resource.Id.StorageItemQuantity_Menu_EditPicture:
                     var articleImage = new Intent (this, typeof(ArticleImageActivity));
                     articleImage.PutExtra("Heading", text);
                     articleImage.PutExtra("ArticleId", articleId);

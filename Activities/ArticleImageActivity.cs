@@ -84,7 +84,7 @@ namespace VorratsUebersicht
         {
             switch (item.ItemId)
             {
-                case Resource.Id.ArticleImageMenu_RotateRight:
+                case Resource.Id.ArticleImage_Menu_RotateRight:
                     this.RotateImage();
                     return true;
 

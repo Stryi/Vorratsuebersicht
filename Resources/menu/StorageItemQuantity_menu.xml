@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
-  <item android:id="@+id/StorageItemQuantity_Edit"
+  <item android:id="@+id/StorageItemQuantity_Menu_Edit"
         android:icon="@drawable/ic_mode_edit_white_24dp"
-        android:title="Positionen bearbeiten"
+        android:title="@string/StorageItemQuantity_Menu_Edit"
         app:showAsAction="always" />
 
-  <item android:id="@+id/StorageItemQuantity_EditPicture"
+  <item android:id="@+id/StorageItemQuantity_Menu_EditPicture"
         android:icon="@drawable/ic_add_a_photo_white_24dp"
-        android:title="Bild anzeigen"
+        android:title="@string/StorageItemQuantity_Menu_EditPicture"
         app:showAsAction="never" />
   
   <item android:id="@+id/StorageItemQuantity_Cancel"

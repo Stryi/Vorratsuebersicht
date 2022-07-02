@@ -14,8 +14,12 @@
 	<string name="App_DoNotDelete" >Do not delete</string>
 	<string name="App_Insert" >Insert</string>
 	<string name="App_Create" >Create</string>
+  <string name="App_Leter" >Later</string>
+  <string name="App_NotToday" >Not today</string>
+  <string name="App_Share" >Teilen</string>
+  <string name="App_Search" >Search</string>
 
-	<string name="App_ErrorOccurred" >Error occurred!</string>
+  <string name="App_ErrorOccurred" >Error occurred!</string>
 	<string name="App_ChooseAction" >Choose action...</string>
 	<string name="App_EnterQuantity">Enter quantity:</string>
 
@@ -27,7 +31,8 @@
 	<string name="Main_DemnaechstZuVerbrauchen" >To be consumed soon:</string>
 	<string name="Main_ArticlesWithExpiryDate" >{0} items after the expiry date</string>
 	<string name="Main_ArticlesNearExpiryDate" >{0} Consume item soon</string>
-	<string name="Main_Database" >Database</string>
+  <string name="Main_CreateBackupNow" >Back up the database?</string>
+  <string name="Main_Database" >Database</string>
 	<string name="Main_OpenDatabase" >Open database:</string>
 	<string name="Main_Button_BestandNachKategorie" >Inventory by category</string>
 	<string name="Main_Button_Lagerbestand" >Inventory</string>
@@ -119,7 +124,9 @@
 	<string name="ArticleList_ToShoppingList" >To shopping list</string>
 	<string name="ArticleList_Lagerbestand" >Inventory</string>
 
-	<!-- Artikelliste - Footer -->
+  <string name="ArticleList_Menu_Add" >Create new article</string>
+
+  <!-- Artikelliste - Footer -->
 	<string name="ArticleListSummary_Position" >{0:n0} position</string>
 	<string name="ArticleListSummary_Positions" >{0:n0} positions</string>
 
@@ -171,7 +178,9 @@
 	<string name="ArticleDetails_EanCodeAlreadyContains">The EAN code is already entered.</string>
 	<string name="ArticleDetails_EanCodeReplaceOrInsert">Replace or add the EAN code?</string>
 
-	<!-- OpenFoodFacts -->
+  <string name="ArticleImage_Menu_RotateRight">Rotate right</string>
+
+  <!-- OpenFoodFacts -->
 	<string name="InternetDatabaseSearch_Searching" >Search for item data on:\n\n https://world.openfoodfacts.org</string>
 	<string name="InternetDatabaseSearch_EANCode" >EAN code: {0}</string>
 	<string name="InternetDatabaseSearch_Info" >
@@ -194,7 +203,10 @@
 	<string name="StorageItem_CountWithNoExpiryDate" >{0} without expiry date </string>
 	<string name="StorageItem_CountWithThisExpiryDate" >{0} with expiry date {1}</string>
 
-	<!-- Lagerbestandsliste - Footer -->
+  <string name="StorageItemList_Menu_Sort" >Sorting (alphabetically or by expiry date)</string>
+  <string name="StorageItemList_Menu_Add" >Add article</string>
+
+  <!-- Lagerbestandsliste - Footer -->
 	<string name="StorageListSummary_Position" >{0:n0} position</string>
 	<string name="StorageListSummary_Positions" >{0:n0} positions</string>
 	<string name="StorageListSummary_Quantity" >Sum amount {0:#,0.##}</string>
@@ -207,7 +219,9 @@
 	<!-- Lagerbestand -->
 	<string name="StorageItemQuantity_Menu_ToShoppingList" >To shopping list</string>
 	<string name="StorageItemQuantity_Menu_Artikelangaben" >Article details</string>
-	<string name="StorageItemQuantity_StorageForNewPosition" >Warehouse for new pos.:</string>
+  <string name="StorageItemQuantity_Menu_Edit">Edit Position</string>
+  <string name="StorageItemQuantity_Menu_EditPicture">Show image</string>
+  <string name="StorageItemQuantity_StorageForNewPosition" >Warehouse for new pos.:</string>
 	<string name="StorageItemQuantity_Step" >Step</string>
 	<string name="StorageItemQuantity_StepText" >1x</string>
 
@@ -237,7 +251,9 @@
 	<string name="ShoppingList_AllSupermarkets" >[All]</string>
 	<string name="ShoppingList_Bought" >Bought</string>
 
-	<!-- Shopping list - Footer -->
+  <string name="ShoppingList_Menu_Add" >Add item to list</string>
+
+  <!-- Shopping list - Footer -->
 	<string name="ShoppingListSummary_Position" >{0:n0} position</string>
 	<string name="ShoppingListSummary_Positions" >{0:n0} positions</string>
 	<string name="ShoppingListSummary_Quantity" >Sum amount {0:#,0.##}</string>

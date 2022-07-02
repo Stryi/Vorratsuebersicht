@@ -148,7 +148,7 @@ namespace VorratsUebersicht
         {
             MenuInflater.Inflate(Resource.Menu.ArticleList_menu, menu);
 
-            var searchMenuItem = menu.FindItem(Resource.Id.ArticleList_Search);
+            var searchMenuItem = menu.FindItem(Resource.Id.ArticleList_Menu_Search);
             var searchView = (SearchView) searchMenuItem.ActionView;
 
             // https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
@@ -165,12 +165,12 @@ namespace VorratsUebersicht
                     this.OnBackPressed();
                     return true;
 
-                case Resource.Id.ArticleList_Add:
+                case Resource.Id.ArticleList_Menu_Add:
                     // Create New Article
                     this.ShowArticleDetails(0, null);
                     return true;
 
-                case Resource.Id.ArticleList_Share:
+                case Resource.Id.ArticleList_Menu_Share:
                     this.ShareList();
                     return true;
             }

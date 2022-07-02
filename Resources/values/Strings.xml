@@ -14,8 +14,12 @@
 	<string name="App_DoNotDelete" >Nicht löschen</string>
 	<string name="App_Insert" >Hinzufügen</string>
 	<string name="App_Create" >Erstellen</string>
-	
-	<string name="App_ErrorOccurred" >Fehler aufgetreten!</string>
+  <string name="App_Leter" >Später</string>
+  <string name="App_NotToday" >Nicht heute</string>
+  <string name="App_Share" >Teile</string>
+  <string name="App_Search" >Suchen</string>
+
+  <string name="App_ErrorOccurred" >Fehler aufgetreten!</string>
 	<string name="App_ChooseAction" >Aktion wählen...</string>
 	<string name="App_EnterQuantity">Anzahl eingeben:</string>
 
@@ -27,7 +31,8 @@
 	<string name="Main_DemnaechstZuVerbrauchen" >Demnächst zu verbrauchen:</string>
 	<string name="Main_ArticlesWithExpiryDate" >{0} Artikel nach dem Ablaufdatum</string>
 	<string name="Main_ArticlesNearExpiryDate" >{0} Artikel demnächst verbrauchen</string>
-	<string name="Main_Database" >Datenbank</string>
+  <string name="Main_CreateBackupNow" >Backup der Datenbank erstellen?</string>
+  <string name="Main_Database" >Datenbank</string>
 	<string name="Main_OpenDatabase" >Datenbank öffnen:</string>
 	<string name="Main_Button_BestandNachKategorie" >Bestand nach Kategorie</string>
 	<string name="Main_Button_Lagerbestand" >Lagerbestand</string>
@@ -39,7 +44,7 @@
 	<string name="Main_Button_AufEinkaufsliste" >Auf Einkaufsliste</string>
 	<string name="Main_Button_InLagerbestand" >Von Einkaufsliste ins Lager</string>
 
-	<!-- Maske Optionen -->
+  <!-- Maske Optionen -->
 	<string name="Settings_Title" >Einstellungen</string>
 	<string name="Settings_ArticleDefaults" >Artikelangaben</string>
 	<string name="Settings_AdditionalCategories" >Zusätzliche Kategorien (mit Komma getrennt definieren)</string>
@@ -119,7 +124,9 @@
 	<string name="ArticleList_ToShoppingList" >Auf Einkaufsliste...</string>
 	<string name="ArticleList_Lagerbestand" >Lagerbestand</string>
 
-	<!-- Artikelliste - Footer -->
+  <string name="ArticleList_Menu_Add" >Neuen Artikel anlegen</string>
+  
+  <!-- Artikelliste - Footer -->
 	<string name="ArticleListSummary_Position" >{0:n0} Position</string>
 	<string name="ArticleListSummary_Positions" >{0:n0} Positionen</string>
 
@@ -173,7 +180,9 @@
 	<string name="ArticleDetails_EanCodeAlreadyContains">Der EAN Code ist bereits eingetragen.</string>
 	<string name="ArticleDetails_EanCodeReplaceOrInsert">Den EAN Code ersetzen oder zusätzlich hinzufügen?</string>
 
-	<!-- OpenFoodFacts -->
+  <string name="ArticleImage_Menu_RotateRight">Drehe nach rechts</string>
+
+  <!-- OpenFoodFacts -->
 	<string name="InternetDatabaseSearch_Searching" >Suche nach Artikeldaten auf:\n\n  https://world.openfoodfacts.org</string>
 	<string name="InternetDatabaseSearch_EANCode" >EAN Code: {0}</string>
 	<string name="InternetDatabaseSearch_Info" >
@@ -197,7 +206,10 @@
 	<string name="StorageItem_CountWithNoExpiryDate" >{0} ohne Ablaufdatum</string>
 	<string name="StorageItem_CountWithThisExpiryDate" >{0} mit Ablaufdatum {1}</string>
 
-	<!-- Lagerbestandsliste - Footer -->
+  <string name="StorageItemList_Menu_Sort" >Sortierung (Alphabetisch oder nach Ablaufdatum)</string>
+  <string name="StorageItemList_Menu_Add" >Artikel hinzufügen</string>
+
+  <!-- Lagerbestandsliste - Footer -->
 	<string name="StorageListSummary_Position" >{0:n0} Position</string>
 	<string name="StorageListSummary_Positions" >{0:n0} Positionen</string>
 	<string name="StorageListSummary_Quantity" >Anzahl {0:#,0.##} Stück</string>
@@ -207,10 +219,13 @@
 	<string name="StorageListSummary_Warning" >{0:#,0.######} Warnung(en)</string>
 	<string name="StorageListSummary_Off" >{0:#,0.######} Abgelaufen</string>
 
-	<!-- Lagerbestand -->
+  <!-- Lagerbestand -->
 	<string name="StorageItemQuantity_Menu_ToShoppingList" >Auf Einkaufsliste</string>
 	<string name="StorageItemQuantity_Menu_Artikelangaben" >Artikelangaben</string>
-	<string name="StorageItemQuantity_StorageForNewPosition" >Lager für Neu.:</string>
+  <string name="StorageItemQuantity_Menu_Edit">Positionen bearbeiten</string>
+  <string name="StorageItemQuantity_Menu_EditPicture">Bild anzeigen</string>
+  
+  <string name="StorageItemQuantity_StorageForNewPosition" >Lager für Neu.:</string>
 	<string name="StorageItemQuantity_Step" >Schritt</string>
 	<string name="StorageItemQuantity_StepText" >1x</string>
 
@@ -240,7 +255,9 @@
 	<string name="ShoppingList_AllSupermarkets" >[Alle]</string>
 	<string name="ShoppingList_Bought" >Gekauft</string>
 
-	<!-- Shopping list - Footer -->
+  <string name="ShoppingList_Menu_Add" >Artikel in Liste aufnehmen</string>
+
+  <!-- Shopping list - Footer -->
 	<string name="ShoppingListSummary_Position" >{0:n0} Position</string>
 	<string name="ShoppingListSummary_Positions" >{0:n0} Positionen</string>
 	<string name="ShoppingListSummary_Quantity" >Anzahl {0:#,0.##} Stück</string>

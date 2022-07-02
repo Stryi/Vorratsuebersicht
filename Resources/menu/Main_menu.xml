@@ -3,11 +3,11 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
   <item android:id="@+id/Main_Menu_SelectDatabase"
         android:icon="@drawable/baseline_dns_white_24"
-        android:title="Datenbank"
+        android:title="@string/Main_Database"
         app:showAsAction="always" />
 
   <item android:id="@+id/Main_Menu_Options"
         android:icon="@drawable/baseline_settings_white_24"
-        android:title="Optionen"
+        android:title="@string/Settings_Title"
         app:showAsAction="always" />
 </menu>

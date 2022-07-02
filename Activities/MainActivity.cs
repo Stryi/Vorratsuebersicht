@@ -323,6 +323,9 @@ namespace VorratsUebersicht
 
             DateTime? lastBackupDay = Database.GetSettingsDate("LAST_BACKUP");
 
+            // Activate to test the Backup Message
+            //lastBackupDay = new DateTime(2000, 02, 20);
+
             // Backup nur alle 7 Tage vorschlagen
             if ((lastBackupDay != null) && (lastBackupDay.Value.AddDays(7) >= DateTime.Today))
                 return;
@@ -332,7 +335,7 @@ namespace VorratsUebersicht
             if ((notToday != null) && (notToday.Value.Date == DateTime.Today))
                 return;
 
-            string messageText = "Backup der Datenbank erstellen?";
+            string messageText = this.Resources.GetString(Resource.String.Main_CreateBackupNow);
 
             if (lastBackupDay != null)
             {
@@ -349,8 +352,8 @@ namespace VorratsUebersicht
                     settingsActivity.PutExtra("CreateBackup", true);
                     StartActivity(settingsActivity);
                 });
-            message.SetNegativeButton("Später",      (s, e) => { });
-            message.SetNeutralButton("Nicht heute",  (s, e) => 
+            message.SetNegativeButton(this.Resources.GetString(Resource.String.App_Leter),    (s, e) => { });
+            message.SetNeutralButton(this.Resources.GetString(Resource.String.App_NotToday),  (s, e) => 
                 { 
                     Settings.PutDate("BACKUP_NOT_TODAY", DateTime.Today);
                 });
