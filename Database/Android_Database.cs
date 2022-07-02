@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
+using System.Globalization;
+
 using Android.App;
 using Android.Content;
 
@@ -167,7 +169,7 @@ namespace VorratsUebersicht
 			return File.Exists(path);
 		}
 
-		public Exception CreateDatabaseOnAppStorage(Context context, string databaseName, bool setAsCurrent = false)
+		public Exception CreateDatabaseOnAppStorage(Context context, string databaseName)
         {
             // Beispiel: "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
 			var externalFileDir = context.GetExternalFilesDir(null);
@@ -184,13 +186,9 @@ namespace VorratsUebersicht
 			string documentsPath = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 			string source      = Path.Combine(documentsPath, Android_Database.sqliteFilename_New);
 
-			try
-			{
+            try
+            {
                 File.Copy(source, destination);
-                if (setAsCurrent)
-                {
-                    Android_Database.SelectedDatabaseName = destination;
-                }
 			}
 			catch (Exception e)
 			{
@@ -198,41 +196,24 @@ namespace VorratsUebersicht
 
 				return e;
 			}
-            
+
             return null;
         }
 
         /// <summary>
-        /// Datenbank von der SD Karte restaurieren
+        /// Create test database with samples.
         /// </summary>
 		public void RestoreDatabase_Test_Sample(bool overrideDatabase)
         {
-            // Beispiel: "/data/user/0/de.stryi.Vorratsuebersicht/files"
-			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
-            
-            // Beispiel: "/data/user/0/de.stryi.Vorratsuebersicht/files/Vorraete_Demo.db3"
-            string source      = Path.Combine(documentsPath, Android_Database.sqliteFilename_Demo);
-
-            // Beispiel: "/data/user/0/de.stryi.Vorratsuebersicht/files/Vorraete_Test.db3"
-			string destination = Path.Combine(documentsPath,  Android_Database.sqliteFilename_Test);
-
-            this.RestoreDatabase(source, destination, overrideDatabase);
-
-            this.PrepareTestDatabase(destination);
+            this.CreateLocalizedDatabaseFromAsset(Android_Database.sqliteFilename_Demo, Android_Database.sqliteFilename_Test, true, true);
         }
 
+        /// <summary>
+        /// Create empty test database.
+        /// </summary>
         public void RestoreDatabase_Test_Db0(bool overrideDatabase)
         {
-            // Beispiel: "/data/user/0/de.stryi.Vorratsuebersicht/files"
-			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
-
-            // Beispiel: "/data/user/0/de.stryi.Vorratsuebersicht/files/Vorraete_db0.db3"
-            string source      = Path.Combine(documentsPath, Android_Database.sqliteFilename_New);
-
-            // Beispiel: "/data/data/de.stryi.Vorratsuebersicht/files/Vorraete_Test.db3"
-			string destination = Path.Combine(documentsPath, Android_Database.sqliteFilename_Test);
-
-            this.RestoreDatabase(source, destination, overrideDatabase);
+            this.CreateLocalizedDatabaseFromAsset(Android_Database.sqliteFilename_New, Android_Database.sqliteFilename_Test, false, true);
         }
 
         /// <summary>
@@ -251,43 +232,16 @@ namespace VorratsUebersicht
             conn.Execute(cmd);
         }
 
-        
-        private bool RestoreDatabase(string source, string destination, bool overrideDestination)
-        {
-            if (File.Exists(source))
-            {
-                if (File.Exists(destination) && overrideDestination)
-                    File.Delete(destination);
-
-                if (!File.Exists(destination))
-                {
-                    try
-                    {
-                        File.Copy(source, destination);
-                    }
-                    catch (Exception e)
-                    {
-                        TRACE(e);
-
-                        return false;
-                    }
-                    return true;
-                }
-            }
-            
-            return false;
-        }
-                
         /// <summary>
         /// Datenbanken aus den Resourcen erstellen.
         /// </summary>
-		public void RestoreSampleDatabaseFromResources(Context context)
+		public void RestoreDatabasesFromResourcesOnStartup(Context context)
 		{
-			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
+            // Localized demo database with sample data.
+            this.CreateLocalizedDatabaseFromAsset(Android_Database.sqliteFilename_Demo, Android_Database.sqliteFilename_Test, true,  false);
 
-            this.CreateDatabaseIfNotExists(documentsPath,  Android_Database.sqliteFilename_Demo, Android_Database.sqliteFilename_Test, true);
-            this.CreateDatabaseIfNotExists(documentsPath,  Android_Database.sqliteFilename_Demo, Android_Database.sqliteFilename_Demo, false);
-            this.CreateDatabaseIfNotExists(documentsPath,  Android_Database.sqliteFilename_New,  Android_Database.sqliteFilename_New,  false);
+            // Empty database to create a new database.
+            this.CreateLocalizedDatabaseFromAsset(Android_Database.sqliteFilename_New,  Android_Database.sqliteFilename_New,  false, false);
 
             List<string> databases;
             Android_Database.LoadDatabaseFileListSafe(context, out databases);
@@ -296,7 +250,7 @@ namespace VorratsUebersicht
                 // Datenbank im Applikationsverzeichnis erstellen.
                 string databaseName = Path.GetFileNameWithoutExtension(Android_Database.sqliteFilename_Prod);
                 this.CreateDatabaseOnAppStorage(context, databaseName);
-        }
+            }
         }
 
         public static SQLite.SQLiteConnection SQLiteConnection = null;
@@ -369,6 +323,8 @@ namespace VorratsUebersicht
             
             try
             {
+                // "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht"
+                // "/storage/0E0E-2316/Android/data/de.stryi.Vorratsuebersicht"
                 var externalFilesDirs = context.GetExternalFilesDirs(null);
                 if (externalFilesDirs != null)
                 {
@@ -535,12 +491,27 @@ namespace VorratsUebersicht
         /// <seealso>http://arteksoftware.com/deploying-a-database-file-with-a-xamarin-forms-app<seealso>
         /// <param name="path"></param>
         /// <param name="fileName"></param>
-        private void CreateDatabaseIfNotExists(string path, string fileName, string destinationFileName, bool prepareTestData)
+        private string CreateLocalizedDatabaseFromAsset(string fileName, string destinationFileName, bool prepareTestData, bool overrideIfExists)
         {
-			string dbPath = Path.Combine(path, destinationFileName);
+            // Beispiel: "/data/user/0/de.stryi.Vorratsuebersicht/files"
+			string path = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
+            
+
+            string dbPath = Path.Combine(path, destinationFileName);
+
+            if (File.Exists(dbPath) && overrideIfExists)
+                File.Delete(dbPath);
 
             if (File.Exists (dbPath))
-                return;
+                return null;
+
+            string localizedFileName = this.GetLocalizedFileName(fileName);
+
+            var liste = Application.Context.Assets.List(String.Empty);
+            if (liste.Contains(localizedFileName))
+            {
+                fileName = localizedFileName;
+            }
 
             using (var br = new BinaryReader(Application.Context.Assets.Open(fileName)))
             {
@@ -558,10 +529,21 @@ namespace VorratsUebersicht
             if (prepareTestData)
                 this.PrepareTestDatabase(dbPath);
 
-            return;
+            return dbPath;
         }
 
-		public Exception RenameDatabase(Context context, string databaseName, string newName)
+        private string GetLocalizedFileName(string fileName)
+        {
+            // Gibt es eine länderspezifisches Assets (Datei)?
+            string landKz = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+
+            string name      = Path.GetFileNameWithoutExtension(fileName);
+            string extension = Path.GetExtension(fileName);
+
+            return name + "_" + landKz + extension;
+        }
+
+        public Exception RenameDatabase(Context context, string databaseName, string newName)
         {
             string destinationName = Path.GetDirectoryName(databaseName);
 

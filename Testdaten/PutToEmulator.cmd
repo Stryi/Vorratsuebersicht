@@ -23,6 +23,7 @@ ECHO **** Uebertragung
 %adbCmd% push "..\..\Testdaten\Jacht.db3"                  "/storage/emulated/0/Vorratsuebersicht/Jacht.db3"
 %adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"     "/storage/emulated/0/Vorratsuebersicht/Ferienhaus Florida.db3"
 %adbCmd% push "..\..\Testdaten\KAPUTT.db3"                 "/storage/emulated/0/Vorratsuebersicht/KAPUTT.db3"
+%adbCmd% push "..\..\Testdaten\Vue_OLD_FORMAT.VueBak"      "/storage/emulated/0/Vorratsuebersicht/Vue_OLD_FORMAT.db3"
 
 
 ECHO ----------------------------------------------------
@@ -52,7 +53,7 @@ ECHO ----------------------------------------------------
 ECHO Backup uebertragen
 ECHO ----------------------------------------------------
 
-REM %adbCmd% push ..\..\Testdaten\Vue_2019-07-22_OLD_FORMAT.VueBak  /storage/emulated/0/Download/Vue_2019-07-22_OLD_FORMAT.VueBak
+%adbCmd% push "..\..\Testdaten\Vue_OLD_FORMAT.VueBak"      "/storage/emulated/0/Download/Vue_OLD_FORMAT.VueBak""
 
 
 ECHO ----------------------------------------------------

@@ -9048,6 +9048,9 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7F0F0079
 			public const int Settings_DatabaseNew = 2131689593;
 			
+			// aapt resource value: 0x7F0F007A
+			public const int Settings_DatabaseNewDialog = 2131689594;
+			
 			// aapt resource value: 0x7F0F007B
 			public const int Settings_DatabaseNewDialogMessage = 2131689595;
 			

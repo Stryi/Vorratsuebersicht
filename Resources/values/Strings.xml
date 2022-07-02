@@ -91,6 +91,7 @@
 	<string name="Settings_AdditionalDatabasePath" >Zusätzlicher Datenbankpfad (wird später vielleicht nicht mehr möglich sein):</string>
   <string name="Settings_ErrorSavingAdditionalDatabasePath">Der eingegebene zusätzlicher Datenbankpfad \'{0}\' existiert nicht oder Sie haben kein Zugriff dadrauf.</string>
   <string name="Settings_ConvertDatabaseForPicture">Es müssen {0} Bilder übertragen werden.\n\nBeenden Sie die App anschließend ganz und starten Sie diese neu.</string>
+  <string name="Settings_DatabaseNewDialog">Neue Datenbank erstellen\n\nName eingeben:</string>
 
   <string name="Settings_AltDatePicker" >Alternativer Datumsauswahl-Dialog</string>
 	<string name="Settings_CompressPictures" >Bilder komprimieren</string>

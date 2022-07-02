@@ -58,8 +58,8 @@ namespace VorratsUebersicht
             this.SupportActionBar.SetBackgroundDrawable(backgroundPaint);
             this.SupportActionBar.SetDisplayShowHomeEnabled(true);
 
-            // Datenbanken erstellen
-            Android_Database.Instance.RestoreSampleDatabaseFromResources(this);
+            // Create databases on startup
+            Android_Database.Instance.RestoreDatabasesFromResourcesOnStartup(this);
 
             bool firstRun = Settings.GetBoolean("FirstRun", true);
             if (firstRun)
