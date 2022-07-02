@@ -763,9 +763,7 @@ namespace VorratsUebersicht
                     text.AppendFormat("CurrentUICulture: {0}\n", CultureInfo.CurrentUICulture.DisplayName);
 
                     text.AppendLine();
-
-                    // TODO: AppenLine statt AppendFormat
-                    text.AppendFormat(Logging.GetLogFileText());
+                    text.AppendLine(Logging.GetLogFileText());
 
                     System.Diagnostics.Trace.WriteLine(text.ToString());
 
