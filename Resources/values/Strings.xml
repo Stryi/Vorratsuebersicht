@@ -55,8 +55,9 @@
 	<string name="Settings_RestoreBackupFile" >Backup Datenbank\n\n{0}\n\nwiederherstellen in {1}?</string>
 	<string name="Settings_SelectBackupOrImport" >Datenbank oder Backup auswählen:</string>
 	<string name="Settings_SelectBackup" >Backup auswählen:</string>
+  <string name="Settings_NoDatabaseSelected" >Keine Datenbank ausgewählt.</string>
 
-	<string name="Settings_BackupPath" >Backup-Pfad:</string>
+  <string name="Settings_BackupPath" >Backup-Pfad:</string>
 	<string name="Settings_LastBackupOn" >Letzter Backup am: {0}</string>
 	<string name="Settings_AskForBackup" >An Backup alle 7 Tage erinnern</string>
 	<string name="Settings_BackupDone" >Datenbank im Download Verzeichnis gesichert als:\n\n {0}"\n\nSichern Sie diese Datei auf Google Drive oder auf Ihren PC.</string>
@@ -70,10 +71,12 @@
 	<string name="Settings_DatabaseRename" >\tDatenbank umbenennen...\n\t(außer der gerade geöffneten)</string>
 	<string name="Settings_DatabaseDelete" >\tDatenbank löschen...\n\t(Auswahl folgt)</string>
 	<string name="Settings_DatabaseImport" >\tDatenbank importieren</string>
-	<string name="Settings_EAN_Scann" >EAN Scan</string>
-	<string name="Settings_EAN_Scann_UseFrontcamera" >Benutze Frontkamera</string>
+  <string name="Settings_DatabaseNewDialogTitle">Neue Datenbank erstellen</string>
+  <string name="Settings_DatabaseNewDialogMessage">"\n\nName eingeben:</string>
+  <string name="Settings_EAN_Scann" >EAN Scan</string>
+  <string name="Settings_EAN_Scann_UseFrontcamera" >Benutze Frontkamera</string>
 
-	<string name="Settings_TestDatenbank" >Zum Kennenlernen oder Testen neuer Funktionalität</string>
+  <string name="Settings_TestDatenbank" >Zum Kennenlernen oder Testen neuer Funktionalität</string>
 	<string name="Settings_SwitchToTestDB" >Test Datenbank aktivieren</string>
 	<string name="Settings_TestDatenbankZuruecksetzen" >Test Datenbank zurücksetzen</string>
 	<string name="Settings_TestDatenbankLeeren" >Test Datenbank leeren</string>
@@ -86,8 +89,10 @@
 
 	<string name="Settings_ShowOFFCostMessage" >Kostenhinweis bei OpenFoodFacts.org anzeigen</string>
 	<string name="Settings_AdditionalDatabasePath" >Zusätzlicher Datenbankpfad (wird später vielleicht nicht mehr möglich sein):</string>
+  <string name="Settings_ErrorSavingAdditionalDatabasePath">Der eingegebene zusätzlicher Datenbankpfad \'{0}\' existiert nicht oder Sie haben kein Zugriff dadrauf.</string>
+  <string name="Settings_ConvertDatabaseForPicture">Es müssen {0} Bilder übertragen werden.\n\nBeenden Sie die App anschließend ganz und starten Sie diese neu.</string>
 
-	<string name="Settings_AltDatePicker" >Alternativer Datumsauswahl-Dialog</string>
+  <string name="Settings_AltDatePicker" >Alternativer Datumsauswahl-Dialog</string>
 	<string name="Settings_CompressPictures" >Bilder komprimieren</string>
 	<string name="Settings_Compress_854" >854</string>
 	<string name="Settings_Compress_1024" >1.024</string>

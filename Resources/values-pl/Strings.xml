@@ -55,8 +55,9 @@
 	<string name="Settings_RestoreBackupFile" >Przywrócić kopię zapasową bazy danych\n\n{0}\n\njako {1}?</string>
 	<string name="Settings_SelectBackupOrImport" >Wybierz bazę danych lub kopię zapasową:</string>
 	<string name="Settings_SelectBackup" >Wybierz kopię zapasową:</string>
+  <string name="Settings_NoDatabaseSelected" >Nie wybrano bazy danych.</string>
 
-	<string name="Settings_BackupPath" >Ścieżka zapasowa:</string>
+  <string name="Settings_BackupPath" >Ścieżka zapasowa:</string>
 	<string name="Settings_LastBackupOn" >Ostatnia kopia zapasowa dnia: {0}</string>
 	<string name="Settings_AskForBackup" >Przypomnij o kopii zapasowej co 7 dni</string>
 	<string name="Settings_BackupDone" >Baza danych zapisana w katalogu jako:\n\n {0}"\n\nZapisz ten plik na Dysku Google lub na komputerze.</string>
@@ -70,7 +71,9 @@
 	<string name="Settings_DatabaseRename" >\tZmień nazwę bazy danych...\n\t(z wyjątkiem tej właśnie otwartej)</string>
 	<string name="Settings_DatabaseDelete" >\tUsuń bazę danych...\n\t(wybór następuje)</string>
 	<string name="Settings_DatabaseImport" >\tImportuj bazę danych</string>
-	<string name="Settings_EAN_Scann" >EAN skan</string>
+  <string name="Settings_DatabaseNewDialogTitle">Utwórz nową bazę danych</string>
+  <string name="Settings_DatabaseNewDialogMessage">"\n\nWprowadź nazwę:</string>
+  <string name="Settings_EAN_Scann" >EAN skan</string>
 	<string name="Settings_EAN_Scann_UseFrontcamera" >Używaj przedniej kamery</string>
 
 	<string name="Settings_TestDatenbank" >Aby poznać lub przetestować nową funkcjonalność</string>
@@ -86,8 +89,11 @@
 
 	<string name="Settings_ShowOFFCostMessage" >Pokaż Informacje o kosztach dostępu do OpenFoodFacts.org</string>
 	<string name="Settings_AdditionalDatabasePath" >Dodatkowa ścieżka do bazy danych (może nie być później możliwa):</string>
+  <string name="Settings_ErrorSavingAdditionalDatabasePath">Wprowadzona dodatkowa ścieżka bazy danych \'{0}\' nie istnieje lub nie masz do niej dostępu.</string>
+  <string name="Settings_ConvertDatabaseForPicture">{0} zdjęć muszą zostać przekonwertowane.\n\nZamknij aplikację i uruchom ją ponownie.</string>
+  <string name="Settings_DatabaseNewDialog">Utwórz nową bazę danych\n\nWprowadź nazwę:</string>
 
-	<string name="Settings_AltDatePicker" >Alternatywne okno wyboru dnia</string>
+  <string name="Settings_AltDatePicker" >Alternatywne okno wyboru dnia</string>
 	<string name="Settings_CompressPictures" >Kompresuj zdjęcia</string>
 	<string name="Settings_Compress_854" >854</string>
 	<string name="Settings_Compress_1024" >1.024</string>

@@ -252,10 +252,8 @@ namespace VorratsUebersicht
             if (picturesToMove.Count == 0)
                 return;
 
-            string message = string.Format(
-                "Es müsen {0} Bilder übetragen werden.\n\n" +
-                "Beenden Sie die App ganz, starten Sie diese neu und wählen Sie beim Starten diese Datenbank.",
-                picturesToMove.Count);
+            string message = this.Resources.GetString(Resource.String.Settings_ConvertDatabaseForPicture);
+            message = string.Format(message, picturesToMove.Count);
 
             var dialog = new AlertDialog.Builder(this);
             dialog.SetMessage(message);

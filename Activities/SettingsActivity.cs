@@ -312,7 +312,8 @@ namespace VorratsUebersicht
                 bool dirExists = Directory.Exists(dbPath.Text);
                 if (!dirExists)
                 {
-                    string message = string.Format("Der eingegebene zusätzlicher Datenbankpfad '{0}' existiert nicht oder Sie haben kein Zugriff dadrauf.", dbPath.Text);
+                    string message = this.Resources.GetString(Resource.String.Settings_ErrorSavingAdditionalDatabasePath);
+                    message = string.Format(message, dbPath.Text);
 
                     var messageBox = new AlertDialog.Builder(this);
                     messageBox.SetMessage(message);
@@ -422,10 +423,8 @@ namespace VorratsUebersicht
 
                             RunOnUiThread(() =>
                             {
-                                message = string.Format(
-                                    "Es müsen {0} Bilder übetragen werden.\n\n" +
-                                    "Beenden Sie die App ganz und starten Sie diese neu.",
-                                    picturesToMove.Count);
+                                message = this.Resources.GetString(Resource.String.Settings_ConvertDatabaseForPicture);
+                                message = string.Format(message, picturesToMove.Count);
 
                                 var dialog = new AlertDialog.Builder(this);
                                 dialog.SetMessage(message);
@@ -555,8 +554,8 @@ namespace VorratsUebersicht
         {
             string newDatabaseName = await MainActivity.InputTextAsync(
                 this,
-                "Neue Datenbank erstellen",
-                "\n\nName eingeben:",
+                this.Resources.GetString(Resource.String.Settings_DatabaseNewDialogTitle),
+                this.Resources.GetString(Resource.String.Settings_DatabaseNewDialogMessage),
                 string.Empty,
                 this.Resources.GetString(Resource.String.App_Create),
                 this.Resources.GetString(Resource.String.App_Cancel));
@@ -764,6 +763,8 @@ namespace VorratsUebersicht
                     text.AppendFormat("CurrentUICulture: {0}\n", CultureInfo.CurrentUICulture.DisplayName);
 
                     text.AppendLine();
+
+                    // TODO: AppenLine statt AppendFormat
                     text.AppendFormat(Logging.GetLogFileText());
 
                     System.Diagnostics.Trace.WriteLine(text.ToString());
@@ -838,7 +839,7 @@ namespace VorratsUebersicht
 
             if (string.IsNullOrEmpty(databasePath))
             {
-                Toast.MakeText(this, "Keine Datenbank ausgewählt.", ToastLength.Long).Show();
+                Toast.MakeText(this, Resource.String.Settings_NoDatabaseSelected, ToastLength.Long).Show();
                 return;
             }
 
@@ -862,7 +863,7 @@ namespace VorratsUebersicht
 
             if (!isGranted)
             {
-                Toast.MakeText(this, "Keine Berechtigung auf Dateien und Medien für diese App vergeben.", ToastLength.Long).Show();
+                Toast.MakeText(this, "No permission has been granted to files and media for this app.", ToastLength.Long).Show();
                 return;
             }
 

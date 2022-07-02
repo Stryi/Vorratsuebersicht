@@ -55,8 +55,9 @@
 	<string name="Settings_RestoreBackupFile" >Restore backup file \n\n{0}\n\nas {1}?</string>
 	<string name="Settings_SelectBackupOrImport" >Select database or backup:</string>
 	<string name="Settings_SelectBackup" >Select backup:</string>
+  <string name="Settings_NoDatabaseSelected" >No database selected.</string>
 
-	<string name="Settings_BackupPath" >Backup path:</string>
+  <string name="Settings_BackupPath" >Backup path:</string>
 	<string name="Settings_LastBackupOn" >Last backup on: {0}</string>
 	<string name="Settings_AskForBackup" >Remind to backup every 7 days</string>
 	<string name="Settings_BackupDone" >Database saved in download directory as:\n\n {0}"\n\nSave this file to Google Drive or to your PC.</string>
@@ -66,11 +67,13 @@
 	<string name="Settings_DeleteBackupFileQuestion" >Delete backup file?\n\n{0}</string>
 
 	<string name="Settings_DatabaseManagement" >Manage databases</string>
-	<string name="Settings_DatabaseNew" >\tCreate a new Database...</string>
+	<string name="Settings_DatabaseNew" >\tCreate a new database...</string>
 	<string name="Settings_DatabaseRename" >\tRename database...\n\t(except the one currently opened)</string>
 	<string name="Settings_DatabaseDelete" >\tDelete database...\n\t(selection follows)</string>
 	<string name="Settings_DatabaseImport" >\tImport database</string>
-	<string name="Settings_EAN_Scann" >EAN scan</string>
+  <string name="Settings_DatabaseNewDialogTitle">Create a new database</string>
+  <string name="Settings_DatabaseNewDialogMessage">"\n\nEnter name:</string>
+  <string name="Settings_EAN_Scann" >EAN scan</string>
 	<string name="Settings_EAN_Scann_UseFrontcamera" >Use front camera</string>
 
 	<string name="Settings_TestDatenbank" >To get to know or test new functionality</string>
@@ -86,8 +89,11 @@
 
 	<string name="Settings_ShowOFFCostMessage" >View cost notice at OpenFoodFacts.org</string>
 	<string name="Settings_AdditionalDatabasePath" >Additional database path (unfortunately not possible later):</string>
+  <string name="Settings_ErrorSavingAdditionalDatabasePath">The entered additional database path \'{0}\' does not exist or you do not have access to it.</string>
+  <string name="Settings_ConvertDatabaseForPicture">There are {0} images to transfer.\n\nQuit the app completely and restart it.</string>
+  <string name="Settings_DatabaseNewDialog">Create new database\n\nEnter name:</string>
 
-	<string name="Settings_AltDatePicker" >Alternative date picker dialog</string>
+  <string name="Settings_AltDatePicker" >Alternative date picker dialog</string>
 	<string name="Settings_CompressPictures" >Compress images</string>
 	<string name="Settings_Compress_854" >854</string>
 	<string name="Settings_Compress_1024" >1.024</string>
