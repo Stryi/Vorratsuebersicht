@@ -647,7 +647,9 @@ namespace VorratsUebersicht
         {
             string proDatabase = Android_Database.Instance.GetProductiveDatabasePath();
 
-            string databasePath = await MainActivity.SelectDatabase(this, "Datenbank umbenennen:", proDatabase); ;
+            string databasePath = await MainActivity.SelectDatabase(this,
+                this.Resources.GetString(Resource.String.Settings_DatabaseRenameDialogTitle), 
+                proDatabase);
 
             if (string.IsNullOrEmpty(databasePath))
                 return;
@@ -656,10 +658,11 @@ namespace VorratsUebersicht
 
             string newDatabaseName = await MainActivity.InputTextAsync(
                 this,
-                "Datenbank umbenennen",
-                "\n" + databasePath + "\n\nNeuen Name eingeben:",
+                this.Resources.GetString(Resource.String.Settings_DatabaseRenameDialogTitle),
+                "\n" + databasePath + 
+                this.Resources.GetString(Resource.String.Settings_DatabaseRenameDialogMessage),
                 databaseName,
-                "Umbenennen",
+                this.Resources.GetString(Resource.String.App_Rename),
                 this.Resources.GetString(Resource.String.App_Cancel));
 
             if (string.IsNullOrEmpty(newDatabaseName))

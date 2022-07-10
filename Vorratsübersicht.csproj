@@ -864,7 +864,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\values-en\Strings.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-pl\splash.png" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values-pl\Strings.xml" />
   </ItemGroup>

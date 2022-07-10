@@ -1,7 +1,8 @@
 Prio 1
 ======
 
-- Nur 5 neueste Backups behalten (ältere werden in dem Verzeichnis gelöscht)
+Einstellungen
+- Nur X Backups lassen, ältere automatisch löschen. (auch vom mik53ke per E-Mail)
 
 
 Artikeldetails
@@ -20,9 +21,6 @@ Sonstiges
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/services/service-notifications
 - LOG Datei in ein Verzeichnis erstellen, in dem ich auch Zugriff habe (Cache)
 
-
-Einstellungen
-- Nur X Backups lassen, ältere automatisch löschen. (auch vom mik53ke per E-Mail)
 
 Anwendung
 - Anwendungsabstürze in die LOG Datei protokollieren.

@@ -20,7 +20,7 @@ namespace VorratsUebersicht
     using static Tools;
     using AlertDialog = Android.App.AlertDialog;
 
-    [Activity(Label="Vorratsübersicht",MainLauncher=true,Theme="@style/Theme.Splash",NoHistory=true,Icon="@drawable/ic_launcher")]  
+    [Activity(Label="@string/App_Name",MainLauncher=true,Theme="@style/Theme.Splash",NoHistory=true,Icon="@drawable/ic_launcher")]  
     public class SplashScreenActivity : AppCompatActivity
     {  
         private TextView    progressText;

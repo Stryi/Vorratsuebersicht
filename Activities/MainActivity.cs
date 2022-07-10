@@ -19,7 +19,7 @@ namespace VorratsUebersicht
     using static Tools;
     using AlertDialog = Android.App.AlertDialog;
 
-    [Activity(Label = " Vorratsübersicht", Icon = "@drawable/ic_launcher", Theme = "@style/Theme.AppCompat")]
+    [Activity(Label = "@string/App_Name", Icon = "@drawable/ic_launcher", Theme = "@style/Theme.AppCompat")]
     public class MainActivity : AppCompatActivity
     {
         // Debug-Konstanten

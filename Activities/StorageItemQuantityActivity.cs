@@ -21,7 +21,7 @@ namespace VorratsUebersicht
     using static VorratsUebersicht.StorageItemQuantityListViewAdapter;
     using AlertDialog = Android.Support.V7.App.AlertDialog;
 
-    [Activity(Label = "Artikelbestand", Theme = "@style/Theme.AppCompat", Icon = "@drawable/ic_assignment_white_48dp", ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "@string/StorageItemQuantity", Theme = "@style/Theme.AppCompat", Icon = "@drawable/ic_assignment_white_48dp", ScreenOrientation = ScreenOrientation.Portrait)]
     public class StorageItemQuantityActivity : AppCompatActivity
     {
         public static readonly int ArticleDetailId = 1002;
