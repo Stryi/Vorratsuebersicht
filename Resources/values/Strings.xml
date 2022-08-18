@@ -124,7 +124,7 @@
 
 	<!-- Artikelliste -->
 	<string name="ArticleList_AllCategories" >[Alle Kategorien]</string>
-	<string name="ArticleList_ToShoppingList" >Auf Einkaufsliste...</string>
+	<string name="ArticleList_ToShoppingList" >Auf Einkaufsliste</string>
 	<string name="ArticleList_Lagerbestand" >Lagerbestand</string>
 
 	<string name="ArticleList_Menu_Add" >Neuen Artikel anlegen</string>
@@ -140,7 +140,7 @@
 	<string name="ArticleDetails_Menu_ShowPicture" >Bild bearbeiten</string>
 	<string name="ArticleDetails_Menu_RemovePicture" >Bild entfernen</string>
 	<string name="ArticleDetails_Menu_EAN_Scannen" >EAN Scannen</string>
-	<string name="ArticleDetails_Menu_ToShoppingList" >Auf Einkaufsliste...</string>
+	<string name="ArticleDetails_Menu_ToShoppingList" >Auf Einkaufsliste</string>
 	<string name="ArticleDetails_Menu_CurrentStock" >Lagerbestand</string>
 	<string name="ArticleDetails_Menu_VoiceInput" >Spracheingabe</string>
 	<string name="ArticleDetails_Menu_SearchOpenFoodFacts" >Suche auf OpenFoodFacts.org</string>
@@ -200,8 +200,8 @@
 	<!-- Lagerbestandsliste -->
 	<string name="StorageItem_Storage" >Lager:</string>
 	<string name="StorageItem_AllStoragesStorage" >[Alle Lager]</string>
-	<string name="StorageItem_ToShoppingList" >Auf Einkaufsliste...</string>
-	<string name="StorageItem_Artikelangaben" >Artikelangaben...</string>
+	<string name="StorageItem_ToShoppingList" >Auf Einkaufsliste</string>
+	<string name="StorageItem_Artikelangaben" >Artikelangaben</string>
 	<string name="StorageItem_Amount" >Wert:</string>
 	<string name="StorageItem_SumQuantityAndSize" >Menge:</string>
 	<string name="StorageItem_InventoryInPieces" >Bestand: {0} Stück</string>

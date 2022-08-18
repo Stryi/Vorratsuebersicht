@@ -3,6 +3,13 @@ Prio 1
 
 Einstellungen
 - Nur X Backups lassen, ältere automatisch löschen. (auch vom mik53ke per E-Mail)
+- Beim Backup zurückspielen hinweis auf "Backup importieren" anbringen.
+
+Einkaufsliste
+- Freie Sortierung (wie im Laden die Reihenfolge ist)  (vom Nernd)
+- Alphabetische Sortierung (vom WiRu)
+- Sortierung nach "gekauft".
+
 
 
 Artikeldetails
@@ -37,9 +44,6 @@ Prio 2
 Einkaufszettel
 - Liste automatisch anhand der Mindestmenge erstellen.
 
-Einkaufsliste
-- Sortierung: Alphabetisch, Kategorie und Gekauft.
-- Freie Sortierung (wie im Laden die Reihenfolge ist)
 
 Lagerbestand
 - BUG: Wird ein Datum < Heute eingegeben, so wird die Farbe nicht auf blau oder rot gesetzt.

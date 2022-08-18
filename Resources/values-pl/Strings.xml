@@ -124,7 +124,7 @@
 
 	<!-- Artikelliste -->
 	<string name="ArticleList_AllCategories" >[Wszystkie kategorie]</string>
-	<string name="ArticleList_ToShoppingList" >Na liście zakupów...</string>
+	<string name="ArticleList_ToShoppingList" >Na listę zakupów</string>
 	<string name="ArticleList_Lagerbestand" >Inwentarz</string>
 
 	<string name="ArticleList_Menu_Add" >Utwórz nowy artykuł</string>
@@ -140,7 +140,7 @@
 	<string name="ArticleDetails_Menu_ShowPicture" >Edytuj zdjęcie</string>
 	<string name="ArticleDetails_Menu_RemovePicture" >Usuń zdjęcie</string>
 	<string name="ArticleDetails_Menu_EAN_Scannen" >EAN skan</string>
-	<string name="ArticleDetails_Menu_ToShoppingList" >Na listę zakupów...</string>
+	<string name="ArticleDetails_Menu_ToShoppingList" >Na listę zakupów</string>
 	<string name="ArticleDetails_Menu_CurrentStock" >Inwentarz</string>
 	<string name="ArticleDetails_Menu_VoiceInput" >Wejście głosowe</string>
 	<string name="ArticleDetails_Menu_SearchOpenFoodFacts" >Szukaj na OpenFoodFacts.org</string>
@@ -201,7 +201,7 @@
 	<string name="StorageItem_Storage" >Spiżarnia:</string>
 	<string name="StorageItem_AllStoragesStorage" >[Wszystkie]</string>
 	<string name="StorageItem_ToShoppingList" >Na listę zakupów</string>
-	<string name="StorageItem_Artikelangaben" >Dane artykułu...</string>
+	<string name="StorageItem_Artikelangaben" >Dane artykułu</string>
 	<string name="StorageItem_Amount" >Wartość:</string>
 	<string name="StorageItem_SumQuantityAndSize" >Suma:</string>
 	<string name="StorageItem_InventoryInPieces" >Inwentarz: {0} sztuk</string>
