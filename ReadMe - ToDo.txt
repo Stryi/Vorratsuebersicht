@@ -7,8 +7,8 @@ Einstellungen
 
 Einkaufsliste
 - Freie Sortierung (wie im Laden die Reihenfolge ist)  (vom Nernd)
-- Alphabetische Sortierung (vom WiRu)
-- Sortierung nach "gekauft".
++ Alphabetische Sortierung (vom WiRu)
++ Sortierung nach "gekauft".
 
 
 

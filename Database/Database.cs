@@ -75,7 +75,7 @@ namespace VorratsUebersicht
 
         #region Shopping List
 
-        internal static IList<ShoppingItemListResult> GetShoppingList(string supermarket, string textFilter = null)
+        internal static IList<ShoppingItemListResult> GetShoppingList(string supermarket, string textFilter = null, int? orderBy = null)
         {
             List<ShoppingItemListResult> result = new List<ShoppingItemListResult>();
 
@@ -121,7 +121,20 @@ namespace VorratsUebersicht
                 parameter.Add(supermarket);
             }
 
-            cmd += " ORDER BY Bought, Supermarket COLLATE NOCASE, Category COLLATE NOCASE, Name COLLATE NOCASE";
+            switch(orderBy)
+            {
+                case 1:
+                    cmd += " ORDER BY Bought, Supermarket COLLATE NOCASE, Category COLLATE NOCASE, Name COLLATE NOCASE";
+                    break;
+
+                case 2:
+                    cmd += " ORDER BY Supermarket COLLATE NOCASE, Bought, Category COLLATE NOCASE, Name COLLATE NOCASE";
+                    break;
+
+                default:
+                    cmd += " ORDER BY Name COLLATE NOCASE";
+                    break;
+            }
 
             command = databaseConnection.CreateCommand(cmd, parameter.ToArray<object>());
 

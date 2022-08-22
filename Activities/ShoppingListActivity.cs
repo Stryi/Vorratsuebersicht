@@ -15,6 +15,8 @@ namespace VorratsUebersicht
     [Activity(Label = "@string/Main_Button_Einkaufsliste", Icon = "@drawable/ic_shopping_cart_white_48dp")]
     public class ShoppingListActivity : Activity, SearchView.IOnQueryTextListener
     {
+        private static int oderBy = 1;
+
         public static readonly int SelectArticleId = 1001;
         public static readonly int EditStorageQuantity = 1002;
         public static readonly int EditArticle = 1003;
@@ -189,6 +191,23 @@ namespace VorratsUebersicht
             // https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
             SearchManager searchManager = (SearchManager)GetSystemService(Context.SearchService);
 
+            var sortMenuItem = menu.FindItem(Resource.Id.ShoppingList_Sort);
+
+            switch(ShoppingListActivity.oderBy)
+            {
+                case 1:
+                    sortMenuItem.SetIcon(Resource.Drawable.baseline_sort_CHECK_white_24);
+                    break;
+
+                case 2:
+                    sortMenuItem.SetIcon(Resource.Drawable.baseline_sort_SHOP_white_24);
+                    break;
+
+                default:
+                    sortMenuItem.SetIcon(Resource.Drawable.baseline_sort_AZ_white_24);
+                    break;
+            }
+
             var searchMenuItem = menu.FindItem(Resource.Id.ShoppingList_Search);
             var searchView = (SearchView)searchMenuItem.ActionView;
 
@@ -212,6 +231,17 @@ namespace VorratsUebersicht
                     articleListIntent.PutExtra("SelectArticleOnly", true);
 
                     this.StartActivityForResult(articleListIntent, SelectArticleId);
+
+                    return true;
+
+                case Resource.Id.ShoppingList_Sort:
+
+                    ShoppingListActivity.oderBy++;
+                    if (ShoppingListActivity.oderBy > 3)
+                        ShoppingListActivity.oderBy = 1;
+
+                    this.ShowShoppingList();
+                    this.InvalidateOptionsMenu();
 
                     return true;
 
@@ -292,7 +322,7 @@ namespace VorratsUebersicht
         {
             this.liste = new List<ShoppingListView>();
 
-            var shoppingList = Database.GetShoppingList(this.supermarket, filter);
+            var shoppingList = Database.GetShoppingList(this.supermarket, filter, ShoppingListActivity.oderBy);
 
             foreach (ShoppingItemListResult shoppingItem in shoppingList)
             {

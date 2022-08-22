@@ -256,7 +256,8 @@
 	<string name="ShoppingList_AllSupermarkets" >[All]</string>
 	<string name="ShoppingList_Bought" >Bought</string>
 
-	<string name="ShoppingList_Menu_Add" >Add item to list</string>
+  <string name="ShoppingList_Menu_Sort" >Sorting (bought, supermarket, name)</string>
+  <string name="ShoppingList_Menu_Add" >Add item to list</string>
 
 	<!-- Shopping list - Footer -->
 	<string name="ShoppingListSummary_Position" >{0:n0} position</string>

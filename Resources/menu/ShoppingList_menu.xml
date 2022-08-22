@@ -7,6 +7,11 @@
         android:showAsAction="always"
         android:actionViewClass="android.widget.SearchView" />
 
+  <item android:id="@+id/ShoppingList_Sort"
+        android:icon="@drawable/baseline_sort_white_24"
+        android:title="@string/ShoppingList_Menu_Sort"
+        android:showAsAction="always" />
+  
   <item android:id="@+id/ShoppingList_Add"
         android:icon="@drawable/ic_add_circle_outline_white_24dp"
         android:title="@string/ShoppingList_Menu_Add"
