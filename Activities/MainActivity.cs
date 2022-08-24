@@ -123,6 +123,9 @@ namespace VorratsUebersicht
 
             StorageItemQuantityActivity.UseAltDatePicker = Settings.GetBoolean("UseAltDatePicker", false);
 
+            ShoppingListActivity.oderBy                 = Settings.GetInt("ShoppingListOrder", 1);
+            StorageItemListActivity.oderByToConsumeDate = Settings.GetBoolean("StorageItemListOrder", false);
+
             // DatePicker-DEBUG
             if (debug_date_picker)
             {

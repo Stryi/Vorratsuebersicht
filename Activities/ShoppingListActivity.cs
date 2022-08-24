@@ -15,7 +15,7 @@ namespace VorratsUebersicht
     [Activity(Label = "@string/Main_Button_Einkaufsliste", Icon = "@drawable/ic_shopping_cart_white_48dp")]
     public class ShoppingListActivity : Activity, SearchView.IOnQueryTextListener
     {
-        private static int oderBy = 1;
+        internal static int oderBy = 1;
 
         public static readonly int SelectArticleId = 1001;
         public static readonly int EditStorageQuantity = 1002;
@@ -242,6 +242,8 @@ namespace VorratsUebersicht
 
                     this.ShowShoppingList();
                     this.InvalidateOptionsMenu();
+
+                    Settings.PutInt("ShoppingListOrder", ShoppingListActivity.oderBy);
 
                     return true;
 

@@ -16,7 +16,7 @@ namespace VorratsUebersicht
     [Activity(Label = "@string/Main_Button_Lagerbestand", Icon = "@drawable/ic_assignment_white_48dp")]
     public class StorageItemListActivity : Activity, SearchView.IOnQueryTextListener
     {
-        private static bool oderByToConsumeDate;
+        internal static bool oderByToConsumeDate;
 
         List<StorageItemListView> liste = new List<StorageItemListView>();
         private IParcelable listViewState;
@@ -218,6 +218,8 @@ namespace VorratsUebersicht
                     StorageItemListActivity.oderByToConsumeDate = !StorageItemListActivity.oderByToConsumeDate;
                     this.ShowStorageItemList(this.lastSearchText);
                     this.InvalidateOptionsMenu();
+
+                    Settings.PutBoolean("StorageItemListOrder", StorageItemListActivity.oderByToConsumeDate);
 
                     return true;
 
