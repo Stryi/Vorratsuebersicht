@@ -1,7 +1,8 @@
 Version 7.02 (Code Version 122)
 ===============================
 
-C190 - Filter im Einkaufszettel jetzt auch mit mehreren Einträgen als Einkaufsmarkt (Komma getrennt)
+C191 - "Geheimer" Filter "B+" in Artikelliste für "Artikel zum Bestellen"
+C190 - Filter für Einkaufsmarkt im Einkaufszettel berücksichtigt jetzt mehreren Einträgen (Komma getrennt)
 C189 - Sortierung Einkaufszettel nach 'Gekauft', Einkaufsmarkt und Name)
 C188 - Übersetzung für EN und PL hinzugefügt (erster Versuch)
 

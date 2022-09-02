@@ -705,7 +705,12 @@ namespace VorratsUebersicht
             return stringList;
         }
 
-        internal static IList<Article> GetArticleListNoImages(string category, string subCategory, string eanCode, bool notInStorage, string textFilter = null)
+        internal static IList<Article> GetArticleListNoImages(
+            string category,
+            string subCategory,
+            string eanCode,
+            bool notInStorage,
+            string textFilter = null)
         {
             IList<Article> result = new Article[0];
 
@@ -762,6 +767,13 @@ namespace VorratsUebersicht
                         filter += " Article.Calorie IS NULL";
                         break;
 
+                    case "B+":
+                        // Artikel zum [B]estellen.
+                        filter += " ArticleId NOT IN (SELECT ArticleId FROM ShoppingList)";
+                        filter += " AND ";
+                        filter += " ArticleId NOT IN (SELECT ArticleId FROM StorageItem)";
+                        break;
+
                     default:
 
                         filter += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ? OR Article.Notes LIKE ? OR Article.Supermarket LIKE ?";
@@ -784,8 +796,7 @@ namespace VorratsUebersicht
                 else
                     filter += " WHERE ";
 
-                filter += " ArticleId NOT IN (SELECT ArticleId FROM StorageItem)";
-
+                filter += "ArticleId NOT IN (SELECT ArticleId FROM StorageItem)";
             }
 
             string cmd = string.Empty;
