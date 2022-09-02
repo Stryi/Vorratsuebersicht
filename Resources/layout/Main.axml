@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scroll"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="5dp"
@@ -104,4 +105,25 @@
       android:enabled="false"
       android:drawablePadding="20dp" />
   </LinearLayout>
-</ScrollView>
+  <LinearLayout
+    android:id="@+id/Main_Footer"
+    android:orientation="vertical"
+    android:layout_alignParentBottom="true"        
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical"
+    android:paddingLeft="5dp"
+    android:paddingTop="5dp">
+        <TextView
+            android:text="@string/Settings_AppWiki"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/Settings_AppWiki_Page"
+            android:textSize="16sp"
+            android:autoLink="web"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+  </LinearLayout>
+</RelativeLayout>
