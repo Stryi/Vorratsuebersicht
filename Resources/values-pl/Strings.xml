@@ -116,7 +116,7 @@
 		Żadne prywatne dane nie zostaną wysłane.
 		Możesz przeglądać dane przed wysłaniem.
 	</string>
-	<string name="Settings_AppWiki" >App Wiki</string>
+	<string name="Settings_AppWiki" >App Wiki (niemiecki)</string>
 	<string name="Settings_AppWiki_Page" >https://github.com/Stryi/Vorratsuebersicht/wiki</string>
 	<string name="Settings_Licenses" >Warunki licencyjne</string>
 	<string name="Settings_OpenSourceLizenzen" >Licencje Open Source</string>
@@ -163,9 +163,10 @@
 	<string name="ArticleDetails_MinQuantityLabel" >Minimalna ilość:</string>
 	<string name="ArticleDetails_PrefQuantityLabel" >Preferowana ilość:</string>
 	<string name="ArticleDetails_SupermarketLabel" >Supermarket:</string>
-	<string name="ArticleDetails_Price" >Cena:</string>
+  <string name="ArticleDetails_CommaSeparatedInput" >(oddzielone przecinkami, jeśli więcej niż jeden)</string>
+  <string name="ArticleDetails_Price" >Cena:</string>
 	<string name="ArticleDetails_PricePerUnit" >Cena za jednostkę:</string>
-	<string name="ArticleDetails_EANCode" >Kod EAN (oddzielone przecinkami, jeśli więcej niż jeden):</string>
+	<string name="ArticleDetails_EANCode" >Kod EAN:</string>
 	<string name="ArticleDetails_Notes" >Notatki:</string>
 	<string name="ArticleDetails_Amount" >Ilość:</string>
 	<string name="ArticleDetails_WithExpiryDate" >{0} przed terminem zużycia</string>

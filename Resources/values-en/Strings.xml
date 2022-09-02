@@ -116,7 +116,7 @@
 		No private data will be sent.
 		You can view the data before sending.
 	</string>
-	<string name="Settings_AppWiki" >App Wiki</string>
+	<string name="Settings_AppWiki" >App Wiki (German)</string>
 	<string name="Settings_AppWiki_Page" >https://github.com/Stryi/Vorratsuebersicht/wiki</string>
 	<string name="Settings_Licenses" >License Terms</string>
 	<string name="Settings_OpenSourceLizenzen" >Open Source Licenses</string>
@@ -163,9 +163,10 @@
 	<string name="ArticleDetails_MinQuantityLabel" >Min. quantity:</string>
 	<string name="ArticleDetails_PrefQuantityLabel" >Pref. quantity:</string>
 	<string name="ArticleDetails_SupermarketLabel" >Supermarket:</string>
-	<string name="ArticleDetails_Price" >Price:</string>
+  <string name="ArticleDetails_CommaSeparatedInput" >(comma separated if more than one)</string>
+  <string name="ArticleDetails_Price" >Price:</string>
 	<string name="ArticleDetails_PricePerUnit" >Price per unit:</string>
-	<string name="ArticleDetails_EANCode" >EAN code (comma separated if more than one):</string>
+	<string name="ArticleDetails_EANCode" >EAN code:</string>
 	<string name="ArticleDetails_Notes" >Notes:</string>
 	<string name="ArticleDetails_Amount" >Amount:</string>
 	<string name="ArticleDetails_WithExpiryDate" >{0} before the expiration date</string>

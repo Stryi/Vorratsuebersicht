@@ -1,6 +1,9 @@
 Prio 1
 ======
 
+Suche
+-  Kann nicht Ä und ä suchen.
+
 Einstellungen
 - Nur X Backups lassen, ältere automatisch löschen. (auch vom mik53ke per E-Mail)
 - Beim Backup zurückspielen hinweis auf "Backup importieren" anbringen.
@@ -10,7 +13,8 @@ Einkaufsliste
 + Alphabetische Sortierung (vom WiRu)
 + Sortierung nach "gekauft".
 
-
+Artikelliste
+- Filter oder Sortierung nach "Ohne Bestand", "Ohne Preis",...
 
 Artikeldetails
 - Preiseingabe auch mit ","

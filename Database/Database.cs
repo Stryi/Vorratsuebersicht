@@ -117,8 +117,8 @@ namespace VorratsUebersicht
                 else
                     cmd += " WHERE ";
 
-                cmd += " Supermarket = ?";
-                parameter.Add(supermarket);
+                cmd += " Supermarket LIKE  ?";
+                parameter.Add("%" + supermarket + "%");
             }
 
             switch(orderBy)
@@ -686,7 +686,20 @@ namespace VorratsUebersicht
             for (int i = 0; i < result.Count; i++)
             {
                 string supermarketName = result[i].Value;
-                stringList.Add(supermarketName);
+                if (!shoppingListOnly)
+                {
+                    stringList.Add(supermarketName);
+                    continue;
+                }
+
+                foreach(var marketList in supermarketName.Split(','))
+                {
+                    var name = marketList.Trim();
+                    if (!stringList.Contains(name))
+                    {
+                        stringList.Add(name);
+                    }
+                }
             }
 
             return stringList;
