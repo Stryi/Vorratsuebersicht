@@ -3,20 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Application_Background2" >
-    <TextView
-        android:id="@+id/ArticleList_Filter"
+    
+    <FrameLayout
+        android:id="@+id/ArticleList_FilterBanner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:textSize="15sp"
-        android:padding="5dp"
-        android:background="@color/Application_InfoBackgroud"
-        android:textColor="@color/Text_Color"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:background="@color/Application_InfoBackgroud"        
+        android:padding="5dp">
+        <TextView
+            android:id="@+id/ArticleList_Filter"
+            android:textColor="@color/Text_Color"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="30dp"  
+            android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/ArticleList_FilterClear"
+            android:src="@drawable/baseline_close_black_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="right"
+            android:contentDescription="Close Filter" />
+    </FrameLayout>
+
     <LinearLayout
         android:id="@+id/ArticleList_SelectCategory"
         android:orientation="horizontal"
-        android:layout_below="@id/ArticleList_Filter"
+        android:layout_below="@id/ArticleList_FilterBanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone" >
@@ -24,7 +39,7 @@
             android:id="@+id/ArticleList_Category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="5dp"
             android:textSize="20sp"
             android:textColor="@color/Text_Color"
             android:text="@string/ArticleDetails_Category" />

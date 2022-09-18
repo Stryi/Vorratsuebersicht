@@ -70,9 +70,20 @@ namespace VorratsUebersicht
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
             listView.ItemClick += OnOpenArticleDetails;
 
+            ImageView imageView =FindViewById<ImageView>(Resource.Id.ArticleList_FilterClear);
+            imageView.Click += ImageView_Click;
+
             this.RegisterForContextMenu(listView);
 
             ShowArticleList();
+        }
+
+        private void ImageView_Click(object sender, EventArgs e)
+        {
+            this.specialFilter = 0;
+            this.FindViewById<FrameLayout>(Resource.Id.ArticleList_FilterBanner).Visibility = ViewStates.Gone;
+
+            this.ShowArticleList();
         }
 
         public override void OnCreateContextMenu(IContextMenu menu, View view, IContextMenuContextMenuInfo menuInfo)
@@ -194,14 +205,14 @@ namespace VorratsUebersicht
 
                 if (this.specialFilter == 0)
                 {
-                    this.FindViewById<TextView>(Resource.Id.ArticleList_Filter).Visibility = ViewStates.Gone;
+                    this.FindViewById<FrameLayout>(Resource.Id.ArticleList_FilterBanner).Visibility = ViewStates.Gone;
                 }
                 else
                 {
                     string filterText = this.Resources.GetString(Resource.String.ArticleList_SpecialFilter);
                     filterText = String.Format(filterText, actions[this.specialFilter]);
 
-                    this.FindViewById<TextView>(Resource.Id.ArticleList_Filter).Visibility = ViewStates.Visible;
+                    this.FindViewById<FrameLayout>(Resource.Id.ArticleList_FilterBanner).Visibility = ViewStates.Visible;
                     this.FindViewById<TextView>(Resource.Id.ArticleList_Filter).Text = filterText;
                 }
 

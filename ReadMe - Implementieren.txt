@@ -69,14 +69,6 @@ Ursprünglische Implementiert anhand vom Beispiel:
 
 https://developer.xamarin.com/guides/xamarin-forms/working-with/databases/
 
-Ausgabeverzeichnis für "Bin" und "Obj" ist im Projekt auf
-
-    ..\..\..\..\Builds\Vorratsübersicht\bin\Debug\
-
-eingestellt, da ich den Quellcode über OneDrive auf meinen zweiten Computer "verteile".
-Damit werden keine MByte Dateien in OneDrive übertragen.
-
-
 NuGet Packages:
 
 - FastAndroidCamera by James Athey
