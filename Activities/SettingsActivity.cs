@@ -878,9 +878,18 @@ namespace VorratsUebersicht
             this.SaveUserDefinedCategories();
 
             DateTime? lastBackupDay = Database.GetSettingsDate("LAST_BACKUP");
+            if (lastBackupDay == null)
+            {
+                lastBackupDay = Database.GetSettingsDate("LAST_BACKUP_TIME");
+            }
 
             // Datum vom Backup in der Datenbank speichern.
-            Database.SetSettingsDate("LAST_BACKUP", DateTime.Now);
+            // Datum und Uhrzeit getrennt, damit auch die vorherige Version das auslesen kann
+            // (Kann nur Datum auslesen)
+            var now = DateTime.Now;
+
+            Database.SetSettingsDate    ("LAST_BACKUP",      now);  // Für Abwärtskompatibilität
+            Database.SetSettingsDateTime("LAST_BACKUP_TIME", now);
 
             this.ShowLastBackupDay();
 
@@ -909,7 +918,8 @@ namespace VorratsUebersicht
                     if (lastBackupDay != null)
                     {
                         // Datum vom wieder zurückspielen.
-                        Database.SetSettingsDate("LAST_BACKUP", lastBackupDay.Value);
+                        Database.SetSettingsDate    ("LAST_BACKUP",      lastBackupDay.Value);
+                        Database.SetSettingsDateTime("LAST_BACKUP_TIME", lastBackupDay.Value);
                     }
 
                 }
@@ -966,7 +976,12 @@ namespace VorratsUebersicht
         {
             string lastBackupDay = string.Empty;
 
-            var dateTime = Database.GetSettingsDate("LAST_BACKUP");
+            var dateTime = Database.GetSettingsDate("LAST_BACKUP_TIME");
+            if (dateTime == null)
+            {
+                dateTime = Database.GetSettingsDate("LAST_BACKUP");
+            }
+
             if (dateTime != null)
             {
                 // Keine Uhrzeit Angabe?

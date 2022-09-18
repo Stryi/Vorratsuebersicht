@@ -1,9 +1,16 @@
+
+Version 7.03 (Code Version 123)
+===============================
+
+E057 - FIX: Sortierung Einkaufszettel nach 'Hinzugefügt' hat nicht funktioniert.
+
 Version 7.02 (Code Version 122)
 ===============================
 
-C191 - "Geheimer" Filter "B+" in Artikelliste für "Artikel zum Bestellen"
+C192 - Zusätzlicher Filter im Artikelliste (ohne Preis, ohne Kalorie und zum Bestellen)
+C191 - "Geheimer" Filter "B+" in Artikelliste für "Artikel zum Bestellen" (ohne Bestend und nicht auf Einkaufszettel)
 C190 - Filter für Einkaufsmarkt im Einkaufszettel berücksichtigt jetzt mehreren Einträgen (Komma getrennt)
-C189 - Sortierung Einkaufszettel nach 'Gekauft', Einkaufsmarkt und Name)
+C189 - Sortierung Einkaufszettel nach 'Gekauft', 'Einkaufsmarkt', 'Hinzugefügt' und 'Name'.
 C188 - Übersetzung für EN und PL hinzugefügt (erster Versuch)
 
 Version 7.01 (Code Version 121)

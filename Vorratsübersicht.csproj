@@ -31,8 +31,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
     <Optimize>False</Optimize>
-    <OutputPath>..\..\..\..\Builds\Vorratsuebersicht\bin\Debug</OutputPath>
-    <BaseIntermediateOutputPath>..\..\..\..\Builds\Vorratsuebersicht\obj\Debug\</BaseIntermediateOutputPath>
+    <OutputPath>bin\Debug</OutputPath>
+    <BaseIntermediateOutputPath>obj\Debug\</BaseIntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -48,12 +48,13 @@
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <MandroidI18n />
     <AndroidSupportedAbis>x86;x86_64;arm64-v8a</AndroidSupportedAbis>
+    <IntermediateOutputPath>C:\Users\StryiC\AppData\Local\Temp\vs6094.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>portable</DebugType>
     <Optimize>True</Optimize>
-    <OutputPath>..\..\..\..\Builds\Vorratsuebersicht\bin\Release\</OutputPath>
-    <BaseIntermediateOutputPath>..\..\..\..\Builds\Vorratsuebersicht\obj\Release\</BaseIntermediateOutputPath>
+    <OutputPath>bin\Release\</OutputPath>
+    <BaseIntermediateOutputPath>obj\Release\</BaseIntermediateOutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -68,6 +69,7 @@
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidSupportedAbis>
     </AndroidSupportedAbis>
+    <IntermediateOutputPath>C:\Users\StryiC\AppData\Local\Temp\vs6094.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -419,6 +421,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\baseline_sort_SHOP_white_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\baseline_sort_TIME_white_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\outline_filter_alt_white_24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

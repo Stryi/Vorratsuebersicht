@@ -12,6 +12,11 @@
         android:title="@string/ArticleList_Menu_Add"
         android:showAsAction="always" />
 
+  <item android:id="@+id/ArticleList_Menu_Filter"
+        android:icon="@drawable/outline_filter_alt_white_24"
+        android:title="@string/ArticleList_Menu_Filter"
+        android:showAsAction="always" />
+
   <item android:id="@+id/ArticleList_Menu_Share"
         android:icon="@drawable/baseline_share_white_24"
         android:showAsAction="ifRoom"

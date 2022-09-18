@@ -203,7 +203,11 @@ namespace VorratsUebersicht
                     sortMenuItem.SetIcon(Resource.Drawable.baseline_sort_SHOP_white_24);
                     break;
 
-                default:
+                case 3:
+                    sortMenuItem.SetIcon(Resource.Drawable.baseline_sort_TIME_white_24);
+                    break;
+
+                case 4:
                     sortMenuItem.SetIcon(Resource.Drawable.baseline_sort_AZ_white_24);
                     break;
             }
@@ -237,7 +241,7 @@ namespace VorratsUebersicht
                 case Resource.Id.ShoppingList_Sort:
 
                     ShoppingListActivity.oderBy++;
-                    if (ShoppingListActivity.oderBy > 3)
+                    if (ShoppingListActivity.oderBy > 4)
                         ShoppingListActivity.oderBy = 1;
 
                     this.ShowShoppingList();

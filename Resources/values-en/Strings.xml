@@ -128,8 +128,19 @@
 	<string name="ArticleList_Lagerbestand" >Inventory</string>
 
 	<string name="ArticleList_Menu_Add" >Create new article</string>
-	
-	<!-- Artikelliste - Footer -->
+  <string name="ArticleList_Menu_Filter" >Filter</string>
+
+  <string name="ArticleList_SpecialFilter" >Filter: {0}</string>
+
+  <string-array name="ArticleListeSpecialFilter" >
+    <item>[No filter]</item>
+    <item>No price given</item>
+    <item>Without calorie information</item>
+    <item>For the shopping list (without inventory)</item>
+  </string-array>
+
+
+  <!-- Artikelliste - Footer -->
 	<string name="ArticleListSummary_Position" >{0:n0} position</string>
 	<string name="ArticleListSummary_Positions" >{0:n0} positions</string>
 
@@ -257,7 +268,7 @@
 	<string name="ShoppingList_AllSupermarkets" >[All]</string>
 	<string name="ShoppingList_Bought" >Bought</string>
 
-  <string name="ShoppingList_Menu_Sort" >Sorting (bought, supermarket, name)</string>
+  <string name="ShoppingList_Menu_Sort" >Sorting (bought, supermarket, inserted, name)</string>
   <string name="ShoppingList_Menu_Add" >Add item to list</string>
 
 	<!-- Shopping list - Footer -->

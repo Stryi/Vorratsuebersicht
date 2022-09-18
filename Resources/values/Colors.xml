@@ -8,7 +8,8 @@
 
   <color name="Application_Background" >#FFFFFF</color>
   <color name="Application_Background2">#DDDDDD</color>
-
+  <color name="Application_InfoBackgroud">#FFFFE0</color>
+  
   <color name="Application_ActionBar_Background" >#186300</color>
   <color name="Application_ActionBar_TextColor"  >#FFFFFF</color>
 </resources>

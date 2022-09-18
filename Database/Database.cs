@@ -131,7 +131,11 @@ namespace VorratsUebersicht
                     cmd += " ORDER BY Supermarket COLLATE NOCASE, Bought, Category COLLATE NOCASE, Name COLLATE NOCASE";
                     break;
 
-                default:
+                case 3:
+                    cmd += " ORDER BY ShoppingListId";
+                    break;
+
+                case 4:
                     cmd += " ORDER BY Name COLLATE NOCASE";
                     break;
             }
@@ -710,6 +714,7 @@ namespace VorratsUebersicht
             string subCategory,
             string eanCode,
             bool notInStorage,
+            int  specialFilter,
             string textFilter = null)
         {
             IList<Article> result = new Article[0];
@@ -797,6 +802,32 @@ namespace VorratsUebersicht
                     filter += " WHERE ";
 
                 filter += "ArticleId NOT IN (SELECT ArticleId FROM StorageItem)";
+            }
+
+            if (specialFilter > 0)
+            {
+                if (!string.IsNullOrEmpty(filter))
+                    filter += " AND ";
+                else
+                    filter += " WHERE ";
+
+                switch (specialFilter)
+                {
+                    case 1:
+                        filter += " Article.Price IS NULL";
+                        break;
+
+                    case 2:
+                        filter += " Article.Calorie IS NULL";
+                        break;
+
+                    case 3:
+                        // Artikel zum [B]estellen.
+                        filter += " ArticleId NOT IN (SELECT ArticleId FROM ShoppingList)";
+                        filter += " AND ";
+                        filter += " ArticleId NOT IN (SELECT ArticleId FROM StorageItem)";
+                        break;
+                }
             }
 
             string cmd = string.Empty;
@@ -1144,9 +1175,29 @@ namespace VorratsUebersicht
                     var date = DateTime.ParseExact(dateText, "yyyy.MM.dd", CultureInfo.InvariantCulture);
                     return date.Date;
                 }
-
                 var dateTime = DateTime.ParseExact(dateText, "yyyy.MM.dd HH:mm:ss", CultureInfo.InvariantCulture);
 
+                return dateTime;
+
+            }
+            catch (Exception ex)
+            {
+                TRACE(ex);
+            }
+
+            return null;
+        }
+
+        internal static DateTime? GetSettingsDateTime(string key)
+        {
+            var dateText = Database.GetSettingsString(key);
+            if (dateText == null)
+                return null;
+
+            try
+            {
+                var dateTime = DateTime.ParseExact(dateText, "yyyy.MM.dd HH:mm:ss", CultureInfo.InvariantCulture);
+                
                 return dateTime;
             }
             catch (Exception ex)
@@ -1158,6 +1209,13 @@ namespace VorratsUebersicht
         }
 
         internal static void SetSettingsDate(string key, DateTime date)
+        {
+            string dateText = date.ToString("yyyy.MM.dd");
+
+            Database.SetSettings(key, dateText);
+        }
+
+        internal static void SetSettingsDateTime(string key, DateTime date)
         {
             string dateText = date.ToString("yyyy.MM.dd HH:mm:ss");
 

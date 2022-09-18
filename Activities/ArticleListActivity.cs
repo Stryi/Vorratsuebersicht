@@ -23,6 +23,7 @@ namespace VorratsUebersicht
         private bool   notInStorage;
         private string eanCode;
         private string lastSearchText = string.Empty;
+        private int    specialFilter = 0;
         private List<string> categoryList;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -170,11 +171,43 @@ namespace VorratsUebersicht
                     this.ShowArticleDetails(0, null);
                     return true;
 
+                case Resource.Id.ArticleList_Menu_Filter:
+
+                    this.FilterArticleList();
+                    break;
+
                 case Resource.Id.ArticleList_Menu_Share:
                     this.ShareList();
                     return true;
             }
             return true;
+        }
+
+        private void FilterArticleList()
+        {
+            string[] actions = Resources.GetStringArray(Resource.Array.ArticleListeSpecialFilter);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetItems(actions, (sender2, args) =>
+            {
+                this.specialFilter = args.Which;
+
+                if (this.specialFilter == 0)
+                {
+                    this.FindViewById<TextView>(Resource.Id.ArticleList_Filter).Visibility = ViewStates.Gone;
+                }
+                else
+                {
+                    string filterText = this.Resources.GetString(Resource.String.ArticleList_SpecialFilter);
+                    filterText = String.Format(filterText, actions[this.specialFilter]);
+
+                    this.FindViewById<TextView>(Resource.Id.ArticleList_Filter).Visibility = ViewStates.Visible;
+                    this.FindViewById<TextView>(Resource.Id.ArticleList_Filter).Text = filterText;
+                }
+
+                this.ShowArticleList();
+            });
+            builder.Show();
         }
 
         private void ShareList()
@@ -220,7 +253,7 @@ namespace VorratsUebersicht
         {
             this.liste = new List<ArticleListView>();
 
-            var articleList = Database.GetArticleListNoImages(this.category, this.subCategory, this.eanCode, this.notInStorage, text);
+            var articleList = Database.GetArticleListNoImages(this.category, this.subCategory, this.eanCode, this.notInStorage, this.specialFilter, text);
 
             foreach(Article article in articleList)
             {

@@ -3,37 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Application_Background2" >
-  <LinearLayout
-    android:id="@+id/ArticleList_SelectCategory"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:visibility="gone" >
     <TextView
-        android:id="@+id/ArticleList_Category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textSize="20sp"
-        android:textColor="@color/Text_Color"
-        android:text="@string/ArticleDetails_Category" />
-    <Spinner
-        android:id="@+id/ArticleList_Categories"
+        android:id="@+id/ArticleList_Filter"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textSize="15sp"
+        android:padding="5dp"
+        android:background="@color/Application_InfoBackgroud"
         android:textColor="@color/Text_Color"
-        android:background="@color/Application_Background2"            
-        android:padding="10dp" />
-  </LinearLayout>
-  <TextView
-    android:id="@+id/ArticleList_Footer"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:textSize="15sp"
-    android:padding="5dp"        
-    android:textColor="@color/Text_Color" />
-  <ListView
+        android:visibility="gone"/>
+    <LinearLayout
+        android:id="@+id/ArticleList_SelectCategory"
+        android:orientation="horizontal"
+        android:layout_below="@id/ArticleList_Filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" >
+        <TextView
+            android:id="@+id/ArticleList_Category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/Text_Color"
+            android:text="@string/ArticleDetails_Category" />
+        <Spinner
+            android:id="@+id/ArticleList_Categories"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Text_Color"
+            android:background="@color/Application_Background2"
+            android:padding="10dp" />
+    </LinearLayout>
+    <ListView
         android:id="@+id/ArticleList"
         android:layout_below="@id/ArticleList_SelectCategory"
         android:layout_above="@id/ArticleList_Footer"
@@ -41,4 +44,12 @@
         android:layout_height="fill_parent"
         android:dividerHeight="5dp"
         android:layout_marginTop="0.0dp" />
+    <TextView
+        android:id="@+id/ArticleList_Footer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:textSize="15sp"
+        android:padding="5dp"
+        android:textColor="@color/Text_Color" />
 </RelativeLayout>
