@@ -17,7 +17,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingRight="30dp"  
-            android:textSize="20sp" />
+            android:textSize="16sp" />
         <ImageView
             android:id="@+id/ArticleList_FilterClear"
             android:src="@drawable/baseline_close_black_24"
