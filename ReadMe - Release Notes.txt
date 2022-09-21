@@ -2,6 +2,7 @@
 Version 7.03 (Code Version 123)
 ===============================
 
+C193 - Backup aus einer Datei zurückspielen (wichtig für neue Anfroid Versionen)
 E057 - FIX: Sortierung Einkaufszettel nach 'Hinzugefügt' hat nicht funktioniert.
 
 Version 7.02 (Code Version 122)

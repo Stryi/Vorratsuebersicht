@@ -144,6 +144,9 @@ namespace VorratsUebersicht
             Button buttonRestore = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
             buttonRestore.Click += ButtonRestore_Click;
 
+            Button buttonRestoreFromFile = FindViewById<Button>(Resource.Id.SettingsButton_RestoreFromFile);
+            buttonRestoreFromFile.Click += ButtonRestoreFromFile_Click;
+
             Switch switchAskForBackup = FindViewById<Switch>(Resource.Id.SettingsButton_AskForBackup);
             switchAskForBackup.Click += AskForBackup_Click;
             switchAskForBackup.Checked = Settings.GetBoolean("AskForBackup", true);
@@ -385,72 +388,77 @@ namespace VorratsUebersicht
             if ((requestCode == SelectBackupId) && (data != null))
             {
                 string fileSource = data.GetStringExtra("FullName");
-                string fileDestination = Android_Database.Instance.GetProductiveDatabasePath();
-                
-                string message = string.Format(this.Resources.GetString(Resource.String.Settings_RestoreBackupFile),
-                    Path.GetFileName(fileSource),
-                    Path.GetFileName(fileDestination));
 
-                var builder = new AlertDialog.Builder(this);
-                builder.SetMessage(message);
-                builder.SetNegativeButton(this.Resources.GetString(Resource.String.App_Cancel),(s, e) => { });
-                builder.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => 
-                { 
-                    var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_BackupAndRestore);
-                    new Thread(new ThreadStart(delegate
-                    {
-                        // Sich neu connecten;
-                        Android_Database.Instance.CloseConnection();
-
-                        // Löschen von '*.db3-shn' und '*.db3-wal'
-                        //string deleteFile1 = Path.ChangeExtension(fileDestination, "db3-shm");
-                        //File.Delete(deleteFile1);
-
-                        string deleteFile2 = Path.ChangeExtension(fileDestination, "db3-wal");
-
-                        if (File.Exists(deleteFile2))
-                            File.Delete(deleteFile2);
-
-                        File.Copy(fileSource, fileDestination, true);
-
-                        // Sich neu connecten;
-                        Android_Database.SQLiteConnection = null;
-
-                        var picturesToMove = Database.GetArticlesToCopyImages();
-
-                        if (picturesToMove.Count > 0)
-                        {
-
-                            RunOnUiThread(() =>
-                            {
-                                message = this.Resources.GetString(Resource.String.Settings_ConvertDatabaseForPicture);
-                                message = string.Format(message, picturesToMove.Count);
-
-                                var dialog = new AlertDialog.Builder(this);
-                                dialog.SetMessage(message);
-                                dialog.SetTitle(Resource.String.App_Name);
-                                dialog.SetIcon(Resource.Drawable.ic_launcher);
-                                dialog.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s1, e1) => { });
-                                dialog.Create().Show();
-                            });
-
-                        }
-
-                        RunOnUiThread(() =>
-                        {
-                            this.ShowDatabaseInfo();
-                            this.ShowUserDefinedCategories();
-                        });
-
-                        this.HideProgressBar(progressDialog);
-
-                    })).Start();
-
-                });
-                builder.Create().Show();
+                this.RestoreDatabase(fileSource);
             }
         }
 
+        private void RestoreDatabase(string fileSource)
+        {
+            string fileDestination = Android_Database.Instance.GetProductiveDatabasePath();
+                
+            string message = string.Format(this.Resources.GetString(Resource.String.Settings_RestoreBackupFile),
+                Path.GetFileName(fileSource),
+                Path.GetFileName(fileDestination));
+
+            var builder = new AlertDialog.Builder(this);
+            builder.SetMessage(message);
+            builder.SetNegativeButton(this.Resources.GetString(Resource.String.App_Cancel),(s, e) => { });
+            builder.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => 
+            { 
+                var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_BackupAndRestore);
+                new Thread(new ThreadStart(delegate
+                {
+                    // Sich neu connecten;
+                    Android_Database.Instance.CloseConnection();
+
+                    // Löschen von '*.db3-shn' und '*.db3-wal'
+                    //string deleteFile1 = Path.ChangeExtension(fileDestination, "db3-shm");
+                    //File.Delete(deleteFile1);
+
+                    string deleteFile2 = Path.ChangeExtension(fileDestination, "db3-wal");
+
+                    if (File.Exists(deleteFile2))
+                        File.Delete(deleteFile2);
+
+                    File.Copy(fileSource, fileDestination, true);
+
+                    // Sich neu connecten;
+                    Android_Database.SQLiteConnection = null;
+
+                    var picturesToMove = Database.GetArticlesToCopyImages();
+
+                    if (picturesToMove.Count > 0)
+                    {
+
+                        RunOnUiThread(() =>
+                        {
+                            message = this.Resources.GetString(Resource.String.Settings_ConvertDatabaseForPicture);
+                            message = string.Format(message, picturesToMove.Count);
+
+                            var dialog = new AlertDialog.Builder(this);
+                            dialog.SetMessage(message);
+                            dialog.SetTitle(Resource.String.App_Name);
+                            dialog.SetIcon(Resource.Drawable.ic_launcher);
+                            dialog.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s1, e1) => { });
+                            dialog.Create().Show();
+                        });
+
+                    }
+
+                    RunOnUiThread(() =>
+                    {
+                        this.ShowDatabaseInfo();
+                        this.ShowUserDefinedCategories();
+                    });
+
+                    this.HideProgressBar(progressDialog);
+
+                })).Start();
+
+            });
+            builder.Create().Show();
+        }
 
         private void ButtonRestoreSampleDb_Click(object sender, EventArgs e)
         {
@@ -850,6 +858,20 @@ namespace VorratsUebersicht
             selectFile.PutExtra("SearchPattern", "*.VueBak");
 
             StartActivityForResult(selectFile, SelectBackupId);
+        }
+
+        private async void ButtonRestoreFromFile_Click(object sender, EventArgs e)
+        {
+            PickOptions options = new PickOptions();
+            options.PickerTitle = this.Resources.GetString(Resource.String.Settings_SelectBackupOrImport);
+
+            var file = await FilePicker.PickAsync(options);
+            if (file == null)
+                return;
+
+            this.RestoreDatabase(file.FullPath);
+
+            return;
         }
 
         private void AskForBackup_Click(object sender, EventArgs e)

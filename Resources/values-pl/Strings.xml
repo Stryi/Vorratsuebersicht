@@ -55,10 +55,11 @@
 	<string name="Settings_BackupAndRestore" >Backup i Restore</string>
 	<string name="Settings_CreateBackup" >Utwórz kopię zapasową</string>
 	<string name="Settings_RestoreBackup" >Przywróć / usuń kopię zapasową</string>
-	<string name="Settings_Action_BackupRestore" >Przywróć</string>
+  <string name="Settings_RestoreBackupFromFile" >Przywróć kopię zapasową z pliku</string>
+  <string name="Settings_Action_BackupRestore" >Przywróć</string>
 	<string name="Settings_Action_BackupDelete"  >Usuń</string>	
 	<string name="Settings_DeleteDatabase" >Usuń bazę danych</string>
-	<string name="Settings_RestoreBackupFile" >Przywrócić kopię zapasową bazy danych\n\n{0}\n\njako {1}?</string>
+	<string name="Settings_RestoreBackupFile" >Przywróć plik kopii zapasowej\n\n {0}\n\ndo bieżącej bazy danych\n\n {1}?</string>
 	<string name="Settings_SelectBackupOrImport" >Wybierz bazę danych lub kopię zapasową:</string>
 	<string name="Settings_SelectBackup" >Wybierz kopię zapasową:</string>
 	<string name="Settings_NoDatabaseSelected" >Nie wybrano bazy danych.</string>

@@ -99,6 +99,14 @@
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
 
+        <Button
+            android:id="@+id/SettingsButton_RestoreFromFile"
+            android:text="@string/Settings_RestoreBackupFromFile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="false"
+            android:gravity="left|center_vertical" />
         <TextView
             android:id="@+id/Settings_LastBackupDay"
             android:textColor="@color/Text_Color2"

@@ -55,10 +55,11 @@
 	<string name="Settings_BackupAndRestore" >Backup and restore</string>
 	<string name="Settings_CreateBackup" >Create backup</string>
 	<string name="Settings_RestoreBackup" >Restore / delete backup</string>
-	<string name="Settings_Action_BackupRestore" >Restore</string>
+  <string name="Settings_RestoreBackupFromFile" >Restore backup from file</string>
+  <string name="Settings_Action_BackupRestore" >Restore</string>
 	<string name="Settings_Action_BackupDelete" >Delete</string>
 	<string name="Settings_DeleteDatabase" >Delete databse</string>
-	<string name="Settings_RestoreBackupFile" >Restore backup file \n\n{0}\n\nas {1}?</string>
+	<string name="Settings_RestoreBackupFile" >Restore the backup file\n\n {0}\n\nto the current database\n\n {1}\n\n?</string>
 	<string name="Settings_SelectBackupOrImport" >Select database or backup:</string>
 	<string name="Settings_SelectBackup" >Select backup:</string>
 	<string name="Settings_NoDatabaseSelected" >No database selected.</string>

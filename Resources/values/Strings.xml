@@ -55,10 +55,11 @@
 	<string name="Settings_BackupAndRestore" >Backup und Restore</string>
 	<string name="Settings_CreateBackup" >Backup erstellen</string>
 	<string name="Settings_RestoreBackup" >Backup zurückspielen / löschen</string>
-	<string name="Settings_Action_BackupRestore" >Zurückspielen</string>
+  <string name="Settings_RestoreBackupFromFile" >Backup aus Datei zurückspielen</string>
+  <string name="Settings_Action_BackupRestore" >Zurückspielen</string>
 	<string name="Settings_Action_BackupDelete" >Löschen</string>
 	<string name="Settings_DeleteDatabase" >Datenbank löschen</string>
-	<string name="Settings_RestoreBackupFile" >Backup Datenbank\n\n{0}\n\nwiederherstellen in {1}?</string>
+	<string name="Settings_RestoreBackupFile" >Die Backup Datei\n\n    {0}\n\nin die aktuelle Datenbank\n\n    {1}\n\nwiederherstellen?</string>
 	<string name="Settings_SelectBackupOrImport" >Datenbank oder Backup auswählen:</string>
 	<string name="Settings_SelectBackup" >Backup auswählen:</string>
 	<string name="Settings_NoDatabaseSelected" >Keine Datenbank ausgewählt.</string>
