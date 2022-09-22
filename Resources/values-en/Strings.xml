@@ -134,7 +134,6 @@
   <string name="ArticleList_SpecialFilter" >Filter: {0}</string>
 
   <string-array name="ArticleListeSpecialFilter" >
-    <item>[No filter]</item>
     <item>No price given</item>
     <item>Without calorie information</item>
     <item>For the shopping list (without inventory)</item>
