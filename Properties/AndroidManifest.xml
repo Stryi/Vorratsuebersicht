@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!-- Version android:versionName="7.03 (ab Android 4.4) x86|arm" -->
-<manifest android:versionCode="123" android:versionName="7.03" package="de.stryi.Vorratsuebersicht" android:installLocation="auto" xmlns:android="http://schemas.android.com/apk/res/android">
+<!-- Version android:versionName="7.04 (ab Android 4.4) x86|arm" -->
+<manifest android:versionCode="124" android:versionName="7.04" package="de.stryi.Vorratsuebersicht" android:installLocation="auto" xmlns:android="http://schemas.android.com/apk/res/android">
 	<!-- für Google Play Store -->
   <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="30" />
 	<!-- für ab Android 4.4 -->
