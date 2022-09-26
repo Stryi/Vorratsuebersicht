@@ -100,7 +100,8 @@ namespace VorratsUebersicht
                     cmd += " WHERE ";
 
                 cmd += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ? OR Article.Notes LIKE ? OR Article.Supermarket LIKE ?";
-                cmd += " OR Article.StorageName LIKE ? OR Article.Category LIKE ? OR Article.SubCategory LIKE ?)";
+                cmd += " OR Article.StorageName LIKE ? OR Article.Category LIKE ? OR Article.SubCategory LIKE ? OR Article.EANCode LIKE ?)";
+                parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
@@ -782,7 +783,8 @@ namespace VorratsUebersicht
                     default:
 
                         filter += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ? OR Article.Notes LIKE ? OR Article.Supermarket LIKE ?";
-                        filter += " OR Article.StorageName LIKE ? OR Article.Category LIKE ? OR Article.SubCategory LIKE ?)";
+                        filter += " OR Article.StorageName LIKE ? OR Article.Category LIKE ? OR Article.SubCategory LIKE ? OR Article.EANCode LIKE ?)";
+                        parameter.Add("%" + textFilter + "%");
                         parameter.Add("%" + textFilter + "%");
                         parameter.Add("%" + textFilter + "%");
                         parameter.Add("%" + textFilter + "%");
@@ -1061,7 +1063,8 @@ namespace VorratsUebersicht
             {
                 if (string.IsNullOrEmpty(filter)) { filter += " WHERE "; } else { filter += " AND "; }
                 filter += " (Article.Name LIKE ? OR Article.Manufacturer LIKE ? OR Article.Notes LIKE ? OR Article.Supermarket LIKE ?";
-                filter += " OR Article.StorageName LIKE ? OR Article.Category LIKE ? OR Article.SubCategory LIKE ?)";
+                filter += " OR Article.StorageName LIKE ? OR Article.Category LIKE ? OR Article.SubCategory LIKE ? OR Article.EANCode LIKE ?)";
+                parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");
                 parameter.Add("%" + textFilter + "%");

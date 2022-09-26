@@ -1,4 +1,9 @@
 
+Version 7.04 (Code Version 124)
+===============================
+
+C194 - Volltextsuche sucht jetzt auch nach dem EAN Code.
+
 Version 7.03 (Code Version 123)
 ===============================
 
