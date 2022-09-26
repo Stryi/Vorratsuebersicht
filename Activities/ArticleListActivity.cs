@@ -70,15 +70,23 @@ namespace VorratsUebersicht
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
             listView.ItemClick += OnOpenArticleDetails;
 
-            ImageView imageView =FindViewById<ImageView>(Resource.Id.ArticleList_FilterClear);
-            imageView.Click += ImageView_Click;
+            TextView articleListFilter = FindViewById<TextView>(Resource.Id.ArticleList_Filter);
+            articleListFilter.Click += ArticleListFilter_Click;
+
+            ImageView imageView = FindViewById<ImageView>(Resource.Id.ArticleList_FilterClear);
+            imageView.Click += ArticleFilterClear_Click;
 
             this.RegisterForContextMenu(listView);
 
             ShowArticleList();
         }
 
-        private void ImageView_Click(object sender, EventArgs e)
+        private void ArticleListFilter_Click(object sender, EventArgs e)
+        {
+            this.FilterArticleList();
+        }
+
+        private void ArticleFilterClear_Click(object sender, EventArgs e)
         {
             this.specialFilter = 0;
             this.FindViewById<FrameLayout>(Resource.Id.ArticleList_FilterBanner).Visibility = ViewStates.Gone;
@@ -201,20 +209,13 @@ namespace VorratsUebersicht
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetItems(actions, (sender2, args) =>
             {
-                this.specialFilter = args.Which;
+                this.specialFilter = args.Which + 1;
 
-                if (this.specialFilter == 0)
-                {
-                    this.FindViewById<FrameLayout>(Resource.Id.ArticleList_FilterBanner).Visibility = ViewStates.Gone;
-                }
-                else
-                {
-                    string filterText = this.Resources.GetString(Resource.String.ArticleList_SpecialFilter);
-                    filterText = String.Format(filterText, actions[this.specialFilter]);
+                string filterText = this.Resources.GetString(Resource.String.ArticleList_SpecialFilter);
+                filterText = String.Format(filterText, actions[args.Which]);
 
-                    this.FindViewById<FrameLayout>(Resource.Id.ArticleList_FilterBanner).Visibility = ViewStates.Visible;
-                    this.FindViewById<TextView>(Resource.Id.ArticleList_Filter).Text = filterText;
-                }
+                this.FindViewById<FrameLayout>(Resource.Id.ArticleList_FilterBanner).Visibility = ViewStates.Visible;
+                this.FindViewById<TextView>(Resource.Id.ArticleList_Filter).Text = filterText;
 
                 this.ShowArticleList();
             });
