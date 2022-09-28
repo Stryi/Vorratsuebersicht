@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Linq;
 using System.Threading;
 using System.Globalization;
 using System.Collections.Generic;
@@ -210,7 +211,64 @@ namespace VorratsUebersicht
 
             this.Window.SetSoftInputMode(SoftInput.StateHidden);
 
+            this.DetectBackupsCount();
+
             this.isInitialize = false;
+        }
+
+        private void DetectBackupsCount()
+        {
+            new Thread(new ThreadStart(delegate
+            {
+                this.DetectBackupsCount_Internal();
+
+            })).Start();
+        }
+
+        private void DetectBackupsCount_Internal()
+        {
+            TextView backupCount = FindViewById<TextView>(Resource.Id.Settings_BackupFileCount);
+
+            try
+            {
+                string backupPath = this.GetBackupPath();
+
+                var databaseFilePath = Android_Database.Instance.GetProductiveDatabasePath();
+                string databaseFileName = Path.GetFileNameWithoutExtension(databaseFilePath);
+
+                string backupFileName = databaseFileName + "_*.VueBak";
+
+                if (databaseFileName == "Vorraete")
+                {
+                    backupFileName = "Vue_*.VueBak";
+                }
+
+                var fileListUnsorted = new DirectoryInfo(backupPath).GetFiles(backupFileName);
+
+                long sumSize = 0;
+                foreach(var file in fileListUnsorted)
+                {
+                    sumSize += file.Length;
+                }
+                string sizeText = Tools.ToFuzzyByteString(sumSize);
+
+                var fileList = fileListUnsorted.OrderBy( e => e.Name);
+
+                string backupInfo = Resources.GetString(Resource.String.Settings_BackupFileCount);
+
+                backupCount.Text = string.Format(backupInfo,
+                    fileListUnsorted.Length.ToString(),
+                    sizeText);
+
+                if (fileListUnsorted.Length > 3)
+                {
+                    backupCount.SetTextColor(Android.Graphics.Color.DarkRed);
+                }
+            }
+            catch(Exception ex)
+            {
+                backupCount.Text = ex.Message;
+            }
         }
 
         private void UseFrontCamera_Click(object sender, EventArgs e)

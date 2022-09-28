@@ -64,7 +64,8 @@
 	<string name="Settings_SelectBackup" >Wybierz kopię zapasową:</string>
 	<string name="Settings_NoDatabaseSelected" >Nie wybrano bazy danych.</string>
 
-	<string name="Settings_BackupPath" >Ścieżka zapasowa:</string>
+  <string name="Settings_BackupFileCount" >Liczba backups: {0}, całkowity rozmiar: {1}</string>
+  <string name="Settings_BackupPath" >Ścieżka zapasowa:</string>
 	<string name="Settings_LastBackupOn" >Ostatnia kopia zapasowa dnia: {0}</string>
 	<string name="Settings_AskForBackup" >Przypomnij o kopii zapasowej co 7 dni</string>
 	<string name="Settings_BackupDone" >Baza danych zapisana w katalogu jako:\n\n {0}"\n\nZapisz ten plik na Dysku Google lub na komputerze.</string>

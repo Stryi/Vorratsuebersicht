@@ -71,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="16dp" />
+
         <ProgressBar
             android:id="@+id/ProgressBar_BackupAndRestore"
             style="?android:attr/progressBarStyleHorizontal"
@@ -107,6 +108,7 @@
             android:layout_marginLeft="10dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
+
         <TextView
             android:id="@+id/Settings_LastBackupDay"
             android:textColor="@color/Text_Color2"
@@ -116,11 +118,21 @@
             android:paddingTop="10dp" />
 
         <TextView
+            android:id="@+id/Settings_BackupFileCount"
+            android:text="@string/Settings_BackupFileCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="0dp" />
+
+        <TextView
             android:text="@string/Settings_BackupPath"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:paddingTop="10dp" />
+
         <EditText
             android:id="@+id/SettingsButton_BackupPath"
             android:inputType="textUri"
