@@ -923,11 +923,24 @@ namespace VorratsUebersicht
             PickOptions options = new PickOptions();
             options.PickerTitle = this.Resources.GetString(Resource.String.Settings_SelectBackupOrImport);
 
-            var file = await FilePicker.PickAsync(options);
-            if (file == null)
-                return;
+            try
+            {
+                var file = await FilePicker.PickAsync(options);
+                if (file == null)
+                    return;
 
-            this.RestoreDatabase(file.FullPath);
+                this.RestoreDatabase(file.FullPath);
+            }
+            catch (Exception ex)
+            {
+                TRACE(ex);
+
+                var messageBox = new AlertDialog.Builder(this);
+                messageBox.SetTitle(this.Resources.GetString(Resource.String.App_ErrorOccurred));
+                messageBox.SetMessage(ex.Message);
+                messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
+                messageBox.Create().Show();
+            }
 
             return;
         }
@@ -1020,11 +1033,13 @@ namespace VorratsUebersicht
 
         private void EnableButtons()
         {
-            Button buttonBackup  = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
-            Button buttonRestore = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
+            Button buttonBackup   = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
+            Button buttonRestore  = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
+            Button buttonRestore2 = FindViewById<Button>(Resource.Id.SettingsButton_RestoreFromFile);
 
-            buttonBackup.Enabled  = !Android_Database.UseTestDatabase;
-            buttonRestore.Enabled = !Android_Database.UseTestDatabase;
+            buttonBackup.Enabled   = !Android_Database.UseTestDatabase;
+            buttonRestore.Enabled  = !Android_Database.UseTestDatabase;
+            buttonRestore2.Enabled = !Android_Database.UseTestDatabase;
 
             TextView lastBackup = FindViewById<TextView>(Resource.Id.Settings_LastBackupDay);
             lastBackup.Enabled = !Android_Database.UseTestDatabase;
