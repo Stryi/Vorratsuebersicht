@@ -115,7 +115,7 @@
 	<string name="Settings_SendLogFileMessage" >
 		LOG Einträge an den Entwickler schicken?
 		\n\nIhre E-Mail Adresse wird dem Entwickler als \'Absender\' angezeigt.
-		Es werden keine private Daten versendet.
+		Es werden keine privaten Daten versendet.
 		Vor dem Senden können Sie die Daten noch betrachten.
 	</string>
 	<string name="Settings_AppWiki" >App Wiki (Deutsch)</string>
@@ -137,7 +137,7 @@
   <string-array name="ArticleListeSpecialFilter" >
     <item>Kein Preis angegeben</item>
     <item>Ohne Kalorienangaben</item>
-    <item>Für den Einkaufsliste (ohne Bestand)</item>
+    <item>Für die Einkaufsliste (ohne Bestand)</item>
   </string-array>
 
   <!-- Artikelliste - Footer -->
@@ -262,7 +262,7 @@
 
 	<!-- Einkaufsliste -->
 	<string name="ShoppingList_Remove" >Entfernen</string>
-	<string name="ShoppingList_ToStorage" >Ins Lagerbestand...</string>
+	<string name="ShoppingList_ToStorage" >In den Lagerbestand...</string>
 	<string name="ShoppingList_ArticleDetails" >Artikelangaben...</string>
 	<string name="ShoppingList_MarkAsBought" >Als \'Gekauft\' markieren</string>
 	<string name="ShoppingList_AllSupermarkets" >[Alle]</string>
