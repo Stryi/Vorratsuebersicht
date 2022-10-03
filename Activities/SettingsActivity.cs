@@ -440,6 +440,11 @@ namespace VorratsUebersicht
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
+            if (requestCode == SelectBackupId)
+            {
+                this.DetectBackupsCount();
+            }
+
             if (resultCode != Result.Ok)
                 return;
 
@@ -1001,6 +1006,8 @@ namespace VorratsUebersicht
                     File.Copy(databaseFilePath, backupFilePath);
 
                     message = string.Format(this.Resources.GetString(Resource.String.Settings_BackupDone), backupFilePath);
+
+                    this.DetectBackupsCount();
                 }
                 catch(Exception ex)
                 {
