@@ -218,16 +218,13 @@ namespace VorratsUebersicht
 
         private void DetectBackupsCount()
         {
-            new Thread(new ThreadStart(delegate
-            {
-                this.DetectBackupsCount_Internal();
-
-            })).Start();
-        }
-
-        private void DetectBackupsCount_Internal()
-        {
             TextView backupCount = FindViewById<TextView>(Resource.Id.Settings_BackupFileCount);
+            string backupInfo = Resources.GetString(Resource.String.Settings_BackupFileCount);
+
+            string sizeText  = "-";
+            string fileCount = "-";
+
+            backupCount.Text = string.Format(backupInfo, fileCount, sizeText);
 
             try
             {
@@ -250,25 +247,26 @@ namespace VorratsUebersicht
                 {
                     sumSize += file.Length;
                 }
-                string sizeText = Tools.ToFuzzyByteString(sumSize);
 
-                var fileList = fileListUnsorted.OrderBy( e => e.Name);
-
-                string backupInfo = Resources.GetString(Resource.String.Settings_BackupFileCount);
-
-                backupCount.Text = string.Format(backupInfo,
-                    fileListUnsorted.Length.ToString(),
-                    sizeText);
+                sizeText  = Tools.ToFuzzyByteString(sumSize);
+                fileCount = fileListUnsorted.Length.ToString();
 
                 if (fileListUnsorted.Length > 3)
                 {
                     backupCount.SetTextColor(Android.Graphics.Color.DarkRed);
+                    backupCount.SetBackgroundColor(Android.Graphics.Color.White);
                 }
             }
             catch(Exception ex)
             {
-                backupCount.Text = ex.Message;
+                TRACE("Error detecting backups count and size.");
+                TRACE(ex);
+
+                sizeText  = "?";
+                fileCount = "?";
             }
+
+            backupCount.Text = string.Format(backupInfo, fileCount, sizeText);
         }
 
         private void UseFrontCamera_Click(object sender, EventArgs e)
@@ -1007,7 +1005,10 @@ namespace VorratsUebersicht
 
                     message = string.Format(this.Resources.GetString(Resource.String.Settings_BackupDone), backupFilePath);
 
-                    this.DetectBackupsCount();
+                    RunOnUiThread(() =>
+                    {
+                        this.DetectBackupsCount();
+                    });
                 }
                 catch(Exception ex)
                 {
@@ -1021,7 +1022,6 @@ namespace VorratsUebersicht
                         Database.SetSettingsDate    ("LAST_BACKUP",      lastBackupDay.Value);
                         Database.SetSettingsDateTime("LAST_BACKUP_TIME", lastBackupDay.Value);
                     }
-
                 }
 
                 this.HideProgressBar(progressDialog);
