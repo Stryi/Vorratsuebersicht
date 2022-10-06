@@ -3,7 +3,6 @@ Version 7.05 (Code Version 125)
 
 C195 - Anzahl und Größe der Backups wird jetzt angezeigt.
 
-
 Version 7.04 (Code Version 124)
 ===============================
 

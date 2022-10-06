@@ -29,6 +29,8 @@ namespace VorratsUebersicht
         private bool additionalDatabasePathChanged = false;
         private bool isInitialize = false;
 
+        private int textViewColor;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             this.isInitialize = true;
@@ -148,6 +150,8 @@ namespace VorratsUebersicht
             Button buttonRestoreFromFile = FindViewById<Button>(Resource.Id.SettingsButton_RestoreFromFile);
             buttonRestoreFromFile.Click += ButtonRestoreFromFile_Click;
 
+            this.textViewColor = FindViewById<TextView>(Resource.Id.Settings_BackupFileCount).CurrentTextColor;
+
             Switch switchAskForBackup = FindViewById<Switch>(Resource.Id.SettingsButton_AskForBackup);
             switchAskForBackup.Click += AskForBackup_Click;
             switchAskForBackup.Checked = Settings.GetBoolean("AskForBackup", true);
@@ -251,10 +255,17 @@ namespace VorratsUebersicht
                 sizeText  = Tools.ToFuzzyByteString(sumSize);
                 fileCount = fileListUnsorted.Length.ToString();
 
-                if (fileListUnsorted.Length > 3)
+                if (fileListUnsorted.Length > 5)
                 {
+                    backupCount.SetTypeface(null, Android.Graphics.TypefaceStyle.Bold);
                     backupCount.SetTextColor(Android.Graphics.Color.DarkRed);
                     backupCount.SetBackgroundColor(Android.Graphics.Color.White);
+                }
+                else
+                {
+                    backupCount.SetTypeface(null, Android.Graphics.TypefaceStyle.Normal);
+                    backupCount.SetTextColor(new Android.Graphics.Color(this.textViewColor));
+                    backupCount.SetBackgroundColor(Android.Graphics.Color.Transparent);
                 }
             }
             catch(Exception ex)
