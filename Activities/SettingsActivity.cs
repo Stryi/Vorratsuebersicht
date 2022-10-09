@@ -258,14 +258,12 @@ namespace VorratsUebersicht
                 if (fileListUnsorted.Length > 5)
                 {
                     backupCount.SetTypeface(null, Android.Graphics.TypefaceStyle.Bold);
-                    backupCount.SetTextColor(Android.Graphics.Color.DarkRed);
-                    backupCount.SetBackgroundColor(Android.Graphics.Color.White);
+                    backupCount.SetTextColor(Android.Graphics.Color.Red);
                 }
                 else
                 {
                     backupCount.SetTypeface(null, Android.Graphics.TypefaceStyle.Normal);
                     backupCount.SetTextColor(new Android.Graphics.Color(this.textViewColor));
-                    backupCount.SetBackgroundColor(Android.Graphics.Color.Transparent);
                 }
             }
             catch(Exception ex)
