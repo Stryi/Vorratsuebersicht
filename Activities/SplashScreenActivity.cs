@@ -193,7 +193,7 @@ namespace VorratsUebersicht
             Exception exception = null;
             this.progressBar.Max = max;
 
-            foreach(ArticleData article in articleImagesToCopy)
+            foreach(Article article in articleImagesToCopy)
             {
                 try
                 {

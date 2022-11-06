@@ -265,7 +265,7 @@ namespace VorratsUebersicht
         {
             this.liste = new List<ArticleListView>();
 
-            var articleList = Database.GetArticleListNoImages(this.category, this.subCategory, this.eanCode, this.notInStorage, this.specialFilter, text);
+            var articleList = Database.GetArticleList(this.category, this.subCategory, this.eanCode, this.notInStorage, this.specialFilter, text);
 
             foreach(Article article in articleList)
             {

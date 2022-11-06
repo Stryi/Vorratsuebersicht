@@ -21,7 +21,7 @@ namespace VorratsUebersicht
 
             if ((minQuantity == null) || (prefQuantity == null))
             {
-                ArticleData articleData = Database.GetArticleData(articleId);
+                Article articleData = Database.GetArticleData(articleId);
 
                 minQuantity  = articleData.MinQuantity;
                 prefQuantity = articleData.PrefQuantity;

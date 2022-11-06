@@ -162,13 +162,13 @@ namespace VorratsUebersicht
             command.ExecuteNonQuery();
         }
 
-        internal static List<ArticleData> GetArticlesToCopyImages()
+        internal static List<Article> GetArticlesToCopyImages()
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
-                return new List<ArticleData>();
+                return new List<Article>();
 
-            return databaseConnection.Query<ArticleData>(
+            return databaseConnection.Query<Article>(
                 "SELECT ArticleId, Name" +
                 " FROM Article" +
                 " WHERE Image IS NOT NULL" +
@@ -283,7 +283,7 @@ namespace VorratsUebersicht
 
             if ((minQuantity == null) || (prefQuantity == null))
             {
-                ArticleData article = Database.GetArticleData(articleId);
+                Article article = Database.GetArticleData(articleId);
 
                 // Artikle ist noch (gar) nicht angelegt?
                 // (Laut Absturzbericht ist so ein Fall vorhanden, konnte aber nicht reproduziert werden.)
@@ -356,7 +356,7 @@ namespace VorratsUebersicht
         /// </summary>
         /// <param name="articleId"></param>
         /// <returns></returns>
-        internal static ArticleData GetArticleData(int articleId)
+        internal static Article GetArticleData(int articleId)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
@@ -372,11 +372,7 @@ namespace VorratsUebersicht
 
             var command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
 
-            // TODO: Gemeldeter Fehler: 
-            // android.runtime.JavaProxyThrowable: at System.Linq.Enumerable.First[TSource] (System.Collections.Generic.IEnumerable`1[T] source) [0x00010] in <715c2ff6913942e6aa8535593b3ef35a>:0
-            // at VorratsUebersicht.Database.GetArticleData (System.Int32 articleId) [0x00078] in <8f65cfdb5fac4bad9251caa1b2de7fec>:0
-
-            return command.ExecuteQuery<ArticleData>().FirstOrDefault();
+            return command.ExecuteQuery<Article>().FirstOrDefault();
         }
 
         internal static ArticleImage GetArticleImage(int articleId, bool? showLarge = null)
@@ -408,24 +404,6 @@ namespace VorratsUebersicht
             var command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
 
             return command.ExecuteQuery<ArticleImage>().FirstOrDefault();
-        }
-
-        internal static void SaveArticleImages(int articleId, byte[] imageLarge, byte[] image)
-        {
-            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
-            if (databaseConnection == null)
-                return;
-
-            string cmd = string.Empty;
-
-            cmd += "UPDATE Article SET";
-            cmd += " ImageLarge = ?,";
-            cmd += " Image = ?";
-            cmd += " WHERE ArticleId = ?";
-
-            var command = databaseConnection.CreateCommand(cmd, new object[] { imageLarge, imageLarge, articleId });
-
-            command.ExecuteNonQuery();
         }
 
         internal static decimal GetArticleQuantityInStorage(int articleId)
@@ -542,34 +520,6 @@ namespace VorratsUebersicht
             stopWatch.Stop();
             Tools.TRACE("Dauer der Abfrage für DISTINCT StorageName: {0}", stopWatch.Elapsed.ToString());
 
-            foreach(StringResult item in result)
-            {
-                stringList.Add(item.Value);
-            }
-
-            return stringList;
-        }
-
-        internal static List<string> GetCategoryNames()
-        {
-            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
-
-            // Artikel suchen, die schon abgelaufen sind.
-            string cmd = string.Empty;
-            cmd += "SELECT DISTINCT Category AS Value";
-            cmd += " FROM Article";
-            cmd += " WHERE Category IS NOT NULL";
-            cmd += " ORDER BY Category COLLATE NOCASE";
-
-            SQLiteCommand command = databaseConnection.CreateCommand(cmd, new object[] { });
-
-            Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
-            IList<StringResult> result = command.ExecuteQuery<StringResult>();
-            stopWatch.Stop();
-            Tools.TRACE("Dauer der Abfrage für DISTINCT Category: {0}", stopWatch.Elapsed.ToString());
-
-            List<string> stringList = new List<string>();
             foreach(StringResult item in result)
             {
                 stringList.Add(item.Value);
@@ -710,7 +660,7 @@ namespace VorratsUebersicht
             return stringList;
         }
 
-        internal static IList<Article> GetArticleListNoImages(
+        internal static IList<Article> GetArticleList(
             string category,
             string subCategory,
             string eanCode,
