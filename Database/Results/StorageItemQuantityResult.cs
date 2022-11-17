@@ -18,12 +18,12 @@ namespace VorratsUebersicht
         public string Manufacturer {get; set;}
         public string Category {get; set;}
         public bool DurableInfinity {get; set;}
-        public int WarnInDays {get; set;}
-        public decimal Size {get; set; }
+        public int? WarnInDays {get; set;}
+        public decimal? Size {get; set; }
         public string Unit {get; set;}
         public string ArticleStorageName {get; set;}
         public decimal Quantity {get; set;}
-        public int Calorie {get; set;}
+        public int? Calorie {get; set;}
         public DateTime? BestBefore {get; set;}
         public string StorageName { get; set; }
         public int? MinQuantity { get; set; }
@@ -57,7 +57,10 @@ namespace VorratsUebersicht
                 if (this.BestBefore < DateTime.Today)
                     return 2;
 
-                if (this.BestBefore.Value.AddDays(-this.WarnInDays) < DateTime.Today)
+                if (!this.WarnInDays.HasValue)
+                    return 0;
+
+                if (this.BestBefore.Value.AddDays(-this.WarnInDays.Value) < DateTime.Today)
                     return 1;
 
                 return 0;

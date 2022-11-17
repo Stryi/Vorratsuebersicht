@@ -263,13 +263,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="16dp" />
-        <Switch
-            android:id="@+id/SettingsButton_SwitchToTestDB"
-            android:text="@string/Settings_SwitchToTestDB"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:gravity="left|center_vertical" />
         <ProgressBar
             android:id="@+id/ProgressBar_RestoreSampleDb"
             style="?android:attr/progressBarStyleHorizontal"

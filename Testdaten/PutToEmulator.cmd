@@ -4,27 +4,34 @@ SET adbCmd="%ProgramFiles(x86)%\Android\android-sdk\platform-tools\adb"
 REM SET adbCmd="E:\android-adk\platform-tools\adb"
 
 REM Root Zugriff für adb
-%adbCmd% root
+REM %adbCmd% root
 
 ECHO ----------------------------------------------------
 ECHO Meine Datenbanken zum Emulator uebertragen
 ECHO ----------------------------------------------------
 
 ECHO **** Bereinigung
-%adbCmd% shell rm    /storage/emulated/0/Vorratsuebersicht/Vorraete.db3
-%adbCmd% shell rm    /storage/emulated/0/Vorratsuebersicht/Jacht.db3
-%adbCmd% shell rm    /storage/emulated/0/Vorratsuebersicht/Ferienhaus Florida.db3
-%adbCmd% shell rm    /storage/emulated/0/Vorratsuebersicht/KAPUTT.db3
-%adbCmd% shell rm    /storage/emulated/0/Vorratsuebersicht/*.*
-%adbCmd% shell rmdir /storage/emulated/0/Vorratsuebersicht
+REM %adbCmd% shell rm    "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/Vorraete.db3"
+%adbCmd% shell rm    "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/Jacht.db3"
+%adbCmd% shell rm    '/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/Ferienhaus Florida.db3'
+%adbCmd% shell rm    "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/KAPUTT.db3"
+REM %adbCmd% shell rm    "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/*.*"
 
 ECHO **** Uebertragung
-%adbCmd% push "..\..\Testdaten\Vorraete.db3"               "/storage/emulated/0/Vorratsuebersicht/Vorraete.db3"
-%adbCmd% push "..\..\Testdaten\Jacht.db3"                  "/storage/emulated/0/Vorratsuebersicht/Jacht.db3"
-%adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"     "/storage/emulated/0/Vorratsuebersicht/Ferienhaus Florida.db3"
-%adbCmd% push "..\..\Testdaten\KAPUTT.db3"                 "/storage/emulated/0/Vorratsuebersicht/KAPUTT.db3"
-%adbCmd% push "..\..\Testdaten\Vue_OLD_FORMAT.VueBak"      "/storage/emulated/0/Vorratsuebersicht/Vue_OLD_FORMAT.db3"
+rem %adbCmd% push "Databases\Vorraete.db3"            "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/Vorraete.db3"
+%adbCmd% push "Databases\Jacht.db3"               "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/Jacht.db3"
+%adbCmd% push "Databases\Ferienhaus Florida.db3"  "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/Ferienhaus Florida.db3"
+%adbCmd% push "Databases\KAPUTT.db3"              "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/KAPUTT.db3"
+%adbCmd% push "Databases\Vue_OLD_FORMAT.VueBak"   "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/Vue_OLD_FORMAT.db3"
 
+
+REM %adbCmd% shell chmod 777 /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/Jacht.db3"
+ECHO ON
+ECHO *********************
+
+REM %adbCmd% shell "su 'chmod 777 /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/Jacht.db3'"
+
+ECHO OFF
 
 ECHO ----------------------------------------------------
 ECHO db0 und Testdatenbank uebertragen
@@ -35,17 +42,14 @@ ECHO ----------------------------------------------------
 
 
 
-ECHO - Daten auf internen Speicher kopieren
-rem %adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"         "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/01 Interner Speicher.db3"
-
 ECHO ----------------------------------------------------
 ECHO - Daten auf SD Karte kopieren
 ECHO ----------------------------------------------------
 
 REM Stryi_10
-%adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"     "/storage/0E0E-2316/Android/data/de.stryi.Vorratsuebersicht/files/02 SD Karte.db3"
+%adbCmd% push "Ferienhaus Florida.db3"     "/storage/0E0E-2316/Android/data/de.stryi.Vorratsuebersicht/files/02 SD Karte.db3"
 
-REM REM %adbCmd% push "..\..\Testdaten\Ferienhaus Florida.db3"     "/storage/0FE9-280F/Android/data/de.stryi.Vorratsuebersicht/files/02 SD Karte.db3"
+REM REM %adbCmd% push "Ferienhaus Florida.db3"     "/storage/0FE9-280F/Android/data/de.stryi.Vorratsuebersicht/files/02 SD Karte.db3"
 
 
 
@@ -53,7 +57,7 @@ ECHO ----------------------------------------------------
 ECHO Backup uebertragen
 ECHO ----------------------------------------------------
 
-%adbCmd% push "..\..\Testdaten\Vue_OLD_FORMAT.VueBak"      "/storage/emulated/0/Download/Vue_OLD_FORMAT.VueBak""
+%adbCmd% push "Databases\Vue_OLD_FORMAT.VueBak"      "/storage/emulated/0/Download/Vue_OLD_FORMAT.VueBak""
 
 
 ECHO ----------------------------------------------------

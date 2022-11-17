@@ -134,40 +134,11 @@ namespace VorratsUebersicht
         {
             get 
             {
-                return this.ShoppingItem.Bought;
+                return this.ShoppingItem.Bought.HasValue && this.ShoppingItem.Bought.Value;
             }
             set
             {
                 this.ShoppingItem.Bought = value;
-            }
-        }
-
-        Bitmap bitmp;
-        bool noImage = false;
-
-        public override Bitmap Image
-        {
-            get
-            {
-                if (this.bitmp != null)         // Image bereits erstellt
-                    return this.bitmp;
-
-                if (this.noImage)               // Kein Image definiert
-                    return null;
-
-                byte[] image = Database.GetArticleImage(this.ArticleId, false)?.ImageSmall;
-                if (image == null)
-                {
-                    this.noImage = true;
-                    return null;
-                }
-
-                Bitmap unScaledBitmap = BitmapFactory.DecodeByteArray (image, 0, image.Length);
-
-                this.bitmp = unScaledBitmap;
-                //TRACE("Article: {0}", this.ShoppingItem.Name);
-
-                return this.bitmp;
             }
         }
     }

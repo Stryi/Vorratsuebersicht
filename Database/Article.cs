@@ -26,4 +26,11 @@ namespace VorratsUebersicht
         public string Supermarket { get; set; }
         public decimal? Price { get; set; }
     }
+
+    [DebuggerDisplay("{ArticleId} - {Name}")]
+    public class ArticleQuantity : Article
+    { 
+        public decimal? ShoppingListQuantity { get; set; }
+        public decimal? StorageItemQuantity { get; set; }
+    }
 }

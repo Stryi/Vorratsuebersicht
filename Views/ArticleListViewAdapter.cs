@@ -1,12 +1,9 @@
 using System;
+using System.Threading;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Graphics;
@@ -68,20 +65,31 @@ namespace VorratsUebersicht
 
             ImageView image = view.FindViewById<ImageView>(Resource.Id.ArticleListView_Image);
             image.Click -= OnImageClicked;
+            image.Tag = item.ArticleId;
+            image.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
+            image.Alpha = 0.25f;
 
-            if (item.Image == null)
+            new Thread(new ThreadStart(delegate
             {
-                image.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
-                image.Alpha = 0.5f;
-            }
-            else
-            {
-                image.SetImageBitmap(item.Image);
-                image.Alpha = 1f;
+                byte[] picture = Database.GetArticleImage(item.ArticleId, false)?.ImageSmall;
+                if (picture == null)
+                {
+                    return;
+                }
 
-                image.Tag = item.ArticleId;
-                image.Click += OnImageClicked;
-            }
+                Bitmap unScaledBitmap = BitmapFactory.DecodeByteArray (picture, 0, picture.Length);
+
+                this.context.RunOnUiThread( () =>
+                {
+                    if (item.ArticleId == (int)image.Tag)
+                    {
+                        image.SetImageBitmap(unScaledBitmap);
+                        image.Alpha = 1f;
+
+                        image.Click += OnImageClicked;
+                    }
+                });
+            })).Start();
 
             return view;
         }

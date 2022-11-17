@@ -51,7 +51,7 @@
 	<string name="Settings_AdditionalCategories" >Zusätzliche Kategorien (mit Komma getrennt definieren)</string>
 	<string name="Settings_CurrentDatabase" >Aktuelle Datenbank</string>
 	<string name="Settings_Datenbank" >Datei: {0}\n\nGröße: {1} ({2:n0} Bytes)</string>
-	<string name="Settings_DefaultCategory" >Standard Kategorie für neue Artikel</string>
+  <string name="Settings_DefaultCategory" >Standard Kategorie für neue Artikel</string>
 	<string name="Settings_BackupAndRestore" >Backup und Restore</string>
 	<string name="Settings_CreateBackup" >Backup erstellen</string>
 	<string name="Settings_RestoreBackup" >Backup zurückspielen / löschen</string>

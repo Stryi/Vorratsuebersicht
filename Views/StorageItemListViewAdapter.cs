@@ -1,10 +1,12 @@
 using System;
+using System.Threading;
 using System.Collections.Generic;
 
 using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
+using Android.Graphics;
 
 namespace VorratsUebersicht
 {
@@ -86,25 +88,41 @@ namespace VorratsUebersicht
 				error.Visibility = ViewStates.Gone;
 			}
 
-            image.Click -= OnImageClicked;
-
-            if (item.Image == null)
-            {
-                image.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
-                image.Alpha = 0.5f;
-            }
-            else
-            {
-                image.SetImageBitmap(item.Image);
-                image.Alpha = 1f;
-
-                image.Tag = item.ArticleId;
-                image.Click += OnImageClicked;
-            }
-
             TextView option = view.FindViewById<TextView>(Resource.Id.StorageItemListView_Option);
             option.Click -= Option_Click;
             option.Click += Option_Click;
+
+            image.Click -= OnImageClicked;
+            image.Tag = item.ArticleId;
+            image.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
+            image.Alpha = 0.25f;
+
+            new Thread(new ThreadStart(delegate
+            {
+                if (item.ArticleId != (int)image.Tag)
+                {
+                    return;
+                }
+
+                byte[] picture = Database.GetArticleImage(item.ArticleId, false)?.ImageSmall;
+                if (picture == null)
+                {
+                    return;
+                }
+
+                Bitmap unScaledBitmap = BitmapFactory.DecodeByteArray (picture, 0, picture.Length);
+
+                this.context.RunOnUiThread( () =>
+                {
+                    if (item.ArticleId == (int)image.Tag)
+                    {
+                        image.SetImageBitmap(unScaledBitmap);
+                        image.Alpha = 1f;
+
+                        image.Click += OnImageClicked;
+                    }
+                });
+            })).Start();
 
             return view;
         }

@@ -21,6 +21,7 @@ namespace VorratsUebersicht
         List<StorageItemListView> liste = new List<StorageItemListView>();
         private IParcelable listViewState;
         private List<string> storageList;
+        private Handler textSearchDelayHandler = new Handler();
 
         private string category;
         private string subCategory;
@@ -447,9 +448,19 @@ namespace VorratsUebersicht
             if (this.lastSearchText == filter)
                 return true;
 
+            this.textSearchDelayHandler.RemoveCallbacksAndMessages(null);
+
+            this.textSearchDelayHandler.PostDelayed( () => 
+                {
+                    ShowStorageItemList(filter);
+                    this.lastSearchText = filter;
+                },
+                500);
+
+
             //ggf. auf Adapter Filter umstellen: ...listAdapter.Filter.InvokeFilter(newText);
-            this.ShowStorageItemList(filter);
-            this.lastSearchText = filter;
+            //this.ShowStorageItemList(filter);
+            //this.lastSearchText = filter;
             
             return true;
         }

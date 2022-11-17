@@ -9,14 +9,15 @@ using Android.Content;
 
 namespace VorratsUebersicht
 {
+    using Android.Content.Res;
     using SQLite;
+    using System.Runtime.CompilerServices;
     using static Tools;
+    using static VorratsUebersicht.DatabaseService;
 
     public class Android_Database
     {
         // http://err2solution.com/2016/05/sqlite-with-xamarin-forms-step-by-step-guide/
-
-        public static bool UseTestDatabase = false;
 
         public static string SelectedDatabaseName = string.Empty;
 
@@ -43,32 +44,10 @@ namespace VorratsUebersicht
 
         }
 
-        public string GetProductiveDatabasePath()
-        {
-            bool sikop = Android_Database.UseTestDatabase;
-            Android_Database.UseTestDatabase = false;
-
-            var path = Android_Database.Instance.GetDatabasePath();
-            Android_Database.UseTestDatabase = sikop;
-
-            return path;
-        }
-
 		public string GetDatabasePath()
 		{
             string databasePath;
             string databaseFileName;
-
-            //
-            // Test Datenbank in Optionen ausgewählt?
-            //
-			if (Android_Database.UseTestDatabase)
-            {
-                databasePath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
-                databaseFileName = Path.Combine(databasePath, Android_Database.sqliteFilename_Test);
-
-                return databaseFileName;
-            }
 
             //
             // Datenbank beim Starten der Anwendung ausgewählt?
@@ -107,40 +86,17 @@ namespace VorratsUebersicht
             return null;
 		}
 
-        public string GetDatabaseInfoText(string format)
-        {
-            string databaseName = Android_Database.Instance.GetDatabasePath();
-            if (databaseName == null)
-                return string.Empty;
-
-            try
-            {
-                FileInfo fileInfo = new FileInfo(databaseName);
-
-                string info = string.Format(format, databaseName, Tools.ToFuzzyByteString(fileInfo.Length), fileInfo.Length);
-
-                return info;
-            }
-            catch(Exception ex)
-            {
-                return ex.Message;
-            }
-        }
 
         public void CompressDatabase()
         {
-            SQLite.SQLiteConnection databaseConnection = this.GetConnection();
-            if (databaseConnection == null)
-                return;
+            DatabaseService.Instance.ExecuteNonQuery("UPDATE Article SET Manufacturer = RTRIM(Manufacturer) WHERE LENGTH(Manufacturer) <> LENGTH(TRIM(Manufacturer))");
+            DatabaseService.Instance.ExecuteNonQuery("UPDATE Article SET SubCategory  = RTRIM(SubCategory)  WHERE LENGTH(SubCategory)  <> LENGTH(TRIM(SubCategory))");
+            DatabaseService.Instance.ExecuteNonQuery("UPDATE Article SET StorageName  = RTRIM(StorageName)  WHERE LENGTH(StorageName)  <> LENGTH(TRIM(StorageName))");       
+            DatabaseService.Instance.ExecuteNonQuery("UPDATE Article SET Supermarket  = RTRIM(Supermarket)  WHERE LENGTH(Supermarket)  <> LENGTH(TRIM(Supermarket))");
 
-            databaseConnection.Execute("UPDATE Article SET Manufacturer = RTRIM(Manufacturer) WHERE LENGTH(Manufacturer) <> LENGTH(TRIM(Manufacturer))");
-            databaseConnection.Execute("UPDATE Article SET SubCategory  = RTRIM(SubCategory)  WHERE LENGTH(SubCategory)  <> LENGTH(TRIM(SubCategory))");
-            databaseConnection.Execute("UPDATE Article SET StorageName  = RTRIM(StorageName)  WHERE LENGTH(StorageName)  <> LENGTH(TRIM(StorageName))");       
-            databaseConnection.Execute("UPDATE Article SET Supermarket  = RTRIM(Supermarket)  WHERE LENGTH(Supermarket)  <> LENGTH(TRIM(Supermarket))");
+            DatabaseService.Instance.ExecuteNonQuery("UPDATE StorageItem SET StorageName = RTRIM(StorageName) WHERE LENGTH(StorageName) <> LENGTH(TRIM(StorageName))");
 
-            databaseConnection.Execute("UPDATE StorageItem SET StorageName = RTRIM(StorageName) WHERE LENGTH(StorageName) <> LENGTH(TRIM(StorageName))");
-
-            databaseConnection.Execute("VACUUM");
+            DatabaseService.Instance.ExecuteNonQuery("VACUUM");
         }
 
         public string RepairDatabase()
@@ -162,14 +118,7 @@ namespace VorratsUebersicht
             return checkResult[0].integrity_check;
         }
 
-        public bool IsCurrentDatabaseExists()
-		{
-			var path = Android_Database.Instance.GetDatabasePath();
-
-			return File.Exists(path);
-		}
-
-		public Exception CreateDatabaseOnAppStorage(Context context, string databaseName)
+		public Exception CreateDatabaseOnAppStorage(Context context, string databaseName, bool setAsCurrentDatabase = false)
         {
             // Beispiel: "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
 			var externalFileDir = context.GetExternalFilesDir(null);
@@ -182,13 +131,30 @@ namespace VorratsUebersicht
                 return new Exception($"Datenbank '{databaseName}' ist bereits vorhanden.");
             }
 
-            // Beispiel: "/data/user/0/de.stryi.Vorratsuebersicht/files"
-			string documentsPath = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
-			string source      = Path.Combine(documentsPath, Android_Database.sqliteFilename_New);
-
             try
             {
-                File.Copy(source, destination);
+                using (var br = new BinaryReader(Application.Context.Assets.Open(Android_Database.sqliteFilename_New)))
+                {
+                    using (var bw = new BinaryWriter(new FileStream(destination, FileMode.Create)))
+                    {
+                        byte[] buffer = new byte[2048];
+                        int length = 0;
+                        while ((length = br.Read(buffer, 0, buffer.Length)) > 0)
+                        {
+                            bw.Write(buffer, 0, length);
+                        }
+                    }
+                }
+
+                if (setAsCurrentDatabase)
+                {
+                    DatabaseService.databasePath = destination;
+                    DatabaseService.databaseType = DatabaseService.DatabaseType.Local;
+
+                    Settings.PutString("LastSelectedDatabase",     DatabaseService.databasePath);
+                    Settings.PutInt   ("LastSelectedDatabaseType", (int)DatabaseService.databaseType);
+                }
+
 			}
 			catch (Exception e)
 			{
@@ -203,17 +169,17 @@ namespace VorratsUebersicht
         /// <summary>
         /// Create test database with samples.
         /// </summary>
-		public void RestoreDatabase_Test_Sample(bool overrideDatabase)
+		public void RestoreDatabase_Test_Sample(Context context)
         {
-            this.CreateLocalizedDatabaseFromAsset(Android_Database.sqliteFilename_Demo, Android_Database.sqliteFilename_Test, true, true);
+            this.CreateLocalizedDatabaseFromAsset(context, Android_Database.sqliteFilename_Demo, Android_Database.sqliteFilename_Test, true, true);
         }
 
         /// <summary>
         /// Create empty test database.
         /// </summary>
-        public void RestoreDatabase_Test_Db0(bool overrideDatabase)
+        public void RestoreDatabase_Test_Db0(Context context)
         {
-            this.CreateLocalizedDatabaseFromAsset(Android_Database.sqliteFilename_New, Android_Database.sqliteFilename_Test, false, true);
+            this.CreateLocalizedDatabaseFromAsset(context, Android_Database.sqliteFilename_New, Android_Database.sqliteFilename_Test, false, true);
         }
 
         /// <summary>
@@ -238,24 +204,31 @@ namespace VorratsUebersicht
 		public void RestoreDatabasesFromResourcesOnStartup(Context context)
 		{
             // Localized demo database with sample data.
-            this.CreateLocalizedDatabaseFromAsset(Android_Database.sqliteFilename_Demo, Android_Database.sqliteFilename_Test, true,  false);
+            this.CreateLocalizedDatabaseFromAsset(context, Android_Database.sqliteFilename_Demo, Android_Database.sqliteFilename_Test, true,  false);
 
-            // Empty database to create a new database.
-            this.CreateLocalizedDatabaseFromAsset(Android_Database.sqliteFilename_New,  Android_Database.sqliteFilename_New,  false, false);
-
-            List<string> databases;
-            Android_Database.LoadDatabaseFileListSafe(context, out databases);
-            if (databases.Count == 0)
-            {
-                // Datenbank im Applikationsverzeichnis erstellen.
-                string databaseName = Path.GetFileNameWithoutExtension(Android_Database.sqliteFilename_Prod);
-                this.CreateDatabaseOnAppStorage(context, databaseName);
-            }
+            // Datenbank im Applikationsverzeichnis erstellen.
+            string databaseName = Path.GetFileNameWithoutExtension(Android_Database.sqliteFilename_Prod);
+            this.CreateDatabaseOnAppStorage(context, databaseName, true);
         }
 
         public static SQLite.SQLiteConnection SQLiteConnection = null;
 
-		public SQLite.SQLiteConnection GetConnection()
+        internal static string GetTestDatabaseFileName(Context context)
+        {
+            // Beispiel: "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
+			var externalFileDir = context.GetExternalFilesDir(null);
+
+            return Path.Combine(externalFileDir.Path, Android_Database.sqliteFilename_Test);
+        }
+
+        internal static bool IsTestDatabaseActive(Context context)
+        {
+            string testDatabaseFileName = Android_Database.GetTestDatabaseFileName(context);
+            
+            return DatabaseService.databasePath == testDatabaseFileName;
+        }
+
+        public SQLite.SQLiteConnection GetConnection()
 		{
             if (Android_Database.SQLiteConnection != null)
                 return Android_Database.SQLiteConnection;
@@ -263,8 +236,8 @@ namespace VorratsUebersicht
 			string path = GetDatabasePath();
             if (path == null)
             {
-                TRACE("Keine Database ist ausgewählt.");
-                throw new Exception("Keine Database ist ausgewählt.");
+                TRACE("Keine Datenbank ist ausgewählt.");
+                throw new Exception("Keine Datenbank ist ausgewählt.");
             }
 
             FileInfo fileInfo = new FileInfo(path);
@@ -359,24 +332,6 @@ namespace VorratsUebersicht
             }
 
             return exception;
-        }
-
-        public static string TryOpenDatabase(string databaseName)
-        {
-            try
-            {
-                Android_Database.Instance.CloseConnection();
-
-                Android_Database.SelectedDatabaseName = databaseName;
-
-                Android_Database.SQLiteConnection = Android_Database.Instance.GetConnection();
-            }
-            catch(Exception ex)
-            {
-                return ex.Message;
-            }
-
-            return null;
         }
 
         public void CloseConnection()
@@ -491,13 +446,12 @@ namespace VorratsUebersicht
         /// <seealso>http://arteksoftware.com/deploying-a-database-file-with-a-xamarin-forms-app<seealso>
         /// <param name="path"></param>
         /// <param name="fileName"></param>
-        private string CreateLocalizedDatabaseFromAsset(string fileName, string destinationFileName, bool prepareTestData, bool overrideIfExists)
+        private string CreateLocalizedDatabaseFromAsset(Context context, string fileName, string destinationFileName, bool prepareTestData, bool overrideIfExists)
         {
-            // Beispiel: "/data/user/0/de.stryi.Vorratsuebersicht/files"
-			string path = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
+            // Beispiel: "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
+			var applicationFileDir = context.GetExternalFilesDir(null);
             
-
-            string dbPath = Path.Combine(path, destinationFileName);
+            string dbPath = Path.Combine(applicationFileDir.AbsolutePath, destinationFileName);
 
             if (File.Exists(dbPath) && overrideIfExists)
                 File.Delete(dbPath);
@@ -560,19 +514,6 @@ namespace VorratsUebersicht
 				return e;
 			}
 
-            return null;
-        }
-
-        internal Exception DeleteDatabase(string selectedDatabasePath)
-        {
-            try
-            {
-                File.Delete(selectedDatabasePath);
-            }
-            catch (Exception ex)
-            {
-                return ex;
-            }
             return null;
         }
 

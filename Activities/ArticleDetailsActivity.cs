@@ -829,17 +829,13 @@ namespace VorratsUebersicht
                 if (ArticleDetailsActivity.imageSmall != null)
                     this.articleImage.ImageSmall = ArticleDetailsActivity.imageSmall;
 
-                SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
-                if (databaseConnection == null)
-                    return false;
-
                 if (this.article.ArticleId > 0)
                 {
-                    databaseConnection.Update(this.article);
+                    DatabaseService.Instance.Update(this.article);
                 }
                 else
                 {
-                    databaseConnection.Insert(this.article);
+                    DatabaseService.Instance.Insert(this.article);
                     this.articleId = this.article.ArticleId;
                 }
 
@@ -847,20 +843,20 @@ namespace VorratsUebersicht
                 {
                     if (this.articleImage.ImageId > 0)
                     {
-                        databaseConnection.Update(this.articleImage);
+                        DatabaseService.Instance.Update(this.articleImage);
                     }
                     else
                     {
                         this.articleImage.ArticleId = this.articleId;
                         this.articleImage.Type = 0;
                         this.articleImage.CreatedAt = DateTime.Now;
-                        databaseConnection.Insert(this.articleImage);
+                        DatabaseService.Instance.Insert(this.articleImage);
                     }
                 }
 
                 if ((this.articleImage.ImageSmall == null) && (this.articleImage.ImageId > 0))  // Vorhandenes Bild gelöscht?
                 {
-                    databaseConnection.Delete(this.articleImage);
+                    DatabaseService.Instance.Delete(this.articleImage);
                 }
             }
             catch(Exception ex)
@@ -931,7 +927,6 @@ namespace VorratsUebersicht
             builder.SetNegativeButton(this.Resources.GetString(Resource.String.App_No), (s, e) => { });
             builder.SetPositiveButton(this.Resources.GetString(Resource.String.App_Yes), (s, e) => 
             { 
-                SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
                 if (this.article.ArticleId > 0)
                 {
                     Database.DeleteArticle(this.article.ArticleId);

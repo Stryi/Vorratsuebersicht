@@ -91,6 +91,8 @@
     <Compile Include="Activities\SplashScreenActivity.cs" />
     <Compile Include="Activities\SubCategoryActivity.cs" />
     <Compile Include="Database\ArticleImage.cs" />
+    <Compile Include="Database\Results\DatabaseFileInfo.cs" />
+    <Compile Include="Database\Services\Interface\IDatabase.cs" />
     <Compile Include="Database\Results\Integrity_Check.cs" />
     <Compile Include="Database\Results\Journal_Mode.cs" />
     <Compile Include="Database\Results\ShoppingItemListResult.cs" />
@@ -100,6 +102,9 @@
     <None Include="LICENSE" />
     <None Include="ReadMe - Release Notes.txt" />
     <None Include="ReadMe - ToDo.txt" />
+    <Compile Include="Database\Services\DatabaseService.cs" />
+    <Compile Include="Database\Services\LocalDatabase.cs" />
+    <Compile Include="Database\Services\ServerDatabase.cs" />
     <Compile Include="Tools\ActionDismissListener.cs" />
     <Compile Include="Tools\AddToShoppingListDialog.cs" />
     <Compile Include="Tools\CsvExport.cs" />
@@ -128,6 +133,7 @@
     <Compile Include="Tools\ZXingFragmentActivity.cs" />
     <Compile Include="Views\ArticleListViewAdapter.cs" />
     <Compile Include="Views\ArticleListView.cs" />
+    <Compile Include="Views\ArticleListBaseView.cs" />
     <Compile Include="Views\SimpleListItem2View.cs" />
     <Compile Include="Views\ListItemViewBase.cs" />
     <Compile Include="Views\ShoppingListView.cs" />
@@ -429,6 +435,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\baseline_close_black_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Testdaten\Databases\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

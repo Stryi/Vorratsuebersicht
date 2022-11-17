@@ -58,29 +58,32 @@ namespace VorratsUebersicht
             this.SupportActionBar.SetBackgroundDrawable(backgroundPaint);
             this.SupportActionBar.SetDisplayShowHomeEnabled(true);
 
-            // Create databases on startup
-            Android_Database.Instance.RestoreDatabasesFromResourcesOnStartup(this);
-
             bool firstRun = Settings.GetBoolean("FirstRun", true);
             if (firstRun)
             {
+                // Create databases on startup
+                Android_Database.Instance.RestoreDatabasesFromResourcesOnStartup(this);
+
                 // Bessere Voreinstellungen vornehmen.
                 Settings.PutBoolean("UseAltDatePicker", true);
                 Settings.PutInt("CompressPicturesMode", 2);
             }
 
-            List<string> databases;
-            Android_Database.LoadDatabaseFileListSafe(this, out databases);
+            Exception ex = null;
+            var databases = DatabaseService.GetDatabases(this, ref ex);
 
             // Nur eine Datenbank (die gerade angelegt wurde)?
-            if ((databases.Count == 1) && (string.IsNullOrEmpty(Android_Database.SelectedDatabaseName)))
+            if (databases.Count == 1) // && (string.IsNullOrEmpty(DatabaseService.databasePath)))
             {
-                Android_Database.SelectedDatabaseName = databases[0];
+                DatabaseService.databasePath = databases[0].Path;
+                DatabaseService.databaseType = databases[0].Type;
             }
 
-            if ((databases.Count > 0) && (string.IsNullOrEmpty(Android_Database.SelectedDatabaseName)))
+            //if ((databases.Count > 0) && (string.IsNullOrEmpty(Android_Database.SelectedDatabaseName)))
+            if (databases.Count > 1) // && (string.IsNullOrEmpty(Android_Database.SelectedDatabaseName)))
             {
                 string lastSelectedDatabase = Settings.GetString("LastSelectedDatabase", null);
+                int    databaseType         = Settings.GetInt   ("LastSelectedDatabaseType", 1);
 
                 if (string.IsNullOrEmpty(lastSelectedDatabase))
                 {
@@ -89,7 +92,8 @@ namespace VorratsUebersicht
                 }
                 else
                 {
-                    Android_Database.SelectedDatabaseName = lastSelectedDatabase;
+                    DatabaseService.databasePath = lastSelectedDatabase;
+                    DatabaseService.databaseType = (DatabaseService.DatabaseType)databaseType; 
                 }
             }
 
@@ -129,7 +133,6 @@ namespace VorratsUebersicht
             // DatePicker-DEBUG
             if (debug_date_picker)
             {
-                Android_Database.UseTestDatabase = true;
                 Button b = new Button(this.ApplicationContext)
                 {
                     Text = "Test DP"
@@ -149,7 +152,11 @@ namespace VorratsUebersicht
 
             if (MainActivity.IsGooglePlayPreLaunchTestMode)
             {
-                Android_Database.UseTestDatabase = true;
+                DatabaseService.databasePath = Android_Database.GetTestDatabaseFileName(this);
+                DatabaseService.databaseType = DatabaseService.DatabaseType.Local; 
+
+                // Hinweis bei Pre-Launch Untersuchung
+                this.ShowInfoAufTestModus();
             }
             else
             {
@@ -159,15 +166,13 @@ namespace VorratsUebersicht
             /*
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                Android_Database.UseTestDatabase = true;
+                DatabaseService.databasePath = Android_Database.GetTestDatabaseFileName(this);
+                DatabaseService.databaseType = DatabaseService.DatabaseType.Local; 
             }
             */
 
             // Datenbankverbindung initialisieren
             this.InitializeDatabase();
-
-            // Hinweis bei Pre-Launch Untersuchung
-            this.ShowInfoAufTestModus();
 
             // Backup erstellen?
             this.CreateBackup();
@@ -175,7 +180,7 @@ namespace VorratsUebersicht
 
         private void InitializeDatabase()
         {
-            string databaseName = Android_Database.Instance.GetDatabasePath();
+            string databaseName = DatabaseService.databasePath;
             if (databaseName == null)
             {
                 this.SetInfoText("Keine Datenbank gefunden!");
@@ -202,7 +207,7 @@ namespace VorratsUebersicht
         public override bool OnPrepareOptionsMenu(IMenu menu)
         {
             IMenuItem itemSelectDatabase = menu.FindItem(Resource.Id.Main_Menu_SelectDatabase);
-            itemSelectDatabase.SetVisible(!Android_Database.UseTestDatabase);
+            itemSelectDatabase.SetVisible(!MainActivity.IsGooglePlayPreLaunchTestMode);
 
             return true;
         }
@@ -229,14 +234,24 @@ namespace VorratsUebersicht
 
         private async void SwitchDatabase()
         {
-            string database = await MainActivity.SelectDatabase(this, this.Resources.GetString(Resource.String.Main_OpenDatabase));
-            if (string.IsNullOrEmpty(database))
+            DatabaseService.Database database = await MainActivity.SelectDatabase(this, this.Resources.GetString(Resource.String.Main_OpenDatabase));
+            if (string.IsNullOrEmpty(database?.Path))
             {
                 return;
             }
 
-            Android_Database.TryOpenDatabase(database);
+            var error = DatabaseService.TryOpenDatabase(database);
+            if (!string.IsNullOrEmpty(error))
+            {
+                var messageBox = new AlertDialog.Builder(this);
+                messageBox.SetTitle(this.Resources.GetString(Resource.String.App_ErrorOccurred));
+                messageBox.SetMessage(error);
+                messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
+                messageBox.Create().Show();
                 
+                return;
+            }
+
             this.CheckAndMoveArticleImages();
 
             this.ShowDatabaseName();
@@ -247,7 +262,7 @@ namespace VorratsUebersicht
         private void CheckAndMoveArticleImages()
         {
             // Nur, wenn bereits eine Datenbank vorhanden ist
-            if (Android_Database.SQLiteConnection == null)
+            if (DatabaseService.Instance == null)
                 return;
 
             var picturesToMove = Database.GetArticlesToCopyImages();
@@ -305,12 +320,6 @@ namespace VorratsUebersicht
             Settings.Clear("BACKUP_NOT_TODAY");
             */
 
-            // Wenn Testdatenbank aktiv ist, nicht nach Backup fragen.
-            if (Android_Database.UseTestDatabase)
-            {
-                return;
-            }
-
             bool askForBackup = Settings.GetBoolean("AskForBackup", true);;
             if (!askForBackup)
             {
@@ -318,7 +327,10 @@ namespace VorratsUebersicht
             }
 
             // Noch keine Datenbankverbindung?
-            if (Android_Database.SQLiteConnection == null)
+            if (DatabaseService.Instance == null)
+                return;
+
+            if (Android_Database.IsTestDatabaseActive(this))
                 return;
 
             decimal articleCount = Database.GetArticleCount();
@@ -379,23 +391,18 @@ namespace VorratsUebersicht
         {
             string message = string.Empty;
 
-            if (MainActivity.IsGooglePlayPreLaunchTestMode)
-            {
-                message = "Die App befindet sich im Testmodus. Folgende Einschränkung bestehen bis zum {0}:\n\n";
-                message += "- Nur Testdatenbank\n";
-                message += "- Kein EAN Scan\n";
-                message += "- Kein Teilen\n";
-                message = string.Format(message, MainActivity.preLaunchTestEndDay.AddDays(-1).ToShortDateString());
+            message = "Die App befindet sich im Testmodus. Folgende Einschränkung bestehen bis zum {0}:\n\n";
+            message += "- Nur Testdatenbank\n";
+            message += "- Kein EAN Scan\n";
+            message += "- Kein Teilen\n";
+            message = string.Format(message, MainActivity.preLaunchTestEndDay.AddDays(-1).ToShortDateString());
 
-                var messageDialog = new AlertDialog.Builder(this);
-                messageDialog.SetMessage(message);
-                messageDialog.SetTitle(Resource.String.App_Name);
-                messageDialog.SetIcon(Resource.Drawable.ic_launcher);
-                messageDialog.SetPositiveButton(Resource.String.App_Ok, (s, e) => {});
-                messageDialog.Create().Show();
-
-                return;
-            }
+            var messageDialog = new AlertDialog.Builder(this);
+            messageDialog.SetMessage(message);
+            messageDialog.SetTitle(Resource.String.App_Name);
+            messageDialog.SetIcon(Resource.Drawable.ic_launcher);
+            messageDialog.SetPositiveButton(Resource.String.App_Ok, (s, e) => {});
+            messageDialog.Create().Show();
         }
 
         private void ShowInfoAufTestdatenbank()
@@ -410,7 +417,8 @@ namespace VorratsUebersicht
                 message.SetIcon(Resource.Drawable.ic_launcher);
                 message.SetPositiveButton("Test starten", (s, e) => 
                     { 
-                        Android_Database.UseTestDatabase = true;
+                        DatabaseService.databasePath = Android_Database.GetTestDatabaseFileName(this);
+                        DatabaseService.databaseType = DatabaseService.DatabaseType.Local; 
 
                         this.InitializeDatabase();
                     });
@@ -512,7 +520,7 @@ namespace VorratsUebersicht
 
         private void ShowDatabaseName()
         {
-            string databaseName = Android_Database.Instance.GetDatabasePath();
+            string databaseName = DatabaseService.databasePath;
             if (databaseName == null)
             {
                 this.SupportActionBar.Subtitle = "Keine Datenbank ausgewählt";
@@ -520,12 +528,22 @@ namespace VorratsUebersicht
             }
 
             string dbFileName = Path.GetFileNameWithoutExtension(databaseName);
-            if (dbFileName != "Vorraete")
+
+            if (DatabaseService.databaseType == DatabaseService.DatabaseType.Local)
             {
+                if (dbFileName == "Vorraete")
+                {
+                    this.SupportActionBar.Subtitle = null;
+                    return;
+                }
+
                 this.SupportActionBar.Subtitle = String.Format(" {0}: {1}", this.Resources.GetString(Resource.String.Main_Database), dbFileName);
-                return;
             }
-            this.SupportActionBar.Subtitle = null;
+
+            if (DatabaseService.databaseType == DatabaseService.DatabaseType.Server)
+            {
+                this.SupportActionBar.Subtitle = dbFileName + " - " + ServerDatabase.serverAddress;
+            }
         }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
@@ -800,21 +818,19 @@ namespace VorratsUebersicht
             Database.SetSettings("DEFAULT_CATEGORY", newDefaultCategory);
         }
 
-        internal static Task<string> SelectDatabase(Context context, string title, string except = null)
+        internal static Task<DatabaseService.Database> SelectDatabase(Context context, string title, string except = null)
         {
-            var tcs = new TaskCompletionSource<string>();
+            var tcs = new TaskCompletionSource<DatabaseService.Database>();
 
-            Exception ex = Android_Database.LoadDatabaseFileListSafe(context, out List<string> fileList);
+            Exception ex = null;
+            var fileList = DatabaseService.GetDatabases(context, ref ex);
+
             if (ex != null)
             {
                 Toast.MakeText(context, ex.Message, ToastLength.Long).Show();
             }
 
-            if (!string.IsNullOrEmpty(except))
-            {
-                if (fileList.Contains(except))
-                    fileList.Remove(except);
-            }
+            DatabaseService.Database.RemoveDatabaseFromList(ref fileList, except);
 
             if (fileList.Count == 0)
             {
@@ -826,7 +842,7 @@ namespace VorratsUebersicht
 
             for(int i = 0; i < fileList.Count; i++)
             {
-                databaseNames[i] = Path.GetFileNameWithoutExtension(fileList[i]);
+                databaseNames[i] = fileList[i].Name;
             }
 
             using(AlertDialog.Builder builder = new AlertDialog.Builder(context))

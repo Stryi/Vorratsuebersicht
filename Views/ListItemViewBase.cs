@@ -18,7 +18,6 @@ namespace VorratsUebersicht
         public virtual int Id {get;}
         public virtual string Heading {get; set;}
         public virtual string SubHeading {get; set;}
-        public virtual Bitmap Image {get; set;}
         public virtual int WarningLevel {get; set;}
         public virtual Color WarningColor {get; set;}
     }

@@ -11,6 +11,7 @@ using Android.Widget;
 using Android.Support.V7.App;
 using Android.Content;
 using Android.Content.PM;
+using System.Linq;
 
 // Anhand von
 // http://www.c-sharpcorner.com/UploadFile/1e050f/creating-splash-screen-for-android-app-in-xamarin/
@@ -40,6 +41,13 @@ namespace VorratsUebersicht
 
             this.ProtocolAppInfo();
 
+            ServerDatabase.Initialize(
+                //"http://stryi.westeurope.cloudapp.azure.com:5000",
+                //"http://localhost:5000",
+                "http://192.168.0.157:5000",        // IP-Adresse ohne VPN am 'Kabel' hängend
+                //"http://192.168.0.139:5000",        // IP-Adresse über W-LAN
+                "Vorraete");
+
             bool selected = this.SelectDatabase();
             if (selected)
             {
@@ -54,9 +62,8 @@ namespace VorratsUebersicht
         /// <returns>true - Datenbank wurde ausgewählt. false - Datenbankauswahl wird angezeigt.</returns>
         private bool SelectDatabase() 
         {
-            List<string> fileList;
-
-            Exception ex = Android_Database.LoadDatabaseFileListSafe(this, out fileList);
+            Exception ex = null;
+            var fileList = DatabaseService.GetDatabases(this, ref ex);
 
             if (ex != null)
             {
@@ -71,9 +78,13 @@ namespace VorratsUebersicht
                 Toast.MakeText(this, text, ToastLength.Long).Show();
             }
 
+            
+            var testDatabaseName = Android_Database.GetTestDatabaseFileName(this);
+            DatabaseService.Database.RemoveDatabaseFromList(ref fileList, testDatabaseName);
+
             if (fileList.Count == 1)
             {
-                Android_Database.TryOpenDatabase(fileList[0]);
+                DatabaseService.TryOpenDatabase(fileList[0]);
                 return true;
             }
 
@@ -82,27 +93,27 @@ namespace VorratsUebersicht
                 return true;
             }
 
+
             string[] databaseNames = new string[fileList.Count];
 
             for(int i = 0; i < fileList.Count; i++)
             {
-                databaseNames[i] = Path.GetFileNameWithoutExtension(fileList[i]);
+                databaseNames[i] = fileList[i].Name;
             }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle(this.Resources.GetString(Resource.String.Main_OpenDatabase));
             builder.SetItems(databaseNames, (sender2, args) =>
             {
-                string database = fileList[args.Which];
+                var database = fileList[args.Which];
 
-                Android_Database.TryOpenDatabase(database);
-
+                DatabaseService.TryOpenDatabase(database);
                 this.ConvertAndStartMainScreen();
             });
 
             builder.SetOnCancelListener(new ActionDismissListener(() =>
             {
-                Android_Database.TryOpenDatabase(fileList[0]);
+                DatabaseService.TryOpenDatabase(fileList[0]);
 
                 this.ConvertAndStartMainScreen();
             }));
@@ -139,6 +150,7 @@ namespace VorratsUebersicht
             */
         }
 
+
         private void ConvertAndStartMainScreen()
         {
             new System.Threading.Thread(new ThreadStart(delegate             
@@ -155,10 +167,8 @@ namespace VorratsUebersicht
         private bool CheckAndMoveArticleImages()
         {
             // Nur, wenn bereits eine Datenbank vorhanden ist
-            if (Android_Database.SQLiteConnection == null)
+            if (DatabaseService.Instance == null)
                 return true;
-
-            var databaseConnection = Android_Database.SQLiteConnection;
 
             // Artikelbilder ermitteln, die noch nicht übertragen wurden.
             var articleImagesToCopy = Database.GetArticlesToCopyImages();
@@ -197,8 +207,8 @@ namespace VorratsUebersicht
             {
                 try
                 {
-                    databaseConnection.Execute(cmdCopyImages, article.ArticleId);
-                    databaseConnection.Execute(cmdClearImages);
+                    DatabaseService.Instance.ExecuteNonQuery(cmdCopyImages, article.ArticleId);
+                    DatabaseService.Instance.ExecuteNonQuery(cmdClearImages);
                 }
                 catch(Exception ex)
                 {

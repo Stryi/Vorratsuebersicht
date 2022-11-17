@@ -25,24 +25,30 @@ namespace VorratsUebersicht
             sum_abgelaufen += quantity;
         }
         
-        private void AddUnitQuantity(string unit, decimal size, decimal quantity)
+        private void AddUnitQuantity(string unit, decimal? size, decimal quantity)
         {
             if (string.IsNullOrEmpty(unit))
                 unit = string.Empty;
 
+            if (!size.HasValue)
+                return;
+
             if (!this.sum_menge.ContainsKey(unit))
             {
-                this.sum_menge.Add(unit, size * quantity);
+                this.sum_menge.Add(unit, size.Value * quantity);
             }
             else
             {
-                this.sum_menge[unit] += size * quantity;
+                this.sum_menge[unit] += size.Value * quantity;
             }
         }
 
-        private void AddCalorie(decimal quantity, int calorie)
+        private void AddCalorie(decimal quantity, int? calorie)
         {
-            sum_kcal += quantity * calorie;
+            if (!calorie.HasValue)
+                return;
+
+            sum_kcal += quantity * calorie.Value;
         }
 
         internal void AddStorageItem(StorageItemQuantityResult storegeItem)

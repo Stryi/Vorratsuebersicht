@@ -45,24 +45,13 @@ namespace VorratsUebersicht
             ActionBar.SetBackgroundDrawable(backgroundPaint);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            string dbInfoFormat = Resources.GetString(Resource.String.Settings_Datenbank);
-
             TextView databasePath = FindViewById<TextView>(Resource.Id.SettingsButton_DatabasePath);
-            databasePath.Text = Android_Database.Instance.GetDatabaseInfoText(dbInfoFormat);
+            databasePath.Text = DatabaseService.Instance.GetDatabaseFileInfo(this, DatabaseService.databasePath);
 
 
             Switch useFrontCamera = FindViewById<Switch>(Resource.Id.SettingsButton_EANScan_FrontCamera);
             useFrontCamera.Click += UseFrontCamera_Click; ;
             useFrontCamera.Checked = Settings.GetBoolean("UseFrontCameraForEANScan", false);
-
-            Switch switchToTestDB = FindViewById<Switch>(Resource.Id.SettingsButton_SwitchToTestDB);
-            switchToTestDB.Click += ButtonTestDB_Click;
-            switchToTestDB.Checked = Android_Database.UseTestDatabase;
-
-            if (MainActivity.IsGooglePlayPreLaunchTestMode)
-            {
-                switchToTestDB.Enabled = false;
-            }
 
             Switch switchCostMessage = FindViewById<Switch>(Resource.Id.SettingsButton_ShowOFFCostMessage);
             switchCostMessage.Click += SwitchCostMessage_Click;
@@ -198,8 +187,6 @@ namespace VorratsUebersicht
 
                 categorySpinner.SetSelection(position);
 
-                this.EnableButtons();
-
                 this.ShowLastBackupDay();
             }
 
@@ -230,11 +217,14 @@ namespace VorratsUebersicht
 
             backupCount.Text = string.Format(backupInfo, fileCount, sizeText);
 
+            if (DatabaseService.databaseType != DatabaseService.DatabaseType.Local)
+                return;
+
             try
             {
                 string backupPath = this.GetBackupPath();
 
-                var databaseFilePath = Android_Database.Instance.GetProductiveDatabasePath();
+                var databaseFilePath = DatabaseService.databasePath;
                 string databaseFileName = Path.GetFileNameWithoutExtension(databaseFilePath);
 
                 string backupFileName = databaseFileName + "_*.VueBak";
@@ -465,7 +455,7 @@ namespace VorratsUebersicht
 
         private void RestoreDatabase(string fileSource)
         {
-            string fileDestination = Android_Database.Instance.GetProductiveDatabasePath();
+            string fileDestination = DatabaseService.databasePath;
                 
             string message = string.Format(this.Resources.GetString(Resource.String.Settings_RestoreBackupFile),
                 Path.GetFileName(fileSource),
@@ -535,7 +525,7 @@ namespace VorratsUebersicht
             var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_RestoreSampleDb);
             new Thread(new ThreadStart(delegate
             {
-                Android_Database.Instance.RestoreDatabase_Test_Sample(true);
+                Android_Database.Instance.RestoreDatabase_Test_Sample(this);
 
                 // Sich neu connecten;
                 Android_Database.SQLiteConnection = null;
@@ -553,7 +543,7 @@ namespace VorratsUebersicht
 
         private void ButtonRestoreDb0_Click(object sender, EventArgs e)
         {
-            Android_Database.Instance.RestoreDatabase_Test_Db0(true);
+            Android_Database.Instance.RestoreDatabase_Test_Db0(this);
 
             // Sich neu connecten;
             Android_Database.SQLiteConnection = null;
@@ -654,9 +644,8 @@ namespace VorratsUebersicht
 
         private void ButtonDeleteDb_Click(object sender, EventArgs e)
         {
-            List<string> fileList;
-            
-            Exception ex = Android_Database.LoadDatabaseFileListSafe(this, out fileList);
+            Exception ex = null;
+            var fileList = DatabaseService.GetDatabases(this, ref ex);
             if (ex != null)
             {
                 var message = new AlertDialog.Builder(this);
@@ -665,16 +654,10 @@ namespace VorratsUebersicht
                 message.Create().Show();
             }
 
-            if (fileList.Count == 0)
-            {
-                return;
-            }
-
-            string currentDatabaseName = Android_Database.Instance.GetDatabasePath();
-            if (!string.IsNullOrEmpty(currentDatabaseName))
-            {
-                fileList.Remove(currentDatabaseName);
-            }
+            // Aktuell geöffnete Datenbank kann nicht gelöscht werden,
+            // daher wird sie aus der Liste entfernt.
+            var currentDatabase = DatabaseService.databasePath;
+            DatabaseService.Database.RemoveDatabaseFromList(ref fileList, currentDatabase);
 
             if (fileList.Count == 0)
             {
@@ -685,10 +668,10 @@ namespace VorratsUebersicht
 
             for(int i = 0; i < fileList.Count; i++)
             {
-                databaseNames[i] = Path.GetFileNameWithoutExtension(fileList[i]);
+                databaseNames[i] = fileList[i].Name;
             }
 
-            string selectedDatabasePath = null;
+            DatabaseService.Database selectedDatabasePath = null;
 
             var builder = new AlertDialog.Builder(this);
             builder.SetTitle(this.Resources.GetString(Resource.String.Settings_DeleteDatabase));
@@ -703,10 +686,10 @@ namespace VorratsUebersicht
                 }));
             builder.SetPositiveButton(this.Resources.GetString(Resource.String.App_DeleteBig), (s, e) => 
                 {
-                    if (string.IsNullOrEmpty(selectedDatabasePath))
+                    if (selectedDatabasePath == null)
                         return;
 
-                    Exception ex = Android_Database.Instance.DeleteDatabase(selectedDatabasePath);
+                    Exception ex = DatabaseService.DeleteDatabase(selectedDatabasePath);
 
                     if (ex != null)
                     {
@@ -723,22 +706,20 @@ namespace VorratsUebersicht
 
         private async void ButtonRenameDb_Click(object sender, EventArgs e)
         {
-            string proDatabase = Android_Database.Instance.GetProductiveDatabasePath();
-
-            string databasePath = await MainActivity.SelectDatabase(this,
+            var databasePath = await MainActivity.SelectDatabase(this,
                 this.Resources.GetString(Resource.String.Settings_DatabaseRenameDialogTitle), 
-                proDatabase);
+                DatabaseService.databasePath);
 
-            if (string.IsNullOrEmpty(databasePath))
+            if (string.IsNullOrEmpty(databasePath?.Path))
                 return;
 
-            string databaseName = Path.GetFileNameWithoutExtension(databasePath);
+            string databaseName = databasePath.Name;
 
             string newDatabaseName = await MainActivity.InputTextAsync(
                 this,
                 this.Resources.GetString(Resource.String.Settings_DatabaseRenameDialogTitle),
-                "\n" + databasePath + 
-                this.Resources.GetString(Resource.String.Settings_DatabaseRenameDialogMessage),
+                databasePath.Path + 
+                this.Resources.GetString(Resource.String.Settings_DatabaseRenameDialogMessage) + "\n",
                 databaseName,
                 this.Resources.GetString(Resource.String.App_Rename),
                 this.Resources.GetString(Resource.String.App_Cancel));
@@ -746,7 +727,7 @@ namespace VorratsUebersicht
             if (string.IsNullOrEmpty(newDatabaseName))
                 return;
 
-            Exception ex = Android_Database.Instance.RenameDatabase(this, databasePath,  newDatabaseName);
+            Exception ex = Android_Database.Instance.RenameDatabase(this, databasePath.Path,  newDatabaseName);
 
             if (ex != null)
             {
@@ -778,43 +759,6 @@ namespace VorratsUebersicht
             }
 
             return;
-        }
-
-        private void ButtonTestDB_Click(object sender, System.EventArgs e)
-        {
-            Android_Database.UseTestDatabase = !Android_Database.UseTestDatabase;
-
-            if (!Android_Database.Instance.IsCurrentDatabaseExists())
-            {
-                Android_Database.UseTestDatabase = !Android_Database.UseTestDatabase;
-            }
-
-            this.SaveUserDefinedCategories();
-
-            Switch switchToTestDB = FindViewById<Switch>(Resource.Id.SettingsButton_SwitchToTestDB);
-            switchToTestDB.Checked = Android_Database.UseTestDatabase;
-
-            // Sich neu connecten;
-            Android_Database.SQLiteConnection = null;
-
-            try
-            {
-                Android_Database.Instance.GetConnection();
-                
-            }
-            catch(Exception ex)
-            {
-                var messageBox = new AlertDialog.Builder(this);
-                messageBox.SetTitle(this.Resources.GetString(Resource.String.App_ErrorOccurred));
-                messageBox.SetMessage(ex.Message);
-                messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
-                messageBox.Create().Show();
-            }
-
-            this.ShowDatabaseInfo();
-            this.ShowUserDefinedCategories();
-            this.ShowLastBackupDay();
-            this.EnableButtons();
         }
 
         private void ButtonSendLogFile_Click(object sender, EventArgs eventArgs)
@@ -998,7 +942,7 @@ namespace VorratsUebersicht
 
             this.ShowLastBackupDay();
 
-            var databaseFilePath = Android_Database.Instance.GetProductiveDatabasePath();
+            var databaseFilePath = DatabaseService.databasePath;
 
             string backupFilePath = this.GetBackupFileName(databaseFilePath);
 
@@ -1045,20 +989,6 @@ namespace VorratsUebersicht
             })).Start();
 
             return;
-        }
-
-        private void EnableButtons()
-        {
-            Button buttonBackup   = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
-            Button buttonRestore  = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
-            Button buttonRestore2 = FindViewById<Button>(Resource.Id.SettingsButton_RestoreFromFile);
-
-            buttonBackup.Enabled   = !Android_Database.UseTestDatabase;
-            buttonRestore.Enabled  = !Android_Database.UseTestDatabase;
-            buttonRestore2.Enabled = !Android_Database.UseTestDatabase;
-
-            TextView lastBackup = FindViewById<TextView>(Resource.Id.Settings_LastBackupDay);
-            lastBackup.Enabled = !Android_Database.UseTestDatabase;
         }
 
         private void ShowUserDefinedCategories()
@@ -1148,10 +1078,8 @@ namespace VorratsUebersicht
 
         private void ShowDatabaseInfo()
         {
-            string dbInfoFormat = Resources.GetString(Resource.String.Settings_Datenbank);
-
             TextView databasePath = FindViewById<TextView>(Resource.Id.SettingsButton_DatabasePath);
-            databasePath.Text = Android_Database.Instance.GetDatabaseInfoText(dbInfoFormat);
+            databasePath.Text = DatabaseService.Instance.GetDatabaseFileInfo(this, DatabaseService.databasePath);
         }
 
         private ProgressBar CreateProgressBar(int resourceId)

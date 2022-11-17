@@ -472,7 +472,7 @@ namespace VorratsUebersicht
 
                 this.durableInfinity = article.DurableInfinity;
 
-                ArticleListView articleView = new ArticleListView(article, this.Resources);
+                var articleView = new ArticleListBaseView(article, this.Resources);
 
                 headerView.Text = articleView.Heading;
                 detailView.Text = articleView.SubHeading;

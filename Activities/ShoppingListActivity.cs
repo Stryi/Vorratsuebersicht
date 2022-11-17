@@ -22,6 +22,7 @@ namespace VorratsUebersicht
         public static readonly int EditArticle = 1003;
 
         private IParcelable listViewState;
+        private Handler textSearchDelayHandler = new Handler();
 
         List<ShoppingListView> liste = new List<ShoppingListView>();
 
@@ -364,7 +365,7 @@ namespace VorratsUebersicht
                 {
                     sum_amount += shoppingItem.Quantity * shoppingItem.Price.Value;
 
-                    if (shoppingItem.Bought)
+                    if (shoppingItem.Bought.HasValue && shoppingItem.Bought.Value)
                     {
                         to_pay += shoppingItem.Quantity * shoppingItem.Price.Value;
                     }
@@ -445,9 +446,18 @@ namespace VorratsUebersicht
             if (this.lastSearchText == filter)
                 return true;
 
+            this.textSearchDelayHandler.RemoveCallbacksAndMessages(null);
+
+            this.textSearchDelayHandler.PostDelayed( () => 
+                {
+                    this.ShowShoppingList(filter);
+                    this.lastSearchText = filter;
+                },
+                500);
+
             // Filter ggf. mit Adapter, siehe https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
-            this.ShowShoppingList(filter);
-            this.lastSearchText = filter;
+            //this.ShowShoppingList(filter);
+            //this.lastSearchText = filter;
             return true;
         }
 

@@ -5,6 +5,7 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V4.Content;
+using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
 using static Android.Widget.AdapterView;
@@ -16,6 +17,9 @@ namespace VorratsUebersicht
     {
         List<ArticleListView> liste = new List<ArticleListView>();
         private IParcelable listViewState;
+        private SwipeRefreshLayout refreshLayout;
+        private ArticleListViewAdapter listAdapter;
+        private Handler textSearchDelayHandler = new Handler();
 
 		private bool selectArticleOnly;
         private string category;
@@ -67,8 +71,12 @@ namespace VorratsUebersicht
                 spinnerCategory.ItemSelected += SpinnerCategory_ItemSelected;
             }
 
+            this.listAdapter = new ArticleListViewAdapter(this, liste);
+            this.listAdapter.OptionMenu += ListAdapter_OptionMenu;
+
             ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
             listView.ItemClick += OnOpenArticleDetails;
+            listView.Adapter = listAdapter;
 
             TextView articleListFilter = FindViewById<TextView>(Resource.Id.ArticleList_Filter);
             articleListFilter.Click += ArticleListFilter_Click;
@@ -76,10 +84,32 @@ namespace VorratsUebersicht
             ImageView imageView = FindViewById<ImageView>(Resource.Id.ArticleList_FilterClear);
             imageView.Click += ArticleFilterClear_Click;
 
+            this.refreshLayout = FindViewById < SwipeRefreshLayout > (Resource.Id.swipeRefreshLayout);  
+            this.refreshLayout.SetColorSchemeColors(0,255,0);  
+            this.refreshLayout.Refresh += RefreshLayout_Refresh;  
+
             this.RegisterForContextMenu(listView);
 
-            ShowArticleList();
+            this.ShowArticleList(this.lastSearchText);
         }
+
+        private void RefreshLayout_Refresh(object sender, EventArgs e)  
+        {
+            //Data Refresh Place  
+            System.ComponentModel.BackgroundWorker work = new System.ComponentModel.BackgroundWorker();
+            work.DoWork += Work_DoWork;
+            work.RunWorkerCompleted += Work_RunWorkerCompleted;
+            work.RunWorkerAsync();
+        }  
+        private void Work_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {  
+            this.UpdateArticleList();
+            refreshLayout.Refreshing = false;  
+        }  
+        private void Work_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            LoadArticleList(this.lastSearchText);
+        }  
 
         private void ArticleListFilter_Click(object sender, EventArgs e)
         {
@@ -261,29 +291,67 @@ namespace VorratsUebersicht
             this.RestoreListState();
         }
 
+        private void LoadArticleList(string text = null)
+        {
+            try
+            {
+                this.liste.Clear();
+
+                var articleList = Database.GetArticleQuantityList(this.category, this.subCategory, this.eanCode, this.notInStorage, this.specialFilter, text);
+
+                foreach(ArticleQuantity article in articleList)
+                {
+                    liste.Add(new ArticleListView(article, this.Resources));
+                }
+            }
+            catch(Exception ex)
+            {
+                Tools.ShowErrorMessage(this, ex.Message);
+                return;
+            }
+        }
+
+        private void UpdateArticleList(string text = null)
+        {
+            this.listAdapter.NotifyDataSetChanged();
+            string status;
+
+            if (liste.Count == 1)
+                status = string.Format(this.Resources.GetString(Resource.String.ArticleListSummary_Position), liste.Count);
+            else
+                status = string.Format(this.Resources.GetString(Resource.String.ArticleListSummary_Positions), liste.Count);
+
+            TextView footer = FindViewById<TextView>(Resource.Id.ArticleList_Footer);
+            footer.Text = status;
+        }
+
         private void ShowArticleList(string text = null)
         {
-            this.liste = new List<ArticleListView>();
+            this.liste.Clear();
 
-            var articleList = Database.GetArticleList(this.category, this.subCategory, this.eanCode, this.notInStorage, this.specialFilter, text);
-
-            foreach(Article article in articleList)
+            try
             {
-                liste.Add(new ArticleListView(article, this.Resources));
+                var articleList = Database.GetArticleQuantityList(this.category, this.subCategory, this.eanCode, this.notInStorage, this.specialFilter, text);
+
+                foreach(ArticleQuantity article in articleList)
+                {
+                    liste.Add(new ArticleListView(article, this.Resources));
+                }
+                this.listAdapter.NotifyDataSetChanged();
+            }
+            catch(Exception ex)
+            {
+                Tools.ShowErrorMessage(this, ex.Message);
+                return;
             }
 
-            ArticleListViewAdapter listAdapter = new ArticleListViewAdapter(this, liste);
-            listAdapter.OptionMenu += ListAdapter_OptionMenu;
-
-            ListView listView = FindViewById<ListView>(Resource.Id.ArticleList);
-            listView.Adapter = listAdapter;
 
             string status;
 
-            if (articleList.Count == 1)
-                status = string.Format(this.Resources.GetString(Resource.String.ArticleListSummary_Position), articleList.Count);
+            if (liste.Count == 1)
+                status = string.Format(this.Resources.GetString(Resource.String.ArticleListSummary_Position), liste.Count);
             else
-                status = string.Format(this.Resources.GetString(Resource.String.ArticleListSummary_Positions), articleList.Count);
+                status = string.Format(this.Resources.GetString(Resource.String.ArticleListSummary_Positions), liste.Count);
 
             TextView footer = FindViewById<TextView>(Resource.Id.ArticleList_Footer);
             footer.Text = status;
@@ -361,9 +429,19 @@ namespace VorratsUebersicht
             if (this.lastSearchText == filter)
                 return true;
 
+            this.textSearchDelayHandler.RemoveCallbacksAndMessages(null);
+
+            this.textSearchDelayHandler.PostDelayed( () => 
+                {
+                    ShowArticleList(filter);
+                    this.lastSearchText = filter;
+                },
+                500);
+
+
             // Filter ggf. mit Adapter, siehe https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
-            ShowArticleList(filter);
-            this.lastSearchText = filter;
+            //ShowArticleList(filter);
+            //this.lastSearchText = filter;
             return true;
         }
 

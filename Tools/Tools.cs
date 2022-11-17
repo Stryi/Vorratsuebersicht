@@ -1,5 +1,8 @@
 using System;
 using System.IO;
+
+using Android.App;
+using Android.Content;
 using Android.Util;
 
 namespace VorratsUebersicht
@@ -32,6 +35,15 @@ namespace VorratsUebersicht
                 i++;            
             }                     
             return string.Format(format[i], s);  
+        }
+
+        public static void ShowErrorMessage(Context context, string message)
+        {
+            var messageBox = new AlertDialog.Builder(context);
+            messageBox.SetTitle(context.Resources.GetString(Resource.String.App_ErrorOccurred));
+            messageBox.SetMessage(message);
+            messageBox.SetPositiveButton(context.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
+            messageBox.Create().Show();
         }
 
         public static void TRACE(string text)
