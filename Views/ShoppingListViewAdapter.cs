@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading;
 using System.Collections.Generic;
 
@@ -79,13 +80,44 @@ namespace VorratsUebersicht
             image.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
             image.Alpha = 0.25f;
 
+            if (string.IsNullOrEmpty(item.CacheFileName))
+                return view;
+
+            var dir = this.context.CacheDir;
+
+            var cacheFileName = dir.AbsolutePath + "/" + item.CacheFileName + ".png";
+            
+            if (File.Exists(cacheFileName))
+            {
+                Bitmap bitmap = BitmapFactory.DecodeFile(cacheFileName);
+                image.SetImageBitmap(bitmap);
+                image.Alpha = 2f;
+                return view;
+            }
+
             new Thread(new ThreadStart(delegate
             {
-                byte[] picture = Database.GetArticleImage(item.ArticleId, false)?.ImageSmall;
+                byte[] picture = null;
+
+                try
+                {
+                    picture = Database.GetArticleImage(item.ArticleId, false)?.ImageSmall;
+                }
+                catch(Exception)
+                {
+                    this.context.RunOnUiThread( () =>
+                    {
+                        image.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
+                        image.Alpha = 0.5f;
+                    });
+                    return;
+                }
                 if (picture == null)
                 {
                     return;
                 }
+
+                File.WriteAllBytes(cacheFileName, picture);
 
                 Bitmap unScaledBitmap = BitmapFactory.DecodeByteArray (picture, 0, picture.Length);
 

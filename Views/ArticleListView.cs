@@ -57,5 +57,16 @@ namespace VorratsUebersicht
                 return string.Format(CultureInfo.CurrentUICulture, "{0:#,0.######}", this.ArticleQuantity.StorageItemQuantity);;
             }
         }
+
+        public string CacheFileName
+        {
+            get
+            {
+                return string.Format("{0}_{1}_{2}", 
+                    this.ArticleQuantity.ArticleId,
+                    this.ArticleQuantity.ImageSmallLength,
+                    this.ArticleQuantity.ImageLargeLength);
+            }
+        }
     }
 }

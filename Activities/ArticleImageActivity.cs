@@ -153,7 +153,7 @@ namespace VorratsUebersicht
                 return;
             }
 
-            ArticleImage article = Database.GetArticleImage(this.articleId);
+            ArticleImage article = Database.GetArticleImage(this.articleId, true);
             if (article == null)
             {
                 this.imageView.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);

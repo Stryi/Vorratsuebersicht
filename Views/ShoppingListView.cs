@@ -141,5 +141,17 @@ namespace VorratsUebersicht
                 this.ShoppingItem.Bought = value;
             }
         }
+
+        public string CacheFileName
+        {
+            get
+            {
+                return string.Format("{0}_{1}_{2}", 
+                    this.ShoppingItem.ArticleId,
+                    this.ShoppingItem.ImageSmallLength,
+                    this.ShoppingItem.ImageLargeLength);
+            }
+        }
+
     }
 }

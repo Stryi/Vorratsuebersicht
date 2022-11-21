@@ -7,6 +7,8 @@ namespace VorratsUebersicht
 {
     internal class DatabaseService
     {
+        public event EventHandler<EventArgs> Progress;
+
         private static IDatabase instance = null;
 
         private DatabaseService() { }

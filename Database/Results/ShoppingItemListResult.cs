@@ -23,5 +23,9 @@ namespace VorratsUebersicht
         public string Notes { get; set; }
         public decimal? Price { get; set; }
         public bool? Bought { get; set; }
+
+        public int? ImageSmallLength { get; set; }
+        public int? ImageLargeLength { get; set; }
+
     }
 }

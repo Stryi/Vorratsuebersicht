@@ -69,9 +69,11 @@ namespace VorratsUebersicht
 
             string cmd = string.Empty;
 
-            cmd += "SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Supermarket, Size, Unit, Calorie, Quantity, Notes, Price, Bought, Category, SubCategory";
+            cmd += "SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Supermarket, Size, Unit, Calorie, Quantity, Notes, Price, Bought, Category, SubCategory,";
+            cmd += " (SELECT LENGTH(ImageSmall) FROM ArticleImage WHERE ArticleImage.ArticleId = Article.ArticleId AND ArticleImage.Type = 0 ) AS ImageSmallLength,";
+            cmd += " (SELECT LENGTH(ImageLarge) FROM ArticleImage WHERE ArticleImage.ArticleId = Article.ArticleId AND ArticleImage.Type = 0 ) AS ImageLargeLength";
             cmd += " FROM ShoppingList";
-            cmd += " LEFT JOIN Article ON ShoppingList.ArticleId = Article.ArticleId";
+            cmd += " JOIN Article ON ShoppingList.ArticleId = Article.ArticleId";
 
             IList<object> parameter = new List<object>();
 
@@ -303,22 +305,15 @@ namespace VorratsUebersicht
             return articleList.FirstOrDefault();
         }
 
-        internal static ArticleImage GetArticleImage(int articleId, bool? showLarge = null)
+        internal static ArticleImage GetArticleImage(int articleId, bool showLarge)
         {
             string cmd = string.Empty;
             cmd += "SELECT ImageId, ArticleId, Type, ";
 
-            if (showLarge == null)
-            {
-                cmd += "ImageLarge, ImageSmall";
-            }
+            if (showLarge == true)
+                cmd += "ImageLarge";
             else
-            {
-                if (showLarge.Value == true)
-                    cmd += "ImageLarge";
-                else
-                    cmd += "ImageSmall";
-            }
+                cmd += "ImageSmall";
 
             cmd += " FROM ArticleImage";
             cmd += " WHERE ArticleId = ?";
@@ -666,12 +661,14 @@ namespace VorratsUebersicht
                         break;
                 }
             }
-
+            
             string cmd = string.Empty;
             cmd += "SELECT ArticleId, Name, Manufacturer, Category, SubCategory, DurableInfinity, WarnInDays,";
             cmd += " Size, Unit, Notes, EANCode, Calorie, Price, StorageName, Supermarket,";
             cmd += " (SELECT Quantity FROM ShoppingList WHERE ShoppingList.ArticleId = Article.ArticleId) AS ShoppingListQuantity,";
-            cmd += " (SELECT SUM(Quantity) FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId) AS StorageItemQuantity";
+            cmd += " (SELECT SUM(Quantity) FROM StorageItem WHERE StorageItem.ArticleId = Article.ArticleId) AS StorageItemQuantity,";
+            cmd += " (SELECT LENGTH(ImageSmall) FROM ArticleImage WHERE ArticleImage.ArticleId = Article.ArticleId AND ArticleImage.Type = 0 ) AS ImageSmallLength,";
+            cmd += " (SELECT LENGTH(ImageLarge) FROM ArticleImage WHERE ArticleImage.ArticleId = Article.ArticleId AND ArticleImage.Type = 0 ) AS ImageLargeLength";
             cmd += " FROM Article";
             cmd += filter;
             cmd += " ORDER BY Name COLLATE NOCASE";
@@ -823,7 +820,9 @@ namespace VorratsUebersicht
             cmd += "SELECT Article.ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity, PrefQuantity, Price, Calorie, Article.StorageName, ";
             cmd += " (" + sumQuantitySelect + ") AS Quantity,";
             cmd += " IFNULL((" + bestBeforeSelect + "), '9999.12.31') AS BestBefore,";
-            cmd += " ShoppingList.Quantity AS ShoppingListQuantity";
+            cmd += " ShoppingList.Quantity AS ShoppingListQuantity,";
+            cmd += " (SELECT LENGTH(ImageSmall) FROM ArticleImage WHERE ArticleImage.ArticleId = Article.ArticleId AND ArticleImage.Type = 0 ) AS ImageSmallLength,";
+            cmd += " (SELECT LENGTH(ImageLarge) FROM ArticleImage WHERE ArticleImage.ArticleId = Article.ArticleId AND ArticleImage.Type = 0 ) AS ImageLargeLength";
             cmd += " FROM Article";
             cmd += " LEFT JOIN ShoppingList ON ShoppingList.ArticleId = Article.ArticleId";
 

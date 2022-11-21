@@ -164,6 +164,5 @@ namespace VorratsUebersicht
                 return info;
 			}
         }
-
     }
 }

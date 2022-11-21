@@ -32,5 +32,8 @@ namespace VorratsUebersicht
     { 
         public decimal? ShoppingListQuantity { get; set; }
         public decimal? StorageItemQuantity { get; set; }
+        public int? ImageSmallLength { get; set; }
+        public int? ImageLargeLength { get; set; }
+
     }
 }

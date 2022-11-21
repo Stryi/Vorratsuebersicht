@@ -12,6 +12,5 @@ namespace VorratsUebersicht
         public DateTime CreatedAt {get; set;}
         public byte[] ImageSmall {get; set;}
         public byte[] ImageLarge {get; set;}
-
     }
 }

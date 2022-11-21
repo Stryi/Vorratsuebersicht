@@ -11,7 +11,6 @@ using Android.Widget;
 using Android.Support.V7.App;
 using Android.Content;
 using Android.Content.PM;
-using System.Linq;
 
 // Anhand von
 // http://www.c-sharpcorner.com/UploadFile/1e050f/creating-splash-screen-for-android-app-in-xamarin/
@@ -44,16 +43,25 @@ namespace VorratsUebersicht
             ServerDatabase.Initialize(
                 //"http://stryi.westeurope.cloudapp.azure.com:5000",
                 //"http://localhost:5000",
-                "http://192.168.0.157:5000",        // IP-Adresse ohne VPN am 'Kabel' hängend
-                //"http://192.168.0.139:5000",        // IP-Adresse über W-LAN
+                //"http://192.168.0.157:5000",        // IP-Adresse ohne VPN am 'Kabel' hängend
+                "http://192.168.0.139:5000",        // IP-Adresse über W-LAN
                 "Vorraete");
 
-            bool selected = this.SelectDatabase();
-            if (selected)
+            this.progressText.SetText("Ermittle Datenbanken...", TextView.BufferType.Normal);
+            this.progressText.Visibility = Android.Views.ViewStates.Visible;
+            this.progressBar.Visibility = Android.Views.ViewStates.Visible;
+            this.progressBar.Indeterminate = true;
+
+            new Thread(new ThreadStart(delegate
             {
-                this.CheckAndMoveArticleImages();
-                StartActivity(typeof(MainActivity));
-            }
+                bool selected = this.SelectDatabase();
+
+                if (selected)
+                {
+                    this.CheckAndMoveArticleImages();
+                    StartActivity(typeof(MainActivity));
+                }
+            })).Start();
         }
 
         /// <summary>
@@ -75,7 +83,10 @@ namespace VorratsUebersicht
 
                 text = ex.Message + "\n\n" + text;
 
-                Toast.MakeText(this, text, ToastLength.Long).Show();
+                RunOnUiThread(() =>
+                {
+                    Toast.MakeText(this, text, ToastLength.Long).Show();
+                });
             }
 
             
@@ -101,24 +112,29 @@ namespace VorratsUebersicht
                 databaseNames[i] = fileList[i].Name;
             }
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle(this.Resources.GetString(Resource.String.Main_OpenDatabase));
-            builder.SetItems(databaseNames, (sender2, args) =>
+            RunOnUiThread(() =>
             {
-                var database = fileList[args.Which];
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.SetTitle(this.Resources.GetString(Resource.String.Main_OpenDatabase));
+                builder.SetItems(databaseNames, (sender2, args) =>
+                {
+                    var database = fileList[args.Which];
 
-                DatabaseService.TryOpenDatabase(database);
-                this.ConvertAndStartMainScreen();
+                    DatabaseService.TryOpenDatabase(database);
+                    this.ConvertAndStartMainScreen();
+                });
+
+                builder.SetOnCancelListener(new ActionDismissListener(() =>
+                {
+                    DatabaseService.TryOpenDatabase(fileList[0]);
+                    this.ConvertAndStartMainScreen();
+                }));
+
+                builder.Show();
+
+                this.progressText.SetText("Öffne Datenbanken...", TextView.BufferType.Normal);
+
             });
-
-            builder.SetOnCancelListener(new ActionDismissListener(() =>
-            {
-                DatabaseService.TryOpenDatabase(fileList[0]);
-
-                this.ConvertAndStartMainScreen();
-            }));
-
-            builder.Show();
 
             return false;
 

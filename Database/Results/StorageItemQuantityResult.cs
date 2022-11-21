@@ -102,5 +102,8 @@ namespace VorratsUebersicht
                 return this.BestBefore.Value.ToShortDateString();
             }
         }
+
+        public int? ImageSmallLength { get; set; }
+        public int? ImageLargeLength { get; set; }
     }
 }

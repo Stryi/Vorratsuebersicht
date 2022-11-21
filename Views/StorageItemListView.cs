@@ -127,7 +127,6 @@ namespace VorratsUebersicht
             }
         }
 
-
 		public override int WarningLevel
         {
             get
@@ -173,5 +172,17 @@ namespace VorratsUebersicht
             }
 
         }
+
+        public string CacheFileName
+        {
+            get
+            {
+                return string.Format("{0}_{1}_{2}", 
+                    this.StorageItem.ArticleId,
+                    this.StorageItem.ImageSmallLength,
+                    this.StorageItem.ImageLargeLength);
+            }
+        }
+
     }
 }
