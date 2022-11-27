@@ -255,27 +255,38 @@ namespace VorratsUebersicht
 
         #endregion
 
-        internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(int articleId, string storageName = null)
+        internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(int articleId)
+        {
+            string cmd = string.Empty;
+
+            cmd += "SELECT BestBefore, SUM(Quantity) AS Quantity, Article.WarnInDays";
+            cmd += " FROM StorageItem";
+            cmd += " LEFT JOIN Article ON StorageItem.ArticleId = Article.ArticleId";
+            cmd += " WHERE StorageItem.ArticleId = ?";
+            cmd += " GROUP BY BestBefore";
+            cmd += " ORDER BY BestBefore";
+
+            return DatabaseService.Instance.ExecuteQuery<StorageItemQuantityResult>(cmd, articleId);
+        }
+
+        internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(string storageName = null)
         {
             string cmd = string.Empty;
             string filter = string.Empty;
 
             IList<object> parameter = new List<object>();
 
-            filter = " WHERE StorageItem.ArticleId = ?";
-            parameter.Add(articleId);
-
             if (!string.IsNullOrEmpty(storageName))
             {
                 // Positionen direkt mit dem Lager oder Positionen ohne Lager, aber wenn der Artikel das Lager hat.
-                filter += " AND (StorageItem.StorageName = ?";
+                filter += " WHERE (StorageItem.StorageName = ?";
                 filter += "  OR (IFNULL(StorageItem.StorageName, '') = '') AND StorageItem.ArticleId IN (SELECT ArticleId FROM Article WHERE Article.StorageName = ?))";
 
                 parameter.Add(storageName);
                 parameter.Add(storageName);
             }
 
-            cmd += "SELECT BestBefore, SUM(Quantity) AS Quantity, Article.WarnInDays";
+            cmd += "SELECT BestBefore, SUM(Quantity) AS Quantity, Article.WarnInDays, StorageItem.ArticleId";
             cmd += " FROM StorageItem";
             cmd += " LEFT JOIN Article ON StorageItem.ArticleId = Article.ArticleId";
             cmd += filter;

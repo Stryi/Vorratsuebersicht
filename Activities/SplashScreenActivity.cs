@@ -41,10 +41,10 @@ namespace VorratsUebersicht
             this.ProtocolAppInfo();
 
             ServerDatabase.Initialize(
-                //"http://stryi.westeurope.cloudapp.azure.com:5000",
-                //"http://localhost:5000",
-                //"http://192.168.0.157:5000",        // IP-Adresse ohne VPN am 'Kabel' hängend
-                "http://192.168.0.139:5000",        // IP-Adresse über W-LAN
+                //"Azure;http://stryi.westeurope.cloudapp.azure.com:5000;3" + System.Environment.NewLine +
+                //"Lokal;http://localhost:5000"     + System.Environment.NewLine +
+                //"LAN;http://192.168.0.157:5000" + System.Environment.NewLine +       // IP-Adresse ohne VPN am 'Kabel' hängend
+                "W-LAN;http://192.168.0.139:5000" + System.Environment.NewLine,        // IP-Adresse über W-LAN
                 "Vorraete");
 
             this.progressText.SetText("Ermittle Datenbanken...", TextView.BufferType.Normal);

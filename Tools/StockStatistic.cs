@@ -15,57 +15,74 @@ namespace VorratsUebersicht
         decimal sum_kcal = 0;
         decimal sum_price = 0;
 
-        internal void AddWarningLevel1(decimal quantity)
+        internal void AddWarningLevel1(decimal? quantity)
         {
-            sum_warnung += quantity;
+            if (quantity == null)
+            {
+                return;
+            }
+            sum_warnung += quantity.Value;
         }
 
-        internal void AddWarningLevel2(decimal quantity)
+        internal void AddWarningLevel2(decimal? quantity)
         {
-            sum_abgelaufen += quantity;
+            if (quantity == null)
+            {
+                return;
+            }
+            sum_abgelaufen += quantity.Value;
         }
         
-        private void AddUnitQuantity(string unit, decimal? size, decimal quantity)
+        private void AddUnitQuantity(string unit, decimal? size, decimal? quantity)
         {
             if (string.IsNullOrEmpty(unit))
                 unit = string.Empty;
+
+            if (!quantity.HasValue)
+                return;
 
             if (!size.HasValue)
                 return;
 
             if (!this.sum_menge.ContainsKey(unit))
             {
-                this.sum_menge.Add(unit, size.Value * quantity);
+                this.sum_menge.Add(unit, size.Value * quantity.Value);
             }
             else
             {
-                this.sum_menge[unit] += size.Value * quantity;
+                this.sum_menge[unit] += size.Value * quantity.Value;
             }
         }
 
-        private void AddCalorie(decimal quantity, int? calorie)
+        private void AddCalorie(decimal? quantity, int? calorie)
         {
+            if (!quantity.HasValue)
+                return;
+
             if (!calorie.HasValue)
                 return;
 
-            sum_kcal += quantity * calorie.Value;
+            sum_kcal += quantity.Value * calorie.Value;
         }
 
         internal void AddStorageItem(StorageItemQuantityResult storegeItem)
         {
             this.count ++;
-            this.quantity += storegeItem.Quantity;
+            this.quantity += storegeItem.Quantity ?? 0;
             this.AddUnitQuantity(storegeItem.Unit, storegeItem.Size, storegeItem.Quantity);
             this.AddCalorie(storegeItem.Quantity, storegeItem.Calorie);
             this.AddCosts(storegeItem.Quantity, storegeItem.Price);
         }
 
-        private void AddCosts(decimal quantity, decimal? price)
+        private void AddCosts(decimal? quantity, decimal? price)
         {
+            if (!quantity.HasValue)
+                return;
+
             if (!price.HasValue)
                 return;
 
-            this.sum_price += quantity * price.Value;
+            this.sum_price += quantity.Value * price.Value;
         }
 
         internal string GetStatistic(Activity activity)

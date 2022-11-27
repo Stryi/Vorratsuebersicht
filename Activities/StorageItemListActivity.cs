@@ -1,9 +1,11 @@
 using System;
+using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
 
 using Android.App;
 using Android.Content;
+
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -13,6 +15,8 @@ using static Android.Widget.AdapterView;
 
 namespace VorratsUebersicht
 {
+    using static Tools;
+    
     [Activity(Label = "@string/Main_Button_Lagerbestand", Icon = "@drawable/ic_assignment_white_48dp")]
     public class StorageItemListActivity : Activity, SearchView.IOnQueryTextListener
     {
@@ -77,9 +81,17 @@ namespace VorratsUebersicht
                 this.Title = string.Format("{0} - {1}", this.Title, this.eanCode);
             }
 
-            this.InitializeStorageFilter();
+            try
+            {
+                this.InitializeStorageFilter();
 
-            this.ShowStorageItemList();
+                this.ShowStorageItemList();
+            }
+            catch(Exception ex)
+            {
+                TRACE(ex);
+                Toast.MakeText(this, ex.Message, ToastLength.Short);
+            }
         }
 
         private void InitializeStorageFilter()
@@ -372,15 +384,20 @@ namespace VorratsUebersicht
                 this.storageNameFilter,
                 StorageItemListActivity.oderByToConsumeDate);
 
+			// Informationen über die Mengen zum Ablaufdatum.
+			var quantityList = Database.GetBestBeforeItemQuantity(
+                this.storageNameFilter);
+
             var withNoDate   = this.Resources.GetString(Resource.String.StorageItem_CountWithNoExpiryDate);
             var withThisDate = this.Resources.GetString(Resource.String.StorageItem_CountWithThisExpiryDate);
 
             foreach(StorageItemQuantityResult storegeItem in storageItemQuantityList)
             {
-				// Informationen über die Mengen zum Ablaufdatum.
-				var storageItemBestList = Database.GetBestBeforeItemQuantity(
-                    storegeItem.ArticleId,
-                    this.storageNameFilter);
+                //var storageItemBestList = quantityList.Where<StorageItemQuantityResult>(e => e.ArticleId == storegeItem.ArticleId);
+                
+                var storageItemBestList = quantityList
+                    .Where(s => s.ArticleId == storegeItem.ArticleId)
+                    .Select(s => s);
 
                 string info    = string.Empty;
 			    string warning = string.Empty;
@@ -417,13 +434,13 @@ namespace VorratsUebersicht
                         statistic.AddWarningLevel2(result.Quantity);
 				    }
 			    }
-
-			    storegeItem.BestBeforeInfoText    = info;
+			    
+                storegeItem.BestBeforeInfoText    = info;
 			    storegeItem.BestBeforeWarningText = warning;
 			    storegeItem.BestBeforeErrorText   = error;
-
-                statistic.AddStorageItem(storegeItem);
                 
+                statistic.AddStorageItem(storegeItem);
+    
                 liste.Add(new StorageItemListView(storegeItem, this.Resources));
             }
 

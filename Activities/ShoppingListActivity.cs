@@ -12,6 +12,8 @@ using Android.Widget;
 
 namespace VorratsUebersicht
 {
+    using static Tools;
+
     [Activity(Label = "@string/Main_Button_Einkaufsliste", Icon = "@drawable/ic_shopping_cart_white_48dp")]
     public class ShoppingListActivity : Activity, SearchView.IOnQueryTextListener
     {
@@ -42,12 +44,20 @@ namespace VorratsUebersicht
             ActionBar.SetBackgroundDrawable(backgroundPaint);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            this.ShowShoppingList();
-
             ListView listView = FindViewById<ListView>(Resource.Id.ShoppingItemList);
             listView.ItemClick += ListView_ItemClick;
 
-            this.LoadSupermarketList();
+            try
+            {
+                this.ShowShoppingList();
+
+                this.LoadSupermarketList();
+            }
+            catch (Exception ex)
+            {
+                TRACE(ex);
+                Toast.MakeText(this, ex.Message, ToastLength.Short);
+            }
         }
 
         private void LoadSupermarketList()

@@ -46,7 +46,7 @@ namespace VorratsUebersicht
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
             TextView databasePath = FindViewById<TextView>(Resource.Id.SettingsButton_DatabasePath);
-            databasePath.Text = DatabaseService.Instance.GetDatabaseFileInfo(this, DatabaseService.databasePath);
+            databasePath.Text = DatabaseService.Instance.GetDatabaseFileInfo(this, DatabaseService.database.DatabaseName);
 
 
             Switch useFrontCamera = FindViewById<Switch>(Resource.Id.SettingsButton_EANScan_FrontCamera);
@@ -710,7 +710,7 @@ namespace VorratsUebersicht
                 this.Resources.GetString(Resource.String.Settings_DatabaseRenameDialogTitle), 
                 DatabaseService.databasePath);
 
-            if (string.IsNullOrEmpty(databasePath?.Path))
+            if (string.IsNullOrEmpty(databasePath?.Location))
                 return;
 
             string databaseName = databasePath.Name;
@@ -718,7 +718,7 @@ namespace VorratsUebersicht
             string newDatabaseName = await MainActivity.InputTextAsync(
                 this,
                 this.Resources.GetString(Resource.String.Settings_DatabaseRenameDialogTitle),
-                databasePath.Path + 
+                databasePath.Location + 
                 this.Resources.GetString(Resource.String.Settings_DatabaseRenameDialogMessage) + "\n",
                 databaseName,
                 this.Resources.GetString(Resource.String.App_Rename),
@@ -727,7 +727,7 @@ namespace VorratsUebersicht
             if (string.IsNullOrEmpty(newDatabaseName))
                 return;
 
-            Exception ex = Android_Database.Instance.RenameDatabase(this, databasePath.Path,  newDatabaseName);
+            Exception ex = Android_Database.Instance.RenameDatabase(this, databasePath.Location,  newDatabaseName);
 
             if (ex != null)
             {

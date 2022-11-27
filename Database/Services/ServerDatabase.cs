@@ -20,27 +20,26 @@ namespace VorratsUebersicht
         public bool GetLastInsertRowId {get;set;}
         public int LastInsertRowId {get;set;}
 
-        internal static string serverAddress; // http://localhost:5000
-        internal static string databaseFileName;
+        internal static string serverAddresses;  // Liste der Adressen mit "Neue Zeile" getrennt.
+        internal DatabaseService.Database database;
 
-        public static void Initialize(string serverAddress, string databaseName)
+        public static void Initialize(string serverAddresses, string databaseName)
         {
-            ServerDatabase.serverAddress = serverAddress;
-            ServerDatabase.databaseFileName = databaseName;
+            ServerDatabase.serverAddresses = serverAddresses;
         }
         
         public List<T> ExecuteQuery<T>(string query, params object[] parameters)
         {
             var sqlRequest = new RestAPIRequest()
             {
-                Database = ServerDatabase.databaseFileName,
+                Database = this.database.DatabaseName,
                 SqlCommand = query,
                 Parameters = parameters
             };
 
             string json = JsonConvert.SerializeObject(sqlRequest);
             
-            var response = new ServerDatabase().ExecuteRequest("/ExecuteQuery", "POST", json);
+            var response = this.ExecuteRequest("/ExecuteQuery", "POST", json);
 
             JsonSerializerSettings settings = new JsonSerializerSettings();
             settings.Converters.Add(new ByteArrayJSonConverter());
@@ -66,19 +65,18 @@ namespace VorratsUebersicht
             }
         }
 
-
         public int ExecuteNonQuery(string query, params object[] parameters)
         {
             var sqlRequest = new RestAPIRequest()
             {
-                Database = ServerDatabase.databaseFileName,
+                Database = this.database.DatabaseName,
                 SqlCommand = query,
                 Parameters = parameters
             };
 
             string json = JsonConvert.SerializeObject(sqlRequest);
             
-            var changes = new ServerDatabase().ExecuteRequest("/ExecuteNonQuery", "POST", json);
+            var changes = this.ExecuteRequest("/ExecuteNonQuery", "POST", json);
         
             return Int32.Parse(changes);
         }
@@ -87,14 +85,14 @@ namespace VorratsUebersicht
         {
             var sqlRequest = new RestAPIRequest()
             {
-                Database = ServerDatabase.databaseFileName,
+                Database = this.database.DatabaseName,
                 SqlCommand = query,
                 Parameters = parameters
             };
 
             string json = JsonConvert.SerializeObject(sqlRequest);
             
-            var response = new ServerDatabase().ExecuteRequest("/ExecuteScalar", "POST", json);
+            var response = this.ExecuteRequest("/ExecuteScalar", "POST", json);
 
             var responseObject = JsonConvert.DeserializeObject<T>(response);
 
@@ -105,14 +103,14 @@ namespace VorratsUebersicht
         {
             var sqlRequest = new RestAPIRequest()
             {
-                Database = ServerDatabase.databaseFileName,
+                Database = this.database.DatabaseName,
                 SqlCommand = query,
                 Parameters = parameters
             };
 
             string json = JsonConvert.SerializeObject(sqlRequest);
             
-            string newId = new ServerDatabase().ExecuteRequest("/ExecuteInsert", "POST", json);
+            string newId = this.ExecuteRequest("/ExecuteInsert", "POST", json);
 
             return Int32.Parse(newId);
         }
@@ -195,31 +193,52 @@ namespace VorratsUebersicht
         {
             var databaseList = new List<DatabaseService.Database>();
 
-            if (string.IsNullOrEmpty(ServerDatabase.serverAddress))
+            if (string.IsNullOrEmpty(ServerDatabase.serverAddresses))
                 return databaseList;
 
-            try
-            {
-                var response = new ServerDatabase().ExecuteRequest("/GetDatabases", "GET");
-        
-                var serverDatabases = JsonConvert.DeserializeObject<List<string>>(response);
-                foreach(var database in serverDatabases)
-                {
-                    var dbInfo = new DatabaseService.Database()
-                    {
-                        Name = Path.GetFileNameWithoutExtension(database) + " (Server)",
-                        Path = database,
-                        Type = DatabaseService.DatabaseType.Server
-                    };
+            var serverDatabase = new ServerDatabase();
 
-                    databaseList.Add(dbInfo);
-                }
-            }
-            catch(Exception ex)
+            foreach(string serverInfo in serverAddresses.Split(Environment.NewLine))
             {
-                TRACE("ServerDatabases.GetDatabases(...):");
-                TRACE(ex);
-                exception = ex;
+                if (String.IsNullOrEmpty(serverInfo))
+                    continue;
+
+                var server = serverInfo.Split(";");
+                var serverAddress = server[0];
+                var serverName    = "Server";
+                if (server.Length > 1)
+                {
+                    serverName    = server[0];
+                    serverAddress = server[1];
+                }
+
+                try
+                {
+                    serverDatabase.database = new DatabaseService.Database();
+                    serverDatabase.database.Location = serverAddress;
+
+                    var response = serverDatabase.ExecuteRequest("/GetDatabases", "GET");
+
+                    var serverDatabases = JsonConvert.DeserializeObject<List<string>>(response);
+                    foreach(var database in serverDatabases)
+                    {
+                        var dbInfo = new DatabaseService.Database()
+                        {
+                            Name = Path.GetFileNameWithoutExtension(database) + " - " + serverName,
+                            Location = serverAddress,
+                            DatabaseName = database,
+                            Type = DatabaseService.DatabaseType.Server
+                        };
+
+                        databaseList.Add(dbInfo);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    TRACE("ServerDatabases.GetDatabases(...):");
+                    TRACE(ex);
+                    exception = ex;
+                }
             }
 
             return databaseList;
@@ -232,7 +251,7 @@ namespace VorratsUebersicht
                 // Irgend ein SELECT...
                 var sqlRequest = new RestAPIRequest()
                 {
-                    Database   = database.Path,
+                    Database   = database.Location,
                     SqlCommand = "SELECT * FROM Article WHERE ArticleId = 999" // PRAGMA integrity_check
                 };
                 
@@ -249,6 +268,12 @@ namespace VorratsUebersicht
             return null;
         }
 
+        public string GetCurrentDatabaseName()
+        {
+            return this.database.Name;
+        }
+
+
         public string GetDatabaseFileInfo(Context context, string databaseFileName)
         {
             var request = new
@@ -258,14 +283,14 @@ namespace VorratsUebersicht
                 
             string json = JsonConvert.SerializeObject(request);
                 
-            var response = new ServerDatabase().ExecuteRequest("/GetDatabaseFileInfo", "POST", json);
+            var response = this.ExecuteRequest("/GetDatabaseFileInfo", "POST", json);
 
             var fileInfo = JsonConvert.DeserializeObject<DatabaseFileInfo>(response);
 
-            string info = "Server: " + ServerDatabase.serverAddress + Environment.NewLine + Environment.NewLine;
+            string info = "Server: " + this.database.Location + Environment.NewLine + Environment.NewLine;
 
             string format = context.Resources.GetString(Resource.String.Settings_Datenbank);
-            info += string.Format(format, databaseFileName, Tools.ToFuzzyByteString(fileInfo.Length), fileInfo.Length);
+            info += string.Format(format, this.database.DatabaseName, Tools.ToFuzzyByteString(fileInfo.Length), fileInfo.Length);
 
             return info;
         }
@@ -277,7 +302,7 @@ namespace VorratsUebersicht
 
         internal string ExecuteRequest(string requestUrl, string method, string body = null)
         {
-            WebRequest request= WebRequest.Create(ServerDatabase.serverAddress + requestUrl);
+            WebRequest request= WebRequest.Create(this.database.Location + requestUrl);
             request.Timeout = 10000;
             request.Method = method;
             request.ContentType = "application/json";

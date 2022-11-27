@@ -75,7 +75,7 @@ namespace VorratsUebersicht
             // Nur eine Datenbank (die gerade angelegt wurde)?
             if (databases.Count == 1) // && (string.IsNullOrEmpty(DatabaseService.databasePath)))
             {
-                DatabaseService.databasePath = databases[0].Path;
+                DatabaseService.databasePath = databases[0].Location;
                 DatabaseService.databaseType = databases[0].Type;
             }
 
@@ -235,7 +235,7 @@ namespace VorratsUebersicht
         private async void SwitchDatabase()
         {
             DatabaseService.Database database = await MainActivity.SelectDatabase(this, this.Resources.GetString(Resource.String.Main_OpenDatabase));
-            if (string.IsNullOrEmpty(database?.Path))
+            if (string.IsNullOrEmpty(database?.Location))
             {
                 return;
             }
@@ -542,7 +542,7 @@ namespace VorratsUebersicht
 
             if (DatabaseService.databaseType == DatabaseService.DatabaseType.Server)
             {
-                this.SupportActionBar.Subtitle = dbFileName + " - " + ServerDatabase.serverAddress;
+                this.SupportActionBar.Subtitle = DatabaseService.Instance.GetCurrentDatabaseName();
             }
         }
 

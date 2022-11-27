@@ -15,6 +15,8 @@ namespace VorratsUebersicht
         int Delete(object obj);
 
         // Verwaltung
+        string GetCurrentDatabaseName();
+
         string GetDatabaseFileInfo(Android.Content.Context context, string databaseName);
     }
 }

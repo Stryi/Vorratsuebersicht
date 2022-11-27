@@ -12,6 +12,8 @@ using static Android.Widget.AdapterView;
 
 namespace VorratsUebersicht
 {
+    using static Tools;
+
     [Activity(Label = "@string/Main_Button_ArtikelListe", Icon = "@drawable/ic_local_offer_white_48dp")]
     public class ArticleListActivity : Activity, SearchView.IOnQueryTextListener
     {
@@ -56,7 +58,15 @@ namespace VorratsUebersicht
 
             this.categoryList = new List<string>();
             this.categoryList.Add(Resources.GetString(Resource.String.ArticleList_AllCategories));
-            this.categoryList.AddRange(Database.GetCategoryAndSubCategoryNames());
+            try
+            {
+                this.categoryList.AddRange(Database.GetCategoryAndSubCategoryNames());
+            }
+            catch(Exception ex)
+            {
+                TRACE(ex);
+                Toast.MakeText(this, ex.Message, ToastLength.Short);
+            }
 
             if (categoryList.Count > 1)
             {

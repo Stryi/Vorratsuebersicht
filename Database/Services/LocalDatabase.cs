@@ -131,7 +131,7 @@ namespace VorratsUebersicht
                 var dbInfo = new DatabaseService.Database()
                 {
                     Name = Path.GetFileNameWithoutExtension(file),
-                    Path = file,
+                    Location = file,
                     Type = DatabaseService.DatabaseType.Local,
                 };
 
@@ -151,24 +151,24 @@ namespace VorratsUebersicht
         {
             try
             {
-                FileInfo fileInfo = new FileInfo(database.Path);
+                FileInfo fileInfo = new FileInfo(database.Location);
                 if (!fileInfo.Exists)
                 {
-                    TRACE($"Database '{database.Path}' does not exists.");
-                    throw new Exception($"Database '{database.Path}' does not exists.");
+                    TRACE($"Database '{database.Location}' does not exists.");
+                    throw new Exception($"Database '{database.Location}' does not exists.");
                 }
 
                 if (fileInfo.IsReadOnly)
                 {
-                    TRACE($"Database '{database.Path}' is read only!");
-                    throw new Exception($"Database '{database.Path}' is read only.");
+                    TRACE($"Database '{database.Location}' is read only!");
+                    throw new Exception($"Database '{database.Location}' is read only.");
                 }
 
-                TRACE("Database Path: {0}", database.Path);
+                TRACE("Database Path: {0}", database.Location);
 
                 TRACE("Database Size: {0} ({1:n0} Bytes)", Tools.ToFuzzyByteString(fileInfo.Length), fileInfo.Length);
 
-			    var conn = new SQLite.SQLiteConnection(database.Path, SQLite.SQLiteOpenFlags.ReadOnly, false);
+			    var conn = new SQLite.SQLiteConnection(database.Location, SQLite.SQLiteOpenFlags.ReadOnly, false);
 
                 // Irgend ein SELECT...
                 string cmd = string.Format("SELECT name FROM sqlite_master WHERE type = 'Article' AND name = 'ArticleId'");
@@ -235,6 +235,11 @@ namespace VorratsUebersicht
 			return conn;
 		}
 
+        public string GetCurrentDatabaseName()
+        {
+            return DatabaseService.databasePath;
+        }
+
         public string GetDatabaseFileInfo(Context context, string databaseFileName)
         {
             string format = context.Resources.GetString(Resource.String.Settings_Datenbank);
@@ -272,5 +277,6 @@ namespace VorratsUebersicht
             }
             return null;
         }
+
     }
 }

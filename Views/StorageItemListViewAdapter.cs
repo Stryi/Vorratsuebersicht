@@ -98,59 +98,59 @@ namespace VorratsUebersicht
             image.SetImageResource(Resource.Drawable.ic_photo_camera_black_24dp);
             image.Alpha = 0.25f;
 
-            if (string.IsNullOrEmpty(item.CacheFileName))
-                return view;
-
-            var dir = this.context.CacheDir;
-
-            var cacheFileName = dir.AbsolutePath + "/" + item.CacheFileName + ".png";
-
-            if (File.Exists(cacheFileName))
+            if (!string.IsNullOrEmpty(item.CacheFileName))
             {
-                Bitmap bitmap = BitmapFactory.DecodeFile(cacheFileName);
-                image.SetImageBitmap(bitmap);
-                image.Alpha = 2f;
-                return view;
-            }
+                var dir = this.context.CacheDir;
 
-            new Thread(new ThreadStart(delegate
-            {
-                byte[] picture = null;
+                var cacheFileName = dir.AbsolutePath + "/" + item.CacheFileName + ".png";
 
-                try
+                if (File.Exists(cacheFileName))
                 {
-                    picture = Database.GetArticleImage(item.ArticleId, false)?.ImageSmall;
+                    Bitmap bitmap = BitmapFactory.DecodeFile(cacheFileName);
+                    image.SetImageBitmap(bitmap);
+                    image.Alpha = 2f;
+                    return view;
                 }
-                catch(Exception)
+
+                new Thread(new ThreadStart(delegate
                 {
+                    byte[] picture = null;
+
+                    try
+                    {
+                        picture = Database.GetArticleImage(item.ArticleId, false)?.ImageSmall;
+                    }
+                    catch(Exception)
+                    {
+                        this.context.RunOnUiThread( () =>
+                        {
+                            image.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
+                            image.Alpha = 0.5f;
+                        });
+                        return;
+                    }
+
+                    if (picture == null)
+                    {
+                        return;
+                    }
+
+                    File.WriteAllBytes(cacheFileName, picture);
+
+                    Bitmap unScaledBitmap = BitmapFactory.DecodeByteArray (picture, 0, picture.Length);
+
                     this.context.RunOnUiThread( () =>
                     {
-                        image.SetImageResource(Resource.Drawable.baseline_error_outline_black_24);
-                        image.Alpha = 0.5f;
+                        if (item.ArticleId == (int)image.Tag)
+                        {
+                            image.SetImageBitmap(unScaledBitmap);
+                            image.Alpha = 1f;
+
+                            image.Click += OnImageClicked;
+                        }
                     });
-                    return;
-                }
-
-                if (picture == null)
-                {
-                    return;
-                }
-
-                File.WriteAllBytes(cacheFileName, picture);
-
-                Bitmap unScaledBitmap = BitmapFactory.DecodeByteArray (picture, 0, picture.Length);
-
-                this.context.RunOnUiThread( () =>
-                {
-                    if (item.ArticleId == (int)image.Tag)
-                    {
-                        image.SetImageBitmap(unScaledBitmap);
-                        image.Alpha = 1f;
-
-                        image.Click += OnImageClicked;
-                    }
-                });
-            })).Start();
+                })).Start();
+            }
 
             return view;
         }

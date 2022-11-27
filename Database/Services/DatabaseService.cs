@@ -14,6 +14,7 @@ namespace VorratsUebersicht
         private DatabaseService() { }
 
         internal static string databasePath;
+        internal static DatabaseService.Database database;
 
         private static DatabaseType _databaseType;
         internal static DatabaseType databaseType
@@ -56,8 +57,9 @@ namespace VorratsUebersicht
                     return new LocalDatabase();
 
                 case DatabaseType.Server:
-                    ServerDatabase.databaseFileName = DatabaseService.databasePath;
-                    return new ServerDatabase();
+                    var database = new ServerDatabase();
+                    database.database = DatabaseService.database;
+                    return database;
 
                 default:
                     return null;
@@ -86,7 +88,7 @@ namespace VorratsUebersicht
                 if (string.IsNullOrEmpty(error))
                 {
                     // Es hat geklappt. Die Datenbank merken...
-                    DatabaseService.databasePath = database.Path;
+                    DatabaseService.databasePath = database.Location;
                     DatabaseService.databaseType = DatabaseService.DatabaseType.Local;
 
                     Settings.PutString("LastSelectedDatabase",     DatabaseService.databasePath);
@@ -100,10 +102,11 @@ namespace VorratsUebersicht
                 if (string.IsNullOrEmpty(error))
                 {
                     // Es hat geklappt. Die Datenbank merken...
-                    DatabaseService.databasePath = database.Path;
+                    DatabaseService.database     = database;
                     DatabaseService.databaseType = DatabaseService.DatabaseType.Server;
 
-                    Settings.PutString("LastSelectedDatabase",     DatabaseService.databasePath);
+                    Settings.PutString("LastSelectedDatabase",     DatabaseService.database.Location);
+                    Settings.PutString("LastSelectedDatabaseName", DatabaseService.database.Name);
                     Settings.PutInt   ("LastSelectedDatabaseType", (int)DatabaseService.databaseType);
                 }
             }
@@ -117,12 +120,12 @@ namespace VorratsUebersicht
 
             if (database.Type == DatabaseType.Local)
             {
-                error = LocalDatabase.DeleteDatabase(database.Path);
+                error = LocalDatabase.DeleteDatabase(database.Location);
             }
 
             if (database.Type == DatabaseType.Server)
             {
-                error = ServerDatabase.DeleteDatabase(database.Path);
+                error = ServerDatabase.DeleteDatabase(database.Location);
             }
 
             return error;
@@ -231,15 +234,16 @@ namespace VorratsUebersicht
         public class Database
         {
             public string Name;
+            public string Location;
+            public string DatabaseName;
             public DatabaseType Type;
-            public string Path;
 
             internal static void RemoveDatabaseFromList(ref List<DatabaseService.Database> fileList, string databaseToRemove)
             {
                 if (string.IsNullOrEmpty(databaseToRemove))
                     return;
 
-                var testEntryToRemove = fileList.FirstOrDefault(e => e.Path == databaseToRemove);
+                var testEntryToRemove = fileList.FirstOrDefault(e => e.Location == databaseToRemove);
                 if (testEntryToRemove != null)
                 {
                     if (fileList.Contains(testEntryToRemove))
