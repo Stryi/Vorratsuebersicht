@@ -1112,21 +1112,18 @@ namespace VorratsUebersicht
 			
 			foreach(StorageItemQuantityResult result in storageItemBestList)
 			{
-                if (!result.Quantity.HasValue)
-                    continue;
-
-                bestand += result.Quantity.Value;
+                bestand += result.Quantity ?? 0;
 				if (result.WarningLevel == 0)
 				{
-                    vorDemAblauf += result.Quantity.Value;
+                    vorDemAblauf += result.Quantity ?? 0;
 				}
 				if (result.WarningLevel == 1)
 				{
-                    mitWarnung += result.Quantity.Value;
+                    mitWarnung += result.Quantity ?? 0;
 				}
 				if (result.WarningLevel == 2)
 				{
-                    abgelaufen += result.Quantity.Value;
+                    abgelaufen += result.Quantity ?? 0;
                 }
             }
 

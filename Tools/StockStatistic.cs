@@ -38,31 +38,19 @@ namespace VorratsUebersicht
             if (string.IsNullOrEmpty(unit))
                 unit = string.Empty;
 
-            if (!quantity.HasValue)
-                return;
-
-            if (!size.HasValue)
-                return;
-
             if (!this.sum_menge.ContainsKey(unit))
             {
-                this.sum_menge.Add(unit, size.Value * quantity.Value);
+                this.sum_menge.Add(unit, size ?? 0 * quantity ?? 0);
             }
             else
             {
-                this.sum_menge[unit] += size.Value * quantity.Value;
+                this.sum_menge[unit] += size ?? 0 * quantity ?? 0;
             }
         }
 
         private void AddCalorie(decimal? quantity, int? calorie)
         {
-            if (!quantity.HasValue)
-                return;
-
-            if (!calorie.HasValue)
-                return;
-
-            sum_kcal += quantity.Value * calorie.Value;
+            sum_kcal += quantity ?? 0 * calorie ?? 0;
         }
 
         internal void AddStorageItem(StorageItemQuantityResult storegeItem)
@@ -76,13 +64,7 @@ namespace VorratsUebersicht
 
         private void AddCosts(decimal? quantity, decimal? price)
         {
-            if (!quantity.HasValue)
-                return;
-
-            if (!price.HasValue)
-                return;
-
-            this.sum_price += quantity.Value * price.Value;
+            this.sum_price += quantity ?? 0 * price ?? 0;
         }
 
         internal string GetStatistic(Activity activity)

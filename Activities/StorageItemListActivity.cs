@@ -393,8 +393,6 @@ namespace VorratsUebersicht
 
             foreach(StorageItemQuantityResult storegeItem in storageItemQuantityList)
             {
-                //var storageItemBestList = quantityList.Where<StorageItemQuantityResult>(e => e.ArticleId == storegeItem.ArticleId);
-                
                 var storageItemBestList = quantityList
                     .Where(s => s.ArticleId == storegeItem.ArticleId)
                     .Select(s => s);
