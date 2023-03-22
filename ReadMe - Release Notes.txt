@@ -1,3 +1,11 @@
+Version 7.06 (Code Version 126)
+===============================
+
+Google Play Veröffentlicht produktiv am 23. Okt. 2022 20:20
+API-Level 19: oder höher 
+Ziel SDK: 30
+
+
 Version 7.05 (Code Version 125)
 ===============================
 
