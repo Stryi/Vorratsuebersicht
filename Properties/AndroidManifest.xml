@@ -1,10 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- Version android:versionName="7.05 (ab Android 4.4) x86|arm" -->
-<manifest android:versionCode="125" android:versionName="7.05" package="de.stryi.Vorratsuebersicht" android:installLocation="auto" xmlns:android="http://schemas.android.com/apk/res/android">
-	<!-- für Google Play Store -->
-  <!-- uses-sdk android:minSdkVersion="23" android:targetSdkVersion="30" / -->
-	<!-- für ab Android 4.4 -->
-  <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="30" />
+<manifest android:versionCode="127" android:versionName="7.07" package="de.stryi.Vorratsuebersicht" android:installLocation="auto" xmlns:android="http://schemas.android.com/apk/res/android">
+	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="31" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.FLASHLIGHT" />

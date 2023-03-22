@@ -98,8 +98,8 @@ namespace VorratsUebersicht
         {
             if (view.Id == Resource.Id.ArticleList) 
             {
-                menu.Add(Menu.None, 1, Menu.None, Resource.String.ArticleList_Lagerbestand);    // Lagerbestand
-                menu.Add(Menu.None, 2, Menu.None, Resource.String.ArticleList_ToShoppingList);  // Auf Einkaufszettel
+                menu.Add(IMenu.None, 1, IMenu.None, Resource.String.ArticleList_Lagerbestand);    // Lagerbestand
+                menu.Add(IMenu.None, 2, IMenu.None, Resource.String.ArticleList_ToShoppingList);  // Auf Einkaufszettel
 
             }
         }

@@ -120,8 +120,8 @@ namespace VorratsUebersicht
         {
             if (view.Id == Resource.Id.StorageItemView) 
             {
-                menu.Add(Menu.None, 1, Menu.None, Resource.String.StorageItem_Artikelangaben);
-                menu.Add(Menu.None, 2, Menu.None, Resource.String.StorageItem_ToShoppingList);
+                menu.Add(IMenu.None, 1, IMenu.None, Resource.String.StorageItem_Artikelangaben);
+                menu.Add(IMenu.None, 2, IMenu.None, Resource.String.StorageItem_ToShoppingList);
             }
         }
 
