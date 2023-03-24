@@ -10,20 +10,12 @@ Einstellungen
 
 Einkaufsliste
 - Freie Sortierung (wie im Laden die Reihenfolge ist)  (vom Nernd)
-+ Alphabetische Sortierung (vom WiRu)
-+ Sortierung nach "gekauft".
-
-Artikelliste
-- Filter oder Sortierung nach "Ohne Bestand", "Ohne Preis",...
 
 Artikeldetails
 - Preiseingabe auch mit ","
 
 Settings
 - LOG Datei im Cache anlegen (damit vom PC aus ausgelesen werden kann)?
-
-Lagerliste
-- (anfängliche) Sortierung auf "Datum" (Einstellbar in den Optionen) - (Per E-Mail vom mi53ke)
 
 Sonstiges
 - Push Benachrichtigung (z.B. einmal pro Tag) über bald zu verbrauchende Artikel 

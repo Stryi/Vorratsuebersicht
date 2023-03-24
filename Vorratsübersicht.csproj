@@ -143,12 +143,6 @@
     <AndroidAsset Include="Assets\Vorraete_Demo.db3" />
     <None Include="ReadMe.md" />
     <None Include="Properties\AndroidManifest.xml" />
-    <None Include="Testdaten\GetFromDevice.cmd" />
-    <None Include="Testdaten\GetFromEmulator.cmd" />
-    <None Include="Testdaten\PutToDevice.cmd" />
-    <None Include="Testdaten\PutToEmulator.cmd" />
-    <None Include="Testdaten\PutToEmulator_Android_bis_5.1.cmd" />
-    <None Include="Testdaten\ResetDevice.cmd" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Vorraete_db0.db3" />
