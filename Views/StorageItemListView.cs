@@ -95,7 +95,17 @@ namespace VorratsUebersicht
                 {
                     if (!string.IsNullOrEmpty(info)) info += "\r\n";
                     info += string.Format(CultureInfo.CurrentUICulture, "{0} {1:n2}", this.String_Price, this.StorageItem.Price.Value);
-                    info += string.Format(CultureInfo.CurrentUICulture, " ({0} {1:n2})", this.String_Amount, this.StorageItem.Quantity * this.StorageItem.Price.Value);
+
+                    string pricePerUnit = PricePerUnit.Calculate(this.StorageItem.Price, this.StorageItem.Size, this.StorageItem.Unit);
+                    if (!string.IsNullOrEmpty(pricePerUnit))
+                    {
+                        info += string.Format(" ({0})", pricePerUnit);
+                    }
+
+                    if (this.StorageItem.Quantity != 1)
+                    {
+                        info += string.Format(CultureInfo.CurrentUICulture, " -> {0} {1:n2}", this.String_Amount, this.StorageItem.Quantity * this.StorageItem.Price.Value);
+                    }
                 }
 
                 return info;

@@ -1,6 +1,7 @@
 Version 7.10 (Code Version 127)
 ===============================
 
+C198 - Preis pro Einheit jetzt auch in Lagerbestandsliste.
 C197 - Klicks auf "Demnächst zu verbrauchen" Texte zeigen jetzt nur die betreffenden Bestände.
 C196 - Ziel SDK auf 31 und TargetFrameworkVersion auf v11.0 gesetzt.
 
