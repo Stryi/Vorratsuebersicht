@@ -11,11 +11,17 @@ namespace VorratsUebersicht
     {
 	    private readonly List<SimpleListItem2View> list;
 		private readonly Activity activity;
+		private int listItemLayout = Android.Resource.Layout.SimpleListItem2;
 
-		public SimpleListItem2Adapter (Activity activity, List<SimpleListItem2View> list)
+		public SimpleListItem2Adapter (Activity activity, List<SimpleListItem2View> list, int? listItemLayout = null)
 		{
 			this.list = list;
 			this.activity = activity;
+
+			if (listItemLayout != null )
+			{
+				this.listItemLayout = listItemLayout.Value;
+			}
 		}
 
 		public override long GetItemId (int position)
@@ -36,7 +42,7 @@ namespace VorratsUebersicht
 			var view = convertView;
 
 			if (view == null) {
-				view = this.activity.LayoutInflater.Inflate (Android.Resource.Layout.SimpleListItem2, null);
+				view = this.activity.LayoutInflater.Inflate (this.listItemLayout, null);
 			}
 
 			var kitten = this.list[position];
@@ -45,9 +51,12 @@ namespace VorratsUebersicht
 			text1.Text = kitten.Heading;
 
 			TextView text2 = view.FindViewById<TextView> (Android.Resource.Id.Text2);
-			text2.Text = kitten.SubHeading;
-			text2.SetTextSize(Android.Util.ComplexUnitType.Sp, 12);
-			text2.Alpha = 0.5f;
+			if (text2 != null)
+			{
+				text2.Text = kitten.SubHeading;
+				text2.SetTextSize(Android.Util.ComplexUnitType.Sp, 12);
+				text2.Alpha = 0.5f;
+			}
 
 			return view;
 		}
