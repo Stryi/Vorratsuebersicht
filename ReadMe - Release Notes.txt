@@ -1,6 +1,7 @@
 Version 7.10 (Code Version 127)
 ===============================
 
+C197 - Klicks auf "Demnächst zu verbrauchen" Texte zeigen jetzt nur die betreffenden Bestände.
 C196 - Ziel SDK auf 31 und TargetFrameworkVersion auf v11.0 gesetzt.
 
 Version 7.06 (Code Version 126)

@@ -16,6 +16,7 @@
     android:paddingTop="5dp">
     <TextView
       android:id="@+id/Main_Text"
+      android:tag="ExpiryDateOnly"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:paddingLeft="5dp"
@@ -26,19 +27,22 @@
       android:visibility="gone" />
     <TextView
       android:id="@+id/Main_Text1"
+      android:tag="WithExpiryDateOnly"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:paddingLeft="5dp"
-      android:textSize="16sp"
+      android:textSize="18sp"
       android:textColor="@color/Text_Error"
       android:text="@string/Main_ArticlesNearExpiryDate"
       android:visibility="gone" />
     <TextView
       android:id="@+id/Main_Text2"
+      android:tag="NearExpiryDateOnly"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:paddingLeft="5dp"
-      android:textSize="16sp"
+      android:paddingBottom="5dp"
+      android:textSize="18sp"
       android:textColor="@color/Text_Warning"
       android:text="@string/Main_ArticlesWithExpiryDate"
       android:visibility="gone" />

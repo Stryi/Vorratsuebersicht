@@ -268,8 +268,13 @@ namespace VorratsUebersicht
 
         private void ArticlesNearExpiryDate_Click(object sender, EventArgs e)
         {
+            View view = (View)sender;
+
+            string tag = view.Tag.ToString();
+
             var storageitemList = new Intent(this, typeof(StorageItemListActivity));
             storageitemList.PutExtra("OderByToConsumeDate", true);
+            storageitemList.PutExtra("FilterExpiryDate", tag);
             StartActivity(storageitemList);
         }
 

@@ -25,6 +25,7 @@ namespace VorratsUebersicht
         private string category;
         private string subCategory;
         private string eanCode;
+        private string filterExpiryDate;
         private bool   showEmptyStorageArticles;
         private string storageNameFilter = string.Empty;
         private string lastSearchText = string.Empty;
@@ -54,6 +55,7 @@ namespace VorratsUebersicht
             this.category                 = Intent.GetStringExtra ("Category");
             this.subCategory              = Intent.GetStringExtra ("SubCategory");
             bool oderByDate               = Intent.GetBooleanExtra("OderByToConsumeDate", false);
+            this.filterExpiryDate         = Intent.GetStringExtra ("FilterExpiryDate");
             this.eanCode                  = Intent.GetStringExtra("EANCode") ?? string.Empty;
             this.showEmptyStorageArticles = Intent.GetBooleanExtra("ShowEmptyStorageArticles", false); // Auch Artikel ohne Lagerbestand anzeigen
 
@@ -387,6 +389,21 @@ namespace VorratsUebersicht
 			
 			    foreach(StorageItemQuantityResult result in storageItemBestList)
 			    {
+                    if ((this.filterExpiryDate == "ExpiryDateOnly") && (result.WarningLevel == 0))
+                    {
+                        continue;
+                    }
+
+                    if ((this.filterExpiryDate == "NearExpiryDateOnly") && (result.WarningLevel != 1))
+                    {
+                        continue;
+                    }
+
+                    if ((this.filterExpiryDate == "WithExpiryDateOnly") && (result.WarningLevel != 2))
+                    {
+                        continue;
+                    }
+
 				    if (result.WarningLevel == 0)
 				    {
                         if (result.BestBefore == null)
@@ -416,6 +433,21 @@ namespace VorratsUebersicht
                         statistic.AddWarningLevel2(result.Quantity);
 				    }
 			    }
+
+                if ((this.filterExpiryDate == "ExpiryDateOnly") && (string.IsNullOrEmpty(warning) && string.IsNullOrEmpty(error)))
+                {
+                    continue;
+                }
+
+                if ((this.filterExpiryDate == "NearExpiryDateOnly") && string.IsNullOrEmpty(warning))
+                {
+                    continue;
+                }
+
+                if ((this.filterExpiryDate == "WithExpiryDateOnly") && string.IsNullOrEmpty(error))
+                {
+                    continue;
+                }
 
 			    storegeItem.BestBeforeInfoText    = info;
 			    storegeItem.BestBeforeWarningText = warning;
