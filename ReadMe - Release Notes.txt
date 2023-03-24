@@ -1,4 +1,4 @@
-Version 7.07 (Code Version 127)
+Version 7.10 (Code Version 127)
 ===============================
 
 C196 - Ziel SDK auf 31 und TargetFrameworkVersion auf v11.0 gesetzt.
