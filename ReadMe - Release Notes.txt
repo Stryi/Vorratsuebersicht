@@ -1,3 +1,8 @@
+Version 7.11 (Code Version 128)
+===============================
+
+E058 - FIX: Farbe Blau (Warnung) jetzt bei MHD Eingabe im Lagerbestand.
+
 Version 7.10 (Code Version 127)
 ===============================
 

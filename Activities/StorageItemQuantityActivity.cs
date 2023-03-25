@@ -164,7 +164,8 @@ namespace VorratsUebersicht
                 Quantity     = 1,
                 BestBefore   = DateTime.Today,
                 StorageName  = storageName,
-                IsChanged    = true
+                IsChanged    = true,
+                WarnInDays   = StorageItemQuantityActivity.article.WarnInDays.Value
             };
 
             if (this.quantity > 1)

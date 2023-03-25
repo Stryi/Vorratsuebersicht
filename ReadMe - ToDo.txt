@@ -41,9 +41,6 @@ Einkaufszettel
 - Liste automatisch anhand der Mindestmenge erstellen.
 
 
-Lagerbestand
-- BUG: Wird ein Datum < Heute eingegeben, so wird die Farbe nicht auf blau oder rot gesetzt.
-
 Artikelstamm
 - Unter-Unterkategorie (Rezension vom Jessica K. am 24.04.2020 um 15:37)
 - Zweiter Preis (Angebot). (vom Scare C. per E-Mail) 
