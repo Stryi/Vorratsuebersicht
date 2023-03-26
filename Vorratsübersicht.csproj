@@ -68,8 +68,7 @@
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
-    <AndroidSupportedAbis>
-    </AndroidSupportedAbis>
+    <AndroidSupportedAbis>armeabi-v7a;x86;x86_64;arm64-v8a</AndroidSupportedAbis>
     <IntermediateOutputPath>C:\Users\StryiC\AppData\Local\Temp\vs6094.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
