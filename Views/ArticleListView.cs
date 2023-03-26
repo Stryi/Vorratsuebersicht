@@ -139,6 +139,21 @@ namespace VorratsUebersicht
 				if (this.Article.Calorie.HasValue)
 				{
 					info += string.Format(" {0:n0}", this.Article.Calorie.Value);
+
+                    if (this.Article.Calorie.HasValue && this.Article.Calorie.Value != 0)
+                    {
+                        string unitPerX = UnitConvert.GetConvertUnit(this.Article.Unit);
+
+                        string calPerUnit = UnitConvert.GetCaloriePerUnit(
+                            this.Article.Size?.ToString(),
+                            this.Article.Unit,
+                            this.Article.Calorie?.ToString());
+
+                        if (calPerUnit != "---")
+                        {
+                            info += string.Format(" (100 {0} = {1})", unitPerX, calPerUnit);
+                        }
+                    }
 				}
                 else
                 {

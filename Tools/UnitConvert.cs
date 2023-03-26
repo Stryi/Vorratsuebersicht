@@ -92,6 +92,11 @@ namespace VorratsUebersicht
             decimal calorie = -1;
             decimal size = -1;
 
+            if (unit.Equals("Liter", StringComparison.OrdinalIgnoreCase))
+            {
+                unit = "l";
+            }
+
             decimal.TryParse(calorieText, out calorie);
 
             decimal.TryParse(sizeText, 
@@ -148,6 +153,11 @@ namespace VorratsUebersicht
 
         internal static string GetConvertUnit(string unit)
         {
+            if (unit.Equals("Liter", StringComparison.OrdinalIgnoreCase))
+            {
+                unit = "l";
+            }
+
             if (unit == "kg")
             {
                 return "g";
