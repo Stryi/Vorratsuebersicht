@@ -145,7 +145,7 @@ namespace VorratsUebersicht
                         string unitPerX = UnitConvert.GetConvertUnit(this.Article.Unit);
 
                         string calPerUnit = UnitConvert.GetCaloriePerUnit(
-                            this.Article.Size?.ToString(),
+                            this.Article.Size?.ToString(CultureInfo.InvariantCulture),
                             this.Article.Unit,
                             this.Article.Calorie?.ToString());
 
