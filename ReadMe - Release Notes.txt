@@ -1,4 +1,4 @@
-Version 7.11 (Code Version 128)
+Version 7.12 (Code Version 129)
 ===============================
 
 C199 - Kalorien pro Einheit wird jetzt in Artikelliste angezeigt.
