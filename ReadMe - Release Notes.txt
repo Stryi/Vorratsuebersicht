@@ -1,6 +1,11 @@
 Version 7.12 (Code Version 129)
 ===============================
 
+E059 - FIX: Absturz, wenn "Warnen in Tagen" im Artikelstamm nicht angegeben.
+
+Version 7.12 (Code Version 129)
+===============================
+
 C199 - Kalorien pro Einheit wird jetzt in Artikelliste angezeigt.
 E058 - FIX: Farbe Blau (Warnung) jetzt bei MHD Eingabe im Lagerbestand.
 
