@@ -1,3 +1,8 @@
+Version 7.13 (Code Version 130)
+===============================
+
+E060 - FIX: Absturz, wenn "+" im Lagerbstand ohne ""Warnen in Tagen" im Artikelstamm (folge von E058)
+
 Version 7.12 (Code Version 129)
 ===============================
 
