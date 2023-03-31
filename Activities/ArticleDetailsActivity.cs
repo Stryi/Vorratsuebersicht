@@ -480,6 +480,8 @@ namespace VorratsUebersicht
                         this.imageView2.SetImageResource(Resource.Drawable.ic_photo_white_24dp);
                         this.imageView2.Visibility = ViewStates.Visible;
 
+                        this.ShowStoreQuantityInfo();
+                        
                         this.isChanged = true;
                     }
                     return true;
