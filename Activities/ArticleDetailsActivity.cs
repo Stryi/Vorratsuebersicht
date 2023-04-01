@@ -54,12 +54,8 @@ namespace VorratsUebersicht
 
         List<string> Manufacturers;
         CatalogItemSelectedListener catalogListener;
-        List<string> SubCategories;
         List<string> Storages;
         List<string> Supermarkets;
-
-        string category;
-        string subCategory;
 
         public static readonly int SpechId = 1002;
         public static readonly int EditPhoto = 1003;
@@ -102,14 +98,16 @@ namespace VorratsUebersicht
             string eanCode         = Intent.GetStringExtra ("EANCode") ?? string.Empty;
 
             // TODO: Kategorie und SubCategorie schon mal setzen (ist ja Neuanlage mit Filter)
-            this.category          = Intent.GetStringExtra ("Category");
-            this.subCategory       = Intent.GetStringExtra ("SubCategory");
+            var defaultCategory    = Intent.GetStringExtra ("Category");
+            var defaultSubCategory = Intent.GetStringExtra ("SubCategory");
             this.noStorageQuantity = Intent.GetBooleanExtra("NoStorageQuantity", false);
             this.noDeleteArticle   = Intent.GetBooleanExtra("NoDeleteArticle",   false);
 
             this.article = Database.GetArticle(this.articleId);
             if (this.article == null)
+            {
                 this.article = new Article();
+            }
 
             this.articleImage = Database.GetArticleImage(this.articleId, false);
             if (this.articleImage == null)
@@ -185,12 +183,12 @@ namespace VorratsUebersicht
             categorySpinner.OnItemSelectedListener = this.catalogListener;
 
             // Unterkategorie Eingabe
-            this.SubCategories = new List<string>();
+            var subCategories = new List<string>();
 
             var subCategory = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_SubCategory);
             FindViewById<Button>(Resource.Id.ArticleDetails_SelectSubCategory).Click  += SelectSubCategory_Click;
 
-            ArrayAdapter<String> subCategoryAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, this.SubCategories);
+            ArrayAdapter<String> subCategoryAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, subCategories);
             subCategory.Adapter = subCategoryAdapter;
             subCategory.Threshold = 1;
 
@@ -281,12 +279,27 @@ namespace VorratsUebersicht
 
         private void SelectSubCategory_Click(object sender, EventArgs e)
         {
+            var subCategories    = Database.GetSubcategoriesOf(this.catalogListener.Value);
+            var allSubCategories = Database.GetSubcategoriesOf();
+
+            // Empty entry as delimitation and for deleting the subcategory.
+            subCategories.Add(String.Empty);
+
+            // All other categories.
+            foreach (var subCategory in allSubCategories)
+            {
+                if (!subCategories.Contains(subCategory))
+                {
+                    subCategories.Add(subCategory);
+                }
+            }
+
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle(Resource.String.ArticleDetails_SubCategory);
-            builder.SetItems(this.SubCategories.ToArray(), (s, a) =>
+            builder.SetItems(subCategories.ToArray(), (s, a) =>
             {
                 var textView = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_SubCategory);
-                textView.Text = this.SubCategories[a.Which];
+                textView.Text = subCategories[a.Which];
             });
             builder.Show();
         }
@@ -1040,12 +1053,12 @@ namespace VorratsUebersicht
 
 
             // Unterkategorie
-            this.SubCategories = Database.GetSubcategoriesOf();
+            var subCategories = Database.GetSubcategoriesOf();
 
             var subCategory = FindViewById<AutoCompleteTextView>(Resource.Id.ArticleDetails_SubCategory);
             var subCategoryAdapter = (ArrayAdapter<String>)(subCategory.Adapter);
             subCategoryAdapter.Clear();
-            subCategoryAdapter.AddAll(this.SubCategories);
+            subCategoryAdapter.AddAll(subCategories);
             subCategoryAdapter.NotifyDataSetChanged();
 
             // Lagerort
