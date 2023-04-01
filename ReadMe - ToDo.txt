@@ -1,6 +1,10 @@
 Prio 1
 ======
 
+Artikelstamm
+- Unterkategorien für die ausgewählte Karegorie ganz oben in der Liste anzeigen. (teils von WiRu)
+
+
 Suche
 -  Kann nicht Ä und ä suchen.
 
@@ -22,7 +26,6 @@ Sonstiges
   Gewünscht von Frank (E-Mail), und von Eva (?)
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/notifications/local-notifications-walkthrough
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/services/service-notifications
-- LOG Datei in ein Verzeichnis erstellen, in dem ich auch Zugriff habe (Cache)
 
 
 Anwendung
