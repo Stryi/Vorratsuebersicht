@@ -1,10 +1,6 @@
 Prio 1
 ======
 
-Artikelstamm
-- Unterkategorien für die ausgewählte Karegorie ganz oben in der Liste anzeigen. (teils von WiRu)
-
-
 Suche
 -  Kann nicht Ä und ä suchen.
 
