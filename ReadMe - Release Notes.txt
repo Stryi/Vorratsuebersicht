@@ -1,8 +1,12 @@
+Version 7.15 (Code Version 132)
+===============================
+
+C201 - Kompakte Sicht in Einkaufsliste
+
 Version 7.14 (Code Version 131)
 ===============================
 
 C200 - Unterkategorie im Artikel wird abhängig der Kategorie aufgelistet.
-
 
 Version 7.13 (Code Version 130)
 ===============================

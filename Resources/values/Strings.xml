@@ -267,7 +267,8 @@
 	<string name="ShoppingList_MarkAsBought" >Als \'Gekauft\' markieren</string>
 	<string name="ShoppingList_AllSupermarkets" >[Alle]</string>
 	<string name="ShoppingList_Bought" >Gekauft</string>
-
+  <string name="ShoppingList_Sparse" >Kompakte Sicht</string>
+  
   <string name="ShoppingList_Menu_Sort" >Sortierung (Gekauft, Einkaufsmarkt, Hinzugefügt, Name)</string>
   <string name="ShoppingList_Menu_Add" >Artikel in Liste aufnehmen</string>
 

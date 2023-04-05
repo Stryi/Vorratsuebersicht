@@ -215,6 +215,9 @@ namespace VorratsUebersicht
             var searchMenuItem = menu.FindItem(Resource.Id.ShoppingList_Search);
             var searchView = (SearchView)searchMenuItem.ActionView;
 
+            var viewType = menu.FindItem(Resource.Id.ShoppingList_Sparse);
+            viewType.SetChecked(ShoppingListView.sparseView == 1);
+
             searchView.SetOnQueryTextListener(this);
 
             return base.OnCreateOptionsMenu(menu);
@@ -254,6 +257,17 @@ namespace VorratsUebersicht
                 case Resource.Id.ShoppingList_Share:
                     this.ShareList();
                     return true;
+
+                case Resource.Id.ShoppingList_Sparse:
+                    ShoppingListView.sparseView = 1 - ShoppingListView.sparseView;
+
+                    this.ShowShoppingList();
+                    this.InvalidateOptionsMenu();
+
+                    Settings.PutInt("ShoppingListViewType", ShoppingListView.sparseView);
+
+                    return true;
+
             }
             return true;
         }

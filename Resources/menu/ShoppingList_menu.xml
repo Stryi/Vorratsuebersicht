@@ -21,4 +21,9 @@
         android:icon="@drawable/baseline_share_white_24"
         android:title="@string/App_Share"
         android:showAsAction="ifRoom" />
+  
+  <item android:id="@+id/ShoppingList_Sparse"
+        android:title="@string/ShoppingList_Sparse"
+        android:checkable="true"
+        android:showAsAction="never" />
 </menu>

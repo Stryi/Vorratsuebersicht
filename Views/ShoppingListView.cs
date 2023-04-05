@@ -11,6 +11,8 @@ namespace VorratsUebersicht
     [DebuggerDisplay("{ShoppingItem}")]
     public class ShoppingListView : ListItemViewBase
     {
+        internal static int sparseView = 1;
+
         internal string String_Manufacturer = string.Empty;
         internal string String_Size         = string.Empty;
         internal string String_Supermarket  = string.Empty;
@@ -81,32 +83,34 @@ namespace VorratsUebersicht
                     }
                 }
 
-                string categoryText = string.Empty;
-
-                if (!string.IsNullOrEmpty(this.ShoppingItem.Category))
+                if (ShoppingListView.sparseView < 1)
                 {
-                    categoryText += this.ShoppingItem.Category;
+                    string categoryText = string.Empty;
+
+                    if (!string.IsNullOrEmpty(this.ShoppingItem.Category))
+                    {
+                        categoryText += this.ShoppingItem.Category;
+                    }
+                    if (!string.IsNullOrEmpty(this.ShoppingItem.SubCategory))
+                    {
+                        if (!string.IsNullOrEmpty(categoryText)) categoryText += " / ";
+
+                        categoryText += this.ShoppingItem.SubCategory;
+                    }
+
+
+                    if (!string.IsNullOrEmpty(categoryText))
+                    {
+                        if (!string.IsNullOrEmpty(info)) info += "\r\n";
+                        info += string.Format("{0} {1}", this.String_Category, categoryText);
+                    }
+
+                    if (!string.IsNullOrEmpty(this.ShoppingItem.Notes))
+                    {
+                        if (!string.IsNullOrEmpty(info)) info += "\r\n";
+                        info += string.Format("{0} {1}", this.String_Notes, this.ShoppingItem.Notes);
+                    }
                 }
-                if (!string.IsNullOrEmpty(this.ShoppingItem.SubCategory))
-                {
-                    if (!string.IsNullOrEmpty(categoryText)) categoryText += " / ";
-
-                    categoryText += this.ShoppingItem.SubCategory;
-                }
-
-
-                if (!string.IsNullOrEmpty(categoryText))
-                {
-                    if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                    info += string.Format("{0} {1}", this.String_Category, categoryText);
-                }
-
-                if (!string.IsNullOrEmpty(this.ShoppingItem.Notes))
-                {
-                    if (!string.IsNullOrEmpty(info)) info += "\r\n";
-                    info += string.Format("{0} {1}", this.String_Notes, this.ShoppingItem.Notes);
-                }
-
                 return info;
 			}
         }

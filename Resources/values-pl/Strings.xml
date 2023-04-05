@@ -268,6 +268,7 @@
 	<string name="ShoppingList_MarkAsBought" >Zaznacz jako \'Kupiono\'</string>
 	<string name="ShoppingList_AllSupermarkets" >[Wszystkie]</string>
 	<string name="ShoppingList_Bought" >Kupiono</string>
+  <string name="ShoppingList_Sparse" >Kompaktowa lista</string>
 
   <string name="ShoppingList_Menu_Sort" >Sortowanie (kupiono, supermarket, wprowadzone, nazwa)</string>
   <string name="ShoppingList_Menu_Add" >Dodaj Artykuł do listy</string>

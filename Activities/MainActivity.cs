@@ -126,6 +126,8 @@ namespace VorratsUebersicht
             ShoppingListActivity.oderBy                 = Settings.GetInt("ShoppingListOrder", 1);
             StorageItemListActivity.oderByToConsumeDate = Settings.GetBoolean("StorageItemListOrder", false);
 
+            ShoppingListView.sparseView = Settings.GetInt("ShoppingListViewType", 0);
+
             // DatePicker-DEBUG
             if (debug_date_picker)
             {
