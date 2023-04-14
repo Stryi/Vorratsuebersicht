@@ -9,11 +9,12 @@ using Android.Content;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+using Xamarin.Essentials;
+
 namespace VorratsUebersicht
 {
     using SQLite;
     using static Tools;
-    using static VorratsUebersicht.DatabaseService;
 
     internal class ServerDatabase : IDatabase
     {
@@ -196,6 +197,12 @@ namespace VorratsUebersicht
             if (string.IsNullOrEmpty(ServerDatabase.serverAddresses))
                 return databaseList;
 
+            var currentConnection = Connectivity.NetworkAccess;
+            if (currentConnection != Xamarin.Essentials.NetworkAccess.Internet)
+            {
+                return databaseList;
+            }
+
             var serverDatabase = new ServerDatabase();
 
             foreach(string serverInfo in serverAddresses.Split(Environment.NewLine))
@@ -214,6 +221,8 @@ namespace VorratsUebersicht
 
                 try
                 {
+                    DatabaseService.FireEvent("Connecting: " + serverName);
+
                     serverDatabase.database = new DatabaseService.Database();
                     serverDatabase.database.Location = serverAddress;
 

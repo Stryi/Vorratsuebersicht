@@ -41,10 +41,10 @@ namespace VorratsUebersicht
             this.ProtocolAppInfo();
 
             ServerDatabase.Initialize(
-                //"Azure;http://stryi.westeurope.cloudapp.azure.com:5000;3" + System.Environment.NewLine +
+                "Azure;http://stryi.westeurope.cloudapp.azure.com:5000;3" + System.Environment.NewLine,
                 //"Lokal;http://localhost:5000"     + System.Environment.NewLine +
-                //"LAN;http://192.168.0.157:5000" + System.Environment.NewLine +       // IP-Adresse ohne VPN am 'Kabel' hängend
-                "W-LAN;http://192.168.0.139:5000" + System.Environment.NewLine,        // IP-Adresse über W-LAN
+                //"LAN;http://192.168.0.157:5000"   + System.Environment.NewLine +       // IP-Adresse ohne VPN am 'Kabel' hängend
+                //"W-LAN;http://192.168.0.139:5000" + System.Environment.NewLine,        // IP-Adresse über W-LAN
                 "Vorraete");
 
             this.progressText.SetText("Ermittle Datenbanken...", TextView.BufferType.Normal);
@@ -70,6 +70,8 @@ namespace VorratsUebersicht
         /// <returns>true - Datenbank wurde ausgewählt. false - Datenbankauswahl wird angezeigt.</returns>
         private bool SelectDatabase() 
         {
+            DatabaseService.Progress += DatabaseService_Progress;
+
             Exception ex = null;
             var fileList = DatabaseService.GetDatabases(this, ref ex);
 
@@ -166,6 +168,13 @@ namespace VorratsUebersicht
             */
         }
 
+        private void DatabaseService_Progress(object sender, DatabaseService.TextEventArgs e)
+        {
+            RunOnUiThread(() =>
+            {
+                this.progressText.SetText(e.Text, TextView.BufferType.Normal);
+            });
+        }
 
         private void ConvertAndStartMainScreen()
         {

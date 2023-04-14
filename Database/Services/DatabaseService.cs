@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Android.Text;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,7 +8,27 @@ namespace VorratsUebersicht
 {
     internal class DatabaseService
     {
-        public event EventHandler<EventArgs> Progress;
+        public class TextEventArgs : EventArgs
+        {
+            public TextEventArgs(string text)
+            {
+                this.Text = text;
+            }
+
+            public string Text { get; set; }
+        }
+
+        public static event EventHandler<TextEventArgs> Progress;
+
+        public static void FireEvent(string text)
+        {
+            if (DatabaseService.Progress == null)
+            {
+                return;
+            }
+
+            DatabaseService.Progress(null, new TextEventArgs(text));
+        }
 
         private static IDatabase instance = null;
 
@@ -68,6 +89,8 @@ namespace VorratsUebersicht
 
         internal static List<DatabaseService.Database> GetDatabases(Android.Content.Context context, ref Exception exception)
         {
+            DatabaseService.FireEvent("Lokale Datenbanken");
+
             var databaseList = LocalDatabase.GetDatabases(context, ref exception);
 
             var serverDatabaseList = ServerDatabase.GetDatabases(ref exception);
@@ -88,6 +111,8 @@ namespace VorratsUebersicht
                 if (string.IsNullOrEmpty(error))
                 {
                     // Es hat geklappt. Die Datenbank merken...
+                    DatabaseService.database = database;
+
                     DatabaseService.databasePath = database.Location;
                     DatabaseService.databaseType = DatabaseService.DatabaseType.Local;
 

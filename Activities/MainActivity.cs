@@ -69,6 +69,13 @@ namespace VorratsUebersicht
                 Settings.PutInt("CompressPicturesMode", 2);
             }
 
+            if (DatabaseService.database == null)
+            {
+                // Datenbanken auswählen
+                this.SwitchDatabase();
+            }
+
+            /*
             Exception ex = null;
             var databases = DatabaseService.GetDatabases(this, ref ex);
 
@@ -96,6 +103,7 @@ namespace VorratsUebersicht
                     DatabaseService.databaseType = (DatabaseService.DatabaseType)databaseType; 
                 }
             }
+            */
 
             // Klick auf den "abgelaufen" Text bringt die Liste der (bald) abgelaufender Artieln.
             FindViewById<TextView>(Resource.Id.Main_Text).Click  += ArticlesNearExpiryDate_Click;
