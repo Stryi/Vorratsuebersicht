@@ -1,3 +1,8 @@
+Version 7.20 (Code Version 133)
+===============================
+
+C201 - Direkte Eingabe im Artikelbestand (ohne den Stift-Button)
+
 Version 7.15 (Code Version 132)
 ===============================
 

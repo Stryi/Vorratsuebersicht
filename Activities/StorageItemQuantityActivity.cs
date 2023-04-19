@@ -552,10 +552,16 @@ namespace VorratsUebersicht
         {
             var adapter = sender as StorageItemQuantityListViewAdapter;
             
+            string selectQuantity = this.Resources.GetString(Resource.String.StorageItemQuantityList_ActionSelectQuantity);
+            string expiryDate     = this.Resources.GetString(Resource.String.StorageItemQuantityList_ActionSelectExpiryDate);
+            string SelectStorage  = this.Resources.GetString(Resource.String.StorageItemQuantityList_ActionSelectStorage);
+
             string[] actions = {
-                this.Resources.GetString(Resource.String.StorageItemQuantityList_ActionSelectQuantity),
-                this.Resources.GetString(Resource.String.StorageItemQuantityList_ActionSelectExpiryDate),
-                this.Resources.GetString(Resource.String.StorageItemQuantityList_ActionSelectStorage)
+                selectQuantity,
+                selectQuantity + " + 1",
+                selectQuantity + " - 1",
+                expiryDate,
+                SelectStorage
                 };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -569,11 +575,25 @@ namespace VorratsUebersicht
                         this.ChangeQuantity(e.StorageItem, adapter);
                         break;
 
-                    case 1: // Datum
+                    case 1: // Anzahl + 1
+                        e.StorageItem.Quantity++;
+                        
+                        this.SaveStorageItem(e.StorageItem, adapter);
+
+                        break;
+
+                    case 2: // Anzahl - 1
+                        e.StorageItem.Quantity--;
+
+                        this.SaveStorageItem(e.StorageItem, adapter);
+                        
+                        break;
+
+                    case 3: // Datum
                         this.ChangeBestBeforeDate(e.StorageItem, adapter);
                         break;
 
-                    case 2: // Lagerort
+                    case 4: // Lagerort
                         this.ChangeStorage(e.StorageItem, adapter);
                         break;
                 }
@@ -600,48 +620,32 @@ namespace VorratsUebersicht
             DateTime? date = storageItem.BestBefore;
 
             // Haltbarkeitsdatum erfassen (kann aber auch weggelassen werden)
-            storageItem.IsChanged = true;
             adapter.NotifyDataSetInvalidated();
 
+            Action<DateTime?> dateSelected = delegate (DateTime? time)
+            {
+                if (time.HasValue)
+                    storageItem.BestBefore = time.Value;
+                else
+                    storageItem.BestBefore = null;
+
+                this.SaveStorageItem(storageItem, adapter);
+                
+                if (this.quantity > 0)
+                {
+                    this.ChangeQuantity(storageItem, adapter);
+                }
+            };
 
             if (!UseAltDatePicker)
             {
-                DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime? time)
-                {
-                    if (time.HasValue)
-                        storageItem.BestBefore = time.Value;
-                    else
-                        storageItem.BestBefore = null;
-
-                    storageItem.IsChanged = true;
-                    adapter.NotifyDataSetInvalidated();
-
-                    if (this.quantity > 0)
-                    {
-                        this.ChangeQuantity(storageItem, adapter);
-                    }
-
-                }, date);
+                DatePickerFragment frag = DatePickerFragment.NewInstance(dateSelected, date);
                 frag.ShowsDialog = true;
                 frag.Show(this.SupportFragmentManager, DatePickerFragment.TAG);
             }
             else
             {
-                AltDatePickerFragment frag = AltDatePickerFragment.NewInstance(delegate (DateTime? time)
-                {
-                    if (time.HasValue)
-                        storageItem.BestBefore = time.Value;
-                    else
-                        storageItem.BestBefore = null;
-
-                    storageItem.IsChanged = true;
-                    adapter.NotifyDataSetInvalidated();
-
-                    if (this.quantity > 0)
-                    {
-                        this.ChangeQuantity(storageItem, adapter);
-                    }
-                }, date);
+                AltDatePickerFragment frag = AltDatePickerFragment.NewInstance(dateSelected, date);
                 frag.ShowsDialog = true;
                 frag.Show(this.SupportFragmentManager, AltDatePickerFragment.TAG);
             }
@@ -673,8 +677,8 @@ namespace VorratsUebersicht
                     if (decialOk)
                     {
                         storageItem.Quantity = neueAnzahl;
-                        storageItem.IsChanged = true;
-                        adapter.NotifyDataSetChanged();
+
+                        this.SaveStorageItem(storageItem, adapter);
 
                         if (this.quantity >= 1)
                         {
@@ -707,11 +711,27 @@ namespace VorratsUebersicht
                 {
                     storageItem.StorageName = storages[args.Which];
                 }
-                storageItem.IsChanged = true;
-                adapter.NotifyDataSetChanged();
+
+                this.SaveStorageItem(storageItem, adapter);
+
                 return;
             });
             dialog.Show();
+        }
+
+        private void SaveStorageItem(StorageItemQuantityResult storageItem, StorageItemQuantityListViewAdapter adapter)
+        {
+            if (this.isEditMode)
+            {
+                // Änderung merken, später speichern.
+                storageItem.IsChanged = true;
+            }
+            else
+            {
+                // Änderung sofort speichern.
+                Database.UpdateStorageItemQuantity(storageItem);
+            }
+            adapter.NotifyDataSetChanged();
         }
     }
 }
