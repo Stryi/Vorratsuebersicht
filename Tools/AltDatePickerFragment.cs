@@ -136,6 +136,7 @@ namespace VorratsUebersicht
 
             b = new Button(this.view.Context);
             b.Text = "Kein Datum";
+            b.SetAllCaps(false);
             lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
             lp.Width = 0;
             lp.Weight = 3;
@@ -154,6 +155,7 @@ namespace VorratsUebersicht
             lp.Weight = 3;
             lp.SetMargins(1, 1, 1, 1);
             b.SetBackgroundColor(Android.Graphics.Color.LightGreen);
+            b.SetTextColor(Android.Graphics.Color.Black);
             b.SetPadding(0, 0, 0, 0);
             b.LayoutParameters = lp;
             b.Click += OnCloseCLicked;
