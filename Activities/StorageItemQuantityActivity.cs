@@ -732,6 +732,8 @@ namespace VorratsUebersicht
                 Database.UpdateStorageItemQuantity(storageItem);
             }
             adapter.NotifyDataSetChanged();
+
+            this.isChanged = true;
         }
     }
 }
