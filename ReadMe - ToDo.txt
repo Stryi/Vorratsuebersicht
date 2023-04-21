@@ -1,21 +1,23 @@
 Prio 1
 ======
 
-Suche
--  Kann nicht Ä und ä suchen.
-
 Einstellungen
 - Nur X Backups lassen, ältere automatisch löschen. (auch vom mik53ke per E-Mail)
 - Beim Backup zurückspielen hinweis auf "Backup importieren" anbringen.
+
+
+Settings
+- LOG Datei im Cache anlegen (damit vom PC aus ausgelesen werden kann)?
+
+Anwendung
+- Anwendungsabstürze in die LOG Datei protokollieren.
+  https://stackoverflow.com/questions/39503390/global-exception-handling-in-xamarin-cross-platform
 
 Einkaufsliste
 - Freie Sortierung (wie im Laden die Reihenfolge ist)  (vom Nernd)
 
 Artikeldetails
 - Preiseingabe auch mit ","
-
-Settings
-- LOG Datei im Cache anlegen (damit vom PC aus ausgelesen werden kann)?
 
 Sonstiges
 - Push Benachrichtigung (z.B. einmal pro Tag) über bald zu verbrauchende Artikel 
@@ -24,20 +26,18 @@ Sonstiges
   https://docs.microsoft.com/de-de/xamarin/android/app-fundamentals/services/service-notifications
 
 
-Anwendung
-- Anwendungsabstürze in die LOG Datei protokollieren.
-  https://stackoverflow.com/questions/39503390/global-exception-handling-in-xamarin-cross-platform
+
+Suche
+-  Kann nicht Ä und ä suchen.
 
 
-Artikeldetails
-- Kalorien umrechnen auch von "cl"
 
 
 Prio 2
 ======
 
-Einkaufszettel
-- Liste automatisch anhand der Mindestmenge erstellen.
+Artikeldetails
+- Kalorien umrechnen auch von "cl"
 
 
 Artikelstamm
@@ -137,14 +137,6 @@ Prio eher niedrig:
  
 ---------------------------------------------------
 Von Google Informationen:
-
-Warnung
-
-Deine App ist derzeit auf API-Ebene 28 ausgerichtet, sollte jedoch eine API-Mindestebene von 29 haben.
-Hierdurch soll dafür gesorgt werden, dass deine App die aktuellen APIs nutzt, Nutzern eine optimale Leistung bietet und sicher ist.
-
-Ab August 2020 müssen neue Apps auf mindestens Android 10 (API-Ebene 29) ausgerichtet sein.
-Ab November 2020 müssen App-Updates auf mindestens Android 10 (API-Ebene 29) ausgerichtet sein.
 
 Warnung
 Mit diesem APK werden ungenutzter Code und ungenutzte Ressourcen an Nutzer gesendet.
