@@ -1177,14 +1177,10 @@ namespace VorratsUebersicht
             MemoryStream stream;
             byte[] resizedImage;
 
-            string text = string.Empty;
-
             try
             {
                 int widthLarge  = 854;
                 int heightLarge = 854;
-
-                text += string.Format("Org.: {0:n0} x {1:n0} ({2:n0})\r\n",  newBitmap.Width,  newBitmap.Height, Tools.ToFuzzyByteString(newBitmap.ByteCount));
 
                 Bitmap largeBitmap = newBitmap;
 
@@ -1221,8 +1217,6 @@ namespace VorratsUebersicht
                 largeBitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
                 ArticleDetailsActivity.imageLarge = stream.ToArray();
 
-                text += string.Format("Bild: {0:n0} x {1:n0} ({2:n0})\r\n", largeBitmap.Width, largeBitmap.Height, Tools.ToFuzzyByteString(largeBitmap.ByteCount));
-
                 // --------------------------------------------------------------------------------
                 // Miniaturansicht erstellen
                 // --------------------------------------------------------------------------------
@@ -1235,14 +1229,13 @@ namespace VorratsUebersicht
                 smallBitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
                 ArticleDetailsActivity.imageSmall = stream.ToArray();
 
-                text += string.Format("Thn.: {0:n0} x {1:n0} ({2:n0})", smallBitmap.Width, smallBitmap.Height, Tools.ToFuzzyByteString(smallBitmap.ByteCount));
-
                 RunOnUiThread(() => this.imageView.SetImageBitmap(smallBitmap));
                 RunOnUiThread(() => this.imageView2.Visibility = ViewStates.Gone);
-                RunOnUiThread(() => this.imageTextView.Text = text);
 
                 TRACE("-------------------------------------");
-                TRACE(text);
+                TRACE(string.Format("Org.: {0:n0} x {1:n0} ({2:n0})\r\n", newBitmap.Width,   newBitmap.Height,   Tools.ToFuzzyByteString(newBitmap.ByteCount)));
+                TRACE(string.Format("Bild: {0:n0} x {1:n0} ({2:n0})\r\n", largeBitmap.Width, largeBitmap.Height, Tools.ToFuzzyByteString(largeBitmap.ByteCount)));
+                TRACE(string.Format("Thn.: {0:n0} x {1:n0} ({2:n0})",     smallBitmap.Width, smallBitmap.Height, Tools.ToFuzzyByteString(smallBitmap.ByteCount)));
                 TRACE("-------------------------------------");
             }
             catch(Exception ex)
