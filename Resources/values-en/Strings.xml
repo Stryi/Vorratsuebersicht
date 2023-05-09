@@ -138,6 +138,7 @@
     <item>No price given</item>
     <item>Without calorie information</item>
     <item>For the shopping list (without inventory)</item>
+    <item>No storage location specified</item>
   </string-array>
 
 
@@ -240,7 +241,7 @@
 	<string name="StorageItemQuantity_Menu_Artikelangaben" >Article details</string>
 	<string name="StorageItemQuantity_Menu_Edit" >Edit Position</string>
 	<string name="StorageItemQuantity_Menu_EditPicture" >Show image</string>
-	<string name="StorageItemQuantity_StorageForNewPosition" >Warehouse for new pos.:</string>
+	<string name="StorageItemQuantity_StorageForNewPosition" >Warehouse for new position:</string>
 	<string name="StorageItemQuantity_Step" >Step</string>
 	<string name="StorageItemQuantity_StepText" >1x</string>
 

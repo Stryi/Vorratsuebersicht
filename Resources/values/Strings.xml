@@ -138,6 +138,7 @@
     <item>Kein Preis angegeben</item>
     <item>Ohne Kalorienangaben</item>
     <item>Für die Einkaufsliste (ohne Bestand)</item>
+    <item>Kein Standard Lagerort angegeben</item>
   </string-array>
 
   <!-- Artikelliste - Footer -->
@@ -239,7 +240,7 @@
 	<string name="StorageItemQuantity_Menu_Artikelangaben" >Artikelangaben</string>
 	<string name="StorageItemQuantity_Menu_Edit" >Positionen bearbeiten</string>
 	<string name="StorageItemQuantity_Menu_EditPicture" >Bild anzeigen</string>
-	<string name="StorageItemQuantity_StorageForNewPosition" >Lager für Neu.:</string>
+	<string name="StorageItemQuantity_StorageForNewPosition" >Lager für Neuanlagen:</string>
 	<string name="StorageItemQuantity_Step" >Schritt</string>
 	<string name="StorageItemQuantity_StepText" >1x</string>
 

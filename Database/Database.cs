@@ -779,6 +779,9 @@ namespace VorratsUebersicht
                         filter += " AND ";
                         filter += " ArticleId NOT IN (SELECT ArticleId FROM StorageItem)";
                         break;
+                    case 4:
+                        filter += " ((Article.StorageName IS NULL) OR (Article.StorageName == ''))";
+                        break;
                 }
             }
 

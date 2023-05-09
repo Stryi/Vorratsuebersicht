@@ -138,6 +138,7 @@
     <item>Bez cen</item>
     <item>Bez informacji o kaloriach</item>
     <item>Do listy zakupów (bez inwentarza)</item>
+    <item>Nie określono standard spiżarnię</item>		
   </string-array>
 
 
@@ -240,7 +241,7 @@
 	<string name="StorageItemQuantity_Menu_Artikelangaben" >Dane artykułu</string>
 	<string name="StorageItemQuantity_Menu_Edit" >Edytuj pozycje</string>
 	<string name="StorageItemQuantity_Menu_EditPicture" >Pokaż obrazek</string>
-	<string name="StorageItemQuantity_StorageForNewPosition" >Spiżarnia dla nowach:</string>
+	<string name="StorageItemQuantity_StorageForNewPosition" >Spiżarnia dla nowach pozycji:</string>
 	<string name="StorageItemQuantity_Step" >Multiplikator</string>
 	<string name="StorageItemQuantity_StepText" >1x</string>
 

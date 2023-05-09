@@ -1,7 +1,7 @@
 Version 7.20 (Code Version 133)
 ===============================
 
-C201 - Direkte Eingabe im Artikelbestand (ohne den Stift-Button)
+C202 - Filter für Artikelliste "Kein Lager"
 
 Version 7.15 (Code Version 132)
 ===============================
