@@ -38,9 +38,9 @@
             android:background="@color/Application_Background2" />
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/StorageItemQuantity_Storage"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/Application_Background2"
@@ -51,31 +51,34 @@
             android:text="@string/StorageItemQuantity_StorageForNewPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="1dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:textColor="@color/Text_Color"
-            android:textSize="16sp" />
-        <AutoCompleteTextView
-            android:id="@+id/StorageItemQuantity_StorageText"
-            android:layout_width="fill_parent"
+            android:textColor="@color/Text_Color2" />
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="55dp"
-            android:textColor="@color/Text_Color"
-            android:background="@color/Application_Background"
-            android:textSize="18sp" 
-            android:layout_toRightOf="@id/StorageItemQuantity_StorageLabel" />
-        <Button
-            android:id="@+id/StorageItemQuantity_SelectStorage"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:text="@string/ThreePoints" 
-            android:textSize="16dp"
-            android:textAllCaps="false"
-            android:layout_alignParentRight="true" />
-    </RelativeLayout>
+            android:layout_marginRight="0dp" >
+            <AutoCompleteTextView
+                android:id="@+id/StorageItemQuantity_StorageText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="50dp"
+                android:textColor="@color/Text_Color"
+                android:background="@color/Application_Background" />
+            <Button
+                android:id="@+id/StorageItemQuantity_SelectStorage"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:text="@string/ThreePoints" 
+                android:textSize="16dp"
+                android:textAllCaps="false"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/StorageItemQuantity_Step"
@@ -84,6 +87,7 @@
         android:layout_height="wrap_content"
         android:background="@color/Application_Background2"
         android:visibility="gone"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp" >
         <Button
             android:id="@+id/StorageItemQuantity_StepButton"
