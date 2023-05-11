@@ -1,4 +1,7 @@
 ﻿
+DEUTSCH
+*******
+
 Vorratsübersicht - Mindesthaltbarkeitsdatum von Vorräten überwachen
 ===================================================================
 
@@ -50,3 +53,57 @@ Die eingesetzte SQLite Datenbank unterstützt diese Sortierung nicht.
 2. Eine Popup Benachrichtigung findet nicht statt.
 Um zu überprüfen, ob das Mindesthaltbarkeitsdatum
 überschritten wurde, muss die App gestartet werden.
+
+
+POLSKI
+******
+
+Przegląd zapasów - Monitoruj terminy ważności zapasów
+
+Dzięki tej aplikacji możesz monitorować daty przydatności do spożycia żywności w swoich zapasach.
+
+Dane są przechowywane lokalnie na smartfonie i nie będą synchronizowane z innymi smartfonami.
+
+Proszę zwrócić uwagę na wyłączenie odpowiedzialności na końcu opisu.
+
+Funkcjonalność:
+
+Najpierw artykuł jest (jednorazowo) zapisywany w „Artykuły” wraz z jego szczegółami i optionalnie ze zdjęciem.
+Następnie możesz dodać artykuł w „Inwentarz”, wybrać datę do spożycia wprowadzić ilość.
+Jeśli zbliża się data najlepszego ważności lub zostanie przekroczona, w aplikacji pojawi się ostrzeżenie.
+Dla ostrzeżenia przed upływem terminu spożycia dla każdego towaru można zdefiniować liczbę dni.
+
+Jeśli kod EAN został wprowadzony (lub zeskanowany) dla artykułu,
+możesz edytować inwentarz lub informacje o elemencie bezpośrednio za pomocą opcji „Skanuj artykuł”.
+Dane artykułu można załadować za pomocą kodu EAN z OpenFoodFacts.org.
+
+Testowa baza danych:
+
+Aby przetestować lub poznać aplikację, możesz przejść do testowej bazy danych,
+która zawiera kilka artykułów (to nie jest reklamą produktów).
+
+Zastrzeżenie:
+
+Aplikacja jest moim prywatnym hobbystycznym projektem, który rozwijam w wolnym czasie.
+Jest przeznaczony dla osób prywatnych, a nie dla firm.
+Używaj na własne ryzyko.
+Proszę robić kopie zapasowe w regularnych odstępach czasu.
+Aplikacja jest rozwijana sumiennie.
+Nie mogę brać żadnej odpowiedzialności za szkody spowodowane przez aplikację lub utratę danych.
+
+Zgłoś błędy:
+
+Ta aplikacja stale się rozwija i może nadal zawierać błędy.
+
+Jeśli zauważyłeś błąd, opisz go szczegółowo
+(jak można to odtworzyć), jeśli to możliwe, stwórz zrzuty ekranu i wyślij je na adres
+e-mail na poniższy adres.
+
+
+Znane problemy i błędy:
+
+1. Sortowanie artykułów nie uwzględnia polskich znaków diakrytycznych (żśą... itd).
+Używana baza danych SQLite nie obsługuje tego sortowania.
+
+2. Aby sprawdzić, czy artykuł przekroczył datą najlepszego spożzcie,
+należy uruchomić aplikację.
