@@ -1,8 +1,13 @@
-Version 7.20 (Code Version 133)
+Version 7.21 (Code Version 134)
 ===============================
 
 C203 - Standard Lager beim Erfassen von Lagerbständen jetzt zweizeilig.
 C202 - Filter für Artikelliste "Kein Lager"
+
+Version 7.20 (Code Version 133)
+===============================
+
+C202 - Direkte Eingabe im Artikelbestand (ohne den Stift-Button)
 
 Version 7.15 (Code Version 132)
 ===============================
