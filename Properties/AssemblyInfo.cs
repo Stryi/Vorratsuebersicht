@@ -12,7 +12,7 @@ using Android.App;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion("7.21")]
-[assembly: AssemblyFileVersion("7.21.0.0")]
+[assembly: AssemblyVersion("7.30")]
+[assembly: AssemblyFileVersion("7.30.0.0")]
 [assembly: InternalsVisibleTo("VueUnitTestProject")]
 

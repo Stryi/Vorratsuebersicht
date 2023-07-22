@@ -1,3 +1,8 @@
+Version 7.30 (Code Version 135)
+===============================
+
+E061 - Keine Exception, wenn auf OpenFoodFacts.org kein Bild da ist.
+
 Version 7.21 (Code Version 134)
 ===============================
 

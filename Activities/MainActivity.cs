@@ -601,7 +601,9 @@ namespace VorratsUebersicht
 
         private void ButtonBarcode_Click(object sender, System.EventArgs e)
         {
-            // this.SearchEANCode("4058172637117");
+            //this.SearchEANCode("4058172637117");  // "Bitterstoff Tee", aber ohne Bild
+            //this.SearchEANCode("5900352011950");  // "Oranzada"
+
             StartActivityForResult(typeof(ZXingFragmentActivity), EANScanID);
         }
 

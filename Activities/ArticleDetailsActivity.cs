@@ -727,7 +727,10 @@ namespace VorratsUebersicht
                     this.BerechneCalGes(this, null);
                 }
 
-                this.ResizeBitmap(InternetDatabaseSearchActivity.picture);
+                if (InternetDatabaseSearchActivity.picture != null)
+                {
+                    this.ResizeBitmap(InternetDatabaseSearchActivity.picture);
+                }
             }
 
             if (requestCode == StorageQuantityId)
