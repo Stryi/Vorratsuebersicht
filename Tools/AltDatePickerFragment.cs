@@ -285,8 +285,6 @@ namespace VorratsUebersicht
                     else
                         this.max_days = 28;
                 }
-                if (!DayWasPicked)
-                    day = this.max_days;
             }
             if (day > this.max_days)
                 day = this.max_days;

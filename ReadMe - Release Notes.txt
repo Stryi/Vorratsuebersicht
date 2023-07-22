@@ -1,7 +1,8 @@
 Version 7.30 (Code Version 135)
 ===============================
 
-E061 - Keine Exception, wenn auf OpenFoodFacts.org kein Bild da ist.
+E062 - FIX: Neues Datums Control - Datum springt auf Monatsende, wenn Monat zuerst gewechselt wurde.
+E061 - FIX: Keine Exception, wenn auf OpenFoodFacts.org kein Bild da ist.
 
 Version 7.21 (Code Version 134)
 ===============================
