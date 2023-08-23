@@ -1,6 +1,7 @@
 Version 7.30 (Code Version 135)
 ===============================
 
+C204 - API-Level auf 33 gesetzt (Google Anforderung)
 E062 - FIX: Neues Datums Control - Datum springt auf Monatsende, wenn Monat zuerst gewechselt wurde.
 E061 - FIX: Keine Exception, wenn auf OpenFoodFacts.org kein Bild da ist.
 
