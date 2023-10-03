@@ -120,7 +120,9 @@
 	</string>
 	<string name="Settings_AppWiki" >App Wiki (Deutsch)</string>
 	<string name="Settings_AppWiki_Page" >https://github.com/Stryi/Vorratsuebersicht/wiki</string>
-	<string name="Settings_Licenses" >Lizenzbedingungen</string>
+  <string name="Settings_Datenschutz" >Datenschutzerklärung</string>
+  <string name="Settings_Datenschutz_Link" >https://sites.google.com/site/vorratsuebersicht/datenschutzerklaerung</string>
+  <string name="Settings_Licenses" >Lizenzbedingungen</string>
 	<string name="Settings_OpenSourceLizenzen" >Open-Source-Lizenzen</string>
 	<string name="Settings_Contact_Email" >Kontakt E-Mail: <a href="mailto:cstryi@freenet.de">cstryi@freenet.de</a></string>
 
