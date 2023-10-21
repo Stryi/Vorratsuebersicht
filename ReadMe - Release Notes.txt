@@ -1,4 +1,4 @@
-Version 8.00 (Code Version 136)
+Version 8.00-alpha1 (Code Version 136)
 ===============================
 
 E063 - FIX: Bilder erstellen mit Android 30 - API 33 (s. C206 untern)
