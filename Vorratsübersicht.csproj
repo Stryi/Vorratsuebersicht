@@ -160,7 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.1</Version>
+      <Version>13.0.3</Version>
     </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.7.335</Version>
@@ -177,15 +177,21 @@
     <PackageReference Include="Xamarin.AndroidX.AppCompat.AppCompatResources">
       <Version>1.2.0.6</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.AndroidX.Browser">
+      <Version>1.4.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Legacy.Support.Core.UI">
       <Version>1.0.0.7</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData">
-      <Version>2.3.0.2-alpha03</Version>
+      <Version>2.2.0.4</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.7" />
     <PackageReference Include="Xamarin.Google.Android.Material">
       <Version>1.2.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Kotlin.StdLib">
+      <Version>1.9.10.1</Version>
     </PackageReference>
     <PackageReference Include="ZXing.Net.Mobile">
       <Version>3.1.0-beta2</Version>

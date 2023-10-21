@@ -1,7 +1,9 @@
-Version 7.40 (Code Version 135)
+Version 8.00 (Code Version 136)
 ===============================
 
-C205 Link auf Datenschutz Webseite
+E063 - FIX: Bilder erstellen mit Android 30 - API 33 (s. C206 untern)
+C206 - Umstellung auf neue Xamarin.Essentials Version="1.7.7 
+C205 - Link auf Datenschutz Webseite
 
 Version 7.30 (Code Version 135)
 ===============================

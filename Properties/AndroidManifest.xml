@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest android:versionCode="136" android:versionName="7.40" package="de.stryi.Vorratsuebersicht" android:installLocation="auto" xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+	android:versionCode="136"
+	android:versionName="8.00-alpha1"
+	package="de.stryi.Vorratsuebersicht"
+	android:installLocation="auto"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
 	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="33" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
