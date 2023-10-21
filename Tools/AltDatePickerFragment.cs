@@ -13,7 +13,6 @@ namespace VorratsUebersicht
     {
         private View view;
         private LinearLayout root;
-        private bool DayWasPicked;
         private string last_clicked_tag = "";
 
         private TextView date_textview = null;
@@ -88,7 +87,6 @@ namespace VorratsUebersicht
             LinearLayout ll;
             Button b;
 
-            this.DayWasPicked = false;
             this.base_year = base_year;
             this.root.RemoveAllViews();
 
@@ -220,16 +218,6 @@ namespace VorratsUebersicht
             }
             this.last_clicked_tag = tag;
 
-            /*
-            // Doppelclick
-            if ((tag.Substring(0, 1) == "M" && val == this.Date.Value.Month) || (tag.Substring(0, 1) == "D" && val == this.Date.Value.Day)
-                || (DayWasPicked && tag.Substring(0, 1) == "Y" && val == this.Date.Value.Year))
-            {
-                DateSelectedHandler(this.Date);
-                this.Dismiss();
-                return;
-            }
-            */
             UpdateGrid(tag.Substring(0, 1), val, true);
         }
 
@@ -266,8 +254,6 @@ namespace VorratsUebersicht
                 month = val;
             else
             {
-                if (user_input)
-                    DayWasPicked = true;
                 day = val;
             }
 
