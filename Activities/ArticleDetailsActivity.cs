@@ -83,7 +83,15 @@ namespace VorratsUebersicht
             stopWatch.Start();
             base.OnCreate(savedInstanceState);
 
-            this.currentCulture = new CultureInfo(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
+            try
+            {
+                this.currentCulture = CultureInfo.InvariantCulture;
+                this.currentCulture = new CultureInfo(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
+            }
+            catch(Exception ex)
+            {
+                TRACE(ex);
+            }
 
             this.SetContentView(Resource.Layout.ArticleDetails);
 
