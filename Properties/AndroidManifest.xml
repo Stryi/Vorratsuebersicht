@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest
-	android:versionCode="136"
-	android:versionName="8.00-alpha1"
+	android:versionCode="137"
+	android:versionName="8.00-beta1"
 	package="de.stryi.Vorratsuebersicht"
 	android:installLocation="auto"
 	xmlns:android="http://schemas.android.com/apk/res/android">
