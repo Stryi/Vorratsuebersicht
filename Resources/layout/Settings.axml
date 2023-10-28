@@ -74,7 +74,7 @@
 
         <ProgressBar
             android:id="@+id/ProgressBar_BackupAndRestore"
-            style="?android:attr/progressBarStyleHorizontal"
+            style="?android:attr/progressBarStyleHorizontal"            
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -86,36 +86,47 @@
         <Button
             android:id="@+id/SettingsButton_Backup"
             android:text="@string/Settings_CreateBackup"
+            android:drawableLeft="@drawable/baseline_file_download_white_24"
+            android:backgroundTint="#CCCCCC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:drawablePadding="5dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
-
         <Button
             android:id="@+id/SettingsButton_BackupToFile"
-            android:text="Backup in eine Datei"
+            android:text="@string/Settings_ShareBackupFile"
+            android:drawableLeft="@drawable/baseline_share_white_24"
+            android:backgroundTint="#CCCCCC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:drawablePadding="5dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
 
         <Button
             android:id="@+id/SettingsButton_Restore"
             android:text="@string/Settings_RestoreBackup"
+            android:drawableLeft="@drawable/outline_folder_open_white_24"
+            android:backgroundTint="#CCCCCC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:drawablePadding="5dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
 
         <Button
             android:id="@+id/SettingsButton_RestoreFromFile"
             android:text="@string/Settings_RestoreBackupFromFile"
+            android:drawableLeft="@drawable/outline_plagiarism_white_24"
+            android:backgroundTint="#CCCCCC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:drawablePadding="5dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
 
@@ -136,6 +147,7 @@
             android:paddingBottom="0dp" />
 
         <TextView
+            android:id="@+id/Settings_BackupPath"
             android:text="@string/Settings_BackupPath"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -184,18 +196,22 @@
             android:text="@string/Settings_DatenbankKomprimieren"
             android:drawableLeft="@drawable/baseline_compress_white_24"
             android:contentDescription="@string/Settings_DatenbankKomprimieren"
+            android:backgroundTint="#CCCCCC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:drawablePadding="5dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
         <Button
             android:id="@+id/SettingsButton_Repair"
             android:text="@string/Settings_DatenbankReparieren"
             android:drawableLeft="@drawable/baseline_home_repair_service_white_24"
+            android:backgroundTint="#CCCCCC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:drawablePadding="5dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
 
@@ -203,48 +219,57 @@
             android:id="@+id/SettingsButton_DatabaseNew"
             android:text="@string/Settings_DatabaseNew"
             android:drawableLeft="@drawable/baseline_add_box_white_24"
+            android:backgroundTint="#CCCCCC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
+            android:drawablePadding="5dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
         <Button
             android:id="@+id/SettingsButton_DatabaseRename"
             android:text="@string/Settings_DatabaseRename"
             android:drawableLeft="@drawable/baseline_drive_file_rename_outline_white_24"
+            android:backgroundTint="#CCCCCC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:drawablePadding="5dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
         <Button
             android:id="@+id/SettingsButton_DatabaseDelete"
             android:text="@string/Settings_DatabaseDelete"
             android:drawableLeft="@drawable/baseline_delete_forever_white_24"
+            android:backgroundTint="#CCCCCC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:drawablePadding="5dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
         <Button
             android:id="@+id/SettingsButton_DatabaseImport"
             android:text="@string/Settings_DatabaseImport"
             android:drawableLeft="@drawable/baseline_upload_file_white_24"
+            android:backgroundTint="#CCCCCC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:drawablePadding="5dp"
             android:textAllCaps="false"
             android:gravity="left|center_vertical" />
 
         <TextView
+            android:id="@+id/SettingsLabel_AdditionalDatabasePath"
             android:text="@string/Settings_AdditionalDatabasePath"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:paddingTop="16dp" />
         <EditText
-            android:id="@+id/SettingsButton_AdditionalDatabasePath"
+            android:id="@+id/Settings_AdditionalDatabasePath"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
@@ -294,6 +319,7 @@
         <Button
             android:id="@+id/SettingsButton_RestoreSampleDb"
             android:text="@string/Settings_TestDatenbankZuruecksetzen"
+            android:backgroundTint="#CCCCCC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"            
@@ -302,6 +328,7 @@
         <Button
             android:id="@+id/SettingsButton_RestoreDb0"
             android:text="@string/Settings_TestDatenbankLeeren"
+            android:backgroundTint="#CCCCCC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -323,6 +350,7 @@
             <Button
                 android:id="@+id/SettingsButton_CsvExportArticles"
                 android:text="@string/Settings_CSV_Export_Articles"
+                android:backgroundTint="#CCCCCC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"                
@@ -331,6 +359,7 @@
             <Button
                 android:id="@+id/SettingsButton_CsvExportStorageItems"
                 android:text="@string/Settings_CSV_Export_Inventory"
+                android:backgroundTint="#CCCCCC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -426,6 +455,7 @@
         <Button
             android:id="@+id/SettingsButton_SendLogFile"
             android:text="@string/Settings_SendLogFile"
+            android:backgroundTint="#CCCCCC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -469,6 +499,7 @@
         <Button
             android:id="@+id/SettingsButton_Licenses"
             android:text="@string/Settings_OpenSourceLizenzen"
+            android:backgroundTint="#CCCCCC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

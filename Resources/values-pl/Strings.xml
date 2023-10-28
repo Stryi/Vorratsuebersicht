@@ -69,18 +69,18 @@
 	<string name="Settings_LastBackupOn" >Ostatnia kopia zapasowa dnia: {0}</string>
 	<string name="Settings_AskForBackup" >Przypomnij o kopii zapasowej co 7 dni</string>
 	<string name="Settings_BackupDone" >Baza danych zapisana w katalogu jako:\n\n {0}"\n\nZapisz ten plik na Dysku Google lub na komputerze.</string>
-	<string name="Settings_DatenbankKomprimieren" >\tKompensuj tą bazę danych</string>
-	<string name="Settings_DatenbankReparieren" >\tNapraw/sprawdź bazę danych</string>
+	<string name="Settings_DatenbankKomprimieren" >Kompensuj tą bazę danych</string>
+	<string name="Settings_DatenbankReparieren" >Napraw/sprawdź bazę danych</string>
 	<string name="Settings_CheckReport" >Wynik checku:</string>
 	<string name="Settings_DeleteBackupFileQuestion" >Usunąć plik kopii zapasowej?\n\n{0}</string>
 
 	<string name="Settings_DatabaseManagement" >Zarząd baz danych</string>
-	<string name="Settings_DatabaseNew" >\tUtwórz nową bazę danych...</string>
-	<string name="Settings_DatabaseRename" >\tZmień nazwę bazy danych...\n\t(z wyjątkiem tej właśnie otwartej)</string>
+	<string name="Settings_DatabaseNew" >Utwórz nową bazę danych...</string>
+	<string name="Settings_DatabaseRename" >Zmień nazwę bazy danych...\n(z wyjątkiem tej właśnie otwartej)</string>
 	<string name="Settings_DatabaseRenameDialogTitle" >Zmień nazwę bazy danych</string>
 	<string name="Settings_DatabaseRenameDialogMessage" >\n\nWpisz nową nazwę:</string>
-	<string name="Settings_DatabaseDelete" >\tUsuń bazę danych...\n\t(wybór następuje)</string>
-	<string name="Settings_DatabaseImport" >\tImportuj bazę danych</string>
+	<string name="Settings_DatabaseDelete" >Usuń bazę danych...\n(wybór następuje)</string>
+	<string name="Settings_DatabaseImport" >Importuj bazę danych</string>
 	<string name="Settings_DatabaseNewDialogTitle" >Utwórz nową bazę danych</string>
 	<string name="Settings_DatabaseNewDialogMessage" >"\n\nWprowadź nazwę:</string>
 	<string name="Settings_EAN_Scann" >EAN skan</string>

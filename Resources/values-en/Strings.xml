@@ -54,7 +54,8 @@
 	<string name="Settings_DefaultCategory" >Default category for new articles</string>
 	<string name="Settings_BackupAndRestore" >Backup and restore</string>
 	<string name="Settings_CreateBackup" >Create backup</string>
-	<string name="Settings_RestoreBackup" >Restore / delete backup</string>
+  <string name="Settings_ShareBackupFile" >Share Backup file</string>
+  <string name="Settings_RestoreBackup" >Restore / delete backup</string>
   <string name="Settings_RestoreBackupFromFile" >Restore backup from file</string>
   <string name="Settings_Action_BackupRestore" >Restore</string>
 	<string name="Settings_Action_BackupDelete" >Delete</string>
@@ -69,18 +70,18 @@
 	<string name="Settings_LastBackupOn" >Last backup on: {0}</string>
 	<string name="Settings_AskForBackup" >Remind to backup every 7 days</string>
 	<string name="Settings_BackupDone" >Database saved in download directory as:\n\n {0}"\n\nSave this file to Google Drive or to your PC.</string>
-	<string name="Settings_DatenbankKomprimieren" >\tCompact database</string>
-	<string name="Settings_DatenbankReparieren" >\tRepair/check database</string>
+	<string name="Settings_DatenbankKomprimieren" >Compact database</string>
+	<string name="Settings_DatenbankReparieren" >Repair/check database</string>
 	<string name="Settings_CheckReport" >Check result:</string>
 	<string name="Settings_DeleteBackupFileQuestion" >Delete backup file?\n\n{0}</string>
 
 	<string name="Settings_DatabaseManagement" >Manage databases</string>
-	<string name="Settings_DatabaseNew" >\tCreate a new database...</string>
-	<string name="Settings_DatabaseRename" >\tRename database...\n\t(except the one currently opened)</string>
+	<string name="Settings_DatabaseNew" >Create a new database...</string>
+	<string name="Settings_DatabaseRename" >Rename database...\n(except the one currently opened)</string>
 	<string name="Settings_DatabaseRenameDialogTitle" >Rename database</string>
 	<string name="Settings_DatabaseRenameDialogMessage" >\n\nEnter new name:</string>
-	<string name="Settings_DatabaseDelete" >\tDelete database...\n\t(selection follows)</string>
-	<string name="Settings_DatabaseImport" >\tImport database</string>
+	<string name="Settings_DatabaseDelete" >Delete database...\n(selection follows)</string>
+	<string name="Settings_DatabaseImport" >Import database</string>
 	<string name="Settings_DatabaseNewDialogTitle" >Create a new database</string>
 	<string name="Settings_DatabaseNewDialogMessage" >"\n\nEnter name:</string>
 	<string name="Settings_EAN_Scann" >EAN scan</string>

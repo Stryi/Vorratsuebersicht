@@ -132,7 +132,7 @@ namespace VorratsUebersicht
             Button buttonSendLogFile =  FindViewById<Button>(Resource.Id.SettingsButton_SendLogFile);
             buttonSendLogFile.Click += ButtonSendLogFile_Click;
                         
-            EditText addDbPath = FindViewById<EditText>(Resource.Id.SettingsButton_AdditionalDatabasePath);
+            EditText addDbPath = FindViewById<EditText>(Resource.Id.Settings_AdditionalDatabasePath);
             
             addDbPath.Text = Settings.GetString("AdditionslDatabasePath", string.Empty);
 
@@ -152,13 +152,6 @@ namespace VorratsUebersicht
 
             Button buttonRestoreFromFile = FindViewById<Button>(Resource.Id.SettingsButton_RestoreFromFile);
             buttonRestoreFromFile.Click += ButtonRestoreFromFile_Click;
-
-            // TODO: Version ermitteln
-            if ((int)Build.VERSION.SdkInt >= 33)
-            {
-                buttonBackup.Visibility = ViewStates.Gone;
-                buttonRestore.Visibility = ViewStates.Gone;
-            }
 
             this.textViewColor = FindViewById<TextView>(Resource.Id.Settings_BackupFileCount).CurrentTextColor;
 
@@ -220,12 +213,33 @@ namespace VorratsUebersicht
 
             if (createBackup)
             {
-                this.CreateBackup();
+                if ((int)Build.VERSION.SdkInt >= 33)
+                {
+                    this.ShareBackup();
+                }
+                else
+                {
+                    this.CreateBackup();
+                }
             }
 
             this.Window.SetSoftInputMode(SoftInput.StateHidden);
 
             this.DetectBackupsCount();
+
+            if ((int)Build.VERSION.SdkInt >= 33)
+            {
+                buttonBackup.Visibility = ViewStates.Gone;
+                buttonRestore.Visibility = ViewStates.Gone;
+
+                FindViewById<TextView>(Resource.Id.Settings_LastBackupDay).Visibility = ViewStates.Gone;
+                FindViewById<TextView>(Resource.Id.Settings_BackupFileCount).Visibility = ViewStates.Gone;
+                FindViewById<TextView>(Resource.Id.Settings_BackupPath).Visibility = ViewStates.Gone;
+                FindViewById<TextView>(Resource.Id.SettingsButton_BackupPath).Visibility = ViewStates.Gone;
+
+                FindViewById<TextView>(Resource.Id.SettingsLabel_AdditionalDatabasePath).Visibility = ViewStates.Gone;
+                FindViewById<EditText>(Resource.Id.Settings_AdditionalDatabasePath).Visibility = ViewStates.Gone;
+            }
 
             this.isInitialize = false;
         }
@@ -383,7 +397,7 @@ namespace VorratsUebersicht
             if (!this.additionalDatabasePathChanged)
                 return true;
 
-            EditText dbPath = this.FindViewById<EditText>(Resource.Id.SettingsButton_AdditionalDatabasePath);
+            EditText dbPath = this.FindViewById<EditText>(Resource.Id.Settings_AdditionalDatabasePath);
 
             if (!string.IsNullOrEmpty(dbPath.Text))
             {
@@ -947,6 +961,24 @@ namespace VorratsUebersicht
 
         public void ButtonBackupToFile_Click(object sender, EventArgs e)
         {
+            try
+            {
+                this.ShareBackup();
+            }
+            catch(Exception ex)
+            {
+                TRACE(ex);
+
+                var messageBox = new AlertDialog.Builder(this);
+                messageBox.SetTitle(this.Resources.GetString(Resource.String.App_ErrorOccurred));
+                messageBox.SetMessage(ex.Message);
+                messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
+                messageBox.Create().Show();
+            }
+        }
+
+        private void ShareBackup()
+        {
             // Vor dem Backup ggf. die User-Kategorien ggf. speichern,
             // damit es auch im Backup ist.
             this.SaveUserDefinedCategories();
@@ -980,8 +1012,6 @@ namespace VorratsUebersicht
                 try
                 {
                     File.Copy(databaseFilePath, backupFilePath);
-
-                    message = string.Format(this.Resources.GetString(Resource.String.Settings_BackupDone), backupFilePath);
                 }
                 catch(Exception ex)
                 {
@@ -1002,8 +1032,6 @@ namespace VorratsUebersicht
                 Java.IO.File filelocation = new Java.IO.File(backupFilePath);
                 var path = Android.Support.V4.Content.FileProvider.GetUriForFile(this, "de.stryi.exportcsv.fileprovider", filelocation);
 
-                //Android.Net.Uri uri =  Android.Net.Uri.Parse(backupFilePath);
-
                 Intent intentsend = new Intent();
                 intentsend.SetAction(Intent.ActionSend);
                 intentsend.SetType("application/octet-stream");
@@ -1014,23 +1042,6 @@ namespace VorratsUebersicht
             })).Start();
 
             return;
-
-
-            /*
-            // https://riptutorial.com/android/example/21673/sharing-a-file
-
-            var databaseFilePath = Android_Database.Instance.GetProductiveDatabasePath();
-
-            //var uriToFile = new File(databaseFilePath);
-
-            Intent intentsend = new Intent();
-            intentsend.SetAction(Intent.ActionSend);
-            Android.Net.Uri uri =  Android.Net.Uri.Parse(databaseFilePath);
-            intentsend.PutExtra(Intent.ExtraStream, uri);
-            intentsend.SetType("application/octet-stream");
-            
-            StartActivity(intentsend);
-            */
         }
 
         private async void ButtonRestoreFromFile_Click(object sender, EventArgs e)
