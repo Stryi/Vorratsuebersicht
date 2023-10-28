@@ -144,11 +144,21 @@ namespace VorratsUebersicht
             Button buttonBackup = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
             buttonBackup.Click += ButtonBackup_Click;
 
+            Button buttonBackupToFile = FindViewById<Button>(Resource.Id.SettingsButton_BackupToFile);
+            buttonBackupToFile.Click += ButtonBackupToFile_Click;
+
             Button buttonRestore = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
             buttonRestore.Click += ButtonRestore_Click;
 
             Button buttonRestoreFromFile = FindViewById<Button>(Resource.Id.SettingsButton_RestoreFromFile);
             buttonRestoreFromFile.Click += ButtonRestoreFromFile_Click;
+
+            // TODO: Version ermitteln
+            if ((int)Build.VERSION.SdkInt >= 33)
+            {
+                buttonBackup.Visibility = ViewStates.Gone;
+                buttonRestore.Visibility = ViewStates.Gone;
+            }
 
             this.textViewColor = FindViewById<TextView>(Resource.Id.Settings_BackupFileCount).CurrentTextColor;
 
@@ -406,7 +416,7 @@ namespace VorratsUebersicht
             MainActivity.SetUserDefinedCategories(catEdit?.Text);
         }
 
-        internal string GetBackupFileName(string databaseFilePath)
+        internal string GetBackupFileName(string databaseFilePath, bool tempFileFolder = false)
         {
             string backupFileName;
 
@@ -423,15 +433,20 @@ namespace VorratsUebersicht
                     DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss"));
             }
 
-            var downloadFolder = this.GetBackupPath();
+            var downloadFolder = this.GetBackupPath(tempFileFolder);
 
             var backupFilePath = Path.Combine(downloadFolder, backupFileName);
 
             return backupFilePath;
         }
 
-        private string GetBackupPath()
+        private string GetBackupPath(bool tempFileFolder = false)
         {
+            if (tempFileFolder)
+            {
+                return System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            }
+
             string downloadFolder = Settings.GetString("BackupPath", string.Empty);
 
             if (string.IsNullOrEmpty(downloadFolder))
@@ -930,6 +945,94 @@ namespace VorratsUebersicht
             StartActivityForResult(selectFile, SelectBackupId);
         }
 
+        public void ButtonBackupToFile_Click(object sender, EventArgs e)
+        {
+            // Vor dem Backup ggf. die User-Kategorien ggf. speichern,
+            // damit es auch im Backup ist.
+            this.SaveUserDefinedCategories();
+
+            DateTime? lastBackupDay = Database.GetSettingsDate("LAST_BACKUP");
+            if (lastBackupDay == null)
+            {
+                lastBackupDay = Database.GetSettingsDate("LAST_BACKUP_TIME");
+            }
+
+            // Datum vom Backup in der Datenbank speichern.
+            // Datum und Uhrzeit getrennt, damit auch die vorherige Version 
+            // (kennt nur Datum) das auslesen kann.
+            var now = DateTime.Now;
+
+            Database.SetSettingsDate    ("LAST_BACKUP",      now);  // Für die Abwärtskompatibilität
+            Database.SetSettingsDateTime("LAST_BACKUP_TIME", now);
+
+            this.ShowLastBackupDay();
+
+            var databaseFilePath = Android_Database.Instance.GetProductiveDatabasePath();
+
+            string backupFilePath = this.GetBackupFileName(databaseFilePath, true);
+
+            Android_Database.Instance.CloseConnection();
+
+            var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_BackupAndRestore);
+            new Thread(new ThreadStart(delegate
+            {
+                string message; 
+                try
+                {
+                    File.Copy(databaseFilePath, backupFilePath);
+
+                    message = string.Format(this.Resources.GetString(Resource.String.Settings_BackupDone), backupFilePath);
+                }
+                catch(Exception ex)
+                {
+                    TRACE(ex);
+
+                    message = ex.Message;
+
+                    if (lastBackupDay != null)
+                    {
+                        // Datum vom wieder zurückspielen.
+                        Database.SetSettingsDate    ("LAST_BACKUP",      lastBackupDay.Value);
+                        Database.SetSettingsDateTime("LAST_BACKUP_TIME", lastBackupDay.Value);
+                    }
+                }
+
+                this.HideProgressBar(progressDialog);
+
+                Java.IO.File filelocation = new Java.IO.File(backupFilePath);
+                var path = Android.Support.V4.Content.FileProvider.GetUriForFile(this, "de.stryi.exportcsv.fileprovider", filelocation);
+
+                //Android.Net.Uri uri =  Android.Net.Uri.Parse(backupFilePath);
+
+                Intent intentsend = new Intent();
+                intentsend.SetAction(Intent.ActionSend);
+                intentsend.SetType("application/octet-stream");
+                intentsend.PutExtra(Intent.ExtraStream, path);
+            
+                this.StartActivity(Intent.CreateChooser(intentsend, "Backup Datei senden"));
+
+            })).Start();
+
+            return;
+
+
+            /*
+            // https://riptutorial.com/android/example/21673/sharing-a-file
+
+            var databaseFilePath = Android_Database.Instance.GetProductiveDatabasePath();
+
+            //var uriToFile = new File(databaseFilePath);
+
+            Intent intentsend = new Intent();
+            intentsend.SetAction(Intent.ActionSend);
+            Android.Net.Uri uri =  Android.Net.Uri.Parse(databaseFilePath);
+            intentsend.PutExtra(Intent.ExtraStream, uri);
+            intentsend.SetType("application/octet-stream");
+            
+            StartActivity(intentsend);
+            */
+        }
+
         private async void ButtonRestoreFromFile_Click(object sender, EventArgs e)
         {
             PickOptions options = new PickOptions();
@@ -1050,10 +1153,12 @@ namespace VorratsUebersicht
         private void EnableButtons()
         {
             Button buttonBackup   = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
+            Button buttonBackup2  = FindViewById<Button>(Resource.Id.SettingsButton_BackupToFile);
             Button buttonRestore  = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
             Button buttonRestore2 = FindViewById<Button>(Resource.Id.SettingsButton_RestoreFromFile);
 
             buttonBackup.Enabled   = !Android_Database.UseTestDatabase;
+            buttonBackup2.Enabled  = !Android_Database.UseTestDatabase;
             buttonRestore.Enabled  = !Android_Database.UseTestDatabase;
             buttonRestore2.Enabled = !Android_Database.UseTestDatabase;
 

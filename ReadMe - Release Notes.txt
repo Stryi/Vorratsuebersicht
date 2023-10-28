@@ -1,10 +1,16 @@
+Version 8.00-beta1 (Code Version 138)
+=====================================
+
+C207 - Backup Datei senden (Sharen)
+
+
 Version 8.00-beta1 (Code Version 137)
-===============================
+=====================================
 
 E063 - FIX: Absturz bei Language 'ru' und 'iv'
 
 Version 8.00-alpha1 (Code Version 136)
-===============================
+======================================
 
 E063 - FIX: Bilder erstellen mit Android 30 - API 33 (s. C206 untern)
 C206 - Umstellung auf neue Xamarin.Essentials Version=1.7.7 
