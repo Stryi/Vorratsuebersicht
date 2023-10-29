@@ -1,6 +1,7 @@
 Version 8.00-beta1 (Code Version 138)
 =====================================
 
+E064 - FIX: CSV Export von Komma Zahlen
 C207 - Backup Datei senden (Sharen)
 
 Version 8.00-beta1 (Code Version 137)
