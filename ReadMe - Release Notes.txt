@@ -1,4 +1,4 @@
-Version 8.00-beta1 (Code Version 138)
+Version 8.00 (Code Version 138)
 =====================================
 
 E064 - FIX: CSV Export von Komma Zahlen
