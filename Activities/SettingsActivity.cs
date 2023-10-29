@@ -491,7 +491,7 @@ namespace VorratsUebersicht
                 this.DeleteShareFile();
             }
 
-            if ((resultCode != Result.Ok) && (requestCode == SelectBackupId) && (data != null))
+            if ((resultCode == Result.Ok) && (requestCode == SelectBackupId) && (data != null))
             {
                 string fileSource = data.GetStringExtra("FullName");
 
