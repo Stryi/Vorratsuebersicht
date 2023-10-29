@@ -2,12 +2,12 @@
 using System.IO;
 using System.Text;
 
+using Android.App;
 using Android.Content;
 using Android.Support.V4.Content;
 
 namespace VorratsUebersicht
 {
-    using SQLite;
 
     //
     // Anhand vom https://github.com/techtribeyt/androidcsv/tree/master
@@ -15,38 +15,38 @@ namespace VorratsUebersicht
     internal class CsvExport
     {
         private SQLite.SQLiteConnection databaseConnection;
-        private Context context;
+        private Activity context;
         private string trennzeichen = ",";
 
-        public static void ExportArticles(Context context)
+        public static string ExportArticles(Activity context, int requestCode)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
-                return;
+                return null;
 
             CsvExport export = new CsvExport();
             export.context = context;
             export.databaseConnection = databaseConnection;
 
             var result = export.GetArticlesAsCsvString();
-            export.WriteToFile("Vue-Artikel.csv", result);
+            return export.WriteToFile("Vue-Artikel.csv", result, requestCode);
         }
 
-        public static void ExportStorageItems(Context context)
+        public static string ExportStorageItems(Activity context, int requestCode)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
-                return;
+                return null;
 
             CsvExport export = new CsvExport();
             export.context = context;
             export.databaseConnection = databaseConnection;
 
             var result = export.GetStorageItemsAsCsvString();
-            export.WriteToFile("Vue-Lagerbestand.csv", result);
+            return export.WriteToFile("Vue-Lagerbestand.csv", result, requestCode);
         }
 
-        private void WriteToFile(string fileName, StringBuilder result)
+        private string WriteToFile(string fileName, StringBuilder result, int requestCode)
         {
             string destination = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
             destination = Path.Combine(destination, fileName);
@@ -66,7 +66,9 @@ namespace VorratsUebersicht
             fileIntent.AddFlags(ActivityFlags.GrantReadUriPermission);
 
             fileIntent.PutExtra(Intent.ExtraStream, path);
-            context.StartActivity(Intent.CreateChooser(fileIntent, "CSV Datei senden"));
+            context.StartActivityForResult(Intent.CreateChooser(fileIntent, "CSV Datei senden"), requestCode);
+
+            return destination;
         }
 
         // Erstellt eine CSV Datei.

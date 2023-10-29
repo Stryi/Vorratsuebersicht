@@ -25,6 +25,10 @@ namespace VorratsUebersicht
     public class SettingsActivity : Activity
     {
         public static readonly int SelectBackupId = 1000;
+        public static readonly int ShareFileId    = 1001;
+
+        private string shareFileName;
+
         private bool userCategoriesChanged = false;
         private bool additionalDatabasePathChanged = false;
         private bool isInitialize = false;
@@ -225,20 +229,21 @@ namespace VorratsUebersicht
 
             this.Window.SetSoftInputMode(SoftInput.StateHidden);
 
-            this.DetectBackupsCount();
-
             if ((int)Build.VERSION.SdkInt >= 33)
             {
                 buttonBackup.Visibility = ViewStates.Gone;
                 buttonRestore.Visibility = ViewStates.Gone;
 
-                FindViewById<TextView>(Resource.Id.Settings_LastBackupDay).Visibility = ViewStates.Gone;
                 FindViewById<TextView>(Resource.Id.Settings_BackupFileCount).Visibility = ViewStates.Gone;
                 FindViewById<TextView>(Resource.Id.Settings_BackupPath).Visibility = ViewStates.Gone;
                 FindViewById<TextView>(Resource.Id.SettingsButton_BackupPath).Visibility = ViewStates.Gone;
 
                 FindViewById<TextView>(Resource.Id.SettingsLabel_AdditionalDatabasePath).Visibility = ViewStates.Gone;
                 FindViewById<EditText>(Resource.Id.Settings_AdditionalDatabasePath).Visibility = ViewStates.Gone;
+            }
+            else
+            {
+                this.DetectBackupsCount();
             }
 
             this.isInitialize = false;
@@ -337,7 +342,7 @@ namespace VorratsUebersicht
         {
             try
             {
-                CsvExport.ExportArticles(this);
+                this.shareFileName = CsvExport.ExportArticles(this, ShareFileId);
             }
             catch(Exception ex)
             {
@@ -355,7 +360,7 @@ namespace VorratsUebersicht
         {
             try
             {
-                CsvExport.ExportStorageItems(this);
+                this.shareFileName = CsvExport.ExportStorageItems(this, ShareFileId);
             }
             catch(Exception ex)
             {
@@ -481,14 +486,58 @@ namespace VorratsUebersicht
                 this.DetectBackupsCount();
             }
 
-            if (resultCode != Result.Ok)
-                return;
+            if (requestCode == ShareFileId)
+            {
+                this.DeleteShareFile();
+            }
 
-            if ((requestCode == SelectBackupId) && (data != null))
+            if ((resultCode != Result.Ok) && (requestCode == SelectBackupId) && (data != null))
             {
                 string fileSource = data.GetStringExtra("FullName");
 
                 this.RestoreDatabase(fileSource);
+            }
+
+        }
+
+        private void DeleteShareFile()
+        {
+            if (String.IsNullOrEmpty(this.shareFileName))
+            {
+                return;
+            }
+
+            try
+            {
+                var sharePath = Path.GetDirectoryName(this.shareFileName);
+
+                foreach (var file in Directory.GetFiles(sharePath))
+                {
+                    TRACE("- {0}", file);
+                }
+
+                TRACE("Die Datei '{0}' löschen, die gerade versendet wurde (Share).", this.shareFileName);
+
+                File.Delete(this.shareFileName);
+                this.shareFileName = null;
+
+                // Ggf. alle liegengebliebene Backups zum Versenden löschen?
+                // Die sind teilweise sehr groß.
+                var filesList = Directory.GetFiles(sharePath, "*.VueBak");
+                foreach (var file in filesList)
+                {
+                    var extension = Path.GetExtension(file);
+                    if (extension == ".VueBak")
+                    {
+                        TRACE("Backup Datei '{0}' löschen, die beim Versenden liegengeblieben ist (z.B. wegen Abbruch).", file);
+                        File.Delete(file);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TRACE(ex);
             }
         }
 
@@ -1012,6 +1061,7 @@ namespace VorratsUebersicht
                 try
                 {
                     File.Copy(databaseFilePath, backupFilePath);
+                    this.shareFileName = backupFilePath;
                 }
                 catch(Exception ex)
                 {
@@ -1036,8 +1086,8 @@ namespace VorratsUebersicht
                 intentsend.SetAction(Intent.ActionSend);
                 intentsend.SetType("application/octet-stream");
                 intentsend.PutExtra(Intent.ExtraStream, path);
-            
-                this.StartActivity(Intent.CreateChooser(intentsend, "Backup Datei senden"));
+
+                this.StartActivityForResult(Intent.CreateChooser(intentsend, "Backup Datei senden"), ShareFileId);
 
             })).Start();
 

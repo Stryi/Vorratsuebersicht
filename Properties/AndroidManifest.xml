@@ -19,8 +19,12 @@
 		</intent>
 	</queries>
 	<application android:label="@string/App_Name" android:requestLegacyExternalStorage="true" android:icon="@drawable/ic_launcher">
-		<provider android:name="android.support.v4.content.FileProvider" android:authorities="de.stryi.exportcsv.fileprovider" android:grantUriPermissions="true" android:exported="false">
+		<provider 
+			android:name="android.support.v4.content.FileProvider"
+			android:authorities="de.stryi.exportcsv.fileprovider"
+			android:grantUriPermissions="true"
+			android:exported="false">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths" />
 		</provider>
-	</application>
+  </application>
 </manifest>
