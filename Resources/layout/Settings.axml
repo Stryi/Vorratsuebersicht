@@ -368,6 +368,38 @@
         </LinearLayout>
 
         <TextView
+            android:text="Feldtrennzeichen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="10dp" />
+
+        <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/Settings_CSVSeparator_Comma"
+                android:text="Komma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp" />
+            <RadioButton
+                android:id="@+id/Settings_CSVSeparator_Semicolon"
+                android:text="Semikolon"                
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp" />
+            <RadioButton
+                android:id="@+id/Settings_CSVSeparator_Tab"
+                android:text="Tabulator"                
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp" />
+        </RadioGroup>
+
+        <TextView
             android:text="@string/Settings_AdditionalOptions"
             android:textSize="20sp"
             android:layout_width="match_parent"

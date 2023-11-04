@@ -1,3 +1,8 @@
+Version 8.01 (Code Version 139)
+=====================================
+
+E065 - FIX: Popuptext für "Standard Artikel" jetzt Background abhängig
+
 Version 8.00 (Code Version 138)
 =====================================
 

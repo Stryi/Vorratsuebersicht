@@ -16,6 +16,10 @@ using Android.Views;
 using Android.Runtime;
 
 using Xamarin.Essentials;
+using System.Drawing;
+using Android.Graphics.Drawables;
+using Android.Support.V4.Graphics;
+using Android.Service.Controls.Actions;
 
 namespace VorratsUebersicht
 {
@@ -187,7 +191,16 @@ namespace VorratsUebersicht
             // Frei definierte Kategorien zusätzlich laden.
             var categories = MainActivity.GetDefinedCategories(defaultCategories);
 
-            ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, Resource.Layout.SpinnerItem, categories);
+            ColorDrawable backgroundColor = (ColorDrawable)this.Window.DecorView.Background;
+
+            var textResource = Resource.Layout.Setting_Spinner_Black;
+
+            if (this.IstFarbeDunklerAlsGray(backgroundColor.Color))
+            {
+                textResource = Resource.Layout.Setting_Spinner_White;
+            }
+
+            ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, textResource, categories);
             categoryAdapter.SetDropDownViewResource (Android.Resource.Layout.SimpleSpinnerDropDownItem);
             
             Spinner categorySpinner = this.FindViewById<Spinner>(Resource.Id.Settings_DefaultCategory);
@@ -1356,6 +1369,15 @@ namespace VorratsUebersicht
                 messageBox.Create().Show();
             }
         }
+
+        private bool IstFarbeDunklerAlsGray(Android.Graphics.Color color)
+        {
+            int durchschnittsRGB = (color.R + color.G + color.B) / 3;
+            int durchschnittsRGBGray = (Color.Gray.R + Color.Gray.G + Color.Gray.B) / 3;
+
+            return durchschnittsRGB < durchschnittsRGBGray;
+        }
+
 
         #endregion
 
