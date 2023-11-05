@@ -128,8 +128,9 @@
 	<string name="Settings_Contact_Email" >Contact email: <a href="mailto:cstryi@freenet.de">cstryi@freenet.de</a></string>
 
 	<!-- Artikelliste -->
-	<string name="ArticleList_AllCategories" >[All Categories]</string>
-	<string name="ArticleList_ToShoppingList" >To shopping list</string>
+	<string name="ArticleList_AllCategories" >[All categories]</string>
+  <string name="ArticleList_NoCategories" >[Without category / subcategory]</string>
+  <string name="ArticleList_ToShoppingList" >To shopping list</string>
 	<string name="ArticleList_Lagerbestand" >Inventory</string>
 
 	<string name="ArticleList_Menu_Add" >Create new article</string>
@@ -227,8 +228,9 @@
 
 	<string name="StorageItemList_Menu_Sort" >Sorting (alphabetically or by expiry date)</string>
 	<string name="StorageItemList_Menu_Add" >Add article</string>
+  <string name="StorageItemList_Menu_Filter" >Filter</string>
 
-	<!-- Lagerbestandsliste - Footer -->
+  <!-- Lagerbestandsliste - Footer -->
 	<string name="StorageListSummary_Position" >{0:n0} position</string>
 	<string name="StorageListSummary_Positions" >{0:n0} positions</string>
 	<string name="StorageListSummary_Quantity" >Sum amount {0:#,0.##}</string>

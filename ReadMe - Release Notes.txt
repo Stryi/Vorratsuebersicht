@@ -1,6 +1,7 @@
 Version 8.01 (Code Version 139)
 =====================================
 
+C208 - Artikelauswahl jetzt auch mit "Ohne Kategorie / Unterkategorie"
 E065 - FIX: Popuptext für "Standard Artikel" jetzt Background abhängig
 
 Version 8.00 (Code Version 138)

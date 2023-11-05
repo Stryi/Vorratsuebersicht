@@ -20,6 +20,7 @@ namespace VorratsUebersicht
 		private bool selectArticleOnly;
         private string category;
         private string subCategory;
+        private bool   withoutCategory;
         private bool   notInStorage;
         private string eanCode;
         private string lastSearchText = string.Empty;
@@ -52,6 +53,7 @@ namespace VorratsUebersicht
 
             this.categoryList = new List<string>();
             this.categoryList.Add(Resources.GetString(Resource.String.ArticleList_AllCategories));
+            this.categoryList.Add(Resources.GetString(Resource.String.ArticleList_NoCategories));
             this.categoryList.AddRange(Database.GetCategoryAndSubCategoryNames());
 
             if (categoryList.Count > 1)
@@ -139,10 +141,16 @@ namespace VorratsUebersicht
         {
             string newCategoryName    = string.Empty;
             string newSubCategoryName = string.Empty;
+            bool   withoutCategory    = false;
 
             string name = this.categoryList[e.Position];
 
-            if (e.Position > 0)
+            if (e.Position == 1)
+            {
+                withoutCategory = true;
+            }
+
+            if (e.Position > 1)
             {
                 if (name.StartsWith("  - "))    // Ist das ein SubCategory?
                 {
@@ -155,10 +163,11 @@ namespace VorratsUebersicht
                 }
             }
 
-            if ((newCategoryName != this.category) || (newSubCategoryName != this.subCategory))
+            if ((newCategoryName != this.category) || (newSubCategoryName != this.subCategory) || withoutCategory != this.withoutCategory)
             {
-                this.category    = newCategoryName;;
-                this.subCategory = newSubCategoryName;
+                this.category        = newCategoryName;
+                this.subCategory     = newSubCategoryName;
+                this.withoutCategory = withoutCategory;
 
                 this.ShowArticleList(this.lastSearchText);
             }
@@ -265,7 +274,7 @@ namespace VorratsUebersicht
         {
             this.liste = new List<ArticleListView>();
 
-            var articleList = Database.GetArticleList(this.category, this.subCategory, this.eanCode, this.notInStorage, this.specialFilter, text);
+            var articleList = Database.GetArticleList(this.category, this.subCategory, this.eanCode, this.notInStorage, this.withoutCategory, this.specialFilter, text);
 
             foreach(Article article in articleList)
             {

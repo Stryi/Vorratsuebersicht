@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Application_Background2" >
@@ -28,6 +29,15 @@
             android:contentDescription="Close Filter" />
     </FrameLayout>
 
+    <ListView
+        android:id="@+id/ArticleList"
+        android:layout_below="@id/ArticleList_SelectCategory"
+        android:layout_above="@id/ArticleList_Footer"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:dividerHeight="5dp"
+        android:layout_marginTop="0.0dp" />
+
     <LinearLayout
         android:id="@+id/ArticleList_SelectCategory"
         android:orientation="horizontal"
@@ -51,14 +61,6 @@
             android:background="@color/Application_Background2"
             android:padding="10dp" />
     </LinearLayout>
-    <ListView
-        android:id="@+id/ArticleList"
-        android:layout_below="@id/ArticleList_SelectCategory"
-        android:layout_above="@id/ArticleList_Footer"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:dividerHeight="5dp"
-        android:layout_marginTop="0.0dp" />
     <TextView
         android:id="@+id/ArticleList_Footer"
         android:layout_width="fill_parent"
