@@ -28,6 +28,7 @@ namespace VorratsUebersicht
         private string filterExpiryDate;
         private bool   showEmptyStorageArticles;
         private string storageNameFilter = string.Empty;
+        private bool   withoutStorage = false;
         private string lastSearchText = string.Empty;
 
         public static readonly int StorageItemQuantityId = 1000;
@@ -87,6 +88,7 @@ namespace VorratsUebersicht
         {
             this.storageList = new List<string>();
             this.storageList.Add(Resources.GetString(Resource.String.StorageItem_AllStoragesStorage));
+            this.storageList.Add(Resources.GetString(Resource.String.StorageItem_NoStoragesStorage));            
             this.storageList.AddRange(Database.GetStorageNames(true));
 
             if (storageList.Count > 1)
@@ -157,14 +159,23 @@ namespace VorratsUebersicht
         private void SpinnerStorage_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             string newStorageName = string.Empty;
-            if (e.Position > 0)
+            bool   withoutStorage = false;
+
+            if (e.Position == 1)
+            {
+                withoutStorage = true;
+            }
+
+            if (e.Position > 1)
             {
                 newStorageName = this.storageList[e.Position];
             }
 
-            if (newStorageName != this.storageNameFilter)
+            if ((newStorageName != this.storageNameFilter) || (withoutStorage != this.withoutStorage))
             {
                 this.storageNameFilter = newStorageName;
+                this.withoutStorage    = withoutStorage;
+
                 this.ShowStorageItemList(this.lastSearchText);
             }
         }
@@ -371,6 +382,7 @@ namespace VorratsUebersicht
                 this.showEmptyStorageArticles,
                 filter, 
                 this.storageNameFilter,
+                this.withoutStorage,
                 StorageItemListActivity.oderByToConsumeDate);
 
             var withNoDate   = this.Resources.GetString(Resource.String.StorageItem_CountWithNoExpiryDate);
@@ -381,7 +393,13 @@ namespace VorratsUebersicht
 				// Informationen über die Mengen zum Ablaufdatum.
 				var storageItemBestList = Database.GetBestBeforeItemQuantity(
                     storegeItem.ArticleId,
-                    this.storageNameFilter);
+                    this.storageNameFilter,
+                    this.withoutStorage);
+
+                if (storageItemBestList.Count == 0)
+                {
+                    continue;
+                }
 
                 string info    = string.Empty;
 			    string warning = string.Empty;

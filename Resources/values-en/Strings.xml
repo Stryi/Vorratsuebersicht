@@ -218,7 +218,8 @@
 	<!-- Lagerbestandsliste -->
 	<string name="StorageItem_Storage" >Storage:</string>
 	<string name="StorageItem_AllStoragesStorage" >[All storages]</string>
-	<string name="StorageItem_ToShoppingList" >To shopping list</string>
+  <string name="StorageItem_NoStoragesStorage" >[Without storages]</string>
+  <string name="StorageItem_ToShoppingList" >To shopping list</string>
 	<string name="StorageItem_Artikelangaben" >Article details</string>
 	<string name="StorageItem_Amount" >Value:</string>
 	<string name="StorageItem_SumQuantityAndSize" >Quantity:</string>
