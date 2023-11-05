@@ -97,7 +97,8 @@ namespace VorratsUebersicht
                 storageSelection.Visibility = ViewStates.Visible;
 
                 var spinnerStorage = FindViewById<Spinner>(Resource.Id.StorageItemList_Storages);
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleSpinnerItem, this.storageList);
+
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, Resource.Layout.Spinner_Black, this.storageList);
                 dataAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
                 spinnerStorage.Adapter = dataAdapter;
 

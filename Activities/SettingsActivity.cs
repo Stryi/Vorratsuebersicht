@@ -193,11 +193,11 @@ namespace VorratsUebersicht
 
             ColorDrawable backgroundColor = (ColorDrawable)this.Window.DecorView.Background;
 
-            var textResource = Resource.Layout.Setting_Spinner_Black;
+            var textResource = Resource.Layout.Spinner_Black;
 
             if (this.IstFarbeDunklerAlsGray(backgroundColor.Color))
             {
-                textResource = Resource.Layout.Setting_Spinner_White;
+                textResource = Resource.Layout.Spinner_White;
             }
 
             ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, textResource, categories);

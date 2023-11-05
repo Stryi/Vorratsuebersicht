@@ -62,7 +62,8 @@ namespace VorratsUebersicht
                 categorySelection.Visibility = ViewStates.Visible;
 
                 var spinnerCategory = FindViewById<Spinner>(Resource.Id.ArticleList_Categories);
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleSpinnerItem, this.categoryList);
+                
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, Resource.Layout.Spinner_Black, this.categoryList);
                 dataAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
                 spinnerCategory.Adapter = dataAdapter;
 

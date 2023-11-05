@@ -8383,23 +8383,23 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7F0C005B
 			public const int select_dialog_singlechoice_material = 2131492955;
 			
-			// aapt resource value: 0x7F0C005E
-			public const int Settings = 2131492958;
-			
 			// aapt resource value: 0x7F0C005C
-			public const int Setting_Spinner_Black = 2131492956;
+			public const int Settings = 2131492956;
 			
 			// aapt resource value: 0x7F0C005D
-			public const int Setting_Spinner_White = 2131492957;
+			public const int ShoppingItemList = 2131492957;
 			
-			// aapt resource value: 0x7F0C005F
-			public const int ShoppingItemList = 2131492959;
-			
-			// aapt resource value: 0x7F0C0060
-			public const int ShoppingItemListView = 2131492960;
+			// aapt resource value: 0x7F0C005E
+			public const int ShoppingItemListView = 2131492958;
 			
 			// aapt resource value: 0x7F0C0061
 			public const int SpinnerItem = 2131492961;
+			
+			// aapt resource value: 0x7F0C005F
+			public const int Spinner_Black = 2131492959;
+			
+			// aapt resource value: 0x7F0C0060
+			public const int Spinner_White = 2131492960;
 			
 			// aapt resource value: 0x7F0C0062
 			public const int SplashScreen = 2131492962;

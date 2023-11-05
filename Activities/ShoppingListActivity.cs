@@ -71,7 +71,7 @@ namespace VorratsUebersicht
                 supermarketSelection.Visibility = ViewStates.Visible;
 
                 var spinnerSupermarket = FindViewById<Spinner>(Resource.Id.ShoppingItemList_Spinner);
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleSpinnerItem, this.supermarketList);
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, Resource.Layout.Spinner_Black, this.supermarketList);
                 dataAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
                 spinnerSupermarket.Adapter = dataAdapter;
 

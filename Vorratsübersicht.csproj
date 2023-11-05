@@ -439,10 +439,10 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\outline_folder_open_white_24.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Setting_Spinner_White.xml" />
+    <AndroidResource Include="Resources\layout\Spinner_White.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Setting_Spinner_Black.xml" />
+    <AndroidResource Include="Resources\layout\Spinner_Black.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
