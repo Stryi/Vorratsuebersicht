@@ -312,7 +312,7 @@ namespace VorratsUebersicht
 
         #endregion
 
-        internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(int articleId, string storageName = null)
+        internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(int articleId, string storageName = null, bool withoutStorage = false)
         {
             IList<StorageItemQuantityResult> result = new List<StorageItemQuantityResult>();
 
@@ -337,6 +337,11 @@ namespace VorratsUebersicht
 
                 parameter.Add(storageName);
                 parameter.Add(storageName);
+            }
+
+            if (withoutStorage)
+            {
+                filter += " AND (IFNULL(StorageItem.StorageName, '') = '') AND StorageItem.ArticleId IN (SELECT ArticleId FROM Article WHERE IFNULL(Article.StorageName, '') = '')";
             }
 
             cmd += "SELECT BestBefore, SUM(Quantity) AS Quantity, Article.WarnInDays";
@@ -665,6 +670,7 @@ namespace VorratsUebersicht
             string subCategory,
             string eanCode,
             bool notInStorage,
+            bool withoutCategory,
             int  specialFilter,
             string textFilter = null)
         {
@@ -692,6 +698,17 @@ namespace VorratsUebersicht
                     filter += " WHERE ";
 
                 filter += " Article.SubCategory = ?";
+                parameter.Add(subCategory);
+            }
+
+            if (withoutCategory)
+            {
+                if (!string.IsNullOrEmpty(filter))
+                    filter += " AND ";
+                else
+                    filter += " WHERE ";
+
+                filter += " ((IFNULL(Article.SubCategory, '') = '') OR (IFNULL(Article.SubCategory, '') = ''))";
                 parameter.Add(subCategory);
             }
 
@@ -926,10 +943,11 @@ namespace VorratsUebersicht
         internal static IList<StorageItemQuantityResult> GetStorageItemQuantityListNoImage(
             string category, 
             string subCategory, 
-            string eanCode, 
+            string eanCode,
             bool showNotInStorageArticles, 
             string textFilter = null, 
             string storageName = null,
+            bool   withoutStorage = false,
             bool oderByToConsumeDate = false)
         {
             var result = new List<StorageItemQuantityResult>();
@@ -1035,6 +1053,12 @@ namespace VorratsUebersicht
                 parameter.Add(storageName);
             }
             
+            if (withoutStorage)
+            {
+                if (string.IsNullOrEmpty(filter)) { filter += " WHERE "; } else { filter += " AND "; }
+                filter += " (IFNULL(Article.StorageName, '') = '')";
+            }
+
             cmd += filter;
 
             if (oderByToConsumeDate)
