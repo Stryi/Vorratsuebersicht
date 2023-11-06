@@ -8392,86 +8392,89 @@ namespace VorratsUebersicht
 			// aapt resource value: 0x7F0C005E
 			public const int ShoppingItemListView = 2131492958;
 			
-			// aapt resource value: 0x7F0C0061
-			public const int SpinnerItem = 2131492961;
+			// aapt resource value: 0x7F0C0062
+			public const int SpinnerItem = 2131492962;
 			
 			// aapt resource value: 0x7F0C005F
 			public const int Spinner_Black = 2131492959;
 			
 			// aapt resource value: 0x7F0C0060
-			public const int Spinner_White = 2131492960;
+			public const int Spinner_Gray = 2131492960;
 			
-			// aapt resource value: 0x7F0C0062
-			public const int SplashScreen = 2131492962;
+			// aapt resource value: 0x7F0C0061
+			public const int Spinner_White = 2131492961;
 			
 			// aapt resource value: 0x7F0C0063
-			public const int StorageItemList = 2131492963;
+			public const int SplashScreen = 2131492963;
 			
 			// aapt resource value: 0x7F0C0064
-			public const int StorageItemListView = 2131492964;
+			public const int StorageItemList = 2131492964;
 			
 			// aapt resource value: 0x7F0C0065
-			public const int StorageItemQuantity = 2131492965;
+			public const int StorageItemListView = 2131492965;
 			
 			// aapt resource value: 0x7F0C0066
-			public const int StorageItemQuantityListView = 2131492966;
+			public const int StorageItemQuantity = 2131492966;
 			
 			// aapt resource value: 0x7F0C0067
-			public const int SubCategoryActivity = 2131492967;
+			public const int StorageItemQuantityListView = 2131492967;
 			
 			// aapt resource value: 0x7F0C0068
-			public const int support_simple_spinner_dropdown_item = 2131492968;
+			public const int SubCategoryActivity = 2131492968;
 			
 			// aapt resource value: 0x7F0C0069
-			public const int test_action_chip = 2131492969;
+			public const int support_simple_spinner_dropdown_item = 2131492969;
 			
 			// aapt resource value: 0x7F0C006A
-			public const int test_chip_zero_corner_radius = 2131492970;
+			public const int test_action_chip = 2131492970;
 			
 			// aapt resource value: 0x7F0C006B
-			public const int test_design_checkbox = 2131492971;
+			public const int test_chip_zero_corner_radius = 2131492971;
 			
 			// aapt resource value: 0x7F0C006C
-			public const int test_design_radiobutton = 2131492972;
+			public const int test_design_checkbox = 2131492972;
 			
 			// aapt resource value: 0x7F0C006D
-			public const int test_reflow_chipgroup = 2131492973;
+			public const int test_design_radiobutton = 2131492973;
 			
 			// aapt resource value: 0x7F0C006E
-			public const int test_toolbar = 2131492974;
+			public const int test_reflow_chipgroup = 2131492974;
 			
 			// aapt resource value: 0x7F0C006F
-			public const int test_toolbar_custom_background = 2131492975;
+			public const int test_toolbar = 2131492975;
 			
 			// aapt resource value: 0x7F0C0070
-			public const int test_toolbar_elevation = 2131492976;
+			public const int test_toolbar_custom_background = 2131492976;
 			
 			// aapt resource value: 0x7F0C0071
-			public const int test_toolbar_surface = 2131492977;
-			
-			// aapt resource value: 0x7F0C0076
-			public const int text_view_without_line_height = 2131492982;
+			public const int test_toolbar_elevation = 2131492977;
 			
 			// aapt resource value: 0x7F0C0072
-			public const int text_view_with_line_height_from_appearance = 2131492978;
-			
-			// aapt resource value: 0x7F0C0073
-			public const int text_view_with_line_height_from_layout = 2131492979;
-			
-			// aapt resource value: 0x7F0C0074
-			public const int text_view_with_line_height_from_style = 2131492980;
-			
-			// aapt resource value: 0x7F0C0075
-			public const int text_view_with_theme_line_height = 2131492981;
+			public const int test_toolbar_surface = 2131492978;
 			
 			// aapt resource value: 0x7F0C0077
-			public const int ZxingFragmentActivity = 2131492983;
+			public const int text_view_without_line_height = 2131492983;
+			
+			// aapt resource value: 0x7F0C0073
+			public const int text_view_with_line_height_from_appearance = 2131492979;
+			
+			// aapt resource value: 0x7F0C0074
+			public const int text_view_with_line_height_from_layout = 2131492980;
+			
+			// aapt resource value: 0x7F0C0075
+			public const int text_view_with_line_height_from_style = 2131492981;
+			
+			// aapt resource value: 0x7F0C0076
+			public const int text_view_with_theme_line_height = 2131492982;
 			
 			// aapt resource value: 0x7F0C0078
-			public const int zxingscanneractivitylayout = 2131492984;
+			public const int ZxingFragmentActivity = 2131492984;
 			
 			// aapt resource value: 0x7F0C0079
-			public const int zxingscannerfragmentlayout = 2131492985;
+			public const int zxingscanneractivitylayout = 2131492985;
+			
+			// aapt resource value: 0x7F0C007A
+			public const int zxingscannerfragmentlayout = 2131492986;
 			
 			static Layout()
 			{
