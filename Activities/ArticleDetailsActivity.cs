@@ -1274,7 +1274,14 @@ namespace VorratsUebersicht
 
                 this.ResizeBitmap(bitmap);
 
-                File.Delete(fileName);
+                try
+                {
+                    File.Delete(fileName);
+                }
+                catch(Exception ex)
+                {
+                    TRACE(ex);
+                }
 
                 this.HideProgressBar(progressDialog);
 
