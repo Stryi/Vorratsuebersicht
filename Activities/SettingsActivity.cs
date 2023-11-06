@@ -190,16 +190,8 @@ namespace VorratsUebersicht
 
             // Frei definierte Kategorien zusätzlich laden.
             var categories = MainActivity.GetDefinedCategories(defaultCategories);
-
-            ColorDrawable backgroundColor = (ColorDrawable)this.Window.DecorView.Background;
-
-            var textResource = Resource.Layout.Spinner_Black;
-
-            if (this.IstFarbeDunklerAlsGray(backgroundColor.Color))
-            {
-                textResource = Resource.Layout.Spinner_White;
-            }
-
+            
+            var textResource = this.GetTextResource();
             ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, textResource, categories);
             categoryAdapter.SetDropDownViewResource (Android.Resource.Layout.SimpleSpinnerDropDownItem);
             
@@ -260,6 +252,42 @@ namespace VorratsUebersicht
             }
 
             this.isInitialize = false;
+        }
+
+        private int GetTextResource()
+        {
+            var textResource = Resource.Layout.Spinner_Gray;
+
+            var backgroundColor = this.GeBackgroundColor();
+            if (backgroundColor != null)
+            {
+                textResource = Resource.Layout.Spinner_Black;
+
+                if (this.IstFarbeDunklerAlsGray(backgroundColor.Value))
+                {
+                    textResource = Resource.Layout.Spinner_White;
+                }
+            }
+
+            return textResource;
+        }
+
+        private Android.Graphics.Color? GeBackgroundColor()
+        {
+            ColorDrawable backgroundColor = this.Window.DecorView.Background as ColorDrawable;
+            if (backgroundColor != null)
+            {
+                return backgroundColor.Color;
+            }
+
+            Drawable backgroundColor2 = this.Window.DecorView.Background as Drawable;
+            if (backgroundColor2 != null)
+            {
+                ColorDrawable currentDrawable = backgroundColor2.Current as ColorDrawable;
+                return currentDrawable.Color;
+            }
+
+            return null;
         }
 
         private void DetectBackupsCount()
