@@ -28,10 +28,12 @@ namespace UnitTestProject
             statisticEssen.AddStorageItem(essen1);
             statisticEssen.AddStorageItem(essen2);
             
-            string istGewicht  = statisticEssen.GetStatistic();
-            string sollGewicht = "2 Positionen, Anzahl: 4 Stück, Menge: 3,5 kg";
+            statisticEssen.ConvertUnits();
 
-            Assert.AreEqual(istGewicht, sollGewicht);
+            Assert.AreEqual(statisticEssen.count, 2);       // Positionen
+            Assert.AreEqual(statisticEssen.quantity, 4);    // Anzahl
+            decimal menge = statisticEssen.sum_menge["kg"];
+            Assert.AreEqual(menge, 3.5m);                   // Menge: 3,5 kg
         }
 
         [TestMethod]
@@ -41,45 +43,50 @@ namespace UnitTestProject
             // Zusammenfassung ml, cl und l
             // --------------------------------------------------------------------------------
 
-            StorageItemQuantityResult trinken1 = new StorageItemQuantityResult()
-            {
-                Unit = "ml",
-                Size = 50,
-                Quantity = 1 // Stück
-            };
-
-            StorageItemQuantityResult trinken2 = new StorageItemQuantityResult()
-            {
-                Unit = "l",
-                Size = 0.75m,
-                Quantity = 10 // Stück
-            };
-
-            StorageItemQuantityResult trinken3 = new StorageItemQuantityResult()
-            {
-                Unit = "cl",
-                Size = 70,
-                Quantity = 1 // Stück
-            };
-
             StockStatistic statisticTrinken = new StockStatistic();
-            statisticTrinken.AddStorageItem(trinken1);
+            
+            statisticTrinken.AddStorageItem(new StorageItemQuantityResult()
+                {
+                    Unit = "ml",
+                    Size = 50,
+                    Quantity = 1 // Stück
+                });
+            
+            statisticTrinken.ConvertUnits();
 
-            string trinkenIst  = statisticTrinken.GetStatistic();
-            string trinkenSoll = "1 Position, Anzahl: 1 Stück, Menge: 50 ml";
-            Assert.AreEqual(trinkenSoll, trinkenIst);
+            Assert.AreEqual(statisticTrinken.count,     1);     // Positionen
+            Assert.AreEqual(statisticTrinken.quantity,  1);     // Anzahl
+            decimal menge = statisticTrinken.sum_menge["ml"];
+            Assert.AreEqual(menge, 50m);                        // Menge: 50 ml
 
-            statisticTrinken.AddStorageItem(trinken2);
 
-            trinkenIst  = statisticTrinken.GetStatistic();
-            trinkenSoll = "2 Positionen, Anzahl: 11 Stück, Menge: 7,55 l";
-            Assert.AreEqual(trinkenSoll, trinkenIst);
+            statisticTrinken.AddStorageItem(new StorageItemQuantityResult()
+                {
+                    Unit = "l",
+                    Size = 0.75m,
+                    Quantity = 10 // Stück
+                });
 
-            statisticTrinken.AddStorageItem(trinken3);
+            statisticTrinken.ConvertUnits();
 
-            trinkenIst = statisticTrinken.GetStatistic();
-            trinkenSoll = "3 Positionen, Anzahl: 12 Stück, Menge: 8,25 l";
-            Assert.AreEqual(trinkenSoll, trinkenIst);
+            Assert.AreEqual(statisticTrinken.count,     2);     // Positionen
+            Assert.AreEqual(statisticTrinken.quantity, 11);     // Anzahl
+            decimal liter = statisticTrinken.sum_menge["l"];
+            Assert.AreEqual(liter, 7.55m);                      // Menge: 7.55 l
+
+            statisticTrinken.AddStorageItem(new StorageItemQuantityResult()
+                {
+                    Unit = "cl",
+                    Size = 70,
+                    Quantity = 1 // Stück
+                });
+
+            statisticTrinken.ConvertUnits();
+
+            Assert.AreEqual(statisticTrinken.count,     3);     // Positionen
+            Assert.AreEqual(statisticTrinken.quantity, 12);     // Anzahl
+            liter = statisticTrinken.sum_menge["l"];
+            Assert.AreEqual(liter, 8.25m);                      // Menge: 7.55 l
         }
     }
 }
