@@ -947,6 +947,7 @@ namespace VorratsUebersicht
             bool showNotInStorageArticles, 
             string textFilter = null, 
             string storageName = null,
+            bool withoutStorage = false,
             bool oderByToConsumeDate = false)
         {
             var result = new List<StorageItemQuantityResult>();
@@ -969,6 +970,11 @@ namespace VorratsUebersicht
                 parameter.Add(storageName);
             }
 
+            if (withoutStorage)
+            {
+                bestBeforeFilter += " AND (IFNULL(Article.StorageName, '') = '')";
+            }
+
             string bestBeforeSelect = "SELECT BestBefore" +
                 " FROM StorageItem" +
                 " WHERE StorageItem.ArticleId = Article.ArticleId" +
@@ -985,6 +991,11 @@ namespace VorratsUebersicht
 
                 parameter.Add(storageName);
                 parameter.Add(storageName);
+            }
+
+            if (withoutStorage)
+            {
+                sumQuantityFilter += " AND (IFNULL(StorageItem.StorageName, '') = '')";
             }
 
             string sumQuantitySelect = "SELECT SUM(Quantity)" +

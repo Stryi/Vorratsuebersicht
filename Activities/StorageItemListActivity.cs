@@ -383,6 +383,7 @@ namespace VorratsUebersicht
                 this.showEmptyStorageArticles,
                 filter, 
                 this.storageNameFilter,
+                this.withoutStorage,
                 StorageItemListActivity.oderByToConsumeDate);
 
             var withNoDate   = this.Resources.GetString(Resource.String.StorageItem_CountWithNoExpiryDate);

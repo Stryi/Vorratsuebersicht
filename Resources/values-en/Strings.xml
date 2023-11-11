@@ -142,7 +142,7 @@
     <item>No price given</item>
     <item>Without calorie information</item>
     <item>For the shopping list (without inventory)</item>
-    <item>No storage location specified</item>
+    <item>No default storage location specified</item>
   </string-array>
 
 
@@ -176,7 +176,7 @@
 	<string name="ArticleDetails_Unit_Hint" >g, l, kg, mg, pcs</string>
 	<string name="ArticleDetails_Calories" >Calories:</string>
 	<string name="ArticleDetails_CaloriesPerUnit" >Calories per 100 {0}:</string>
-	<string name="ArticleDetails_StorageLabel" >Storage location:</string>
+	<string name="ArticleDetails_StorageLabel" >Default Storage:</string>
 	<string name="ArticleDetails_MinQuantityLabel" >Min. quantity:</string>
 	<string name="ArticleDetails_PrefQuantityLabel" >Pref. quantity:</string>
 	<string name="ArticleDetails_SupermarketLabel" >Supermarket:</string>
@@ -253,7 +253,7 @@
 
 	<string name="StorageItemQuantityList_Quantity" >Amount:</string>
 	<string name="StorageItemQuantityList_BestBefore" >Expiry Date:</string>
-	<string name="StorageItemQuantityList_StorageLabel" >Storage:</string>
+	<string name="StorageItemQuantityList_StorageLabel" >Default Storage:</string>
 
 	<string name="StorageItemQuantityList_StorageForNew" >Storage for new</string>
 	<string name="StorageItemQuantityList_ChangeDetails" >Change details</string>
