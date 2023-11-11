@@ -1,6 +1,7 @@
 Version 8.01 (Code Version 139)
 =====================================
 
+E066 - FIX: Bild Auswahl aus Galerie löscht jetzt nicht das Bild (bis ca. Android 7)
 C209 - Lagerauswahl jetzt auch mit "Ohne Lager"
 C208 - Artikelauswahl jetzt auch mit "Ohne Kategorie / Unterkategorie"
 E065 - FIX: Popuptext für "Standard Artikel" jetzt Background abhängig

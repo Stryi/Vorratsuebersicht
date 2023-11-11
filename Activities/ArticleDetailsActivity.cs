@@ -1276,7 +1276,35 @@ namespace VorratsUebersicht
 
                 try
                 {
-                    File.Delete(fileName);
+                    
+                    //AppInfo.ShowSettingsUI();
+                    /*
+                    TRACE("********************************************");
+                    TRACE("Android Version : {0}",  Build.VERSION.Release);
+                    TRACE("Android SDK     : {0}",  Build.VERSION.SdkInt);
+                    TRACE("Manufacturer    : {0}",  Build.Manufacturer);
+                    TRACE("Modell          : {0}",  Build.Model);
+
+                    TRACE("Version        : {0}", AppInfo.VersionString);
+                    TRACE("PackageName    : {0}", AppInfo.PackageName);
+                    TRACE("Name           : {0}", AppInfo.Name);
+                    TRACE("BuildString    : {0}", AppInfo.BuildString);
+                    TRACE("RequestedTheme : {0}", AppInfo.RequestedTheme);
+                    TRACE("FileName            : {0}", fileName);
+                    TRACE("CacheDirectory      : {0}", FileSystem.CacheDirectory);
+                    TRACE("AppDataDirectory    : {0}", FileSystem.AppDataDirectory);
+                    TRACE("SD card path        : {0}", Android.OS.Environment.ExternalStorageDirectory.AbsolutePath);
+                    TRACE("Database path       : {0}", Android_Database.Instance.GetDatabasePath());
+                    TRACE("********************************************");
+                    */
+
+                    // Bild nur löschen, wenn es im Cache liegt.
+                    var cachePath = $"{AppInfo.PackageName}/cache";
+                    if (fileName.Contains(cachePath))
+                    { 
+                        TRACE("Cache Bild wird gelöscht: {0}", fileName);
+                        File.Delete(fileName);
+                    }
                 }
                 catch(Exception ex)
                 {
