@@ -1,3 +1,8 @@
+Version 8.02 (Code Version 140)
+=====================================
+
+C210 - Codeversion wird jetzt auch bei Android < 7.1.1 angezeigt
+
 Version 8.01 (Code Version 139)
 =====================================
 

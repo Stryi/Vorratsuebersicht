@@ -1329,11 +1329,8 @@ namespace VorratsUebersicht
             string versionInfo = string.Empty;
             try
             {
-                Context context = this.ApplicationContext;
-                PackageInfo info = context.PackageManager.GetPackageInfo(context.PackageName, 0);
-
-                versionInfo += string.Format("Version {0}",         info.VersionName);
-                versionInfo += string.Format(" (Code Version {0})", info.LongVersionCode);
+                versionInfo += string.Format("Version {0}",         AppInfo.VersionString);
+                versionInfo += string.Format(" (Code Version {0})", AppInfo.BuildString);
             }
             catch(Exception e)
             {
