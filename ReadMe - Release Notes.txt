@@ -1,6 +1,7 @@
 Version 8.02 (Code Version 140)
 =====================================
 
+E067 - "Standard Lagerort" in der Lagerposition jetzt wieder als "Lagerort"
 C210 - Codeversion wird jetzt auch bei Android < 7.1.1 angezeigt
 
 Version 8.01 (Code Version 139)

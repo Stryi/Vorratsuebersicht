@@ -252,7 +252,7 @@
 
 	<string name="StorageItemQuantityList_Quantity" >Anzahl:</string>
 	<string name="StorageItemQuantityList_BestBefore" >Ablaufdatum:</string>
-	<string name="StorageItemQuantityList_StorageLabel" >Standard Lagerort:</string>
+	<string name="StorageItemQuantityList_StorageLabel" >Lagerort:</string>
 
 	<string name="StorageItemQuantityList_StorageForNew" >Lager für Neuanlage</string>
 	<string name="StorageItemQuantityList_ChangeDetails" >Angaben ändern</string>
