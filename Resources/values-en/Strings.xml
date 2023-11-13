@@ -96,7 +96,12 @@
 	<string name="Settings_CSV_Export_Articles" >Articles</string>
 	<string name="Settings_CSV_Export_Inventory" >Inventory</string>
 
-	<string name="Settings_AdditionalOptions" >Options</string>
+  <string name="Settings_CSVSeparator" >Field separator</string>
+  <string name="Settings_CSVSeparator_Comma_Text"     >Comma</string>
+  <string name="Settings_CSVSeparator_Semicolon_Text" >Semicolon</string>
+  <string name="Settings_CSVSeparator_Tab_Text"       >Tab</string>
+
+  <string name="Settings_AdditionalOptions" >Options</string>
 
 	<string name="Settings_ShowOFFCostMessage" >View cost notice at OpenFoodFacts.org</string>
 	<string name="Settings_AdditionalDatabasePath" >Additional database path (unfortunately not possible later):</string>

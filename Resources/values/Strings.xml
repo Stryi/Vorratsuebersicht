@@ -96,6 +96,11 @@
 	<string name="Settings_CSV_Export_Articles" >Artikelstamm</string>
 	<string name="Settings_CSV_Export_Inventory" >Lagerbestand</string>
 
+	<string name="Settings_CSVSeparator" >Feldtrennzeichen</string>
+	<string name="Settings_CSVSeparator_Comma_Text"     >Komma</string>
+	<string name="Settings_CSVSeparator_Semicolon_Text" >Semikolon</string>
+	<string name="Settings_CSVSeparator_Tab_Text"       >Tabulator</string>
+
 	<string name="Settings_AdditionalOptions" >Weitere Optionen</string>
 
 	<string name="Settings_ShowOFFCostMessage" >Kostenhinweis bei OpenFoodFacts.org anzeigen</string>

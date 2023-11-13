@@ -19,7 +19,7 @@ namespace VorratsUebersicht
         private Activity context;
         private string trennzeichen = ",";
 
-        public static string ExportArticles(Activity context, int requestCode)
+        public static string ExportArticles(Activity context, string trennzeichen, int requestCode)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
@@ -27,13 +27,14 @@ namespace VorratsUebersicht
 
             CsvExport export = new CsvExport();
             export.context = context;
+            export.trennzeichen = trennzeichen;
             export.databaseConnection = databaseConnection;
 
             var result = export.GetArticlesAsCsvString();
             return export.WriteToFile("Vue-Artikel.csv", result, requestCode);
         }
 
-        public static string ExportStorageItems(Activity context, int requestCode)
+        public static string ExportStorageItems(Activity context, string trennzeichen, int requestCode)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
@@ -41,6 +42,7 @@ namespace VorratsUebersicht
 
             CsvExport export = new CsvExport();
             export.context = context;
+            export.trennzeichen = trennzeichen;
             export.databaseConnection = databaseConnection;
 
             var result = export.GetStorageItemsAsCsvString();

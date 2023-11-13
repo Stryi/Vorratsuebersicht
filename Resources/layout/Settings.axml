@@ -368,7 +368,7 @@
         </LinearLayout>
 
         <TextView
-            android:text="Feldtrennzeichen"
+            android:text="@string/Settings_CSVSeparator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -381,19 +381,19 @@
             android:orientation="horizontal">
             <RadioButton
                 android:id="@+id/Settings_CSVSeparator_Comma"
-                android:text="Komma"
+                android:text="@string/Settings_CSVSeparator_Comma_Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="10dp" />
             <RadioButton
                 android:id="@+id/Settings_CSVSeparator_Semicolon"
-                android:text="Semikolon"                
+                android:text="@string/Settings_CSVSeparator_Semicolon_Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="10dp" />
             <RadioButton
                 android:id="@+id/Settings_CSVSeparator_Tab"
-                android:text="Tabulator"                
+                android:text="@string/Settings_CSVSeparator_Tab_Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="10dp" />
@@ -472,6 +472,7 @@
             android:paddingTop="16dp" />
 
         <TextView
+            android:id="@+id/Settings_Contact_EmailTextView"
             android:text="@string/Settings_Contact_Email"
             android:autoLink="web|email"
             android:layout_width="match_parent"
@@ -501,6 +502,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/Settings_AppWiki_TextView"
             android:text="@string/Settings_AppWiki_Page"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -515,6 +517,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/Settings_DatenschutTextView"
             android:text="@string/Settings_Datenschutz_Link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -67,11 +67,6 @@ namespace VorratsUebersicht
             switchToTestDB.Click += ButtonTestDB_Click;
             switchToTestDB.Checked = Android_Database.UseTestDatabase;
 
-            if (MainActivity.IsGooglePlayPreLaunchTestMode)
-            {
-                switchToTestDB.Enabled = false;
-            }
-
             Switch switchCostMessage = FindViewById<Switch>(Resource.Id.SettingsButton_ShowOFFCostMessage);
             switchCostMessage.Click += SwitchCostMessage_Click;
             switchCostMessage.Checked = ArticleDetailsActivity.showCostMessage;
@@ -180,6 +175,16 @@ namespace VorratsUebersicht
             Button buttonCsvExportStorageItems = FindViewById<Button>(Resource.Id.SettingsButton_CsvExportStorageItems);
             buttonCsvExportStorageItems.Click += ButtonCsvExportStorageItems_Click;
 
+            int csvSeparatorType = Settings.GetInt("CsvExportSeparator", 1);
+
+            FindViewById<RadioButton>(Resource.Id.Settings_CSVSeparator_Comma).Checked     = (csvSeparatorType == 1);
+            FindViewById<RadioButton>(Resource.Id.Settings_CSVSeparator_Semicolon).Checked = (csvSeparatorType == 2);
+            FindViewById<RadioButton>(Resource.Id.Settings_CSVSeparator_Tab).Checked       = (csvSeparatorType == 3);
+
+            FindViewById<RadioButton>(Resource.Id.Settings_CSVSeparator_Comma).Click      += CsvSeparatorType_Click;
+            FindViewById<RadioButton>(Resource.Id.Settings_CSVSeparator_Semicolon).Click  += CsvSeparatorType_Click;
+            FindViewById<RadioButton>(Resource.Id.Settings_CSVSeparator_Tab).Click        += CsvSeparatorType_Click;
+            
             this.ShowUserDefinedCategories();
 
             EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
@@ -250,6 +255,20 @@ namespace VorratsUebersicht
             {
                 this.DetectBackupsCount();
             }
+
+            if (MainActivity.IsGooglePlayPreLaunchTestMode)
+            {
+                switchToTestDB.Enabled = false;
+                buttonSendLogFile.Enabled = false;
+                buttonImportDb.Enabled = false;
+                buttonCsvExportArticles.Enabled = false;
+                buttonCsvExportStorageItems.Enabled = false;
+
+                FindViewById<TextView>(Resource.Id.Settings_Contact_EmailTextView).Enabled = false;
+                FindViewById<TextView>(Resource.Id.Settings_AppWiki_TextView).Enabled = false;
+                FindViewById<TextView>(Resource.Id.Settings_DatenschutTextView).Enabled = false;
+            }
+
 
             this.isInitialize = false;
         }
@@ -383,7 +402,7 @@ namespace VorratsUebersicht
         {
             try
             {
-                this.shareFileName = CsvExport.ExportArticles(this, ShareFileId);
+                this.shareFileName = CsvExport.ExportArticles(this, this.GetCsvSeparator(), ShareFileId);
             }
             catch(Exception ex)
             {
@@ -401,7 +420,7 @@ namespace VorratsUebersicht
         {
             try
             {
-                this.shareFileName = CsvExport.ExportStorageItems(this, ShareFileId);
+                this.shareFileName = CsvExport.ExportStorageItems(this, this.GetCsvSeparator(), ShareFileId);
             }
             catch(Exception ex)
             {
@@ -413,6 +432,38 @@ namespace VorratsUebersicht
                 messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                 messageBox.Create().Show();
             }
+        }
+
+
+        private void CsvSeparatorType_Click(object sender, EventArgs e)
+        {
+            RadioButton radioButton = sender as RadioButton;
+
+            if (radioButton.Id == Resource.Id.Settings_CSVSeparator_Comma)
+            {
+                Settings.PutInt("CsvExportSeparator", 1);
+            }
+            if (radioButton.Id == Resource.Id.Settings_CSVSeparator_Semicolon)
+            {
+                Settings.PutInt("CsvExportSeparator", 2);
+            }
+            if (radioButton.Id == Resource.Id.Settings_CSVSeparator_Tab)
+            {
+                Settings.PutInt("CsvExportSeparator", 3);
+            }
+        }
+
+        private string GetCsvSeparator()
+        {
+            int csvSeparatorType = Settings.GetInt("CsvExportSeparator", 1);
+            switch (csvSeparatorType)
+            {
+                case 1: return ",";
+                case 2: return ";";
+                case 3: return "\t";
+            }
+
+            return ",";
         }
 
 
@@ -938,9 +989,6 @@ namespace VorratsUebersicht
 
         private void ButtonSendLogFile_Click(object sender, EventArgs eventArgs)
         {
-            if (MainActivity.IsGooglePlayPreLaunchTestMode)
-                return;
-
             string message = this.Resources.GetString(Resource.String.Settings_SendLogFileMessage);
 
             var dialog = new AlertDialog.Builder(this);
@@ -1403,6 +1451,10 @@ namespace VorratsUebersicht
             return durchschnittsRGB < durchschnittsRGBGray;
         }
 
+        private void SetTrennzeichen()
+        {
+
+        }
 
         #endregion
 
