@@ -152,6 +152,7 @@ namespace VorratsUebersicht
             if (MainActivity.IsGooglePlayPreLaunchTestMode)
             {
                 Android_Database.UseTestDatabase = true;
+                FindViewById<TextView>(Resource.Id.Main_AppWiki_Link).Enabled = false;
             }
             else
             {
@@ -388,10 +389,12 @@ namespace VorratsUebersicht
 
             if (MainActivity.IsGooglePlayPreLaunchTestMode)
             {
-                message = "Die App befindet sich im Testmodus. Folgende Einschränkung bestehen bis zum {0}:\n\n";
+                message = "Die App befindet sich im Testmodus. Einige Einschränkung bestehen bis zum {0}, unter anderem:\n\n";
                 message += "- Nur Testdatenbank\n";
                 message += "- Kein EAN Scan\n";
                 message += "- Kein Teilen\n";
+                message += "- Keine Links\n";
+                message += "- Keine E-Mail\n";
                 message = string.Format(message, MainActivity.preLaunchTestEndDay.AddDays(-1).ToShortDateString());
 
                 var messageDialog = new AlertDialog.Builder(this);

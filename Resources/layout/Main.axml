@@ -125,6 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/Main_AppWiki_Link"
             android:text="@string/Settings_AppWiki_Page"
             android:textSize="16sp"
             android:autoLink="web"
