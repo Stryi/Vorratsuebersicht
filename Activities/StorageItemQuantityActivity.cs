@@ -15,6 +15,7 @@ using Android.Support.V4.Content;
 using Android.Support.V7.App;
 
 using static VorratsUebersicht.Tools;
+using Google.Android.Material.FloatingActionButton;
 
 namespace VorratsUebersicht
 {
@@ -104,8 +105,11 @@ namespace VorratsUebersicht
             Button stepButton = FindViewById<Button>(Resource.Id.StorageItemQuantity_StepButton);
             stepButton.Click += StepButton_Click;
 
-            ImageButton addArticle = FindViewById<ImageButton>(Resource.Id.StorageItemQuantity_AddArticle);
-            addArticle.Click += AddArticle_Click;
+            //ImageButton addArticle = FindViewById<ImageButton>(Resource.Id.StorageItemQuantity_AddArticle);
+            //addArticle.Click += AddArticle_Click;
+
+            FloatingActionButton addButton = FindViewById<FloatingActionButton>(Resource.Id.StorageItemQuantity_AddPosition);
+            addButton.Click += AddArticle_Click;
 
             if (editMode)
             {
@@ -359,6 +363,7 @@ namespace VorratsUebersicht
             {
                 FindViewById(Resource.Id.StorageItemQuantity_Storage).Visibility = ViewStates.Visible;
                 FindViewById(Resource.Id.StorageItemQuantity_Step).Visibility = ViewStates.Visible;
+                FindViewById(Resource.Id.StorageItemQuantity_AddPosition).Visibility = ViewStates.Visible;
                 adapter.ActivateButtons();
                 this.Window.SetSoftInputMode(SoftInput.StateHidden);
             }
@@ -366,6 +371,7 @@ namespace VorratsUebersicht
             {
                 FindViewById(Resource.Id.StorageItemQuantity_Storage).Visibility = ViewStates.Gone;
                 FindViewById(Resource.Id.StorageItemQuantity_Step).Visibility = ViewStates.Gone;
+                FindViewById(Resource.Id.StorageItemQuantity_AddPosition).Visibility = ViewStates.Gone;
                 adapter.DeactivateButtons();
             }
 
