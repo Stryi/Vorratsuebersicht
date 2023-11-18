@@ -4,35 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Application_Background2">
-  <LinearLayout
-    android:id="@+id/ShoppingItemList_SelectSupermarket"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:visibility="gone" >
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/ShoppingItemList_SelectSupermarket"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textSize="20sp"
-        android:textColor="@color/Text_Color"
-        android:text="@string/ArticleDetails_SupermarketLabel" />
-    <Spinner
-        android:id="@+id/ShoppingItemList_Spinner"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textColor="@color/Text_Color"
-        android:background="@color/Application_Background2" />
-  </LinearLayout>
-  <TextView
-        android:id="@+id/ShoppingItemList_Footer"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:textSize="15sp"
-        android:padding="5dp"        
-        android:textColor="@color/Text_Color" />
+        android:visibility="gone" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/Text_Color"
+            android:text="@string/ArticleDetails_SupermarketLabel" />
+        <Spinner
+            android:id="@+id/ShoppingItemList_Spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="@color/Text_Color"
+            android:background="@color/Application_Background2" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/ShoppingItemList"
         android:layout_below="@id/ShoppingItemList_SelectSupermarket"
@@ -41,4 +34,23 @@
         android:layout_height="match_parent"
         android:dividerHeight="5dp"
         android:layout_marginTop="0.0dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ShoppingItemList_AddPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/ShoppingItemList_Footer"
+        android:layout_alignParentRight="true"        
+        android:src="@drawable/add_FILL0_wght400_GRAD0_opsz24"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        android:layout_margin="16dp"/>
+
+    <TextView
+        android:id="@+id/ShoppingItemList_Footer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:textSize="15sp"
+        android:padding="5dp"
+        android:textColor="@color/Text_Color" />
 </RelativeLayout>

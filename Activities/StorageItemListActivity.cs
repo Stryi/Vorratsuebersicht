@@ -11,6 +11,8 @@ using Android.Widget;
 using Android.Support.V4.Content;
 using static Android.Widget.AdapterView;
 
+using Google.Android.Material.FloatingActionButton;
+
 namespace VorratsUebersicht
 {
     [Activity(Label = "@string/Main_Button_Lagerbestand", Icon = "@drawable/ic_assignment_white_48dp")]
@@ -79,9 +81,25 @@ namespace VorratsUebersicht
                 this.Title = string.Format("{0} - {1}", this.Title, this.eanCode);
             }
 
+            FloatingActionButton addButton = FindViewById<FloatingActionButton>(Resource.Id.ArticleList_AddPosition);
+            addButton.Click += AddArticle_Click;
+
             this.InitializeStorageFilter();
 
             this.ShowStorageItemList();
+        }
+
+        private void AddArticle_Click(object sender, EventArgs e)
+        {
+            // Select Article -> Menge erfassen
+			var articleListIntent = new Intent (this, typeof(ArticleListActivity));
+			articleListIntent.PutExtra("SelectArticleOnly", true);
+
+			articleListIntent.PutExtra("Category",    this.category);
+			articleListIntent.PutExtra("SubCategory", this.subCategory);
+			articleListIntent.PutExtra("NotInStorage", true);
+
+			this.StartActivityForResult (articleListIntent, SelectArticleId);
         }
 
         private void InitializeStorageFilter()

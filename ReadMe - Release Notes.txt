@@ -1,7 +1,7 @@
-Version 8.03 (Code Version 140)
+Version 8.03 (Code Version 141)
 =====================================
 
-C213 - Floating Action Button beim Lagerbestand.
+C213 - Floating Action Button bei Listen
 C212 - Link auf Wiki auf der Hauptseite währen Testbetrieb ist jetzt deaktiviert.
 
 Version 8.02 (Code Version 140)

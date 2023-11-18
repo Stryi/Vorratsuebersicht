@@ -9,6 +9,8 @@ using Android.Views;
 using Android.Widget;
 using static Android.Widget.AdapterView;
 
+using Google.Android.Material.FloatingActionButton;
+
 namespace VorratsUebersicht
 {
     [Activity(Label = "@string/Main_Button_ArtikelListe", Icon = "@drawable/ic_local_offer_white_48dp")]
@@ -79,6 +81,9 @@ namespace VorratsUebersicht
             ImageView imageView = FindViewById<ImageView>(Resource.Id.ArticleList_FilterClear);
             imageView.Click += ArticleFilterClear_Click;
 
+            FloatingActionButton addButton = FindViewById<FloatingActionButton>(Resource.Id.ArticleList_AddPosition);
+            addButton.Click += AddArticle_Click;
+
             this.RegisterForContextMenu(listView);
 
             ShowArticleList();
@@ -97,13 +102,18 @@ namespace VorratsUebersicht
             this.ShowArticleList();
         }
 
+        private void AddArticle_Click(object sender, EventArgs e)
+        {
+            // Create New Article
+            this.ShowArticleDetails(0, null);
+        }
+
         public override void OnCreateContextMenu(IContextMenu menu, View view, IContextMenuContextMenuInfo menuInfo)
         {
             if (view.Id == Resource.Id.ArticleList) 
             {
                 menu.Add(IMenu.None, 1, IMenu.None, Resource.String.ArticleList_Lagerbestand);    // Lagerbestand
                 menu.Add(IMenu.None, 2, IMenu.None, Resource.String.ArticleList_ToShoppingList);  // Auf Einkaufszettel
-
             }
         }
 

@@ -105,8 +105,8 @@ namespace VorratsUebersicht
             Button stepButton = FindViewById<Button>(Resource.Id.StorageItemQuantity_StepButton);
             stepButton.Click += StepButton_Click;
 
-            //ImageButton addArticle = FindViewById<ImageButton>(Resource.Id.StorageItemQuantity_AddArticle);
-            //addArticle.Click += AddArticle_Click;
+            ImageButton addArticle = FindViewById<ImageButton>(Resource.Id.StorageItemQuantity_AddArticle);
+            addArticle.Click += AddArticle_Click;
 
             FloatingActionButton addButton = FindViewById<FloatingActionButton>(Resource.Id.StorageItemQuantity_AddPosition);
             addButton.Click += AddArticle_Click;
