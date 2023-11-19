@@ -670,6 +670,7 @@ namespace VorratsUebersicht
             string subCategory,
             string eanCode,
             bool notInStorage,
+            bool notInShoppingList,
             bool withoutCategory,
             int  specialFilter,
             string textFilter = null)
@@ -771,6 +772,16 @@ namespace VorratsUebersicht
                     filter += " WHERE ";
 
                 filter += "ArticleId NOT IN (SELECT ArticleId FROM StorageItem)";
+            }
+
+            if (notInShoppingList)
+            {
+                if (!string.IsNullOrEmpty(filter))
+                    filter += " AND ";
+                else
+                    filter += " WHERE ";
+
+                filter += "ArticleId NOT IN (SELECT ArticleId FROM ShoppingList)";
             }
 
             if (specialFilter > 0)

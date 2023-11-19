@@ -115,6 +115,7 @@ namespace VorratsUebersicht
             // Select Article
             var articleListIntent = new Intent(this, typeof(ArticleListActivity));
             articleListIntent.PutExtra("SelectArticleOnly", true);
+			articleListIntent.PutExtra("NotInShoppingList", true);
 
             this.StartActivityForResult(articleListIntent, SelectArticleId);
         }
@@ -248,6 +249,7 @@ namespace VorratsUebersicht
                     // Select Article
                     var articleListIntent = new Intent(this, typeof(ArticleListActivity));
                     articleListIntent.PutExtra("SelectArticleOnly", true);
+        			articleListIntent.PutExtra("NotInShoppingList", true);
 
                     this.StartActivityForResult(articleListIntent, SelectArticleId);
 

@@ -22,6 +22,7 @@ namespace VorratsUebersicht
         private string subCategory;
         private bool   withoutCategory;
         private bool   notInStorage;
+        private bool   notInShoppingList;
         private string eanCode;
         private string lastSearchText = string.Empty;
         private int    specialFilter = 0;
@@ -33,10 +34,11 @@ namespace VorratsUebersicht
 
             this.selectArticleOnly = Intent.GetBooleanExtra("SelectArticleOnly", false);
 
-            this.category     = Intent.GetStringExtra ("Category") ?? string.Empty;
-            this.subCategory  = Intent.GetStringExtra ("SubCategory") ?? string.Empty;
-            this.notInStorage = Intent.GetBooleanExtra("NotInStorage", false);
-            this.eanCode      = Intent.GetStringExtra ("EANCode") ?? string.Empty;
+            this.category          = Intent.GetStringExtra ("Category") ?? string.Empty;
+            this.subCategory       = Intent.GetStringExtra ("SubCategory") ?? string.Empty;
+            this.notInStorage      = Intent.GetBooleanExtra("NotInStorage", false);
+            this.notInShoppingList = Intent.GetBooleanExtra("NotInShoppingList", false);
+            this.eanCode           = Intent.GetStringExtra ("EANCode") ?? string.Empty;
 
             if (!string.IsNullOrEmpty(this.subCategory))
             {
@@ -283,7 +285,15 @@ namespace VorratsUebersicht
         {
             this.liste = new List<ArticleListView>();
 
-            var articleList = Database.GetArticleList(this.category, this.subCategory, this.eanCode, this.notInStorage, this.withoutCategory, this.specialFilter, text);
+            var articleList = Database.GetArticleList(
+                this.category,
+                this.subCategory,
+                this.eanCode,
+                this.notInStorage,
+                this.notInShoppingList,
+                this.withoutCategory,
+                this.specialFilter,
+                text);
 
             foreach(Article article in articleList)
             {

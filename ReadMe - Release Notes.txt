@@ -1,6 +1,7 @@
 Version 8.03 (Code Version 141)
 =====================================
 
+C214 - Einkaufsliste (+) zeigt jetzt nur noch die Artikel, die da noch nicht drin sind.
 C213 - Floating Action Button bei Listen
 C212 - Link auf Wiki auf der Hauptseite währen Testbetrieb ist jetzt deaktiviert.
 
