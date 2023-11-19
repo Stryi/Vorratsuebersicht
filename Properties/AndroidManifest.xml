@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest
-	android:versionCode="141"
+	android:versionCode="142"
 	android:versionName="8.03"
 	package="de.stryi.Vorratsuebersicht"
 	android:installLocation="auto"

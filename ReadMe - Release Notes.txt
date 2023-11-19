@@ -1,4 +1,4 @@
-Version 8.03 (Code Version 141)
+Version 8.03 (Code Version 142)
 =====================================
 
 C214 - Einkaufsliste (+) zeigt jetzt nur noch die Artikel, die da noch nicht drin sind.
