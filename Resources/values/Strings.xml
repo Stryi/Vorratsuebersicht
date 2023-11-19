@@ -20,7 +20,7 @@
 	<string name="App_Search" >Suchen</string>
 	<string name="App_Rename" >Umbenennen</string>
 
-	<string name="App_ErrorOccurred" >Fehler aufgetreten!</string>
+  <string name="App_ErrorOccurred" >Fehler aufgetreten!</string>
 	<string name="App_ChooseAction" >Aktion wählen...</string>
 	<string name="App_EnterQuantity" >Anzahl eingeben:</string>
 
@@ -142,7 +142,8 @@
   <string name="ArticleList_Menu_Filter" >Filter</string>
 
   <string name="ArticleList_SpecialFilter" >Filter: {0}</string>
-  
+  <string name="ArticleList_SpecialFilterClose" >Filter schließen</string>
+
   <string-array name="ArticleListeSpecialFilter" >
     <item>Kein Preis angegeben</item>
     <item>Ohne Kalorienangaben</item>
@@ -254,8 +255,9 @@
 	<string name="StorageItemQuantity_StorageForNewPosition" >Lager für Neuanlagen:</string>
 	<string name="StorageItemQuantity_Step" >Schritt</string>
 	<string name="StorageItemQuantity_StepText" >1x</string>
+  <string name="StorageItemQuantity_AddPosition" >Neue position anlegen</string>
 
-	<string name="StorageItemQuantityList_Quantity" >Anzahl:</string>
+  <string name="StorageItemQuantityList_Quantity" >Anzahl:</string>
 	<string name="StorageItemQuantityList_BestBefore" >Ablaufdatum:</string>
 	<string name="StorageItemQuantityList_StorageLabel" >Lagerort:</string>
 

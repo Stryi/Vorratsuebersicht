@@ -113,7 +113,7 @@
             android:layout_toRightOf="@id/StorageItemQuantity_StepButton" />
         <ImageButton
             android:id="@+id/StorageItemQuantity_AddArticle"
-            android:contentDescription="@string/Picture"
+            android:contentDescription="@string/StorageItemQuantity_AddPosition"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
@@ -131,15 +131,16 @@
         android:dividerHeight="5dp"
         android:background="@color/Application_Background2" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
         android:id="@+id/StorageItemQuantity_AddPosition"
         android:visibility="gone"        
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"        
-        android:src="@drawable/add_FILL0_wght400_GRAD0_opsz24"
-        android:theme="@style/Theme.MaterialComponents.Light"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/baseline_add_outline_black_36"
+        android:background="@drawable/roundcorner"
+        android:contentDescription="@string/StorageItemQuantity_AddPosition"
         android:layout_margin="16dp"/>
 
 </RelativeLayout>

@@ -9,8 +9,6 @@ using Android.Views;
 using Android.Widget;
 using static Android.Widget.AdapterView;
 
-using Google.Android.Material.FloatingActionButton;
-
 namespace VorratsUebersicht
 {
     [Activity(Label = "@string/Main_Button_ArtikelListe", Icon = "@drawable/ic_local_offer_white_48dp")]
@@ -81,7 +79,7 @@ namespace VorratsUebersicht
             ImageView imageView = FindViewById<ImageView>(Resource.Id.ArticleList_FilterClear);
             imageView.Click += ArticleFilterClear_Click;
 
-            FloatingActionButton addButton = FindViewById<FloatingActionButton>(Resource.Id.ArticleList_AddPosition);
+            ImageButton addButton = FindViewById<ImageButton>(Resource.Id.ArticleList_AddPosition);
             addButton.Click += AddArticle_Click;
 
             this.RegisterForContextMenu(listView);

@@ -35,15 +35,16 @@
         android:dividerHeight="5dp"
         android:layout_marginTop="0.0dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
         android:id="@+id/ShoppingItemList_AddPosition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/ShoppingItemList_Footer"
-        android:layout_alignParentRight="true"        
-        android:src="@drawable/add_FILL0_wght400_GRAD0_opsz24"
-        android:theme="@style/Theme.MaterialComponents.Light"
-        android:layout_margin="16dp"/>
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_above="@id/ShoppingItemList_Footer"        
+        android:layout_alignParentRight="true"
+        android:src="@drawable/baseline_add_outline_black_36"
+        android:background="@drawable/roundcorner"
+        android:contentDescription="@string/ShoppingList_Menu_Add"
+        android:layout_margin="20dp"/>
 
     <TextView
         android:id="@+id/ShoppingItemList_Footer"

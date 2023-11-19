@@ -15,7 +15,6 @@ using Android.Support.V4.Content;
 using Android.Support.V7.App;
 
 using static VorratsUebersicht.Tools;
-using Google.Android.Material.FloatingActionButton;
 
 namespace VorratsUebersicht
 {
@@ -108,7 +107,7 @@ namespace VorratsUebersicht
             ImageButton addArticle = FindViewById<ImageButton>(Resource.Id.StorageItemQuantity_AddArticle);
             addArticle.Click += AddArticle_Click;
 
-            FloatingActionButton addButton = FindViewById<FloatingActionButton>(Resource.Id.StorageItemQuantity_AddPosition);
+            ImageButton addButton = FindViewById<ImageButton>(Resource.Id.StorageItemQuantity_AddPosition);
             addButton.Click += AddArticle_Click;
 
             if (editMode)

@@ -142,6 +142,7 @@
   <string name="ArticleList_Menu_Filter" >Filter</string>
 
   <string name="ArticleList_SpecialFilter" >Filter: {0}</string>
+  <string name="ArticleList_SpecialFilterClose" >Close filter</string>
 
   <string-array name="ArticleListeSpecialFilter" >
     <item>No price given</item>
@@ -255,8 +256,9 @@
 	<string name="StorageItemQuantity_StorageForNewPosition" >Warehouse for new position:</string>
 	<string name="StorageItemQuantity_Step" >Step</string>
 	<string name="StorageItemQuantity_StepText" >1x</string>
+  <string name="StorageItemQuantity_AddPosition" >Create new position</string>
 
-	<string name="StorageItemQuantityList_Quantity" >Amount:</string>
+  <string name="StorageItemQuantityList_Quantity" >Amount:</string>
 	<string name="StorageItemQuantityList_BestBefore" >Expiry Date:</string>
 	<string name="StorageItemQuantityList_StorageLabel" >Storage:</string>
 

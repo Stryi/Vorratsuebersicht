@@ -10,8 +10,6 @@ using Android.Text;
 using Android.Views;
 using Android.Widget;
 
-using Google.Android.Material.FloatingActionButton;
-
 namespace VorratsUebersicht
 {
     [Activity(Label = "@string/Main_Button_Einkaufsliste", Icon = "@drawable/ic_shopping_cart_white_48dp")]
@@ -48,7 +46,7 @@ namespace VorratsUebersicht
             ListView listView = FindViewById<ListView>(Resource.Id.ShoppingItemList);
             listView.ItemClick += ListView_ItemClick;
 
-            FloatingActionButton addButton = FindViewById<FloatingActionButton>(Resource.Id.ShoppingItemList_AddPosition);
+            ImageButton addButton = FindViewById<ImageButton>(Resource.Id.ShoppingItemList_AddPosition);
             addButton.Click += AddArticle_Click;
 
             this.LoadSupermarketList();
