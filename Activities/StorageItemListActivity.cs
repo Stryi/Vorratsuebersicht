@@ -263,7 +263,9 @@ namespace VorratsUebersicht
         private void ShareList()
         {
             if (MainActivity.IsGooglePlayPreLaunchTestMode)
+            {
                 return;
+            }
 
             string text = string.Empty;
 

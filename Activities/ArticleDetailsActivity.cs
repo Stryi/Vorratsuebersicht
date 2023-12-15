@@ -790,7 +790,9 @@ namespace VorratsUebersicht
             try
             {
                 if (MainActivity.IsGooglePlayPreLaunchTestMode)
+                {
                     return;
+                }
 
                 var result = await MediaPicker.CapturePhotoAsync();
                 if (result == null)

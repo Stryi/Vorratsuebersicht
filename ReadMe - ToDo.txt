@@ -1,6 +1,12 @@
 Prio 1
 ======
 
+- Verzeichnis für die Datenbank außerhalb der Anwendung
+  https://developer.android.com/training/data-storage/shared/documents-files
+
+- Kompakte Liste (nur Bilder)
+
+
 Einstellungen
 - Nur X Backups lassen, ältere automatisch löschen. (auch vom mik53ke per E-Mail)
 - Beim Backup zurückspielen hinweis auf "Backup importieren" anbringen.

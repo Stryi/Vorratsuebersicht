@@ -1451,11 +1451,6 @@ namespace VorratsUebersicht
             return durchschnittsRGB < durchschnittsRGBGray;
         }
 
-        private void SetTrennzeichen()
-        {
-
-        }
-
         #endregion
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)

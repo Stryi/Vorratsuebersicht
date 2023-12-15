@@ -387,25 +387,25 @@ namespace VorratsUebersicht
         {
             string message = string.Empty;
 
-            if (MainActivity.IsGooglePlayPreLaunchTestMode)
+            if (!MainActivity.IsGooglePlayPreLaunchTestMode)
             {
-                message = "Die App befindet sich im Testmodus. Einige Einschränkung bestehen bis zum {0}, unter anderem:\n\n";
-                message += "- Nur Testdatenbank\n";
-                message += "- Kein EAN Scan\n";
-                message += "- Kein Teilen\n";
-                message += "- Keine Links\n";
-                message += "- Keine E-Mail\n";
-                message = string.Format(message, MainActivity.preLaunchTestEndDay.AddDays(-1).ToShortDateString());
-
-                var messageDialog = new AlertDialog.Builder(this);
-                messageDialog.SetMessage(message);
-                messageDialog.SetTitle(Resource.String.App_Name);
-                messageDialog.SetIcon(Resource.Drawable.ic_launcher);
-                messageDialog.SetPositiveButton(Resource.String.App_Ok, (s, e) => {});
-                messageDialog.Create().Show();
-
                 return;
             }
+
+            message = "Die App befindet sich im Testmodus. Einige Einschränkung bestehen bis zum {0}, unter anderem:\n\n";
+            message += "- Nur Testdatenbank\n";
+            message += "- Kein EAN Scan\n";
+            message += "- Kein Teilen\n";
+            message += "- Keine Links\n";
+            message += "- Keine E-Mail\n";
+            message = string.Format(message, MainActivity.preLaunchTestEndDay.AddDays(-1).ToShortDateString());
+
+            var messageDialog = new AlertDialog.Builder(this);
+            messageDialog.SetMessage(message);
+            messageDialog.SetTitle(Resource.String.App_Name);
+            messageDialog.SetIcon(Resource.Drawable.ic_launcher);
+            messageDialog.SetPositiveButton(Resource.String.App_Ok, (s, e) => {});
+            messageDialog.Create().Show();
         }
 
         private void ShowInfoAufTestdatenbank()
