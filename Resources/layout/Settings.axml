@@ -268,15 +268,35 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:paddingTop="16dp" />
-        <EditText
-            android:id="@+id/Settings_AdditionalDatabasePath"
+
+        <RelativeLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:textAllCaps="false"
-            android:gravity="left|center_vertical"
-            android:inputType="textNoSuggestions" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
+            <EditText
+                android:id="@+id/Settings_AdditionalDatabasePath"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="40dp"
+                android:textAllCaps="false"
+                android:gravity="left|center_vertical"
+                android:inputType="textNoSuggestions" />
+
+            <Button
+                android:id="@+id/SettingsButton_DatabaseFolder"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="@string/ThreePoints" 
+                android:textSize="16dp"
+                android:textAllCaps="false"
+                android:layout_alignParentRight="true" />
+
+            </RelativeLayout>
+        
 
         <TextView
             android:text="@string/Settings_EAN_Scann"

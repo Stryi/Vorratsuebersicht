@@ -30,6 +30,7 @@ namespace VorratsUebersicht
     {
         public static readonly int SelectBackupId = 1000;
         public static readonly int ShareFileId    = 1001;
+        public static readonly int SelectFolderId = 1002;
 
         private string shareFileName;
 
@@ -138,7 +139,6 @@ namespace VorratsUebersicht
             EditText addDbPath = FindViewById<EditText>(Resource.Id.Settings_AdditionalDatabasePath);
             
             addDbPath.Text = Settings.GetString("AdditionslDatabasePath", string.Empty);
-
             addDbPath.TextChanged += delegate { this.additionalDatabasePathChanged = true; };
 
             Button buttonLicenses = FindViewById<Button>(Resource.Id.SettingsButton_Licenses);
@@ -247,9 +247,6 @@ namespace VorratsUebersicht
                 FindViewById<TextView>(Resource.Id.Settings_BackupFileCount).Visibility = ViewStates.Gone;
                 FindViewById<TextView>(Resource.Id.Settings_BackupPath).Visibility = ViewStates.Gone;
                 FindViewById<TextView>(Resource.Id.SettingsButton_BackupPath).Visibility = ViewStates.Gone;
-
-                FindViewById<TextView>(Resource.Id.SettingsLabel_AdditionalDatabasePath).Visibility = ViewStates.Gone;
-                FindViewById<EditText>(Resource.Id.Settings_AdditionalDatabasePath).Visibility = ViewStates.Gone;
             }
             else
             {
@@ -269,8 +266,53 @@ namespace VorratsUebersicht
                 FindViewById<TextView>(Resource.Id.Settings_DatenschutTextView).Enabled = false;
             }
 
+            Button selectDatabaseFolder = FindViewById<Button>(Resource.Id.SettingsButton_DatabaseFolder);
+            selectDatabaseFolder.Click += SelectDatabaseFolder_Click;
 
             this.isInitialize = false;
+        }
+
+        private void SelectDatabaseFolder_Click(object sender, EventArgs e)
+        {
+            // https://stackoverflow.com/questions/27889377/action-open-document-tree-only-returns-empty-recent-folder
+            var intent = new Intent(Intent.ActionOpenDocumentTree);
+            intent.PutExtra("android.content.extra.SHOW_ADVANCED", true);
+            intent.PutExtra("android.content.extra.FANCY", true);
+            intent.PutExtra("android.content.extra.SHOW_FILESIZE", true);
+            StartActivityForResult (Intent.CreateChooser (intent, "Select Save Location"), SelectFolderId);
+            
+            /*
+            if (Android.OS.Build.VERSION.SdkInt >= Android.OS.Build.VERSION_CODES.Q) 
+            {
+                StorageManager sm = (StorageManager) this.GetSystemService(Android.Content.Context.StorageService);
+
+                Intent intent = sm.PrimaryStorageVolume.CreateOpenDocumentTreeIntent();
+                //String startDir = "Android";
+                //String startDir = "Download"; // Not choosable on an Android 11 device
+                //String startDir = "DCIM";
+                //String startDir = "DCIM/Camera";  // replace "/", "%2F"
+                //String startDir = "DCIM%2FCamera";
+                String startDir = "Documents";
+
+                var uri = intent.GetParcelableExtra("android.provider.extra.INITIAL_URI");
+
+                String scheme = uri.ToString();
+
+                //Log.Debug(TAG, "INITIAL_URI scheme: " + scheme);
+
+                scheme = scheme.Replace("/root/", "/document/");
+
+                scheme += "%3A" + startDir;
+                            uri = Uri.Parse(scheme);
+                            intent.PutExtra("android.provider.extra.INITIAL_URI", uri);
+
+                Log.d(TAG, "uri: " + uri.toString());
+
+                ((Activity) this).StartActivityForResult(intent, REQUEST_ACTION_OPEN_DOCUMENT_TREE);
+
+                return;
+            }
+            */
         }
 
         private int GetTextResource()
@@ -590,6 +632,19 @@ namespace VorratsUebersicht
                 this.RestoreDatabase(fileSource);
             }
 
+            if ((resultCode == Result.Ok) && (requestCode == SelectFolderId) && (data != null))
+            {
+                Android.Net.Uri fileSource = (Android.Net.Uri)data.Data;
+                var path = fileSource.Path;
+
+                EditText addDbPath = FindViewById<EditText>(Resource.Id.Settings_AdditionalDatabasePath);
+                addDbPath.Text = path.ToString();
+
+                this.ContentResolver.TakePersistableUriPermission(fileSource, ActivityFlags.GrantReadUriPermission);
+                //var dbPath = Android_Database.Instance.GetDatabasePath();
+
+                //File.Copy(dbPath, path + "/Test.db3");
+            }
         }
 
         private void DeleteShareFile()

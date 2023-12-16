@@ -323,8 +323,8 @@ namespace VorratsUebersicht
             
             try
             {
-                // "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht"
-                // "/storage/0E0E-2316/Android/data/de.stryi.Vorratsuebersicht"
+                // "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
+                // "/storage/0E0E-2316/Android/data/de.stryi.Vorratsuebersicht/files"
                 var externalFilesDirs = context.GetExternalFilesDirs(null);
                 if (externalFilesDirs != null)
                 {
