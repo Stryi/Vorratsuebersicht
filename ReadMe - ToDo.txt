@@ -6,6 +6,9 @@ Prio 1
 
 - Kompakte Liste (nur Bilder)
 
+- Datenbankanlage auch auf der SD Karte ermöglichen.
+  Datenbank auf SD Karte verschieben?
+  Beispiel: "/storage/0E0E-2316/Android/data/de.stryi.Vorratsuebersicht/files"
 
 Einstellungen
 - Nur X Backups lassen, ältere automatisch löschen. (auch vom mik53ke per E-Mail)
