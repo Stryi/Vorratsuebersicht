@@ -38,7 +38,7 @@
 	<string name="Main_Button_BestandNachKategorie" >Inventory by category</string>
 	<string name="Main_Button_Lagerbestand" >Inventory</string>
 	<string name="Main_Button_LagerbestandListe" >Inventory List</string>
-	<string name="Main_Button_ArtikelListe" >Articles</string>
+	<string name="Main_Button_ArtikelListe" >Articles Data</string>
 	<string name="Main_Button_ArtikelScannen" >Scan Article</string>
 	<string name="Main_Button_Einkaufsliste" >Shopping List</string>
 	<string name="Main_Button_Artikelangaben" >Articles details</string>

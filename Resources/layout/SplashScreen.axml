@@ -8,7 +8,7 @@
       android:id="@+id/SplashScreen_ProgressText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_above="@+id/SplashScreen_ProgressBar"
+      android:layout_above="@id/SplashScreen_ProgressBar"
       android:background="@android:color/transparent"
       android:textColor="@color/Text_Color"
       android:textSize="20sp"         

@@ -37,8 +37,7 @@
 	<string name="Main_OpenDatabase" >Datenbank öffnen:</string>
 	<string name="Main_Button_BestandNachKategorie" >Bestand nach Kategorie</string>
 	<string name="Main_Button_Lagerbestand" >Lagerbestand</string>
-	<string name="Main_Button_LagerbestandListe" >Lagerbestandsliste</string>
-	<string name="Main_Button_ArtikelListe" >Artikelliste</string>
+	<string name="Main_Button_LagerbestandListe" >Lagerbestandsliste</string>	<string name="Main_Button_ArtikelListe" >Artikeldaten</string>  
 	<string name="Main_Button_ArtikelScannen" >Artikel scannen</string>
 	<string name="Main_Button_Einkaufsliste" >Einkaufsliste</string>
 	<string name="Main_Button_Artikelangaben" >Artikelangaben</string>

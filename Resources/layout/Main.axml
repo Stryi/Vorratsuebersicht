@@ -60,7 +60,7 @@
       android:layout_height="wrap_content"
       android:textAllCaps="false"
       android:textSize="18sp"
-      android:drawableLeft="@drawable/ic_storage_white_48dp"
+      android:drawableLeft="@drawable/main_button_storage_grouped"
       android:gravity="left|center_vertical"
       android:enabled="false"
       android:drawablePadding="20dp" />
@@ -71,7 +71,7 @@
       android:layout_height="wrap_content"
       android:textAllCaps="false"
       android:textSize="18sp"
-      android:drawableLeft="@drawable/ic_assignment_white_48dp"
+      android:drawableLeft="@drawable/main_button_storage"
       android:gravity="left|center_vertical"
       android:enabled="false"
       android:drawablePadding="20dp" />
@@ -82,7 +82,7 @@
       android:layout_height="wrap_content"
       android:textAllCaps="false"
       android:textSize="18sp"
-      android:drawableLeft="@drawable/ic_local_offer_white_48dp"
+      android:drawableLeft="@drawable/main_button_article"
       android:gravity="left|center_vertical"
       android:enabled="false"
       android:drawablePadding="20dp" />
@@ -104,7 +104,7 @@
       android:layout_height="wrap_content"
       android:textAllCaps="false"
       android:textSize="18sp"
-      android:drawableLeft="@drawable/ic_shopping_cart_white_48dp"
+      android:drawableLeft="@drawable/main_button_shopping_cart"
       android:gravity="left|center_vertical"
       android:enabled="false"
       android:drawablePadding="20dp" />

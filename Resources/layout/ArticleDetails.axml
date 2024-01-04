@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/Text_Color2"
-                android:layout_toRightOf="@+id/ArticleDetails_Image" />
+                android:layout_toRightOf="@id/ArticleDetails_Image" />
         </LinearLayout>
         <ProgressBar
             android:id="@+id/ProgressBar"

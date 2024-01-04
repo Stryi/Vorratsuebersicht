@@ -1,3 +1,9 @@
+Version 8.10 (Code Version 143)
+=====================================
+
+C215 - Neue Icons für die Startseite.
+
+
 Version 8.03 (Code Version 142)
 =====================================
 
