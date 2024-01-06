@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Collections.Generic;
 
+using Android.App;
+using static Android.Media.Audiofx.DynamicsProcessing;
+
 namespace VorratsUebersicht
 {
     internal class Logging
@@ -15,7 +18,17 @@ namespace VorratsUebersicht
                 day = DateTime.Today;
             }
 
-            string logFilePath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
+            // "/data/user/0/de.stryi.Vorratsuebersicht/files"
+            string logFilePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+
+            // 1. "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/cache"
+            // 2. "/storage/1820-3B0F/Android/data/de.stryi.Vorratsuebersicht/cache"
+            var cacheDirs = Application.Context.GetExternalCacheDirs();
+            if (cacheDirs.Length > 1)
+            {
+                logFilePath = cacheDirs[0].AbsolutePath;
+            }
+
             string fileName = string.Format("Vue_{0}.log", day.Value.ToString("yyyy.MM.dd"));
             return Path.Combine(logFilePath, fileName);
         }
@@ -55,10 +68,23 @@ namespace VorratsUebersicht
 
         internal static string[] GetLogFileList()
         {
+            // "/data/user/0/de.stryi.Vorratsuebersicht/files"
             string logFilePath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
+            
             var unsortedFileList = Directory.GetFiles(logFilePath, "Vue_*.log");
 
             List<string> sortedList = new List<string>(unsortedFileList);
+
+            // 1. "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/cache"
+            // 2. "/storage/1820-3B0F/Android/data/de.stryi.Vorratsuebersicht/cache"
+            var cacheDirs = Application.Context.GetExternalCacheDirs();
+            if (cacheDirs.Length > 1)
+            {
+                logFilePath = cacheDirs[0].AbsolutePath;
+
+                unsortedFileList = Directory.GetFiles(logFilePath, "Vue_*.log");
+                sortedList.AddRange(unsortedFileList);
+            }
 
             return sortedList.OrderBy(e => e).ToArray();
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
@@ -30,8 +31,8 @@ namespace VorratsUebersicht
         {  
             base.OnCreate(bundle);
 
-            //AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            //TaskScheduler.UnobservedTaskException      += TaskScheduler_UnobservedTaskException;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            TaskScheduler.UnobservedTaskException      += TaskScheduler_UnobservedTaskException;
 
             SetContentView(Resource.Layout.SplashScreen);
 
@@ -286,18 +287,18 @@ namespace VorratsUebersicht
             return versionInfo;
         }
 
-        /*
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             var newExc = new Exception("TaskSchedulerOnUnobservedTaskException", e.Exception);
             TRACE(newExc);
+            throw newExc;
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             var newExc = new Exception("CurrentDomainOnUnhandledException", e.ExceptionObject as Exception);
             TRACE(newExc);
+            throw newExc;
         }
-        */
     }
 }   

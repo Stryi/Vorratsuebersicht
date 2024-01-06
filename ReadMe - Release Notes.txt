@@ -1,6 +1,7 @@
 Version 8.10 (Code Version 143)
 =====================================
 
+C216 - LOG Datei wird jetzt in Verzeichnis /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/cache gespeichert.
 C215 - Neue Icons für die Startseite.
 
 
