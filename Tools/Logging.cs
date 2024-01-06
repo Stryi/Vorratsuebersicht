@@ -24,7 +24,7 @@ namespace VorratsUebersicht
             // 1. "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/cache"
             // 2. "/storage/1820-3B0F/Android/data/de.stryi.Vorratsuebersicht/cache"
             var cacheDirs = Application.Context.GetExternalCacheDirs();
-            if (cacheDirs.Length > 1)
+            if (cacheDirs.Length > 0)
             {
                 logFilePath = cacheDirs[0].AbsolutePath;
             }
@@ -104,6 +104,12 @@ namespace VorratsUebersicht
             }
 
             return text.ToString();
+        }
+
+        internal static void DeleteCurrentLogFile()
+        {
+            string logFileName = Logging.GetCurrentLogFileName();
+            File.Delete(logFileName);
         }
 
     }

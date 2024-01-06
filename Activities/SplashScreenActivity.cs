@@ -128,6 +128,23 @@ namespace VorratsUebersicht
             TRACE("Database on SD card : {0}", Android_Database.IsDatabaseOnSdCard);
             TRACE("********************************************");
 
+            //var packageName       = AppInfo.PackageName;                                // "de.stryi.Vorratsuebersicht"
+            //var appDataDirectory  = Xamarin.Essentials.FileSystem.AppDataDirectory;     // "/data/user/0/de.stryi.Vorratsuebersicht/files"
+            //var cacheDirectory    = Xamarin.Essentials.FileSystem.CacheDirectory;       // "/data/user/0/de.stryi.Vorratsuebersicht/cache"
+
+            //var downloadDirectory = Android.OS.Environment.DirectoryDownloads;                      // "Download"
+            //var internerStorage   = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;   // "/storage/emulated/0"
+
+            //TRACE("DirectoryDcim        => {0}", Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDcim));            // /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/DCIM
+            //TRACE("MediaUnmounted       => {0}", Application.Context.GetExternalFilesDir(Android.OS.Environment.MediaUnmounted));           // /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/unmounted
+            //TRACE("MediaUnmountable     => {0}", Application.Context.GetExternalFilesDir(Android.OS.Environment.MediaUnmountable));         // /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/unmountable
+            //TRACE("MediaShared          => {0}", Application.Context.GetExternalFilesDir(Android.OS.Environment.MediaShared));              // /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/shared
+            //TRACE("MediaShared          => {0}", Application.Context.GetExternalFilesDir(Android.OS.Environment.MediaShared));              // /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/shared
+            //TRACE("MediaMounted         => {0}", Application.Context.GetExternalFilesDir(Android.OS.Environment.MediaMounted));             // /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/mounted
+            //TRACE("DirectoryDocuments   => {0}", Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments));       // /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/Documents
+            //TRACE("DirectoryPictures    => {0}", Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryPictures));        // /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/Pictures
+            //TRACE("DirectoryScreenshots => {0}", Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryScreenshots));     // /storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files/Screenshots
+
             for (int progress=0; progress<100; progress+=10) 
             {
                 System.Threading.Thread.Sleep(1000);
@@ -279,10 +296,7 @@ namespace VorratsUebersicht
                 versionInfo += string.Format("Version {0}",         info.VersionName);
                 versionInfo += string.Format(" (Code Version {0})", info.LongVersionCode);
             }
-            catch(Exception e)
-            {
-                TRACE("SettingsActivity.ShowApplicationVersion() - {0}", e.Message);
-            }
+            catch { }
 
             return versionInfo;
         }

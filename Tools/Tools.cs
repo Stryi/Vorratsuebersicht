@@ -71,7 +71,7 @@ namespace VorratsUebersicht
                     if (string.IsNullOrEmpty(line))
                         continue;
 
-                    var lineText = DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss - ") + line + "\r\n";
+                    var lineText = DateTime.Now.ToString("HH.mm.ss - ") + line + "\r\n";
                     File.AppendAllText(Tools.logFileName, lineText);
                 }
 
