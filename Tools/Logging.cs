@@ -99,6 +99,8 @@ namespace VorratsUebersicht
             {
                 text.AppendLine("LogFile: " + logFileName);
                 text.AppendLine(File.ReadAllText(logFileName));
+                text.AppendLine("**** E N D   OF    F I L E ****");
+                text.AppendLine("");
             }
 
             return text.ToString();

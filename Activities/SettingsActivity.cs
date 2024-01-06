@@ -135,6 +135,10 @@ namespace VorratsUebersicht
             Button buttonSendLogFile =  FindViewById<Button>(Resource.Id.SettingsButton_SendLogFile);
             buttonSendLogFile.Click += ButtonSendLogFile_Click;
                         
+            TextView logFile = FindViewById<TextView>(Resource.Id.Settings_LogFile);
+            logFile.Text = String.Format("LOG: " + Tools.GetLogFileName());
+            logFile.Click += LogFile_Click;
+                        
             EditText addDbPath = FindViewById<EditText>(Resource.Id.Settings_AdditionalDatabasePath);
             
             addDbPath.Text = Settings.GetString("AdditionslDatabasePath", string.Empty);
@@ -271,6 +275,19 @@ namespace VorratsUebersicht
 
 
             this.isInitialize = false;
+        }
+
+        private void LogFile_Click(object sender, EventArgs e)
+        {
+            AlertDialog.Builder messageBox = new AlertDialog.Builder(this);
+            messageBox.SetTitle("Test Absturz verursachen?");
+            messageBox.SetMessage("Dieser Testabsturz dienst nur für interne Tests des Entwicklers und wird im Normalfall nicht gebraucht (bitte auf 'Nein' klicken).");
+            messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Yes), (s, e) => 
+            {
+                throw new ApplicationException("Das ist ein Testabsturz.");
+            });
+            messageBox.SetNegativeButton(this.Resources.GetString(Resource.String.App_No), (s, e) => { });
+            messageBox.Show();
         }
 
         private int GetTextResource()

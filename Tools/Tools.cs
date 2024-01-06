@@ -81,5 +81,10 @@ namespace VorratsUebersicht
                 Log.WriteLine(LogPriority.Error, "stryi", e.ToString());
             }
         }
+
+        internal static string GetLogFileName()
+        {
+            return Tools.logFileName;
+        }
     }
 }
