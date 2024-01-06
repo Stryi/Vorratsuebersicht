@@ -6,6 +6,7 @@ using System.Globalization;
 
 using Android.App;
 using Android.Content;
+using Xamarin.Essentials;
 
 namespace VorratsUebersicht
 {
@@ -304,6 +305,66 @@ namespace VorratsUebersicht
 			// Return the database connection 
 			return conn;
 		}
+
+        public static List<string> GetStoragesPaths(Context context, string additionsPath = null)
+        {
+            List<String> pathList = new List<String>();
+
+            var externalStoragePaths = context.GetExternalFilesDirs(Android.OS.Environment.DirectoryDownloads);
+            foreach(Java.IO.File pathFile in externalStoragePaths)
+            {
+                string pathName = pathFile.AbsolutePath;
+                if (!pathFile.CanRead())
+                {
+                    continue;
+                }
+
+                int index = pathName.IndexOf(Path.Combine("/Android/data", AppInfo.PackageName));
+                if (index < 0)
+                {
+                    continue;
+                }
+                pathName = pathName.Substring(0, index);
+
+                if (!string.IsNullOrEmpty(additionsPath))
+                {
+                    pathName = Path.Combine(pathName, additionsPath);
+                }
+
+                if (Directory.Exists(pathName))
+                {
+                    pathList.Add(pathName);
+                    try
+                    {   
+                        Android_Database.GetDirectoryReqursive(pathList, pathName);
+                    }
+                    catch
+                    { 
+                        // Wenn nich keine Berechtigung vergeben ist...
+                    }
+
+                }
+            }
+
+            return pathList;
+        }
+
+        private static void GetDirectoryReqursive(List<string> pathList, string pathName)
+        {
+            // Und noch alle darunterliegenden Verzeichnisse
+            foreach(string subDir in Directory.GetDirectories(pathName))
+            {
+                var dirInfo = new DirectoryInfo(subDir);
+                if ((dirInfo.Attributes & FileAttributes.Hidden) == (FileAttributes.Hidden))
+                {
+                    continue;
+                }
+
+                pathList.Add(subDir);
+
+                Android_Database.GetDirectoryReqursive(pathList, subDir);
+            }
+        }
 
         public static Exception LoadDatabaseFileListSafe(Context context, out List<string> fileList)
         {
