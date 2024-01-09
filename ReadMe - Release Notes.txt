@@ -1,3 +1,8 @@
+Version 8.12 (Code Version 145)
+=====================================
+
+E068 - Lagerbestand "-1" rutsch ins Negative (ohne Edit-Modus)
+
 Version 8.11 (Code Version 144)
 =====================================
 

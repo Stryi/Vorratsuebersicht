@@ -589,6 +589,10 @@ namespace VorratsUebersicht
 
                     case 2: // Anzahl - 1
                         e.StorageItem.Quantity--;
+                        if (e.StorageItem.Quantity < 0)
+                        {
+                            e.StorageItem.Quantity = 0;
+                        }
 
                         this.SaveStorageItem(e.StorageItem, adapter);
                         
