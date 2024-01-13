@@ -97,6 +97,7 @@
     <Compile Include="Database\Results\StringResult.cs" />
     <Compile Include="Database\Results\table_info.cs" />
     <AndroidAsset Include="Assets\Vorraete_Demo_pl.db3" />
+    <None Include=".editorconfig" />
     <None Include="LICENSE" />
     <None Include="ReadMe - Release Notes.txt" />
     <None Include="ReadMe - ToDo.txt" />

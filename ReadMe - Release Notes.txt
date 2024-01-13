@@ -1,6 +1,7 @@
 Version 8.12 (Code Version 145)
 =====================================
 
+C218 - An Backup wird nur erinnert, wenn auch was geändert wurde.
 E068 - Lagerbestand "-1" rutsch ins Negative (ohne Edit-Modus)
 
 Version 8.11 (Code Version 144)

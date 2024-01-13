@@ -1,6 +1,8 @@
 Prio 1
 ======
 
+-Icon "Interner Speicher" und "SD Karte" bei Auswahl der Datenbanken.
+
 - Verzeichnis für die Datenbank außerhalb der Anwendung
   https://developer.android.com/training/data-storage/shared/documents-files
 
@@ -12,15 +14,7 @@ Prio 1
 
 Einstellungen
 - Nur X Backups lassen, ältere automatisch löschen. (auch vom mik53ke per E-Mail)
-- Beim Backup zurückspielen hinweis auf "Backup importieren" anbringen.
 
-
-Settings
-- LOG Datei im Cache anlegen (damit vom PC aus ausgelesen werden kann)?
-
-Anwendung
-- Anwendungsabstürze in die LOG Datei protokollieren.
-  https://stackoverflow.com/questions/39503390/global-exception-handling-in-xamarin-cross-platform
 
 Einkaufsliste
 - Freie Sortierung (wie im Laden die Reihenfolge ist)  (vom Nernd)

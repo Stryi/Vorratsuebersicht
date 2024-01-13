@@ -173,7 +173,7 @@ namespace VorratsUebersicht
             this.ShowInfoAufTestModus();
 
             // Backup erstellen?
-            this.CreateBackup();
+            this.AskForCreateBackup();
         }
 
         private void InitializeDatabase()
@@ -304,13 +304,14 @@ namespace VorratsUebersicht
             builder.Show();
         }
 
-        private void CreateBackup()
+        private void AskForCreateBackup()
         {
             /*
             // Einstellungen löschen
             Database.ClearSettings("LAST_BACKUP");
             Database.ClearSettings("LAST_BACKUP_TIME");
             Settings.Clear("BACKUP_NOT_TODAY");
+            Database.SetSettingsDate("LAST_BACKUP", new DateTime(2019,1,1));
             */
 
             // Wenn Testdatenbank aktiv ist, nicht nach Backup fragen.
@@ -333,6 +334,13 @@ namespace VorratsUebersicht
             if (articleCount < 5)
                 return;
 
+            var changesCount = Database.GetChangeCounter();
+            if (changesCount == 0)
+            {
+                // Keine Änderungen seit dem letzten Backup.
+                return;
+            }
+
             DateTime? lastBackupDay = Database.GetSettingsDate("LAST_BACKUP");
 
             // Activate to test the Backup Message
@@ -353,6 +361,8 @@ namespace VorratsUebersicht
             {
                 messageText += "\r\n\r\n";
                 messageText += string.Format(this.Resources.GetString(Resource.String.Settings_LastBackupOn), lastBackupDay.Value.ToShortDateString());
+                messageText += "\r\n";
+                messageText += string.Format(this.Resources.GetString(Resource.String.Settings_ChangesSinceLastBackup), changesCount);
             }
 
             AlertDialog.Builder message = new AlertDialog.Builder(this);

@@ -67,7 +67,8 @@
   <string name="Settings_BackupFileCount" >Anzahl Backups: {0}, Gesamtgröße: {1}</string>
   <string name="Settings_BackupPath" >Backup-Pfad:</string>
 	<string name="Settings_LastBackupOn" >Letzter Backup am: {0}</string>
-	<string name="Settings_AskForBackup" >An Backup alle 7 Tage erinnern</string>
+  <string name="Settings_ChangesSinceLastBackup" >Änderungen seit dem letzten Backup: {0}</string>
+  <string name="Settings_AskForBackup" >An Backup alle 7 Tage erinnern</string>
 	<string name="Settings_BackupDone" >Datenbank im Download Verzeichnis gesichert als:\n\n {0}"\n\nSichern Sie diese Datei auf Google Drive oder auf Ihren PC.</string>
 	<string name="Settings_DatenbankKomprimieren" >Datenbank komprimieren</string>
 	<string name="Settings_DatenbankReparieren" >Datenbank reparieren/checken</string>

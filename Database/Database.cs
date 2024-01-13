@@ -47,6 +47,8 @@ namespace VorratsUebersicht
                 // Neue Lagerposition-Id übernehmen.
                 command = databaseConnection.CreateCommand("SELECT last_insert_rowid()");
                 storageItem.StorageItemId = command.ExecuteScalar<int>();
+
+                Database.IncreaseChangeCounter();
             }
             else
             {
@@ -70,6 +72,8 @@ namespace VorratsUebersicht
                     });
                 }
                 command.ExecuteNonQuery();
+
+                Database.IncreaseChangeCounter();
             }
         }
 
@@ -160,6 +164,8 @@ namespace VorratsUebersicht
                 new object[] { isChecked, articleId});
 
             command.ExecuteNonQuery();
+
+            Database.IncreaseChangeCounter();
         }
 
         internal static List<Article> GetArticlesToCopyImages()
@@ -224,6 +230,8 @@ namespace VorratsUebersicht
 
             command.ExecuteNonQuery();
 
+            Database.IncreaseChangeCounter();
+
             return newQuantity;
         }
 
@@ -249,6 +257,8 @@ namespace VorratsUebersicht
             }
 
             command.ExecuteNonQuery();
+
+            Database.IncreaseChangeCounter();
         }
 
         internal static void RemoveFromShoppingList(int articleId)
@@ -263,6 +273,8 @@ namespace VorratsUebersicht
             cmd += "DELETE FROM ShoppingList WHERE ArticleId = ?";
             command = databaseConnection.CreateCommand(cmd, new object[] { articleId });
             command.ExecuteNonQuery();
+
+            Database.IncreaseChangeCounter();
         }
 
         internal static bool IsArticleInShoppingList(int articleId)
@@ -1138,6 +1150,8 @@ namespace VorratsUebersicht
                 new object[] { articleId});
 
             databaseConnection.Commit();
+
+            Database.IncreaseChangeCounter();
         }
 
         internal static string GetSettingsString(string key)
@@ -1203,6 +1217,17 @@ namespace VorratsUebersicht
             return null;
         }
 
+        internal static int GetSettingsInteger(string key, int defaultValue)
+        {
+            var count = Database.GetSettingsString(key);
+            if (count == null)
+            {
+                return defaultValue;
+            }
+
+            return int.Parse(count);
+        }
+
         internal static void SetSettingsDate(string key, DateTime date)
         {
             string dateText = date.ToString("yyyy.MM.dd");
@@ -1215,6 +1240,11 @@ namespace VorratsUebersicht
             string dateText = date.ToString("yyyy.MM.dd HH:mm:ss");
 
             Database.SetSettings(key, dateText);
+        }
+
+        internal static void SetSettingsInteger(string key, int value)
+        {
+            Database.SetSettings(key, value.ToString());
         }
 
         internal static void SetSettings(string key, string value)
@@ -1243,6 +1273,30 @@ namespace VorratsUebersicht
             }
         }
 
+        internal static int GetChangeCounter()
+        {
+            return Database.GetSettingsInteger("CHANGES_COUNT", 0);
+        }
+
+        internal static void SetChangeCounter(int count)
+        {
+            Database.SetSettingsInteger("CHANGES_COUNT", count);
+        }
+
+        internal static void IncreaseChangeCounter()
+        {
+            var count = Database.GetChangeCounter();
+
+            count++;
+
+            Database.SetChangeCounter(count);
+        }
+
+        internal static void ResetChangeCounter()
+        {
+            Database.ClearSettings("CHANGES_COUNT");
+        }
+
         internal static string ClearSettings(string key)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
@@ -1260,5 +1314,34 @@ namespace VorratsUebersicht
             return command.ExecuteScalar<string>();
         }
 
+        internal static void Update(object obj)
+        {
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
+            if (databaseConnection == null)
+                return;
+
+            databaseConnection.Update(obj);
+            Database.IncreaseChangeCounter();
+        }
+
+        internal static void Insert(object obj)
+        {
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
+            if (databaseConnection == null)
+                return;
+
+            databaseConnection.Insert(obj);
+            Database.IncreaseChangeCounter();
+        }
+
+        internal static void Delete(object obj)
+        {
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
+            if (databaseConnection == null)
+                return;
+
+            databaseConnection.Delete(obj);
+            Database.IncreaseChangeCounter();
+        }
     }
 }
