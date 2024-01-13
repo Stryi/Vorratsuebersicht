@@ -94,6 +94,9 @@ required. The only thing we ask is that you not re-sell these icons.
 Anwendungssymbol:
 =================
 
+Vü mit IconKitchen
+https://icon.kitchen/i/H4sIAAAAAAAAAz2PPQ7CMAyF72LWDgwdUDeExIxExYIY3OanEW5d0hSoqt6MjYvhRKgZovecfH72DE%2BkUQ9QzKDQ38tGtxoKgzToDIwtp14sBP0OkHwUBVy%2Bn2SP3ImdwWDraJKHfS14BhWTWru4gOTqv10idkKlXGcjGbiHYpuBd7aRVqIqDoHbJEmbWBOmsgcm9pKwyfMdGpPi19o2nRhszw2mkYfH6HxNGoRuWY0Ul7wCdsqzU%2FLV8SD3S1dwW353mQbqBwEAAA%3D%3D
+
 Vü
 https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=text&foreground.text.text=V%C3%BC&foreground.text.font=Acme&foreground.space.trim=1&foreground.space.pad=0.3&foreColor=rgba(96%2C%20125%2C%20139%2C%200)&backColor=rgb(68%2C%20138%2C%20255)&crop=1&backgroundShape=square&effects=elevate&name=ic_launcher
 

@@ -25,13 +25,6 @@ namespace VorratsUebersicht
         public int? PrefQuantity { get; set; }
         public string Supermarket { get; set; }
         public decimal? Price { get; set; }
-    }
-
-    [DebuggerDisplay("{ArticleId} - {Name}")]
-    public class ArticleQuantity : Article
-    { 
-        public decimal? ShoppingListQuantity { get; set; }
-        public decimal? StorageItemQuantity { get; set; }
         public int? ImageSmallLength { get; set; }
         public int? ImageLargeLength { get; set; }
 

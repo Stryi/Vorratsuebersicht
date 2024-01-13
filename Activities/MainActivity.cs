@@ -40,7 +40,7 @@ namespace VorratsUebersicht
             // Damit Pre-Launch von Google Play Store nicht immer wieder
             // in die EAN Scan "Falle" tappt und da nicht wieder rauskommt.
             // (meistens nächster Tag)
-            MainActivity.preLaunchTestEndDay = new DateTime(2022, 10, 17);
+            MainActivity.preLaunchTestEndDay = new DateTime(2023, 11, 20);
 
             // Zusammen mit minSdkVersion="19" verhindert das den Fehler: Android.Content.Res.Resources+NotFoundException: 'File res/drawable/abc_vector_test.xml from drawable resource ID
             //AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
@@ -137,6 +137,8 @@ namespace VorratsUebersicht
 
             ShoppingListActivity.oderBy                 = Settings.GetInt("ShoppingListOrder", 1);
             StorageItemListActivity.oderByToConsumeDate = Settings.GetBoolean("StorageItemListOrder", false);
+
+            ShoppingListView.sparseView = Settings.GetInt("ShoppingListViewType", 0);
 
             // DatePicker-DEBUG
             if (debug_date_picker)
@@ -291,8 +293,13 @@ namespace VorratsUebersicht
 
         private void ArticlesNearExpiryDate_Click(object sender, EventArgs e)
         {
+            View view = (View)sender;
+
+            string tag = view.Tag.ToString();
+
             var storageitemList = new Intent(this, typeof(StorageItemListActivity));
             storageitemList.PutExtra("OderByToConsumeDate", true);
+            storageitemList.PutExtra("FilterExpiryDate", tag);
             StartActivity(storageitemList);
         }
 
@@ -399,18 +406,23 @@ namespace VorratsUebersicht
         {
             string message = string.Empty;
 
-            message = "Die App befindet sich im Testmodus. Folgende Einschränkung bestehen bis zum {0}:\n\n";
-            message += "- Nur Testdatenbank\n";
-            message += "- Kein EAN Scan\n";
-            message += "- Kein Teilen\n";
-            message = string.Format(message, MainActivity.preLaunchTestEndDay.AddDays(-1).ToShortDateString());
+            if (MainActivity.IsGooglePlayPreLaunchTestMode)
+            {
+                message = "Die App befindet sich im Testmodus. Einige Einschränkung bestehen bis zum {0}, unter anderem:\n\n";
+                message += "- Nur Testdatenbank\n";
+                message += "- Kein EAN Scan\n";
+                message += "- Kein Teilen\n";
+                message += "- Keine Links\n";
+                message += "- Keine E-Mail\n";
+                message = string.Format(message, MainActivity.preLaunchTestEndDay.AddDays(-1).ToShortDateString());
 
-            var messageDialog = new AlertDialog.Builder(this);
-            messageDialog.SetMessage(message);
-            messageDialog.SetTitle(Resource.String.App_Name);
-            messageDialog.SetIcon(Resource.Drawable.ic_launcher);
-            messageDialog.SetPositiveButton(Resource.String.App_Ok, (s, e) => {});
-            messageDialog.Create().Show();
+                var messageDialog = new AlertDialog.Builder(this);
+                messageDialog.SetMessage(message);
+                messageDialog.SetTitle(Resource.String.App_Name);
+                messageDialog.SetIcon(Resource.Drawable.ic_launcher);
+                messageDialog.SetPositiveButton(Resource.String.App_Ok, (s, e) => {});
+                messageDialog.Create().Show();
+            }
         }
 
         private void ShowInfoAufTestdatenbank()
@@ -620,7 +632,9 @@ namespace VorratsUebersicht
 
         private void ButtonBarcode_Click(object sender, System.EventArgs e)
         {
-            // this.SearchEANCode("4058172637117");
+            //this.SearchEANCode("4058172637117");  // "Bitterstoff Tee", aber ohne Bild
+            //this.SearchEANCode("5900352011950");  // "Oranzada"
+
             StartActivityForResult(typeof(ZXingFragmentActivity), EANScanID);
         }
 

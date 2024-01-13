@@ -47,6 +47,9 @@ namespace VorratsUebersicht
             ListView listView = FindViewById<ListView>(Resource.Id.ShoppingItemList);
             listView.ItemClick += ListView_ItemClick;
 
+            ImageButton addButton = FindViewById<ImageButton>(Resource.Id.ShoppingItemList_AddPosition);
+            addButton.Click += AddArticle_Click;
+
             try
             {
                 this.ShowShoppingList();
@@ -82,7 +85,7 @@ namespace VorratsUebersicht
                 supermarketSelection.Visibility = ViewStates.Visible;
 
                 var spinnerSupermarket = FindViewById<Spinner>(Resource.Id.ShoppingItemList_Spinner);
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleSpinnerItem, this.supermarketList);
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, Resource.Layout.Spinner_Black, this.supermarketList);
                 dataAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
                 spinnerSupermarket.Adapter = dataAdapter;
 
@@ -116,6 +119,16 @@ namespace VorratsUebersicht
                 this.supermarket = newSupermarketName;
                 this.ShowShoppingList(this.lastSearchText);
             }
+        }
+
+        private void AddArticle_Click(object sender, EventArgs e)
+        {
+            // Select Article
+            var articleListIntent = new Intent(this, typeof(ArticleListActivity));
+            articleListIntent.PutExtra("SelectArticleOnly", true);
+			articleListIntent.PutExtra("NotInShoppingList", true);
+
+            this.StartActivityForResult(articleListIntent, SelectArticleId);
         }
 
         private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -226,6 +239,9 @@ namespace VorratsUebersicht
             var searchMenuItem = menu.FindItem(Resource.Id.ShoppingList_Search);
             var searchView = (SearchView)searchMenuItem.ActionView;
 
+            var viewType = menu.FindItem(Resource.Id.ShoppingList_Sparse);
+            viewType.SetChecked(ShoppingListView.sparseView == 1);
+
             searchView.SetOnQueryTextListener(this);
 
             return base.OnCreateOptionsMenu(menu);
@@ -244,6 +260,7 @@ namespace VorratsUebersicht
                     // Select Article
                     var articleListIntent = new Intent(this, typeof(ArticleListActivity));
                     articleListIntent.PutExtra("SelectArticleOnly", true);
+        			articleListIntent.PutExtra("NotInShoppingList", true);
 
                     this.StartActivityForResult(articleListIntent, SelectArticleId);
 
@@ -265,6 +282,17 @@ namespace VorratsUebersicht
                 case Resource.Id.ShoppingList_Share:
                     this.ShareList();
                     return true;
+
+                case Resource.Id.ShoppingList_Sparse:
+                    ShoppingListView.sparseView = 1 - ShoppingListView.sparseView;
+
+                    this.ShowShoppingList();
+                    this.InvalidateOptionsMenu();
+
+                    Settings.PutInt("ShoppingListViewType", ShoppingListView.sparseView);
+
+                    return true;
+
             }
             return true;
         }

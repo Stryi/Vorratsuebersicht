@@ -234,8 +234,11 @@ namespace VorratsUebersicht
                 {
                     InternetDatabaseSearchActivity.picture = this.GetUrlPicture(this.foodInfo.product.image_url);
 
-                    var imageView = FindViewById<ImageView>(Resource.Id.InternetDatabaseResult_Image);
-                    imageView.SetImageBitmap(InternetDatabaseSearchActivity.picture);
+                    if (InternetDatabaseSearchActivity.picture != null)
+                    {
+                        var imageView = FindViewById<ImageView>(Resource.Id.InternetDatabaseResult_Image);
+                        imageView.SetImageBitmap(InternetDatabaseSearchActivity.picture);
+                    }
                 }
             });
         }

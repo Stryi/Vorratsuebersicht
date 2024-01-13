@@ -16,6 +16,10 @@ using Android.Views;
 using Android.Runtime;
 
 using Xamarin.Essentials;
+using System.Drawing;
+using Android.Graphics.Drawables;
+using Android.Support.V4.Graphics;
+using Android.Service.Controls.Actions;
 
 namespace VorratsUebersicht
 {
@@ -25,6 +29,10 @@ namespace VorratsUebersicht
     public class SettingsActivity : Activity
     {
         public static readonly int SelectBackupId = 1000;
+        public static readonly int ShareFileId    = 1001;
+
+        private string shareFileName;
+
         private bool userCategoriesChanged = false;
         private bool additionalDatabasePathChanged = false;
         private bool isInitialize = false;
@@ -121,7 +129,7 @@ namespace VorratsUebersicht
             Button buttonSendLogFile =  FindViewById<Button>(Resource.Id.SettingsButton_SendLogFile);
             buttonSendLogFile.Click += ButtonSendLogFile_Click;
                         
-            EditText addDbPath = FindViewById<EditText>(Resource.Id.SettingsButton_AdditionalDatabasePath);
+            EditText addDbPath = FindViewById<EditText>(Resource.Id.Settings_AdditionalDatabasePath);
             
             addDbPath.Text = Settings.GetString("AdditionslDatabasePath", string.Empty);
 
@@ -132,6 +140,9 @@ namespace VorratsUebersicht
 
             Button buttonBackup = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
             buttonBackup.Click += ButtonBackup_Click;
+
+            Button buttonBackupToFile = FindViewById<Button>(Resource.Id.SettingsButton_BackupToFile);
+            buttonBackupToFile.Click += ButtonBackupToFile_Click;
 
             Button buttonRestore = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
             buttonRestore.Click += ButtonRestore_Click;
@@ -158,6 +169,16 @@ namespace VorratsUebersicht
             Button buttonCsvExportStorageItems = FindViewById<Button>(Resource.Id.SettingsButton_CsvExportStorageItems);
             buttonCsvExportStorageItems.Click += ButtonCsvExportStorageItems_Click;
 
+            int csvSeparatorType = Settings.GetInt("CsvExportSeparator", 1);
+
+            FindViewById<RadioButton>(Resource.Id.Settings_CSVSeparator_Comma).Checked     = (csvSeparatorType == 1);
+            FindViewById<RadioButton>(Resource.Id.Settings_CSVSeparator_Semicolon).Checked = (csvSeparatorType == 2);
+            FindViewById<RadioButton>(Resource.Id.Settings_CSVSeparator_Tab).Checked       = (csvSeparatorType == 3);
+
+            FindViewById<RadioButton>(Resource.Id.Settings_CSVSeparator_Comma).Click      += CsvSeparatorType_Click;
+            FindViewById<RadioButton>(Resource.Id.Settings_CSVSeparator_Semicolon).Click  += CsvSeparatorType_Click;
+            FindViewById<RadioButton>(Resource.Id.Settings_CSVSeparator_Tab).Click        += CsvSeparatorType_Click;
+            
             this.ShowUserDefinedCategories();
 
             EditText catEdit = this.FindViewById<EditText>(Resource.Id.Settings_Categories);
@@ -168,8 +189,9 @@ namespace VorratsUebersicht
 
             // Frei definierte Kategorien zusätzlich laden.
             var categories = MainActivity.GetDefinedCategories(defaultCategories);
-
-            ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, Resource.Layout.SpinnerItem, categories);
+            
+            var textResource = this.GetTextResource();
+            ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this, textResource, categories);
             categoryAdapter.SetDropDownViewResource (Android.Resource.Layout.SimpleSpinnerDropDownItem);
             
             Spinner categorySpinner = this.FindViewById<Spinner>(Resource.Id.Settings_DefaultCategory);
@@ -187,6 +209,8 @@ namespace VorratsUebersicht
 
                 categorySpinner.SetSelection(position);
 
+                this.EnableButtons();
+
                 this.ShowLastBackupDay();
             }
 
@@ -197,14 +221,85 @@ namespace VorratsUebersicht
 
             if (createBackup)
             {
-                this.CreateBackup();
+                if ((int)Build.VERSION.SdkInt >= 33)
+                {
+                    this.ShareBackup();
+                }
+                else
+                {
+                    this.CreateBackup();
+                }
             }
 
             this.Window.SetSoftInputMode(SoftInput.StateHidden);
 
-            this.DetectBackupsCount();
+            if ((int)Build.VERSION.SdkInt >= 33)
+            {
+                buttonBackup.Visibility = ViewStates.Gone;
+                buttonRestore.Visibility = ViewStates.Gone;
+
+                FindViewById<TextView>(Resource.Id.Settings_BackupFileCount).Visibility = ViewStates.Gone;
+                FindViewById<TextView>(Resource.Id.Settings_BackupPath).Visibility = ViewStates.Gone;
+                FindViewById<TextView>(Resource.Id.SettingsButton_BackupPath).Visibility = ViewStates.Gone;
+
+                FindViewById<TextView>(Resource.Id.SettingsLabel_AdditionalDatabasePath).Visibility = ViewStates.Gone;
+                FindViewById<EditText>(Resource.Id.Settings_AdditionalDatabasePath).Visibility = ViewStates.Gone;
+            }
+            else
+            {
+                this.DetectBackupsCount();
+            }
+
+            if (MainActivity.IsGooglePlayPreLaunchTestMode)
+            {
+                buttonSendLogFile.Enabled = false;
+                buttonImportDb.Enabled = false;
+                buttonCsvExportArticles.Enabled = false;
+                buttonCsvExportStorageItems.Enabled = false;
+
+                FindViewById<TextView>(Resource.Id.Settings_Contact_EmailTextView).Enabled = false;
+                FindViewById<TextView>(Resource.Id.Settings_AppWiki_TextView).Enabled = false;
+                FindViewById<TextView>(Resource.Id.Settings_DatenschutTextView).Enabled = false;
+            }
+
 
             this.isInitialize = false;
+        }
+
+        private int GetTextResource()
+        {
+            var textResource = Resource.Layout.Spinner_Gray;
+
+            var backgroundColor = this.GeBackgroundColor();
+            if (backgroundColor != null)
+            {
+                textResource = Resource.Layout.Spinner_Black;
+
+                if (this.IstFarbeDunklerAlsGray(backgroundColor.Value))
+                {
+                    textResource = Resource.Layout.Spinner_White;
+                }
+            }
+
+            return textResource;
+        }
+
+        private Android.Graphics.Color? GeBackgroundColor()
+        {
+            ColorDrawable backgroundColor = this.Window.DecorView.Background as ColorDrawable;
+            if (backgroundColor != null)
+            {
+                return backgroundColor.Color;
+            }
+
+            Drawable backgroundColor2 = this.Window.DecorView.Background as Drawable;
+            if (backgroundColor2 != null)
+            {
+                ColorDrawable currentDrawable = backgroundColor2.Current as ColorDrawable;
+                return currentDrawable.Color;
+            }
+
+            return null;
         }
 
         private void DetectBackupsCount()
@@ -303,7 +398,7 @@ namespace VorratsUebersicht
         {
             try
             {
-                CsvExport.ExportArticles(this);
+                this.shareFileName = CsvExport.ExportArticles(this, this.GetCsvSeparator(), ShareFileId);
             }
             catch(Exception ex)
             {
@@ -321,7 +416,7 @@ namespace VorratsUebersicht
         {
             try
             {
-                CsvExport.ExportStorageItems(this);
+                this.shareFileName = CsvExport.ExportStorageItems(this, this.GetCsvSeparator(), ShareFileId);
             }
             catch(Exception ex)
             {
@@ -333,6 +428,38 @@ namespace VorratsUebersicht
                 messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                 messageBox.Create().Show();
             }
+        }
+
+
+        private void CsvSeparatorType_Click(object sender, EventArgs e)
+        {
+            RadioButton radioButton = sender as RadioButton;
+
+            if (radioButton.Id == Resource.Id.Settings_CSVSeparator_Comma)
+            {
+                Settings.PutInt("CsvExportSeparator", 1);
+            }
+            if (radioButton.Id == Resource.Id.Settings_CSVSeparator_Semicolon)
+            {
+                Settings.PutInt("CsvExportSeparator", 2);
+            }
+            if (radioButton.Id == Resource.Id.Settings_CSVSeparator_Tab)
+            {
+                Settings.PutInt("CsvExportSeparator", 3);
+            }
+        }
+
+        private string GetCsvSeparator()
+        {
+            int csvSeparatorType = Settings.GetInt("CsvExportSeparator", 1);
+            switch (csvSeparatorType)
+            {
+                case 1: return ",";
+                case 2: return ";";
+                case 3: return "\t";
+            }
+
+            return ",";
         }
 
 
@@ -363,7 +490,7 @@ namespace VorratsUebersicht
             if (!this.additionalDatabasePathChanged)
                 return true;
 
-            EditText dbPath = this.FindViewById<EditText>(Resource.Id.SettingsButton_AdditionalDatabasePath);
+            EditText dbPath = this.FindViewById<EditText>(Resource.Id.Settings_AdditionalDatabasePath);
 
             if (!string.IsNullOrEmpty(dbPath.Text))
             {
@@ -396,7 +523,7 @@ namespace VorratsUebersicht
             MainActivity.SetUserDefinedCategories(catEdit?.Text);
         }
 
-        internal string GetBackupFileName(string databaseFilePath)
+        internal string GetBackupFileName(string databaseFilePath, bool tempFileFolder = false)
         {
             string backupFileName;
 
@@ -413,15 +540,20 @@ namespace VorratsUebersicht
                     DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss"));
             }
 
-            var downloadFolder = this.GetBackupPath();
+            var downloadFolder = this.GetBackupPath(tempFileFolder);
 
             var backupFilePath = Path.Combine(downloadFolder, backupFileName);
 
             return backupFilePath;
         }
 
-        private string GetBackupPath()
+        private string GetBackupPath(bool tempFileFolder = false)
         {
+            if (tempFileFolder)
+            {
+                return System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            }
+
             string downloadFolder = Settings.GetString("BackupPath", string.Empty);
 
             if (string.IsNullOrEmpty(downloadFolder))
@@ -442,14 +574,58 @@ namespace VorratsUebersicht
                 this.DetectBackupsCount();
             }
 
-            if (resultCode != Result.Ok)
-                return;
+            if (requestCode == ShareFileId)
+            {
+                this.DeleteShareFile();
+            }
 
-            if ((requestCode == SelectBackupId) && (data != null))
+            if ((resultCode == Result.Ok) && (requestCode == SelectBackupId) && (data != null))
             {
                 string fileSource = data.GetStringExtra("FullName");
 
                 this.RestoreDatabase(fileSource);
+            }
+
+        }
+
+        private void DeleteShareFile()
+        {
+            if (String.IsNullOrEmpty(this.shareFileName))
+            {
+                return;
+            }
+
+            try
+            {
+                var sharePath = Path.GetDirectoryName(this.shareFileName);
+
+                foreach (var file in Directory.GetFiles(sharePath))
+                {
+                    TRACE("- {0}", file);
+                }
+
+                TRACE("Die Datei '{0}' löschen, die gerade versendet wurde (Share).", this.shareFileName);
+
+                File.Delete(this.shareFileName);
+                this.shareFileName = null;
+
+                // Ggf. alle liegengebliebene Backups zum Versenden löschen?
+                // Die sind teilweise sehr groß.
+                var filesList = Directory.GetFiles(sharePath, "*.VueBak");
+                foreach (var file in filesList)
+                {
+                    var extension = Path.GetExtension(file);
+                    if (extension == ".VueBak")
+                    {
+                        TRACE("Backup Datei '{0}' löschen, die beim Versenden liegengeblieben ist (z.B. wegen Abbruch).", file);
+                        File.Delete(file);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TRACE(ex);
             }
         }
 
@@ -763,9 +939,6 @@ namespace VorratsUebersicht
 
         private void ButtonSendLogFile_Click(object sender, EventArgs eventArgs)
         {
-            if (MainActivity.IsGooglePlayPreLaunchTestMode)
-                return;
-
             string message = this.Resources.GetString(Resource.String.Settings_SendLogFileMessage);
 
             var dialog = new AlertDialog.Builder(this);
@@ -872,6 +1045,92 @@ namespace VorratsUebersicht
             selectFile.PutExtra("SearchPattern", "*.VueBak");
 
             StartActivityForResult(selectFile, SelectBackupId);
+        }
+
+        public void ButtonBackupToFile_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.ShareBackup();
+            }
+            catch(Exception ex)
+            {
+                TRACE(ex);
+
+                var messageBox = new AlertDialog.Builder(this);
+                messageBox.SetTitle(this.Resources.GetString(Resource.String.App_ErrorOccurred));
+                messageBox.SetMessage(ex.Message);
+                messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
+                messageBox.Create().Show();
+            }
+        }
+
+        private void ShareBackup()
+        {
+            // Vor dem Backup ggf. die User-Kategorien ggf. speichern,
+            // damit es auch im Backup ist.
+            this.SaveUserDefinedCategories();
+
+            DateTime? lastBackupDay = Database.GetSettingsDate("LAST_BACKUP");
+            if (lastBackupDay == null)
+            {
+                lastBackupDay = Database.GetSettingsDate("LAST_BACKUP_TIME");
+            }
+
+            // Datum vom Backup in der Datenbank speichern.
+            // Datum und Uhrzeit getrennt, damit auch die vorherige Version 
+            // (kennt nur Datum) das auslesen kann.
+            var now = DateTime.Now;
+
+            Database.SetSettingsDate    ("LAST_BACKUP",      now);  // Für die Abwärtskompatibilität
+            Database.SetSettingsDateTime("LAST_BACKUP_TIME", now);
+
+            this.ShowLastBackupDay();
+
+            var databaseFilePath = Android_Database.Instance.GetDatabasePath();
+
+            string backupFilePath = this.GetBackupFileName(databaseFilePath, true);
+
+            Android_Database.Instance.CloseConnection();
+
+            var progressDialog = this.CreateProgressBar(Resource.Id.ProgressBar_BackupAndRestore);
+            new Thread(new ThreadStart(delegate
+            {
+                string message; 
+                try
+                {
+                    File.Copy(databaseFilePath, backupFilePath);
+                    this.shareFileName = backupFilePath;
+                }
+                catch(Exception ex)
+                {
+                    TRACE(ex);
+
+                    message = ex.Message;
+
+                    if (lastBackupDay != null)
+                    {
+                        // Datum vom wieder zurückspielen.
+                        Database.SetSettingsDate    ("LAST_BACKUP",      lastBackupDay.Value);
+                        Database.SetSettingsDateTime("LAST_BACKUP_TIME", lastBackupDay.Value);
+                    }
+                }
+
+                this.HideProgressBar(progressDialog);
+
+                Java.IO.File filelocation = new Java.IO.File(backupFilePath);
+                var path = Android.Support.V4.Content.FileProvider.GetUriForFile(this, "de.stryi.exportcsv.fileprovider", filelocation);
+
+                Intent intentsend = new Intent();
+                intentsend.SetAction(Intent.ActionSend);
+                intentsend.SetType("application/octet-stream");
+                intentsend.PutExtra(Intent.ExtraStream, path);
+
+                this.StartActivityForResult(Intent.CreateChooser(intentsend, "Backup Datei senden"), ShareFileId);
+
+            })).Start();
+
+            return;
         }
 
         private async void ButtonRestoreFromFile_Click(object sender, EventArgs e)
@@ -991,6 +1250,15 @@ namespace VorratsUebersicht
             return;
         }
 
+        private void EnableButtons()
+        {
+            Button buttonBackup   = FindViewById<Button>(Resource.Id.SettingsButton_Backup);
+            Button buttonRestore  = FindViewById<Button>(Resource.Id.SettingsButton_Restore);
+            Button buttonRestore2 = FindViewById<Button>(Resource.Id.SettingsButton_RestoreFromFile);
+
+            TextView lastBackup = FindViewById<TextView>(Resource.Id.Settings_LastBackupDay);
+        }
+
         private void ShowUserDefinedCategories()
         {
             string categoryText = string.Empty;
@@ -1052,11 +1320,8 @@ namespace VorratsUebersicht
             string versionInfo = string.Empty;
             try
             {
-                Context context = this.ApplicationContext;
-                PackageInfo info = context.PackageManager.GetPackageInfo(context.PackageName, 0);
-
-                versionInfo += string.Format("Version {0}",         info.VersionName);
-                versionInfo += string.Format(" (Code Version {0})", info.LongVersionCode);
+                versionInfo += string.Format("Version {0}",         AppInfo.VersionString);
+                versionInfo += string.Format(" (Code Version {0})", AppInfo.BuildString);
             }
             catch(Exception e)
             {
@@ -1117,6 +1382,19 @@ namespace VorratsUebersicht
                 messageBox.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
                 messageBox.Create().Show();
             }
+        }
+
+        private bool IstFarbeDunklerAlsGray(Android.Graphics.Color color)
+        {
+            int durchschnittsRGB = (color.R + color.G + color.B) / 3;
+            int durchschnittsRGBGray = (Color.Gray.R + Color.Gray.G + Color.Gray.B) / 3;
+
+            return durchschnittsRGB < durchschnittsRGBGray;
+        }
+
+        private void SetTrennzeichen()
+        {
+
         }
 
         #endregion

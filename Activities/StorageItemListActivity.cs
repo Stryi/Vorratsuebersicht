@@ -30,8 +30,10 @@ namespace VorratsUebersicht
         private string category;
         private string subCategory;
         private string eanCode;
+        private string filterExpiryDate;
         private bool   showEmptyStorageArticles;
         private string storageNameFilter = string.Empty;
+        private bool   withoutStorage = false;
         private string lastSearchText = string.Empty;
 
         public static readonly int StorageItemQuantityId = 1000;
@@ -59,6 +61,7 @@ namespace VorratsUebersicht
             this.category                 = Intent.GetStringExtra ("Category");
             this.subCategory              = Intent.GetStringExtra ("SubCategory");
             bool oderByDate               = Intent.GetBooleanExtra("OderByToConsumeDate", false);
+            this.filterExpiryDate         = Intent.GetStringExtra ("FilterExpiryDate");
             this.eanCode                  = Intent.GetStringExtra("EANCode") ?? string.Empty;
             this.showEmptyStorageArticles = Intent.GetBooleanExtra("ShowEmptyStorageArticles", false); // Auch Artikel ohne Lagerbestand anzeigen
 
@@ -81,6 +84,9 @@ namespace VorratsUebersicht
                 this.Title = string.Format("{0} - {1}", this.Title, this.eanCode);
             }
 
+            ImageButton addButton = FindViewById<ImageButton>(Resource.Id.StorageItemList_AddPosition);
+            addButton.Click += AddArticle_Click;
+            
             try
             {
                 this.InitializeStorageFilter();
@@ -94,10 +100,24 @@ namespace VorratsUebersicht
             }
         }
 
+        private void AddArticle_Click(object sender, EventArgs e)
+        {
+            // Select Article -> Menge erfassen
+			var articleListIntent = new Intent (this, typeof(ArticleListActivity));
+			articleListIntent.PutExtra("SelectArticleOnly", true);
+
+			articleListIntent.PutExtra("Category",    this.category);
+			articleListIntent.PutExtra("SubCategory", this.subCategory);
+			articleListIntent.PutExtra("NotInStorage", true);
+
+			this.StartActivityForResult (articleListIntent, SelectArticleId);
+        }
+
         private void InitializeStorageFilter()
         {
             this.storageList = new List<string>();
             this.storageList.Add(Resources.GetString(Resource.String.StorageItem_AllStoragesStorage));
+            this.storageList.Add(Resources.GetString(Resource.String.StorageItem_NoStoragesStorage));            
             this.storageList.AddRange(Database.GetStorageNames(true));
 
             if (storageList.Count > 1)
@@ -106,7 +126,8 @@ namespace VorratsUebersicht
                 storageSelection.Visibility = ViewStates.Visible;
 
                 var spinnerStorage = FindViewById<Spinner>(Resource.Id.StorageItemList_Storages);
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleSpinnerItem, this.storageList);
+
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, Resource.Layout.Spinner_Black, this.storageList);
                 dataAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
                 spinnerStorage.Adapter = dataAdapter;
 
@@ -133,8 +154,8 @@ namespace VorratsUebersicht
         {
             if (view.Id == Resource.Id.StorageItemView) 
             {
-                menu.Add(Menu.None, 1, Menu.None, Resource.String.StorageItem_Artikelangaben);
-                menu.Add(Menu.None, 2, Menu.None, Resource.String.StorageItem_ToShoppingList);
+                menu.Add(IMenu.None, 1, IMenu.None, Resource.String.StorageItem_Artikelangaben);
+                menu.Add(IMenu.None, 2, IMenu.None, Resource.String.StorageItem_ToShoppingList);
             }
         }
 
@@ -168,14 +189,23 @@ namespace VorratsUebersicht
         private void SpinnerStorage_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             string newStorageName = string.Empty;
-            if (e.Position > 0)
+            bool   withoutStorage = false;
+
+            if (e.Position == 1)
+            {
+                withoutStorage = true;
+            }
+
+            if (e.Position > 1)
             {
                 newStorageName = this.storageList[e.Position];
             }
 
-            if (newStorageName != this.storageNameFilter)
+            if ((newStorageName != this.storageNameFilter) || (withoutStorage != this.withoutStorage))
             {
                 this.storageNameFilter = newStorageName;
+                this.withoutStorage    = withoutStorage;
+
                 this.ShowStorageItemList(this.lastSearchText);
             }
         }
@@ -382,6 +412,7 @@ namespace VorratsUebersicht
                 this.showEmptyStorageArticles,
                 filter, 
                 this.storageNameFilter,
+                this.withoutStorage,
                 StorageItemListActivity.oderByToConsumeDate);
 
 			// Informationen über die Mengen zum Ablaufdatum.
@@ -393,9 +424,10 @@ namespace VorratsUebersicht
 
             foreach(StorageItemQuantityResult storegeItem in storageItemQuantityList)
             {
-                var storageItemBestList = quantityList
-                    .Where(s => s.ArticleId == storegeItem.ArticleId)
-                    .Select(s => s);
+				// Informationen über die Mengen zum Ablaufdatum.
+				var storageItemBestList = Database.GetBestBeforeItemQuantity(
+                    storegeItem.ArticleId,
+                    this.storageNameFilter);
 
                 string info    = string.Empty;
 			    string warning = string.Empty;
@@ -403,6 +435,21 @@ namespace VorratsUebersicht
 			
 			    foreach(StorageItemQuantityResult result in storageItemBestList)
 			    {
+                    if ((this.filterExpiryDate == "ExpiryDateOnly") && (result.WarningLevel == 0))
+                    {
+                        continue;
+                    }
+
+                    if ((this.filterExpiryDate == "NearExpiryDateOnly") && (result.WarningLevel != 1))
+                    {
+                        continue;
+                    }
+
+                    if ((this.filterExpiryDate == "WithExpiryDateOnly") && (result.WarningLevel != 2))
+                    {
+                        continue;
+                    }
+
 				    if (result.WarningLevel == 0)
 				    {
                         if (result.BestBefore == null)
@@ -432,8 +479,8 @@ namespace VorratsUebersicht
                         statistic.AddWarningLevel2(result.Quantity);
 				    }
 			    }
-			    
-                storegeItem.BestBeforeInfoText    = info;
+
+			    storegeItem.BestBeforeInfoText    = info;
 			    storegeItem.BestBeforeWarningText = warning;
 			    storegeItem.BestBeforeErrorText   = error;
                 

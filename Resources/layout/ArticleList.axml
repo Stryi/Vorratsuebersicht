@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Application_Background2" >
@@ -25,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_gravity="right"
-            android:contentDescription="Close Filter" />
+            android:contentDescription="@string/ArticleList_SpecialFilterClose" />
     </FrameLayout>
 
     <LinearLayout
@@ -51,20 +52,27 @@
             android:background="@color/Application_Background2"
             android:padding="10dp" />
     </LinearLayout>
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"    
-        android:layout_width="match_parent"    
-        android:layout_height="wrap_content"    
+
+    <ListView
+        android:id="@+id/ArticleList"
         android:layout_below="@id/ArticleList_SelectCategory"
         android:layout_above="@id/ArticleList_Footer"
-        android:layout_alignParentTop="false">
-        <ListView 
-            android:id="@+id/ArticleList"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:dividerHeight="5dp"
-            android:layout_marginTop="0.0dp" />
-</android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:dividerHeight="5dp"
+        android:layout_marginTop="0.0dp" />
+
+    <ImageButton
+        android:id="@+id/ArticleList_AddPosition"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_above="@id/ArticleList_Footer"        
+        android:layout_alignParentRight="true"
+        android:src="@drawable/baseline_add_outline_black_36"
+        android:background="@drawable/roundcorner"
+        android:contentDescription="@string/ArticleList_Menu_Add"
+        android:layout_margin="16dp"/>
+
     <TextView
         android:id="@+id/ArticleList_Footer"
         android:layout_width="fill_parent"
@@ -73,4 +81,5 @@
         android:textSize="15sp"
         android:padding="5dp"
         android:textColor="@color/Text_Color" />
+
 </RelativeLayout>

@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
+using Android.App;
 using Android.Content;
 using Android.Support.V4.Content;
 
 namespace VorratsUebersicht
 {
-    using SQLite;
 
     //
     // Anhand vom https://github.com/techtribeyt/androidcsv/tree/master
@@ -15,38 +16,40 @@ namespace VorratsUebersicht
     internal class CsvExport
     {
         private SQLite.SQLiteConnection databaseConnection;
-        private Context context;
+        private Activity context;
         private string trennzeichen = ",";
 
-        public static void ExportArticles(Context context)
+        public static string ExportArticles(Activity context, string trennzeichen, int requestCode)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
-                return;
+                return null;
 
             CsvExport export = new CsvExport();
             export.context = context;
+            export.trennzeichen = trennzeichen;
             export.databaseConnection = databaseConnection;
 
             var result = export.GetArticlesAsCsvString();
-            export.WriteToFile("Vue-Artikel.csv", result);
+            return export.WriteToFile("Vue-Artikel.csv", result, requestCode);
         }
 
-        public static void ExportStorageItems(Context context)
+        public static string ExportStorageItems(Activity context, string trennzeichen, int requestCode)
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
             if (databaseConnection == null)
-                return;
+                return null;
 
             CsvExport export = new CsvExport();
             export.context = context;
+            export.trennzeichen = trennzeichen;
             export.databaseConnection = databaseConnection;
 
             var result = export.GetStorageItemsAsCsvString();
-            export.WriteToFile("Vue-Lagerbestand.csv", result);
+            return export.WriteToFile("Vue-Lagerbestand.csv", result, requestCode);
         }
 
-        private void WriteToFile(string fileName, StringBuilder result)
+        private string WriteToFile(string fileName, StringBuilder result, int requestCode)
         {
             string destination = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
             destination = Path.Combine(destination, fileName);
@@ -66,77 +69,9 @@ namespace VorratsUebersicht
             fileIntent.AddFlags(ActivityFlags.GrantReadUriPermission);
 
             fileIntent.PutExtra(Intent.ExtraStream, path);
-            context.StartActivity(Intent.CreateChooser(fileIntent, "CSV Datei senden"));
-        }
+            context.StartActivityForResult(Intent.CreateChooser(fileIntent, "CSV Datei senden"), requestCode);
 
-        // Erstellt eine CSV Datei.
-        private static void Share(Context context)
-        {
-            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
-            if (databaseConnection == null)
-                return;
-
-            try
-            {
-                CsvExport export = new CsvExport();
-
-                StringBuilder header = new StringBuilder();
-                header.Append("ArticleId|EANCode|Name|Manufacturer|Category|SubCategory|DurableInfinity|WarnInDays|Size|Unit|Notes|MinQuantity|PrefQuantity|StorageName|Supermarket|Calorie|Price");
-                header.AppendLine();
-                header.Replace("|", export.trennzeichen);
-
-                StringBuilder data = new StringBuilder();
-                var articleList = databaseConnection.Query<Article>("SELECT * FROM Article ORDER BY ArticleId");
-                foreach(Article article in articleList)
-                {
-                    StringBuilder row = new StringBuilder();
-                    export.AddField(row, article.ArticleId);
-                    export.AddField(row, article.EANCode);
-                    export.AddField(row, article.Name);
-                    export.AddField(row, article.Manufacturer);
-                    export.AddField(row, article.Category);
-                    export.AddField(row, article.SubCategory);
-                    export.AddField(row, article.DurableInfinity);
-                    export.AddField(row, article.WarnInDays);
-                    export.AddField(row, article.Size);
-                    export.AddField(row, article.Unit);
-                    export.AddField(row, article.Notes);
-                    export.AddField(row, article.MinQuantity);
-                    export.AddField(row, article.PrefQuantity);
-                    export.AddField(row, article.StorageName);
-                    export.AddField(row, article.Supermarket);
-                    export.AddField(row, article.Calorie);
-                    export.AddField(row, article.Price);
-
-                    data.Append(row);
-                    data.AppendLine();
-                }
-
-                string destination = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal);
-                destination = Path.Combine(destination, "Article.csv");
-
-                //saving the file into device
-                using(var writer = new System.IO.StreamWriter(destination, false))
-                {
-                    writer.Write(header.ToString());
-                    writer.Write(data.ToString());
-                }
-                
-                Java.IO.File filelocation = new Java.IO.File(destination);
-                var path = FileProvider.GetUriForFile(context, "de.stryi.exportcsv.fileprovider", filelocation);
-                Intent fileIntent = new Intent(Intent.ActionSend);
-                fileIntent.SetType("text/csv");
-                fileIntent.PutExtra(Intent.ExtraSubject, "Vü-Artikel.csv");
-                fileIntent.SetFlags(ActivityFlags.NewTask);
-                fileIntent.AddFlags(ActivityFlags.GrantReadUriPermission);
-
-                fileIntent.PutExtra(Intent.ExtraStream, path);
-                context.StartActivity(Intent.CreateChooser(fileIntent, "CSV Datei senden"));
-            }
-            catch(Exception e)
-            {
-                throw e;
-            }
+            return destination;
         }
 
         private StringBuilder GetArticlesAsCsvString()
@@ -251,7 +186,12 @@ namespace VorratsUebersicht
             if (value == null)
                 return;
 
-            data.Append(value.Value);
+            var text = value.Value.ToString(CultureInfo.CurrentCulture);
+            if (text.Contains(this.trennzeichen))
+            {
+                text = string.Format("\"{0}\"", text);
+            }
+            data.Append(text);
         }
 
         private void AddField(StringBuilder data, DateTime? value)

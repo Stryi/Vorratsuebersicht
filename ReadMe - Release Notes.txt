@@ -1,3 +1,102 @@
+Version 8.03 (Code Version 142)
+=====================================
+
+C214 - Einkaufsliste (+) zeigt jetzt nur noch die Artikel, die da noch nicht drin sind.
+C213 - Floating Action Button bei Listen
+C212 - Link auf Wiki auf der Hauptseite währen Testbetrieb ist jetzt deaktiviert.
+
+Version 8.02 (Code Version 140)
+=====================================
+
+C211 - Separator beim CSV Export jetzt wählbar
+E067 - "Standard Lagerort" in der Lagerposition jetzt wieder als "Lagerort"
+C210 - Codeversion wird jetzt auch bei Android < 7.1.1 angezeigt
+
+Version 8.01 (Code Version 139)
+=====================================
+
+E066 - FIX: Bild Auswahl aus Galerie löscht jetzt nicht das Bild (bis ca. Android 7)
+C209 - Lagerauswahl jetzt auch mit "Ohne Lager"
+C208 - Artikelauswahl jetzt auch mit "Ohne Kategorie / Unterkategorie"
+E065 - FIX: Popuptext für "Standard Artikel" jetzt Background abhängig
+
+Version 8.00 (Code Version 138)
+=====================================
+
+E064 - FIX: CSV Export von Komma Zahlen
+C207 - Backup Datei senden (Sharen)
+
+Version 8.00-beta1 (Code Version 137)
+=====================================
+
+E063 - FIX: Absturz bei Language 'ru' und 'iv'
+
+Version 8.00-alpha1 (Code Version 136)
+======================================
+
+E063 - FIX: Bilder erstellen mit Android 30 - API 33 (s. C206 untern)
+C206 - Umstellung auf neue Xamarin.Essentials Version=1.7.7 
+C205 - Link auf Datenschutz Webseite
+
+Version 7.30 (Code Version 135)
+===============================
+
+C204 - API-Level auf 33 gesetzt (Google Anforderung)
+E062 - FIX: Neues Datums Control - Datum springt auf Monatsende, wenn Monat zuerst gewechselt wurde.
+E061 - FIX: Keine Exception, wenn auf OpenFoodFacts.org kein Bild da ist.
+
+Version 7.21 (Code Version 134)
+===============================
+
+C203 - Standard Lager beim Erfassen von Lagerbständen jetzt zweizeilig.
+C202 - Filter für Artikelliste "Kein Lager"
+
+Version 7.20 (Code Version 133)
+===============================
+
+C202 - Direkte Eingabe im Artikelbestand (ohne den Stift-Button)
+
+Version 7.15 (Code Version 132)
+===============================
+
+C201 - Kompakte Sicht in Einkaufsliste
+
+Version 7.14 (Code Version 131)
+===============================
+
+C200 - Unterkategorie im Artikel wird abhängig der Kategorie aufgelistet.
+
+Version 7.13 (Code Version 130)
+===============================
+
+E060 - FIX: Absturz, wenn "+" im Lagerbestand ohne "Warnen in Tagen" im Artikelstamm (folge von E058)
+
+Version 7.12 (Code Version 129)
+===============================
+
+E059 - FIX: Absturz, wenn "Warnen in Tagen" im Artikelstamm nicht angegeben.
+
+Version 7.12 (Code Version 129)
+===============================
+
+C199 - Kalorien pro Einheit wird jetzt in Artikelliste angezeigt.
+E058 - FIX: Farbe Blau (Warnung) jetzt bei MHD Eingabe im Lagerbestand.
+
+Version 7.10 (Code Version 127)
+===============================
+
+C198 - Preis pro Einheit jetzt auch in Lagerbestandsliste.
+C197 - Klicks auf "Demnächst zu verbrauchen" Texte zeigen jetzt nur die betreffenden Bestände.
+C196 - Ziel SDK auf 31 und TargetFrameworkVersion auf v11.0 gesetzt.
+
+Version 7.06 (Code Version 126)
+===============================
+
+Google Play Veröffentlicht produktiv am 23. Okt. 2022 20:20
+API-Level 19: oder höher 
+Ziel SDK: 30
+
+
 Version 7.05 (Code Version 125)
 ===============================
 
@@ -44,12 +143,12 @@ E054 - FIX: Absturz bei wiederaktivieren der App in einer Liste.
 Version 6.28 (Code Version 111)
 ===============================
 
-E053 - FIX: Backup Restore bei Neuinstalltion bis Android 9.
+E053 - FIX: Backup Restore bei Neuinstallation bis Android 9.
 
 Version 6.27 (Code Version 110)
 ===============================
 
-E052 - FIX: Nach Neuinstalltion mit DB Erstellung kann jetzt gleich Restore aufgerufen werden.
+E052 - FIX: Nach Neuinstallation mit DB Erstellung kann jetzt gleich Restore aufgerufen werden.
 
 Version 6.26 (Code Version 109)
 ===============================
@@ -96,7 +195,7 @@ Version 6.20 (Code Version 103)
 ===============================
 - ab Android 10 (API Version 29)
 
-Mindestanforderung auf Android 10 (mindest SDK Version 29)
+Mindestanforderung auf Android 10 (SDK Version 29)
 
 C175- Datenbanken in App Verzeichnis verschieben. 
 
@@ -104,7 +203,7 @@ Version 6.13 (Code Version 101)
 ===============================
 - ab Android 5.1 (API Version 22)
 
-Mindestanforderung auf Android 5.1 (mindest SDK Version 22)
+Mindestanforderung auf Android 5.1 (SDK Version 22)
 
 C174 - Zusätzliche Absicherung beim Zugriff auf Verzeichnisse.
 
@@ -125,8 +224,8 @@ Version 6.10 (Code Version 98)
 ==============================
 
 E045 - Liste der Dateien jetzt alphabetisch sortiert.
-E034 - List an/aus jetzt auch in EAN Scan im Artikalstamm
-E033 - Backup Liste jetzt Sortiert nach Namen.
+E034 - List an/aus jetzt auch in EAN Scan im Artikelstamm
+E033 - Backup Liste jetzt sortiert nach Namen.
 C170 - Auswahl der Datenbanken jetzt auf der Hauptmaske.
 C169 - "Nicht heute" beim Fragen nach dem Backup hinzugefügt.
 C168 - "Auf Einkaufszettel" zeigt jetzt Lagerbestand mit Komma Zahl.
@@ -153,9 +252,9 @@ Version 6.00 (Code Version 95)
 
 C161 - Komprimierung der Bilder jetzt wählbar
 C160 - Link auf Wiki in Einstellungen
-C159 - Nach Backup fragen jetzt abschaltber.
+C159 - Nach Backup fragen jetzt abschaltbar.
 C158 - Einmal pro Woche beim Starten nach einem Backup fragen.
-C157 - Textgröße passt sich jetzt besser an die eingestellte Textgröße vom Smartphone.
+C157 - Textgröße passt sich jetzt besser an die eingestellte Textgröße des Smartphones.
 C156 - Bilder Komprimierung an die Auflösung des Smartphones anpassen (rückgängig gemacht)
 C155 - Umstellung auf die neue Xamarin.AndroidX Bibliothek (intern)
   
@@ -177,7 +276,7 @@ E030 - FIX: Absicherung gegen Absturz bei "Auf Einkaufszettel".
 Version 5.01 (Code Version 92)
 ==============================
 
-E029 - FIX: Absturz bei OpenFoodFacts.org aufruf.
+E029 - FIX: Absturz bei OpenFoodFacts.org Aufruf.
 
 Version 5.00 (Code Version 91)
 ==============================
@@ -194,7 +293,7 @@ E028 - FIX: Von Einkaufsliste ins Lager mit "Unendlich haltbar".
 Version 4.74 (Code Version 90)
 ==============================
 
-C150 - Menge bei "Auf Einkaufszettel" ist jetzt markiert und die Taststur eingeblendet.
+C150 - Menge bei "Auf Einkaufszettel" ist jetzt markiert und die Tastatur eingeblendet.
 
 Version 4.73 (Code Version 89)
 ==============================
@@ -218,7 +317,7 @@ Version 4.70 (Code Version 86)
 
 C146 - Sucht auf OpenFoodFacts.org bei mehreren EAN Codes jetzt möglich. (Sucht nacheinander, bis der erste Artikel gefunden wurde.)
 C145 - Artikel Notizen jetzt im Lagerbestand.
-C144 - "Ins Lagerbstand..." übernimmt die Menge gliech ins Lagerbestand.
+C144 - "Ins Lagerbestand..." übernimmt die Menge gleich ins Lagerbestand.
 
 Version 4.62 (Code Version 85)
 ==============================
@@ -228,7 +327,7 @@ E025 - FIX: Neuanlage Artikel und "Auf Einkaufsliste" beim Speichern.
 Version 4.61 (Code Version 84)
 ==============================
 
-C143 - "..." Button bei AutoComplete zeigt jetzt alls Einträge.
+C143 - "..." Button bei AutoComplete zeigt jetzt alle Einträge.
 E024 - Testdatenbank "Kartoffel Mehl" -> "Kartoffelmehl"
 C142-Update - Liste wird jetzt aktualisiert.
 E023 - FIX: Kategorie "Essen" in den Testdatenbank wird als "Hygiene" angezeigt.
@@ -287,9 +386,9 @@ Version 4.43 (CodeVersion 75)
 =============================
 
 C130 - Autovervollständigung jetzt über "..." abrufbar.
-E018 - FIX: Artikelangaben: Auswahllisten für Unterkategorie und "Standard Lagerort" zeigen jetzt sortiert alle Einträge (nicht nur von Artilen mit Lagerbestand).
+E018 - FIX: Artikelangaben: Auswahllisten für Unterkategorie und "Standard Lagerort" zeigen jetzt sortiert alle Einträge (nicht nur von Artikeln mit Lagerbestand).
 E017 - FIX: Artikelangaben: Texte bei Autovervollständigung werden jetzt ohne Leerzeichen am Ende abgespeichert.
-E016 - FIX: Summe der Lagerbestandsliste bei Warnungen und Abgelaufen jetzt auch mit Komma-Stellen.
+E016 - FIX: Summe der Lagerbestandsliste bei Warnungen und abgelaufen jetzt auch mit Komma-Stellen.
 
 Version 4.42 (CodeVersion 74)
 =============================
@@ -353,7 +452,7 @@ Version 4.23 (CodeVersion 65)
 
 C120 - Alle Einträge in Subkategorie, Einkaufsmarkt und Lagerort werden jetzt beim Anklicken angezeigt (nicht erst beim ersten Buchstaben).
 C119 - Design der Masken etwas verbessert.
-C118 - Klick auf Icon zeit jetzt gleich das Bild in Vollansicht.
+C118 - Klick auf Icon zeigt jetzt gleich das Bild in Vollansicht.
 C117 - Volltextsuche erweitern um Lagerort, Kategorie und Unterkategorie.  
 
 Version 4.22 (CodeVersion 64)      - Produktiv genommen am: 17.02.2020
@@ -397,7 +496,7 @@ Version 4.12 (CodeVersion 57)
 ==================================
 
 C107 - Artikel und Lagerliste kann jetzt auch als Text exportiert werden (Sharen).
-C106 - Legerbestansliste wird jetzt nach Ablaufdatum sortiert (kein Filter mehr).
+C106 - Lagerbestandsliste wird jetzt nach Ablaufdatum sortiert (kein Filter mehr).
 
 Version 4.11 (CodeVersion 56)
 ==================================
@@ -420,7 +519,7 @@ Version 4.00 (CodeVersion 53)
 ==================================
 
 C101 - Jetzt wieder: Zusätzliche Informationen in der Statuszeile der Kisten.
-C100 - Performance optimierung: Zusätzliche Tabelle für Bilder erstellt.
+C100 - Performance Optimierung: Zusätzliche Tabelle für Bilder erstellt.
 
 Version 3.15 (CodeVersion 52)
 ==================================
@@ -465,7 +564,7 @@ C088 - Erneuerung der Datenbank Zugriffskomponenten.
 Version 3.00 (CodeVersion 44)
 ==================================
 
-C087 - Sucha nach Artikeldaten jetzt anhand vom openfoodfacts.org
+C087 - Suche nach Artikeldaten jetzt anhand vom openfoodfacts.org
 
 Version 2.43 (CodeVersion 43)
 ==================================
@@ -485,7 +584,7 @@ C080 - Aktualisierung der Komponenten (erhoffte Verbesserung beim EAN Scan).
 Version 2.41 (CodeVersion 41)
 ==================================
 
-C079 - Beim Erfassen der Mänge sind jetzt 1, 10 und 100-e Schritte möglich.
+C079 - Beim Erfassen der Mange sind jetzt 1, 10 und 100-e Schritte möglich.
 
 Version 2.40 (CodeVersion 40)
 ==================================
@@ -495,7 +594,7 @@ C078 - Einkaufszettel als TXT exportieren (Sharen)
 Version 2.36 (CodeVersion 39)
 ==================================
 
-C077 - Kategoriesn Speichern beim Umschalten der Datenbanken.
+C077 - Kategorien Speichern beim Umschalten der Datenbanken.
 
 Version 2.34 (CodeVersion 38)
 ==================================
@@ -532,7 +631,7 @@ Betreff: Vorratsübersicht: Preis, Statuszeile und Einkaufszettel
 Geschätzten Beta Tester,
 
 ich war nach langer Zeit mal wieder fleißig. ;-) 
-Hier die Neuerungen, die es zum Testen und begutachten gibt:
+Hier die Neuerungen, die es zum Testen und Begutachten gibt:
 
 - (Standard) Preis zum Artikel kann jetzt erfasst werden.
 - Einkaufszettel jetzt mit Auswahl des Einkaufsmarktes und Statuszeile.
@@ -541,7 +640,7 @@ Hier die Neuerungen, die es zum Testen und begutachten gibt:
 Viel Spaß mit dem Testen und bitte meldet Euch,
 wenn was nicht funktioniert, falsch oder unlogisch ist.
 
-Falls Ihr nicht mehr Beta Tester Seit, bitte g'schwind um E-Mail,
+Falls Ihr nicht mehr Beta Tester seid, bitte g'schwind um E-Mail,
 dann bekomme Ihr die Benachrichtigungen nicht mehr.
 
 Gruß
@@ -554,7 +653,7 @@ Play Store Eintrag:
 
 (Standard-) Preis zum Artikel kann jetzt erfasst werden.
 Einkaufszettel jetzt mit Auswahl des Einkaufsmarktes.
-Statuszeile bei Lager- und Artikelliste mit (hoffentlich) nützlichen Einformionen.
+Statuszeile bei Lager- und Artikelliste mit (hoffentlich) nützlichen Informationen.
 Backup und Restore jetzt zum Testen (auf eigene Verantwortung)
 Problem beim erstmaligen Zugriff auf die SD Karte jetzt (hoffentlich) gelöst.
 Beschriftung der Buttons jetzt nicht mehr in Großbuchstaben.
@@ -567,7 +666,7 @@ C066 - Einkaufszettel: Popup Auswahl und Sortierung nach Einkaufsmarkt
 Version 2.21 (CodeVersion 33)
 ==================================
 
-C065 - Icon und Meldungen vom Backup/Restore überrbeitet.
+C065 - Icon und Meldungen vom Backup/Restore überarbeitet.
 
 Version 2.20 (CodeVersion 32)
 ==================================
@@ -609,7 +708,7 @@ Play Store Eintrag:
 Suche nach Artikeln und Hersteller integriert.
 Artikelstamm um Einkaufsmarkt, Lagerort, Mindestmenge und bevorzugte Menge erweitert.
 Lagerbestand filtern (nur "abgelaufene")
-Aus der Einkaufsliste direkt ins Lagerbestand.
+Aus der Einkaufsliste direkt in den Lagerbestand.
 Nach dem EAN Scan der Lagerbestand gleich im Edit-Modus.
 Hersteller jetzt auch mit Autovervollständigung.
 Spracheingabe für Artikelname (zum Testen).
@@ -625,7 +724,7 @@ C053 - FIX: Nach dem Filtern und bearbeiten ist der Filter ohne Wirkung
 C052 - Hersteller jetzt auch mit Autovervollständigung.
 C051 - Kein Text unter "Artikelname", dann Tastatur einblenden.
 C050 - FIX: "Artikel löschen" -> "Nein" beendet den Dialog nicht mehr.
-C047 - Aus der Einkaufsliste direkt ins Lagerbestand
+C047 - Aus der Einkaufsliste direkt in den Lagerbestand
 C046 - Absicherung gegen OutOfMemory Abstürze bei Bildern
 C045 - Nach dem EAN Scan der Lagerbestand gleich im Edit-Modus.
 C044 - Suche nach Artikeln um Hersteller erweitert
@@ -634,7 +733,7 @@ Version 2.10 (CodeVersion 25)
 ==================================
 
 C043 - Suche nach Artikeln hinzugefügt
-C042 - Artikelstamm um Einkaufsmarkt, Lagerort, Mindestmenge und bervorzugte Menge erweitert.
+C042 - Artikelstamm um Einkaufsmarkt, Lagerort, Mindestmenge und bevorzugte Menge erweitert.
 C041 - Spracheingabe für Artikelname (zum Testen)
 C040 - Lagerbestand filtern (nur "abgelaufene")
 
@@ -681,7 +780,7 @@ Version 1.43 (CodeVersion 16)
 minSdkVersion="15" targetSdkVersion="27"
 
 C030 - Fehler beim initialen Datenbankzugriff wird jetzt angezeigt
-C029 - Löschen (und Neuerstellung) der Datenbank jetzt im Settings möglich
+C029 - Löschen (und Neuerstellung) der Datenbank jetzt im Setting möglich
 
 Version 1.42 (CodeVersion 15)
 ==================================

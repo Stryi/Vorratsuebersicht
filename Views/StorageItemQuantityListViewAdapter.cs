@@ -125,9 +125,6 @@ namespace VorratsUebersicht
 
         private void OnItemClicked(object sender, EventArgs e)
         {
-            if (!this.actionButtonsVisible)
-                return;
-
             // CheckChanged hier aufrufen, da beim OnCheckChanged die CheckBox noch nicht gesetzt war.
             if (this.ItemClicked == null)
                 return;

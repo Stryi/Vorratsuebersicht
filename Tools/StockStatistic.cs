@@ -7,9 +7,9 @@ namespace VorratsUebersicht
 {
     public class StockStatistic
     {
-        int count = 0;
-        decimal quantity = 0;
-        Dictionary<string, decimal> sum_menge = new Dictionary<string, decimal>();
+        internal int count = 0;
+        internal decimal quantity = 0;
+        internal Dictionary<string, decimal> sum_menge = new Dictionary<string, decimal>();
         decimal sum_warnung = 0;
         decimal sum_abgelaufen = 0;
         decimal sum_kcal = 0;
@@ -81,38 +81,7 @@ namespace VorratsUebersicht
             {
                 string mengeListe = string.Empty;
 
-                if (this.sum_menge.ContainsKey("ml") && this.sum_menge.ContainsKey("l"))
-                {
-                    decimal ml = this.sum_menge["ml"];
-                    decimal l  = this.sum_menge["l"];
-
-                    decimal liter = l + ml / 1000;
-
-                    this.sum_menge.Remove("ml");
-                    this.sum_menge["l"] = liter;
-                }
-
-                if (this.sum_menge.ContainsKey("cl") && this.sum_menge.ContainsKey("l"))
-                {
-                    decimal cl = this.sum_menge["cl"];
-                    decimal l  = this.sum_menge["l"];
-
-                    decimal liter = l + cl / 100;
-
-                    this.sum_menge.Remove("cl");
-                    this.sum_menge["l"] = liter;
-                }
-
-                if (this.sum_menge.ContainsKey("g") && this.sum_menge.ContainsKey("kg"))
-                {
-                    decimal g   = this.sum_menge["g"];
-                    decimal kg  = this.sum_menge["kg"];
-
-                    decimal gewicht = kg + g / 1000;
-
-                    this.sum_menge.Remove("g");
-                    this.sum_menge["kg"] = gewicht;
-                }
+                this.ConvertUnits();
 
                 foreach(var menge in this.sum_menge)
                 {
@@ -136,6 +105,43 @@ namespace VorratsUebersicht
             if (sum_abgelaufen  > 0) status += ", " + string.Format(CultureInfo.CurrentUICulture, activity.Resources.GetString(Resource.String.StorageListSummary_Off),  sum_abgelaufen);
             
             return status;
+        }
+
+        internal void ConvertUnits()
+        {
+            if (this.sum_menge.ContainsKey("ml") && this.sum_menge.ContainsKey("l"))
+            {
+                decimal ml = this.sum_menge["ml"];
+                decimal l  = this.sum_menge["l"];
+
+                decimal liter = l + ml / 1000;
+
+                this.sum_menge.Remove("ml");
+                this.sum_menge["l"] = liter;
+            }
+
+            if (this.sum_menge.ContainsKey("cl") && this.sum_menge.ContainsKey("l"))
+            {
+                decimal cl = this.sum_menge["cl"];
+                decimal l  = this.sum_menge["l"];
+
+                decimal liter = l + cl / 100;
+
+                this.sum_menge.Remove("cl");
+                this.sum_menge["l"] = liter;
+            }
+
+            if (this.sum_menge.ContainsKey("g") && this.sum_menge.ContainsKey("kg"))
+            {
+                decimal g   = this.sum_menge["g"];
+                decimal kg  = this.sum_menge["kg"];
+
+                decimal gewicht = kg + g / 1000;
+
+                this.sum_menge.Remove("g");
+                this.sum_menge["kg"] = gewicht;
+            }
+
         }
     }
 }

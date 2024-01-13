@@ -255,7 +255,7 @@ namespace VorratsUebersicht
 
         #endregion
 
-        internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(int articleId)
+        internal static IList<StorageItemQuantityResult> GetBestBeforeItemQuantity(int articleId, string storageName = null, bool withoutStorage = false)
         {
             string cmd = string.Empty;
 
@@ -286,7 +286,7 @@ namespace VorratsUebersicht
                 parameter.Add(storageName);
             }
 
-            cmd += "SELECT BestBefore, SUM(Quantity) AS Quantity, Article.WarnInDays, StorageItem.ArticleId";
+            cmd += "SELECT BestBefore, SUM(Quantity) AS Quantity, Article.WarnInDays";
             cmd += " FROM StorageItem";
             cmd += " LEFT JOIN Article ON StorageItem.ArticleId = Article.ArticleId";
             cmd += filter;
@@ -316,7 +316,7 @@ namespace VorratsUebersicht
             return articleList.FirstOrDefault();
         }
 
-        internal static ArticleImage GetArticleImage(int articleId, bool showLarge)
+        internal static ArticleImage GetArticleImage(int articleId, bool? showLarge = null)
         {
             string cmd = string.Empty;
             cmd += "SELECT ImageId, ArticleId, Type, ";
@@ -513,6 +513,7 @@ namespace VorratsUebersicht
         {
             List<string> stringList = new List<string>();
 
+            // Artikel suchen, die schon abgelaufen sind.
             string cmd = string.Empty;
             cmd += "SELECT DISTINCT Supermarket AS Value";
             cmd += " FROM Article";
@@ -557,11 +558,13 @@ namespace VorratsUebersicht
             return stringList;
         }
 
-        internal static IList<ArticleQuantity> GetArticleQuantityList(
+        internal static IList<Article> GetArticleList(
             string category,
             string subCategory,
             string eanCode,
             bool notInStorage,
+            bool notInShoppingList,
+            bool withoutCategory,
             int  specialFilter,
             string textFilter = null)
         {
@@ -583,6 +586,17 @@ namespace VorratsUebersicht
                     filter += " WHERE ";
 
                 filter += " Article.SubCategory = ?";
+                parameter.Add(subCategory);
+            }
+
+            if (withoutCategory)
+            {
+                if (!string.IsNullOrEmpty(filter))
+                    filter += " AND ";
+                else
+                    filter += " WHERE ";
+
+                filter += " ((IFNULL(Article.SubCategory, '') = '') OR (IFNULL(Article.SubCategory, '') = ''))";
                 parameter.Add(subCategory);
             }
 
@@ -647,6 +661,16 @@ namespace VorratsUebersicht
                 filter += "ArticleId NOT IN (SELECT ArticleId FROM StorageItem)";
             }
 
+            if (notInShoppingList)
+            {
+                if (!string.IsNullOrEmpty(filter))
+                    filter += " AND ";
+                else
+                    filter += " WHERE ";
+
+                filter += "ArticleId NOT IN (SELECT ArticleId FROM ShoppingList)";
+            }
+
             if (specialFilter > 0)
             {
                 if (!string.IsNullOrEmpty(filter))
@@ -670,9 +694,12 @@ namespace VorratsUebersicht
                         filter += " AND ";
                         filter += " ArticleId NOT IN (SELECT ArticleId FROM StorageItem)";
                         break;
+                    case 4:
+                        filter += " ((Article.StorageName IS NULL) OR (Article.StorageName == ''))";
+                        break;
                 }
             }
-            
+
             string cmd = string.Empty;
             cmd += "SELECT ArticleId, Name, Manufacturer, Category, SubCategory, DurableInfinity, WarnInDays,";
             cmd += " Size, Unit, Notes, EANCode, Calorie, Price, StorageName, Supermarket,";
@@ -687,7 +714,7 @@ namespace VorratsUebersicht
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            var result = DatabaseService.Instance.ExecuteQuery<ArticleQuantity>(cmd, parameter.ToArray<object>());
+            var result = DatabaseService.Instance.ExecuteQuery<Article>(cmd, parameter.ToArray<object>());
 
             stopWatch.Stop();
             Tools.TRACE("Dauer der Abfrage für Artikelliste: {0}", stopWatch.Elapsed.ToString());
@@ -731,7 +758,7 @@ namespace VorratsUebersicht
             return DatabaseService.Instance.ExecuteScalar<string>(cmd, articleId);
         }
 
-        internal static int GetArticleCount()
+        internal static decimal GetArticleCount()
         {
             string cmd = string.Empty;
             cmd += "SELECT COUNT(*)";
@@ -782,10 +809,11 @@ namespace VorratsUebersicht
         internal static IList<StorageItemQuantityResult> GetStorageItemQuantityListNoImage(
             string category, 
             string subCategory, 
-            string eanCode, 
+            string eanCode,
             bool showNotInStorageArticles, 
             string textFilter = null, 
             string storageName = null,
+            bool withoutStorage = false,
             bool oderByToConsumeDate = false)
         {
             var result = new List<StorageItemQuantityResult>();
@@ -804,6 +832,11 @@ namespace VorratsUebersicht
                 parameter.Add(storageName);
             }
 
+            if (withoutStorage)
+            {
+                bestBeforeFilter += " AND (IFNULL(Article.StorageName, '') = '')";
+            }
+
             string bestBeforeSelect = "SELECT BestBefore" +
                 " FROM StorageItem" +
                 " WHERE StorageItem.ArticleId = Article.ArticleId" +
@@ -820,6 +853,11 @@ namespace VorratsUebersicht
 
                 parameter.Add(storageName);
                 parameter.Add(storageName);
+            }
+
+            if (withoutStorage)
+            {
+                sumQuantityFilter += " AND (IFNULL(StorageItem.StorageName, '') = '')";
             }
 
             string sumQuantitySelect = "SELECT SUM(Quantity)" +
@@ -1037,5 +1075,6 @@ namespace VorratsUebersicht
 
             DatabaseService.Instance.ExecuteNonQuery(cmd, key);
         }
+
     }
 }

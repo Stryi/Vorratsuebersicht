@@ -54,7 +54,8 @@
 	<string name="Settings_DefaultCategory" >Default category for new articles</string>
 	<string name="Settings_BackupAndRestore" >Backup and restore</string>
 	<string name="Settings_CreateBackup" >Create backup</string>
-	<string name="Settings_RestoreBackup" >Restore / delete backup</string>
+  <string name="Settings_ShareBackupFile" >Share Backup file</string>
+  <string name="Settings_RestoreBackup" >Restore / delete backup</string>
   <string name="Settings_RestoreBackupFromFile" >Restore backup from file</string>
   <string name="Settings_Action_BackupRestore" >Restore</string>
 	<string name="Settings_Action_BackupDelete" >Delete</string>
@@ -69,18 +70,18 @@
 	<string name="Settings_LastBackupOn" >Last backup on: {0}</string>
 	<string name="Settings_AskForBackup" >Remind to backup every 7 days</string>
 	<string name="Settings_BackupDone" >Database saved in download directory as:\n\n {0}"\n\nSave this file to Google Drive or to your PC.</string>
-	<string name="Settings_DatenbankKomprimieren" >\tCompact database</string>
-	<string name="Settings_DatenbankReparieren" >\tRepair/check database</string>
+	<string name="Settings_DatenbankKomprimieren" >Compact database</string>
+	<string name="Settings_DatenbankReparieren" >Repair/check database</string>
 	<string name="Settings_CheckReport" >Check result:</string>
 	<string name="Settings_DeleteBackupFileQuestion" >Delete backup file?\n\n{0}</string>
 
 	<string name="Settings_DatabaseManagement" >Manage databases</string>
-	<string name="Settings_DatabaseNew" >\tCreate a new database...</string>
-	<string name="Settings_DatabaseRename" >\tRename database...\n\t(except the one currently opened)</string>
+	<string name="Settings_DatabaseNew" >Create a new database...</string>
+	<string name="Settings_DatabaseRename" >Rename database...\n(except the one currently opened)</string>
 	<string name="Settings_DatabaseRenameDialogTitle" >Rename database</string>
 	<string name="Settings_DatabaseRenameDialogMessage" >\n\nEnter new name:</string>
-	<string name="Settings_DatabaseDelete" >\tDelete database...\n\t(selection follows)</string>
-	<string name="Settings_DatabaseImport" >\tImport database</string>
+	<string name="Settings_DatabaseDelete" >Delete database...\n(selection follows)</string>
+	<string name="Settings_DatabaseImport" >Import database</string>
 	<string name="Settings_DatabaseNewDialogTitle" >Create a new database</string>
 	<string name="Settings_DatabaseNewDialogMessage" >"\n\nEnter name:</string>
 	<string name="Settings_EAN_Scann" >EAN scan</string>
@@ -95,7 +96,12 @@
 	<string name="Settings_CSV_Export_Articles" >Articles</string>
 	<string name="Settings_CSV_Export_Inventory" >Inventory</string>
 
-	<string name="Settings_AdditionalOptions" >Options</string>
+  <string name="Settings_CSVSeparator" >Field separator</string>
+  <string name="Settings_CSVSeparator_Comma_Text"     >Comma</string>
+  <string name="Settings_CSVSeparator_Semicolon_Text" >Semicolon</string>
+  <string name="Settings_CSVSeparator_Tab_Text"       >Tab</string>
+
+  <string name="Settings_AdditionalOptions" >Options</string>
 
 	<string name="Settings_ShowOFFCostMessage" >View cost notice at OpenFoodFacts.org</string>
 	<string name="Settings_AdditionalDatabasePath" >Additional database path (unfortunately not possible later):</string>
@@ -120,24 +126,29 @@
 	</string>
 	<string name="Settings_AppWiki" >App Wiki (German)</string>
 	<string name="Settings_AppWiki_Page" >https://github.com/Stryi/Vorratsuebersicht/wiki</string>
-	<string name="Settings_Licenses" >License Terms</string>
+  <string name="Settings_Datenschutz" >Data protection (German)</string>
+  <string name="Settings_Datenschutz_Link" >https://sites.google.com/site/vorratsuebersicht/datenschutzerklaerung</string>
+  <string name="Settings_Licenses" >License Terms</string>
 	<string name="Settings_OpenSourceLizenzen" >Open Source Licenses</string>
 	<string name="Settings_Contact_Email" >Contact email: <a href="mailto:cstryi@freenet.de">cstryi@freenet.de</a></string>
 
 	<!-- Artikelliste -->
-	<string name="ArticleList_AllCategories" >[All Categories]</string>
-	<string name="ArticleList_ToShoppingList" >To shopping list</string>
+	<string name="ArticleList_AllCategories" >[All categories]</string>
+  <string name="ArticleList_NoCategories" >[Without category / subcategory]</string>
+  <string name="ArticleList_ToShoppingList" >To shopping list</string>
 	<string name="ArticleList_Lagerbestand" >Inventory</string>
 
 	<string name="ArticleList_Menu_Add" >Create new article</string>
   <string name="ArticleList_Menu_Filter" >Filter</string>
 
   <string name="ArticleList_SpecialFilter" >Filter: {0}</string>
+  <string name="ArticleList_SpecialFilterClose" >Close filter</string>
 
   <string-array name="ArticleListeSpecialFilter" >
     <item>No price given</item>
     <item>Without calorie information</item>
     <item>For the shopping list (without inventory)</item>
+    <item>No default storage location specified</item>
   </string-array>
 
 
@@ -171,7 +182,7 @@
 	<string name="ArticleDetails_Unit_Hint" >g, l, kg, mg, pcs</string>
 	<string name="ArticleDetails_Calories" >Calories:</string>
 	<string name="ArticleDetails_CaloriesPerUnit" >Calories per 100 {0}:</string>
-	<string name="ArticleDetails_StorageLabel" >Storage location:</string>
+	<string name="ArticleDetails_StorageLabel" >Default Storage:</string>
 	<string name="ArticleDetails_MinQuantityLabel" >Min. quantity:</string>
 	<string name="ArticleDetails_PrefQuantityLabel" >Pref. quantity:</string>
 	<string name="ArticleDetails_SupermarketLabel" >Supermarket:</string>
@@ -213,7 +224,8 @@
 	<!-- Lagerbestandsliste -->
 	<string name="StorageItem_Storage" >Storage:</string>
 	<string name="StorageItem_AllStoragesStorage" >[All storages]</string>
-	<string name="StorageItem_ToShoppingList" >To shopping list</string>
+  <string name="StorageItem_NoStoragesStorage" >[Without storages]</string>
+  <string name="StorageItem_ToShoppingList" >To shopping list</string>
 	<string name="StorageItem_Artikelangaben" >Article details</string>
 	<string name="StorageItem_Amount" >Value:</string>
 	<string name="StorageItem_SumQuantityAndSize" >Quantity:</string>
@@ -223,8 +235,9 @@
 
 	<string name="StorageItemList_Menu_Sort" >Sorting (alphabetically or by expiry date)</string>
 	<string name="StorageItemList_Menu_Add" >Add article</string>
+  <string name="StorageItemList_Menu_Filter" >Filter</string>
 
-	<!-- Lagerbestandsliste - Footer -->
+  <!-- Lagerbestandsliste - Footer -->
 	<string name="StorageListSummary_Position" >{0:n0} position</string>
 	<string name="StorageListSummary_Positions" >{0:n0} positions</string>
 	<string name="StorageListSummary_Quantity" >Sum amount {0:#,0.##}</string>
@@ -240,11 +253,12 @@
 	<string name="StorageItemQuantity_Menu_Artikelangaben" >Article details</string>
 	<string name="StorageItemQuantity_Menu_Edit" >Edit Position</string>
 	<string name="StorageItemQuantity_Menu_EditPicture" >Show image</string>
-	<string name="StorageItemQuantity_StorageForNewPosition" >Warehouse for new pos.:</string>
+	<string name="StorageItemQuantity_StorageForNewPosition" >Warehouse for new position:</string>
 	<string name="StorageItemQuantity_Step" >Step</string>
 	<string name="StorageItemQuantity_StepText" >1x</string>
+  <string name="StorageItemQuantity_AddPosition" >Create new position</string>
 
-	<string name="StorageItemQuantityList_Quantity" >Amount:</string>
+  <string name="StorageItemQuantityList_Quantity" >Amount:</string>
 	<string name="StorageItemQuantityList_BestBefore" >Expiry Date:</string>
 	<string name="StorageItemQuantityList_StorageLabel" >Storage:</string>
 
@@ -268,6 +282,7 @@
 	<string name="ShoppingList_MarkAsBought" >Mark as \'bought\'</string>
 	<string name="ShoppingList_AllSupermarkets" >[All]</string>
 	<string name="ShoppingList_Bought" >Bought</string>
+  <string name="ShoppingList_Sparse" >Compact view</string>
 
   <string name="ShoppingList_Menu_Sort" >Sorting (bought, supermarket, inserted, name)</string>
   <string name="ShoppingList_Menu_Add" >Add item to list</string>

@@ -26,7 +26,9 @@ namespace VorratsUebersicht
 		private bool selectArticleOnly;
         private string category;
         private string subCategory;
+        private bool   withoutCategory;
         private bool   notInStorage;
+        private bool   notInShoppingList;
         private string eanCode;
         private string lastSearchText = string.Empty;
         private int    specialFilter = 0;
@@ -38,10 +40,11 @@ namespace VorratsUebersicht
 
             this.selectArticleOnly = Intent.GetBooleanExtra("SelectArticleOnly", false);
 
-            this.category     = Intent.GetStringExtra ("Category") ?? string.Empty;
-            this.subCategory  = Intent.GetStringExtra ("SubCategory") ?? string.Empty;
-            this.notInStorage = Intent.GetBooleanExtra("NotInStorage", false);
-            this.eanCode      = Intent.GetStringExtra ("EANCode") ?? string.Empty;
+            this.category          = Intent.GetStringExtra ("Category") ?? string.Empty;
+            this.subCategory       = Intent.GetStringExtra ("SubCategory") ?? string.Empty;
+            this.notInStorage      = Intent.GetBooleanExtra("NotInStorage", false);
+            this.notInShoppingList = Intent.GetBooleanExtra("NotInShoppingList", false);
+            this.eanCode           = Intent.GetStringExtra ("EANCode") ?? string.Empty;
 
             if (!string.IsNullOrEmpty(this.subCategory))
             {
@@ -60,6 +63,7 @@ namespace VorratsUebersicht
             this.categoryList.Add(Resources.GetString(Resource.String.ArticleList_AllCategories));
             try
             {
+                this.categoryList.Add(Resources.GetString(Resource.String.ArticleList_NoCategories));
                 this.categoryList.AddRange(Database.GetCategoryAndSubCategoryNames());
             }
             catch(Exception ex)
@@ -74,7 +78,8 @@ namespace VorratsUebersicht
                 categorySelection.Visibility = ViewStates.Visible;
 
                 var spinnerCategory = FindViewById<Spinner>(Resource.Id.ArticleList_Categories);
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleSpinnerItem, this.categoryList);
+                
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, Resource.Layout.Spinner_Black, this.categoryList);
                 dataAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
                 spinnerCategory.Adapter = dataAdapter;
 
@@ -93,10 +98,6 @@ namespace VorratsUebersicht
 
             ImageView imageView = FindViewById<ImageView>(Resource.Id.ArticleList_FilterClear);
             imageView.Click += ArticleFilterClear_Click;
-
-            this.refreshLayout = FindViewById < SwipeRefreshLayout > (Resource.Id.swipeRefreshLayout);  
-            this.refreshLayout.SetColorSchemeColors(0,255,0);  
-            this.refreshLayout.Refresh += RefreshLayout_Refresh;  
 
             this.RegisterForContextMenu(listView);
 
@@ -134,13 +135,18 @@ namespace VorratsUebersicht
             this.ShowArticleList();
         }
 
+        private void AddArticle_Click(object sender, EventArgs e)
+        {
+            // Create New Article
+            this.ShowArticleDetails(0, null);
+        }
+
         public override void OnCreateContextMenu(IContextMenu menu, View view, IContextMenuContextMenuInfo menuInfo)
         {
             if (view.Id == Resource.Id.ArticleList) 
             {
-                menu.Add(Menu.None, 1, Menu.None, Resource.String.ArticleList_Lagerbestand);    // Lagerbestand
-                menu.Add(Menu.None, 2, Menu.None, Resource.String.ArticleList_ToShoppingList);  // Auf Einkaufszettel
-
+                menu.Add(IMenu.None, 1, IMenu.None, Resource.String.ArticleList_Lagerbestand);    // Lagerbestand
+                menu.Add(IMenu.None, 2, IMenu.None, Resource.String.ArticleList_ToShoppingList);  // Auf Einkaufszettel
             }
         }
 
@@ -179,10 +185,16 @@ namespace VorratsUebersicht
         {
             string newCategoryName    = string.Empty;
             string newSubCategoryName = string.Empty;
+            bool   withoutCategory    = false;
 
             string name = this.categoryList[e.Position];
 
-            if (e.Position > 0)
+            if (e.Position == 1)
+            {
+                withoutCategory = true;
+            }
+
+            if (e.Position > 1)
             {
                 if (name.StartsWith("  - "))    // Ist das ein SubCategory?
                 {
@@ -195,10 +207,11 @@ namespace VorratsUebersicht
                 }
             }
 
-            if ((newCategoryName != this.category) || (newSubCategoryName != this.subCategory))
+            if ((newCategoryName != this.category) || (newSubCategoryName != this.subCategory) || withoutCategory != this.withoutCategory)
             {
-                this.category    = newCategoryName;;
-                this.subCategory = newSubCategoryName;
+                this.category        = newCategoryName;
+                this.subCategory     = newSubCategoryName;
+                this.withoutCategory = withoutCategory;
 
                 this.ShowArticleList(this.lastSearchText);
             }
@@ -307,9 +320,17 @@ namespace VorratsUebersicht
             {
                 this.liste.Clear();
 
-                var articleList = Database.GetArticleQuantityList(this.category, this.subCategory, this.eanCode, this.notInStorage, this.specialFilter, text);
+                var articleList = Database.GetArticleList(
+                    this.category,
+                    this.subCategory,
+                    this.eanCode,
+                    this.notInStorage,
+                    this.notInShoppingList,
+                    this.withoutCategory,
+                    this.specialFilter,
+                    text);
 
-                foreach(ArticleQuantity article in articleList)
+                foreach(Article article in articleList)
                 {
                     liste.Add(new ArticleListView(article, this.Resources));
                 }
@@ -341,9 +362,17 @@ namespace VorratsUebersicht
 
             try
             {
-                var articleList = Database.GetArticleQuantityList(this.category, this.subCategory, this.eanCode, this.notInStorage, this.specialFilter, text);
+                var articleList = Database.GetArticleList(
+                    this.category,
+                    this.subCategory,
+                    this.eanCode,
+                    this.notInStorage,
+                    this.notInShoppingList,
+                    this.withoutCategory,
+                    this.specialFilter,
+                    text);
 
-                foreach(ArticleQuantity article in articleList)
+                foreach(Article article in articleList)
                 {
                     liste.Add(new ArticleListView(article, this.Resources));
                 }

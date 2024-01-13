@@ -13,7 +13,6 @@ namespace VorratsUebersicht
     {
         private View view;
         private LinearLayout root;
-        private bool DayWasPicked;
         private string last_clicked_tag = "";
 
         private TextView date_textview = null;
@@ -88,7 +87,6 @@ namespace VorratsUebersicht
             LinearLayout ll;
             Button b;
 
-            this.DayWasPicked = false;
             this.base_year = base_year;
             this.root.RemoveAllViews();
 
@@ -136,6 +134,7 @@ namespace VorratsUebersicht
 
             b = new Button(this.view.Context);
             b.Text = "Kein Datum";
+            b.SetAllCaps(false);
             lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent);
             lp.Width = 0;
             lp.Weight = 3;
@@ -154,6 +153,7 @@ namespace VorratsUebersicht
             lp.Weight = 3;
             lp.SetMargins(1, 1, 1, 1);
             b.SetBackgroundColor(Android.Graphics.Color.LightGreen);
+            b.SetTextColor(Android.Graphics.Color.Black);
             b.SetPadding(0, 0, 0, 0);
             b.LayoutParameters = lp;
             b.Click += OnCloseCLicked;
@@ -218,16 +218,6 @@ namespace VorratsUebersicht
             }
             this.last_clicked_tag = tag;
 
-            /*
-            // Doppelclick
-            if ((tag.Substring(0, 1) == "M" && val == this.Date.Value.Month) || (tag.Substring(0, 1) == "D" && val == this.Date.Value.Day)
-                || (DayWasPicked && tag.Substring(0, 1) == "Y" && val == this.Date.Value.Year))
-            {
-                DateSelectedHandler(this.Date);
-                this.Dismiss();
-                return;
-            }
-            */
             UpdateGrid(tag.Substring(0, 1), val, true);
         }
 
@@ -264,8 +254,6 @@ namespace VorratsUebersicht
                 month = val;
             else
             {
-                if (user_input)
-                    DayWasPicked = true;
                 day = val;
             }
 
@@ -283,8 +271,6 @@ namespace VorratsUebersicht
                     else
                         this.max_days = 28;
                 }
-                if (!DayWasPicked)
-                    day = this.max_days;
             }
             if (day > this.max_days)
                 day = this.max_days;
