@@ -1,6 +1,7 @@
 Version 8.12 (Code Version 145)
 =====================================
 
+C219 - Beim Import der Datenbank kann gleich der Name angegeben werden.
 C218 - An Backup wird nur erinnert, wenn auch was geändert wurde.
 E068 - Lagerbestand "-1" rutsch ins Negative (ohne Edit-Modus)
 

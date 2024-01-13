@@ -82,6 +82,7 @@
 	<string name="Settings_DatabaseRenameDialogMessage" >\n\nNeuen Name eingeben:</string>
 	<string name="Settings_DatabaseDelete" >Datenbank löschen...\n(Auswahl folgt)</string>
 	<string name="Settings_DatabaseImport" >Datenbank importieren</string>
+  <string name="Settings_DatabaseImportName" >Unter welchem Namen soll die Datenbank importiert werden?\n</string>
 	<string name="Settings_DatabaseNewDialogTitle" >Neue Datenbank erstellen</string>
 	<string name="Settings_DatabaseNewDialogMessage" >"\n\nName eingeben:</string>
 	<string name="Settings_EAN_Scann" >EAN Scan</string>
