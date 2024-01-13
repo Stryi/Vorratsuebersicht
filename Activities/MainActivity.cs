@@ -873,8 +873,15 @@ namespace VorratsUebersicht
             dialog.SetMessage(message);
             dialog.Window.SetSoftInputMode(Android.Views.SoftInput.StateVisible);
             EditText input = new EditText(context);
-            input.InputType = Android.Text.InputTypes.ClassText;
+            input.InputType = Android.Text.InputTypes.TextFlagAutoComplete; // TextClass;
             input.Text = name;
+
+            // Setze den Abstand (Padding) für den EditText
+            int marginInDp = 20;
+            float scale = context.Resources.DisplayMetrics.Density;
+            int marginInPixels = (int)(marginInDp * scale + 0.5f);
+            input.SetPadding(marginInPixels, marginInPixels, marginInPixels, marginInPixels); // Setze den Abstand für den EditText
+
             input.RequestFocus();
             dialog.SetView(input);
             dialog.SetButton(positiveButton,  (s, e) => { tcs.TrySetResult(input.Text); });

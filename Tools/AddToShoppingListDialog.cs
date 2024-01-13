@@ -72,6 +72,12 @@ namespace VorratsUebersicht
             input.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
             input.Text = toBuyQuantity.ToString(CultureInfo.InvariantCulture);
 
+            // Setze den Abstand (Padding) für den EditText
+            int marginInDp = 20;
+            float scale = activity.Resources.DisplayMetrics.Density;
+            int marginInPixels = (int)(marginInDp * scale + 0.5f);
+            input.SetPadding(marginInPixels, marginInPixels, marginInPixels, marginInPixels); // Setze den Abstand für den EditText
+
             input.RequestFocus();
             input.SetSelection(0, input.Text.Length);
             quantityDialog.SetView(input);
