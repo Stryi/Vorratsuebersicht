@@ -639,57 +639,39 @@ namespace VorratsUebersicht
 
         internal Exception ImportDatabase(Context context, string sourceFilePath, string datebaseName)
         {
+            // Beispiel: "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
+			var applicationFileDir = context.GetExternalFilesDir(null);
+            if (applicationFileDir == null)
+                return null;
+
+            string destinationFilePath = Path.Combine(applicationFileDir.Path, datebaseName);
+            destinationFilePath = String.Format("{0}.{1}", destinationFilePath, "db3");
+
+            var fileExists = File.Exists(destinationFilePath); 
+            if (fileExists)
+            {
+                return new Exception($"Die Datenbank '{datebaseName}' existiert bereits.");
+            }
+                
             try
             {
-
-                // Beispiel: "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
-			    var applicationFileDir = context.GetExternalFilesDir(null);
-                if (applicationFileDir == null)
-                    return null;
-
-                string destinationFilePath = this.GetUniqueDestinationDatabaseName(applicationFileDir.Path, datebaseName);
-                
                 File.Copy(sourceFilePath, destinationFilePath);
-
-                string msg = string.Format("Die Datenbank wurde als '{0}' importiert.", Path.GetFileNameWithoutExtension(destinationFilePath));
-                var message = new AlertDialog.Builder(context);
-                message.SetMessage(msg);
-                message.SetPositiveButton(context.Resources.GetString(Resource.String.App_Ok), (s, e) => { });
-                message.Create().Show();
-
             }
             catch (Exception ex)
             {
-                return ex;
+                var text = string.Format("{0}\n\n{1}",
+                    ex.Message, 
+                    context.Resources.GetString(Resource.String.App_CheckPermissions));
+
+                var message = new AlertDialog.Builder(context);
+                message.SetMessage(text);
+                message.SetPositiveButton(context.Resources.GetString(Resource.String.App_Ok), (s, evt) => { });
+                message.SetNegativeButton("App Info", (s, evt) => { AppInfo.ShowSettingsUI();});
+                message.Create().Show();
+
+                return null;
             }
             return null;
-        }
-
-        /// <summary>
-        /// Dateiname liefern, was noch nicht da ist.
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="datebaseName"></param>
-        /// <returns></returns>
-        private string GetUniqueDestinationDatabaseName(string path, string datebaseName)
-        {
-            int counter = 0;
-            string fileName = Path.GetFileNameWithoutExtension(datebaseName);
-            string destinationFilePath;
-
-            do
-            {
-                destinationFilePath = Path.Combine(path, fileName);
-
-                // Erweiterung .db3 setzen.
-                destinationFilePath = String.Format("{0}.{1}", destinationFilePath, "db3");
-
-                counter++;
-                fileName = string.Format("{0}_{1}", Path.GetFileNameWithoutExtension(datebaseName), counter);
-
-            } while(File.Exists(destinationFilePath));
-
-            return destinationFilePath;
         }
     }
 }

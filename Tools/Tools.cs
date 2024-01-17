@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.IO;
 using Android.Util;
 
@@ -85,6 +86,41 @@ namespace VorratsUebersicht
         internal static string GetLogFileName()
         {
             return Tools.logFileName;
+        }
+
+        public static string GetBackupDatabaseName(string backupFilePath)
+        {
+            string databaseName = Path.GetFileNameWithoutExtension(backupFilePath);
+
+            if (databaseName.Length < 19)
+            {
+                return databaseName;
+            }
+
+            string dateTimeText = databaseName.Substring(databaseName.Length - 19);
+
+            bool isDateTime = DateTime.TryParseExact(
+                dateTimeText,
+                "yyyy-MM-dd HH.mm.ss", 
+                CultureInfo.InvariantCulture, 
+                DateTimeStyles.None,
+                out DateTime result);
+
+            if (!isDateTime)
+            {
+                return databaseName;
+            }
+
+            // Das Datum im Namen entfernen
+            databaseName = databaseName.Substring(0, databaseName.Length - 19);
+            databaseName = databaseName.TrimEnd(new char[] { '_' });
+
+            if (databaseName == "Vue")
+            {
+                databaseName = "Vorraete";
+            }
+
+            return databaseName;
         }
     }
 }
