@@ -1,7 +1,11 @@
-Version 8.12 (Code Version 145)
+Version 8.13 (Code Version 146)
 =====================================
 
 E069 - Eingabemaske für Menge und Datenbankname jetzt mit Abstand zum Rand.
+
+Version 8.12 (Code Version 145)
+=====================================
+
 C219 - Beim Import/Restore der Datenbank kann gleich der Name angegeben werden.
 C218 - An Backup wird nur erinnert, wenn auch was geändert wurde.
 E068 - Lagerbestand "-1" rutsch ins Negative (ohne Edit-Modus)
