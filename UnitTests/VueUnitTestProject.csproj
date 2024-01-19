@@ -75,6 +75,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="ShoppingListHelper_UnitTest.cs" />
     <Compile Include="StockStatistic_UnitTest.cs" />
+    <Compile Include="Tools_UNitTest.cs" />
     <Compile Include="UnitConvert_UnitTest.cs" />
   </ItemGroup>
   <ItemGroup>

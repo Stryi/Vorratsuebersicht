@@ -35,6 +35,30 @@ namespace VorratsUebersicht
             return string.Format(format[i], s);  
         }
 
+        public static string ToHumanText(DateTime dateTime)
+        {
+            string datun;
+
+            datun = dateTime.ToShortDateString();
+
+            if (dateTime.Date == DateTime.Today)
+            {
+                datun = "Heute";
+            }
+            if (dateTime.Date == DateTime.Today.AddDays(-1))
+            {
+                datun = "Gestern";
+            }
+
+            // Keine Uhrzeit Angabe?
+            if ((dateTime.Hour == 0) && (dateTime.Minute == 0) && (dateTime.Second == 0))
+            {
+                return datun;
+            }
+
+            return string.Format("{0} um {1}", datun, dateTime.ToShortTimeString());
+        }
+
         public static void TRACE(string text)
         {
             if (text == null)
