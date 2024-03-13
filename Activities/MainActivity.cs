@@ -32,6 +32,7 @@ namespace VorratsUebersicht
         public static readonly int EditStorageQuantity = 1005;
         public static readonly int EANScanID = 1006;
         public static readonly int ManageDatabases = 1007;
+        public static readonly int ShoppingListId = 1008;
 
         private static DateTime preLaunchTestEndDay;
 
@@ -112,7 +113,7 @@ namespace VorratsUebersicht
 
             // Einkaufsliste
             Button buttonShoppingList = FindViewById<Button>(Resource.Id.MainButton_ShoppingList);
-            buttonShoppingList.Click += delegate { StartActivity (new Intent (this, typeof(ShoppingListActivity)));};
+            buttonShoppingList.Click += delegate { StartActivityForResult (new Intent (this, typeof(ShoppingListActivity)), ShoppingListId);};
 
             // Barcode scannen
             Button buttonBarcode = FindViewById<Button>(Resource.Id.MainButton_Barcode);
@@ -471,6 +472,12 @@ namespace VorratsUebersicht
             TextView text = FindViewById<TextView>(Resource.Id.Main_Text);
             text.Visibility = ViewStates.Gone;
 
+            TextView text1Count = FindViewById<TextView>(Resource.Id.Main_Text1Counter);
+            text1Count.Visibility = ViewStates.Gone;
+
+            TextView text2Count = FindViewById<TextView>(Resource.Id.Main_Text2Counter);
+            text2Count.Visibility = ViewStates.Gone;
+
             decimal abgelaufen = Database.GetArticleCount_Abgelaufen();
 
             if (abgelaufen > 0)
@@ -478,6 +485,9 @@ namespace VorratsUebersicht
                 string value = Resources.GetString(Resource.String.Main_ArticlesWithExpiryDate);
                 text1.Text = string.Format(value, abgelaufen);
                 text1.Visibility = ViewStates.Visible;
+
+                text1Count.Text = abgelaufen.ToString();
+                text1Count.Visibility = ViewStates.Visible;
             }
 
             decimal kurzDavor = Database.GetArticleCount_BaldZuVerbrauchen();
@@ -487,11 +497,25 @@ namespace VorratsUebersicht
                 string value = Resources.GetString(Resource.String.Main_ArticlesNearExpiryDate);
                 text2.Text = string.Format(value, kurzDavor);
                 text2.Visibility = ViewStates.Visible;
+
+                text2Count.Text = kurzDavor.ToString();
+                text2Count.Visibility = ViewStates.Visible;
             }
 
             if ((abgelaufen > 0) || (kurzDavor > 0))
             {
                 text.Visibility = ViewStates.Visible;
+            }
+
+            TextView textShoppingCount = FindViewById<TextView>(Resource.Id.Main_ShoppingListCounter);
+            textShoppingCount.Visibility = ViewStates.Gone;
+
+
+            decimal shoppingCount = Database.GetShoppingItemCount();
+            if (shoppingCount > 0)
+            {
+                textShoppingCount.Text = shoppingCount.ToString();
+                textShoppingCount.Visibility = ViewStates.Visible;
             }
         }
 
@@ -553,6 +577,11 @@ namespace VorratsUebersicht
             base.OnActivityResult(requestCode, resultCode, data);
 
             if (requestCode == EditStorageItemQuantityId)
+            {
+                this.ShowDatabaseInfoText();
+            }
+
+            if (requestCode == ShoppingListId)
             {
                 this.ShowDatabaseInfoText();
             }

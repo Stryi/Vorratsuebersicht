@@ -1132,6 +1132,22 @@ namespace VorratsUebersicht
             return command.ExecuteQuery<StorageItemQuantityResult>();
         }
 
+        internal static decimal GetShoppingItemCount()
+        {
+            var databaseConnection = Android_Database.Instance.GetConnection();
+            if (databaseConnection == null)
+                return 0;
+
+            string cmd = string.Empty;
+
+            cmd += "SELECT SUM(Quantity) AS Quantity";
+            cmd += " FROM ShoppingList";
+
+            var command = databaseConnection.CreateCommand(cmd);
+            var result = command.ExecuteQuery<QuantityResult>();
+            return result[0].Quantity;
+        }
+
         internal static void DeleteArticle(int articleId)
         {
             var databaseConnection = Android_Database.Instance.GetConnection();

@@ -54,27 +54,65 @@
       android:paddingLeft="5dp"
       android:visibility="gone" />
     <Button
-      android:id="@+id/MainButton_Kategorie"
-      android:text="@string/Main_Button_BestandNachKategorie"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textAllCaps="false"
-      android:textSize="18sp"
-      android:drawableLeft="@drawable/main_button_storage_grouped"
-      android:gravity="left|center_vertical"
-      android:enabled="false"
-      android:drawablePadding="20dp" />
-    <Button
-      android:id="@+id/MainButton_Lagerbestand"
-      android:text="@string/Main_Button_Lagerbestand"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textAllCaps="false"
-      android:textSize="18sp"
-      android:drawableLeft="@drawable/main_button_storage"
-      android:gravity="left|center_vertical"
-      android:enabled="false"
-      android:drawablePadding="20dp" />
+        android:id="@+id/MainButton_Kategorie"
+        android:text="@string/Main_Button_BestandNachKategorie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:drawableLeft="@drawable/main_button_storage_grouped"
+        android:gravity="left|center_vertical"
+        android:enabled="false"
+        android:drawablePadding="20dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+          android:id="@+id/MainButton_Lagerbestand"
+          android:text="@string/Main_Button_Lagerbestand"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAllCaps="false"
+          android:textSize="18sp"
+          android:drawableLeft="@drawable/main_button_storage"
+          android:gravity="left|center_vertical"
+          android:enabled="false"
+          android:drawablePadding="20dp" />
+        <TextView
+            android:id="@+id/Main_Text1Counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="82"
+            android:layout_marginRight="10dp"
+            android:paddingRight="11dp"
+            android:paddingLeft="11dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textSize="18sp"
+            android:textColor="@color/Text_Error"
+            android:elevation="40dp"
+            android:background="@drawable/TextView_Counter"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@id/Main_Text2Counter" />
+        <TextView
+            android:id="@+id/Main_Text2Counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8" 
+            android:layout_marginRight="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="4dp"
+            android:textSize="18sp"
+            android:textColor="@color/Text_Warning"
+            android:elevation="50dp"
+            android:background="@drawable/TextView_Counter"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" />
+    </RelativeLayout>
+
     <Button
       android:id="@+id/MainButton_Artikeldaten"
       android:text="@string/Main_Button_ArtikelListe"
@@ -97,17 +135,41 @@
       android:gravity="left|center_vertical"
       android:enabled="false"
       android:drawablePadding="20dp" />
-    <Button
-      android:id="@+id/MainButton_ShoppingList"
-      android:text="@string/Main_Button_Einkaufsliste"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textAllCaps="false"
-      android:textSize="18sp"
-      android:drawableLeft="@drawable/main_button_shopping_cart"
-      android:gravity="left|center_vertical"
-      android:enabled="false"
-      android:drawablePadding="20dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+          android:id="@+id/MainButton_ShoppingList"
+          android:text="@string/Main_Button_Einkaufsliste"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAllCaps="false"
+          android:textSize="18sp"
+          android:drawableLeft="@drawable/main_button_shopping_cart"
+          android:gravity="left|center_vertical"
+          android:enabled="false"
+          android:drawablePadding="20dp" />
+
+        <TextView
+            android:id="@+id/Main_ShoppingListCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5" 
+            android:layout_marginRight="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="4dp"
+            android:textSize="18sp"
+            android:textColor="@color/Text_Color"
+            android:elevation="50dp"
+            android:background="@drawable/TextView_Counter"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" />
+        </RelativeLayout>
+
   </LinearLayout>
   <LinearLayout
     android:id="@+id/Main_Footer"
