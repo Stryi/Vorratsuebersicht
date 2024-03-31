@@ -234,10 +234,12 @@
 	<string name="StorageItem_InventoryInPieces" >Bestand: {0} Stück</string>
 	<string name="StorageItem_CountWithNoExpiryDate" >{0} ohne Ablaufdatum</string>
 	<string name="StorageItem_CountWithThisExpiryDate" >{0} mit Ablaufdatum {1}</string>
-
-	<string name="StorageItemList_Menu_Sort" >Sortierung (Alphabetisch oder nach Ablaufdatum)</string>
+  <string name="StorageItem_DeleteAllStorageItems" >Bestand für ALLE Artikel in ALLEN Lagern LÖSCHEN (z.B. für Neuerfassung oder Inventur)?</string>
+  
+  <string name="StorageItemList_Menu_Sort" >Sortierung (Alphabetisch oder nach Ablaufdatum)</string>
 	<string name="StorageItemList_Menu_Add" >Artikel hinzufügen</string>
   <string name="StorageItemList_Menu_Filter" >Filter</string>
+  <string name="StorageItemList_Menu_Delete" >Gesamten Lagerbestand löschen...</string>
 
   <!-- Lagerbestandsliste - Footer -->
 	<string name="StorageListSummary_Position" >{0:n0} Position</string>

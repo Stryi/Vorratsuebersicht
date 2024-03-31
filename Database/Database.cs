@@ -440,6 +440,18 @@ namespace VorratsUebersicht
             return anzahl;
         }
 
+        internal static void DeleteAllStorageItems()
+        {
+            SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();
+            if (databaseConnection == null)
+                return;
+
+            TRACE("Alle Lagerpositionen löschen");
+            var command = databaseConnection.CreateCommand("DELETE FROM StorageItem");
+
+            command.ExecuteNonQuery();
+        }
+
         internal static string[] GetCategoriesInUse()
         {
             SQLite.SQLiteConnection databaseConnection = Android_Database.Instance.GetConnection();

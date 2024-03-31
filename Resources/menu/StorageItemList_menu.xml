@@ -21,4 +21,9 @@
         android:icon="@drawable/baseline_share_white_24"
         android:title="@string/App_Share"
         android:showAsAction="ifRoom" />
+  
+  <item android:id="@+id/StorageItemList_Delete"
+        android:title="@string/StorageItemList_Menu_Delete"
+        android:showAsAction="ifRoom" />
+        
 </menu>

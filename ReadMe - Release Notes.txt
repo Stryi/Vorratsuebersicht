@@ -1,6 +1,7 @@
 Version 8.20 (Code Version 147)
 =====================================
 
+C221 - Neuer Menüeintrag im Lagerbestand zum Löschen vom gesamten Lagerbestand.
 C220 - Die Anzahl der Artikel mit Hinweis im Lager und Einkaufskorb wird jetzt als Zahl auf der Hauptmaske angezeigt.
 
 Version 8.13 (Code Version 146)

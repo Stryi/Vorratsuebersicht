@@ -235,10 +235,12 @@
 	<string name="StorageItem_InventoryInPieces" >Inventory: {0} pieces</string>
 	<string name="StorageItem_CountWithNoExpiryDate" >{0} without expiry date </string>
 	<string name="StorageItem_CountWithThisExpiryDate" >{0} with expiry date {1}</string>
+  <string name="StorageItem_DeleteAllStorageItems" >DELETE inventory for ALL items in ALL warehouses (e.g. for new recording or inventory)?</string>
 
-	<string name="StorageItemList_Menu_Sort" >Sorting (alphabetically or by expiry date)</string>
+  <string name="StorageItemList_Menu_Sort" >Sorting (alphabetically or by expiry date)</string>
 	<string name="StorageItemList_Menu_Add" >Add article</string>
   <string name="StorageItemList_Menu_Filter" >Filter</string>
+  <string name="StorageItemList_Menu_Delete" >Delete all storage items...</string>
 
   <!-- Lagerbestandsliste - Footer -->
 	<string name="StorageListSummary_Position" >{0:n0} position</string>

@@ -256,6 +256,10 @@ namespace VorratsUebersicht
                 case Resource.Id.StorageItemList_Share:
                     this.ShareList();
                     return true;
+
+                case Resource.Id.StorageItemList_Delete:
+                    this.DeleteAllStorageItems();
+                    return true;
             }
             return true;
         }
@@ -294,6 +298,19 @@ namespace VorratsUebersicht
             intentsend.SetType("text/plain");
             
             StartActivity(intentsend);
+        }
+
+        private void DeleteAllStorageItems()
+        {
+            var builder = new AlertDialog.Builder(this);
+            builder.SetMessage(this.Resources.GetString(Resource.String.StorageItem_DeleteAllStorageItems));
+            builder.SetNegativeButton(this.Resources.GetString(Resource.String.App_DoNotDelete), (s, e) => { });
+            builder.SetPositiveButton(this.Resources.GetString(Resource.String.App_DeleteBig), (s, e) => 
+            { 
+                Database.DeleteAllStorageItems();
+                this.RefreshStorageItemList();
+            });
+            builder.Create().Show();
         }
 
         private void OnOpenArticleStorageItemQuentity(object sender, AdapterView.ItemClickEventArgs e)
