@@ -41,7 +41,7 @@ namespace VorratsUebersicht
             // Damit Pre-Launch von Google Play Store nicht immer wieder
             // in die EAN Scan "Falle" tappt und da nicht wieder rauskommt.
             // (meistens nächster Tag)
-            MainActivity.preLaunchTestEndDay = new DateTime(2024, 01, 20);
+            MainActivity.preLaunchTestEndDay = new DateTime(2024, 04, 01);
 
             // Zusammen mit minSdkVersion="19" verhindert das den Fehler: Android.Content.Res.Resources+NotFoundException: 'File res/drawable/abc_vector_test.xml from drawable resource ID
             //AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
