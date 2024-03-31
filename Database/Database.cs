@@ -533,7 +533,7 @@ namespace VorratsUebersicht
             cmd += " WHERE Article.StorageName IS NOT NULL AND Article.StorageName <> ''";
             if (inStorageArticlesOnly)
             {
-                cmd += " AND Article.ArticleId IN (SELECT StorageItem.ArticleId FROM StorageItem)";
+                cmd += " AND Article.ArticleId IN (SELECT StorageItem.ArticleId FROM StorageItem WHERE StorageItem.StorageName IS NULL OR StorageItem.StorageName = '')";
             }
             cmd += " UNION";
             cmd += " SELECT StorageName AS Value";
