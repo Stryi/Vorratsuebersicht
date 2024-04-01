@@ -1,3 +1,8 @@
+Version 8.21 (Code Version 148)
+=====================================
+
+C220 - Die rote Kugel mit Zahl im Lagerbestand Button jetzt auch auf der rechten Seite.
+
 Version 8.20 (Code Version 147)
 =====================================
 
