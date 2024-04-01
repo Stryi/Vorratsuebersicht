@@ -476,7 +476,7 @@ namespace VorratsUebersicht
             text1Count.Visibility = ViewStates.Gone;
 
             TextView text2Count = FindViewById<TextView>(Resource.Id.Main_Text2Counter);
-            text2Count.Visibility = ViewStates.Gone;
+            text2Count.Visibility = ViewStates.Invisible;
 
             decimal abgelaufen = Database.GetArticleCount_Abgelaufen();
 
