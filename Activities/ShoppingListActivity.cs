@@ -242,7 +242,7 @@ namespace VorratsUebersicht
             {
 
                 case Android.Resource.Id.Home:
-                    this.OnBackPressed();
+                    this.Finish();
                     return true;
 
                 case Resource.Id.ShoppingList_Add:

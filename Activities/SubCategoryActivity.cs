@@ -77,7 +77,7 @@ namespace VorratsUebersicht
             switch (item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    this.OnBackPressed();
+                    this.Finish();
                     return true;
             }
 

@@ -89,18 +89,18 @@ namespace VorratsUebersicht
                     return true;
 
                 case Android.Resource.Id.Home:
-                    this.OnBackPressed();
+                    this.Finish();
                     return true;
             }
 
             return base.OnOptionsItemSelected(item);
         }
 
-        public override void OnBackPressed()
+        public override void Finish()
         {
             if (!this.isChanged)
             {
-                base.OnBackPressed();
+                base.Finish();
                 return;
             }
 
@@ -110,7 +110,7 @@ namespace VorratsUebersicht
                 this.SaveBitmap();
                 GC.Collect();
                 
-                RunOnUiThread(() => base.OnBackPressed());
+                RunOnUiThread(() => base.Finish());
 
                 this.HideProgressBar(progressDialog);
             })).Start();

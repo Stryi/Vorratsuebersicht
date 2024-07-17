@@ -226,7 +226,7 @@ namespace VorratsUebersicht
             switch (item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    this.OnBackPressed();
+                    this.Finish();
                     return true;
 
                 case Resource.Id.StorageItemList_Add:

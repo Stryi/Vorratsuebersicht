@@ -202,7 +202,7 @@ namespace VorratsUebersicht
             switch (item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    this.OnBackPressed();
+                    this.Finish();
                     return true;
 
                 case Resource.Id.ArticleList_Menu_Add:
@@ -339,7 +339,7 @@ namespace VorratsUebersicht
 
                 this.SetResult(Result.Ok, intent);
 
-                this.OnBackPressed();
+                this.Finish();
 				return;
 			}
 

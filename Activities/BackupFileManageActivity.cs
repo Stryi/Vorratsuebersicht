@@ -82,7 +82,7 @@ namespace VorratsUebersicht
 
                         this.SetResult(Result.Ok, intent);
 
-                        this.OnBackPressed();
+                        this.Finish();
 
                         break;
 
@@ -171,7 +171,7 @@ namespace VorratsUebersicht
             switch (item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    this.OnBackPressed();
+                    this.Finish();
                     return true;
             }
 

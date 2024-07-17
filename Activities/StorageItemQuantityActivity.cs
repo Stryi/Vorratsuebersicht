@@ -304,7 +304,7 @@ namespace VorratsUebersicht
             switch (item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    this.OnBackPressed();
+                    this.Finish();
                     return true;
 
                 case Resource.Id.StorageItemQuantity_Menu_Edit:
@@ -409,7 +409,7 @@ namespace VorratsUebersicht
 
         }
 
-        public override void OnBackPressed()
+        public override void Finish()
         {
             if (this.isChanged)
             {
@@ -418,7 +418,7 @@ namespace VorratsUebersicht
                 this.SetResult(Result.Ok, intent);
             }
 
-            base.OnBackPressed();
+            base.Finish();
 
             StorageItemQuantityActivity.Reload();
         }

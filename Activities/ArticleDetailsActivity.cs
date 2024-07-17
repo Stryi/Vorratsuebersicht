@@ -17,6 +17,7 @@ using Android.Content.Res;
 using MatrixGuide;
 using static Android.Widget.AdapterView;
 using Android.Support.V4.Content;
+using Android.Support.V7.App;
 using Android.Speech;
 
 using Xamarin.Essentials;
@@ -275,7 +276,7 @@ namespace VorratsUebersicht
 
         private void SelectManufacturer_Click(object sender, EventArgs e)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            var builder = new Android.App.AlertDialog.Builder(this);
             builder.SetTitle(Resource.String.ArticleDetails_Manufacturer);
             builder.SetItems(this.Manufacturers.ToArray(), (s, a) =>
             {
@@ -302,7 +303,7 @@ namespace VorratsUebersicht
                 }
             }
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            var builder = new Android.App.AlertDialog.Builder(this);
             builder.SetTitle(Resource.String.ArticleDetails_SubCategory);
             builder.SetItems(subCategories.ToArray(), (s, a) =>
             {
@@ -314,7 +315,7 @@ namespace VorratsUebersicht
 
         private void SelectSupermarket_Click(object sender, EventArgs e)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            var builder = new Android.App.AlertDialog.Builder(this);
             builder.SetTitle(Resource.String.ArticleDetails_SupermarketLabel);
             builder.SetItems(this.Supermarkets.ToArray(), (s, a) =>
             {
@@ -326,7 +327,7 @@ namespace VorratsUebersicht
 
         private void SelectStorage_Click(object sender, EventArgs e)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            var builder = new Android.App.AlertDialog.Builder(this);
             builder.SetTitle(Resource.String.ArticleDetails_StorageLabel);
             builder.SetItems(this.Storages.ToArray(), (s, a) =>
             {
@@ -448,7 +449,7 @@ namespace VorratsUebersicht
             switch(item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    this.OnBackPressed();
+                    this.Finish();
                     return true;
 
                 case Resource.Id.ArticleDetailsMenu_Delete:
@@ -461,12 +462,12 @@ namespace VorratsUebersicht
                         return false;
                     }
 
-                    this.OnBackPressed();
+                    this.Finish();
                     return true;
 
                 case Resource.Id.ArticleDetailsMenu_Cancel:
                     this.MoveTaskToBack(false);
-                    this.OnBackPressed();
+                    this.Finish();
                     return true;
 
                 case Resource.Id.ArticleDetailsMenu_MakeAPhoto:
@@ -551,7 +552,7 @@ namespace VorratsUebersicht
                 return;
             }
 
-            var message = new AlertDialog.Builder(this);
+            var message = new Android.App.AlertDialog.Builder(this);
             message.SetTitle(this.Resources.GetString(Resource.String.ArticleDetails_SearchEANScan));
             message.SetMessage(this.Resources.GetString(Resource.String.ArticleDetails_SearchOnOpenFoodFacts));
             message.SetIcon(Resource.Drawable.ic_launcher);
@@ -588,7 +589,7 @@ namespace VorratsUebersicht
                 return;
             }
 
-            var message = new AlertDialog.Builder(this);
+            var message = new Android.App.AlertDialog.Builder(this);
             message.SetMessage(this.Resources.GetString(Resource.String.ArticleDetails_SaveToAddToShippingList));
             message.SetIcon(Resource.Drawable.ic_launcher);
             message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => 
@@ -616,7 +617,7 @@ namespace VorratsUebersicht
                 return;
             }
 
-            var message = new AlertDialog.Builder(this);
+            var message = new Android.App.AlertDialog.Builder(this);
             message.SetMessage(this.Resources.GetString(Resource.String.ArticleDetails_SaveToAddToStorage));
             message.SetIcon(Resource.Drawable.ic_launcher);
             message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => 
@@ -656,7 +657,7 @@ namespace VorratsUebersicht
                 return;
             }
 
-            var message = new AlertDialog.Builder(this);
+            var message = new Android.App.AlertDialog.Builder(this);
             message.SetIcon(Resource.Drawable.ic_launcher);
 
             if (editTextEanCode.Text.Contains(eanCode))
@@ -753,15 +754,14 @@ namespace VorratsUebersicht
             }
         }
 
-        public override void OnBackPressed()
+        public override void Finish()
         {
             if (this.isChanged)
             {
                 Intent intent = new Intent();
                 this.SetResult(Result.Ok, intent);
             }
-
-            base.OnBackPressed();
+            base.Finish();
 
             this.article = null;
             ArticleDetailsActivity.imageLarge = null;
@@ -896,7 +896,7 @@ namespace VorratsUebersicht
                 string text = fehlerText + "\n\nSoll eine E-Mail mit dem Fehler an den Entwickler geschickt werden?";
                 text += "\n\n(Ihre E-Mail Adresse wird dem Entwickler angezeigt)?";
 
-                var message = new AlertDialog.Builder(this);
+                var message = new Android.App.AlertDialog.Builder(this);
                 message.SetMessage(text);
                 message.SetPositiveButton(this.Resources.GetString(Resource.String.App_Yes), (s, e) => 
                     {
@@ -933,7 +933,7 @@ namespace VorratsUebersicht
             {
                 string message = string.Format(this.Resources.GetString(Resource.String.ArticleDetails_CanNotDeleteBecauseStorage), anzahl);
 
-                var builder1 = new AlertDialog.Builder(this);
+                var builder1 = new Android.App.AlertDialog.Builder(this);
                 builder1.SetMessage(message);
                 builder1.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (s, e) => { });
                 builder1.Create().Show();
@@ -950,7 +950,7 @@ namespace VorratsUebersicht
                 msg += this.Resources.GetString(Resource.String.ArticleDetails_ArticleOnShoppingList);
             }
 
-            var builder = new AlertDialog.Builder(this);
+            var builder = new Android.App.AlertDialog.Builder(this);
             builder.SetMessage(msg);
             builder.SetNegativeButton(this.Resources.GetString(Resource.String.App_No), (s, e) => { });
             builder.SetPositiveButton(this.Resources.GetString(Resource.String.App_Yes), (s, e) => 
@@ -960,7 +960,7 @@ namespace VorratsUebersicht
                     Database.DeleteArticle(this.article.ArticleId);
                     this.SetResult(Result.Ok);
 
-                    this.OnBackPressed();
+                    this.Finish();
                 }
 
             });
@@ -990,7 +990,7 @@ namespace VorratsUebersicht
             string rec = Android.Content.PM.PackageManager.FeatureMicrophone;
             if (rec != "android.hardware.microphone")
             {
-                var alert = new AlertDialog.Builder(this);
+                var alert = new Android.App.AlertDialog.Builder(this);
                 alert.SetTitle("You don't seem to have a microphone to record with");
                 alert.SetPositiveButton(this.Resources.GetString(Resource.String.App_Ok), (sender, e) =>
                 {

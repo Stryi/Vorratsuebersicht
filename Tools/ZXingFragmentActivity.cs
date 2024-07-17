@@ -73,7 +73,7 @@ namespace VorratsUebersicht
 					Intent intent = new Intent();
 					intent.PutExtra("EANCode", result.Text);
 					this.SetResult(Result.Ok, intent);
-					this.OnBackPressed();
+					this.Finish();
 				});
 			}, opts);
 		}

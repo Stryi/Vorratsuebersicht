@@ -67,7 +67,7 @@ namespace VorratsUebersicht
             switch(item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    this.OnBackPressed();
+                    this.Finish();
                     return true;
 
                 case Resource.Id.InternetDatabaseResult_Save:
@@ -96,7 +96,7 @@ namespace VorratsUebersicht
                         InternetDatabaseSearchActivity.picture = null;
                     }
 
-                    this.OnBackPressed();
+                    this.Finish();
                     return true;
 
             }
