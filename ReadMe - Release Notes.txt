@@ -1,8 +1,8 @@
 Version 8.21 (Code Version 148)
 =====================================
 
-C221 - API-Level auf 34 gesetzt (Google Anforderung)
-C220 - Die rote Kugel mit Zahl im Lagerbestand Button jetzt auch auf der rechten Seite.
+C223 - API-Level auf 34 gesetzt (Google Anforderung)
+C222 - Die rote Kugel mit Zahl im Lagerbestand Button jetzt auch auf der rechten Seite.
 
 Version 8.20 (Code Version 147)
 =====================================
