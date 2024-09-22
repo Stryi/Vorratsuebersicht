@@ -1,7 +1,13 @@
 Prio 1
 ======
 
--Icon "Interner Speicher" und "SD Karte" bei Auswahl der Datenbanken.
+- In einem roten Kreis die Anzahl der Artikel anzeigen,
+  bei denen die Mindestbestellmenge erreicht oder unterschritten wurde.
+
+  Den Filter 'Für die Einkaufsliste (ohne Bestand)' Funktionalität
+  erweitern um 'Für die Einkaufsliste (ohne Bestand oder Mindestmenge erreicht)'.
+
+- Icon "Interner Speicher" und "SD Karte" bei Auswahl der Datenbanken.
 
 - Verzeichnis für die Datenbank außerhalb der Anwendung
   https://developer.android.com/training/data-storage/shared/documents-files
