@@ -7,6 +7,8 @@ Prio 1
   Den Filter 'Für die Einkaufsliste (ohne Bestand)' Funktionalität
   erweitern um 'Für die Einkaufsliste (ohne Bestand oder Mindestmenge erreicht)'.
 
+- Pfand im Artikelstamm (per E-Mail vom Martin am 8.10.2024)
+
 - Icon "Interner Speicher" und "SD Karte" bei Auswahl der Datenbanken.
 
 - Verzeichnis für die Datenbank außerhalb der Anwendung
