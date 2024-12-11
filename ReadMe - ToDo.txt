@@ -18,6 +18,10 @@ Prio 1
   Datenbank auf SD Karte verschieben?
   Beispiel: "/storage/0E0E-2316/Android/data/de.stryi.Vorratsuebersicht/files"
 
+- Einscannen des Lagerorts als Barcode (vom Daniel am 11.12.2024)
+  - man druckt sich eigene Barcode-Etiketten aus und deponiert/klebt sie an die entsprechenden Lagerorte.
+
+
 Einstellungen
 - Nur X Backups lassen, ältere automatisch löschen. (auch vom mik53ke per E-Mail)
 
