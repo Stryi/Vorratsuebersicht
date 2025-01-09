@@ -30,6 +30,8 @@ Einstellungen
 
 Einkaufsliste
 - Freie Sortierung (wie im Laden die Reihenfolge ist)  (vom Nernd)
+- Nach Markieren "Gekauft" soll der Artikel nach unten rutschen (vom G. Szokoll am 9.1.2024 per Bewertung.)
+- Alle gekauften Artikel auf einmal löschen (vom B. Wohlleben per E-Mail am 9.1.2024 per E-Mail)
 
 Artikeldetails
 - Preiseingabe auch mit ","
