@@ -1,6 +1,8 @@
 Prio 1
 ======
 
+- Statistik über verbrauch (per Rezension am 26.08.2025 21:07)
+
 - In einem roten Kreis die Anzahl der Artikel anzeigen,
   bei denen die Mindestbestellmenge erreicht oder unterschritten wurde.
 
