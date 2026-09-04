@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/StorageItemList_Search"
+        android:icon="@drawable/search_24px"
+        android:title="@string/App_Search"
+        app:iconTint="@color/Application_ActionBar_TextColor"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+    <item android:id="@+id/StorageItemList_Sort"
+        android:icon="@drawable/sort_24px"
+        android:title="@string/StorageItemList_Menu_Sort"
+        app:iconTint="@color/Application_ActionBar_TextColor"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/StorageItemList_Add"
+        android:icon="@drawable/add_circle_24px"
+        android:title="@string/StorageItemList_Menu_Add"
+        app:iconTint="?android:attr/textColorPrimary"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/ArticleList_Menu_Share"
+        android:title="@string/App_Share"
+        android:icon="@drawable/share_24px"
+        app:iconTint="?android:attr/textColorPrimary"
+        app:showAsAction="never" />
+
+</menu>

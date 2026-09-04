@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true" >
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/ArticleImage_AppBar"
+        app:titleTextColor="@color/Application_ActionBar_TextColor"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:background="@color/Application_ActionBar_Background"
+        app:navigationIconTint="@color/Application_ActionBar_TextColor"
+        app:navigationIcon="@drawable/arrow_back_24px"
+        app:iconTint="@color/Application_ActionBar_TextColor"
+        app:menu="@menu/article_image_menu"  />
+
+    <ProgressBar
+        android:id="@+id/ArticleImage_ProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:max="100"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/ArticleImage_InfoThn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:padding="5dp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/ArticleImage_ImageThn"
+        android:contentDescription="@string/Picture"
+        android:visibility="gone"
+        android:layout_gravity="top"
+        android:padding="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/ArticleImage_Info"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="5dp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/ArticleImage_Image"
+        android:contentDescription="@string/Picture"
+        android:padding="5dp"
+        android:layout_gravity="top"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+</LinearLayout>

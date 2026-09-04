@@ -1,0 +1,59 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Vorratsuebersicht" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+
+        <!-- Hintergrundfarbe für Buttons -->
+        <item name="colorPrimary">#BBBBBB</item>
+
+        <!-- Textfarbe für Buttons -->
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <!-- Suchen Icon in der AppBar -->
+        <item name="android:colorControlNormal">@color/white</item>
+
+        <!-- Link-Farbe für TextView -->
+        <item name="android:textColorLink">#0000AA</item>
+
+        <!-- Farbe für RadioButton -->
+        <item name="radioButtonStyle">@style/MyRadioButton</item>
+
+        <!-- Farbe für ein Switch -->
+        <item name="switchStyle">@style/MySwitch</item>
+
+        <!-- Farbe für Platzhalter (Hint) - 50% durchsichtig -->
+        <item name="android:textColorHint">@color/hint_color</item>
+
+    </style>
+
+    <style name="MyRadioButton" parent="Widget.Material3.CompoundButton.RadioButton">
+        <item name="buttonTint">@color/radiobutton_tint</item>
+    </style>
+
+    <style name="MySwitch" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="thumbTint">@color/switch_thumb_tint</item>
+        <item name="trackTint">@color/switch_track_tint</item>
+    </style>
+
+    <!-- AlertDialog -->
+    <style name="MyAlertDialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/MyDialogButtonPositive</item>
+        <item name="buttonBarNegativeButtonStyle">@style/MyDialogButtonNegative</item>
+        <item name="buttonBarNeutralButtonStyle">@style/MyDialogButtonNegative</item>
+    </style>
+
+    <style name="MyDialogButtonPositive" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="MyDialogButtonNegative" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <!-- Base application theme for newer versions. -->
+    <style name="Base.Theme.VorratsuebersichtNeu" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+    </style>
+
+    <style name="Theme.VorratsuebersichtNeu" parent="Base.Theme.VorratsuebersichtNeu" />
+</resources>

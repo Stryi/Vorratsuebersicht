@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true" >
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/ArticleDetails_AppBar"
+        app:title="@string/ArticleDetails_Title"
+        app:titleTextColor="@color/Application_ActionBar_TextColor"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:background="@color/Application_ActionBar_Background"
+        app:navigationIconTint="@color/Application_ActionBar_TextColor"
+        app:navigationIcon="@drawable/arrow_back_24px"
+        app:iconTint="@color/Application_ActionBar_TextColor" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Application_Background2"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:paddingRight="5dp">
+
+        <ImageView
+            android:id="@+id/ArticleDetails_Image"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:contentDescription="@string/Picture"
+            android:src="@drawable/photo_camera_24px" />
+
+        <ImageView
+            android:id="@+id/ArticleDetails_Image2"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:contentDescription="@string/Picture"
+            android:src="@drawable/photo_24px" />
+
+        <TextView
+            android:id="@+id/ArticleDetails_ImageText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Text_Color"
+            android:layout_marginStart="10dp" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/ProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:indeterminate="true"
+        android:max="100"
+        android:layout_marginTop="-7dp"
+        android:layout_marginBottom="-7dp"
+        android:visibility="invisible"/>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="@string/ArticleDetails_ArticleName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+            <EditText
+                android:id="@+id/ArticleDetails_Name"
+                android:autofillHints="name"
+                android:inputType="textMultiLine"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/edittext_underline"
+                tools:ignore="LabelFor" />
+            <TextView
+                android:text="@string/ArticleDetails_Manufacturer"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <AutoCompleteTextView
+                    android:id="@+id/ArticleDetails_Manufacturer"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="40dp"
+                    android:backgroundTint="@color/edittext_underline"
+                    tools:ignore="LabelFor" />
+                <Button
+                    android:id="@+id/ArticleDetails_SelectManufacturer"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:drawableTop="@drawable/more_horiz_24px"
+                    android:textAllCaps="false"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+
+            <TextView
+                android:text="@string/ArticleDetails_Category"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+            <Spinner
+                android:id="@+id/ArticleDetails_Category"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/spinner_arrow_tint"
+                android:hint="@string/ArticleDetails_Category_Hint" />
+
+            <TextView
+                android:text="@string/ArticleDetails_SubCategory"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <AutoCompleteTextView
+                    android:id="@+id/ArticleDetails_SubCategory"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="40dp"
+                    android:backgroundTint="@color/edittext_underline"
+                    tools:ignore="LabelFor" />
+                <Button
+                    android:id="@+id/ArticleDetails_SelectSubCategory"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:drawableTop="@drawable/more_horiz_24px"
+                    android:tag="@id/ArticleDetails_SubCategory"
+                    android:textAllCaps="false"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+
+            <TextView
+                android:text="@string/ArticleDetails_SupermarketLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="0dp"
+                />
+            <TextView
+                android:text="@string/ArticleDetails_CommaSeparatedInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <AutoCompleteTextView
+                    android:id="@+id/ArticleDetails_Supermarket"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="40dp"
+                    android:backgroundTint="@color/edittext_underline"
+                    tools:ignore="LabelFor" />
+                <Button
+                    android:id="@+id/ArticleDetails_SelectSupermarket"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:drawableTop="@drawable/more_horiz_24px"
+                    android:textSize="16sp"
+                    android:textAllCaps="false"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+
+            <TextView
+                android:text="@string/ArticleDetails_StorageLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <AutoCompleteTextView
+                    android:id="@+id/ArticleDetails_Storage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="40dp"
+                    android:backgroundTint="@color/edittext_underline"
+                    tools:ignore="LabelFor" />
+                <Button
+                    android:id="@+id/ArticleDetails_SelectStorage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:drawableTop="@drawable/more_horiz_24px"
+                    android:textAllCaps="false"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/ArticleDetails_DurableInfinity"
+                android:text="@string/ArticleDetails_EnduringlyDurable"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:checked="true" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <TextView
+                    android:id="@+id/ArticleDetails_WarnInDaysLabel"
+                    android:text="@string/ArticleDetails_WarningInDays"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/ArticleDetails_WarnInDays"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="name"
+                    android:inputType="number"
+                    android:backgroundTint="@color/edittext_underline"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <TextView
+                    android:text="@string/ArticleDetails_Price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/ArticleDetails_Price"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="name"
+                    android:inputType="numberDecimal"
+                    android:backgroundTint="@color/edittext_underline"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <TextView
+                    android:text="@string/ArticleDetails_Size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/ArticleDetails_Size"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="name"
+                    android:inputType="number|numberDecimal"
+                    android:backgroundTint="@color/edittext_underline"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <TextView
+                    android:text="@string/ArticleDetails_Unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/ArticleDetails_Unit"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="name"
+                    android:inputType="textNoSuggestions"
+                    android:hint="@string/ArticleDetails_Unit_Hint"
+                    android:backgroundTint="@color/edittext_underline" />
+            </LinearLayout>
+
+            <TextView
+                android:text="@string/ArticleDetails_PricePerUnit"
+                android:id="@+id/ArticleDetails_PricePerUnit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <LinearLayout
+                android:id="@+id/ArticleDetails_CaloriesPerUnitSection"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <TextView
+                    android:text="@string/ArticleDetails_CaloriesPerUnit"
+                    android:id="@+id/ArticleDetails_CaloriePerUnitLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/ArticleDetails_CaloriePerUnit"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="name"
+                    android:inputType="number"
+                    android:backgroundTint="@color/edittext_underline" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ArticleDetails_CaloriesSection"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <TextView
+                    android:text="@string/ArticleDetails_Calories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/ArticleDetails_Calorie"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="name"
+                    android:inputType="number"
+                    android:backgroundTint="@color/edittext_underline" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <TextView
+                    android:text="@string/ArticleDetails_MinQuantityLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/ArticleDetails_MinQuantity"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="name"
+                    android:inputType="number"
+                    android:backgroundTint="@color/edittext_underline" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <TextView
+                    android:text="@string/ArticleDetails_PrefQuantityLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/ArticleDetails_PrefQuantity"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="name"
+                    android:inputType="number"
+                    android:backgroundTint="@color/edittext_underline" />
+            </LinearLayout>
+
+            <TextView
+                android:text="@string/ArticleDetails_EANCode"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="0dp"
+                />
+            <TextView
+                android:text="@string/ArticleDetails_CommaSeparatedInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+            <EditText
+                android:id="@+id/ArticleDetails_EANCode"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="name"
+                android:inputType="textVisiblePassword"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/edittext_underline" />
+
+            <TextView
+                android:text="@string/ArticleDetails_Notes"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+            <EditText
+                android:id="@+id/ArticleDetails_Notes"
+                android:autofillHints="name"
+                android:inputType="textMultiLine"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/edittext_underline" />
+            <TextView
+                android:id="@+id/ArticleDetails_ArticleId"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.5"
+                android:layout_margin="10dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

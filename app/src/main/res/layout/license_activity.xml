@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true" >
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/LicenseActivity_AppBar"
+        app:title="@string/Settings_OpenSourceLizenzen"
+        app:titleTextColor="@color/Application_ActionBar_TextColor"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:background="@color/Application_ActionBar_Background"
+        app:navigationIconTint="@color/Application_ActionBar_TextColor"
+        app:navigationIcon="@drawable/arrow_back_24px"
+        app:iconTint="@color/Application_ActionBar_TextColor" />
+
+    <!-- TextView
+        android:id="@+id/LicensesText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/Settings_OpenSourceLizenzenText" / -->
+
+    <WebView
+        android:id="@+id/LicensesHtml"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="vertical" />
+
+</LinearLayout>

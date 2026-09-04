@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/SubCategoryActivity_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="0dp"
+    android:fitsSystemWindows="true"
+    tools:context=".SubCategoryActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/SubCategoryActivity_AppBar"
+        app:titleTextColor="@color/Application_ActionBar_TextColor"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:background="@color/Application_ActionBar_Background"
+        app:navigationIconTint="@color/Application_ActionBar_TextColor"
+        app:navigationIcon="@drawable/arrow_back_24px"
+        app:iconTint="@color/Application_ActionBar_TextColor" />
+
+    <ListView
+        android:id="@+id/SubCategoryList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0.0dp" />
+
+</LinearLayout>

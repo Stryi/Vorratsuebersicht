@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp" >
+
+    <TextView
+        android:text="Jahr"
+        android:textSize="18sp"
+        android:textColor="@color/Default_Text_Color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Zeile "Jahr" -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/year_button_Back"
+            android:text="&lt;"
+            android:background="@drawable/background_rectangle"
+            style="@style/CalenderYearButtonStyle" />
+
+        <Button android:id="@+id/year_button1" style="@style/CalenderYearButtonStyle" />
+        <Button android:id="@+id/year_button2" style="@style/CalenderYearButtonStyle" />
+        <Button android:id="@+id/year_button3" style="@style/CalenderYearButtonStyle" />
+        <Button android:id="@+id/year_button4" style="@style/CalenderYearButtonStyle" />
+
+        <Button
+            android:id="@+id/year_button_Forward"
+            android:text="&gt;"
+            style="@style/CalenderYearButtonStyle"
+            android:background="@drawable/background_rectangle" />
+
+    </LinearLayout>
+
+    <TextView
+        android:text="Monat"
+        android:textSize="18sp"
+        android:textColor="@color/Default_Text_Color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Zeile "Monat" -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/month_button1"
+            style="@style/CalenderMonthButtonStyle"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/month_button2"
+            style="@style/CalenderMonthButtonStyle"
+            android:text="2" />
+
+        <Button
+            android:id="@+id/month_button3"
+            style="@style/CalenderMonthButtonStyle"
+            android:text="3" />
+
+        <Button
+            android:id="@+id/month_button4"
+            style="@style/CalenderMonthButtonStyle"
+            android:text="4" />
+
+        <Button
+            android:id="@+id/month_button5"
+            style="@style/CalenderMonthButtonStyle"
+            android:text="5" />
+
+        <Button
+            android:id="@+id/month_button6"
+            style="@style/CalenderMonthButtonStyle"
+            android:text="6" />
+
+    </LinearLayout>
+
+    <!-- Zeile "Monat" -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/month_button7"
+            android:text="7"
+            style="@style/CalenderMonthButtonStyle" />
+
+        <Button
+            android:id="@+id/month_button8"
+            android:text="8"
+            style="@style/CalenderMonthButtonStyle" />
+
+        <Button
+            android:id="@+id/month_button9"
+            android:text="9"
+            style="@style/CalenderMonthButtonStyle" />
+
+        <Button
+            android:id="@+id/month_button10"
+            android:text="10"
+            style="@style/CalenderMonthButtonStyle" />
+
+        <Button
+            android:id="@+id/month_button11"
+            android:text="11"
+            style="@style/CalenderMonthButtonStyle" />
+
+        <Button
+            android:id="@+id/month_button12"
+            android:text="12"
+            style="@style/CalenderMonthButtonStyle" />
+
+    </LinearLayout>
+
+    <TextView
+        android:text="Tag"
+        android:textSize="18sp"
+        android:textColor="@color/Default_Text_Color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:rowCount="7"
+        android:columnCount="5"
+        android:useDefaultMargins="true">
+
+        <!-- Reihe 0 -->
+        <Button android:id="@+id/day_button1"  android:text="1"  android:layout_row="0" android:layout_column="0" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button2"  android:text="2"  android:layout_row="0" android:layout_column="1" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button3"  android:text="3"  android:layout_row="0" android:layout_column="2" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button4"  android:text="4"  android:layout_row="0" android:layout_column="3" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button5"  android:text="5"  android:layout_row="0" android:layout_column="4" style="@style/CalenderDayButtonStyle"/>
+
+        <!-- Reihe 1 -->
+        <Button android:id="@+id/day_button6"  android:text="6"  android:layout_row="1" android:layout_column="0" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button7"  android:text="7"  android:layout_row="1" android:layout_column="1" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button8"  android:text="8"  android:layout_row="1" android:layout_column="2" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button9"  android:text="9"  android:layout_row="1" android:layout_column="3" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button10" android:text="10" android:layout_row="1" android:layout_column="4" style="@style/CalenderDayButtonStyle"/>
+
+        <!-- Reihe 2 -->
+        <Button android:id="@+id/day_button11" android:text="11" android:layout_row="2" android:layout_column="0" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button12" android:text="12" android:layout_row="2" android:layout_column="1" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button13" android:text="13" android:layout_row="2" android:layout_column="2" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button14" android:text="14" android:layout_row="2" android:layout_column="3" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button15" android:text="15" android:layout_row="2" android:layout_column="4" style="@style/CalenderDayButtonStyle"/>
+
+        <!-- Reihe 3 -->
+        <Button android:id="@+id/day_button16" android:text="16" android:layout_row="3" android:layout_column="0" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button17" android:text="17" android:layout_row="3" android:layout_column="1" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button18" android:text="18" android:layout_row="3" android:layout_column="2" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button19" android:text="19" android:layout_row="3" android:layout_column="3" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button20" android:text="20" android:layout_row="3" android:layout_column="4" style="@style/CalenderDayButtonStyle"/>
+
+        <!-- Reihe 4 -->
+        <Button android:id="@+id/day_button21" android:text="21" android:layout_row="4" android:layout_column="0" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button22" android:text="22" android:layout_row="4" android:layout_column="1" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button23" android:text="23" android:layout_row="4" android:layout_column="2" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button24" android:text="24" android:layout_row="4" android:layout_column="3" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button25" android:text="25" android:layout_row="4" android:layout_column="4" style="@style/CalenderDayButtonStyle"/>
+
+        <!-- Reihe 5 -->
+        <Button android:id="@+id/day_button26" android:text="26" android:layout_row="5" android:layout_column="0" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button27" android:text="27" android:layout_row="5" android:layout_column="1" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button28" android:text="28" android:layout_row="5" android:layout_column="2" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button29" android:text="29" android:layout_row="5" android:layout_column="3" style="@style/CalenderDayButtonStyle"/>
+        <Button android:id="@+id/day_button30" android:text="30" android:layout_row="5" android:layout_column="4" style="@style/CalenderDayButtonStyle"/>
+
+        <!-- Reihe 6 -->
+        <Button android:id="@+id/day_button31" android:text="31" android:layout_row="6" android:layout_column="0" style="@style/CalenderDayButtonStyle"/>
+
+    </GridLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/textViewSelectedDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/Default_Text_Color"
+            android:textSize="22sp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
+
+        <Button
+            android:id="@+id/buttonNoDate"
+            android:text="@string/App_NoDate"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_light"
+            android:background="@android:color/transparent"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+
+        <Button
+            android:id="@+id/buttonOk"
+            android:text="@string/App_Ok"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_green_light"
+            android:background="@android:color/transparent"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

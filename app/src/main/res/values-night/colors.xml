@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="Text_Error"   type="color">#FF0000</color>
+    <color name="Text_Warning" type="color">#1E90FF</color>
+    <color name="Text_Info"    type="color">#238c01</color>
+    <color name="Text_Color"   type="color">#000000</color>
+    <color name="Text_Color2"  type="color">#444444</color>
+
+    <!-- Text Standardfarbe -->
+    <color name="Default_Text_Color"      type="color">#DDDDDD</color>
+    <color name="Default_Text_Background" type="color">#222222</color>
+
+    <!-- Statuszeile -->
+    <color name="Footer_Color"      type="color">#000000</color>
+    <color name="Footer_Background" type="color">#BBBBBB</color>
+
+    <!-- Button auf grauem Hintergrund, z.B. Lagerbstand -->
+    <color name="Button_Text"       type="color">#FFFFFF</color>
+    <color name="Button_Background" type="color">#555555</color>
+
+    <color name="MainButton_Color"  type="color">#555555</color>
+
+    <color name="Application_Background" >#FFFFFF</color>
+    <color name="Application_Background2">#DDDDDD</color>
+    <color name="Application_Background3">#AAAAAA</color>
+    <color name="Application_InfoBackgroud">#FFFFE0</color>
+
+    <color name="Application_ActionBar_Background" >#186300</color>
+    <color name="Application_ActionBar_TextColor"  >#FFFFFF</color>
+    <color name="Application_ActionBar_TextColor2"  >#BBBBBB</color>
+
+    <!-- Hint Farbe 50% transparent -->
+    <color name="hint_color">#50FFFFFF</color>
+
+    <color name="spinner_arrow_tint">#FFFFFF</color>
+
+</resources>

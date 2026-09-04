@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ShoppingItemList_RootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ShoppingItemListActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/ShoppingItemList_AppBar"
+            app:title="@string/ShoppingList_Title"
+            app:titleTextColor="@color/Application_ActionBar_TextColor"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_bar_height"
+            android:background="@color/Application_ActionBar_Background"
+            app:navigationIconTint="@color/Application_ActionBar_TextColor"
+            app:navigationIcon="@drawable/arrow_back_24px"
+            app:iconTint="@color/Application_ActionBar_TextColor"
+            app:menu="@menu/shopping_item_list_menu"  />
+
+        <LinearLayout
+            android:id="@+id/ShoppingItemList_SelectSupermarket"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="20sp"
+                android:text="@string/ArticleDetails_SupermarketLabel" />
+            <Spinner
+                android:id="@+id/ShoppingItemList_Spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" />
+        </LinearLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/ShoppingItemList_SwipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <!-- ListView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ShoppingItemList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <!-- Footer -->
+        <TextView
+            android:id="@+id/ShoppingItemList_Footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Footer_Color"
+            android:background="@color/Footer_Background"
+            android:textSize="15sp"
+            android:padding="5dp" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ShoppingItemList_AddFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:alpha="0.5"
+        android:contentDescription="@string/ShoppingList_Add"
+        app:srcCompat="@drawable/add_circle_24px"
+        app:tint="@color/Application_ActionBar_TextColor"
+        app:backgroundTint="@color/Application_ActionBar_Background" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

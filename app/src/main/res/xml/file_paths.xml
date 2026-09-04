@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+
+    <!-- /storage/emulated/0/Android/data/<package>/cache/ -->
+    <external-cache-path
+        name="external_cache"
+        path="." />
+
+    <!-- /storage/emulated/0/Android/data/<package>/files/ -->
+    <external-files-path
+        name="external_files"
+        path="." />
+
+</paths>

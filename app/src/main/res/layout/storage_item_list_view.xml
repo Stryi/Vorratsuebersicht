@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:paddingStart="8dp"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="RtlSymmetry">
+
+    <ImageView
+        android:id="@+id/StorageItemListView_Image"
+        android:layout_width="48dp"
+        android:layout_height="58dp"
+        android:paddingTop="3dp"
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp"
+        android:src="@drawable/photo_camera_24px"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/Picture"
+        android:layout_alignParentStart="true" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="5dp"
+        android:layout_toEndOf="@id/StorageItemListView_Image">
+
+        <TextView
+            android:id="@+id/StorageItemListView_TextHeader"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20sp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/StorageItemListView_Option"
+            android:layout_width="20sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:alpha="0.5"
+            android:gravity="center"
+            android:text="@string/ListView_Option"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/StorageItemListView_TextDetails"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/StorageItemListView_TextHeader"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/StorageItemListView_TextError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/StorageItemListView_TextDetails"
+            android:textColor="@color/Text_Error"
+            android:visibility="gone"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/StorageItemListView_TextWarning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/StorageItemListView_TextError"
+            android:textColor="@color/Text_Warning"
+            android:visibility="gone"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/StorageItemListView_TextInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/StorageItemListView_TextWarning"
+            android:textColor="@color/Text_Info"
+            android:visibility="gone"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/StorageItemListView_OnShoppingList"
+        android:contentDescription="@string/Picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:alpha="0.75"
+        android:paddingEnd="5.0dp"
+        android:focusable="false"
+        android:src="@drawable/shopping_cart_24px"
+        android:focusableInTouchMode="false"
+        />
+    <TextView
+        android:id="@+id/StorageItemListView_ShoppingQuantity"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@id/StorageItemListView_OnShoppingList" />
+
+</RelativeLayout>

@@ -1,0 +1,54 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Vorratsuebersicht" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+
+        <!-- Hintergrundfarbe für Buttons -->
+        <item name="colorPrimary">#333333</item>
+
+        <!-- Textfarbe für Buttons -->
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <item name="actionMenuTextColor">#FFFFFF</item>
+        <item name="android:textColorSecondary">#FFFFFF</item>
+        <item name="colorControlNormal">#FFFFFF</item>
+
+        <!-- Link-Farbe für TextView -->
+        <item name="android:textColorLink">#8888FF</item>
+
+        <!-- Farbe für RadioButton -->
+        <item name="radioButtonStyle">@style/MyRadioButton</item>
+
+        <!-- Farbe für ein Switch -->
+        <item name="switchStyle">@style/MySwitch</item>
+
+        <!-- Farbe für Platzhalter (Hint) - 50% durchsichtig -->
+        <item name="android:textColorHint">@color/hint_color</item>
+
+    </style>
+
+    <style name="MyRadioButton" parent="Widget.Material3.CompoundButton.RadioButton">
+        <item name="buttonTint">@color/radiobutton_tint</item>
+    </style>
+
+    <style name="MySwitch" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="thumbTint">@color/switch_thumb_tint</item>
+        <item name="trackTint">@color/switch_track_tint</item>
+    </style>
+
+    <!-- AlertDialog -->
+    <style name="MyAlertDialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/MyDialogButtonPositive</item>
+        <item name="buttonBarNegativeButtonStyle">@style/MyDialogButtonNegative</item>
+        <item name="buttonBarNeutralButtonStyle">@style/MyDialogButtonNegative</item>
+    </style>
+
+    <style name="MyDialogButtonPositive" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="MyDialogButtonNegative" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+</resources>

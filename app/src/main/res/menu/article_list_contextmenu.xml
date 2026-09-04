@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/ArticleList_ContextMenu_Lagerbestand"
+        android:icon="@drawable/assignment_24px"
+        app:iconTint="?android:attr/textColorPrimary"
+        android:title="@string/ArticleList_Lagerbestand" />
+
+    <item android:id="@+id/ArticleList_ContextMenu_AufEinkaufszettel"
+        android:icon="@drawable/shopping_cart_24px"
+        app:iconTint="?android:attr/textColorPrimary"
+        android:title="@string/ArticleList_ToShoppingList" />
+
+</menu>

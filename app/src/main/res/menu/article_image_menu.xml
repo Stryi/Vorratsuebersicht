@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/ArticleImage_Menu_RotateRight"
+        android:icon="@drawable/rotate_right_24px"
+        android:title="@string/ArticleImage_Menu_RotateRight"
+        app:iconTint="@color/Application_ActionBar_TextColor"
+        app:showAsAction="always" />
+</menu>

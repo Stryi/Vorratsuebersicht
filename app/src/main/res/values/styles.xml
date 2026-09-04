@@ -1,0 +1,34 @@
+<resources>
+
+    <style name="CalenderYearButtonStyle">
+        <item name="android:textColor">@color/Default_Text_Color</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="CalenderMonthButtonStyle">
+        <item name="android:textColor">@color/Default_Text_Color</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="CalenderDayButtonStyle">
+        <item name="android:textColor">@color/Default_Text_Color</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_gravity">fill_horizontal</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+</resources>

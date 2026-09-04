@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".StorageItemInventoryActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/StorageItemInventory_AppBar"
+        app:title="@string/StorageItemQuantity_Title"
+        app:titleTextColor="@color/Application_ActionBar_TextColor"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:background="@color/Application_ActionBar_Background"
+        app:navigationIconTint="@color/Application_ActionBar_TextColor"
+        app:navigationIcon="@drawable/arrow_back_24px"
+        app:iconTint="@color/Application_ActionBar_TextColor" />
+
+    <!-- Überschrift -->
+    <TextView
+        android:id="@+id/StorageItemQuantity_ArticleDetailHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="20sp" />
+
+    <!-- Artikelbild und Artikelangaben -->
+    <LinearLayout
+        android:id="@+id/StorageItemQuantity_ArticleDetais"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Application_Background2">
+        <ImageView
+            android:id="@+id/StorageItemQuantity_Image"
+            android:contentDescription="@string/Picture"
+            android:layout_width="100dp"
+            android:layout_height="fill_parent"
+            android:scaleType="fitCenter"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:src="@drawable/photo_camera_24px"
+            tools:ignore="RtlSymmetry" />
+        <TextView
+            android:id="@+id/StorageItemQuantity_ArticleDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="@color/Text_Color" />
+    </LinearLayout>
+
+    <!-- Voreinstellung für Lager -->
+    <LinearLayout
+        android:id="@+id/StorageItemQuantity_Storage"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="2dp"
+        android:background="@color/Application_Background2" >
+        <TextView
+            android:id="@+id/StorageItemQuantity_StorageLabel"
+            android:text="@string/StorageItemQuantity_StorageForNewPosition"
+            android:labelFor="@id/StorageItemQuantity_StorageText"
+            android:textColor="@color/Text_Color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="0dp"
+            android:textColor="@color/Text_Color" >
+            <AutoCompleteTextView
+                android:id="@+id/StorageItemQuantity_StorageText"
+                android:textColor="@color/black"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="50dp" />
+            <Button
+                android:id="@+id/StorageItemQuantity_SelectStorage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:drawableTop="@drawable/more_horiz_24px"
+                android:textAllCaps="false"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- Schritt Einstellung -->
+    <RelativeLayout
+        android:id="@+id/StorageItemQuantity_Step"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="2dp"
+        android:background="@color/Application_Background2" >
+        <Button
+            android:id="@+id/StorageItemQuantity_StepButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:text="@string/StorageItemQuantity_Step"
+            android:textColor="@color/Button_Text"
+            android:backgroundTint="@color/Button_Background"
+            android:textSize="16sp"
+            android:textAllCaps="false" />
+        <TextView
+            android:id="@+id/StorageItemQuantity_StepText"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_toEndOf="@id/StorageItemQuantity_StepButton"
+            android:layout_marginStart="5dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="@string/StorageItemQuantity_StepText"
+            tools:ignore="RelativeOverlap" />
+        <Button
+            android:id="@+id/StorageItemQuantity_AddArticle"
+            android:text="@string/StorageItemQuantityList_AddPosition"
+            android:contentDescription="@string/StorageItemQuantity_AddPosition"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:textColor="@color/Button_Text"
+            android:backgroundTint="@color/Button_Background"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/StorageItemQuantityView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:paddingBottom="5dp" />
+
+</LinearLayout>

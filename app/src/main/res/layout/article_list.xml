@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ArticleList_RootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ArticleListActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/ArticleList_AppBar"
+            app:title="@string/ArticleList_Title"
+            app:titleTextColor="@color/Application_ActionBar_TextColor"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_bar_height"
+            android:background="@color/Application_ActionBar_Background"
+            app:navigationIconTint="@color/Application_ActionBar_TextColor"
+            app:navigationIcon="@drawable/arrow_back_24px"
+            app:iconTint="@color/Application_ActionBar_TextColor"
+            app:menu="@menu/article_list_menu" />
+
+        <FrameLayout
+            android:id="@+id/ArticleList_FilterBanner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@color/Application_InfoBackgroud"
+            android:padding="5dp">
+            <TextView
+                android:id="@+id/ArticleList_Filter"
+                android:textColor="@color/Text_Color"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:textSize="16sp" />
+            <ImageView
+                android:id="@+id/ArticleList_FilterClear"
+                android:src="@drawable/close_24px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_gravity="end"
+                android:contentDescription="@string/ArticleList_SpecialFilterClose"
+                app:tint="@color/Text_Color"
+                android:alpha="0.5"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/ArticleList_SelectCategory"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="20sp"
+                android:text="@string/ArticleDetails_Category" />
+            <Spinner
+                android:id="@+id/ArticleList_Categories"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" />
+        </LinearLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/ArticleList_SwipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <!-- ListView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ArticleList"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <!-- Footer -->
+        <TextView
+            android:id="@+id/ArticleList_Footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Footer_Color"
+            android:background="@color/Footer_Background"
+            android:textSize="15sp"
+            android:padding="5dp" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ArticleList_FAB_Add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        android:alpha="0.5"
+        app:srcCompat="@drawable/add_circle_24px"
+        app:tint="@color/Application_ActionBar_TextColor"
+        app:backgroundTint="@color/Application_ActionBar_Background"
+        android:contentDescription="@string/ArticleList_Menu_Add" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

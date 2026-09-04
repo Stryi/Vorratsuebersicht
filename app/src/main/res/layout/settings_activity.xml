@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".SettingsActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/Settings_AppBar"
+        app:title="@string/Settings_Title"
+        android:layout_width="match_parent"
+        app:titleTextColor="@color/Application_ActionBar_TextColor"
+        android:layout_height="@dimen/app_bar_height"
+        android:background="@color/Application_ActionBar_Background"
+        app:navigationIconTint="@color/Application_ActionBar_TextColor"
+        app:navigationIcon="@drawable/arrow_back_24px"
+        app:iconTint="@color/Application_ActionBar_TextColor" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:paddingStart="5dp"
+            tools:ignore="RtlSymmetry">
+
+            <TextView
+                android:text="@string/Settings_ArticleDefaults"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp" />
+
+            <TextView
+                android:id="@+id/Settings_Categories_Text"
+                android:text="@string/Settings_AdditionalCategories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:paddingTop="10dp" />
+            <EditText
+                android:id="@+id/Settings_Categories"
+                android:inputType="textMultiLine"
+                android:gravity="top|start"
+                android:scrollbars="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp" />
+
+            <TextView
+                android:text="@string/Settings_DefaultCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:paddingTop="10dp" />
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp">
+                <TextView
+                    android:id="@+id/Settings_DefaultCategory"
+                    android:textSize="19sp"
+                    android:gravity="center_vertical|start"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="40dp" />
+                <Button
+                    android:id="@+id/SettingsButton_SelectDefaultCategory"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:drawableTop="@drawable/more_horiz_24px"
+                    android:textAllCaps="false"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:text="@string/Settings_CurrentDatabase"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp" />
+            <TextView
+                android:id="@+id/SettingsButton_DatabasePath"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="0dp"
+                android:text="@string/Settings_Datenbank" />
+
+            <TextView
+                android:id="@+id/SettingsButton_DatabaseShare"
+                android:text="@string/Settings_ShareDatabaseFile"
+                android:autoLink="web"
+                android:clickable="true"
+                android:drawableLeft="@drawable/share_24px"
+                android:drawableTint="#555555"
+                android:paddingTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:drawablePadding="5dp"
+                android:textAllCaps="false"
+                android:gravity="start" />
+
+            <TextView
+                android:text="@string/Settings_BackupAndRestore"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp" />
+
+            <ProgressBar
+                android:id="@+id/ProgressBar_BackupAndRestore"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="-5dp"
+                android:indeterminate="true"
+                android:scaleY="2"
+                android:max="100"
+                android:visibility="invisible"/>
+            <Button
+                android:id="@+id/SettingsButton_BackupToFile"
+                android:text="@string/Settings_CreateBackup"
+                android:textColor="#000000"
+                android:drawableLeft="@drawable/download_2_24px"
+                android:drawableTint="#444444"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:drawablePadding="5dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+
+            <!-- Button
+                android:id="@+id/SettingsButton_Restore"
+                android:text="@string/Settings_RestoreBackup"
+                android:textColor="#000000"
+                android:drawableLeft="@drawable/folder_24px"
+                android:drawableTint="#444444"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:drawablePadding="5dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" / -->
+
+            <Button
+                android:id="@+id/SettingsButton_RestoreFromFile"
+                android:text="@string/Settings_RestoreBackupFromFile"
+                android:textColor="#000000"
+                android:drawableLeft="@drawable/plagiarism_24px"
+                android:drawableTint="#444444"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:drawablePadding="5dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+
+            <TextView
+                android:id="@+id/Settings_LastBackupDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:paddingTop="5dp" />
+
+            <TextView
+                android:id="@+id/Settings_ChangesSinceLastBackup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:paddingTop="5dp" />
+
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/SettingsButton_AskForBackup"
+                android:text="@string/Settings_AskForBackup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:gravity="start|center_vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
+
+            <TextView
+                android:text="@string/Setting_StorageItems"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp" />
+
+            <Button
+                android:id="@+id/SettingsButton_DeleteStorageItems"
+                android:text="@string/Settings_DeleteStorageItems"
+                android:textColor="#000000"
+                android:drawableTint="#444444"
+                android:contentDescription="@string/Settings_DeleteStorageItems"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:drawablePadding="5dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+
+            <Button
+                android:id="@+id/SettingsButton_RenameeStorageMame"
+                android:text="@string/Settings_RenameStorageName"
+                android:textColor="#000000"
+                android:drawableTint="#444444"
+                android:contentDescription="@string/Settings_RenameStorageName"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:drawablePadding="5dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+
+
+            <TextView
+                android:text="@string/Settings_CurrentDatabaseOperation"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp" />
+
+            <ProgressBar
+                android:id="@+id/ProgressBar_Compress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="-5dp"
+                android:indeterminate="true"
+                android:scaleY="2"
+                android:max="100"
+                android:visibility="invisible"/>
+            <Button
+                android:id="@+id/SettingsButton_Compress"
+                android:text="@string/Settings_DatenbankKomprimieren"
+                android:textColor="#000000"
+                android:drawableLeft="@drawable/compress_24px"
+                android:drawableTint="#444444"
+                android:contentDescription="@string/Settings_DatenbankKomprimieren"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:drawablePadding="5dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+            <Button
+                android:id="@+id/SettingsButton_Repair"
+                android:text="@string/Settings_DatenbankReparieren"
+                android:textColor="#000000"
+                android:drawableLeft="@drawable/home_repair_service_24px"
+                android:drawableTint="#444444"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:drawablePadding="5dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+
+            <TextView
+                android:text="@string/Settings_DatabaseManagement"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp" />
+
+            <Button
+                android:id="@+id/SettingsButton_DatabaseNew"
+                android:text="@string/Settings_DatabaseNew"
+                android:textColor="#000000"
+                android:drawableLeft="@drawable/add_box_24px"
+                android:drawableTint="#444444"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="5dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+
+            <Button
+                android:id="@+id/SettingsButton_DatabaseImport"
+                android:text="@string/Settings_DatabaseImport"
+                android:textColor="#000000"
+                android:drawableLeft="@drawable/upload_file_24px"
+                android:drawableTint="#444444"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:drawablePadding="5dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+
+            <Button
+                android:id="@+id/SettingsButton_DatabaseRename"
+                android:text="@string/Settings_DatabaseRename"
+                android:textColor="#000000"
+                android:drawableLeft="@drawable/border_color_24px"
+                android:drawableTint="#444444"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:drawablePadding="5dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+
+            <Button
+                android:id="@+id/SettingsButton_Move"
+                android:text="@string/Settings_DatabaseMove"
+                android:textColor="#000000"
+                android:drawableLeft="@drawable/database_24px"
+                android:drawableTint="#444444"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:drawablePadding="5dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+
+            <Button
+                android:id="@+id/SettingsButton_DatabaseDelete"
+                android:text="@string/Settings_DatabaseDelete"
+                android:textColor="#000000"
+                android:drawableLeft="@drawable/delete_forever_24px"
+                android:drawableTint="#444444"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:drawablePadding="5dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+
+            <TextView
+                android:text="@string/Settings_EAN_Scann"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp" />
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/SettingsButton_EANScan_FrontCamera"
+                android:text="@string/Settings_EAN_Scann_UseFrontcamera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:gravity="start|center_vertical" />
+
+            <TextView
+                android:text="@string/Settings_TestDatenbank"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp" />
+            <ProgressBar
+                android:id="@+id/ProgressBar_RestoreSampleDb"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="-5dp"
+                android:layout_marginStart="10dp"
+                android:indeterminate="true"
+                android:scaleY="2"
+                android:max="100"
+                android:visibility="invisible"/>
+            <Button
+                android:id="@+id/SettingsButton_RestoreSampleDb"
+                android:text="@string/Settings_TestDatenbankZuruecksetzen"
+                android:textColor="#000000"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+            <Button
+                android:id="@+id/SettingsButton_RestoreDb0"
+                android:text="@string/Settings_TestDatenbankLeeren"
+                android:textColor="#000000"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+
+            <TextView
+                android:text="@string/Settings_CSV_Export"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:scrollbars="vertical">
+                <Button
+                    android:id="@+id/SettingsButton_CsvExportArticles"
+                    android:text="@string/Settings_CSV_Export_Articles"
+                    android:textColor="#000000"
+                    android:backgroundTint="#CCCCCC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textAllCaps="false"
+                    android:gravity="start|center_vertical" />
+                <Button
+                    android:id="@+id/SettingsButton_CsvExportStorageItems"
+                    android:text="@string/Settings_CSV_Export_Inventory"
+                    android:textColor="#000000"
+                    android:backgroundTint="#CCCCCC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textAllCaps="false"
+                    android:gravity="start|center_vertical" />
+            </LinearLayout>
+
+            <TextView
+                android:text="@string/Settings_CSVSeparator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:paddingTop="10dp" />
+
+            <RadioGroup
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/Settings_CSVSeparator_Comma"
+                    android:text="@string/Settings_CSVSeparator_Comma_Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="10dp" />
+                <RadioButton
+                    android:id="@+id/Settings_CSVSeparator_Semicolon"
+                    android:text="@string/Settings_CSVSeparator_Semicolon_Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="10dp" />
+                <RadioButton
+                    android:id="@+id/Settings_CSVSeparator_Tab"
+                    android:text="@string/Settings_CSVSeparator_Tab_Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="10dp" />
+            </RadioGroup>
+
+            <TextView
+                android:text="@string/Settings_AdditionalOptions"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/SettingsButton_ShowOFFCostMessage"
+                android:text="@string/Settings_ShowOFFCostMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:gravity="start|center_vertical"
+                android:paddingTop="16dp" />
+
+            <TextView
+                android:text="@string/Settings_CompressPictures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:paddingTop="10dp" />
+
+            <RadioGroup
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/SettingsButton_CompressPictures_Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="10dp"
+                    android:text="@string/Settings_Compress_854" />
+                <RadioButton
+                    android:id="@+id/SettingsButton_CompressPictures_Middle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="10dp"
+                    android:text="@string/Settings_Compress_1024" />
+                <RadioButton
+                    android:id="@+id/SettingsButton_CompressPictures_Big"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="10dp"
+                    android:text="@string/Settings_Compress_1280" />
+                <RadioButton
+                    android:id="@+id/SettingsButton_CompressPictures_Huge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Settings_Compress_1536" />
+
+            </RadioGroup>
+
+            <TextView
+                android:text="@string/Settings_Support"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp" />
+
+            <TextView
+                android:id="@+id/Settings_Contact_EmailTextView"
+                android:text="@string/Settings_Contact_Email"
+                android:autoLink="web|email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:id="@+id/SettingsButton_Version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp" />
+
+            <TextView
+                android:id="@+id/Settings_LogFile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp" />
+
+            <Button
+                android:id="@+id/SettingsButton_ShowLogFile"
+                android:text="@string/Settings_ShowLogFile"
+                android:textColor="#000000"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+
+            <TextView
+                android:text="@string/Settings_AppWiki"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/Settings_AppWiki_TextView"
+                android:text="@string/Settings_AppWiki_Page"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:gravity="start|center_vertical"
+                android:autoLink="web" />
+
+            <TextView
+                android:text="@string/Settings_Datenschutz"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/Settings_DatenschutTextView"
+                android:text="@string/Settings_Datenschutz_Link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:gravity="start|center_vertical"
+                android:autoLink="web" />
+
+            <TextView
+                android:text="@string/Settings_Licenses"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp" />
+            <Button
+                android:id="@+id/SettingsButton_Licenses"
+                android:text="@string/Settings_OpenSourceLizenzen"
+                android:textColor="#000000"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

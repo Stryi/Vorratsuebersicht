@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+                android:id="@+id/Main_LinearLayout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:paddingStart="5dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="5dp"
+                tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/Main_Text"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="18sp"
+                android:layout_marginStart="10dp"
+                android:text="@string/Main_DemnaechstZuVerbrauchen" />
+
+            <TextView
+                android:id="@+id/Main_Text1"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textColor="#FD0000"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/Main_Text2"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textColor="#1025F4"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/Main_TextInfo"
+                android:textColor="#FFFFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:visibility="gone"
+                android:tag="ExpiryDateOnly"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/MainButton_Kategorie"
+                android:text="@string/Main_Button_BestandNachKategorie"
+                android:drawableLeft="@drawable/main_button_storage_grouped"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textAlignment="viewStart"
+                android:backgroundTint="@color/MainButton_Color" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/MainButton_Lagerbestand"
+                    android:text="@string/Main_Button_Lagerbestand"
+                    android:drawableLeft="@drawable/main_button_storage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:textAlignment="viewStart"
+                    android:backgroundTint="@color/MainButton_Color" />
+
+                <TextView
+                    android:id="@+id/Main_Text1Counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:paddingRight="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/Text_Error"
+                    android:background="@drawable/textview_counter"
+                    android:elevation="40dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toStartOf="@id/Main_Text2Counter" />
+                <TextView
+                    android:id="@+id/Main_Text2Counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:paddingRight="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/Text_Warning"
+                    android:background="@drawable/textview_counter"
+                    android:elevation="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/MainButton_Artikeldaten"
+                android:text="@string/Main_Button_ArtikelListe"
+                android:drawableLeft="@drawable/main_button_article"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textAlignment="viewStart"
+                android:backgroundTint="@color/MainButton_Color" />
+
+            <Button
+                android:id="@+id/MainButton_Barcode"
+                android:text="@string/Main_Button_ArtikelScannen"
+                android:drawableLeft="@drawable/main_button_barcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textAlignment="viewStart"
+                android:backgroundTint="@color/MainButton_Color" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/MainButton_ShoppingList"
+                    android:text="@string/Main_Button_Einkaufsliste"
+                    android:drawableLeft ="@drawable/main_button_shopping_cart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:textAlignment="viewStart"
+                    android:backgroundTint="@color/MainButton_Color" />
+
+                <TextView
+                    android:id="@+id/Main_ShoppingListCounter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:paddingRight="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/Text_Color"
+                    android:elevation="50dp"
+                    android:background="@drawable/textview_counter"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
