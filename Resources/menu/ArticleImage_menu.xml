@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:id="@+id/ArticleImage_Menu_RotateRight"
-        android:icon="@drawable/outline_rotate_right_white_24"
-        android:title="@string/ArticleImage_Menu_RotateRight"
-        android:showAsAction="always" />
-</menu>
