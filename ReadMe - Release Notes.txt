@@ -1,6 +1,7 @@
 Version 9.00 (Code Version 156)
 =====================================
 
+C226 - Datenbank jetzt auf SD Karte anlegen oder verschieben
 C225 - Lagerbestand löschen und umbenennen integriert
 C224 - Neue Spalten 'Category' und 'SubCategory' beim CSV Export 'Lagerbestand'
 

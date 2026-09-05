@@ -22,8 +22,7 @@ Entwicklungsumgebung
 ====================
 
 Zum Übersetzen wird das Visual Studio Community 2022 verwendet.
-Als Bibliothek wir Xamarin eingesetzt.
-Programmiert ist es in C# Programmiersprache.
+Programmiert ist es in Google Programmiersprache Kotlin.
 
 Google Play Store
 =================

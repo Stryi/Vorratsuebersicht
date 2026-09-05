@@ -1,6 +1,15 @@
 Prio 1
 ======
 
+- Pfand im Artikelstamm (per E-Mail vom Martin am 8.10.2024)
+
+- Verzeichnis für die Datenbank außerhalb der Anwendung
+  https://developer.android.com/training/data-storage/shared/documents-files
+
+- Einscannen des Lagerorts als Barcode (vom Daniel am 11.12.2024)
+  - man druckt sich eigene Barcode-Etiketten aus und deponiert/klebt sie an die entsprechenden Lagerorte.
+
+
 - Statistik über verbrauch (per Rezension am 26.08.2025 21:07)
 
 - In einem roten Kreis die Anzahl der Artikel anzeigen,
@@ -9,21 +18,7 @@ Prio 1
   Den Filter 'Für die Einkaufsliste (ohne Bestand)' Funktionalität
   erweitern um 'Für die Einkaufsliste (ohne Bestand oder Mindestmenge erreicht)'.
 
-- Pfand im Artikelstamm (per E-Mail vom Martin am 8.10.2024)
-
-- Icon "Interner Speicher" und "SD Karte" bei Auswahl der Datenbanken.
-
-- Verzeichnis für die Datenbank außerhalb der Anwendung
-  https://developer.android.com/training/data-storage/shared/documents-files
-
 - Kompakte Liste (nur Bilder)
-
-- Datenbankanlage auch auf der SD Karte ermöglichen.
-  Datenbank auf SD Karte verschieben?
-  Beispiel: "/storage/0E0E-2316/Android/data/de.stryi.Vorratsuebersicht/files"
-
-- Einscannen des Lagerorts als Barcode (vom Daniel am 11.12.2024)
-  - man druckt sich eigene Barcode-Etiketten aus und deponiert/klebt sie an die entsprechenden Lagerorte.
 
 
 Einstellungen
@@ -119,10 +114,7 @@ Prio eher hoch:
 - Bild bearbeiten erweitern
   - "Crop"
  
-- Einscannen des Lagerorts als Barcode
-  - man druckt sich eigene Barcode-Etiketten aus und deponiert/klebt sie an die entsprechenden Lagerorte
- 
- 
+
 Prio eher mittel:
  
 - Komfortableres Ausbuchen: Eigener Button für Ausbuchen von Artikeln
