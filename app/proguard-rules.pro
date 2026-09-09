@@ -19,3 +19,18 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Gson rules
+# Prevent R8 from stripping away information needed by Gson
+-keepattributes Signature, *Annotation*, EnclosingMethod, InnerClasses
+-keep class com.google.gson.** { *; }
+-keep class com.google.gson.reflect.TypeToken
+-keep class * extends com.google.gson.reflect.TypeToken
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+
+# Keep FoodInformation and its nested data classes for Gson reflection
+-keep class de.stryi.vorratsuebersicht.InternetDatabaseSearchActivity$FoodInformation { *; }
+-keep class de.stryi.vorratsuebersicht.InternetDatabaseSearchActivity$FoodInformation$Product { *; }
+-keep class de.stryi.vorratsuebersicht.InternetDatabaseSearchActivity$FoodInformation$Nutriments { *; }
