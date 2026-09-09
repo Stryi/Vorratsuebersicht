@@ -102,6 +102,7 @@ object Database
         values.put("Supermarket",     article.supermarket)
         values.put("MinQuantity",     article.minQuantity)
         values.put("PrefQuantity",    article.prefQuantity)
+        values.put("Deposit",         article.deposit)
 
 
         val newId = db!!.insert("Article", null, values)
@@ -120,13 +121,13 @@ object Database
             UPDATE Article
             SET Name = ?, Manufacturer = ?, Category = ?, SubCategory = ?, DurableInfinity = ?, WarnInDays = ?,
                 Size = ?, Unit = ?, Notes = ?, EANCode = ?, Calorie = ?, Price = ?, StorageName = ?, Supermarket = ?,
-                MinQuantity = ?, PrefQuantity = ?
+                MinQuantity = ?, PrefQuantity = ?, Deposit = ?
             WHERE ArticleId = ?
         """.trimIndent()
         db!!.execSQL(query, arrayOf<Any?>(article.name, article.manufacturer, article.category, article.subCategory,
             article.durableInfinity, article.warnInDays, article.size, article.unit, article.notes, article.eanCode,
             article.calorie, article.price, article.storageName, article.supermarket,
-            article.minQuantity, article.prefQuantity, article.articleId))
+            article.minQuantity, article.prefQuantity, article.deposit, article.articleId))
 
         this.increaseChangeCounter()
     }
@@ -301,7 +302,7 @@ object Database
 
         val query = """
             SELECT ArticleId, Name, Manufacturer, Category, SubCategory, DurableInfinity, WarnInDays,
-                   Size, Unit, Notes, EANCode, Calorie, Price, StorageName, Supermarket, MinQuantity, PrefQuantity
+                   Size, Unit, Notes, EANCode, Calorie, Price, StorageName, Supermarket, MinQuantity, PrefQuantity, Deposit
             FROM Article
             $filter
             ORDER BY Name COLLATE NOCASE
@@ -754,7 +755,7 @@ object Database
 
         var query = """
             SELECT Article.ArticleId, Name, WarnInDays, Size, Unit, DurableInfinity, MinQuantity,
-            PrefQuantity, Price, Calorie, Category, SubCategory, Article.StorageName,
+            PrefQuantity, Price, Calorie, Category, SubCategory, Article.StorageName, Article.Deposit,
               ShoppingList.Quantity AS ShoppingQuantity,
               ($sumQuantitySelect)  AS StorageQuantity,
               IFNULL(($bestBeforeSelect), '9999.12.31') AS BestBefore
@@ -937,7 +938,7 @@ object Database
         val parameters = mutableListOf<String>()
 
         var query = """
-            SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Supermarket, Size, Unit, Calorie, Quantity, Notes, Price, Bought, Category, SubCategory
+            SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Supermarket, Size, Unit, Calorie, Quantity, Notes, Price, Bought, Category, SubCategory, Deposit
              FROM ShoppingList
              LEFT JOIN Article ON ShoppingList.ArticleId = Article.ArticleId
         """.trimIndent()
@@ -1566,6 +1567,13 @@ object Database
             {
                 TRACE("Update 4.30: StorageName im StorageItem")
                 db!!.execSQL("ALTER TABLE StorageItem ADD COLUMN [StorageName] TEXT")
+            }
+
+            // Update Pfand (Deposit)
+            if (!isFieldInTheTable("Article", "Deposit"))
+            {
+                TRACE("Update: Deposit im Article")
+                db!!.execSQL("ALTER TABLE Article ADD COLUMN [Deposit] DOUBLE")
             }
         } catch (e: Exception) {
             TRACE("DB: Fehler bei Schema-Upgrade: ${e.message}")

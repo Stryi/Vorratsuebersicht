@@ -755,6 +755,7 @@ class ArticleDetailsActivity : AppCompatActivity() {
 
             this.article.warnInDays = getIntegerFromEditText(binding.ArticleDetailsWarnInDays.text.toString())
             this.article.price      = getDoubleFromText(binding.ArticleDetailsPrice.text.toString())
+            this.article.deposit    = getDoubleFromText(binding.ArticleDetailsDeposit.text.toString())
 
             this.article.size       = getDoubleFromText(binding.ArticleDetailsSize.text.toString())
             this.article.unit       = binding.ArticleDetailsUnit.text.toString()
@@ -884,6 +885,7 @@ class ArticleDetailsActivity : AppCompatActivity() {
         binding.ArticleDetailsDurableInfinity.isChecked = this.article.durableInfinity
         binding.ArticleDetailsWarnInDays.setText(Tools.formatNumber(this.article.warnInDays))
         binding.ArticleDetailsPrice.setText(Tools.formatNumber(this.article.price))
+        binding.ArticleDetailsDeposit.setText(Tools.formatNumber(this.article.deposit))
         binding.ArticleDetailsSize.setText(Tools.formatNumber(this.article.size))
         binding.ArticleDetailsUnit.setText(this.article.unit)
         binding.ArticleDetailsCalorie.setText(Tools.formatNumber(this.article.calorie))
@@ -1016,7 +1018,6 @@ class ArticleDetailsActivity : AppCompatActivity() {
         this.createProgressBar()
 
         Thread {
-            Thread.sleep(1000)
             val inputStream = contentResolver.openInputStream(uri)
             val bitmap = BitmapFactory.decodeStream(inputStream)
             inputStream?.close()

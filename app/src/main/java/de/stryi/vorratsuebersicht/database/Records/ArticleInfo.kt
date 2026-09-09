@@ -24,6 +24,7 @@ class ArticleInfo {
     var minQuantity: Int? = null
     var prefQuantity: Int? = null
     var price: Double? = null
+    var deposit: Double? = null
 
     var storageQuantity   : Double = 0.0
     var shoppingQuantity: Double = -1.00
@@ -92,6 +93,13 @@ class ArticleInfo {
                     info.append(" -> Wert: %.2f".format(menge))
                 }
             }
+
+            if (this.deposit != null && this.deposit != 0.0)
+            {
+                info.appendLine()
+                info.append("Pfand: %.2f".format(this.deposit))
+            }
+
             return info.toString().trimEnd()
         }
 
@@ -177,6 +185,7 @@ class ArticleInfo {
             storageItem.prefQuantity    = cursor.getIntOrNull("PrefQuantity")
             storageItem.price           = cursor.getDoubleOrNull("Price")
             storageItem.storageName     = cursor.getStringOrNull("StorageName")
+            storageItem.deposit         = cursor.getDoubleOrNull("Deposit")
 
             // Angaben aus abhängigen Tabellen
             storageItem.storageQuantity  = cursor.getDoubleOrNull("StorageQuantity")  ?: 0.0

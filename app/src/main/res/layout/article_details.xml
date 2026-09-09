@@ -293,6 +293,26 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
                 <TextView
+                    android:text="@string/ArticleDetails_Deposit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/ArticleDetails_Deposit"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="none"
+                    android:inputType="numberDecimal"
+                    android:backgroundTint="@color/edittext_underline"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <TextView
                     android:text="@string/ArticleDetails_Size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

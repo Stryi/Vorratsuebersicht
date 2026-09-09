@@ -24,6 +24,7 @@ class ShoppingItem {
     var notes: String? = null
     var price: Double? = null
     var bought: Boolean? = null
+    var deposit: Double? = null
 
     val heading: String
         get() {
@@ -62,6 +63,13 @@ class ShoppingItem {
                 {
                     info.append(" ($pricePerUnit)")
                 }
+            }
+
+            if (this.deposit != null && this.deposit != 0.0)
+            {
+                if (info.isNotEmpty()) info.appendLine()
+
+                info.append("Pfand: %.2f".format(this.deposit))
             }
 
             if (ShoppingItemViewAdapter.sparseView < 1)
@@ -120,6 +128,7 @@ class ShoppingItem {
             shoppingItem.notes        = cursor.getStringOrNull("Notes")
             shoppingItem.price        = cursor.getDoubleOrNull("Price")
             shoppingItem.bought       = cursor.getIntOrNull("Bought") == 1
+            shoppingItem.deposit      = cursor.getDoubleOrNull("Deposit")
 
             return  shoppingItem
         }

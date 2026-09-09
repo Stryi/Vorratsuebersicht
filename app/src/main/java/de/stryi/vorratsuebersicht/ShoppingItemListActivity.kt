@@ -359,6 +359,15 @@ class ShoppingItemListActivity : AppCompatActivity()
             {
                 sumNoPrice++
             }
+
+            if (item.deposit != null && item.deposit!! > 0.00)
+            {
+                sumAmount += item.quantity!! * item.deposit!!
+                if (item.bought == true)
+                {
+                    toPay += item.quantity!! * item.deposit!!
+                }
+            }
         }
 
         var status: String

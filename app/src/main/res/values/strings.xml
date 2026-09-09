@@ -220,6 +220,7 @@ http://www.apache.org/licenses/LICENSE-2.0</string>
     <string name="ArticleDetails_SupermarketLabel">Einkaufsmarkt:</string>
     <string name="ArticleDetails_CommaSeparatedInput">(Komma getrennt, wenn mehrere)</string>
     <string name="ArticleDetails_Price">Preis:</string>
+    <string name="ArticleDetails_Deposit">Pfand:</string>
     <string name="ArticleDetails_PricePerUnit">Preis pro Einheit:</string>
     <string name="ArticleDetails_EANCode">EAN Code:</string>
     <string name="ArticleDetails_Notes">Notizen:</string>

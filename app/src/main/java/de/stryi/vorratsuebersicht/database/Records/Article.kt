@@ -27,6 +27,7 @@ class Article {
     var supermarket: String? = null
     var eanCode: String? = null
     var notes: String? = null
+    var deposit: Double? = null
 
     val heading: String
         get() {
@@ -83,6 +84,11 @@ class Article {
             else
             {
                 info.appendLine("-")
+            }
+
+            // Pfand
+            if (deposit != null && deposit != 0.0) {
+                info.appendLine("Pfand: %.2f".format(deposit))
             }
 
             // Größe
@@ -193,6 +199,7 @@ class Article {
             article.supermarket     = cursor.getStringOrNull("Supermarket")
             article.eanCode         = cursor.getStringOrNull("EANCode")
             article.notes           = cursor.getStringOrNull("Notes")
+            article.deposit         = cursor.getDoubleOrNull("Deposit")
 
             return article
         }
