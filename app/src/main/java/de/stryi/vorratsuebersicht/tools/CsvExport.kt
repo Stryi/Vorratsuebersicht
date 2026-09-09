@@ -34,7 +34,7 @@ class CsvExport private constructor(
             .append(
                 "ArticleId|EANCode|Name|Manufacturer|Category|SubCategory|" +
                         "DurableInfinity|WarnInDays|Size|Unit|Notes|MinQuantity|" +
-                        "PrefQuantity|StorageName|Supermarket|Calorie|Price"
+                        "PrefQuantity|StorageName|Supermarket|Calorie|Price|Deposit"
             )
             .appendLine()
             .apply { replace(0, length, toString().replace("|", separator)) }
@@ -61,6 +61,7 @@ class CsvExport private constructor(
             addField(row, article.supermarket)
             addField(row, article.calorie)
             addField(row, article.price)
+            addField(row, article.deposit)
 
             data.append(row).appendLine()
         }
