@@ -268,42 +268,50 @@
 
             <LinearLayout
                 android:orientation="horizontal"
+                android:baselineAligned="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
-                <TextView
-                    android:text="@string/ArticleDetails_Price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <EditText
-                    android:id="@+id/ArticleDetails_Price"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="name"
-                    android:inputType="numberDecimal"
-                    android:backgroundTint="@color/edittext_underline"
-                    tools:ignore="LabelFor" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-                <TextView
-                    android:text="@string/ArticleDetails_Deposit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <EditText
-                    android:id="@+id/ArticleDetails_Deposit"
-                    android:layout_width="fill_parent"
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:autofillHints="none"
-                    android:inputType="numberDecimal"
-                    android:backgroundTint="@color/edittext_underline"
-                    tools:ignore="LabelFor" />
+                    android:layout_weight="1">
+                    <TextView
+                        android:text="@string/ArticleDetails_Price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:id="@+id/ArticleDetails_Price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="name"
+                        android:inputType="numberDecimal"
+                        android:backgroundTint="@color/edittext_underline"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp">
+                    <TextView
+                        android:text="@string/ArticleDetails_Deposit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:id="@+id/ArticleDetails_Deposit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="none"
+                        android:inputType="numberDecimal"
+                        android:backgroundTint="@color/edittext_underline"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
