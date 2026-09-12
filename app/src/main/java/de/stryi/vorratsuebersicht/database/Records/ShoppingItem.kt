@@ -57,7 +57,7 @@ class ShoppingItem {
             {
                 if (info.isNotEmpty()) info.appendLine()
 
-                info.append("Preis: %.2f".format(this.price))
+                info.append("Preis: " + Tools.formatLocalizedPrice(this.price))
                 val pricePerUnit = PricePerUnit.calculate(this.price, this.size, this.unit)
                 if (pricePerUnit.isNotBlank())
                 {
@@ -69,7 +69,7 @@ class ShoppingItem {
             {
                 if (info.isNotEmpty()) info.appendLine()
 
-                info.append("Pfand: %.2f".format(this.deposit))
+                info.append("Pfand: " + Tools.formatLocalizedPrice(this.deposit))
             }
 
             if (ShoppingItemViewAdapter.sparseView < 1)

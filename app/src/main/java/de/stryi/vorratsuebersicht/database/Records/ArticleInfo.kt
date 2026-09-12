@@ -81,7 +81,7 @@ class ArticleInfo {
             if (this.price != null && this.price != 0.0)
             {
                 info.appendLine()
-                info.append("Preis: %.2f".format(this.price))
+                info.append("Preis: " + Tools.formatLocalizedPrice(this.price))
                 val pricePerUnit = PricePerUnit.calculate(this.price, this.size, this.unit)
                 if (pricePerUnit.isNotBlank())
                 {
@@ -90,14 +90,14 @@ class ArticleInfo {
                 if (this.storageQuantity != 1.0)
                 {
                     val menge = this.storageQuantity * this.price!!
-                    info.append(" -> Wert: %.2f".format(menge))
+                    info.append(" -> Wert: " + Tools.formatLocalizedPrice(menge))
                 }
             }
 
             if (this.deposit != null && this.deposit != 0.0)
             {
                 info.appendLine()
-                info.append("Pfand: %.2f".format(this.deposit))
+                info.append("Pfand: " + Tools.formatLocalizedPrice(this.deposit))
             }
 
             return info.toString().trimEnd()

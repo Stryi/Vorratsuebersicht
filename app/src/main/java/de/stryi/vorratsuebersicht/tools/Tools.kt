@@ -93,6 +93,43 @@ object Tools {
         return formatter.format(number)
     }
 
+    fun formatLocalizedPrice(number: Double?): String {
+        if (number == null)
+            return ""
+
+        val symbols = DecimalFormatSymbols(Locale.getDefault())
+        val formatter = DecimalFormat("###,###,##0.00##", symbols)
+        var priceText = formatter.format(number)
+        return priceText
+    }
+
+    fun formatUsNumber(number: Double?): String {
+        if (number == null)
+            return ""
+
+        val symbols = DecimalFormatSymbols(Locale.US)
+        var formatter = DecimalFormat("0", symbols)
+
+        // Wenn number Dezimalstellen hat
+        if (number % 1.0 != 0.0) {
+            formatter = DecimalFormat("0.00##", symbols)
+        }
+
+        var priceText = formatter.format(number)
+        return priceText
+    }
+
+    fun formatIntegerNumber(number: Double?): String {
+        if (number == null)
+            return ""
+
+        val symbols = DecimalFormatSymbols(Locale.US)
+        val formatter = DecimalFormat("0.##", symbols)
+        var priceText = formatter.format(number)
+        return priceText
+    }
+
+
     fun toString(date: LocalDate?) : String? {
         if (date == null)
             return ""

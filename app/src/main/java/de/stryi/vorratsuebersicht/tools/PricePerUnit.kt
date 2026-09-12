@@ -95,7 +95,7 @@ object PricePerUnit {
                 .stripTrailingZeros()
                 .toPlainString()
 
-            String.format(Locale.getDefault(), "%s %s = %.2f", formattedSize, calculatedUnit, pricePerSize)
+            "%s %s = %s".format(formattedSize, calculatedUnit, Tools.formatLocalizedPrice(pricePerSize))
         } else {
             ""
         }

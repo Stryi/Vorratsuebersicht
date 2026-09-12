@@ -73,7 +73,7 @@ class Article {
             // Preis
             info.append("Preis: ")
             if (price != null) {
-                var priceText = "%.2f".format(price)
+                var priceText = Tools.formatLocalizedPrice(price)
 
                 val pricePerUnit = PricePerUnit.calculate(price, size, unit)
                 if (pricePerUnit.isNotBlank()) {
@@ -88,7 +88,7 @@ class Article {
 
             // Pfand
             if (deposit != null && deposit != 0.0) {
-                info.appendLine("Pfand: %.2f".format(deposit))
+                info.appendLine("Pfand: " + Tools.formatLocalizedPrice(deposit))
             }
 
             // Größe

@@ -136,7 +136,7 @@ class StockStatistic {
         if (sumPrice > 0)
             status += ", " + String.format(
                     res.getString(R.string.StorageListSummary_Value),
-                    Tools.formatNumber(sumPrice),
+                    Tools.formatLocalizedPrice(sumPrice),
                     NumberFormat.getCurrencyInstance().currency?.symbol ?: "")
 
         /*

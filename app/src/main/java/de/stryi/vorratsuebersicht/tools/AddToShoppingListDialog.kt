@@ -94,7 +94,7 @@ class AddToShoppingListDialog {
 
             val input = EditText(activity)
             input.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
-            input.setText(Tools.formatNumber(toBuyQuantity))
+            input.setText(Tools.formatIntegerNumber(toBuyQuantity))
 
             // Setze den Abstand (Padding) für den EditText
             val marginInDp = 20

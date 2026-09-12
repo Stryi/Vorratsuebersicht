@@ -463,7 +463,7 @@ class StorageItemInventoryActivity : AppCompatActivity() {
         input.inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
         if (storageItem.quantity > 0.00)
         {
-            input.setText(Tools.formatNumber(storageItem.quantity))
+            input.setText(Tools.formatUsNumber(storageItem.quantity))
         }
         input.setSelection(input.text.length)
 

@@ -382,7 +382,7 @@ class ShoppingItemListActivity : AppCompatActivity()
         }
         if (sumAmount   > 0)
         {
-            status += ", " + Tools.formatResource(this, R.string.ShoppingListSummary_Amount, sumAmount)
+            status += ", " + Tools.formatResource(this, R.string.ShoppingListSummary_Amount, Tools.formatLocalizedPrice(sumAmount))
         }
 
         if (sumNoPrice == 1.00)
@@ -397,7 +397,7 @@ class ShoppingItemListActivity : AppCompatActivity()
 
         if (toPay > 0)
         {
-            status += "\n" + Tools.formatResource(this, R.string.ShoppingListSummary_ToPay, toPay)
+            status += "\n" + Tools.formatResource(this, R.string.ShoppingListSummary_ToPay, Tools.formatLocalizedPrice(toPay))
         }
 
         binding.ShoppingItemListFooter.text = status
