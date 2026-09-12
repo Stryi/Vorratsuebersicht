@@ -150,7 +150,7 @@ class InternetDatabaseSearchActivity :AppCompatActivity()
                     info += "\n%s\n\n".format(foodInfo?.product?.getProduktName())
 
                     info += resources.getString(R.string.ArticleDetails_Manufacturer)
-                    info += "\n%s\n\n".format(foodInfo?.product?.brands)
+                    info += "\n%s\n\n".format(foodInfo?.product?.getBrandsName())
 
                     if (foodSize != null)
                     {
@@ -160,7 +160,7 @@ class InternetDatabaseSearchActivity :AppCompatActivity()
                     else
                     {
                         info += resources.getString(R.string.InternetDatabaseSearch_UnknownSize)
-                            .format(foodInfo?.product?.quantity)
+                            .format(foodInfo?.product?.quantity ?: "")
                     }
 
                     if (kcalPer100 != null)
@@ -239,13 +239,25 @@ class InternetDatabaseSearchActivity :AppCompatActivity()
             val product_quantity: Int?,
             val nutriments: Nutriments?
         ) {
-            fun getProduktName(): String? {
+            fun getProduktName(): String {
                 // Vorzugsweise die Deutsche Sprache nehmen
-                return if (!product_name_de.isNullOrEmpty()) {
-                    product_name_de
-                } else {
-                    product_name
+                if (!product_name_de.isNullOrEmpty()) {
+                    return product_name_de
                 }
+                if (!product_name.isNullOrEmpty())
+                {
+                    return product_name
+                }
+                return ""
+            }
+
+            fun getBrandsName(): String
+            {
+                // Vorzugsweise die Deutsche Sprache nehmen
+                if (!brands.isNullOrEmpty()) {
+                    return brands
+                }
+                return ""
             }
         }
 
