@@ -884,8 +884,8 @@ class ArticleDetailsActivity : AppCompatActivity() {
         binding.ArticleDetailsStorage.setText(this.article.storageName)
         binding.ArticleDetailsDurableInfinity.isChecked = this.article.durableInfinity
         binding.ArticleDetailsWarnInDays.setText(Tools.formatNumber(this.article.warnInDays))
-        binding.ArticleDetailsPrice.setText(Tools.formatUsNumber(this.article.price))
-        binding.ArticleDetailsDeposit.setText(Tools.formatUsNumber(this.article.deposit))
+        binding.ArticleDetailsPrice.setText(Tools.formatUsPrice(this.article.price))
+        binding.ArticleDetailsDeposit.setText(Tools.formatUsPrice(this.article.deposit))
         binding.ArticleDetailsSize.setText(Tools.formatUsNumber(this.article.size))
         binding.ArticleDetailsUnit.setText(this.article.unit)
         binding.ArticleDetailsCalorie.setText(Tools.formatNumber(this.article.calorie))

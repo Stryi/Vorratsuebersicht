@@ -99,7 +99,17 @@ object Tools {
 
         val symbols = DecimalFormatSymbols(Locale.getDefault())
         val formatter = DecimalFormat("###,###,##0.00##", symbols)
-        var priceText = formatter.format(number)
+        val priceText = formatter.format(number)
+        return priceText
+    }
+
+    fun formatUsPrice(number: Double?): String {
+        if (number == null)
+            return ""
+
+        val symbols = DecimalFormatSymbols(Locale.US)
+        val formatter = DecimalFormat("0.00", symbols)
+        val priceText = formatter.format(number)
         return priceText
     }
 
@@ -115,7 +125,7 @@ object Tools {
             formatter = DecimalFormat("0.00##", symbols)
         }
 
-        var priceText = formatter.format(number)
+        val priceText = formatter.format(number)
         return priceText
     }
 
@@ -125,7 +135,7 @@ object Tools {
 
         val symbols = DecimalFormatSymbols(Locale.US)
         val formatter = DecimalFormat("0.##", symbols)
-        var priceText = formatter.format(number)
+        val priceText = formatter.format(number)
         return priceText
     }
 
