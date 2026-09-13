@@ -1,3 +1,9 @@
+Version 9.04 (Code Version 161)
+===============================
+
+C228 - EAN Scann jetzt in einer Schleife
+
+
 Version 9.01 (Code Version 157)
 ===============================
 
