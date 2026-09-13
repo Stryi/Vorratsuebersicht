@@ -15,7 +15,8 @@ class AddToShoppingListDialog {
                 articleId: Int,
                 minQuantityParam: Int? = null,
                 prefQuantityParam: Int? = null,
-                refreshListAction: (() -> Unit)? = null
+                refreshListAction: (() -> Unit)? = null,
+                onDismissAction: (() -> Unit)? = null
         ) {
             var minQuantity = minQuantityParam
             var prefQuantity = prefQuantityParam
@@ -122,6 +123,12 @@ class AddToShoppingListDialog {
                         Database.setShoppingItemQuantity(articleId, buyQty)
                     }
                     refreshListAction?.invoke()
+                }
+            }
+
+            if (onDismissAction != null) {
+                quantityDialog.setOnDismissListener {
+                    onDismissAction.invoke()
                 }
             }
 

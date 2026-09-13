@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: MainActivityBinding
+    private var returnToScanner = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -163,6 +164,10 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         showStorageInfoText()
+        if (returnToScanner) {
+            returnToScanner = false
+            openEanCodeScanner()
+        }
     }
 
     private fun articlesNearExpiryDate(tag: String) {
@@ -328,6 +333,7 @@ class MainActivity : AppCompatActivity() {
             // Neuanlage Artikel
             val articleDetails = Intent(this, ArticleDetailsActivity::class.java)
             articleDetails.putExtra("EANCode", eanCode)
+            returnToScanner = true
             startActivity(articleDetails)
             return
         }
@@ -385,6 +391,7 @@ class MainActivity : AppCompatActivity() {
                     0 -> { // Lagerbestand bearbeiten
                         val storageItem = Intent(this, StorageItemInventoryActivity::class.java)
                         storageItem.putExtra("ArticleId", articleId)
+                        returnToScanner = true
                         startActivity(storageItem)
 
                     }
@@ -392,11 +399,12 @@ class MainActivity : AppCompatActivity() {
                         // Artikelstamm bearbeiten
                         val articleDetails = Intent(this, ArticleDetailsActivity::class.java)
                         articleDetails.putExtra("ArticleId", articleId)
+                        returnToScanner = true
                         startActivity(articleDetails)
                     }
                     2 -> {
                         // Auf die Einkaufsliste
-                        AddToShoppingListDialog.showDialog(this, articleId)
+                        AddToShoppingListDialog.showDialog(this, articleId, onDismissAction = { openEanCodeScanner() })
                     }
                     3 -> {
                         // Aus Einkaufsliste ins Lager
@@ -405,6 +413,7 @@ class MainActivity : AppCompatActivity() {
                         storageInventory.putExtra("EditMode", true)
                         storageInventory.putExtra("Quantity", shoppingListQuantiy)
 
+                        returnToScanner = true
                         startActivity(storageInventory)
                     }
                 }
@@ -428,6 +437,7 @@ class MainActivity : AppCompatActivity() {
                 0 -> { // // Lagerbestand Liste
                     val storageItemList = Intent(this, StorageItemListActivity::class.java)
                     storageItemList.putExtra("EANCode", eanCode)
+                    returnToScanner = true
                     startActivity(storageItemList)
 
                 }
@@ -435,6 +445,7 @@ class MainActivity : AppCompatActivity() {
                     // // Artikel Liste
                     val articleList = Intent(this, ArticleListActivity::class.java)
                     articleList.putExtra("EANCode", eanCode)
+                    returnToScanner = true
                     startActivity(articleList)
                 }
             }
@@ -501,7 +512,7 @@ class MainActivity : AppCompatActivity() {
         val databases = AndroidDatabase.loadDatabaseFileListSafe(this)
 
         selectDatabase(databases) { selectedDatabase ->
-            var errorMessage = Database.init(selectedDatabase)
+            val errorMessage = Database.init(selectedDatabase)
             if (errorMessage != null)
             {
                 Tools.showMessage(this, errorMessage)
