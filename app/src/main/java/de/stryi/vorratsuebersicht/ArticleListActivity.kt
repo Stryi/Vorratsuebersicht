@@ -283,7 +283,6 @@ class ArticleListActivity : AppCompatActivity() {
                 */
 
                 showArticleList()
-                loadCategoryList()
 
                 binding.ArticleList.layoutManager?.onRestoreInstanceState(listViewState)
             }

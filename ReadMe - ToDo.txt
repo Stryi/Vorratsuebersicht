@@ -1,8 +1,6 @@
 Prio 1
 ======
 
-- Pfand im Artikelstamm (per E-Mail vom Martin am 8.10.2024)
-
 - Verzeichnis für die Datenbank außerhalb der Anwendung
   https://developer.android.com/training/data-storage/shared/documents-files
 
@@ -23,6 +21,7 @@ Prio 1
 
 Einstellungen
 - Nur X Backups lassen, ältere automatisch löschen. (auch vom mik53ke per E-Mail)
+  => Kann nicht mehr umgesetzt werden.
 
 
 Einkaufsliste
