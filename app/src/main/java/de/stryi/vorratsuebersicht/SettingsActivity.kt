@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -644,42 +645,79 @@ class SettingsActivity : AppCompatActivity() {
         val activeDatabasePath = Database.getDatabasePath()
         val isActiveDatabase = activeDatabasePath != null && File(activeDatabasePath).canonicalPath == currentFile.canonicalPath
 
-        try {
-            if (isActiveDatabase) {
-                Database.closeDatabase()
-            }
+        binding.ProgressBarDatabaseManagement.visibility = View.VISIBLE
+        binding.ProgressBarDatabaseManagement.isIndeterminate = false
+        binding.ProgressBarDatabaseManagement.max = 100
+        binding.ProgressBarDatabaseManagement.progress = 0
 
-            currentFile.inputStream().use { input ->
-                targetFile.outputStream().use { output ->
-                    input.copyTo(output)
+        lifecycleScope.launch {
+            val success = withContext(Dispatchers.IO) {
+                try {
+                    if (isActiveDatabase) {
+                        Database.closeDatabase()
+                    }
+
+                    val totalBytes = currentFile.length()
+                    var bytesCopied = 0L
+                    var lastProgress = 0
+
+                    currentFile.inputStream().use { input ->
+                        targetFile.outputStream().use { output ->
+                            val buffer = ByteArray(8192)
+                            var bytes = input.read(buffer)
+                            while (bytes >= 0) {
+                                output.write(buffer, 0, bytes)
+                                bytesCopied += bytes
+                                if (totalBytes > 0) {
+                                    val progress = ((bytesCopied * 100) / totalBytes).toInt()
+                                    if (progress != lastProgress) {
+                                        lastProgress = progress
+                                        withContext(Dispatchers.Main) {
+                                            binding.ProgressBarDatabaseManagement.progress = progress
+                                        }
+                                    }
+                                }
+                                bytes = input.read(buffer)
+                            }
+                        }
+                    }
+
+                    if (targetFile.exists() && targetFile.length() == currentFile.length()) {
+                        currentFile.delete()
+                        true
+                    } else {
+                        false
+                    }
+                } catch (e: Exception) {
+                    Tools.TRACE(e.message)
+                    false
                 }
             }
 
-            if (targetFile.exists() && targetFile.length() == currentFile.length()) {
-                currentFile.delete()
-                
+            binding.ProgressBarDatabaseManagement.visibility = View.INVISIBLE
+
+            if (success) {
                 if (isActiveDatabase) {
                     val error = Database.init(targetFile.absolutePath)
                     if (error == null) {
                         showDatabaseInfo()
-                        Tools.showMessage(this, "Datenbank wurde verschoben.")
+                        Tools.showMessage(this@SettingsActivity, "Datenbank wurde verschoben.")
                     } else {
-                        Tools.showWarning(this, "Fehler beim Öffnen der verschobenen Datenbank: $error")
+                        Tools.showWarning(this@SettingsActivity, "Fehler beim Öffnen der verschobenen Datenbank: $error")
                     }
                 } else {
-                    Tools.showMessage(this, "Datenbank '${currentFile.nameWithoutExtension}' wurde verschoben.")
+                    Tools.showMessage(this@SettingsActivity, "Datenbank '${currentFile.nameWithoutExtension}' wurde verschoben.")
                 }
             } else {
-                if (isActiveDatabase) {
-                    Database.init(currentFile.absolutePath)
+                if (isActiveDatabase && activeDatabasePath != null) {
+                    try {
+                        Database.init(activeDatabasePath)
+                    } catch (e: Exception) {
+                        Tools.TRACE(e.message)
+                    }
                 }
-                Tools.showWarning(this, "Fehler beim Kopieren der Datenbank.")
+                Tools.showWarning(this@SettingsActivity, "Fehler beim Kopieren der Datenbank.")
             }
-        } catch (e: Exception) {
-            if (isActiveDatabase && activeDatabasePath != null) {
-                Database.init(activeDatabasePath)
-            }
-            Tools.showException(this, e, null, "Fehler beim Verschieben der Datenbank.")
         }
     }
 
@@ -845,21 +883,69 @@ class SettingsActivity : AppCompatActivity() {
                 return@launch
             }
 
-            val inputStream = contentResolver.openInputStream(uri)
-
             newDatabaseName = newDatabaseName.trimEnd()
             newDatabaseName += ".db3"
 
             // Hole den Pfad zum App-Datenbankordner
             val dbFile = File(dbPath, newDatabaseName) // legt Datei direkt im DB-Ordner an
 
-            inputStream.use { input ->
-                FileOutputStream(dbFile).use { output ->
-                    input!!.copyTo(output)
+            binding.ProgressBarDatabaseManagement.visibility = View.VISIBLE
+            binding.ProgressBarDatabaseManagement.isIndeterminate = false
+            binding.ProgressBarDatabaseManagement.max = 100
+            binding.ProgressBarDatabaseManagement.progress = 0
+
+            val success = withContext(Dispatchers.IO) {
+                try {
+                    var totalBytes = 0L
+                    contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+                        if (cursor.moveToFirst()) {
+                            val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
+                            if (sizeIndex != -1) {
+                                totalBytes = cursor.getLong(sizeIndex)
+                            }
+                        }
+                    }
+
+                    val inputStream = contentResolver.openInputStream(uri)
+                    var bytesCopied = 0L
+                    var lastProgress = 0
+
+                    inputStream?.use { input ->
+                        FileOutputStream(dbFile).use { output ->
+                            val buffer = ByteArray(8192)
+                            var bytes = input.read(buffer)
+                            while (bytes >= 0) {
+                                output.write(buffer, 0, bytes)
+                                bytesCopied += bytes
+                                if (totalBytes > 0) {
+                                    val progress = ((bytesCopied * 100) / totalBytes).toInt()
+                                    if (progress != lastProgress) {
+                                        lastProgress = progress
+                                        withContext(Dispatchers.Main) {
+                                            binding.ProgressBarDatabaseManagement.progress = progress
+                                        }
+                                    }
+                                }
+                                bytes = input.read(buffer)
+                            }
+                        }
+                    }
+                    true
+                } catch (e: Exception) {
+                    Tools.TRACE(e.message)
+                    false
                 }
+            }
+
+            binding.ProgressBarDatabaseManagement.visibility = View.INVISIBLE
+            if (success) {
+                Toast.makeText(this@SettingsActivity, "Datenbank erfolgreich importiert!", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this@SettingsActivity, "Fehler beim Importieren der Datenbank!", Toast.LENGTH_LONG).show()
             }
         }
     }
+
     fun restoreDatabaseFromFile(uri: Uri) {
         val fileName = Tools.getFileNameFromUri(this, uri)
 
@@ -886,12 +972,59 @@ class SettingsActivity : AppCompatActivity() {
             var dbFile = File(currentDatabase).parent
             dbFile = Paths.get(dbFile, newDatabaseName).toString() // legt Datei direkt im DB-Ordner an
 
-            val inputStream = contentResolver.openInputStream(uri)
+            binding.ProgressBarBackupAndRestore.visibility = View.VISIBLE
+            binding.ProgressBarBackupAndRestore.isIndeterminate = false
+            binding.ProgressBarBackupAndRestore.max = 100
+            binding.ProgressBarBackupAndRestore.progress = 0
 
-            inputStream.use { input ->
-                FileOutputStream(dbFile).use { output ->
-                    input!!.copyTo(output)
+            val success = withContext(Dispatchers.IO) {
+                try {
+                    var totalBytes = 0L
+                    contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+                        if (cursor.moveToFirst()) {
+                            val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
+                            if (sizeIndex != -1) {
+                                totalBytes = cursor.getLong(sizeIndex)
+                            }
+                        }
+                    }
+
+                    val inputStream = contentResolver.openInputStream(uri)
+                    var bytesCopied = 0L
+                    var lastProgress = 0
+
+                    inputStream?.use { input ->
+                        FileOutputStream(dbFile).use { output ->
+                            val buffer = ByteArray(8192)
+                            var bytes = input.read(buffer)
+                            while (bytes >= 0) {
+                                output.write(buffer, 0, bytes)
+                                bytesCopied += bytes
+                                if (totalBytes > 0) {
+                                    val progress = ((bytesCopied * 100) / totalBytes).toInt()
+                                    if (progress != lastProgress) {
+                                        lastProgress = progress
+                                        withContext(Dispatchers.Main) {
+                                            binding.ProgressBarBackupAndRestore.progress = progress
+                                        }
+                                    }
+                                }
+                                bytes = input.read(buffer)
+                            }
+                        }
+                    }
+                    true
+                } catch (e: Exception) {
+                    Tools.TRACE(e.message)
+                    false
                 }
+            }
+
+            binding.ProgressBarBackupAndRestore.visibility = View.INVISIBLE
+            if (success) {
+                Toast.makeText(this@SettingsActivity, "Datenbank erfolgreich wiederhergestellt!", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this@SettingsActivity, "Fehler beim Wiederherstellen der Datenbank!", Toast.LENGTH_LONG).show()
             }
         }
     }

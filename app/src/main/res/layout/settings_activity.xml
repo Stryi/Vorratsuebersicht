@@ -148,20 +148,6 @@
                 android:textAllCaps="false"
                 android:gravity="start|center_vertical" />
 
-            <!-- Button
-                android:id="@+id/SettingsButton_Restore"
-                android:text="@string/Settings_RestoreBackup"
-                android:textColor="#000000"
-                android:drawableLeft="@drawable/folder_24px"
-                android:drawableTint="#444444"
-                android:backgroundTint="#CCCCCC"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:drawablePadding="5dp"
-                android:textAllCaps="false"
-                android:gravity="start|center_vertical" / -->
-
             <Button
                 android:id="@+id/SettingsButton_RestoreFromFile"
                 android:text="@string/Settings_RestoreBackupFromFile"
@@ -291,6 +277,19 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp" />
 
+            <ProgressBar
+                android:id="@+id/ProgressBar_DatabaseManagement"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="-5dp"
+                android:indeterminate="true"
+                android:scaleY="2"
+                android:max="100"
+                android:visibility="invisible"/>
+
             <Button
                 android:id="@+id/SettingsButton_DatabaseNew"
                 android:text="@string/Settings_DatabaseNew"
@@ -301,7 +300,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
                 android:drawablePadding="5dp"
                 android:textAllCaps="false"
                 android:gravity="start|center_vertical" />
