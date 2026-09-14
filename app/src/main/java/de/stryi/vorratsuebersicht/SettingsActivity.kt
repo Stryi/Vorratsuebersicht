@@ -22,7 +22,9 @@ import de.stryi.vorratsuebersicht.tools.Logging
 import de.stryi.vorratsuebersicht.tools.Settings
 import de.stryi.vorratsuebersicht.tools.Tools
 import de.stryi.vorratsuebersicht.tools.TwoLineAdapter
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 import java.nio.file.Paths
@@ -292,20 +294,59 @@ class SettingsActivity : AppCompatActivity() {
     val createBackupFileLauncher =
         registerForActivityResult(ActivityResultContracts.CreateDocument("application/octet-stream")) { uri ->
             if (uri != null) {
-                val dbPath = File(pendingExportDbName!!)
+                binding.ProgressBarBackupAndRestore.visibility = View.VISIBLE
+                binding.ProgressBarBackupAndRestore.isIndeterminate = false
+                binding.ProgressBarBackupAndRestore.max = 100
+                binding.ProgressBarBackupAndRestore.progress = 0
 
-                Database.setSettingsDateTime("LAST_BACKUP_TIME", LocalDateTime.now())
-                Database.setSettingsDate    ("LAST_BACKUP",      LocalDateTime.now())
-                Database.resetChangeCounter()
+                lifecycleScope.launch {
+                    val success = withContext(Dispatchers.IO) {
+                        try {
+                            val dbPath = File(pendingExportDbName!!)
+                            val totalBytes = dbPath.length()
+                            var bytesCopied = 0L
+                            var lastProgress = 0
 
-                contentResolver.openOutputStream(uri)?.use { output ->
-                    dbPath.inputStream().use { input ->
-                        input.copyTo(output)
+                            Database.setSettingsDateTime("LAST_BACKUP_TIME", LocalDateTime.now())
+                            Database.setSettingsDate    ("LAST_BACKUP",      LocalDateTime.now())
+                            Database.resetChangeCounter()
+
+                            contentResolver.openOutputStream(uri)?.use { output ->
+                                dbPath.inputStream().use { input ->
+                                    val buffer = ByteArray(8192)
+                                    var bytes = input.read(buffer)
+                                    while (bytes >= 0) {
+                                        output.write(buffer, 0, bytes)
+                                        bytesCopied += bytes
+                                        if (totalBytes > 0) {
+                                            val progress = ((bytesCopied * 100) / totalBytes).toInt()
+                                            if (progress != lastProgress) {
+                                                lastProgress = progress
+                                                withContext(Dispatchers.Main) {
+                                                    binding.ProgressBarBackupAndRestore.progress = progress
+                                                }
+                                            }
+                                        }
+                                        bytes = input.read(buffer)
+                                    }
+                                }
+                            }
+                            true
+                        } catch (e: Exception) {
+                            Tools.TRACE(e.message)
+                            false
+                        }
+                    }
+
+                    binding.ProgressBarBackupAndRestore.visibility = View.INVISIBLE
+                    if (success) {
+                        Toast.makeText(this@SettingsActivity, "Backup der Datenbank gespeichert!", Toast.LENGTH_LONG).show()
+                        this@SettingsActivity.showLastBackupDay()
+                        this@SettingsActivity.showDatabaseChangeCounter()
+                    } else {
+                        Toast.makeText(this@SettingsActivity, "Fehler beim Speichern des Backups!", Toast.LENGTH_LONG).show()
                     }
                 }
-                Toast.makeText(this, "Backup der Datenbank gespeichert!", Toast.LENGTH_LONG).show()
-                this.showLastBackupDay()
-                this.showDatabaseChangeCounter()
             }
         }
 
@@ -1031,57 +1072,6 @@ class SettingsActivity : AppCompatActivity() {
     {
         val intent = Intent(this, LogViewerActivity::class.java)
         startActivity(intent)
-    }
-
-    private fun buttonSendLogFileClick()
-    {
-        val message = resources.getString(R.string.Settings_SendLogFileMessage)
-
-        val dialog = AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
-        dialog.setMessage(message)
-
-        dialog.setPositiveButton(resources.getString(R.string.App_Yes)) { _, _ ->
-
-            val context: Context = applicationContext
-            val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            val versionName = packageInfo.versionName
-            val versionCode = packageInfo.longVersionCode
-
-            val text = StringBuilder()
-            text.append("Version $versionName (Code Version ${versionCode})\n")
-            text.append("Current Database: ${Database.getDatabasePath()}\n")
-            text.append("Android Version: ${Build.VERSION.RELEASE}\n")
-            text.append("Android SDK: ${Build.VERSION.SDK_INT}\n")
-            text.append("Manufacturer: ${Build.MANUFACTURER}\n")
-            text.append("Modell: ${Build.MODEL}\n")
-            text.append("CurrentCulture: ${Locale.getDefault().displayName}\n")
-            text.append("CurrentUICulture: ${Locale.getDefault().displayName}\n")
-
-            text.appendLine()
-            text.appendLine(Logging.getLogFileText(this))
-
-            android.util.Log.d("TRACE", text.toString())
-
-            val subject = "Vue_LOG_" +
-                    SimpleDateFormat("yyyy-MM-dd_HH.mm.ss", Locale.getDefault()).format(Date())
-
-            val emailIntent = Intent(Intent.ACTION_SEND).apply {
-                putExtra(Intent.EXTRA_EMAIL, arrayOf("cstryi@freenet.de"))
-                putExtra(Intent.EXTRA_SUBJECT, subject)
-                putExtra(Intent.EXTRA_TEXT, text.toString())
-                type = "text/plain"
-            }
-
-            startActivity(
-                Intent.createChooser(
-                    emailIntent,
-                    resources.getString(R.string.Settings_SendLogFile)
-                )
-            )
-        }
-
-        dialog.setNegativeButton(resources.getString(R.string.App_No)) { _, _ -> }
-        dialog.create().show()
     }
 
     private fun testException()

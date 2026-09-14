@@ -1,3 +1,8 @@
+Version 9.05 (Code Version 162)
+===============================
+
+C229 - Fortschrittsanzeige beim Backup
+
 Version 9.04 (Code Version 161)
 ===============================
 
