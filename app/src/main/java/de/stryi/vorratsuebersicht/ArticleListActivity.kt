@@ -84,12 +84,12 @@ class ArticleListActivity : AppCompatActivity() {
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                     val categoryItem = parent.getItemAtPosition(position) as CategoryItem
-                    spinnerCategoryItemSelected(position, categoryItem.category, categoryItem.subCategory)
+                    spinnerCategoryItemSelected(position, categoryItem.category)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
                     // Optional: Verhalten, wenn nichts ausgewählt ist
-                    spinnerCategoryItemSelected(0, "", "")
+                    spinnerCategoryItemSelected(0, "")
                 }
             }
 
@@ -115,7 +115,7 @@ class ArticleListActivity : AppCompatActivity() {
         val categoryList = mutableListOf<CategoryItem?>()
         categoryList.add(CategoryItem(resources.getString(R.string.ArticleList_AllCategories)))
         categoryList.add(CategoryItem(resources.getString(R.string.ArticleList_NoCategories)))
-        categoryList.addAll(Database.getCategoryAndSubcategoryNames())
+        categoryList.addAll(Database.getCategoryNames())
 
         val dataAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryList)
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -288,19 +288,53 @@ class ArticleListActivity : AppCompatActivity() {
             }
         }
 
-     fun spinnerCategoryItemSelected(position: Int, categoryText: String, subCategoryText: String)
+     fun spinnerCategoryItemSelected(position: Int, categoryText: String)
      {
          val withoutCategoryNew = position == 1
+         val allCategories = position == 0
 
-         if ((categoryText != this.category) || (subCategoryText != this.subCategory) || withoutCategoryNew != this.withoutCategory)
+         if (allCategories)
          {
-             this.category        = categoryText
-             this.subCategory     = subCategoryText
-             this.withoutCategory = withoutCategoryNew
-
-             this.showArticleList()
+             if (this.category != "" || this.subCategory != "" || this.withoutCategory)
+             {
+                 this.category = ""
+                 this.subCategory = ""
+                 this.withoutCategory = false
+                 this.showArticleList()
+             }
+         }
+         else if (withoutCategoryNew)
+         {
+             if (!this.withoutCategory)
+             {
+                 this.category = ""
+                 this.subCategory = ""
+                 this.withoutCategory = true
+                 this.showArticleList()
+             }
+         }
+         else
+         {
+             showSubCategoryPopup(categoryText)
          }
      }
+
+    private fun showSubCategoryPopup(categoryName: String) {
+        val subCategories = Database.getSubcategoriesOf(categoryName)
+        val items = mutableListOf<String>()
+        items.add(resources.getString(R.string.ArticleList_AllSubCategories))
+        items.addAll(subCategories)
+
+        val builder = AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
+        builder.setTitle(categoryName)
+        builder.setItems(items.toTypedArray()) { _, which ->
+            this.category = categoryName
+            this.subCategory = if (which == 0) "" else items[which]
+            this.withoutCategory = false
+            this.showArticleList()
+        }
+        builder.show()
+    }
 
     fun shareList()
     {

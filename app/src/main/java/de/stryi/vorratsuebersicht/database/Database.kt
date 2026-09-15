@@ -401,7 +401,7 @@ object Database
         return 0.0
     }
 
-    fun getCategoryAndSubcategoryNames(): MutableList<CategoryItem>
+    fun getCategoryNames(): MutableList<CategoryItem>
     {
         val stringList: MutableList<CategoryItem> = mutableListOf()
 
@@ -409,46 +409,19 @@ object Database
             return stringList
 
         val query = """
-            SELECT DISTINCT Category, SubCategory
+            SELECT DISTINCT Category
             FROM Article
             WHERE Category IS NOT NULL
-            ORDER BY Category COLLATE NOCASE, SubCategory COLLATE NOCASE
+            AND Category <> ''
+            ORDER BY Category COLLATE NOCASE
         """.trimIndent()
 
         val cursor = db!!.rawQuery(query, null)
 
-        var lastCategory = ""
-
         cursor.use {
             while (it.moveToNext()) {
-                val article = Article.fromCursor(it)
-                val categoryName = article.category
-                val subCategoryName = article.subCategory
-
-                if ((categoryName == null) && (subCategoryName == null))
-                    continue
-
-                if (categoryName != lastCategory)
-                {
-                    val item = CategoryItem(
-                        categoryName.toString(),
-                        categoryName.toString(),
-                        "")
-                    stringList.add(item)
-                    lastCategory = categoryName.toString()
-                }
-
-                if (!subCategoryName.isNullOrBlank())
-                {
-                    // Die Zeichenfülge "  - " vor dem {0} ist wichtig
-                    // für das Erkennen der Unterkategorie bei Auswahl.
-                    val item = CategoryItem(
-                        String.format("  - %s", subCategoryName),
-                        categoryName.toString(),
-                        subCategoryName)
-
-                    stringList.add(item)
-                }
+                val categoryName = it.getString(0)
+                stringList.add(CategoryItem(categoryName, categoryName, ""))
             }
         }
         return stringList
