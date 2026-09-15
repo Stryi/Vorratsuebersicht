@@ -6,8 +6,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.OpenableColumns
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -721,45 +725,50 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    fun buttonNewDbClick()
-    {
-        lifecycleScope.launch {
-            val newDatabaseName = Tools.askForText(this@SettingsActivity,
-                resources.getString(R.string.Settings_DatabaseNewDialogTitle),
-                resources.getString(R.string.Settings_DatabaseNewDialogMessage),
-                "")
+    fun buttonNewDbClick() {
+        val storageRoots = AndroidDatabase.getStorageRoots(this)
+        val builder = AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
+        val view = LayoutInflater.from(builder.context).inflate(R.layout.dialog_new_db, null)
+        val editName = view.findViewById<EditText>(R.id.dialog_new_db_name)
+        val spinnerStorage = view.findViewById<Spinner>(R.id.dialog_new_db_storage)
+        val storageLabel = view.findViewById<TextView>(R.id.dialog_new_db_storage_label)
 
-            if (newDatabaseName.isNullOrEmpty()) {
-                return@launch
+        editName.requestFocus()
+
+        if (storageRoots.size > 1) {
+            val items = storageRoots.map { file ->
+                val isSD = AndroidDatabase.isOnSDCard(this, file)
+                if (isSD) getString(R.string.Settings_SdCard) else getString(R.string.Settings_InternalStorage)
             }
-
-            if (AndroidDatabase.isDatabaseExists(this@SettingsActivity, newDatabaseName))
-            {
-                Tools.showWarning(this@SettingsActivity, "Die Datenbank '$newDatabaseName' existiert bereits.")
-                return@launch
-            }
-
-            val storageRoots = AndroidDatabase.getStorageRoots(this@SettingsActivity)
-            if (storageRoots.size > 1) {
-                val items = storageRoots.map { file ->
-                    val isSD = AndroidDatabase.isOnSDCard(this@SettingsActivity, file)
-                    val title = if (isSD) "SD-Karte" else "Interner Speicher"
-                    val subtitle = file.absolutePath
-                    title to subtitle
-                }
-
-                val adapter = TwoLineAdapter(this@SettingsActivity, items)
-
-                val builder = AlertDialog.Builder(this@SettingsActivity, R.style.MyAlertDialogTheme)
-                builder.setTitle("Speicherort auswählen")
-                builder.setAdapter(adapter) { _, which ->
-                    performCreateDatabase(newDatabaseName, storageRoots[which])
-                }
-                builder.show()
-            } else {
-                performCreateDatabase(newDatabaseName, storageRoots.firstOrNull())
-            }
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, items)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerStorage.adapter = adapter
+        } else {
+            storageLabel.visibility = View.GONE
+            spinnerStorage.visibility = View.GONE
         }
+
+        builder.setTitle(R.string.Settings_DatabaseNewDialogTitle)
+        builder.setView(view)
+        builder.setPositiveButton(R.string.App_Ok) { _, _ ->
+            val newDatabaseName = editName.text.toString().trim()
+            if (newDatabaseName.isEmpty()) return@setPositiveButton
+
+            if (AndroidDatabase.isDatabaseExists(this, newDatabaseName)) {
+                Tools.showWarning(this, "Die Datenbank '$newDatabaseName' existiert bereits.")
+                return@setPositiveButton
+            }
+
+            val selectedStorage = if (storageRoots.size > 1) {
+                storageRoots[spinnerStorage.selectedItemPosition]
+            } else {
+                storageRoots.firstOrNull()
+            }
+
+            performCreateDatabase(newDatabaseName, selectedStorage)
+        }
+        builder.setNegativeButton(R.string.App_Cancel, null)
+        builder.show()
     }
 
     private fun performCreateDatabase(newDatabaseName: String, targetDir: File?) {

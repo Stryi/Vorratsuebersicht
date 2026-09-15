@@ -41,6 +41,7 @@
         <item name="buttonBarPositiveButtonStyle">@style/MyDialogButtonPositive</item>
         <item name="buttonBarNegativeButtonStyle">@style/MyDialogButtonNegative</item>
         <item name="buttonBarNeutralButtonStyle">@style/MyDialogButtonNegative</item>
+        <item name="android:colorControlNormal">?android:attr/textColorPrimary</item>
     </style>
 
     <style name="MyDialogButtonPositive" parent="Widget.Material3.Button.TextButton.Dialog">

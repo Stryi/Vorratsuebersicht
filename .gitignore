@@ -44,3 +44,5 @@ google-services.json
 /.vs/Vorratsuebersicht-Kotlin/FileContentIndex/3674709f-91a9-4091-8677-24634cb8238d.vsidx
 /.vs/Vorratsuebersicht-Kotlin/FileContentIndex/f925c0f4-3143-47d0-ad58-e4482db22072.vsidx
 /.vs
+/app/release
+/.artifacts

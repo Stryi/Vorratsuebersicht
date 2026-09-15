@@ -1,3 +1,6 @@
+
+C230 - Neuanlage Datenbank jetzt in einem Schritt (Dialog)
+
 Version 9.05 (Code Version 162)
 ===============================
 
