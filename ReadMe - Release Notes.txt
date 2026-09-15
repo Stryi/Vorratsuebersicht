@@ -1,3 +1,5 @@
+Version 9.06 (Code Version 163)
+===============================
 
 C231 - Auswahl Kategorie/Unterkategorie bei Artikelliste optimiert
 C230 - Neuanlage Datenbank jetzt in einem Schritt (Dialog)
