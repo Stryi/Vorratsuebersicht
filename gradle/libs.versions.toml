@@ -1,5 +1,5 @@
 [versions]
-agp = "9.4.0"
+agp = "9.4.1"
 core = "3.5.3"
 gson = "2.10.1"
 kotlin = "2.2.10"
