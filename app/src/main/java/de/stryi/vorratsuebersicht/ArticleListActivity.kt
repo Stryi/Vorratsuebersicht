@@ -79,6 +79,7 @@ class ArticleListActivity : AppCompatActivity() {
 
         // Kategorie Auswahl
         this.loadCategoryList()
+        this.loadSubCategoryList("")
 
         binding.ArticleListCategories.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -88,8 +89,18 @@ class ArticleListActivity : AppCompatActivity() {
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
-                    // Optional: Verhalten, wenn nichts ausgewählt ist
                     spinnerCategoryItemSelected(0, "")
+                }
+            }
+
+        binding.ArticleListSubCategories.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                    spinnerSubCategoryItemSelected(position, parent.getItemAtPosition(position).toString())
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    spinnerSubCategoryItemSelected(0, "")
                 }
             }
 
@@ -114,13 +125,31 @@ class ArticleListActivity : AppCompatActivity() {
     {
         val categoryList = mutableListOf<CategoryItem?>()
         categoryList.add(CategoryItem(resources.getString(R.string.ArticleList_AllCategories)))
-        categoryList.add(CategoryItem(resources.getString(R.string.ArticleList_NoCategories)))
         categoryList.addAll(Database.getCategoryNames())
 
         val dataAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryList)
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         binding.ArticleListCategories.adapter = dataAdapter
+    }
+
+    private fun loadSubCategoryList(categoryName: String)
+    {
+        val subCategoryList = mutableListOf<String>()
+        subCategoryList.add(resources.getString(R.string.ArticleList_AllSubCategories))
+        subCategoryList.add(resources.getString(R.string.ArticleList_NoSubCategory))
+
+        val dbSubCategories = if (categoryName.isEmpty())
+            Database.getSubcategoriesOf(null)
+        else
+            Database.getSubcategoriesOf(categoryName)
+
+        subCategoryList.addAll(dbSubCategories)
+
+        val dataAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, subCategoryList)
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        binding.ArticleListSubCategories.adapter = dataAdapter
     }
 
     @SuppressLint("RestrictedApi")
@@ -290,50 +319,35 @@ class ArticleListActivity : AppCompatActivity() {
 
      fun spinnerCategoryItemSelected(position: Int, categoryText: String)
      {
-         val withoutCategoryNew = position == 1
          val allCategories = position == 0
 
-         if (allCategories)
+         val newCategory = if (allCategories) "" else categoryText
+
+         if (this.category != newCategory)
          {
-             if (this.category != "" || this.subCategory != "" || this.withoutCategory)
-             {
-                 this.category = ""
-                 this.subCategory = ""
-                 this.withoutCategory = false
-                 this.showArticleList()
-             }
-         }
-         else if (withoutCategoryNew)
-         {
-             if (!this.withoutCategory)
-             {
-                 this.category = ""
-                 this.subCategory = ""
-                 this.withoutCategory = true
-                 this.showArticleList()
-             }
-         }
-         else
-         {
-             showSubCategoryPopup(categoryText)
+             this.category = newCategory
+             this.subCategory = ""
+             this.withoutCategory = false
+
+             this.loadSubCategoryList(this.category)
+             this.showArticleList()
          }
      }
 
-    private fun showSubCategoryPopup(categoryName: String) {
-        val subCategories = Database.getSubcategoriesOf(categoryName)
-        val items = mutableListOf<String>()
-        items.add(resources.getString(R.string.ArticleList_AllSubCategories))
-        items.addAll(subCategories)
+    fun spinnerSubCategoryItemSelected(position: Int, subCategoryText: String)
+    {
+        val allSubCategories = position == 0
+        val noSubCategory = position == 1
 
-        val builder = AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
-        builder.setTitle(categoryName)
-        builder.setItems(items.toTypedArray()) { _, which ->
-            this.category = categoryName
-            this.subCategory = if (which == 0) "" else items[which]
-            this.withoutCategory = false
+        val newSubCategory = if (allSubCategories || noSubCategory) "" else subCategoryText
+        val newWithoutCategory = noSubCategory
+
+        if (this.subCategory != newSubCategory || this.withoutCategory != newWithoutCategory)
+        {
+            this.subCategory = newSubCategory
+            this.withoutCategory = newWithoutCategory
             this.showArticleList()
         }
-        builder.show()
     }
 
     fun shareList()
