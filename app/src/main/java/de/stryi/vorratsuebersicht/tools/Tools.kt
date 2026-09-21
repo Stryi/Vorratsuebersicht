@@ -98,7 +98,7 @@ object Tools {
             return ""
 
         val symbols = DecimalFormatSymbols(Locale.getDefault())
-        val formatter = DecimalFormat("###,###,##0.00##", symbols)
+        val formatter = DecimalFormat("###,###,##0.00", symbols)
         val priceText = formatter.format(number)
         return priceText
     }
