@@ -80,6 +80,8 @@ object Tools {
         val locale = Locale.getDefault()
         val symbols = DecimalFormatSymbols(locale)
         val formatter = DecimalFormat("###,###,###,###.####", symbols)
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 0
         return formatter.format(number)
     }
 

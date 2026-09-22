@@ -45,7 +45,8 @@ class ShoppingItem {
             {
                 if (info.isNotEmpty()) info.appendLine()
 
-                info.append("Inhalt/Größe: %.0f %s".format(this.size, this.unit))
+                val sizeText = Tools.formatNumber(this.size)
+                info.append("Inhalt/Größe: %s %s".format(sizeText, this.unit))
             }
             if (!this.supermarket.isNullOrEmpty())
             {

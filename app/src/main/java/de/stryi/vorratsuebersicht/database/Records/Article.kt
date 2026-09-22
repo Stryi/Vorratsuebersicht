@@ -93,7 +93,7 @@ class Article {
 
             // Größe
             if (size != null) {
-                val sizeText = "%.0f".format(size)
+                val sizeText = Tools.formatNumber(size)
                 info.appendLine("Inhalt/Größe: $sizeText ${unit ?: ""}")
             }
 

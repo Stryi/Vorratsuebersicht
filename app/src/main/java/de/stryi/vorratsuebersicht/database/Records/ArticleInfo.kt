@@ -46,7 +46,8 @@ class ArticleInfo {
             // Inhalt/Größe, Menge
             if (this.size != null && this.size != 0.0)
             {
-                info.append(", Inhalt/Größe: %.0f %s".format(this.size, this.unit))
+                val sizeText = Tools.formatNumber(this.size)
+                info.append(", Inhalt/Größe: %s %s".format(sizeText, this.unit))
 
                 if (this.storageQuantity != 1.0 && this.size != 1.0)
                 {
