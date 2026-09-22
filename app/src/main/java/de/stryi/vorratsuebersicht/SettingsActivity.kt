@@ -5,6 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
+import androidx.activity.OnBackPressedCallback
 import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
@@ -53,6 +55,16 @@ class SettingsActivity : AppCompatActivity() {
         setSupportActionBar(binding.SettingsAppBar)
 
         binding.SettingsAppBar.setNavigationOnClickListener { finish() }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if ((window.attributes.flags and WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE) == 0) {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                    isEnabled = true
+                }
+            }
+        })
 
         // -------------------------------------------
         // Artikelangaben (zusätzliche Kategorien)
@@ -299,7 +311,7 @@ class SettingsActivity : AppCompatActivity() {
     val createBackupFileLauncher =
         registerForActivityResult(ActivityResultContracts.CreateDocument("application/octet-stream")) { uri ->
             if (uri != null) {
-                binding.ProgressBarBackupAndRestore.visibility = View.VISIBLE
+                showProgressBar(binding.ProgressBarBackupAndRestore)
                 binding.ProgressBarBackupAndRestore.isIndeterminate = false
                 binding.ProgressBarBackupAndRestore.max = 100
                 binding.ProgressBarBackupAndRestore.progress = 0
@@ -343,7 +355,7 @@ class SettingsActivity : AppCompatActivity() {
                         }
                     }
 
-                    binding.ProgressBarBackupAndRestore.visibility = View.INVISIBLE
+                    hideProgressBar(binding.ProgressBarBackupAndRestore)
                     if (success) {
                         Toast.makeText(this@SettingsActivity, "Backup der Datenbank gespeichert!", Toast.LENGTH_LONG).show()
                         this@SettingsActivity.showLastBackupDay()
@@ -649,7 +661,7 @@ class SettingsActivity : AppCompatActivity() {
         val activeDatabasePath = Database.getDatabasePath()
         val isActiveDatabase = activeDatabasePath != null && File(activeDatabasePath).canonicalPath == currentFile.canonicalPath
 
-        binding.ProgressBarDatabaseManagement.visibility = View.VISIBLE
+        showProgressBar(binding.ProgressBarDatabaseManagement)
         binding.ProgressBarDatabaseManagement.isIndeterminate = false
         binding.ProgressBarDatabaseManagement.max = 100
         binding.ProgressBarDatabaseManagement.progress = 0
@@ -698,7 +710,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
 
-            binding.ProgressBarDatabaseManagement.visibility = View.INVISIBLE
+            hideProgressBar(binding.ProgressBarDatabaseManagement)
 
             if (success) {
                 if (isActiveDatabase) {
@@ -898,7 +910,7 @@ class SettingsActivity : AppCompatActivity() {
             // Hole den Pfad zum App-Datenbankordner
             val dbFile = File(dbPath, newDatabaseName) // legt Datei direkt im DB-Ordner an
 
-            binding.ProgressBarDatabaseManagement.visibility = View.VISIBLE
+            showProgressBar(binding.ProgressBarDatabaseManagement)
             binding.ProgressBarDatabaseManagement.isIndeterminate = false
             binding.ProgressBarDatabaseManagement.max = 100
             binding.ProgressBarDatabaseManagement.progress = 0
@@ -946,7 +958,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
 
-            binding.ProgressBarDatabaseManagement.visibility = View.INVISIBLE
+            hideProgressBar(binding.ProgressBarDatabaseManagement)
             if (success) {
                 Toast.makeText(this@SettingsActivity, "Datenbank erfolgreich importiert!", Toast.LENGTH_LONG).show()
             } else {
@@ -981,7 +993,7 @@ class SettingsActivity : AppCompatActivity() {
             var dbFile = File(currentDatabase).parent
             dbFile = Paths.get(dbFile, newDatabaseName).toString() // legt Datei direkt im DB-Ordner an
 
-            binding.ProgressBarBackupAndRestore.visibility = View.VISIBLE
+            showProgressBar(binding.ProgressBarBackupAndRestore)
             binding.ProgressBarBackupAndRestore.isIndeterminate = false
             binding.ProgressBarBackupAndRestore.max = 100
             binding.ProgressBarBackupAndRestore.progress = 0
@@ -1029,7 +1041,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
 
-            binding.ProgressBarBackupAndRestore.visibility = View.INVISIBLE
+            hideProgressBar(binding.ProgressBarBackupAndRestore)
             if (success) {
                 Toast.makeText(this@SettingsActivity, "Datenbank erfolgreich wiederhergestellt!", Toast.LENGTH_LONG).show()
             } else {
@@ -1235,11 +1247,30 @@ class SettingsActivity : AppCompatActivity() {
 
     fun createCompressProgressBar()
     {
-        binding.ProgressBarCompress.visibility = View.VISIBLE
+        showProgressBar(binding.ProgressBarCompress)
     }
 
     fun hideCompressProgressBar()
     {
-        binding.ProgressBarCompress.visibility = View.INVISIBLE
+        hideProgressBar(binding.ProgressBarCompress)
     }
+
+    private fun showProgressBar(progressBar: View) {
+        progressBar.visibility = View.VISIBLE
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+        )
+    }
+
+    private fun hideProgressBar(progressBar: View) {
+        progressBar.visibility = View.INVISIBLE
+        if (binding.ProgressBarBackupAndRestore.visibility != View.VISIBLE &&
+            binding.ProgressBarCompress.visibility != View.VISIBLE &&
+            binding.ProgressBarDatabaseManagement.visibility != View.VISIBLE &&
+            binding.ProgressBarRestoreSampleDb.visibility != View.VISIBLE) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        }
+    }
+
 }
