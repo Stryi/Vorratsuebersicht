@@ -34,6 +34,7 @@
         android:id="@+id/dialog_new_db_storage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/spinner_arrow_tint"
         android:minHeight="48dp" />
 
 </LinearLayout>

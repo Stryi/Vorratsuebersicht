@@ -67,6 +67,7 @@
                 android:id="@+id/ArticleList_Categories"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/spinner_arrow_tint"
                 android:padding="5dp" />
         </LinearLayout>
 
@@ -86,6 +87,7 @@
                 android:id="@+id/ArticleList_SubCategories"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/spinner_arrow_tint"
                 android:padding="5dp" />
         </LinearLayout>
 

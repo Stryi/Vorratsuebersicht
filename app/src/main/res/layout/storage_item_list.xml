@@ -45,6 +45,7 @@
                 android:id="@+id/StorageItemList_Storages"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/spinner_arrow_tint"
                 android:padding="10dp" />
 
         </LinearLayout>
