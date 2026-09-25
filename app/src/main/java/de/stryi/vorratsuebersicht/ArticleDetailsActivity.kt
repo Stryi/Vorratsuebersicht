@@ -783,6 +783,7 @@ class ArticleDetailsActivity : AppCompatActivity() {
             {
                 val newId = Database.insertArtice(this.article)
                 this.articleId = newId.toInt()
+                this.article.articleId = this.articleId
             }
 
             if (imageLarge != null)
