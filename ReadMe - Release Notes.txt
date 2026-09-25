@@ -1,4 +1,9 @@
-Version 9.06 (Code Version 163)
+Version 9.10 (Code Version 166)
+===============================
+
+C232 - Freigegebenes Verzeichnis kann jetzt für eine Datenbank genutzt werden.
+
+Version 9.06 (Code Version 165)
 ===============================
 
 C231 - Auswahl Kategorie/Unterkategorie bei Artikelliste optimiert
