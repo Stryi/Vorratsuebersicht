@@ -528,12 +528,8 @@ class MainActivity : AppCompatActivity() {
     private fun showDatabaseName(databaseName: String) {
         val databaseFile = File(databaseName)
 
-        var databaseInfo = databaseFile.nameWithoutExtension
-
-        if (isOnSDCard(this, databaseFile))
-            databaseInfo += " (SD-Karte)"
-        else
-            databaseInfo += " (Interner Speicher)"
+        val storageName = AndroidDatabase.getStorageName(this, databaseFile)
+        val databaseInfo = "${databaseFile.nameWithoutExtension} ($storageName)"
 
         binding.MainAppBar.subtitle =
             resources.getString(R.string.Main_Database) + " : " + databaseInfo
@@ -552,8 +548,8 @@ class MainActivity : AppCompatActivity() {
         val items = databases.map { file ->
             val size = Tools.toFuzzyByteString(file.length())
             val name = file.nameWithoutExtension
-            var info = if (isOnSDCard(this, file)) "SD-Karte" else "Interner Speicher"
-            info += ", ${size}"
+            val storageName = AndroidDatabase.getStorageName(this, file)
+            val info = "$storageName, $size"
             name to info
         }
 
@@ -568,21 +564,7 @@ class MainActivity : AppCompatActivity() {
         builder.show()
     }
 
-    private fun isOnSDCard(context: Context, file: File): Boolean {
-        val externalFilesDirs = context.getExternalFilesDirs(null)
 
-        // Die erste Position ist meist der interne Speicher,
-        // alles danach sind mögliche SD-Karten.
-        val sdCardDirs = externalFilesDirs.drop(1).filterNotNull()
-
-        return sdCardDirs.any { sdDir ->
-            try {
-                file.canonicalPath.startsWith(sdDir.canonicalPath)
-            } catch (_: Exception) {
-                false
-            }
-        }
-    }
 
     private fun ShowInfoAufTestdatenbank()
     {

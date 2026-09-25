@@ -1,6 +1,12 @@
 package de.stryi.vorratsuebersicht.database
 
 import android.content.Context
+import android.net.Uri
+import android.os.Environment
+import android.provider.DocumentsContract
+import de.stryi.vorratsuebersicht.R
+import de.stryi.vorratsuebersicht.tools.Settings
+import de.stryi.vorratsuebersicht.tools.Tools
 import de.stryi.vorratsuebersicht.tools.trimEnd
 import java.io.File
 import java.io.IOException
@@ -68,26 +74,81 @@ object AndroidDatabase {
 
         val dbName = databaseFileName.trimEnd(".db3")
 
-        if (dbFile.exists()) {
-            if (overrideIfExists) {
-                dbFile.delete()
-            }
-            else {
-                return Exception("Die Datenbank '$dbName' existiert bereits.")
-            }
-        }
+        val sharedPath = Settings.getString("SharedDatabasePath", "")
+        val sharedUriStr = Settings.getString("SharedDatabaseUri", "")
+
+        val isSharedTarget = sharedUriStr.isNotEmpty() && targetDir != null &&
+            try {
+                val dirCanonical = targetDir.canonicalPath
+                val sharedCanonical = File(sharedPath).canonicalPath
+                dirCanonical == sharedCanonical || dirCanonical.startsWith(sharedCanonical)
+            } catch (_: Exception) { false }
 
         var inputStream: InputStream? = null
         var outputStream: OutputStream? = null
-
         var result : Exception? = null
 
         try {
             inputStream = context.assets.open(assetsFileName)
-            outputStream = dbFile.outputStream()
+
+            if (isSharedTarget) {
+                try {
+                    val treeUri = Uri.parse(sharedUriStr)
+                    val docId = DocumentsContract.getTreeDocumentId(treeUri)
+                    val docUri = DocumentsContract.buildDocumentUriUsingTree(treeUri, docId)
+
+                    // Prüfen, ob Datei bereits existiert
+                    val childrenUri = DocumentsContract.buildChildDocumentsUriUsingTree(treeUri, docId)
+                    context.contentResolver.query(
+                        childrenUri,
+                        arrayOf(DocumentsContract.Document.COLUMN_DOCUMENT_ID, DocumentsContract.Document.COLUMN_DISPLAY_NAME),
+                        null, null, null
+                    )?.use { cursor ->
+                        val nameIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_DISPLAY_NAME)
+                        val idIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_DOCUMENT_ID)
+                        while (cursor.moveToNext()) {
+                            val name = cursor.getString(nameIdx)
+                            if (name.equals(databaseFileName, ignoreCase = true)) {
+                                if (overrideIfExists) {
+                                    val existingId = cursor.getString(idIdx)
+                                    val existingUri = DocumentsContract.buildDocumentUriUsingTree(treeUri, existingId)
+                                    DocumentsContract.deleteDocument(context.contentResolver, existingUri)
+                                } else {
+                                    return Exception("Die Datenbank '$dbName' existiert bereits.")
+                                }
+                                break
+                            }
+                        }
+                    }
+
+                    val newDocUri = DocumentsContract.createDocument(
+                        context.contentResolver,
+                        docUri,
+                        "application/octet-stream",
+                        databaseFileName
+                    )
+
+                    if (newDocUri != null) {
+                        outputStream = context.contentResolver.openOutputStream(newDocUri)
+                    }
+                } catch (e: Exception) {
+                    Tools.TRACE("SAF creation failed: ${e.message}")
+                }
+            }
+
+            if (outputStream == null) {
+                if (dbFile.exists()) {
+                    if (overrideIfExists) {
+                        dbFile.delete()
+                    } else {
+                        return Exception("Die Datenbank '$dbName' existiert bereits.")
+                    }
+                }
+                outputStream = dbFile.outputStream()
+            }
 
             inputStream.copyTo(outputStream)
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             e.printStackTrace()
             result = e
         } finally {
@@ -105,27 +166,30 @@ object AndroidDatabase {
         return result
     }
 
-    fun loadDatabaseFileListSafe(context: Context):  MutableList<File>
+    fun loadDatabaseFileListSafe(context: Context): MutableList<File>
     {
         val fileList = mutableListOf<File>()
+        val roots = getStorageRoots(context)
 
-        // "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
-        // "/storage/0E0E-2316/Android/data/de.stryi.Vorratsuebersicht/files"
-        val externalFilesDirs = context.getExternalFilesDirs(null)
-
-        for(extFilesDir in externalFilesDirs)
+        for (dir in roots)
         {
-            if (extFilesDir == null) continue
+            if (!dir.exists() || !dir.isDirectory) continue
 
-            for (file in extFilesDir.listFiles()!!)
+            val files = dir.listFiles() ?: continue
+            for (file in files)
             {
                 if (!file.name.endsWith("db3"))
                     continue
 
-                if (!file.canWrite())
+                if (!file.isFile)
                     continue
 
-                fileList.add(file)
+                val alreadyAdded = fileList.any {
+                    try { it.canonicalPath == file.canonicalPath } catch (_: Exception) { false }
+                }
+                if (!alreadyAdded) {
+                    fileList.add(file)
+                }
             }
         }
 
@@ -225,6 +289,108 @@ object AndroidDatabase {
     }
 
     fun getStorageRoots(context: Context): List<File> {
-        return context.getExternalFilesDirs(null).filterNotNull()
+        val roots = mutableListOf<File>()
+
+        // "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
+        // "/storage/0E0E-2316/Android/data/de.stryi.Vorratsuebersicht/files"
+        // Internal and SD card dirs from system
+        val externalDirs = context.getExternalFilesDirs(null).filterNotNull()
+        roots.addAll(externalDirs)
+
+        // Shared directory if configured
+        val sharedPath = Settings.getString("SharedDatabasePath", "")
+        if (sharedPath.isNotEmpty()) {
+            val sharedDir = File(sharedPath)
+            if (sharedDir.exists() && sharedDir.isDirectory) {
+                val alreadyContains = roots.any {
+                    try { it.canonicalPath == sharedDir.canonicalPath } catch (_: Exception) { false }
+                }
+                if (!alreadyContains) {
+                    roots.add(sharedDir)
+                }
+            }
+        }
+
+        return roots
+    }
+
+    fun getStorageName(context: Context, file: File): String {
+        val sharedPath = Settings.getString("SharedDatabasePath", "")
+        if (sharedPath.isNotEmpty()) {
+            try {
+                val sharedDir = File(sharedPath)
+                if (file.canonicalPath.startsWith(sharedDir.canonicalPath) ||
+                    file.parentFile?.canonicalPath == sharedDir.canonicalPath) {
+                    return context.getString(R.string.Settings_SharedDirectory)
+                }
+            } catch (_: Exception) {}
+        }
+
+        if (isOnSDCard(context, file)) {
+            return context.getString(R.string.Settings_SdCard)
+        }
+
+        return context.getString(R.string.Settings_InternalStorage)
+    }
+
+    fun resolveTreeUriToFile(context: Context, uri: Uri): File? {
+        try {
+            if (uri.scheme == "file") {
+                uri.path?.let { return File(it) }
+            }
+
+            if (uri.scheme == "content") {
+                val docId = try {
+                    DocumentsContract.getTreeDocumentId(uri)
+                } catch (_: Exception) {
+                    try {
+                        DocumentsContract.getDocumentId(uri)
+                    } catch (_: Exception) {
+                        null
+                    }
+                }
+
+                if (docId != null && docId.contains(":")) {
+                    val split = docId.split(":", limit = 2)
+                    val type = split[0]
+                    val subPath = if (split.size > 1) split[1] else ""
+
+                    if (type.equals("primary", ignoreCase = true)) {
+                        val rootDir = Environment.getExternalStorageDirectory()
+                        return if (subPath.isNotEmpty()) File(rootDir, subPath) else rootDir
+                    } else {
+                        val targetPath = if (subPath.isNotEmpty()) "/storage/$type/$subPath" else "/storage/$type"
+                        val file = File(targetPath)
+                        if (file.exists()) {
+                            return file
+                        }
+                        val externalFilesDirs = context.getExternalFilesDirs(null).filterNotNull()
+                        for (extDir in externalFilesDirs) {
+                            if (extDir.absolutePath.contains(type)) {
+                                val basePath = extDir.absolutePath.substringBefore("/Android/data")
+                                val candidate = if (subPath.isNotEmpty()) File(basePath, subPath) else File(basePath)
+                                if (candidate.exists()) return candidate
+                            }
+                        }
+                        return file
+                    }
+                }
+
+                val path = uri.path
+                if (path != null) {
+                    if (path.contains("/document/primary:")) {
+                        val subPath = path.substringAfter("/document/primary:")
+                        return File(Environment.getExternalStorageDirectory(), subPath)
+                    }
+                    if (path.contains("/tree/primary:")) {
+                        val subPath = path.substringAfter("/tree/primary:")
+                        return File(Environment.getExternalStorageDirectory(), subPath)
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Tools.TRACE("Error resolving tree URI: ${e.message}")
+        }
+        return null
     }
 }

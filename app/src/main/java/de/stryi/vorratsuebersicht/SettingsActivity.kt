@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import android.provider.OpenableColumns
@@ -131,7 +132,9 @@ class SettingsActivity : AppCompatActivity() {
         binding.SettingsButtonCompress.setOnClickListener { this.compressDatabase()  }
         binding.SettingsButtonRepair.setOnClickListener   { this.repairDatabase()    }
 
-        binding.SettingsButtonDatabaseNew.setOnClickListener    { this.buttonNewDbClick()}
+        binding.SettingsButtonDatabaseNew.setOnClickListener { this.buttonNewDbClick() }
+        binding.SettingsButtonSelectSharedDirectory.setOnClickListener { this.selectSharedDirectoryClick() }
+        this.showSharedDirectoryInfo()
         binding.SettingsButtonDatabaseImport.setOnClickListener { this.buttonImportDbClick() }
         binding.SettingsButtonDatabaseRename.setOnClickListener { this.buttonRenameDBClick() }
         binding.SettingsButtonMove.setOnClickListener           { this.moveDatabase()      }
@@ -583,6 +586,103 @@ class SettingsActivity : AppCompatActivity() {
         }.start()
     }
 
+    private val selectSharedDirLauncher =
+        registerForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
+            if (uri != null) {
+                onSharedDirectorySelected(uri)
+            }
+        }
+
+    private fun selectSharedDirectoryClick() {
+        val currentPath = Settings.getString("SharedDatabasePath", "")
+        if (currentPath.isNotEmpty()) {
+            val options = arrayOf(
+                getString(R.string.Settings_SelectSharedDirectory),
+                getString(R.string.Settings_ClearSharedDirectory)
+            )
+            AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
+                .setTitle(R.string.Settings_SharedDirectory)
+                .setItems(options) { _, which ->
+                    when (which) {
+                        0 -> selectSharedDirLauncher.launch(null)
+                        1 -> clearSharedDirectory()
+                    }
+                }
+                .setNegativeButton(R.string.App_Cancel, null)
+                .show()
+        } else {
+            selectSharedDirLauncher.launch(null)
+        }
+    }
+
+    private fun clearSharedDirectory() {
+        Settings.clear("SharedDatabasePath")
+        Settings.clear("SharedDatabaseUri")
+        showSharedDirectoryInfo()
+        Tools.showMessage(this, "Die Verzeichnisfreigabe wurde aufgehoben.")
+    }
+
+    private fun onSharedDirectorySelected(uri: Uri) {
+        try {
+            val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            contentResolver.takePersistableUriPermission(uri, takeFlags)
+        } catch (e: Exception) {
+            Tools.TRACE("Error taking persistable uri permission: ${e.message}")
+        }
+
+        val dirFile = AndroidDatabase.resolveTreeUriToFile(this, uri)
+        if (dirFile != null) {
+            if (!dirFile.exists()) {
+                dirFile.mkdirs()
+            }
+            if (dirFile.exists() && dirFile.isDirectory) {
+                Settings.putString("SharedDatabasePath", dirFile.absolutePath)
+                Settings.putString("SharedDatabaseUri", uri.toString())
+                showSharedDirectoryInfo()
+                Tools.showMessage(this, "Freigegebenes Verzeichnis wurde festgelegt:\n\n${dirFile.absolutePath}")
+                checkAllFilesAccessPermission()
+            } else {
+                Tools.showWarning(this, "Das gewählte Verzeichnis '${dirFile.absolutePath}' ist nicht beschreibbar.")
+            }
+        } else {
+            Tools.showWarning(this, "Das gewählte Verzeichnis konnte nicht aufgelöst werden.")
+        }
+    }
+
+    private fun checkAllFilesAccessPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager()) {
+                AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
+                    .setTitle("Zugriff auf alle Dateien erforderlich")
+                    .setMessage("Damit SQLite-Datenbanken in externen Ordnern (wie SD-Karte) direkt geöffnet werden können, benötigt die App die Berechtigung 'Zugriff auf alle Dateien'.\n\nMöchten Sie diese Einstellungen jetzt öffnen?")
+                    .setPositiveButton(R.string.App_Ok) { _, _ ->
+                        try {
+                            val intent = Intent(
+                                android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
+                                Uri.parse("package:$packageName")
+                            )
+                            startActivity(intent)
+                        } catch (_: Exception) {
+                            val intent = Intent(android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+                            startActivity(intent)
+                        }
+                    }
+                    .setNegativeButton(R.string.App_Cancel, null)
+                    .show()
+            }
+        }
+    }
+
+    private fun showSharedDirectoryInfo() {
+        val sharedPath = Settings.getString("SharedDatabasePath", "")
+        if (sharedPath.isNotEmpty()) {
+            binding.SettingsSharedDirectoryPath.visibility = View.VISIBLE
+            binding.SettingsSharedDirectoryPath.text = getString(R.string.Settings_SharedDirectoryLabel, sharedPath)
+        } else {
+            binding.SettingsSharedDirectoryPath.visibility = View.GONE
+        }
+    }
+
     fun moveDatabase() {
         val databases = AndroidDatabase.loadDatabaseFileListSafe(this)
 
@@ -594,8 +694,8 @@ class SettingsActivity : AppCompatActivity() {
         val items = databases.map { file ->
             val size = Tools.toFuzzyByteString(file.length())
             val name = file.nameWithoutExtension
-            var info = if (AndroidDatabase.isOnSDCard(this, file)) resources.getString(R.string.Settings_SdCard) else resources.getString(R.string.Settings_InternalStorage)
-            info += ", $size"
+            val storageName = AndroidDatabase.getStorageName(this, file)
+            val info = "$storageName, $size"
             name to info
         }
 
@@ -613,11 +713,10 @@ class SettingsActivity : AppCompatActivity() {
         val storageRoots = AndroidDatabase.getStorageRoots(this)
 
         if (storageRoots.size < 2) {
-            Tools.showWarning(this, "Keine SD-Karte gefunden oder nur ein Speicher verfügbar.")
+            Tools.showWarning(this, "Keine SD-Karte oder freigegebenes Verzeichnis gefunden oder nur ein Speicher verfügbar.")
             return
         }
 
-        // Find which root we are currently on
         val currentRootIndex = storageRoots.indexOfFirst { root ->
             try {
                 currentFile.canonicalPath.startsWith(root.canonicalPath)
@@ -631,23 +730,46 @@ class SettingsActivity : AppCompatActivity() {
             return
         }
 
-        // Toggle between roots (assuming 0 is internal and 1 is SD)
-        val targetRootIndex = if (currentRootIndex == 0) 1 else 0
-        val targetRoot = storageRoots[targetRootIndex]
+        val possibleTargets = storageRoots.filterIndexed { index, _ -> index != currentRootIndex }
 
-        val fromText = resources.getString(if (currentRootIndex == 0) R.string.Settings_InternalStorage else R.string.Settings_SdCard)
-        val toText = resources.getString(if (targetRootIndex == 0) R.string.Settings_InternalStorage else R.string.Settings_SdCard)
+        if (possibleTargets.size == 1) {
+            val targetRoot = possibleTargets[0]
+            val fromText = AndroidDatabase.getStorageName(this, storageRoots[currentRootIndex])
+            val toText = AndroidDatabase.getStorageName(this, targetRoot)
 
-        val message = resources.getString(R.string.Settings_DatabaseMove_ConfirmMessage, currentFile.nameWithoutExtension, fromText, toText)
+            val message = resources.getString(R.string.Settings_DatabaseMove_ConfirmMessage, currentFile.nameWithoutExtension, fromText, toText)
 
-        val builder = AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
-        builder.setTitle(R.string.Settings_DatabaseMove)
-        builder.setMessage(message)
-        builder.setNegativeButton(R.string.App_Cancel) { _, _ -> }
-        builder.setPositiveButton(R.string.App_Ok) { _, _ ->
-            performMoveDatabase(currentFile, targetRoot)
+            val builder = AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
+            builder.setTitle(R.string.Settings_DatabaseMove)
+            builder.setMessage(message)
+            builder.setNegativeButton(R.string.App_Cancel) { _, _ -> }
+            builder.setPositiveButton(R.string.App_Ok) { _, _ ->
+                performMoveDatabase(currentFile, targetRoot)
+            }
+            builder.show()
+        } else {
+            val targetNames = possibleTargets.map { AndroidDatabase.getStorageName(this, it) }.toTypedArray()
+            val fromText = AndroidDatabase.getStorageName(this, storageRoots[currentRootIndex])
+
+            AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
+                .setTitle(R.string.Settings_DatabaseMove)
+                .setItems(targetNames) { _, which ->
+                    val targetRoot = possibleTargets[which]
+                    val toText = targetNames[which]
+                    val message = resources.getString(R.string.Settings_DatabaseMove_ConfirmMessage, currentFile.nameWithoutExtension, fromText, toText)
+
+                    AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
+                        .setTitle(R.string.Settings_DatabaseMove)
+                        .setMessage(message)
+                        .setNegativeButton(R.string.App_Cancel, null)
+                        .setPositiveButton(R.string.App_Ok) { _, _ ->
+                            performMoveDatabase(currentFile, targetRoot)
+                        }
+                        .show()
+                }
+                .setNegativeButton(R.string.App_Cancel, null)
+                .show()
         }
-        builder.show()
     }
 
     private fun performMoveDatabase(currentFile: File, targetDir: File) {
@@ -749,8 +871,7 @@ class SettingsActivity : AppCompatActivity() {
 
         if (storageRoots.size > 1) {
             val items = storageRoots.map { file ->
-                val isSD = AndroidDatabase.isOnSDCard(this, file)
-                if (isSD) getString(R.string.Settings_SdCard) else getString(R.string.Settings_InternalStorage)
+                AndroidDatabase.getStorageName(this, file)
             }
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, items)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

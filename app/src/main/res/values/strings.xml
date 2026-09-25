@@ -98,6 +98,10 @@
 
     <string name="Settings_DatabaseManagement">Datenbanken verwalten</string>
     <string name="Settings_DatabaseNew">Neue Datenbank anlegen…</string>
+    <string name="Settings_SharedDirectory">Freigegebenes Verzeichnis</string>
+    <string name="Settings_SelectSharedDirectory">Freigegebenes Verzeichnis auswählen…</string>
+    <string name="Settings_SharedDirectoryLabel">Freigegebenes Verzeichnis:\n%s</string>
+    <string name="Settings_ClearSharedDirectory">Freigabe des Verzeichnisses aufheben</string>>
     <string name="Settings_DatabaseRename">Datenbank umbenennen…\n(außer der gerade geöffneten)</string>
     <string name="Settings_DatabaseRenameDialogTitle">Datenbank umbenennen</string>
     <string name="Settings_DatabaseRenameDialogMessage">\n\nNeuen Name eingeben:</string>

@@ -360,6 +360,30 @@
                 android:textAllCaps="false"
                 android:gravity="start|center_vertical" />
 
+            <Button
+                android:id="@+id/SettingsButton_SelectSharedDirectory"
+                android:text="@string/Settings_SelectSharedDirectory"
+                android:textColor="#000000"
+                android:drawableLeft="@drawable/folder_24px"
+                android:drawableTint="#444444"
+                android:backgroundTint="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:drawablePadding="5dp"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical" />
+
+            <TextView
+                android:id="@+id/Settings_SharedDirectoryPath"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:paddingBottom="5dp"
+                android:textSize="12sp"
+                android:textColor="#666666"
+                android:visibility="gone" />
+
             <TextView
                 android:text="@string/Settings_EAN_Scann"
                 android:textSize="20sp"
