@@ -1,6 +1,7 @@
 Version 9.11 (Code Version 167)
 ===============================
 
+C234 - Unterkategorie jetzt mehrfachangabe mit Komma getrennt möglich.
 C233 - Datenbank Import jetzt auch mit Angabe vom Speicherort.
 
 Version 9.10 (Code Version 166)

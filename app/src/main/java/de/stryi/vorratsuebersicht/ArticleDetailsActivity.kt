@@ -338,7 +338,7 @@ class ArticleDetailsActivity : AppCompatActivity() {
 
     private fun selectSubCategory()
     {
-        val category = binding.ArticleDetailsCategory.selectedItem.toString()
+        val category = binding.ArticleDetailsCategory.selectedItem?.toString() ?: ""
 
         val subCategories = Database.getSubcategoriesOf(category)
 
@@ -364,7 +364,16 @@ class ArticleDetailsActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
         builder.setTitle(R.string.ArticleDetails_SubCategory)
         builder.setAdapter(adapter) { _, which ->
-            binding.ArticleDetailsSubCategory.setText(subCategories[which])
+            val selected = subCategories[which]
+            val currentText = binding.ArticleDetailsSubCategory.text.toString().trim()
+            if (currentText.isNotEmpty() && selected.isNotEmpty()) {
+                val items = currentText.split(",").map { it.trim() }
+                if (!items.contains(selected)) {
+                    binding.ArticleDetailsSubCategory.setText("$currentText, $selected")
+                }
+            } else {
+                binding.ArticleDetailsSubCategory.setText(selected)
+            }
         }
         builder.show()
     }
@@ -382,7 +391,16 @@ class ArticleDetailsActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
         builder.setTitle(R.string.ArticleDetails_SupermarketLabel)
         builder.setAdapter(adapter) { _, which ->
-            binding.ArticleDetailsSupermarket.setText(supermarkets[which])
+            val selected = supermarkets[which]
+            val currentText = binding.ArticleDetailsSupermarket.text.toString().trim()
+            if (currentText.isNotEmpty() && selected.isNotEmpty()) {
+                val items = currentText.split(",").map { it.trim() }
+                if (!items.contains(selected)) {
+                    binding.ArticleDetailsSupermarket.setText("$currentText, $selected")
+                }
+            } else {
+                binding.ArticleDetailsSupermarket.setText(selected)
+            }
         }
         builder.show()
     }

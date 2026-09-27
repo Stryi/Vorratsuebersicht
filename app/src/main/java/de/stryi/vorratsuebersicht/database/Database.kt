@@ -215,8 +215,8 @@ object Database
         {
             if (filter.isNotEmpty()) filter += " AND " else filter += " WHERE "
 
-            filter += " Article.SubCategory = ?"
-            parameter.add(subCategory)
+            filter += " Article.SubCategory LIKE ?"
+            parameter.add("%$subCategory%")
         }
 
         if (withoutCategory)
@@ -510,7 +510,20 @@ object Database
             query.trimIndent(),
             parameters.toTypedArray())
 
-        return result
+        val stringList = mutableListOf<String>()
+
+        for (item in result) {
+            for (subCat in item.split(",")) {
+                val name = subCat.trim()
+                if (name.isNotEmpty() && stringList.none { it.equals(name, ignoreCase = true) }) {
+                    stringList.add(name)
+                }
+            }
+        }
+
+        stringList.sortWith(String.CASE_INSENSITIVE_ORDER)
+
+        return stringList
     }
 
     fun getStorageNames(inStorageArticlesOnly: Boolean = false): MutableList<String>
@@ -570,20 +583,15 @@ object Database
         val stringList = mutableListOf<String>()
 
         for (item in result) {
-            val supermarketName = item
-
-            if (!shoppingListOnly) {
-                stringList.add(supermarketName)
-                continue
-            }
-
-            for (marketList in supermarketName.split(",")) {
+            for (marketList in item.split(",")) {
                 val name = marketList.trim()
-                if (!stringList.contains(name)) {
+                if (name.isNotEmpty() && stringList.none { it.equals(name, ignoreCase = true) }) {
                     stringList.add(name)
                 }
             }
         }
+
+        stringList.sortWith(String.CASE_INSENSITIVE_ORDER)
 
         return stringList
     }
@@ -749,10 +757,10 @@ object Database
             parameters.add(category)
         }
 
-        if (subCategory != null) {
+        if (!subCategory.isNullOrEmpty()) {
             filter += if (filter.isEmpty()) " WHERE " else " AND "
-            filter += "Article.SubCategory = ?"
-            parameters.add(subCategory)
+            filter += "Article.SubCategory LIKE ?"
+            parameters.add("%$subCategory%")
         }
 
         if (!eanCode.isNullOrEmpty()) {
