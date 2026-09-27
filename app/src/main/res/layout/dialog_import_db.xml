@@ -8,21 +8,21 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Settings_DatabaseNewDialogMessage"
+        android:text="@string/Settings_DatabaseImportName"
         android:textSize="16sp"
         android:paddingBottom="8dp" />
 
     <EditText
-        android:id="@+id/dialog_new_db_name"
+        android:id="@+id/dialog_import_db_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/Settings_DatabaseNewDialogMessage"
+        android:hint="@string/Settings_DatabaseImportName"
         android:inputType="text"
         android:autofillHints="name"
         android:minHeight="48dp" />
 
     <TextView
-        android:id="@+id/dialog_new_db_storage_label"
+        android:id="@+id/dialog_import_db_storage_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Settings_SelectStorageLocation"
@@ -31,7 +31,7 @@
         android:paddingBottom="8dp" />
 
     <Spinner
-        android:id="@+id/dialog_new_db_storage"
+        android:id="@+id/dialog_import_db_storage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/spinner_arrow_tint"

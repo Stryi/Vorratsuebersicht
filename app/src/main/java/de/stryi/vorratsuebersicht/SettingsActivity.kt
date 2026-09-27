@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
+import android.provider.DocumentsContract
 import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +36,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
+import java.io.OutputStream
 import java.nio.file.Paths
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -1003,89 +1005,170 @@ class SettingsActivity : AppCompatActivity() {
 
     fun importDatabaseFromFile(uri: Uri) {
         val fileName = Tools.getFileNameFromUri(this, uri)
-
         val databaseName = Tools.getBackupDatabaseName(fileName)
+        val storageRoots = AndroidDatabase.getStorageRoots(this)
 
-        // "/storage/emulated/0/Android/data/de.stryi.Vorratsuebersicht/files"
-        val dbPath = this.getExternalFilesDir(null)
+        val builder = AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
+        val view = LayoutInflater.from(builder.context).inflate(R.layout.dialog_import_db, null)
+        val editName = view.findViewById<EditText>(R.id.dialog_import_db_name)
+        val spinnerStorage = view.findViewById<Spinner>(R.id.dialog_import_db_storage)
+        val storageLabel = view.findViewById<TextView>(R.id.dialog_import_db_storage_label)
 
-        lifecycleScope.launch {
-            var newDatabaseName = Tools.askForText(this@SettingsActivity,
-                resources.getString(R.string.Settings_DatabaseImport),
-                resources.getString(R.string.Settings_DatabaseImportName),
-                databaseName)
+        editName.setText(databaseName)
+        editName.requestFocus()
 
-            if (newDatabaseName.isNullOrEmpty()) {
-                return@launch
+        if (storageRoots.size > 1) {
+            val items = storageRoots.map { file ->
+                AndroidDatabase.getStorageName(this, file)
             }
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, items)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerStorage.adapter = adapter
+        } else {
+            storageLabel.visibility = View.GONE
+            spinnerStorage.visibility = View.GONE
+        }
 
-            if (AndroidDatabase.isDatabaseExists(this@SettingsActivity, newDatabaseName))
-            {
+        builder.setTitle(R.string.Settings_DatabaseImport)
+        builder.setView(view)
+        builder.setPositiveButton(R.string.App_Ok) { _, _ ->
+            var newDatabaseName = editName.text.toString().trim()
+            if (newDatabaseName.isEmpty()) return@setPositiveButton
+
+            if (AndroidDatabase.isDatabaseExists(this@SettingsActivity, newDatabaseName)) {
                 Tools.showWarning(this@SettingsActivity, "Die Datenbank '$newDatabaseName' existiert bereits.")
-                return@launch
+                return@setPositiveButton
             }
 
-            newDatabaseName = newDatabaseName.trimEnd()
+            val selectedStorage = if (storageRoots.size > 1) {
+                storageRoots[spinnerStorage.selectedItemPosition]
+            } else {
+                storageRoots.firstOrNull() ?: getExternalFilesDir(null)
+            } ?: return@setPositiveButton
+
+            newDatabaseName = newDatabaseName.removeSuffix(".db3").trimEnd()
             newDatabaseName += ".db3"
 
-            // Hole den Pfad zum App-Datenbankordner
-            val dbFile = File(dbPath, newDatabaseName) // legt Datei direkt im DB-Ordner an
+            if (!selectedStorage.exists()) {
+                selectedStorage.mkdirs()
+            }
+
+            val dbFile = File(selectedStorage, newDatabaseName)
 
             showProgressBar(binding.ProgressBarDatabaseManagement)
             binding.ProgressBarDatabaseManagement.isIndeterminate = false
             binding.ProgressBarDatabaseManagement.max = 100
             binding.ProgressBarDatabaseManagement.progress = 0
 
-            val success = withContext(Dispatchers.IO) {
-                try {
-                    var totalBytes = 0L
-                    contentResolver.query(uri, null, null, null, null)?.use { cursor ->
-                        if (cursor.moveToFirst()) {
-                            val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
-                            if (sizeIndex != -1) {
-                                totalBytes = cursor.getLong(sizeIndex)
+            lifecycleScope.launch {
+                val success = withContext(Dispatchers.IO) {
+                    try {
+                        var totalBytes = 0L
+                        contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+                            if (cursor.moveToFirst()) {
+                                val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
+                                if (sizeIndex != -1) {
+                                    totalBytes = cursor.getLong(sizeIndex)
+                                }
                             }
                         }
-                    }
 
-                    val inputStream = contentResolver.openInputStream(uri)
-                    var bytesCopied = 0L
-                    var lastProgress = 0
+                        val inputStream = contentResolver.openInputStream(uri)
+                        var bytesCopied = 0L
+                        var lastProgress = 0
 
-                    inputStream?.use { input ->
-                        FileOutputStream(dbFile).use { output ->
-                            val buffer = ByteArray(8192)
-                            var bytes = input.read(buffer)
-                            while (bytes >= 0) {
-                                output.write(buffer, 0, bytes)
-                                bytesCopied += bytes
-                                if (totalBytes > 0) {
-                                    val progress = ((bytesCopied * 100) / totalBytes).toInt()
-                                    if (progress != lastProgress) {
-                                        lastProgress = progress
-                                        withContext(Dispatchers.Main) {
-                                            binding.ProgressBarDatabaseManagement.progress = progress
+                        inputStream?.use { input ->
+                            getOutputStreamForTargetFile(this@SettingsActivity, dbFile, selectedStorage).use { output ->
+                                val buffer = ByteArray(8192)
+                                var bytes = input.read(buffer)
+                                while (bytes >= 0) {
+                                    output.write(buffer, 0, bytes)
+                                    bytesCopied += bytes
+                                    if (totalBytes > 0) {
+                                        val progress = ((bytesCopied * 100) / totalBytes).toInt()
+                                        if (progress != lastProgress) {
+                                            lastProgress = progress
+                                            withContext(Dispatchers.Main) {
+                                                binding.ProgressBarDatabaseManagement.progress = progress
+                                            }
                                         }
                                     }
+                                    bytes = input.read(buffer)
                                 }
-                                bytes = input.read(buffer)
                             }
                         }
+                        true
+                    } catch (e: Exception) {
+                        Tools.TRACE(e.message)
+                        false
                     }
-                    true
-                } catch (e: Exception) {
-                    Tools.TRACE(e.message)
-                    false
+                }
+
+                hideProgressBar(binding.ProgressBarDatabaseManagement)
+                if (success) {
+                    Toast.makeText(this@SettingsActivity, "Datenbank erfolgreich importiert!", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this@SettingsActivity, "Fehler beim Importieren der Datenbank!", Toast.LENGTH_LONG).show()
                 }
             }
+        }
+        builder.setNegativeButton(R.string.App_Cancel, null)
+        builder.show()
+    }
 
-            hideProgressBar(binding.ProgressBarDatabaseManagement)
-            if (success) {
-                Toast.makeText(this@SettingsActivity, "Datenbank erfolgreich importiert!", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(this@SettingsActivity, "Fehler beim Importieren der Datenbank!", Toast.LENGTH_LONG).show()
+    private fun getOutputStreamForTargetFile(context: Context, dbFile: File, targetDir: File): OutputStream {
+        val sharedPath = Settings.getString("SharedDatabasePath", "")
+        val sharedUriStr = Settings.getString("SharedDatabaseUri", "")
+
+        val isSharedTarget = sharedUriStr.isNotEmpty() &&
+            try {
+                val dirCanonical = targetDir.canonicalPath
+                val sharedCanonical = File(sharedPath).canonicalPath
+                dirCanonical == sharedCanonical || dirCanonical.startsWith(sharedCanonical)
+            } catch (_: Exception) { false }
+
+        if (isSharedTarget) {
+            try {
+                val treeUri = Uri.parse(sharedUriStr)
+                val docId = DocumentsContract.getTreeDocumentId(treeUri)
+                val docUri = DocumentsContract.buildDocumentUriUsingTree(treeUri, docId)
+
+                val childrenUri = DocumentsContract.buildChildDocumentsUriUsingTree(treeUri, docId)
+                context.contentResolver.query(
+                    childrenUri,
+                    arrayOf(DocumentsContract.Document.COLUMN_DOCUMENT_ID, DocumentsContract.Document.COLUMN_DISPLAY_NAME),
+                    null, null, null
+                )?.use { cursor ->
+                    val nameIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_DISPLAY_NAME)
+                    val idIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_DOCUMENT_ID)
+                    while (cursor.moveToNext()) {
+                        val name = cursor.getString(nameIdx)
+                        if (name.equals(dbFile.name, ignoreCase = true)) {
+                            val existingId = cursor.getString(idIdx)
+                            val existingUri = DocumentsContract.buildDocumentUriUsingTree(treeUri, existingId)
+                            DocumentsContract.deleteDocument(context.contentResolver, existingUri)
+                            break
+                        }
+                    }
+                }
+
+                val newDocUri = DocumentsContract.createDocument(
+                    context.contentResolver,
+                    docUri,
+                    "application/octet-stream",
+                    dbFile.name
+                )
+
+                if (newDocUri != null) {
+                    val stream = context.contentResolver.openOutputStream(newDocUri)
+                    if (stream != null) return stream
+                }
+            } catch (e: Exception) {
+                Tools.TRACE("SAF stream creation failed: ${e.message}")
             }
         }
+
+        return FileOutputStream(dbFile)
     }
 
     fun restoreDatabaseFromFile(uri: Uri) {

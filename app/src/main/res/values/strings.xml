@@ -112,6 +112,7 @@
     <string name="Settings_DatabaseImportName">Unter welchem Namen soll die Datenbank importiert werden?</string>
     <string name="Settings_DatabaseNewDialogTitle">Neue Datenbank erstellen</string>
     <string name="Settings_DatabaseNewDialogMessage">Name eingeben:</string>
+    <string name="Settings_SelectStorageLocation">Speicherort auswählen:</string>
     <string name="Settings_EAN_Scann">EAN Scan</string>
     <string name="Settings_EAN_Scann_UseFrontcamera">Benutze Frontkamera</string>
 
