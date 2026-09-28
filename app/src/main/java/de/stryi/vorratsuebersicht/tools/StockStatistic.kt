@@ -3,7 +3,10 @@ import android.app.Activity
 import de.stryi.vorratsuebersicht.R
 import de.stryi.vorratsuebersicht.database.Records.ArticleInfo
 import de.stryi.vorratsuebersicht.tools.Tools
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
+import java.util.Locale
 
 class StockStatistic {
 
@@ -95,23 +98,30 @@ class StockStatistic {
         if (sumMenge.isNotEmpty()) {
             convertUnits()
 
-            /*
-            val mengeListe = sumMenge
-                .filter { it.value > 0 }
-                .entries.joinToString(", ") {
-                    String.format(Locale.getDefault(), "%,.######f %s", it.value, it.key)
-                }
+            var mengeListe = ""
 
-            if (mengeListe.isNotEmpty()) {
-                append(", ")
-                append(
+            for ((key, value) in sumMenge)
+            {
+                if (value == 0.0)
+                    continue
+
+                if (mengeListe.isNotEmpty())
+                    mengeListe += ", "
+
+                val formatter = DecimalFormat("#,##0.##", DecimalFormatSymbols(Locale.GERMANY))
+                mengeListe += "${formatter.format(value)} $key"
+            }
+
+            if (mengeListe.isNotEmpty())
+            {
+                status += ", "
+                status += (
                     String.format(
                         res.getString(R.string.StorageListSummary_Amount),
                         mengeListe
                     )
                 )
             }
-            */
 
             if (sumWarnung > 0)
             {
@@ -138,16 +148,6 @@ class StockStatistic {
                     res.getString(R.string.StorageListSummary_Value),
                     Tools.formatLocalizedPrice(sumPrice),
                     NumberFormat.getCurrencyInstance().currency?.symbol ?: "")
-
-        /*
-        if (sumWarnung > 0)
-            status = ", " + String.format(
-                res.getString(R.string.StorageListSummary_Warning), Tools.formatNumber(sumWarnung))
-
-        if (sumAbgelaufen > 0)
-            status = ", " + String.format(
-                res.getString(R.string.StorageListSummary_Off), Tools.formatNumber(sumAbgelaufen))
-        */
 
         return status
     }
