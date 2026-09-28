@@ -178,8 +178,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showSharedDirectoryHint() {
-        var launchCount = Settings.getInt("AppLaunchCount", 0)
-        launchCount = 25
+        val launchCount = Settings.getInt("AppLaunchCount", 0)
+
         if (launchCount in 21..30)
         {
             val remaining = 30 - launchCount + 1
