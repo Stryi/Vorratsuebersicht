@@ -154,7 +154,7 @@ object Tools {
         if (date == null)
             return ""
 
-        val formatter  = DateTimeFormatter.ofPattern("yyyy.MM.dd", Locale.getDefault())
+        val formatter  = DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.getDefault())
         return date.format(formatter)
     }
 
@@ -212,7 +212,7 @@ object Tools {
         var dateText: String
 
         try {
-            val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd", Locale.getDefault())
+            val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.getDefault())
             dateText = date.format(formatter)
         }
         catch (e: Exception) {

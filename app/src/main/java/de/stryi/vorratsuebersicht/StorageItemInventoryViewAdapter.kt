@@ -66,7 +66,7 @@ class StorageItemInventoryViewAdapter(private val storageItems: MutableList<Stor
 
 
         holder.quantity.text = Tools.formatNumber(storageItem.quantity)
-        holder.date.text     = dateText.format(Tools.dateToString(storageItem.bestBefore))
+        holder.date.text     = dateText.format(Tools.toHumanString(storageItem.bestBefore))
         holder.storage.text  = storageText.format(storageItem.storageName ?: "")
 
         if (storageItem.warningLevel == 0)
