@@ -1,3 +1,9 @@
+Version 9.12 (Code Version 168)
+===============================
+
+C236 - Hinweis auf "Freigegebenes Verzeichnis" auf der Hauptmaske.
+C235 - Summe Lagerbestand pro Menge wird jetzt wieder angezeigt.
+
 Version 9.11 (Code Version 167)
 ===============================
 

@@ -55,6 +55,11 @@ class MainActivity : AppCompatActivity() {
 
         appContext = applicationContext
 
+        if (savedInstanceState == null) {
+            val launchCount = Settings.getInt("AppLaunchCount", 0) + 1
+            Settings.putInt("AppLaunchCount", launchCount)
+        }
+
         Logging.InitializeLogFile(this)
         this.protocolAppInfo(this)
 
@@ -159,14 +164,30 @@ class MainActivity : AppCompatActivity() {
         Settings.putBoolean("FirstRun", false)
 
         this.askForCreateBackup()
+        this.showSharedDirectoryHint()
     }
 
     override fun onResume() {
         super.onResume()
         showStorageInfoText()
+        showSharedDirectoryHint()
         if (returnToScanner) {
             returnToScanner = false
             openEanCodeScanner()
+        }
+    }
+
+    private fun showSharedDirectoryHint() {
+        var launchCount = Settings.getInt("AppLaunchCount", 0)
+        launchCount = 25
+        if (launchCount in 21..30)
+        {
+            val remaining = 30 - launchCount + 1
+            binding.contentLayout.MainTextSharedDirHint.text =
+                getString(R.string.Main_SharedDirectoryHint, remaining)
+            binding.contentLayout.MainTextSharedDirHint.visibility = TextView.VISIBLE
+        } else {
+            binding.contentLayout.MainTextSharedDirHint.visibility = TextView.GONE
         }
     }
 
