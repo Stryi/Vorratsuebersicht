@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -117,9 +118,15 @@ class StorageItemInventoryViewAdapter(private val storageItems: MutableList<Stor
                 expiryDate,
                 selectStorage)
 
+            val adapter = ArrayAdapter(
+                holder.itemView.context,
+                R.layout.dialog_item,
+                R.id.DialogItem_Text1,
+                actions)
+
             val builder = AlertDialog.Builder(holder.itemView.context, R.style.MyAlertDialogTheme)
             builder.setTitle(R.string.StorageItemQuantityList_ChangeDetails)
-            builder.setItems(actions) { _, which ->
+            builder.setAdapter(adapter) { _, which ->
                 when (which) {
                     0 -> onItemClicked(ActionType.CHANGE_QUANTITY,   storageItem) // Anzahl eingeben
                     1 -> onItemClicked(ActionType.INCREASE_QUANTITY, storageItem) // Anzahl + 1
