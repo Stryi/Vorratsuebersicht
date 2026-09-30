@@ -188,21 +188,6 @@
 
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/Main_TextSharedDirHint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:padding="5dp"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:visibility="gone"
-                tools:text="Die Datenbank kann auch in einem &quot;Freigegebenem Verzeichnis&quot; erstellt oder verschoben werden, womit sie auch nach der Deinstallation erhalten bleibt. Für weitere Informationen siehe Wiki.\n\nDiese Nachricht wird noch 10 mal angezeigt."
-                tools:visibility="visible" />
-
         </LinearLayout>
 
     </ScrollView>

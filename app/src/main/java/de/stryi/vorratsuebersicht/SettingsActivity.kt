@@ -5,10 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
-import android.provider.DocumentsContract
 import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +34,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
-import java.io.OutputStream
 import java.nio.file.Paths
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -135,8 +132,6 @@ class SettingsActivity : AppCompatActivity() {
         binding.SettingsButtonRepair.setOnClickListener   { this.repairDatabase()    }
 
         binding.SettingsButtonDatabaseNew.setOnClickListener { this.buttonNewDbClick() }
-        binding.SettingsButtonSelectSharedDirectory.setOnClickListener { this.selectSharedDirectoryClick() }
-        this.showSharedDirectoryInfo()
         binding.SettingsButtonDatabaseImport.setOnClickListener { this.buttonImportDbClick() }
         binding.SettingsButtonDatabaseRename.setOnClickListener { this.buttonRenameDBClick() }
         binding.SettingsButtonMove.setOnClickListener           { this.moveDatabase()      }
@@ -588,103 +583,6 @@ class SettingsActivity : AppCompatActivity() {
         }.start()
     }
 
-    private val selectSharedDirLauncher =
-        registerForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
-            if (uri != null) {
-                onSharedDirectorySelected(uri)
-            }
-        }
-
-    private fun selectSharedDirectoryClick() {
-        val currentPath = Settings.getString("SharedDatabasePath", "")
-        if (currentPath.isNotEmpty()) {
-            val options = arrayOf(
-                getString(R.string.Settings_SelectSharedDirectory),
-                getString(R.string.Settings_ClearSharedDirectory)
-            )
-            AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
-                .setTitle(R.string.Settings_SharedDirectory)
-                .setItems(options) { _, which ->
-                    when (which) {
-                        0 -> selectSharedDirLauncher.launch(null)
-                        1 -> clearSharedDirectory()
-                    }
-                }
-                .setNegativeButton(R.string.App_Cancel, null)
-                .show()
-        } else {
-            selectSharedDirLauncher.launch(null)
-        }
-    }
-
-    private fun clearSharedDirectory() {
-        Settings.clear("SharedDatabasePath")
-        Settings.clear("SharedDatabaseUri")
-        showSharedDirectoryInfo()
-        Tools.showMessage(this, "Die Verzeichnisfreigabe wurde aufgehoben.")
-    }
-
-    private fun onSharedDirectorySelected(uri: Uri) {
-        try {
-            val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-            contentResolver.takePersistableUriPermission(uri, takeFlags)
-        } catch (e: Exception) {
-            Tools.TRACE("Error taking persistable uri permission: ${e.message}")
-        }
-
-        val dirFile = AndroidDatabase.resolveTreeUriToFile(this, uri)
-        if (dirFile != null) {
-            if (!dirFile.exists()) {
-                dirFile.mkdirs()
-            }
-            if (dirFile.exists() && dirFile.isDirectory) {
-                Settings.putString("SharedDatabasePath", dirFile.absolutePath)
-                Settings.putString("SharedDatabaseUri", uri.toString())
-                showSharedDirectoryInfo()
-                Tools.showMessage(this, "Freigegebenes Verzeichnis wurde festgelegt:\n\n${dirFile.absolutePath}")
-                checkAllFilesAccessPermission()
-            } else {
-                Tools.showWarning(this, "Das gewählte Verzeichnis '${dirFile.absolutePath}' ist nicht beschreibbar.")
-            }
-        } else {
-            Tools.showWarning(this, "Das gewählte Verzeichnis konnte nicht aufgelöst werden.")
-        }
-    }
-
-    private fun checkAllFilesAccessPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (!Environment.isExternalStorageManager()) {
-                AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
-                    .setTitle("Zugriff auf alle Dateien erforderlich")
-                    .setMessage("Damit SQLite-Datenbanken in externen Ordnern (wie SD-Karte) direkt geöffnet werden können, benötigt die App die Berechtigung 'Zugriff auf alle Dateien'.\n\nMöchten Sie diese Einstellungen jetzt öffnen?")
-                    .setPositiveButton(R.string.App_Ok) { _, _ ->
-                        try {
-                            val intent = Intent(
-                                android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-                                Uri.parse("package:$packageName")
-                            )
-                            startActivity(intent)
-                        } catch (_: Exception) {
-                            val intent = Intent(android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
-                            startActivity(intent)
-                        }
-                    }
-                    .setNegativeButton(R.string.App_Cancel, null)
-                    .show()
-            }
-        }
-    }
-
-    private fun showSharedDirectoryInfo() {
-        val sharedPath = Settings.getString("SharedDatabasePath", "")
-        if (sharedPath.isNotEmpty()) {
-            binding.SettingsSharedDirectoryPath.visibility = View.VISIBLE
-            binding.SettingsSharedDirectoryPath.text = getString(R.string.Settings_SharedDirectoryLabel, sharedPath)
-        } else {
-            binding.SettingsSharedDirectoryPath.visibility = View.GONE
-        }
-    }
-
     fun moveDatabase() {
         val databases = AndroidDatabase.loadDatabaseFileListSafe(this)
 
@@ -715,7 +613,7 @@ class SettingsActivity : AppCompatActivity() {
         val storageRoots = AndroidDatabase.getStorageRoots(this)
 
         if (storageRoots.size < 2) {
-            Tools.showWarning(this, "Keine SD-Karte oder freigegebenes Verzeichnis gefunden oder nur ein Speicher verfügbar.")
+            Tools.showWarning(this, "Keine SD-Karte gefunden oder nur ein Speicher verfügbar.")
             return
         }
 
@@ -1078,7 +976,7 @@ class SettingsActivity : AppCompatActivity() {
                         var lastProgress = 0
 
                         inputStream?.use { input ->
-                            getOutputStreamForTargetFile(this@SettingsActivity, dbFile, selectedStorage).use { output ->
+                            FileOutputStream(dbFile).use { output ->
                                 val buffer = ByteArray(8192)
                                 var bytes = input.read(buffer)
                                 while (bytes >= 0) {
@@ -1114,61 +1012,6 @@ class SettingsActivity : AppCompatActivity() {
         }
         builder.setNegativeButton(R.string.App_Cancel, null)
         builder.show()
-    }
-
-    private fun getOutputStreamForTargetFile(context: Context, dbFile: File, targetDir: File): OutputStream {
-        val sharedPath = Settings.getString("SharedDatabasePath", "")
-        val sharedUriStr = Settings.getString("SharedDatabaseUri", "")
-
-        val isSharedTarget = sharedUriStr.isNotEmpty() &&
-            try {
-                val dirCanonical = targetDir.canonicalPath
-                val sharedCanonical = File(sharedPath).canonicalPath
-                dirCanonical == sharedCanonical || dirCanonical.startsWith(sharedCanonical)
-            } catch (_: Exception) { false }
-
-        if (isSharedTarget) {
-            try {
-                val treeUri = Uri.parse(sharedUriStr)
-                val docId = DocumentsContract.getTreeDocumentId(treeUri)
-                val docUri = DocumentsContract.buildDocumentUriUsingTree(treeUri, docId)
-
-                val childrenUri = DocumentsContract.buildChildDocumentsUriUsingTree(treeUri, docId)
-                context.contentResolver.query(
-                    childrenUri,
-                    arrayOf(DocumentsContract.Document.COLUMN_DOCUMENT_ID, DocumentsContract.Document.COLUMN_DISPLAY_NAME),
-                    null, null, null
-                )?.use { cursor ->
-                    val nameIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_DISPLAY_NAME)
-                    val idIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_DOCUMENT_ID)
-                    while (cursor.moveToNext()) {
-                        val name = cursor.getString(nameIdx)
-                        if (name.equals(dbFile.name, ignoreCase = true)) {
-                            val existingId = cursor.getString(idIdx)
-                            val existingUri = DocumentsContract.buildDocumentUriUsingTree(treeUri, existingId)
-                            DocumentsContract.deleteDocument(context.contentResolver, existingUri)
-                            break
-                        }
-                    }
-                }
-
-                val newDocUri = DocumentsContract.createDocument(
-                    context.contentResolver,
-                    docUri,
-                    "application/octet-stream",
-                    dbFile.name
-                )
-
-                if (newDocUri != null) {
-                    val stream = context.contentResolver.openOutputStream(newDocUri)
-                    if (stream != null) return stream
-                }
-            } catch (e: Exception) {
-                Tools.TRACE("SAF stream creation failed: ${e.message}")
-            }
-        }
-
-        return FileOutputStream(dbFile)
     }
 
     fun restoreDatabaseFromFile(uri: Uri) {
