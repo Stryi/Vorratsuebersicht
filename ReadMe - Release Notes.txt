@@ -1,3 +1,8 @@
+Version 9.15 (Code Version 171)
+===============================
+
+E072 - FIX: Absturz im Lagerbest. bearbeiten wegen Bild.
+
 Version 9.14 (Code Version 170)
 ===============================
 

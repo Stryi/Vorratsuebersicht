@@ -262,11 +262,11 @@ class StorageItemInventoryActivity : AppCompatActivity() {
         binding.StorageItemQuantityArticleDetailHeader.text = this.article.heading
         binding.StorageItemQuantityArticleDetail.text       = this.article.articleInfo
 
-        val articleImage = Database.getArticleImage(articleId)
+        val articleImage = Database.getArticleImage(articleId, false)
         if (articleImage != null)
         {
-            val largeBitmap = BitmapFactory.decodeByteArray(articleImage.imageSmall, 0, articleImage.imageSmall!!.size)
-            binding.StorageItemQuantityImage.setImageBitmap(largeBitmap)
+            val smallBitmap = BitmapFactory.decodeByteArray(articleImage.imageSmall, 0, articleImage.imageSmall!!.size)
+            binding.StorageItemQuantityImage.setImageBitmap(smallBitmap)
 
             this.isImage = true
         }
