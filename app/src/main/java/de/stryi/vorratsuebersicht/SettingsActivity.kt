@@ -311,10 +311,7 @@ class SettingsActivity : AppCompatActivity() {
     val createBackupFileLauncher =
         registerForActivityResult(ActivityResultContracts.CreateDocument("application/octet-stream")) { uri ->
             if (uri != null) {
-                showProgressBar(binding.ProgressBarBackupAndRestore)
-                binding.ProgressBarBackupAndRestore.isIndeterminate = false
-                binding.ProgressBarBackupAndRestore.max = 100
-                binding.ProgressBarBackupAndRestore.progress = 0
+                showProgressBar()
 
                 lifecycleScope.launch {
                     val success = withContext(Dispatchers.IO) {
@@ -340,7 +337,7 @@ class SettingsActivity : AppCompatActivity() {
                                             if (progress != lastProgress) {
                                                 lastProgress = progress
                                                 withContext(Dispatchers.Main) {
-                                                    binding.ProgressBarBackupAndRestore.progress = progress
+                                                    updateProgressBar(progress)
                                                 }
                                             }
                                         }
@@ -355,7 +352,7 @@ class SettingsActivity : AppCompatActivity() {
                         }
                     }
 
-                    hideProgressBar(binding.ProgressBarBackupAndRestore)
+                    hideProgressBar()
                     if (success) {
                         Toast.makeText(this@SettingsActivity, "Backup der Datenbank gespeichert!", Toast.LENGTH_LONG).show()
                         this@SettingsActivity.showLastBackupDay()
@@ -683,10 +680,7 @@ class SettingsActivity : AppCompatActivity() {
         val activeDatabasePath = Database.getDatabasePath()
         val isActiveDatabase = activeDatabasePath != null && File(activeDatabasePath).canonicalPath == currentFile.canonicalPath
 
-        showProgressBar(binding.ProgressBarDatabaseManagement)
-        binding.ProgressBarDatabaseManagement.isIndeterminate = false
-        binding.ProgressBarDatabaseManagement.max = 100
-        binding.ProgressBarDatabaseManagement.progress = 0
+        showProgressBar()
 
         lifecycleScope.launch {
             val success = withContext(Dispatchers.IO) {
@@ -711,7 +705,7 @@ class SettingsActivity : AppCompatActivity() {
                                     if (progress != lastProgress) {
                                         lastProgress = progress
                                         withContext(Dispatchers.Main) {
-                                            binding.ProgressBarDatabaseManagement.progress = progress
+                                            updateProgressBar(progress)
                                         }
                                     }
                                 }
@@ -732,7 +726,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
 
-            hideProgressBar(binding.ProgressBarDatabaseManagement)
+            hideProgressBar()
 
             if (success) {
                 if (isActiveDatabase) {
@@ -953,10 +947,7 @@ class SettingsActivity : AppCompatActivity() {
 
             val dbFile = File(selectedStorage, newDatabaseName)
 
-            showProgressBar(binding.ProgressBarDatabaseManagement)
-            binding.ProgressBarDatabaseManagement.isIndeterminate = false
-            binding.ProgressBarDatabaseManagement.max = 100
-            binding.ProgressBarDatabaseManagement.progress = 0
+            showProgressBar()
 
             lifecycleScope.launch {
                 val success = withContext(Dispatchers.IO) {
@@ -987,7 +978,7 @@ class SettingsActivity : AppCompatActivity() {
                                         if (progress != lastProgress) {
                                             lastProgress = progress
                                             withContext(Dispatchers.Main) {
-                                                binding.ProgressBarDatabaseManagement.progress = progress
+                                                updateProgressBar(progress)
                                             }
                                         }
                                     }
@@ -1002,7 +993,7 @@ class SettingsActivity : AppCompatActivity() {
                     }
                 }
 
-                hideProgressBar(binding.ProgressBarDatabaseManagement)
+                hideProgressBar()
                 if (success) {
                     Toast.makeText(this@SettingsActivity, "Datenbank erfolgreich importiert!", Toast.LENGTH_LONG).show()
                 } else {
@@ -1040,10 +1031,7 @@ class SettingsActivity : AppCompatActivity() {
             var dbFile = File(currentDatabase).parent
             dbFile = Paths.get(dbFile, newDatabaseName).toString() // legt Datei direkt im DB-Ordner an
 
-            showProgressBar(binding.ProgressBarBackupAndRestore)
-            binding.ProgressBarBackupAndRestore.isIndeterminate = false
-            binding.ProgressBarBackupAndRestore.max = 100
-            binding.ProgressBarBackupAndRestore.progress = 0
+            showProgressBar()
 
             val success = withContext(Dispatchers.IO) {
                 try {
@@ -1073,7 +1061,7 @@ class SettingsActivity : AppCompatActivity() {
                                     if (progress != lastProgress) {
                                         lastProgress = progress
                                         withContext(Dispatchers.Main) {
-                                            binding.ProgressBarBackupAndRestore.progress = progress
+                                            updateProgressBar(progress)
                                         }
                                     }
                                 }
@@ -1088,7 +1076,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
 
-            hideProgressBar(binding.ProgressBarBackupAndRestore)
+            hideProgressBar()
             if (success) {
                 Toast.makeText(this@SettingsActivity, "Datenbank erfolgreich wiederhergestellt!", Toast.LENGTH_LONG).show()
             } else {
@@ -1292,32 +1280,36 @@ class SettingsActivity : AppCompatActivity() {
         startActivity(license)
     }
 
+    private var progressDialogFragment: ProgressDialogFragment? = null
+
     fun createCompressProgressBar()
     {
-        showProgressBar(binding.ProgressBarCompress)
+        showProgressBar()
     }
 
     fun hideCompressProgressBar()
     {
-        hideProgressBar(binding.ProgressBarCompress)
+        hideProgressBar()
     }
 
-    private fun showProgressBar(progressBar: View) {
-        progressBar.visibility = View.VISIBLE
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-        )
-    }
-
-    private fun hideProgressBar(progressBar: View) {
-        progressBar.visibility = View.INVISIBLE
-        if (binding.ProgressBarBackupAndRestore.visibility != View.VISIBLE &&
-            binding.ProgressBarCompress.visibility != View.VISIBLE &&
-            binding.ProgressBarDatabaseManagement.visibility != View.VISIBLE &&
-            binding.ProgressBarRestoreSampleDb.visibility != View.VISIBLE) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+    private fun showProgressBar(message: String? = null) {
+        if (isFinishing || isDestroyed) return
+        if (progressDialogFragment == null || progressDialogFragment?.dialog == null || !progressDialogFragment!!.isAdded) {
+            val dialog = ProgressDialogFragment.newInstance(message)
+            dialog.show(supportFragmentManager, "ProgressDialogFragment")
+            progressDialogFragment = dialog
         }
+    }
+
+    private fun updateProgressBar(progress: Int) {
+        progressDialogFragment?.setProgress(progress)
+    }
+
+    private fun hideProgressBar() {
+        try {
+            progressDialogFragment?.dismissAllowingStateLoss()
+        } catch (_: Exception) {}
+        progressDialogFragment = null
     }
 
 }

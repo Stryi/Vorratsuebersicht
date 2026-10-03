@@ -1,6 +1,7 @@
 Version 9.15 (Code Version 171)
 ===============================
 
+C238 - Progress Bar jetzt in einem separaten Fensterchen.
 E072 - FIX: Absturz im Lagerbest. bearbeiten wegen Bild.
 
 Version 9.14 (Code Version 170)

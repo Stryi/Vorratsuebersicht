@@ -122,18 +122,6 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp" />
 
-            <ProgressBar
-                android:id="@+id/ProgressBar_BackupAndRestore"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="-5dp"
-                android:layout_marginBottom="-5dp"
-                android:indeterminate="true"
-                android:scaleY="2"
-                android:max="100"
-                android:visibility="invisible"/>
             <Button
                 android:id="@+id/SettingsButton_BackupToFile"
                 android:text="@string/Settings_CreateBackup"
@@ -230,18 +218,6 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp" />
 
-            <ProgressBar
-                android:id="@+id/ProgressBar_Compress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="-5dp"
-                android:layout_marginBottom="-5dp"
-                android:indeterminate="true"
-                android:scaleY="2"
-                android:max="100"
-                android:visibility="invisible"/>
             <Button
                 android:id="@+id/SettingsButton_Compress"
                 android:text="@string/Settings_DatenbankKomprimieren"
@@ -277,18 +253,6 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp" />
 
-            <ProgressBar
-                android:id="@+id/ProgressBar_DatabaseManagement"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="-5dp"
-                android:layout_marginBottom="-5dp"
-                android:indeterminate="true"
-                android:scaleY="2"
-                android:max="100"
-                android:visibility="invisible"/>
 
             <Button
                 android:id="@+id/SettingsButton_DatabaseNew"
@@ -380,18 +344,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp" />
-            <ProgressBar
-                android:id="@+id/ProgressBar_RestoreSampleDb"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-5dp"
-                android:layout_marginBottom="-5dp"
-                android:layout_marginStart="10dp"
-                android:indeterminate="true"
-                android:scaleY="2"
-                android:max="100"
-                android:visibility="invisible"/>
             <Button
                 android:id="@+id/SettingsButton_RestoreSampleDb"
                 android:text="@string/Settings_TestDatenbankZuruecksetzen"
