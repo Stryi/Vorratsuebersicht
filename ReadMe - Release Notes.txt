@@ -1,6 +1,10 @@
-Version 9.15 (Code Version 171)
+Version 9.16 (Code Version 172)
 ===============================
 
+C239 - Mehrfachangabe für Unterkategorie entfernt (war nicht praktisch).
+
+Version 9.15 (Code Version 171)
+===============================
 
 C238 - Progress Bar jetzt in einem separaten Fensterchen.
 E072 - FIX: Absturz im Lagerbest. bearbeiten wegen Bild.
@@ -8,7 +12,7 @@ E072 - FIX: Absturz im Lagerbest. bearbeiten wegen Bild.
 Version 9.14 (Code Version 170)
 ===============================
 
-C237 - Freigegebenes Verzeichnis wegen Google entfernt.
+C237 - freigegebenes Verzeichnis wegen Google entfernt.
 
 Version 9.13 (Code Version 169)
 Version 9.12 (Code Version 168)

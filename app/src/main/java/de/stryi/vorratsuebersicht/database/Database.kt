@@ -215,8 +215,8 @@ object Database
         {
             if (filter.isNotEmpty()) filter += " AND " else filter += " WHERE "
 
-            filter += " Article.SubCategory LIKE ?"
-            parameter.add("%$subCategory%")
+            filter += " Article.SubCategory = ?"
+            parameter.add(subCategory)
         }
 
         if (withoutCategory)
@@ -510,20 +510,7 @@ object Database
             query.trimIndent(),
             parameters.toTypedArray())
 
-        val stringList = mutableListOf<String>()
-
-        for (item in result) {
-            for (subCat in item.split(",")) {
-                val name = subCat.trim()
-                if (name.isNotEmpty() && stringList.none { it.equals(name, ignoreCase = true) }) {
-                    stringList.add(name)
-                }
-            }
-        }
-
-        stringList.sortWith(String.CASE_INSENSITIVE_ORDER)
-
-        return stringList
+        return result
     }
 
     fun getStorageNames(inStorageArticlesOnly: Boolean = false): MutableList<String>
@@ -759,8 +746,8 @@ object Database
 
         if (!subCategory.isNullOrEmpty()) {
             filter += if (filter.isEmpty()) " WHERE " else " AND "
-            filter += "Article.SubCategory LIKE ?"
-            parameters.add("%$subCategory%")
+            filter += "Article.SubCategory = ?"
+            parameters.add(subCategory)
         }
 
         if (!eanCode.isNullOrEmpty()) {

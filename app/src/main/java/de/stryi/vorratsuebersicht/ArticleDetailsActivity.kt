@@ -365,15 +365,7 @@ class ArticleDetailsActivity : AppCompatActivity() {
         builder.setTitle(R.string.ArticleDetails_SubCategory)
         builder.setAdapter(adapter) { _, which ->
             val selected = subCategories[which]
-            val currentText = binding.ArticleDetailsSubCategory.text.toString().trim()
-            if (currentText.isNotEmpty() && selected.isNotEmpty()) {
-                val items = currentText.split(",").map { it.trim() }
-                if (!items.contains(selected)) {
-                    binding.ArticleDetailsSubCategory.setText("$currentText, $selected")
-                }
-            } else {
-                binding.ArticleDetailsSubCategory.setText(selected)
-            }
+            binding.ArticleDetailsSubCategory.setText(selected)
         }
         builder.show()
     }
