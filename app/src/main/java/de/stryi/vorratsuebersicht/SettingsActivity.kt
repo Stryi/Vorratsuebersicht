@@ -43,6 +43,7 @@ import java.util.Locale
 class SettingsActivity : AppCompatActivity() {
 
     var userCategoriesChanged = false
+    var defaultSupermarketChanged = false
 
     private lateinit var binding: SettingsActivityBinding
 
@@ -90,7 +91,25 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         binding.SettingsDefaultCategory.text = defaultCategory
+        binding.SettingsDefaultCategory.setOnClickListener { this.selectDefaultCategory() }
         binding.SettingsButtonSelectDefaultCategory.setOnClickListener { this.selectDefaultCategory() }
+
+        val defaultSupermarket = Database.getSettingsString("DEFAULT_SUPERMARKET")
+        binding.SettingsDefaultSupermarket.setText(defaultSupermarket)
+
+        val supermarkets = Database.getSupermarketNames()
+        val supermarketsAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, supermarkets)
+        binding.SettingsDefaultSupermarket.setAdapter(supermarketsAdapter)
+        binding.SettingsDefaultSupermarket.threshold = 1
+
+        binding.SettingsDefaultSupermarket.doOnTextChanged { _, _, _, _ ->
+            defaultSupermarketChanged = true
+        }
+        binding.SettingsDefaultSupermarket.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                saveDefaultSupermarket()
+            }
+        }
 
         // Addition Categories
         // Standard Kategorie (in der Datenbank ablegen, da abhängig der Datenbank)
@@ -251,6 +270,7 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun finish() {
         saveUserDefinedCategories()
+        saveDefaultSupermarket()
         super.finish()
     }
 
@@ -258,6 +278,7 @@ class SettingsActivity : AppCompatActivity() {
     {
         // Ggf. die Änderungen der Kategorien abspeichern
         saveUserDefinedCategories()
+        saveDefaultSupermarket()
 
         // Fest definierte Kategorien + frei definierten zur Auswahl laden
         val defaultCategories = resources.getStringArray(R.array.ArticleCatagories)
@@ -293,6 +314,16 @@ class SettingsActivity : AppCompatActivity() {
         userCategoriesChanged = false
     }
 
+    fun saveDefaultSupermarket()
+    {
+        if (!defaultSupermarketChanged)
+            return
+
+        val defaultSupermarket = binding.SettingsDefaultSupermarket.text.toString()
+        Database.setSettings("DEFAULT_SUPERMARKET", defaultSupermarket.trim())
+        defaultSupermarketChanged = false
+    }
+
     // -------------------------------------------
     // Backup und Restore
     // -------------------------------------------
@@ -301,6 +332,7 @@ class SettingsActivity : AppCompatActivity() {
 
     fun onBackupExportClick() {
         this.saveUserDefinedCategories()
+        this.saveDefaultSupermarket()
         pendingExportDbName = Database.getDatabasePath()
         val currentDateAsString = getCurrentDateAsString()
         val currentDatabaseName = Database.getDatabaseName()
@@ -372,6 +404,7 @@ class SettingsActivity : AppCompatActivity() {
     private fun onBackupShareClick()
     {
         this.saveUserDefinedCategories()
+        this.saveDefaultSupermarket()
 
         val databasePath = Database.getDatabasePath()
         if (databasePath == null)

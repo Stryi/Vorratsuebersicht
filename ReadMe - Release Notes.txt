@@ -1,6 +1,7 @@
 Version 9.16 (Code Version 172)
 ===============================
 
+C240 - Standard Einkaufsmarkt für Neuanlagen
 C239 - Mehrfachangabe für Unterkategorie entfernt (war nicht praktisch).
 
 Version 9.15 (Code Version 171)

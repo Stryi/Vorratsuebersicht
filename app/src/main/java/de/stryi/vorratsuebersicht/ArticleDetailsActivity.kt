@@ -82,6 +82,12 @@ class ArticleDetailsActivity : AppCompatActivity() {
                 article.category = this.resources.getString(R.string.ArticleCatagoryDefault)
             }
 
+            val defaultSupermarket = Database.getSettingsString("DEFAULT_SUPERMARKET")
+            if (!defaultSupermarket.isNullOrEmpty())
+            {
+                article.supermarket = defaultSupermarket
+            }
+
             if (!category.isNullOrEmpty())    article.category    = category
             if (!subCategory.isNullOrEmpty()) article.subCategory = subCategory
         }
@@ -161,6 +167,16 @@ class ArticleDetailsActivity : AppCompatActivity() {
 
         // Einkaufsmarkt Eingabe
         val supermarkets = Database.getSupermarketNames()
+        val defaultSupermarket = Database.getSettingsString("DEFAULT_SUPERMARKET")
+        if (!defaultSupermarket.isNullOrEmpty())
+        {
+            if (!supermarkets.contains(defaultSupermarket)) {
+                supermarkets.add(defaultSupermarket)
+            }
+        }
+
+        supermarkets.sortWith(String.CASE_INSENSITIVE_ORDER)
+
         val supermarketsAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, supermarkets)
         binding.ArticleDetailsSupermarket.setAdapter(supermarketsAdapter)
         binding.ArticleDetailsSupermarket.threshold = 1
@@ -373,6 +389,15 @@ class ArticleDetailsActivity : AppCompatActivity() {
     private fun selectSupermarket()
     {
         val supermarkets = Database.getSupermarketNames()
+        val defaultSupermarket = Database.getSettingsString("DEFAULT_SUPERMARKET")
+        if (!defaultSupermarket.isNullOrEmpty())
+        {
+            if (!supermarkets.contains(defaultSupermarket)) {
+                supermarkets.add(defaultSupermarket)
+            }
+        }
+
+        supermarkets.sortWith(String.CASE_INSENSITIVE_ORDER)
 
         val adapter = ArrayAdapter(
             this,
