@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import de.stryi.vorratsuebersicht.databinding.ArticleImageBinding
 import de.stryi.vorratsuebersicht.database.Database
 import de.stryi.vorratsuebersicht.tools.Tools
+import de.stryi.vorratsuebersicht.tools.Tools.TRACE
 import de.stryi.vorratsuebersicht.tools.toPngByteArray
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -147,14 +148,42 @@ class ArticleImageActivity : AppCompatActivity() {
 
     fun showPictureFromDatabase()
     {
-        val article= Database.getArticleImage(this.articleId)
+        try
+        {
+            val article = Database.getArticleImage(this.articleId)
 
-        this.showPictureFromByteArray(article?.imageLarge, article?.imageSmall)
+            this.showPictureFromByteArray(article?.imageLarge, article?.imageSmall)
+        }
+        catch (e: Exception)
+        {
+            binding.ArticleImageInfo.text = e.message
+            binding.ArticleImageInfo.visibility = View.VISIBLE
+            binding.ArticleImageInfoThn.text = getString(R.string.ArticleImage_ErrorLoading)
+            binding.ArticleImageInfoThn.visibility = View.VISIBLE
+
+            TRACE(getString(R.string.ArticleImage_ErrorLoading))
+            TRACE(e.message)
+            TRACE(e.stackTraceToString())
+        }
     }
 
     fun showPictureFromBitmap()
     {
-        this.showPictureFromByteArray(ArticleDetailsActivity.imageLarge, ArticleDetailsActivity.imageSmall)
+        try
+        {
+            this.showPictureFromByteArray(ArticleDetailsActivity.imageLarge, ArticleDetailsActivity.imageSmall)
+        }
+        catch (e: Exception)
+        {
+            binding.ArticleImageInfo.text = e.message
+            binding.ArticleImageInfo.visibility = View.VISIBLE
+            binding.ArticleImageInfoThn.text = getString(R.string.ArticleImage_ErrorLoading)
+            binding.ArticleImageInfoThn.visibility = View.VISIBLE
+
+            TRACE(getString(R.string.ArticleImage_ErrorLoading))
+            TRACE(e.message)
+            TRACE(e.stackTraceToString())
+        }
     }
 
     fun showPictureFromByteArray(imageLarge: ByteArray?, imageSmall: ByteArray?)
@@ -163,14 +192,18 @@ class ArticleImageActivity : AppCompatActivity() {
         {
             binding.ArticleImageImage.setImageResource(R.drawable.hide_image_24px)
             binding.ArticleImageImage.visibility = View.VISIBLE
-            binding.ArticleImageInfo.text = resources.getString(R.string.ArticleImage_SizeLarge)
+            binding.ArticleImageInfo.text = "imageLarge ist null"
+
+            TRACE("**** imageLarge ist null")
         }
 
         if (imageSmall == null)
         {
             binding.ArticleImageImageThn.setImageResource(R.drawable.hide_image_24px)
             binding.ArticleImageImageThn.visibility = View.VISIBLE
-            binding.ArticleImageInfoThn.text = resources.getString(R.string.ArticleImage_SizeSmall)
+            binding.ArticleImageInfoThn.text = "imageSmall ist null"
+
+            TRACE("**** imageSmall ist null")
         }
 
         try
@@ -178,41 +211,75 @@ class ArticleImageActivity : AppCompatActivity() {
             if (imageLarge != null)
             {
                 val largeBitmap = BitmapFactory.decodeByteArray(imageLarge, 0, imageLarge.size)
-                binding.ArticleImageImage.setImageBitmap(largeBitmap)
+                if (largeBitmap != null)
+                {
+                    binding.ArticleImageImage.setImageBitmap(largeBitmap)
 
-                this.rotatedBitmap = largeBitmap
+                    this.rotatedBitmap = largeBitmap
 
-                val message = String.format(
-                    Locale.getDefault(),
-                    "Bild (BxH): %,d x %,d\nGröße: %s, Komprimiert: %s",
-                    largeBitmap.width,
-                    largeBitmap.height,
-                    Tools.toFuzzyByteString(largeBitmap.byteCount.toLong()),
-                    Tools.toFuzzyByteString(imageLarge.size.toLong()))
+                    val message = String.format(
+                        Locale.getDefault(),
+                        "Bild (BxH): %,d x %,d\nGröße: %s, Komprimiert: %s",
+                        largeBitmap.width,
+                        largeBitmap.height,
+                        Tools.toFuzzyByteString(largeBitmap.byteCount.toLong()),
+                        Tools.toFuzzyByteString(imageLarge.size.toLong()))
 
-                binding.ArticleImageInfo.text = message
+                    binding.ArticleImageInfo.text = message
+                }
+                else
+                {
+                    binding.ArticleImageImage.setImageResource(R.drawable.hide_image_24px)
+                    binding.ArticleImageImage.visibility = View.VISIBLE
+                    binding.ArticleImageInfo.text = getString(R.string.ArticleImage_ErrorDecodePicture)
+                    binding.ArticleImageInfo.visibility = View.VISIBLE
+
+                    TRACE(getString(R.string.ArticleImage_ErrorDecodePicture))
+                    TRACE("**** Der Aufruf der Funktion lieferte null:")
+                    TRACE("var largeBitmap = BitmapFactory.decodeByteArray(imageLarge, 0, imageLarge.size)")
+                }
             }
 
             if (imageSmall != null)
             {
                 val smallBitmap = BitmapFactory.decodeByteArray(imageSmall, 0, imageSmall.size)
-                binding.ArticleImageImageThn.setImageBitmap(smallBitmap)
+                if (smallBitmap != null)
+                {
+                    binding.ArticleImageImageThn.setImageBitmap(smallBitmap)
 
-                val message = String.format(
-                    Locale.getDefault(),
-                    "Vorschaubild (BxH): %,d x %,d\nGröße: %s, Komprimiert: %s",
-                    smallBitmap.width,
-                    smallBitmap.height,
-                    Tools.toFuzzyByteString(smallBitmap.byteCount.toLong()),
-                    Tools.toFuzzyByteString(imageSmall.size.toLong()))
+                    val message = String.format(
+                        Locale.getDefault(),
+                        "Vorschaubild (BxH): %,d x %,d\nGröße: %s, Komprimiert: %s",
+                        smallBitmap.width,
+                        smallBitmap.height,
+                        Tools.toFuzzyByteString(smallBitmap.byteCount.toLong()),
+                        Tools.toFuzzyByteString(imageSmall.size.toLong()))
 
-                binding.ArticleImageInfoThn.text = message
+                    binding.ArticleImageInfoThn.text = message
+                }
+                else
+                {
+                    binding.ArticleImageImageThn.setImageResource(R.drawable.hide_image_24px)
+                    binding.ArticleImageImageThn.visibility = View.VISIBLE
+                    binding.ArticleImageInfoThn.text = getString(R.string.ArticleImage_ErrorDecodePicture)
+                    binding.ArticleImageInfoThn.visibility = View.VISIBLE
+
+                    TRACE(getString(R.string.ArticleImage_ErrorDecodePicture))
+                    TRACE("**** Der Aufruf der Funktion lieferte null:")
+                    TRACE("val smallBitmap = BitmapFactory.decodeByteArray(imageSmall, 0, imageSmall.size)")
+                }
             }
         }
         catch (e: Exception)
         {
-            binding.ArticleImageInfoThn.text = e.message
+            binding.ArticleImageInfo.text = e.message
+            binding.ArticleImageInfo.visibility = View.VISIBLE
+            binding.ArticleImageInfoThn.text = getString(R.string.ArticleImage_ErrorDecodePicture)
             binding.ArticleImageInfoThn.visibility = View.VISIBLE
+
+            TRACE(getString(R.string.ArticleImage_ErrorDecodePicture))
+            TRACE(e.message)
+            TRACE(e.stackTraceToString())
         }
     }
 

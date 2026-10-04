@@ -245,7 +245,8 @@ http://www.apache.org/licenses/LICENSE-2.0</string>
     <!-- Artikelbild -->
     <string name="ArticleImage_SizeSmall">Thn. (BxH): Nicht definiert!</string>
     <string name="ArticleImage_SizeLarge">Bild (BxH): Nicht definiert!</string>
-
+    <string name="ArticleImage_ErrorLoading">Fehler beim Laden des Bildes!\nDetails zu der Fehlermeldung finden Sie in der LOG Datei in den Einstellungen.</string>
+    <string name="ArticleImage_ErrorDecodePicture">Fehler beim Dekodieren des Bildes!\nDetails zu der Fehlermeldung finden Sie in der LOG Datei in den Einstellungen.</string>
     <string name="ArticleImage_Menu_RotateRight">Drehe nach rechts</string>
 
     <!-- OpenFoodFacts -->
