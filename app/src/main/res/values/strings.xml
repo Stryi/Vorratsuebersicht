@@ -207,7 +207,6 @@ http://www.apache.org/licenses/LICENSE-2.0</string>
     <string name="ArticleDetails_ArticleName">Artikelname:</string>
     <string name="ArticleDetails_Manufacturer">Hersteller:</string>
     <string name="ArticleDetails_Category">Kategorie:</string>
-    <string name="ArticleDetails_Category_Hint">Essen, Trinken, Hygieneartikel, Gesundheitsschutz</string>
     <string name="ArticleDetails_SubCategory">Unterkategorie:</string>
     <string name="ArticleDetails_SubCategory_Hint">Abhängig der Kategorie, z.B. Honig bei Kategorie Essen.</string>
     <string name="ArticleDetails_EnduringlyDurable">Unendlich Haltbar</string>
