@@ -51,6 +51,12 @@ object Database
             TRACE(message)
             return message
         }
+
+        val databaseFileSize = this.getDatabaseSize()
+
+        TRACE("Database Path: %s", databaseFilePath)
+        TRACE("Database Size: %s (%,d Bytes)", Tools.toFuzzyByteString(databaseFileSize), databaseFileSize)
+
         return null
     }
 
