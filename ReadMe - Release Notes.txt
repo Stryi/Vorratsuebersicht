@@ -1,6 +1,7 @@
 Version 9.17 (Code Version 173)
 ===============================
 
+C241 - Manuelle Mengeneingabe in Einkaufsliste jetzt möglich.
 C240 - Price 2 (z.B. Preis im Angebot) kann jetzt eingegeben werden.
 
 Version 9.16 (Code Version 172)

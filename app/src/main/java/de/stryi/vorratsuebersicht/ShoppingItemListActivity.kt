@@ -5,11 +5,14 @@ import androidx.appcompat.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
+import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.SearchView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -248,8 +251,9 @@ class ShoppingItemListActivity : AppCompatActivity()
         val toStorage     = this.resources.getString(R.string.ShoppingList_ToStorage)
         val articleDetail = this.resources.getString(R.string.ShoppingList_ArticleDetails)
         val bought        = this.resources.getString(R.string.ShoppingList_MarkAsBought)
+        val selectQuantity = this.resources.getString(R.string.ShoppingList_EnterNewQuantity)
 
-        val actions = arrayOf("+10", "+1", "-1", "-10", removeText, toStorage, articleDetail, bought)
+        val actions = arrayOf("+10", "+1", "-1", "-10", removeText, toStorage, articleDetail, bought, selectQuantity)
 
         val adapter = ArrayAdapter(
             this,
@@ -288,7 +292,7 @@ class ShoppingItemListActivity : AppCompatActivity()
                 }
                 5 -> { // Ins Lagerbestand
                     var shoppingItemCount = shoppingItem.quantity
-                    if (shoppingItemCount == 0.00)
+                    if (shoppingItemCount == null || shoppingItemCount == 0.00)
                         shoppingItemCount = 1.00
 
                     val storageInventory = Intent(this, StorageItemInventoryActivity::class.java)
@@ -307,9 +311,61 @@ class ShoppingItemListActivity : AppCompatActivity()
                     shoppingItem.bought = true
                     this.showShoppingList()
                 }
+                8 -> { // Anzahl eingeben (selectQuantity)
+                    this.changeQuantity(shoppingItem)
+                }
             }
         }
         dialog.show()
+    }
+
+    private fun changeQuantity(shoppingItem: ShoppingItem) {
+        val dialog = AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
+        dialog.setMessage(R.string.App_EnterQuantity)
+        val input = EditText(this)
+        input.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+        if (shoppingItem.quantity != null && shoppingItem.quantity!! > 0.00)
+        {
+            input.setText(Tools.formatUsNumber(shoppingItem.quantity))
+        }
+        input.setSelection(input.text.length)
+
+        // Setze den Abstand (Padding) für den EditText
+        val marginInDp = 20
+        val scale = this.resources.displayMetrics.density
+        val marginInPixels = (marginInDp * scale + 0.5f).toInt()
+        input.setPadding(marginInPixels, marginInPixels, marginInPixels, marginInPixels)
+
+        input.requestFocus()
+        input.setSelection(0, input.text.length)
+        dialog.setView(input)
+        dialog.setNegativeButton(R.string.App_Cancel) { _, _ -> }
+        dialog.setPositiveButton(R.string.App_Ok) { _, _ ->
+            if (input.text.isNullOrEmpty())
+            {
+                Database.setShoppingItemQuantity(shoppingItem.articleId, 0.00)
+
+                this.showShoppingList()
+                this.loadSupermarketList()
+                return@setPositiveButton
+            }
+
+            val inputText = input.text.toString()
+            val neueAnzahl = inputText.toDoubleOrNull()
+
+            if (neueAnzahl != null)
+            {
+                if (neueAnzahl == 0.0) {
+                    Database.removeFromShoppingList(shoppingItem.articleId)
+                } else {
+                    Database.setShoppingItemQuantity(shoppingItem.articleId, neueAnzahl)
+                }
+                this.showShoppingList()
+                this.loadSupermarketList()
+            }
+        }
+        val alertDialog = dialog.show()
+        alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
     fun onRefresh()
