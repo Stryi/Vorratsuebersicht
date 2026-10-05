@@ -104,6 +104,7 @@ object Database
         values.put("EANCode",         article.eanCode)
         values.put("Calorie",         article.calorie)
         values.put("Price",           article.price)
+        values.put("Price2",          article.price2)
         values.put("StorageName",     article.storageName)
         values.put("Supermarket",     article.supermarket)
         values.put("MinQuantity",     article.minQuantity)
@@ -126,13 +127,13 @@ object Database
         val query = """
             UPDATE Article
             SET Name = ?, Manufacturer = ?, Category = ?, SubCategory = ?, DurableInfinity = ?, WarnInDays = ?,
-                Size = ?, Unit = ?, Notes = ?, EANCode = ?, Calorie = ?, Price = ?, StorageName = ?, Supermarket = ?,
+                Size = ?, Unit = ?, Notes = ?, EANCode = ?, Calorie = ?, Price = ?, Price2 = ?, StorageName = ?, Supermarket = ?,
                 MinQuantity = ?, PrefQuantity = ?, Deposit = ?
             WHERE ArticleId = ?
         """.trimIndent()
         db!!.execSQL(query, arrayOf<Any?>(article.name, article.manufacturer, article.category, article.subCategory,
             article.durableInfinity, article.warnInDays, article.size, article.unit, article.notes, article.eanCode,
-            article.calorie, article.price, article.storageName, article.supermarket,
+            article.calorie, article.price, article.price2, article.storageName, article.supermarket,
             article.minQuantity, article.prefQuantity, article.deposit, article.articleId))
 
         this.increaseChangeCounter()
@@ -308,7 +309,7 @@ object Database
 
         val query = """
             SELECT ArticleId, Name, Manufacturer, Category, SubCategory, DurableInfinity, WarnInDays,
-                   Size, Unit, Notes, EANCode, Calorie, Price, StorageName, Supermarket, MinQuantity, PrefQuantity, Deposit
+                   Size, Unit, Notes, EANCode, Calorie, Price, Price2, StorageName, Supermarket, MinQuantity, PrefQuantity, Deposit
             FROM Article
             $filter
             ORDER BY Name COLLATE NOCASE
@@ -1548,6 +1549,13 @@ object Database
             {
                 TRACE("Update: Deposit im Article")
                 db!!.execSQL("ALTER TABLE Article ADD COLUMN [Deposit] DOUBLE")
+            }
+
+            // Update Preis 2 (Price2)
+            if (!isFieldInTheTable("Article", "Price2"))
+            {
+                TRACE("Update: Price2 im Article")
+                db!!.execSQL("ALTER TABLE Article ADD COLUMN [Price2] DOUBLE")
             }
         } catch (e: Exception) {
             TRACE("DB: Fehler bei Schema-Upgrade: ${e.message}")

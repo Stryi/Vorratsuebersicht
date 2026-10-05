@@ -24,6 +24,7 @@ class Article {
     var minQuantity: Int? = null
     var prefQuantity: Int? = null
     var price: Double? = null
+    var price2: Double? = null
     var supermarket: String? = null
     var eanCode: String? = null
     var notes: String? = null
@@ -195,6 +196,7 @@ class Article {
             article.minQuantity     = cursor.getIntOrNull("MinQuantity")
             article.prefQuantity    = cursor.getIntOrNull("PrefQuantity")
             article.price           = cursor.getDoubleOrNull("Price")
+            article.price2          = cursor.getDoubleOrNull("Price2")
             article.storageName     = cursor.getStringOrNull("StorageName")
             article.supermarket     = cursor.getStringOrNull("Supermarket")
             article.eanCode         = cursor.getStringOrNull("EANCode")

@@ -790,6 +790,7 @@ class ArticleDetailsActivity : AppCompatActivity() {
 
             this.article.warnInDays = getIntegerFromEditText(binding.ArticleDetailsWarnInDays.text.toString())
             this.article.price      = getDoubleFromText(binding.ArticleDetailsPrice.text.toString())
+            this.article.price2     = getDoubleFromText(binding.ArticleDetailsPrice2.text.toString())
             this.article.deposit    = getDoubleFromText(binding.ArticleDetailsDeposit.text.toString())
 
             this.article.size       = getDoubleFromText(binding.ArticleDetailsSize.text.toString())
@@ -921,6 +922,7 @@ class ArticleDetailsActivity : AppCompatActivity() {
         binding.ArticleDetailsDurableInfinity.isChecked = this.article.durableInfinity
         binding.ArticleDetailsWarnInDays.setText(Tools.formatNumber(this.article.warnInDays))
         binding.ArticleDetailsPrice.setText(Tools.formatUsPrice(this.article.price))
+        binding.ArticleDetailsPrice2.setText(Tools.formatUsPrice(this.article.price2))
         binding.ArticleDetailsDeposit.setText(Tools.formatUsPrice(this.article.deposit))
         binding.ArticleDetailsSize.setText(Tools.formatUsNumber(this.article.size))
         binding.ArticleDetailsUnit.setText(this.article.unit)
