@@ -135,7 +135,7 @@
     <string name="Settings_CompressPictures">Bilder komprimieren</string>
     <string name="Settings_Compress_854">854</string>
     <string name="Settings_Compress_1024">1.024</string>
-    <string name="Settings_Compress_1280">1280</string>
+    <string name="Settings_Compress_1280">1.280</string>
     <string name="Settings_Compress_1536">1.536</string>
 
     <string name="Settings_Support">Support</string>
