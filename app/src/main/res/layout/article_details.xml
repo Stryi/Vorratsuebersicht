@@ -25,6 +25,7 @@
         android:orientation="horizontal"
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:paddingRight="5dp">
 
         <ImageView
@@ -272,7 +273,7 @@
         android:layout_marginRight="10dp"
         android:columnCount="3"
         android:rowCount="2"
-        android:useDefaultMargins="true">
+        android:useDefaultMargins="false">
 
         <!-- Zeile 1, Spalte 1: Text "Preis" -->
         <TextView
