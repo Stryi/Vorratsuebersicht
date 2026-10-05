@@ -392,33 +392,43 @@ class ArticleDetailsActivity : AppCompatActivity() {
         val defaultSupermarket = Database.getSettingsString("DEFAULT_SUPERMARKET")
         if (!defaultSupermarket.isNullOrEmpty())
         {
-            if (!supermarkets.contains(defaultSupermarket)) {
+            if (!supermarkets.any { it.equals(defaultSupermarket, ignoreCase = true) }) {
                 supermarkets.add(defaultSupermarket)
+            }
+        }
+
+        val currentText = binding.ArticleDetailsSupermarket.text.toString().trim()
+        val currentlySelected = currentText.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+
+        for (selectedItem in currentlySelected) {
+            if (!supermarkets.any { it.equals(selectedItem, ignoreCase = true) }) {
+                supermarkets.add(selectedItem)
             }
         }
 
         supermarkets.sortWith(String.CASE_INSENSITIVE_ORDER)
 
-        val adapter = ArrayAdapter(
-            this,
-            R.layout.dialog_item,
-            R.id.DialogItem_Text1,
-            supermarkets)
+        val checkedItems = BooleanArray(supermarkets.size) { index ->
+            currentlySelected.any { it.equals(supermarkets[index], ignoreCase = true) }
+        }
 
         val builder = AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
         builder.setTitle(R.string.ArticleDetails_SupermarketLabel)
-        builder.setAdapter(adapter) { _, which ->
-            val selected = supermarkets[which]
-            val currentText = binding.ArticleDetailsSupermarket.text.toString().trim()
-            if (currentText.isNotEmpty() && selected.isNotEmpty()) {
-                val items = currentText.split(",").map { it.trim() }
-                if (!items.contains(selected)) {
-                    binding.ArticleDetailsSupermarket.setText("$currentText, $selected")
-                }
-            } else {
-                binding.ArticleDetailsSupermarket.setText(selected)
-            }
+
+        builder.setMultiChoiceItems(supermarkets.toTypedArray(), checkedItems) { _, which, isChecked ->
+            checkedItems[which] = isChecked
         }
+
+        builder.setPositiveButton(R.string.App_Ok) { dialog, _ ->
+            val selectedSupermarkets = supermarkets.filterIndexed { index, _ -> checkedItems[index] }
+            binding.ArticleDetailsSupermarket.setText(selectedSupermarkets.joinToString(", "))
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton(R.string.App_Cancel) { dialog, _ ->
+            dialog.dismiss()
+        }
+
         builder.show()
     }
 

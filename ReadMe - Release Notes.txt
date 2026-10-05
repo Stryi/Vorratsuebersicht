@@ -1,3 +1,8 @@
+Version 9.18 (Code Version 174)
+===============================
+
+C242 - Auswahl Einkaufsmarkt jetzt mit CheckBoxen statt Liste
+
 Version 9.17 (Code Version 173)
 ===============================
 
