@@ -913,7 +913,7 @@ object Database
         val parameters = mutableListOf<String>()
 
         var query = """
-            SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Supermarket, Size, Unit, Calorie, Quantity, Notes, Price, Bought, Category, SubCategory, Deposit
+            SELECT ShoppingListId, Article.ArticleId, Name, Manufacturer, Supermarket, Size, Unit, Calorie, Quantity, Notes, Price, Price2, Bought, Category, SubCategory, Deposit
              FROM ShoppingList
              LEFT JOIN Article ON ShoppingList.ArticleId = Article.ArticleId
         """.trimIndent()

@@ -23,6 +23,7 @@ class ShoppingItem {
     var quantity: Double? = null
     var notes: String? = null
     var price: Double? = null
+    var price2: Double? = null
     var bought: Boolean? = null
     var deposit: Double? = null
 
@@ -63,6 +64,10 @@ class ShoppingItem {
                 if (pricePerUnit.isNotBlank())
                 {
                     info.append(" ($pricePerUnit)")
+                }
+                if (this.price2 != null && this.price2 != 0.0)
+                {
+                    info.append(" Preis: " + Tools.formatLocalizedPrice(this.price2))
                 }
             }
 
@@ -128,6 +133,7 @@ class ShoppingItem {
             shoppingItem.quantity     = cursor.getDoubleOrNull("Quantity")
             shoppingItem.notes        = cursor.getStringOrNull("Notes")
             shoppingItem.price        = cursor.getDoubleOrNull("Price")
+            shoppingItem.price2       = cursor.getDoubleOrNull("Price2")
             shoppingItem.bought       = cursor.getIntOrNull("Bought") == 1
             shoppingItem.deposit      = cursor.getDoubleOrNull("Deposit")
 
