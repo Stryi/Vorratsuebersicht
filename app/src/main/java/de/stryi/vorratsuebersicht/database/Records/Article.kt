@@ -80,6 +80,11 @@ class Article {
                 if (pricePerUnit.isNotBlank()) {
                     priceText += " ($pricePerUnit)"
                 }
+
+                if (price2 != null)
+                {
+                    priceText += " Preis: " + Tools.formatLocalizedPrice(price2)
+                }
                 info.appendLine(priceText)
             }
             else
