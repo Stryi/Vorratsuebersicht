@@ -1,3 +1,8 @@
+Version 9.19 (Code Version 175)
+===============================
+
+C243 - Preis 2 wird jetzt in der Artikelliste und in der Einkaufsliste angezeigt.
+
 Version 9.18 (Code Version 174)
 ===============================
 
