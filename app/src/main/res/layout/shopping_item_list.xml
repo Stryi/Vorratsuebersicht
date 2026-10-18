@@ -73,6 +73,20 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ShoppingItemList_CalculatorFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="88dp"
+        android:layout_marginEnd="16dp"
+        android:alpha="0.5"
+        android:visibility="gone"
+        android:contentDescription="@string/ShoppingList_UnitPriceCalculator"
+        app:srcCompat="@drawable/calculator_24px"
+        app:tint="@color/Application_ActionBar_TextColor"
+        app:backgroundTint="@color/Application_ActionBar_Background" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ShoppingItemList_AddFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

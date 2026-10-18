@@ -329,6 +329,15 @@ http://www.apache.org/licenses/LICENSE-2.0</string>
     <string name="ShoppingList_AllSupermarkets">[Alle]</string>
     <string name="ShoppingList_Bought">Gekauft</string>
     <string name="ShoppingList_Sparse">Kompakte Sicht</string>
+    <string name="ShoppingList_UnitPriceCalculator">Grundpreis Rechner</string>
+
+    <string name="UnitPriceCalculator_Quantity">Menge:</string>
+    <string name="UnitPriceCalculator_Price">Preis (€):</string>
+    <string name="UnitPriceCalculator_Unit">Einheit:</string>
+    <string name="UnitPriceCalculator_PricePerKg">Preis pro Kg:</string>
+    <string name="UnitPriceCalculator_PricePer100G">Preis pro 100 g:</string>
+    <string name="UnitPriceCalculator_PricePerL">Preis pro Liter:</string>
+    <string name="UnitPriceCalculator_PricePer100Ml">Preis pro 100 ml:</string>
 
     <string name="ShoppingList_Menu_Sort">Sortierung (Gekauft, Einkaufsmarkt, Hinzugefügt, Name)</string>
     <string name="ShoppingList_Menu_Add">Artikel in Liste aufnehmen</string>

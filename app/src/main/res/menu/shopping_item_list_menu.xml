@@ -35,4 +35,11 @@
         app:iconTint="?android:attr/textColorPrimary"
         android:checkable="true"
         app:showAsAction="never" />
+
+    <item android:id="@+id/ShoppingList_UnitPriceCalculator"
+        android:icon="@drawable/calculator_24px"
+        android:title="@string/ShoppingList_UnitPriceCalculator"
+        app:iconTint="?android:attr/textColorPrimary"
+        android:checkable="true"
+        app:showAsAction="never" />
 </menu>

@@ -80,6 +80,10 @@ class ShoppingItemListActivity : AppCompatActivity()
             this.selectArticle()
         }
 
+        binding.ShoppingItemListCalculatorFab.setOnClickListener {
+            UnitPriceCalculatorDialogFragment.newInstance().show(supportFragmentManager, "UnitPriceCalculatorDialogFragment")
+        }
+
         this.showShoppingList()
         this.loadSupermarketList()
     }
@@ -103,6 +107,11 @@ class ShoppingItemListActivity : AppCompatActivity()
 
         val viewType = menu.findItem(R.id.ShoppingList_Sparse)
         viewType.isChecked = ShoppingItemViewAdapter.sparseView == 1
+
+        val unitPriceCalcItem = menu.findItem(R.id.ShoppingList_UnitPriceCalculator)
+        val isCalcActive = Settings.getBoolean("ShoppingListUnitPriceCalc", true)
+        unitPriceCalcItem.isChecked = isCalcActive
+        binding.ShoppingItemListCalculatorFab.visibility = if (isCalcActive) View.VISIBLE else View.GONE
 
         val searchItem = menu.findItem(R.id.ShoppingList_Search)
         val searchView = searchItem.actionView as SearchView
@@ -159,6 +168,14 @@ class ShoppingItemListActivity : AppCompatActivity()
                 this.invalidateOptionsMenu()
 
                 Settings.putInt("ShoppingListViewType", ShoppingItemViewAdapter.sparseView)
+            }
+
+            R.id.ShoppingList_UnitPriceCalculator -> {
+                val newState = !item.isChecked
+                item.isChecked = newState
+                Settings.putBoolean("ShoppingListUnitPriceCalc", newState)
+                binding.ShoppingItemListCalculatorFab.visibility = if (newState) View.VISIBLE else View.GONE
+                return true
             }
 
         }

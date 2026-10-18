@@ -1,3 +1,8 @@
+Version 9.20 (Code Version 176)
+===============================
+
+C244 - Grundpreis Rechner im Einkaufszettel integriert.
+
 Version 9.19 (Code Version 175)
 ===============================
 
