@@ -5,6 +5,7 @@ import de.stryi.vorratsuebersicht.MainActivity
 import java.text.SimpleDateFormat
 import java.util.*
 import androidx.core.content.edit
+import de.stryi.vorratsuebersicht.tools.Tools.TRACE
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -27,8 +28,20 @@ internal object Settings {
         return prefs().getInt(key, defValue)
     }
 
-    internal fun getBoolean(key: String, defValue: Boolean): Boolean {
-        return prefs().getBoolean(key, defValue)
+    internal fun getBoolean(key: String, defValue: Boolean): Boolean
+    {
+        // Fehlerbehandlung, da bei 2 Usern der Fehler immer wieder vorkommt.
+        try
+        {
+            val value = prefs().getBoolean(key, defValue)
+            return value
+        }
+        catch (e: Exception)
+        {
+            TRACE("**** Error reading boolean value: %s", key)
+            TRACE(e.message.toString())
+        }
+        return defValue
     }
 
     internal fun getDate(key: String): LocalDate? {
