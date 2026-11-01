@@ -120,7 +120,7 @@
             <TextView
                 android:id="@+id/SettingsButton_DatabaseShare"
                 android:text="@string/Settings_ShareDatabaseFile"
-                android:autoLink="web"
+                android:textColor="?android:attr/textColorLink"
                 android:clickable="true"
                 android:drawableLeft="@drawable/share_24px"
                 android:drawableTint="#555555"
